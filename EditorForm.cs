@@ -37,7 +37,6 @@ namespace WinBox_Maker
             {
                 winBoxProject.winBoxConfig.BaseWindowsImage = null;
                 winBoxProject.SaveConfig();
-                Program.SwitchForm(this, Program.openProjectForm);
                 UpdateText();
             }
         }
