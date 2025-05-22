@@ -10,8 +10,8 @@ namespace WinBox_Maker
 {
     public class WinBoxProject
     {
-        const string resourcesFolderName = "winbox_resources";
-        const string bigResourcesFolderName = "winbox_bigResources";
+        const string resourcesDirectoryName = "winbox_resources";
+        const string bigResourcesDirectoryName = "winbox_bigResources";
         public WinBoxConfig winBoxConfig;
         string wnbFilePath;
         string baseDirectoryPath;
@@ -28,8 +28,8 @@ namespace WinBox_Maker
             this.wnbFilePath = wnbFilePath;
             baseDirectoryPath = Path.GetDirectoryName(wnbFilePath) ?? "";
             buildDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_build");
-            resourcesDirectoryPath = Path.Combine(baseDirectoryPath, resourcesFolderName);
-            bigResourcesDirectoryPath = Path.Combine(baseDirectoryPath, bigResourcesFolderName);
+            resourcesDirectoryPath = Path.Combine(baseDirectoryPath, resourcesDirectoryName);
+            bigResourcesDirectoryPath = Path.Combine(baseDirectoryPath, bigResourcesDirectoryName);
             tempDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_temp");
             name = Path.GetFileName(baseDirectoryPath);
 
@@ -88,9 +88,13 @@ namespace WinBox_Maker
                     string fileName = Path.GetFileName(filePath);
                     if (Program.IsPathInsideDirectory(filePath, resourcesDirectoryPath))
                     {
-                        
+                        return Path.Combine(resourcesDirectoryName, fileName);
                     }
-                    
+                    else if (Program.IsPathInsideDirectory(filePath, bigResourcesDirectoryPath))
+                    {
+                        return Path.Combine(bigResourcesDirectoryName, fileName);
+                    }
+
                     DialogResult result = MessageBox.Show("the file is not located in the project's resource directory, if you use it like this, then the project config will have the absolute path to the file, which will make it impossible to build on another computer. do you want to copy the file so that you don't have to use an absolute path?", "copy the file?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
@@ -98,11 +102,11 @@ namespace WinBox_Maker
                         FileInfo fileInfo = new FileInfo(filePath);
                         if (fileInfo.Length > (1024 * 1024 * 1024))
                         {
-                            projectFolderToCopy = bigResourcesFolderName;
+                            projectFolderToCopy = bigResourcesDirectoryName;
                         }
                         else
                         {
-                            projectFolderToCopy = resourcesFolderName;
+                            projectFolderToCopy = resourcesDirectoryName;
                         }
 
                         File.Copy(filePath, Path.Combine(baseDirectoryPath, projectFolderToCopy, fileName));
