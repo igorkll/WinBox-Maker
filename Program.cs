@@ -11,9 +11,9 @@ namespace WinBox_Maker
             Application.Run(new OpenProject());
         }
 
-        public static void OpenForm(Form self, Form form)
+        public static void SwitchForm(Form self, Form form)
         {
-            self.Hide();
+            self.Dispose();
             form.Show();
         }
     }

@@ -17,10 +17,5 @@ namespace WinBox_Maker
             InitializeComponent();
             this.Text = Program.version + " - " + this.Text;
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Program.OpenForm(this, new Editor());
-        }
     }
 }

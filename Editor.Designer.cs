@@ -75,14 +75,15 @@
             splitContainer1.SplitterDistance = 634;
             splitContainer1.TabIndex = 3;
             // 
-            // Mainform
+            // Editor
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(800, 450);
             Controls.Add(splitContainer1);
-            Name = "Mainform";
+            Name = "Editor";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Editor";
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
