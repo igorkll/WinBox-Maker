@@ -122,5 +122,17 @@ namespace WinBox_Maker
 
             return null;
         }
+
+        public string GetAbsoluteResourcePath(string path)
+        {
+            if (Path.IsPathRooted(path))
+            {
+                return path;
+            }
+            else
+            {
+                return Path.Combine(baseDirectoryPath, path);
+            }
+        }
     }
 }
