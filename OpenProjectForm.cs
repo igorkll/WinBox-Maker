@@ -20,6 +20,17 @@ namespace WinBox_Maker
 
         private void OpenProject_Click(object sender, EventArgs e)
         {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                openFileDialog.Filter = "WinBox projects (*.wnb)|*.wnb";
+                openFileDialog.Title = "Open WinBox project";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Program.SwitchForm(this, new EditorForm(openFileDialog.FileName));
+                }
+            }
         }
 
         private void NewProject_Click(object sender, EventArgs e)
