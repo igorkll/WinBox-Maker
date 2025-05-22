@@ -56,5 +56,37 @@ namespace WinBox_Maker
         {
             winBoxConfig.Save(wnbFilePath);
         }
+
+        public string? SelectResource(string filter)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = resourceDirectoryPath;
+                openFileDialog.Filter = filter;
+                openFileDialog.Title = "Select Resource";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = openFileDialog.FileName;
+                    string fileName = Path.GetFileName(filePath);
+                    if (!Program.IsPathInsideDirectory(filePath, resourceDirectoryPath))
+                    {
+                        DialogResult result = MessageBox.Show("The file is not located in the project's resources folder, so you need to copy it to use it. Continue?", "you need to copy the file", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            File.Copy(filePath, Path.Combine(resourceDirectoryPath, fileName));
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    return fileName;
+                }
+            }
+
+            return resourceDirectoryPath;
+        }
     }
 }

@@ -24,5 +24,18 @@ namespace WinBox_Maker
 
             return files.Length == 0 && directories.Length == 0;
         }
+
+        public static bool IsPathInsideDirectory(string path, string directory)
+        {
+            string fullPath = Path.GetFullPath(path);
+            string fullDirectory = Path.GetFullPath(directory);
+
+            if (!fullDirectory.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                fullDirectory += Path.DirectorySeparatorChar;
+            }
+
+            return fullPath.StartsWith(fullDirectory, StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

@@ -19,9 +19,13 @@ namespace WinBox_Maker
 
         private void WindowsSelect_Click(object sender, EventArgs e)
         {
-            winBoxProject.winBoxConfig.BaseWindowsImage = ;
-            winBoxProject.SaveConfig();
-            UpdateText();
+            string? name = winBoxProject.SelectResource("Windows image (*.iso)|*.iso");
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.BaseWindowsImage = name;
+                winBoxProject.SaveConfig();
+                UpdateText();
+            }
         }
 
         void UpdateText()
