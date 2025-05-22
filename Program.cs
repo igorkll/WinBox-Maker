@@ -8,7 +8,7 @@ namespace WinBox_Maker
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new OpenProject());
+            Application.Run(new OpenProjectForm());
         }
 
         public static void SwitchForm(Form self, Form form)

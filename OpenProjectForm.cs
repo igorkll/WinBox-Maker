@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace WinBox_Maker
 {
-    public partial class OpenProject : Form
+    public partial class OpenProjectForm : Form
     {
-        public OpenProject()
+        public OpenProjectForm()
         {
             InitializeComponent();
             this.Text = Program.version + " - " + this.Text;

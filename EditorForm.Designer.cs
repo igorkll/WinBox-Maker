@@ -1,6 +1,6 @@
 ﻿namespace WinBox_Maker
 {
-    partial class Editor
+    partial class EditorForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -79,7 +79,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(64, 64, 64);
+            BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
             Controls.Add(splitContainer1);
             Name = "Editor";

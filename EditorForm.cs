@@ -1,8 +1,8 @@
 namespace WinBox_Maker
 {
-    public partial class Editor : Form
+    public partial class EditorForm : Form
     {
-        public Editor()
+        public EditorForm()
         {
             InitializeComponent();
             this.Text = Program.version + " - " + this.Text;
