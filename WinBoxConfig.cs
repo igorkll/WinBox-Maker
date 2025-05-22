@@ -9,7 +9,16 @@ namespace WinBox_Maker
 {
     public class WinBoxConfig
     {
-        public string? WinboxVersion { get; set; }
+        public List<string>? Resources { get; set; }
+
+        public WinBoxConfig() {
+            InitDefaults();
+        }
+
+        void InitDefaults()
+        {
+            if (Resources == null) Resources = new List<string>();
+        }
 
         public void Save(string wnbFilePath)
         {
@@ -22,12 +31,14 @@ namespace WinBox_Maker
             try
             {
                 string json = File.ReadAllText(wnbFilePath);
-                return JsonSerializer.Deserialize<WinBoxConfig>(json);
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+                WinBoxConfig? winBoxConfig = JsonSerializer.Deserialize<WinBoxConfig>(json);
+                if (winBoxConfig != null)
+                {
+                    winBoxConfig.InitDefaults();
+                    return winBoxConfig;
+                }
+            } catch (Exception ex) {}
+            return null;
         }
     }
 }
