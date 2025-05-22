@@ -13,8 +13,16 @@ namespace WinBox_Maker
 
         public static void SwitchForm(Form self, Form form)
         {
-            self.Dispose();
+            self.Hide();
             form.Show();
+        }
+
+        public static bool IsDirectoryEmpty(string path)
+        {
+            string[] files = Directory.GetFiles(path);
+            string[] directories = Directory.GetDirectories(path);
+
+            return files.Length == 0 && directories.Length == 0;
         }
     }
 }
