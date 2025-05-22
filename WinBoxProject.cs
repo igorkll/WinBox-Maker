@@ -15,6 +15,7 @@ namespace WinBox_Maker
         string baseDirectoryPath;
         string buildDirectoryPath;
         string resourceDirectoryPath;
+        string bigResourceDirectoryPath;
         string tempDirectoryPath;
         string name;
         string? err;
@@ -23,20 +24,22 @@ namespace WinBox_Maker
         {
             winBoxConfig = new WinBoxConfig();
             this.wnbFilePath = wnbFilePath;
-            baseDirectoryPath = Path.GetDirectoryName(wnbFilePath);
+            baseDirectoryPath = Path.GetDirectoryName(wnbFilePath) ?? "";
             buildDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_build");
-            resourceDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_resource");
+            resourceDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_resources");
+            bigResourceDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_bigResources");
             tempDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_temp");
             name = Path.GetFileName(baseDirectoryPath);
 
             if (File.Exists(wnbFilePath))
             {
-                winBoxConfig = WinBoxConfig.Load(wnbFilePath);
-                if (winBoxConfig == null)
+                WinBoxConfig? config = WinBoxConfig.Load(wnbFilePath);
+                if (config == null)
                 {
                     err = "failed to load .wnb config";
                     return;
                 }
+                winBoxConfig = config;
             }
             else
             {
@@ -45,8 +48,13 @@ namespace WinBox_Maker
 
             Program.CreateDirectory(buildDirectoryPath);
             Program.CreateDirectory(resourceDirectoryPath);
+            Program.CreateDirectory(bigResourceDirectoryPath);
             Program.CreateDirectory(tempDirectoryPath);
-            File.WriteAllText(Path.Combine(baseDirectoryPath, ".gitignore"), $"## {Program.version} - .gitignore\n\nwinbox_build\nwinbox_temp\n");
+
+            string gitignorePath = Path.Combine(baseDirectoryPath, ".gitignore");
+            if (!File.Exists(gitignorePath)) {
+                File.WriteAllText(gitignorePath, $"## WinBox-Maker\n\nwinbox_build\nwinbox_temp\nwinbox_bigResources\n");
+            }
         }
 
         public string? GetName()
