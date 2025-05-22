@@ -9,10 +9,12 @@ namespace WinBox_Maker
 {
     internal class WinBoxProject
     {
+        WinBoxConfig winBoxConfig;
         string wnbFilePath;
         string baseDirectoryPath;
         string buildDirectoryPath;
         string resourceDirectoryPath;
+        string? err;
 
         public WinBoxProject(string wnbFilePath)
         {
@@ -20,6 +22,23 @@ namespace WinBox_Maker
             baseDirectoryPath = Path.GetDirectoryName(wnbFilePath);
             buildDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_build");
             resourceDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_resource");
+
+            WinBoxConfig? config = WinBoxConfig.Load(wnbFilePath);
+            if (config == null)
+            {
+                MessageBox.Show(err, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                err = "failed to load .wnb config";
+            }
+            else
+            {
+                MessageBox.Show("test", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                winBoxConfig = config;
+            }
+        }
+
+        public string? GetError()
+        {
+            return err;
         }
     }
 }
