@@ -9,11 +9,24 @@ namespace WinBox_Maker
             InitializeComponent();
             this.Text = $"{Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
+            UpdateText();
         }
 
         private void StartBuild_Click(object sender, EventArgs e)
         {
             BuildProcess.Value = 30;
+        }
+
+        private void WindowsSelect_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.BaseWindowsImage = ;
+            winBoxProject.SaveConfig();
+            UpdateText();
+        }
+
+        void UpdateText()
+        {
+            WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage;
         }
     }
 }

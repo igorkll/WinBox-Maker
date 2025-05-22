@@ -10,7 +10,7 @@ namespace WinBox_Maker
 {
     public class WinBoxProject
     {
-        WinBoxConfig? winBoxConfig;
+        public WinBoxConfig winBoxConfig;
         string wnbFilePath;
         string baseDirectoryPath;
         string buildDirectoryPath;
@@ -20,11 +20,17 @@ namespace WinBox_Maker
 
         public WinBoxProject(string wnbFilePath)
         {
-            WinBoxConfig? config;
+            winBoxConfig = new WinBoxConfig();
+            this.wnbFilePath = wnbFilePath;
+            baseDirectoryPath = Path.GetDirectoryName(wnbFilePath);
+            buildDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_build");
+            resourceDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_resource");
+            name = Path.GetFileName(baseDirectoryPath);
+
             if (File.Exists(wnbFilePath))
             {
-                config = WinBoxConfig.Load(wnbFilePath);
-                if (config == null)
+                winBoxConfig = WinBoxConfig.Load(wnbFilePath);
+                if (winBoxConfig == null)
                 {
                     err = "failed to load .wnb config";
                     return;
@@ -32,16 +38,8 @@ namespace WinBox_Maker
             }
             else
             {
-                config = new WinBoxConfig();
-                config.Save(wnbFilePath);
+                winBoxConfig.Save(wnbFilePath);
             }
-
-            winBoxConfig = config;
-            this.wnbFilePath = wnbFilePath;
-            baseDirectoryPath = Path.GetDirectoryName(wnbFilePath);
-            buildDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_build");
-            resourceDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_resource");
-            name = Path.GetFileName(baseDirectoryPath);
         }
 
         public string? GetName()
@@ -52,6 +50,11 @@ namespace WinBox_Maker
         public string? GetError()
         {
             return err;
+        }
+
+        public void SaveConfig()
+        {
+            winBoxConfig.Save(wnbFilePath);
         }
     }
 }

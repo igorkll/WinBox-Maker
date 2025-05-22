@@ -31,6 +31,8 @@
             BuildProcess = new ProgressBar();
             StartBuild = new Button();
             splitContainer1 = new SplitContainer();
+            WindowsSelect = new Button();
+            WindowsName = new Label();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -53,7 +55,7 @@
             StartBuild.Name = "StartBuild";
             StartBuild.Size = new Size(138, 37);
             StartBuild.TabIndex = 1;
-            StartBuild.Text = "build";
+            StartBuild.Text = "Build";
             StartBuild.UseVisualStyleBackColor = true;
             StartBuild.Click += StartBuild_Click;
             // 
@@ -75,12 +77,33 @@
             splitContainer1.SplitterDistance = 634;
             splitContainer1.TabIndex = 3;
             // 
+            // WindowsSelect
+            // 
+            WindowsSelect.Location = new Point(12, 12);
+            WindowsSelect.Name = "WindowsSelect";
+            WindowsSelect.Size = new Size(352, 34);
+            WindowsSelect.TabIndex = 4;
+            WindowsSelect.Text = "Select Base Windows Image";
+            WindowsSelect.UseVisualStyleBackColor = true;
+            WindowsSelect.Click += WindowsSelect_Click;
+            // 
+            // WindowsName
+            // 
+            WindowsName.AutoSize = true;
+            WindowsName.Location = new Point(370, 12);
+            WindowsName.Name = "WindowsName";
+            WindowsName.Size = new Size(178, 25);
+            WindowsName.TabIndex = 5;
+            WindowsName.Text = "base windows image";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
+            Controls.Add(WindowsName);
+            Controls.Add(WindowsSelect);
             Controls.Add(splitContainer1);
             Name = "EditorForm";
             StartPosition = FormStartPosition.CenterScreen;
@@ -90,6 +113,7 @@
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -97,5 +121,7 @@
         private ProgressBar BuildProcess;
         private Button StartBuild;
         private SplitContainer splitContainer1;
+        private Button WindowsSelect;
+        private Label WindowsName;
     }
 }
