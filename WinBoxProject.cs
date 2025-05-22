@@ -109,13 +109,13 @@ namespace WinBox_Maker
                             projectFolderToCopy = resourcesDirectoryName;
                         }
 
-                        File.Copy(filePath, Path.Combine(baseDirectoryPath, projectFolderToCopy, fileName));
+                        File.Copy(filePath, Path.Combine(baseDirectoryPath, projectFolderToCopy, fileName), true);
                         MessageBox.Show("the file has been copied to the project folder", null, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return Path.Combine(projectFolderToCopy, fileName);
                     }
                     else if (result == DialogResult.No)
                     {
-                        return fileName;
+                        return filePath;
                     }
                 }
             }
