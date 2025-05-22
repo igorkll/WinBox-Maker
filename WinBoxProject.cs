@@ -23,7 +23,7 @@ namespace WinBox_Maker
             WinBoxConfig? config;
             if (File.Exists(wnbFilePath))
             {
-                config = new WinBoxConfig();
+                config = WinBoxConfig.Load(wnbFilePath);
                 if (config == null)
                 {
                     err = "failed to load .wnb config";
@@ -32,12 +32,8 @@ namespace WinBox_Maker
             }
             else
             {
-                config = WinBoxConfig.Load(wnbFilePath);
-                if (config == null)
-                {
-                    err = "failed to load .wnb config";
-                    return;
-                }
+                config = new WinBoxConfig();
+                config.Save(wnbFilePath);
             }
 
             winBoxConfig = config;

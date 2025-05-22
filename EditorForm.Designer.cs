@@ -75,14 +75,14 @@
             splitContainer1.SplitterDistance = 634;
             splitContainer1.TabIndex = 3;
             // 
-            // Editor
+            // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
             Controls.Add(splitContainer1);
-            Name = "Editor";
+            Name = "EditorForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Editor";
             splitContainer1.Panel1.ResumeLayout(false);
