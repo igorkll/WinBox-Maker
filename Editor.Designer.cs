@@ -1,6 +1,6 @@
 ﻿namespace WinBox_Maker
 {
-    partial class Mainform
+    partial class Editor
     {
         /// <summary>
         ///  Required designer variable.
@@ -55,7 +55,7 @@
             StartBuild.TabIndex = 1;
             StartBuild.Text = "build";
             StartBuild.UseVisualStyleBackColor = true;
-            StartBuild.Click += button1_Click;
+            StartBuild.Click += StartBuild_Click;
             // 
             // splitContainer1
             // 
@@ -83,6 +83,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(splitContainer1);
             Name = "Mainform";
+            Text = "Editor";
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
