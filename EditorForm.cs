@@ -1,3 +1,5 @@
+using System.Xml.Linq;
+
 namespace WinBox_Maker
 {
     public partial class EditorForm : Form
@@ -23,6 +25,16 @@ namespace WinBox_Maker
             if (name != null)
             {
                 winBoxProject.winBoxConfig.BaseWindowsImage = name;
+                winBoxProject.SaveConfig();
+                UpdateText();
+            }
+        }
+
+        private void WindowsClear_Click(object sender, EventArgs e)
+        {
+            if (winBoxProject.winBoxConfig.BaseWindowsImage != null)
+            {
+                winBoxProject.winBoxConfig.BaseWindowsImage = null;
                 winBoxProject.SaveConfig();
                 UpdateText();
             }

@@ -105,6 +105,7 @@
             WindowsClear.TabIndex = 6;
             WindowsClear.Text = "clear";
             WindowsClear.UseVisualStyleBackColor = true;
+            WindowsClear.Click += WindowsClear_Click;
             // 
             // EditorForm
             // 
