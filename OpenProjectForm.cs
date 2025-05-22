@@ -48,7 +48,7 @@ namespace WinBox_Maker
                     string selectedPath = folderBrowserDialog.SelectedPath;
                     if (Program.IsDirectoryEmpty(selectedPath))
                     {
-                        Program.SwitchForm(this, new EditorForm(selectedPath));
+                        Program.SwitchForm(this, new EditorForm(Path.Combine(selectedPath, "winbox.wnb")));
                     }
                     else
                     {
