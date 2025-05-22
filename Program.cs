@@ -3,18 +3,43 @@ namespace WinBox_Maker
     internal static class Program
     {
         public static string version = "WinBox-Maker 0.0.0";
+        public static Form openProjectForm;
+        static bool isClosingProgrammatically = false;
 
         [STAThread]
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new OpenProjectForm());
+
+            openProjectForm = new OpenProjectForm();
+            Application.Run(openProjectForm);
         }
 
         public static void SwitchForm(Form self, Form form)
         {
-            self.Hide();
             form.Show();
+            
+            if (form != openProjectForm)
+            {
+                form.FormClosed += (s, args) =>
+                {
+                    if (!isClosingProgrammatically)
+                    {
+                        openProjectForm.Close();
+                    }
+                };
+            }
+
+            if (self == openProjectForm)
+            {
+                self.Hide();
+            }
+            else
+            {
+                isClosingProgrammatically = true;
+                self.Close();
+                isClosingProgrammatically = false;
+            }
         }
 
         public static bool IsDirectoryEmpty(string path)
