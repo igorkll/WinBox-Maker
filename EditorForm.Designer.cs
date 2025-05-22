@@ -33,7 +33,7 @@
             splitContainer1 = new SplitContainer();
             WindowsSelect = new Button();
             WindowsName = new Label();
-            button1 = new Button();
+            WindowsClear = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -97,14 +97,14 @@
             WindowsName.TabIndex = 5;
             WindowsName.Text = "base windows image";
             // 
-            // button1
+            // WindowsClear
             // 
-            button1.Location = new Point(321, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 6;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            WindowsClear.Location = new Point(321, 12);
+            WindowsClear.Name = "WindowsClear";
+            WindowsClear.Size = new Size(112, 34);
+            WindowsClear.TabIndex = 6;
+            WindowsClear.Text = "clear";
+            WindowsClear.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
@@ -112,7 +112,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            Controls.Add(WindowsClear);
             Controls.Add(WindowsName);
             Controls.Add(WindowsSelect);
             Controls.Add(splitContainer1);
@@ -134,6 +134,6 @@
         private SplitContainer splitContainer1;
         private Button WindowsSelect;
         private Label WindowsName;
-        private Button button1;
+        private Button WindowsClear;
     }
 }

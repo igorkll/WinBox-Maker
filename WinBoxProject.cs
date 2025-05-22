@@ -15,6 +15,7 @@ namespace WinBox_Maker
         string baseDirectoryPath;
         string buildDirectoryPath;
         string resourceDirectoryPath;
+        string tempDirectoryPath;
         string name;
         string? err;
 
@@ -25,6 +26,7 @@ namespace WinBox_Maker
             baseDirectoryPath = Path.GetDirectoryName(wnbFilePath);
             buildDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_build");
             resourceDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_resource");
+            tempDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_temp");
             name = Path.GetFileName(baseDirectoryPath);
 
             if (File.Exists(wnbFilePath))
@@ -43,6 +45,8 @@ namespace WinBox_Maker
 
             Program.CreateDirectory(buildDirectoryPath);
             Program.CreateDirectory(resourceDirectoryPath);
+            Program.CreateDirectory(tempDirectoryPath);
+            File.WriteAllText(Path.Combine(baseDirectoryPath, ".gitignore"), $"## {Program.version} - .gitignore\n\nwinbox_build\nwinbox_temp\n");
         }
 
         public string? GetName()
