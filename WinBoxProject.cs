@@ -10,12 +10,14 @@ namespace WinBox_Maker
 {
     public class WinBoxProject
     {
+        const string resourcesFolderName = "winbox_resources";
+        const string bigResourcesFolderName = "winbox_bigResources";
         public WinBoxConfig winBoxConfig;
         string wnbFilePath;
         string baseDirectoryPath;
         string buildDirectoryPath;
-        string resourceDirectoryPath;
-        string bigResourceDirectoryPath;
+        string resourcesDirectoryPath;
+        string bigResourcesDirectoryPath;
         string tempDirectoryPath;
         string name;
         string? err;
@@ -26,8 +28,8 @@ namespace WinBox_Maker
             this.wnbFilePath = wnbFilePath;
             baseDirectoryPath = Path.GetDirectoryName(wnbFilePath) ?? "";
             buildDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_build");
-            resourceDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_resources");
-            bigResourceDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_bigResources");
+            resourcesDirectoryPath = Path.Combine(baseDirectoryPath, resourcesFolderName);
+            bigResourcesDirectoryPath = Path.Combine(baseDirectoryPath, bigResourcesFolderName);
             tempDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_temp");
             name = Path.GetFileName(baseDirectoryPath);
 
@@ -47,8 +49,8 @@ namespace WinBox_Maker
             }
 
             Program.CreateDirectory(buildDirectoryPath);
-            Program.CreateDirectory(resourceDirectoryPath);
-            Program.CreateDirectory(bigResourceDirectoryPath);
+            Program.CreateDirectory(resourcesDirectoryPath);
+            Program.CreateDirectory(bigResourcesDirectoryPath);
             Program.CreateDirectory(tempDirectoryPath);
 
             string gitignorePath = Path.Combine(baseDirectoryPath, ".gitignore");
@@ -76,7 +78,7 @@ namespace WinBox_Maker
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = resourceDirectoryPath;
+                openFileDialog.InitialDirectory = resourcesDirectoryPath;
                 openFileDialog.Filter = filter;
                 openFileDialog.Title = "Select Resource";
 
@@ -84,21 +86,33 @@ namespace WinBox_Maker
                 {
                     string filePath = openFileDialog.FileName;
                     string fileName = Path.GetFileName(filePath);
-                    if (!Program.IsPathInsideDirectory(filePath, resourceDirectoryPath))
+                    if (Program.IsPathInsideDirectory(filePath, resourcesDirectoryPath))
                     {
-                        DialogResult result = MessageBox.Show("The file is not located in the project's resources folder, so you need to copy it to use it. Continue?", "copy the file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                        if (result == DialogResult.Yes)
+                        
+                    }
+                    
+                    DialogResult result = MessageBox.Show("the file is not located in the project's resource directory, if you use it like this, then the project config will have the absolute path to the file, which will make it impossible to build on another computer. do you want to copy the file so that you don't have to use an absolute path?", "copy the file?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        string projectFolderToCopy;
+                        FileInfo fileInfo = new FileInfo(filePath);
+                        if (fileInfo.Length > (1024 * 1024 * 1024))
                         {
-                            File.Copy(filePath, Path.Combine(resourceDirectoryPath, fileName));
-                            MessageBox.Show("the file has been copied to the project folder", null, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            projectFolderToCopy = bigResourcesFolderName;
                         }
                         else
                         {
-                            return null;
+                            projectFolderToCopy = resourcesFolderName;
                         }
+
+                        File.Copy(filePath, Path.Combine(baseDirectoryPath, projectFolderToCopy, fileName));
+                        MessageBox.Show("the file has been copied to the project folder", null, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return Path.Combine(projectFolderToCopy, fileName);
                     }
-                    return fileName;
+                    else if (result == DialogResult.No)
+                    {
+                        return fileName;
+                    }
                 }
             }
 
