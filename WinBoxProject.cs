@@ -74,11 +74,12 @@ namespace WinBox_Maker
                     string fileName = Path.GetFileName(filePath);
                     if (!Program.IsPathInsideDirectory(filePath, resourceDirectoryPath))
                     {
-                        DialogResult result = MessageBox.Show("The file is not located in the project's resources folder, so you need to copy it to use it. Continue?", "you need to copy the file", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        DialogResult result = MessageBox.Show("The file is not located in the project's resources folder, so you need to copy it to use it. Continue?", "copy the file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (result == DialogResult.Yes)
                         {
                             File.Copy(filePath, Path.Combine(resourceDirectoryPath, fileName));
+                            MessageBox.Show("the file has been copied to the project folder", null, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
