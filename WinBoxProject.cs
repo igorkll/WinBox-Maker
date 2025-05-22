@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace WinBox_Maker
 {
-    internal class WinBoxProject
+    public class WinBoxProject
     {
         WinBoxConfig? winBoxConfig;
         string wnbFilePath;
@@ -20,21 +20,32 @@ namespace WinBox_Maker
 
         public WinBoxProject(string wnbFilePath)
         {
+            WinBoxConfig? config;
+            if (File.Exists(wnbFilePath))
+            {
+                config = new WinBoxConfig();
+                if (config == null)
+                {
+                    err = "failed to load .wnb config";
+                    return;
+                }
+            }
+            else
+            {
+                config = WinBoxConfig.Load(wnbFilePath);
+                if (config == null)
+                {
+                    err = "failed to load .wnb config";
+                    return;
+                }
+            }
+
+            winBoxConfig = config;
             this.wnbFilePath = wnbFilePath;
             baseDirectoryPath = Path.GetDirectoryName(wnbFilePath);
             buildDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_build");
             resourceDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_resource");
             name = Path.GetFileName(baseDirectoryPath);
-
-            WinBoxConfig? config = WinBoxConfig.Load(wnbFilePath);
-            if (config == null)
-            {
-                err = "failed to load .wnb config";
-            }
-            else
-            {
-                winBoxConfig = config;
-            }
         }
 
         public string? GetName()

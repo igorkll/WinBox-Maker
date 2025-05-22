@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WinBox_Maker
 {
-    internal class WinBoxConfig
+    public class WinBoxConfig
     {
         public string? WinboxVersion { get; set; }
 
