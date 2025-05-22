@@ -40,6 +40,9 @@ namespace WinBox_Maker
             {
                 winBoxConfig.Save(wnbFilePath);
             }
+
+            Program.CreateDirectory(buildDirectoryPath);
+            Program.CreateDirectory(resourceDirectoryPath);
         }
 
         public string? GetName()
@@ -86,7 +89,7 @@ namespace WinBox_Maker
                 }
             }
 
-            return resourceDirectoryPath;
+            return null;
         }
     }
 }

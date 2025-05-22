@@ -37,5 +37,13 @@ namespace WinBox_Maker
 
             return fullPath.StartsWith(fullDirectory, StringComparison.OrdinalIgnoreCase);
         }
+
+        public static void CreateDirectory(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
     }
 }
