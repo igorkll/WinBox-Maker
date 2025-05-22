@@ -17,5 +17,13 @@ namespace WinBox_Maker
             InitializeComponent();
             this.Text = Program.version + " - " + this.Text;
         }
+
+        private void OpenProject_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void NewProject_Click(object sender, EventArgs e)
+        {
+        }
     }
 }

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             tableLayoutPanel1 = new TableLayoutPanel();
-            OpenProjec = new Button();
-            button2 = new Button();
+            OpenProject = new Button();
+            NewProject = new Button();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -40,8 +40,8 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Controls.Add(OpenProjec, 0, 1);
-            tableLayoutPanel1.Controls.Add(button2, 1, 1);
+            tableLayoutPanel1.Controls.Add(OpenProject, 0, 1);
+            tableLayoutPanel1.Controls.Add(NewProject, 1, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -51,35 +51,37 @@
             tableLayoutPanel1.Size = new Size(800, 450);
             tableLayoutPanel1.TabIndex = 0;
             // 
-            // OpenProjec
-            // 
-            OpenProjec.Dock = DockStyle.Fill;
-            OpenProjec.Location = new Point(30, 330);
-            OpenProjec.Margin = new Padding(30);
-            OpenProjec.Name = "OpenProjec";
-            OpenProjec.Size = new Size(340, 90);
-            OpenProjec.TabIndex = 0;
-            OpenProjec.Text = "button1";
-            OpenProjec.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Dock = DockStyle.Fill;
-            button2.Location = new Point(430, 330);
-            button2.Margin = new Padding(30);
-            button2.Name = "button2";
-            button2.Size = new Size(340, 90);
-            button2.TabIndex = 1;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
-            // 
             // OpenProject
+            // 
+            OpenProject.Dock = DockStyle.Fill;
+            OpenProject.Location = new Point(30, 330);
+            OpenProject.Margin = new Padding(30);
+            OpenProject.Name = "OpenProject";
+            OpenProject.Size = new Size(340, 90);
+            OpenProject.TabIndex = 0;
+            OpenProject.Text = "Open Project";
+            OpenProject.UseVisualStyleBackColor = true;
+            OpenProject.Click += this.OpenProject_Click;
+            // 
+            // NewProject
+            // 
+            NewProject.Dock = DockStyle.Fill;
+            NewProject.Location = new Point(430, 330);
+            NewProject.Margin = new Padding(30);
+            NewProject.Name = "NewProject";
+            NewProject.Size = new Size(340, 90);
+            NewProject.TabIndex = 1;
+            NewProject.Text = "New Project";
+            NewProject.UseVisualStyleBackColor = true;
+            NewProject.Click += this.NewProject_Click;
+            // 
+            // OpenProjectForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(tableLayoutPanel1);
-            Name = "OpenProject";
+            Name = "OpenProjectForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "OpenProject";
             tableLayoutPanel1.ResumeLayout(false);
@@ -89,7 +91,7 @@
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
-        private Button OpenProjec;
-        private Button button2;
+        private Button OpenProject;
+        private Button NewProject;
     }
 }
