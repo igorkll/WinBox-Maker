@@ -30,7 +30,7 @@ namespace WinBox_Maker
 
         void UpdateText()
         {
-            WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage;
+            WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "not selected";
         }
     }
 }

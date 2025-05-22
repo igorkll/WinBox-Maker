@@ -33,6 +33,7 @@
             splitContainer1 = new SplitContainer();
             WindowsSelect = new Button();
             WindowsName = new Label();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -81,7 +82,7 @@
             // 
             WindowsSelect.Location = new Point(12, 12);
             WindowsSelect.Name = "WindowsSelect";
-            WindowsSelect.Size = new Size(352, 34);
+            WindowsSelect.Size = new Size(303, 34);
             WindowsSelect.TabIndex = 4;
             WindowsSelect.Text = "Select Base Windows Image";
             WindowsSelect.UseVisualStyleBackColor = true;
@@ -90,11 +91,20 @@
             // WindowsName
             // 
             WindowsName.AutoSize = true;
-            WindowsName.Location = new Point(370, 12);
+            WindowsName.Location = new Point(439, 12);
             WindowsName.Name = "WindowsName";
             WindowsName.Size = new Size(178, 25);
             WindowsName.TabIndex = 5;
             WindowsName.Text = "base windows image";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(321, 12);
+            button1.Name = "button1";
+            button1.Size = new Size(112, 34);
+            button1.TabIndex = 6;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
@@ -102,6 +112,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
             Controls.Add(WindowsName);
             Controls.Add(WindowsSelect);
             Controls.Add(splitContainer1);
@@ -123,5 +134,6 @@
         private SplitContainer splitContainer1;
         private Button WindowsSelect;
         private Label WindowsName;
+        private Button button1;
     }
 }
