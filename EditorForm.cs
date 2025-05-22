@@ -4,18 +4,11 @@ namespace WinBox_Maker
     {
         WinBoxProject winBoxProject;
 
-        public EditorForm(string path)
+        public EditorForm(WinBoxProject winBoxProject)
         {
             InitializeComponent();
-            this.Text = $"{Program.version} - {this.Text} ({Path.GetFileName(Path.GetDirectoryName(path))})";
-
-            winBoxProject = new WinBoxProject(path);
-            string? err = winBoxProject.GetError();
-            if (err == null)
-            {
-                MessageBox.Show(err, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Program.SwitchForm(this, new OpenProjectForm());
-            }
+            this.Text = $"{Program.version} - {this.Text} ({winBoxProject.GetName()})";
+            this.winBoxProject = winBoxProject;
         }
 
         private void StartBuild_Click(object sender, EventArgs e)

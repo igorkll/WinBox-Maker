@@ -20,6 +20,19 @@ namespace WinBox_Maker
             this.Text = Program.version + " - " + this.Text;
         }
 
+        void LoadProject(string path)
+        {
+            WinBoxProject winBoxProject = new WinBoxProject(path);
+            string? err = winBoxProject.GetError();
+            if (err != null)
+            {
+                MessageBox.Show(err, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Program.SwitchForm(this, new EditorForm(winBoxProject));
+        }
+
         private void OpenProject_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -30,7 +43,7 @@ namespace WinBox_Maker
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    Program.SwitchForm(this, new EditorForm(openFileDialog.FileName));
+                    LoadProject(openFileDialog.FileName);
                 }
             }
         }
@@ -48,7 +61,7 @@ namespace WinBox_Maker
                     string selectedPath = folderBrowserDialog.SelectedPath;
                     if (Program.IsDirectoryEmpty(selectedPath))
                     {
-                        Program.SwitchForm(this, new EditorForm(Path.Combine(selectedPath, "winbox.wnb")));
+                        LoadProject(Path.Combine(selectedPath, "winbox.wnb"));
                     }
                     else
                     {
