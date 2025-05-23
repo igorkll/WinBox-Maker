@@ -34,7 +34,9 @@
             WindowsSelect = new Button();
             WindowsName = new Label();
             WindowsClear = new Button();
-            comboBox1 = new ComboBox();
+            WindowsVersionSelect = new ComboBox();
+            WindowsVersionClear = new Button();
+            WindowsVersionDetect = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -92,7 +94,7 @@
             // WindowsName
             // 
             WindowsName.AutoSize = true;
-            WindowsName.Location = new Point(439, 12);
+            WindowsName.Location = new Point(439, 17);
             WindowsName.Name = "WindowsName";
             WindowsName.Size = new Size(178, 25);
             WindowsName.TabIndex = 5;
@@ -108,14 +110,34 @@
             WindowsClear.UseVisualStyleBackColor = true;
             WindowsClear.Click += WindowsClear_Click;
             // 
-            // comboBox1
+            // WindowsVersionSelect
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "test1", "test2", "test3", "test4" });
-            comboBox1.Location = new Point(12, 52);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(303, 33);
-            comboBox1.TabIndex = 7;
+            WindowsVersionSelect.FormattingEnabled = true;
+            WindowsVersionSelect.Items.AddRange(new object[] { "test1", "test2", "test3", "test4" });
+            WindowsVersionSelect.Location = new Point(12, 52);
+            WindowsVersionSelect.Name = "WindowsVersionSelect";
+            WindowsVersionSelect.Size = new Size(303, 33);
+            WindowsVersionSelect.TabIndex = 7;
+            // 
+            // WindowsVersionClear
+            // 
+            WindowsVersionClear.Location = new Point(321, 52);
+            WindowsVersionClear.Name = "WindowsVersionClear";
+            WindowsVersionClear.Size = new Size(112, 34);
+            WindowsVersionClear.TabIndex = 8;
+            WindowsVersionClear.Text = "Clear";
+            WindowsVersionClear.UseVisualStyleBackColor = true;
+            WindowsVersionClear.Click += WindowsVersionClear_Click;
+            // 
+            // WindowsVersionDetect
+            // 
+            WindowsVersionDetect.Location = new Point(439, 52);
+            WindowsVersionDetect.Name = "WindowsVersionDetect";
+            WindowsVersionDetect.Size = new Size(112, 34);
+            WindowsVersionDetect.TabIndex = 9;
+            WindowsVersionDetect.Text = "Detect";
+            WindowsVersionDetect.UseVisualStyleBackColor = true;
+            WindowsVersionDetect.Click += WindowsVersionDetect_Click;
             // 
             // EditorForm
             // 
@@ -123,7 +145,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
-            Controls.Add(comboBox1);
+            Controls.Add(WindowsVersionDetect);
+            Controls.Add(WindowsVersionClear);
+            Controls.Add(WindowsVersionSelect);
             Controls.Add(WindowsClear);
             Controls.Add(WindowsName);
             Controls.Add(WindowsSelect);
@@ -147,6 +171,8 @@
         private Button WindowsSelect;
         private Label WindowsName;
         private Button WindowsClear;
-        private ComboBox comboBox1;
+        private ComboBox WindowsVersionSelect;
+        private Button WindowsVersionClear;
+        private Button WindowsVersionDetect;
     }
 }

@@ -137,15 +137,14 @@ namespace WinBox_Maker
             }
         }
 
-        public string[]? GetWindowsVersionsInImage(string imagePath)
+        public string[] GetWindowsVersionsInImage(string imagePath)
         {
+            imagePath = GetAbsoluteResourcePath(imagePath);
             using (FileStream isoStream = File.Open(imagePath, FileMode.Open))
             {
                 CDReader cd = new CDReader(isoStream, true);
-                return cd.GetFiles("/");
+                return cd.GetFiles(@"");
             }
-
-            //return null;
         }
     }
 }
