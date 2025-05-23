@@ -48,7 +48,7 @@
             BuildProcess.Location = new Point(0, 0);
             BuildProcess.Margin = new Padding(0);
             BuildProcess.Name = "BuildProcess";
-            BuildProcess.Size = new Size(634, 37);
+            BuildProcess.Size = new Size(799, 37);
             BuildProcess.TabIndex = 0;
             // 
             // StartBuild
@@ -56,7 +56,7 @@
             StartBuild.Dock = DockStyle.Fill;
             StartBuild.Location = new Point(0, 0);
             StartBuild.Name = "StartBuild";
-            StartBuild.Size = new Size(138, 37);
+            StartBuild.Size = new Size(175, 37);
             StartBuild.TabIndex = 1;
             StartBuild.Text = "Build";
             StartBuild.UseVisualStyleBackColor = true;
@@ -65,7 +65,7 @@
             // splitContainer1
             // 
             splitContainer1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            splitContainer1.Location = new Point(12, 398);
+            splitContainer1.Location = new Point(12, 660);
             splitContainer1.Margin = new Padding(0);
             splitContainer1.Name = "splitContainer1";
             // 
@@ -76,8 +76,8 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(StartBuild);
-            splitContainer1.Size = new Size(776, 37);
-            splitContainer1.SplitterDistance = 634;
+            splitContainer1.Size = new Size(978, 37);
+            splitContainer1.SplitterDistance = 799;
             splitContainer1.TabIndex = 3;
             // 
             // WindowsSelect
@@ -133,13 +133,14 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1002, 712);
             Controls.Add(WindowsVersionUpdate);
             Controls.Add(WindowsVersionSelect);
             Controls.Add(WindowsClear);
             Controls.Add(WindowsName);
             Controls.Add(WindowsSelect);
             Controls.Add(splitContainer1);
+            MinimumSize = new Size(800, 400);
             Name = "EditorForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Editor";

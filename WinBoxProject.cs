@@ -5,8 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DiscUtils.Iso9660;
-using DiscUtils;
+using DiscUtils.Udf;
 
 namespace WinBox_Maker
 {
@@ -142,8 +141,8 @@ namespace WinBox_Maker
             imagePath = GetAbsoluteResourcePath(imagePath);
             using (FileStream isoStream = File.Open(imagePath, FileMode.Open))
             {
-                CDReader cd = new CDReader(isoStream, true);
-                return cd.GetFiles(@"");
+                UdfReader cd = new UdfReader(isoStream);
+                return cd.GetFileSystemEntries(@"");
             }
         }
     }
