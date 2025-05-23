@@ -55,6 +55,12 @@ namespace WinBox_Maker
             UpdateText();
         }
 
+        private void WindowsVersionUpdate_Click(object sender, EventArgs e)
+        {
+            UpdateWindowsVersionsList();
+            UpdateText();
+        }
+
         void UpdateText()
         {
             WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "not selected";

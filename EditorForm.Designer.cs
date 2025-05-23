@@ -35,6 +35,7 @@
             WindowsName = new Label();
             WindowsClear = new Button();
             WindowsVersionSelect = new ComboBox();
+            WindowsVersionUpdate = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -117,12 +118,23 @@
             WindowsVersionSelect.TabIndex = 7;
             WindowsVersionSelect.TextChanged += WindowsVersionSelect_TextChanged;
             // 
+            // WindowsVersionUpdate
+            // 
+            WindowsVersionUpdate.Location = new Point(321, 52);
+            WindowsVersionUpdate.Name = "WindowsVersionUpdate";
+            WindowsVersionUpdate.Size = new Size(112, 34);
+            WindowsVersionUpdate.TabIndex = 8;
+            WindowsVersionUpdate.Text = "Update";
+            WindowsVersionUpdate.UseVisualStyleBackColor = true;
+            WindowsVersionUpdate.Click += WindowsVersionUpdate_Click;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
+            Controls.Add(WindowsVersionUpdate);
             Controls.Add(WindowsVersionSelect);
             Controls.Add(WindowsClear);
             Controls.Add(WindowsName);
@@ -148,5 +160,6 @@
         private Label WindowsName;
         private Button WindowsClear;
         private ComboBox WindowsVersionSelect;
+        private Button WindowsVersionUpdate;
     }
 }
