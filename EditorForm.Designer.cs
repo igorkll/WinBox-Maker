@@ -34,6 +34,7 @@
             WindowsSelect = new Button();
             WindowsName = new Label();
             WindowsClear = new Button();
+            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -84,7 +85,7 @@
             WindowsSelect.Name = "WindowsSelect";
             WindowsSelect.Size = new Size(303, 34);
             WindowsSelect.TabIndex = 4;
-            WindowsSelect.Text = "Select Base Windows Image";
+            WindowsSelect.Text = "Select base windows image";
             WindowsSelect.UseVisualStyleBackColor = true;
             WindowsSelect.Click += WindowsSelect_Click;
             // 
@@ -103,9 +104,18 @@
             WindowsClear.Name = "WindowsClear";
             WindowsClear.Size = new Size(112, 34);
             WindowsClear.TabIndex = 6;
-            WindowsClear.Text = "clear";
+            WindowsClear.Text = "Clear";
             WindowsClear.UseVisualStyleBackColor = true;
             WindowsClear.Click += WindowsClear_Click;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "test1", "test2", "test3", "test4" });
+            comboBox1.Location = new Point(12, 52);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(303, 33);
+            comboBox1.TabIndex = 7;
             // 
             // EditorForm
             // 
@@ -113,6 +123,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
+            Controls.Add(comboBox1);
             Controls.Add(WindowsClear);
             Controls.Add(WindowsName);
             Controls.Add(WindowsSelect);
@@ -136,5 +147,6 @@
         private Button WindowsSelect;
         private Label WindowsName;
         private Button WindowsClear;
+        private ComboBox comboBox1;
     }
 }

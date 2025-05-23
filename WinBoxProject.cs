@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DiscUtils.Iso9660;
+using DiscUtils;
 
 namespace WinBox_Maker
 {
@@ -133,6 +135,17 @@ namespace WinBox_Maker
             {
                 return Path.Combine(baseDirectoryPath, path);
             }
+        }
+
+        public string[]? GetWindowsVersionsInImage(string imagePath)
+        {
+            using (FileStream isoStream = File.Open(imagePath, FileMode.Open))
+            {
+                CDReader cd = new CDReader(isoStream, true);
+                return cd.GetFiles("/");
+            }
+
+            //return null;
         }
     }
 }
