@@ -94,7 +94,20 @@ namespace WinBox_Maker
                 {
                     if (WindowsVersionSelect.Items.Count > 0)
                     {
-                        winBoxProject.winBoxConfig.BaseWindowsVersion = WindowsVersionSelect.Items[0].ToString();
+                        bool findedPro = false;
+                        foreach (string item in windowsVersions)
+                        {
+                            if (item.EndsWith("pro", StringComparison.OrdinalIgnoreCase))
+                            {
+                                winBoxProject.winBoxConfig.BaseWindowsVersion = item;
+                                findedPro = true;
+                            }
+                        }
+
+                        if (!findedPro)
+                        {
+                            winBoxProject.winBoxConfig.BaseWindowsVersion = windowsVersions[0];
+                        }
                     }
                     else
                     {
