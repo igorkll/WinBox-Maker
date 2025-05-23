@@ -36,6 +36,7 @@
             WindowsClear = new Button();
             WindowsVersionSelect = new ComboBox();
             WindowsVersionUpdate = new Button();
+            WindowsVersionClear = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -120,7 +121,7 @@
             // 
             // WindowsVersionUpdate
             // 
-            WindowsVersionUpdate.Location = new Point(321, 52);
+            WindowsVersionUpdate.Location = new Point(439, 52);
             WindowsVersionUpdate.Name = "WindowsVersionUpdate";
             WindowsVersionUpdate.Size = new Size(112, 34);
             WindowsVersionUpdate.TabIndex = 8;
@@ -128,12 +129,23 @@
             WindowsVersionUpdate.UseVisualStyleBackColor = true;
             WindowsVersionUpdate.Click += WindowsVersionUpdate_Click;
             // 
+            // WindowsVersionClear
+            // 
+            WindowsVersionClear.Location = new Point(321, 52);
+            WindowsVersionClear.Name = "WindowsVersionClear";
+            WindowsVersionClear.Size = new Size(112, 34);
+            WindowsVersionClear.TabIndex = 9;
+            WindowsVersionClear.Text = "Clear";
+            WindowsVersionClear.UseVisualStyleBackColor = true;
+            WindowsVersionClear.Click += WindowsVersionClear_Click;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1002, 712);
+            Controls.Add(WindowsVersionClear);
             Controls.Add(WindowsVersionUpdate);
             Controls.Add(WindowsVersionSelect);
             Controls.Add(WindowsClear);
@@ -162,5 +174,6 @@
         private Button WindowsClear;
         private ComboBox WindowsVersionSelect;
         private Button WindowsVersionUpdate;
+        private Button WindowsVersionClear;
     }
 }

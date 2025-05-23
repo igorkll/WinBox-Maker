@@ -3,6 +3,7 @@ using ManagedWimLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -145,9 +146,28 @@ namespace WinBox_Maker
             {
                 UdfReader cd = new UdfReader(isoStream);
 
+                string unpackedWimFile = Path.Combine(tempDirectoryPath, "install.wim");
+                using (var wimFile = cd.OpenFile(@"sources\install.wim", FileMode.Open))
+                {
+                    using (FileStream outputStream = new FileStream(unpackedWimFile, FileMode.Create, FileAccess.Write))
+                    {
+                        wimFile.CopyTo(outputStream);
+                    }
+                }
 
 
-                return cd.GetFileSystemEntries(@"");
+                using (Wim wimHandle = Wim.OpenWim(unpackedWimFile, OpenFlags.None))
+                {
+                    WimInfo wimInfo = wimHandle.GetWimInfo();
+                    for (int i = 1; i <= wimInfo.ImageCount; i++)
+                    {
+                        Console.WriteLine($"Image Index: {i}");
+                        Console.WriteLine($"Name: {wimHandle.GetImageName(i)}");
+                        Console.WriteLine($"Description: {wimHandle.GetImageDescription(i)}");
+                    }
+                }
+
+                return cd.GetFileSystemEntries(@"sources");
             }
         }
     }

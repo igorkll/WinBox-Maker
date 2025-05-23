@@ -27,6 +27,11 @@ namespace WinBox_Maker
                 case Architecture.Arm64:
                     Wim.GlobalInit("winbox/libwim_arm64/libwim-15.dll", InitFlags.None);
                     break;
+
+                default:
+                    MessageBox.Show("failed to find native libwim-15.dll for you CPU", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(0);
+                    break;
             }
 
             openProjectForm = new OpenProjectForm();

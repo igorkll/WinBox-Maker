@@ -12,7 +12,7 @@ namespace WinBox_Maker
             InitializeComponent();
             this.Text = $"{Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
-            UpdateWindowsVersionsList();
+            //UpdateWindowsVersionsList();
             UpdateText();
         }
 
@@ -108,6 +108,14 @@ namespace WinBox_Maker
             {
                 MessageBox.Show($"couldn't read the list of versions from the image: {ex}", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void WindowsVersionClear_Click(object sender, EventArgs e)
+        {
+            WindowsVersionSelect.Items.Clear();
+            winBoxProject.winBoxConfig.BaseWindowsVersion = null;
+            winBoxProject.SaveConfig();
+            UpdateText();
         }
     }
 }
