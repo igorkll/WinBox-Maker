@@ -155,19 +155,25 @@ namespace WinBox_Maker
                     }
                 }
 
+                //cd.GetFileSystemEntries(@"sources")
+
+                List<string> windowsVersions = new List<string>();
 
                 using (Wim wimHandle = Wim.OpenWim(unpackedWimFile, OpenFlags.None))
                 {
                     WimInfo wimInfo = wimHandle.GetWimInfo();
                     for (int i = 1; i <= wimInfo.ImageCount; i++)
                     {
-                        Console.WriteLine($"Image Index: {i}");
-                        Console.WriteLine($"Name: {wimHandle.GetImageName(i)}");
-                        Console.WriteLine($"Description: {wimHandle.GetImageDescription(i)}");
+                        //Console.WriteLine($"Image Index: {i}");
+                        //Console.WriteLine($"Name: {wimHandle.GetImageName(i)}");
+                        //Console.WriteLine($"Description: {wimHandle.GetImageDescription(i)}");
+                        windowsVersions.Add(wimHandle.GetImageName(i) ?? "failed to read image name");
                     }
                 }
 
-                return cd.GetFileSystemEntries(@"sources");
+                File.Delete(unpackedWimFile);
+
+                return windowsVersions.ToArray();
             }
         }
     }
