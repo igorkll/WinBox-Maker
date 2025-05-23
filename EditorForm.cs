@@ -13,6 +13,7 @@ namespace WinBox_Maker
             this.Text = $"{Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
             UpdateText();
+            WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion;
         }
 
         private void StartBuild_Click(object sender, EventArgs e)
@@ -58,7 +59,9 @@ namespace WinBox_Maker
                     {
                         WindowsVersionSelect.Items.Add(item);
                     }
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     MessageBox.Show($"couldn't read the list of versions from the image: {ex}", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -71,6 +74,13 @@ namespace WinBox_Maker
         private void WindowsVersionClear_Click(object sender, EventArgs e)
         {
             WindowsVersionSelect.Items.Clear();
+        }
+
+        private void WindowsVersionSelect_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.BaseWindowsVersion = WindowsVersionSelect.Text;
+            winBoxProject.SaveConfig();
+            UpdateText();
         }
     }
 }

@@ -118,6 +118,7 @@
             WindowsVersionSelect.Name = "WindowsVersionSelect";
             WindowsVersionSelect.Size = new Size(303, 33);
             WindowsVersionSelect.TabIndex = 7;
+            WindowsVersionSelect.TextChanged += WindowsVersionSelect_TextChanged;
             // 
             // WindowsVersionClear
             // 

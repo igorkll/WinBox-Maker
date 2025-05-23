@@ -11,6 +11,7 @@ namespace WinBox_Maker
     {
         //public List<string>? Resources { get; set; }
         public string? BaseWindowsImage { get; set; }
+        public string? BaseWindowsVersion { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
