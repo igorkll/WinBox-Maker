@@ -13,7 +13,7 @@ namespace WinBox_Maker
             this.Text = $"{Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
             UpdateText();
-            WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion;
+            UpdateWindowsVersionsList();
         }
 
         private void StartBuild_Click(object sender, EventArgs e)
@@ -29,51 +29,17 @@ namespace WinBox_Maker
                 winBoxProject.winBoxConfig.BaseWindowsImage = name;
                 winBoxProject.SaveConfig();
                 UpdateText();
+                UpdateWindowsVersionsList();
             }
         }
 
         private void WindowsClear_Click(object sender, EventArgs e)
         {
-            if (winBoxProject.winBoxConfig.BaseWindowsImage != null)
-            {
-                winBoxProject.winBoxConfig.BaseWindowsImage = null;
-                winBoxProject.SaveConfig();
-                UpdateText();
-            }
-        }
-
-        void UpdateText()
-        {
-            WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "not selected";
-        }
-
-        private void WindowsVersionDetect_Click(object sender, EventArgs e)
-        {
-            if (winBoxProject.winBoxConfig.BaseWindowsImage != null)
-            {
-                try
-                {
-                    string[] windowsVersions = winBoxProject.GetWindowsVersionsInImage(winBoxProject.winBoxConfig.BaseWindowsImage);
-                    WindowsVersionSelect.Items.Clear();
-                    foreach (string item in windowsVersions)
-                    {
-                        WindowsVersionSelect.Items.Add(item);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"couldn't read the list of versions from the image: {ex}", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("first, select the windows image", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void WindowsVersionClear_Click(object sender, EventArgs e)
-        {
             WindowsVersionSelect.Items.Clear();
+            winBoxProject.winBoxConfig.BaseWindowsVersion = null;
+            winBoxProject.winBoxConfig.BaseWindowsImage = null;
+            winBoxProject.SaveConfig();
+            UpdateText();
         }
 
         private void WindowsVersionSelect_TextChanged(object sender, EventArgs e)
@@ -81,6 +47,29 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.BaseWindowsVersion = WindowsVersionSelect.Text;
             winBoxProject.SaveConfig();
             UpdateText();
+        }
+
+        void UpdateText()
+        {
+            WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "not selected";
+            WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
+        }
+
+        void UpdateWindowsVersionsList()
+        {
+            try
+            {
+                string[] windowsVersions = winBoxProject.GetWindowsVersionsInImage(winBoxProject.winBoxConfig.BaseWindowsImage);
+                WindowsVersionSelect.Items.Clear();
+                foreach (string item in windowsVersions)
+                {
+                    WindowsVersionSelect.Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"couldn't read the list of versions from the image: {ex}", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

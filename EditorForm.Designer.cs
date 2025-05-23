@@ -35,8 +35,6 @@
             WindowsName = new Label();
             WindowsClear = new Button();
             WindowsVersionSelect = new ComboBox();
-            WindowsVersionClear = new Button();
-            WindowsVersionDetect = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -113,32 +111,11 @@
             // WindowsVersionSelect
             // 
             WindowsVersionSelect.FormattingEnabled = true;
-            WindowsVersionSelect.Items.AddRange(new object[] { "test1", "test2", "test3", "test4" });
             WindowsVersionSelect.Location = new Point(12, 52);
             WindowsVersionSelect.Name = "WindowsVersionSelect";
             WindowsVersionSelect.Size = new Size(303, 33);
             WindowsVersionSelect.TabIndex = 7;
             WindowsVersionSelect.TextChanged += WindowsVersionSelect_TextChanged;
-            // 
-            // WindowsVersionClear
-            // 
-            WindowsVersionClear.Location = new Point(321, 52);
-            WindowsVersionClear.Name = "WindowsVersionClear";
-            WindowsVersionClear.Size = new Size(112, 34);
-            WindowsVersionClear.TabIndex = 8;
-            WindowsVersionClear.Text = "Clear";
-            WindowsVersionClear.UseVisualStyleBackColor = true;
-            WindowsVersionClear.Click += WindowsVersionClear_Click;
-            // 
-            // WindowsVersionDetect
-            // 
-            WindowsVersionDetect.Location = new Point(439, 52);
-            WindowsVersionDetect.Name = "WindowsVersionDetect";
-            WindowsVersionDetect.Size = new Size(112, 34);
-            WindowsVersionDetect.TabIndex = 9;
-            WindowsVersionDetect.Text = "Detect";
-            WindowsVersionDetect.UseVisualStyleBackColor = true;
-            WindowsVersionDetect.Click += WindowsVersionDetect_Click;
             // 
             // EditorForm
             // 
@@ -146,8 +123,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(800, 450);
-            Controls.Add(WindowsVersionDetect);
-            Controls.Add(WindowsVersionClear);
             Controls.Add(WindowsVersionSelect);
             Controls.Add(WindowsClear);
             Controls.Add(WindowsName);
@@ -173,7 +148,5 @@
         private Label WindowsName;
         private Button WindowsClear;
         private ComboBox WindowsVersionSelect;
-        private Button WindowsVersionClear;
-        private Button WindowsVersionDetect;
     }
 }
