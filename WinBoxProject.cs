@@ -1,11 +1,13 @@
-﻿using System;
+﻿using DiscUtils.Udf;
+using ManagedWimLib;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DiscUtils.Udf;
 
 namespace WinBox_Maker
 {
@@ -142,6 +144,9 @@ namespace WinBox_Maker
             using (FileStream isoStream = File.Open(imagePath, FileMode.Open))
             {
                 UdfReader cd = new UdfReader(isoStream);
+
+
+
                 return cd.GetFileSystemEntries(@"");
             }
         }

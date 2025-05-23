@@ -1,3 +1,6 @@
+using ManagedWimLib;
+using System.Runtime.InteropServices;
+
 namespace WinBox_Maker
 {
     internal static class Program
@@ -10,6 +13,21 @@ namespace WinBox_Maker
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+
+            switch (RuntimeInformation.ProcessArchitecture)
+            {
+                case Architecture.X86:
+                    Wim.GlobalInit("winbox/libwim_x86/libwim-15.dll", InitFlags.None);
+                    break;
+
+                case Architecture.X64:
+                    Wim.GlobalInit("winbox/libwim_x64/libwim-15.dll", InitFlags.None);
+                    break;
+
+                case Architecture.Arm64:
+                    Wim.GlobalInit("winbox/libwim_arm64/libwim-15.dll", InitFlags.None);
+                    break;
+            }
 
             openProjectForm = new OpenProjectForm();
             Application.Run(openProjectForm);
