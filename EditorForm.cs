@@ -12,8 +12,8 @@ namespace WinBox_Maker
             InitializeComponent();
             this.Text = $"{Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
-            UpdateText();
             UpdateWindowsVersionsList();
+            UpdateText();
         }
 
         private void StartBuild_Click(object sender, EventArgs e)
@@ -28,8 +28,8 @@ namespace WinBox_Maker
             {
                 winBoxProject.winBoxConfig.BaseWindowsImage = name;
                 winBoxProject.SaveConfig();
-                UpdateText();
                 UpdateWindowsVersionsList();
+                UpdateText();
             }
         }
 
@@ -44,6 +44,12 @@ namespace WinBox_Maker
 
         private void WindowsVersionSelect_TextChanged(object sender, EventArgs e)
         {
+            if (winBoxProject.winBoxConfig.BaseWindowsImage == null)
+            {
+                WindowsVersionSelect.Text = null;
+                return;
+            }
+
             winBoxProject.winBoxConfig.BaseWindowsVersion = WindowsVersionSelect.Text;
             winBoxProject.SaveConfig();
             UpdateText();
@@ -57,14 +63,40 @@ namespace WinBox_Maker
 
         void UpdateWindowsVersionsList()
         {
+            if (winBoxProject.winBoxConfig.BaseWindowsImage == null)
+            {
+                winBoxProject.winBoxConfig.BaseWindowsVersion = null;
+                winBoxProject.SaveConfig();
+                return;
+            }
+
             try
             {
                 string[] windowsVersions = winBoxProject.GetWindowsVersionsInImage(winBoxProject.winBoxConfig.BaseWindowsImage);
                 WindowsVersionSelect.Items.Clear();
+                bool exists = false;
                 foreach (string item in windowsVersions)
                 {
                     WindowsVersionSelect.Items.Add(item);
+                    if (item.ToString() == winBoxProject.winBoxConfig.BaseWindowsVersion)
+                    {
+                        exists = true;
+                    }
                 }
+
+                if (!exists)
+                {
+                    if (WindowsVersionSelect.Items.Count > 0)
+                    {
+                        winBoxProject.winBoxConfig.BaseWindowsVersion = WindowsVersionSelect.Items[0].ToString();
+                    }
+                    else
+                    {
+                        winBoxProject.winBoxConfig.BaseWindowsVersion = null;
+                    }
+                }
+
+                winBoxProject.SaveConfig();
             }
             catch (Exception ex)
             {
