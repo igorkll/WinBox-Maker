@@ -80,7 +80,7 @@ namespace WinBox_Maker
             winBoxConfig.Save(wnbFilePath);
         }
 
-        public string? SelectResource(string filter)
+        public async Task<string?> SelectResourceAsync(Label processName, ProgressBar processValue, string filter)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -115,8 +115,8 @@ namespace WinBox_Maker
                             projectFolderToCopy = resourcesDirectoryName;
                         }
 
-                        File.Copy(filePath, Path.Combine(baseDirectoryPath, projectFolderToCopy, fileName), true);
-                        MessageBox.Show("the file has been copied to the project folder", null, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        processName.Text = "Copying a resource file";
+                        await Program.CopyFileAsync(filePath, Path.Combine(baseDirectoryPath, projectFolderToCopy, fileName), processValue);
                         return Path.Combine(projectFolderToCopy, fileName);
                     }
                     else if (result == DialogResult.No)
@@ -150,7 +150,7 @@ namespace WinBox_Maker
         {
             if (winBoxConfig.BaseWindowsImage == null) return;
 
-            processName.Text = "extracting install.wim";
+            processName.Text = "Extracting install.wim";
             using (FileStream isoStream = File.Open(winBoxConfig.BaseWindowsImage, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 UdfReader cd = new UdfReader(isoStream);

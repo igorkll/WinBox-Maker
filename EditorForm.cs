@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace WinBox_Maker
@@ -14,7 +15,7 @@ namespace WinBox_Maker
             InitializeComponent();
             this.Text = $"{Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
-            ProcessName.Text = defaultProcessName;
+            ReleaseProgressBar();
             if (winBoxProject.NeedLoadWindows())
             {
                 UpdateText();
@@ -27,11 +28,16 @@ namespace WinBox_Maker
             }
         }
 
+        void ReleaseProgressBar()
+        {
+            ProcessName.Text = defaultProcessName;
+            ProcessValue.Value = 0;
+        }
+
         async void LoadWindowsTask()
         {
             await winBoxProject.LoadWindowsImageAsync(ProcessName, ProcessValue);
-            ProcessName.Text = defaultProcessName;
-            ProcessValue.Value = 0;
+            ReleaseProgressBar();
             UpdateWindowsVersionsList();
             UpdateText();
         }
@@ -41,9 +47,10 @@ namespace WinBox_Maker
             ProcessValue.Value = 30;
         }
 
-        private void WindowsSelect_Click(object sender, EventArgs e)
+        private async void WindowsSelect_Click(object sender, EventArgs e)
         {
-            string? name = winBoxProject.SelectResource("Windows image (*.iso)|*.iso");
+            string? name = await winBoxProject.SelectResourceAsync(ProcessName, ProcessValue, "Windows image (*.iso)|*.iso");
+            ReleaseProgressBar();
             if (name != null)
             {
                 winBoxProject.UnloadWindowsImage();

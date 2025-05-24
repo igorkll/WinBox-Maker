@@ -93,5 +93,26 @@ namespace WinBox_Maker
                 Directory.CreateDirectory(path);
             }
         }
+
+        public static async Task CopyFileAsync(string sourceFilePath, string destinationFilePath, ProgressBar progressBar)
+        {
+            long totalBytes = new FileInfo(sourceFilePath).Length;
+            long bytesCopied = 0;
+
+            using (FileStream sourceStream = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (FileStream destinationStream = new FileStream(destinationFilePath, FileMode.Create, FileAccess.Write))
+            {
+                byte[] buffer = new byte[81920];
+                int bytesRead;
+
+                while ((bytesRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                {
+                    await destinationStream.WriteAsync(buffer, 0, bytesRead);
+                    bytesCopied += bytesRead;
+
+                    progressBar.Value = (int)((bytesCopied * 100) / totalBytes);
+                }
+            }
+        }
     }
 }
