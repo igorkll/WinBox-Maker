@@ -5,6 +5,7 @@ namespace WinBox_Maker
 {
     public partial class EditorForm : Form
     {
+        const string defaultProcessName = "not busy";
         WinBoxProject winBoxProject;
 
         public EditorForm(WinBoxProject winBoxProject)
@@ -12,7 +13,24 @@ namespace WinBox_Maker
             InitializeComponent();
             this.Text = $"{Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
-            winBoxProject.LoadWindowsImage(ProcessValue);
+            ProcessName.Text = defaultProcessName;
+            if (winBoxProject.NeedLoadWindows())
+            {
+                UpdateText();
+                LoadWindowsTask();
+            }
+            else
+            {
+                UpdateWindowsVersionsList();
+                UpdateText();
+            }
+        }
+
+        async void LoadWindowsTask()
+        {
+            ProcessName.Text = "extracting install.wim";
+            await winBoxProject.LoadWindowsImageAsync(ProcessValue);
+            ProcessName.Text = defaultProcessName;
             UpdateWindowsVersionsList();
             UpdateText();
         }
@@ -30,9 +48,8 @@ namespace WinBox_Maker
                 winBoxProject.UnloadWindowsImage();
                 winBoxProject.winBoxConfig.BaseWindowsImage = name;
                 winBoxProject.SaveConfig();
-                winBoxProject.LoadWindowsImage(ProcessValue);
-                UpdateWindowsVersionsList();
                 UpdateText();
+                LoadWindowsTask();
             }
         }
 

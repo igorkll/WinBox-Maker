@@ -37,6 +37,7 @@
             WindowsVersionSelect = new ComboBox();
             WindowsVersionUpdate = new Button();
             WindowsVersionClear = new Button();
+            ProcessName = new Label();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -139,12 +140,22 @@
             WindowsVersionClear.UseVisualStyleBackColor = true;
             WindowsVersionClear.Click += WindowsVersionClear_Click;
             // 
+            // ProcessName
+            // 
+            ProcessName.AutoSize = true;
+            ProcessName.Location = new Point(12, 625);
+            ProcessName.Name = "ProcessName";
+            ProcessName.Size = new Size(122, 25);
+            ProcessName.TabIndex = 10;
+            ProcessName.Text = "process name";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1002, 712);
+            Controls.Add(ProcessName);
             Controls.Add(WindowsVersionClear);
             Controls.Add(WindowsVersionUpdate);
             Controls.Add(WindowsVersionSelect);
@@ -175,5 +186,6 @@
         private ComboBox WindowsVersionSelect;
         private Button WindowsVersionUpdate;
         private Button WindowsVersionClear;
+        private Label ProcessName;
     }
 }

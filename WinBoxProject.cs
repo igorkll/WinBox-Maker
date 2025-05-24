@@ -141,18 +141,33 @@ namespace WinBox_Maker
             }
         }
 
-        public void LoadWindowsImage(ProgressBar processValue)
+        public bool NeedLoadWindows()
         {
-            if (winBoxConfig.BaseWindowsImage == null || File.Exists(unpackedWimFile)) return;
+            return winBoxConfig.BaseWindowsImage != null && !File.Exists(unpackedWimFile);
+        }
 
-            using (FileStream isoStream = File.Open(winBoxConfig.BaseWindowsImage, FileMode.Open))
+        public async Task LoadWindowsImageAsync(ProgressBar processValue)
+        {
+            using (FileStream isoStream = File.Open(winBoxConfig.BaseWindowsImage, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 UdfReader cd = new UdfReader(isoStream);
-                using (var wimFile = cd.OpenFile(@"sources\install.wim", FileMode.Open))
+                using (var wimFile = cd.OpenFile(@"sources\install.wim", FileMode.Open, FileAccess.Read))
                 {
+                    long totalBytes = wimFile.Length;
+                    long bytesCopied = 0;
+
                     using (FileStream outputStream = new FileStream(unpackedWimFile, FileMode.Create, FileAccess.Write))
                     {
-                        wimFile.CopyTo(outputStream);
+                        byte[] buffer = new byte[81920];
+                        int bytesRead;
+
+                        while ((bytesRead = await wimFile.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        {
+                            await outputStream.WriteAsync(buffer, 0, bytesRead);
+                            bytesCopied += bytesRead;
+
+                            processValue.Value = (int)((bytesCopied * 100) / totalBytes);
+                        }
                     }
                 }
             }
