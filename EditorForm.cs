@@ -15,7 +15,7 @@ namespace WinBox_Maker
             InitializeComponent();
             this.Text = $"{Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
-            ReleaseProgressBar();
+            UnlockForm();
             if (winBoxProject.NeedLoadWindows())
             {
                 UpdateText();
@@ -28,16 +28,32 @@ namespace WinBox_Maker
             }
         }
 
-        void ReleaseProgressBar()
+        void UnlockForm()
         {
             ProcessName.Text = defaultProcessName;
             ProcessValue.Value = 0;
+            foreach (Control control in this.Controls)
+            {
+                control.Enabled = true;
+            }
+        }
+
+        void LockForm()
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control != ProcessValue && !(control is Label))
+                {
+                    control.Enabled = false;
+                }
+            }
         }
 
         async void LoadWindowsTask()
         {
+            LockForm();
             await winBoxProject.LoadWindowsImageAsync(ProcessName, ProcessValue);
-            ReleaseProgressBar();
+            UnlockForm();
             UpdateWindowsVersionsList();
             UpdateText();
         }
@@ -49,8 +65,9 @@ namespace WinBox_Maker
 
         private async void WindowsSelect_Click(object sender, EventArgs e)
         {
+            LockForm();
             string? name = await winBoxProject.SelectResourceAsync(ProcessName, ProcessValue, "Windows image (*.iso)|*.iso");
-            ReleaseProgressBar();
+            UnlockForm();
             if (name != null)
             {
                 winBoxProject.UnloadWindowsImage();
