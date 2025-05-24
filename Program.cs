@@ -13,29 +13,53 @@ namespace WinBox_Maker
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+            InitLibwim();
+            openProjectForm = new OpenProjectForm();
+            Application.Run(openProjectForm);
+        }
+
+        static void InitLibwim()
+        {
+            string libBaseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string libDir = "runtimes";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                libDir = Path.Combine(libDir, "win-");
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                libDir = Path.Combine(libDir, "linux-");
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                libDir = Path.Combine(libDir, "osx-");
 
             switch (RuntimeInformation.ProcessArchitecture)
             {
                 case Architecture.X86:
-                    Wim.GlobalInit("winbox/libwim_x86/libwim-15.dll", InitFlags.None);
+                    libDir += "x86";
                     break;
-
                 case Architecture.X64:
-                    Wim.GlobalInit("winbox/libwim_x64/libwim-15.dll", InitFlags.None);
+                    libDir += "x64";
                     break;
-
+                case Architecture.Arm:
+                    libDir += "arm";
+                    break;
                 case Architecture.Arm64:
-                    Wim.GlobalInit("winbox/libwim_arm64/libwim-15.dll", InitFlags.None);
-                    break;
-
-                default:
-                    MessageBox.Show("failed to find native libwim-15.dll for you CPU", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Environment.Exit(0);
+                    libDir += "arm64";
                     break;
             }
+            libDir = Path.Combine(libDir, "native");
 
-            openProjectForm = new OpenProjectForm();
-            Application.Run(openProjectForm);
+            string libPath = null;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                libPath = Path.Combine(libBaseDir, libDir, "libwim-15.dll");
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                libPath = Path.Combine(libBaseDir, libDir, "libwim.so");
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                libPath = Path.Combine(libBaseDir, libDir, "libwim.dylib");
+
+            if (libPath == null)
+                throw new PlatformNotSupportedException($"Unable to find native library.");
+            if (!File.Exists(libPath))
+                throw new PlatformNotSupportedException($"Unable to find native library [{libPath}].");
+
+            Wim.GlobalInit(libPath, InitFlags.None);
         }
 
         public static void SwitchForm(Form self, Form form)

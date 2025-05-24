@@ -218,22 +218,26 @@ namespace WinBox_Maker
             await Program.CopyFileAsync(unpackedWimFile, copiedWimFile, processValue);
 
             processName.Text = "Modification of install.wim";
-            using (Wim wimHandle = Wim.OpenWim(copiedWimFile, OpenFlags.None))
+            await Task.Run(() =>
             {
-                WimInfo wimInfo = wimHandle.GetWimInfo();
-                for (int i = (int)wimInfo.ImageCount; i >= 1; i--)
+                using (Wim wimHandle = Wim.OpenWim(copiedWimFile, OpenFlags.None))
                 {
-                    if (wimHandle.GetImageName(i) == winBoxConfig.BaseWindowsVersion)
+                    WimInfo wimInfo = wimHandle.GetWimInfo();
+                    for (int i = (int)wimInfo.ImageCount; i >= 1; i--)
                     {
-                        wimHandle.SetImageName(i, newWindowsDescription.name);
-                        wimHandle.SetImageDescription(i, newWindowsDescription.description);
+                        if (wimHandle.GetImageName(i) == winBoxConfig.BaseWindowsVersion)
+                        {
+                            wimHandle.SetImageName(i, newWindowsDescription.name);
+                            wimHandle.SetImageDescription(i, newWindowsDescription.description);
+                        }
+                        else
+                        {
+                            wimHandle.DeleteImage(i);
+                        }
                     }
-                    else
-                    {
-                        wimHandle.DeleteImage(i);
-                    }
+                    wimHandle.Overwrite(WriteFlags.None, Wim.DefaultThreads);
                 }
-            }
+            });
 
             processName.Text = "Copying an image file";
             await Program.CopyFileAsync(baseWindowsImageFullPath, exportPath, processValue);
