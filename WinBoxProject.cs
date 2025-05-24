@@ -141,7 +141,7 @@ namespace WinBox_Maker
             }
         }
 
-        public void loadWindowsImage()
+        public void LoadWindowsImage(ProgressBar processValue)
         {
             if (winBoxConfig.BaseWindowsImage == null || File.Exists(unpackedWimFile)) return;
 
@@ -158,7 +158,7 @@ namespace WinBox_Maker
             }
         }
 
-        public void unloadWindowsImage()
+        public void UnloadWindowsImage()
         {
             if (File.Exists(unpackedWimFile)) {
                 File.Delete(unpackedWimFile);

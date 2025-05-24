@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            BuildProcess = new ProgressBar();
+            ProcessValue = new ProgressBar();
             StartBuild = new Button();
             splitContainer1 = new SplitContainer();
             WindowsSelect = new Button();
@@ -43,14 +43,14 @@
             splitContainer1.SuspendLayout();
             SuspendLayout();
             // 
-            // BuildProcess
+            // ProcessValue
             // 
-            BuildProcess.Dock = DockStyle.Fill;
-            BuildProcess.Location = new Point(0, 0);
-            BuildProcess.Margin = new Padding(0);
-            BuildProcess.Name = "BuildProcess";
-            BuildProcess.Size = new Size(799, 37);
-            BuildProcess.TabIndex = 0;
+            ProcessValue.Dock = DockStyle.Fill;
+            ProcessValue.Location = new Point(0, 0);
+            ProcessValue.Margin = new Padding(0);
+            ProcessValue.Name = "ProcessValue";
+            ProcessValue.Size = new Size(799, 37);
+            ProcessValue.TabIndex = 0;
             // 
             // StartBuild
             // 
@@ -72,7 +72,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(BuildProcess);
+            splitContainer1.Panel1.Controls.Add(ProcessValue);
             // 
             // splitContainer1.Panel2
             // 
@@ -166,7 +166,7 @@
 
         #endregion
 
-        private ProgressBar BuildProcess;
+        private ProgressBar ProcessValue;
         private Button StartBuild;
         private SplitContainer splitContainer1;
         private Button WindowsSelect;

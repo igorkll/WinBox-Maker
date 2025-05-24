@@ -12,14 +12,14 @@ namespace WinBox_Maker
             InitializeComponent();
             this.Text = $"{Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
-            winBoxProject.loadWindowsImage();
-            //UpdateWindowsVersionsList();
+            winBoxProject.LoadWindowsImage(ProcessValue);
+            UpdateWindowsVersionsList();
             UpdateText();
         }
 
         private void StartBuild_Click(object sender, EventArgs e)
         {
-            BuildProcess.Value = 30;
+            ProcessValue.Value = 30;
         }
 
         private void WindowsSelect_Click(object sender, EventArgs e)
@@ -27,10 +27,10 @@ namespace WinBox_Maker
             string? name = winBoxProject.SelectResource("Windows image (*.iso)|*.iso");
             if (name != null)
             {
-                winBoxProject.unloadWindowsImage();
+                winBoxProject.UnloadWindowsImage();
                 winBoxProject.winBoxConfig.BaseWindowsImage = name;
                 winBoxProject.SaveConfig();
-                winBoxProject.loadWindowsImage();
+                winBoxProject.LoadWindowsImage(ProcessValue);
                 UpdateWindowsVersionsList();
                 UpdateText();
             }
@@ -38,7 +38,7 @@ namespace WinBox_Maker
 
         private void WindowsClear_Click(object sender, EventArgs e)
         {
-            winBoxProject.unloadWindowsImage();
+            winBoxProject.UnloadWindowsImage();
             WindowsVersionSelect.Items.Clear();
             winBoxProject.winBoxConfig.BaseWindowsVersion = null;
             winBoxProject.winBoxConfig.BaseWindowsImage = null;
