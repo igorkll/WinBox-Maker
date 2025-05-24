@@ -23,6 +23,7 @@ namespace WinBox_Maker
         string resourcesDirectoryPath;
         string bigResourcesDirectoryPath;
         string tempDirectoryPath;
+        string unpackedWimFile;
         string name;
         string? err;
 
@@ -35,6 +36,7 @@ namespace WinBox_Maker
             resourcesDirectoryPath = Path.Combine(baseDirectoryPath, resourcesDirectoryName);
             bigResourcesDirectoryPath = Path.Combine(baseDirectoryPath, bigResourcesDirectoryName);
             tempDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_temp");
+            unpackedWimFile = Path.Combine(tempDirectoryPath, "base_install.wim");
             name = Path.GetFileName(baseDirectoryPath);
 
             if (File.Exists(wnbFilePath))
@@ -139,14 +141,13 @@ namespace WinBox_Maker
             }
         }
 
-        public string[] GetWindowsVersionsInImage(string imagePath)
+        public void loadWindowsImage()
         {
-            imagePath = GetAbsoluteResourcePath(imagePath);
-            using (FileStream isoStream = File.Open(imagePath, FileMode.Open))
+            if (winBoxConfig.BaseWindowsImage == null || File.Exists(unpackedWimFile)) return;
+
+            using (FileStream isoStream = File.Open(winBoxConfig.BaseWindowsImage, FileMode.Open))
             {
                 UdfReader cd = new UdfReader(isoStream);
-
-                string unpackedWimFile = Path.Combine(tempDirectoryPath, "install.wim");
                 using (var wimFile = cd.OpenFile(@"sources\install.wim", FileMode.Open))
                 {
                     using (FileStream outputStream = new FileStream(unpackedWimFile, FileMode.Create, FileAccess.Write))
@@ -154,27 +155,33 @@ namespace WinBox_Maker
                         wimFile.CopyTo(outputStream);
                     }
                 }
-
-                //cd.GetFileSystemEntries(@"sources")
-
-                List<string> windowsVersions = new List<string>();
-
-                using (Wim wimHandle = Wim.OpenWim(unpackedWimFile, OpenFlags.None))
-                {
-                    WimInfo wimInfo = wimHandle.GetWimInfo();
-                    for (int i = 1; i <= wimInfo.ImageCount; i++)
-                    {
-                        //Console.WriteLine($"Image Index: {i}");
-                        //Console.WriteLine($"Name: {wimHandle.GetImageName(i)}");
-                        //Console.WriteLine($"Description: {wimHandle.GetImageDescription(i)}");
-                        windowsVersions.Add(wimHandle.GetImageName(i) ?? "failed to read image name");
-                    }
-                }
-
-                File.Delete(unpackedWimFile);
-
-                return windowsVersions.ToArray();
             }
+        }
+
+        public void unloadWindowsImage()
+        {
+            if (File.Exists(unpackedWimFile)) {
+                File.Delete(unpackedWimFile);
+            }
+        }
+
+        public string[] GetWindowsVersions()
+        {
+            List<string> windowsVersions = new List<string>();
+
+            using (Wim wimHandle = Wim.OpenWim(unpackedWimFile, OpenFlags.None))
+            {
+                WimInfo wimInfo = wimHandle.GetWimInfo();
+                for (int i = 1; i <= wimInfo.ImageCount; i++)
+                {
+                    //Console.WriteLine($"Image Index: {i}");
+                    //Console.WriteLine($"Name: {wimHandle.GetImageName(i)}");
+                    //Console.WriteLine($"Description: {wimHandle.GetImageDescription(i)}");
+                    windowsVersions.Add(wimHandle.GetImageName(i) ?? "failed to read image name");
+                }
+            }
+
+            return windowsVersions.ToArray();
         }
     }
 }
