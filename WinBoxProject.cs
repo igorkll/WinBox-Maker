@@ -207,5 +207,10 @@ namespace WinBox_Maker
 
             return windowsVersions.ToArray();
         }
+
+        public async Task BuildIsoAsync(string exportPath)
+        {
+            
+        }
     }
 }

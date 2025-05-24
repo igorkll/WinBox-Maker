@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             ProcessValue = new ProgressBar();
-            StartBuild = new Button();
+            ExportIsoInstaller = new Button();
             splitContainer1 = new SplitContainer();
             WindowsSelect = new Button();
             WindowsName = new Label();
@@ -58,16 +58,16 @@
             ProcessValue.Size = new Size(799, 37);
             ProcessValue.TabIndex = 0;
             // 
-            // StartBuild
+            // ExportIsoInstaller
             // 
-            StartBuild.Dock = DockStyle.Fill;
-            StartBuild.Location = new Point(0, 0);
-            StartBuild.Name = "StartBuild";
-            StartBuild.Size = new Size(175, 37);
-            StartBuild.TabIndex = 1;
-            StartBuild.Text = "Build";
-            StartBuild.UseVisualStyleBackColor = true;
-            StartBuild.Click += StartBuild_Click;
+            ExportIsoInstaller.Dock = DockStyle.Fill;
+            ExportIsoInstaller.Location = new Point(0, 0);
+            ExportIsoInstaller.Name = "ExportIsoInstaller";
+            ExportIsoInstaller.Size = new Size(175, 37);
+            ExportIsoInstaller.TabIndex = 1;
+            ExportIsoInstaller.Text = "export iso installer";
+            ExportIsoInstaller.UseVisualStyleBackColor = true;
+            ExportIsoInstaller.Click += StartBuild_Click;
             // 
             // splitContainer1
             // 
@@ -82,7 +82,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(StartBuild);
+            splitContainer1.Panel2.Controls.Add(ExportIsoInstaller);
             splitContainer1.Size = new Size(978, 37);
             splitContainer1.SplitterDistance = 799;
             splitContainer1.TabIndex = 3;
@@ -236,7 +236,7 @@
         #endregion
 
         private ProgressBar ProcessValue;
-        private Button StartBuild;
+        private Button ExportIsoInstaller;
         private SplitContainer splitContainer1;
         private Button WindowsSelect;
         private Label WindowsName;
