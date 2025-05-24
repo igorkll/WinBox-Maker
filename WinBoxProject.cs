@@ -151,10 +151,10 @@ namespace WinBox_Maker
         public async Task LoadWindowsImageAsync(Label processName, ProgressBar processValue)
         {
             if (winBoxConfig.BaseWindowsImage == null) return;
-            string BaseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
+            string baseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
 
             processName.Text = "Extracting install.wim";
-            using (FileStream isoStream = File.Open(BaseWindowsImageFullPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (FileStream isoStream = File.Open(baseWindowsImageFullPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 UdfReader cd = new UdfReader(isoStream);
                 using (var wimFile = cd.OpenFile(@"sources\install.wim", FileMode.Open, FileAccess.Read))
@@ -235,6 +235,7 @@ namespace WinBox_Maker
                             wimHandle.DeleteImage(i);
                         }
                     }
+                    processValue.Value = 50;
                     wimHandle.Overwrite(WriteFlags.None, Wim.DefaultThreads);
                 }
             });
@@ -242,8 +243,31 @@ namespace WinBox_Maker
             processName.Text = "Copying an image file";
             await Program.CopyFileAsync(baseWindowsImageFullPath, exportPath, processValue);
 
-            //processName.Text = "";
-            
+            processName.Text = "Packaging of the modified install.wim in the installation image";
+            using (FileStream isoStream = File.Open(exportPath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            {
+                UdfReader cd = new UdfReader(isoStream);
+                using (var wimFile = new FileStream(unpackedWimFile, FileMode.Open, FileAccess.Read))
+                {
+                    long totalBytes = wimFile.Length;
+                    long bytesCopied = 0;
+
+                    using (var outputStream = cd.OpenFile(@"sources\install.wim", FileMode.Open, FileAccess.Write))
+                    {
+                        byte[] buffer = new byte[81920];
+                        int bytesRead;
+
+                        while ((bytesRead = await wimFile.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        {
+                            await outputStream.WriteAsync(buffer, 0, bytesRead);
+                            bytesCopied += bytesRead;
+
+                            processValue.Value = (int)((bytesCopied * 100) / totalBytes);
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
