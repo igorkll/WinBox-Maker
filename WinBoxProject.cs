@@ -19,7 +19,7 @@ namespace WinBox_Maker
         public WinBoxConfig winBoxConfig;
         string wnbFilePath;
         string baseDirectoryPath;
-        string buildDirectoryPath;
+        public string buildDirectoryPath;
         string resourcesDirectoryPath;
         string bigResourcesDirectoryPath;
         string tempDirectoryPath;
@@ -149,7 +149,6 @@ namespace WinBox_Maker
         public async Task LoadWindowsImageAsync(Label processName, ProgressBar processValue)
         {
             if (winBoxConfig.BaseWindowsImage == null) return;
-
             string BaseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
 
             processName.Text = "Extracting install.wim";
@@ -208,8 +207,15 @@ namespace WinBox_Maker
             return windowsVersions.ToArray();
         }
 
-        public async Task BuildIsoAsync(string exportPath)
+        public async Task BuildIsoAsync(Label processName, ProgressBar processValue, string exportPath)
         {
+            if (winBoxConfig.BaseWindowsImage == null) return;
+            string BaseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
+
+            processName.Text = "Copying an image file";
+            await Program.CopyFileAsync(BaseWindowsImageFullPath, exportPath, processValue);
+
+            //processName.Text = "";
             
         }
     }

@@ -1,6 +1,8 @@
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Net.WebRequestMethods;
 
 namespace WinBox_Maker
 {
@@ -18,13 +20,13 @@ namespace WinBox_Maker
             UnlockForm();
             if (winBoxProject.NeedLoadWindows())
             {
-                UpdateText();
+                UpdateGui();
                 LoadWindowsTask();
             }
             else
             {
                 UpdateWindowsVersionsList();
-                UpdateText();
+                UpdateGui();
             }
         }
 
@@ -36,6 +38,7 @@ namespace WinBox_Maker
             {
                 control.Enabled = true;
             }
+            UpdateGui();
         }
 
         void LockForm()
@@ -55,12 +58,27 @@ namespace WinBox_Maker
             await winBoxProject.LoadWindowsImageAsync(ProcessName, ProcessValue);
             UnlockForm();
             UpdateWindowsVersionsList();
-            UpdateText();
+            UpdateGui();
         }
 
-        private void StartBuild_Click(object sender, EventArgs e)
+        private async void ExportIsoInstaller_Click(object sender, EventArgs e)
         {
-            ProcessValue.Value = 30;
+            LockForm();
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.InitialDirectory = winBoxProject.buildDirectoryPath;
+                saveFileDialog.Filter = "WinBox installer (*.iso)|*.iso";
+                saveFileDialog.Title = $"Save you WinBox installer ({winBoxProject.winBoxConfig.WinboxName})";
+                saveFileDialog.DefaultExt = "iso";
+                saveFileDialog.FileName = winBoxProject.winBoxConfig.WinboxName;
+                saveFileDialog.AddExtension = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    await winBoxProject.BuildIsoAsync(ProcessName, ProcessValue, saveFileDialog.FileName);
+                }
+            }
+            UnlockForm();
         }
 
         private async void WindowsSelect_Click(object sender, EventArgs e)
@@ -73,7 +91,7 @@ namespace WinBox_Maker
                 winBoxProject.UnloadWindowsImage();
                 winBoxProject.winBoxConfig.BaseWindowsImage = name;
                 winBoxProject.SaveConfig();
-                UpdateText();
+                UpdateGui();
                 LoadWindowsTask();
             }
         }
@@ -85,7 +103,7 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.BaseWindowsVersion = null;
             winBoxProject.winBoxConfig.BaseWindowsImage = null;
             winBoxProject.SaveConfig();
-            UpdateText();
+            UpdateGui();
         }
 
         private void WindowsVersionSelect_TextChanged(object sender, EventArgs e)
@@ -98,16 +116,16 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.BaseWindowsVersion = WindowsVersionSelect.Text;
             winBoxProject.SaveConfig();
-            UpdateText();
+            UpdateGui();
         }
 
         private void WindowsVersionUpdate_Click(object sender, EventArgs e)
         {
             UpdateWindowsVersionsList();
-            UpdateText();
+            UpdateGui();
         }
 
-        void UpdateText()
+        void UpdateGui()
         {
             WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "not selected";
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
@@ -127,6 +145,31 @@ namespace WinBox_Maker
                     }
                 }
             }
+
+            bool canExport = true;
+            if (winBoxProject.winBoxConfig.BaseWindowsImage == null || winBoxProject.winBoxConfig.BaseWindowsVersion == null)
+            {
+                canExport = false;
+            }
+            if (canExport)
+            {
+                bool exists = false;
+                WindowsDescription[] localWindowsDescriptions = winBoxProject.GetWindowsDescriptions();
+                foreach (WindowsDescription item in localWindowsDescriptions)
+                {
+                    if (item.name == winBoxProject.winBoxConfig.BaseWindowsVersion)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists)
+                {
+                    canExport = false;
+                }
+            }
+
+            ExportIsoInstaller.Enabled = canExport;
         }
 
         void UpdateWindowsVersionsList()
@@ -190,7 +233,7 @@ namespace WinBox_Maker
             WindowsVersionSelect.Items.Clear();
             winBoxProject.winBoxConfig.BaseWindowsVersion = null;
             winBoxProject.SaveConfig();
-            UpdateText();
+            UpdateGui();
         }
 
         private void WinboxName_TextChanged(object sender, EventArgs e)

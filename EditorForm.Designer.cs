@@ -67,7 +67,7 @@
             ExportIsoInstaller.TabIndex = 1;
             ExportIsoInstaller.Text = "export iso installer";
             ExportIsoInstaller.UseVisualStyleBackColor = true;
-            ExportIsoInstaller.Click += StartBuild_Click;
+            ExportIsoInstaller.Click += ExportIsoInstaller_Click;
             // 
             // splitContainer1
             // 
