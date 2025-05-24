@@ -7,6 +7,7 @@ namespace WinBox_Maker
     {
         const string defaultProcessName = "not busy";
         WinBoxProject winBoxProject;
+        WindowsDescription[]? windowsDescriptions;
 
         public EditorForm(WinBoxProject winBoxProject)
         {
@@ -28,8 +29,7 @@ namespace WinBox_Maker
 
         async void LoadWindowsTask()
         {
-            ProcessName.Text = "extracting install.wim";
-            await winBoxProject.LoadWindowsImageAsync(ProcessValue);
+            await winBoxProject.LoadWindowsImageAsync(ProcessName, ProcessValue);
             ProcessName.Text = defaultProcessName;
             ProcessValue.Value = 0;
             UpdateWindowsVersionsList();
@@ -87,6 +87,18 @@ namespace WinBox_Maker
         {
             WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "not selected";
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
+            WindowsDescription.Text = "";
+            if (windowsDescriptions != null && winBoxProject.winBoxConfig.BaseWindowsVersion != null)
+            {
+                foreach (WindowsDescription windowsDescription in windowsDescriptions)
+                {
+                    if (windowsDescription.name == winBoxProject.winBoxConfig.BaseWindowsVersion)
+                    {
+                        WindowsDescription.Text = windowsDescription.name;
+                        break;
+                    }
+                }
+            }
         }
 
         void UpdateWindowsVersionsList()
@@ -100,13 +112,13 @@ namespace WinBox_Maker
 
             try
             {
-                string[] windowsVersions = winBoxProject.GetWindowsVersions();
+                windowsDescriptions = winBoxProject.GetWindowsDescriptions();
                 WindowsVersionSelect.Items.Clear();
                 bool exists = false;
-                foreach (string item in windowsVersions)
+                foreach (WindowsDescription item in windowsDescriptions)
                 {
-                    WindowsVersionSelect.Items.Add(item);
-                    if (item.ToString() == winBoxProject.winBoxConfig.BaseWindowsVersion)
+                    WindowsVersionSelect.Items.Add(item.name);
+                    if (item.name == winBoxProject.winBoxConfig.BaseWindowsVersion)
                     {
                         exists = true;
                     }
@@ -117,18 +129,18 @@ namespace WinBox_Maker
                     if (WindowsVersionSelect.Items.Count > 0)
                     {
                         bool findedPro = false;
-                        foreach (string item in windowsVersions)
+                        foreach (WindowsDescription item in windowsDescriptions)
                         {
-                            if (item.EndsWith("pro", StringComparison.OrdinalIgnoreCase))
+                            if (item.name.EndsWith("pro", StringComparison.OrdinalIgnoreCase))
                             {
-                                winBoxProject.winBoxConfig.BaseWindowsVersion = item;
+                                winBoxProject.winBoxConfig.BaseWindowsVersion = item.name;
                                 findedPro = true;
                             }
                         }
 
                         if (!findedPro)
                         {
-                            winBoxProject.winBoxConfig.BaseWindowsVersion = windowsVersions[0];
+                            winBoxProject.winBoxConfig.BaseWindowsVersion = windowsDescriptions[0].name;
                         }
                     }
                     else

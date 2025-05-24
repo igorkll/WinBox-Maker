@@ -146,8 +146,11 @@ namespace WinBox_Maker
             return winBoxConfig.BaseWindowsImage != null && !File.Exists(unpackedWimFile);
         }
 
-        public async Task LoadWindowsImageAsync(ProgressBar processValue)
+        public async Task LoadWindowsImageAsync(Label processName, ProgressBar processValue)
         {
+            if (winBoxConfig.BaseWindowsImage == null) return;
+
+            processName.Text = "extracting install.wim";
             using (FileStream isoStream = File.Open(winBoxConfig.BaseWindowsImage, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 UdfReader cd = new UdfReader(isoStream);
@@ -180,9 +183,9 @@ namespace WinBox_Maker
             }
         }
 
-        public string[] GetWindowsVersions()
+        public WindowsDescription[] GetWindowsDescriptions()
         {
-            List<string> windowsVersions = new List<string>();
+            List<WindowsDescription> windowsVersions = new List<WindowsDescription>();
 
             using (Wim wimHandle = Wim.OpenWim(unpackedWimFile, OpenFlags.None))
             {
@@ -192,7 +195,11 @@ namespace WinBox_Maker
                     //Console.WriteLine($"Image Index: {i}");
                     //Console.WriteLine($"Name: {wimHandle.GetImageName(i)}");
                     //Console.WriteLine($"Description: {wimHandle.GetImageDescription(i)}");
-                    windowsVersions.Add(wimHandle.GetImageName(i) ?? "failed to read image name");
+                    WindowsDescription windowVersion = new WindowsDescription {
+                        name = wimHandle.GetImageName(i) ?? "failed to read windows name",
+                        description = wimHandle.GetImageDescription(i) ?? "failed to read windows description"
+                    };
+                    windowsVersions.Add(windowVersion);
                 }
             }
 

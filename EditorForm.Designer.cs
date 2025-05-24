@@ -38,6 +38,7 @@
             WindowsVersionUpdate = new Button();
             WindowsVersionClear = new Button();
             ProcessName = new Label();
+            WindowsDescription = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -149,12 +150,22 @@
             ProcessName.TabIndex = 10;
             ProcessName.Text = "process name";
             // 
+            // WindowsDescription
+            // 
+            WindowsDescription.Location = new Point(11, 91);
+            WindowsDescription.Name = "WindowsDescription";
+            WindowsDescription.ReadOnly = true;
+            WindowsDescription.Size = new Size(304, 178);
+            WindowsDescription.TabIndex = 11;
+            WindowsDescription.Text = "";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1002, 712);
+            Controls.Add(WindowsDescription);
             Controls.Add(ProcessName);
             Controls.Add(WindowsVersionClear);
             Controls.Add(WindowsVersionUpdate);
@@ -187,5 +198,6 @@
         private Button WindowsVersionUpdate;
         private Button WindowsVersionClear;
         private Label ProcessName;
+        private RichTextBox WindowsDescription;
     }
 }
