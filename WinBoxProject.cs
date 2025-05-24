@@ -24,6 +24,7 @@ namespace WinBox_Maker
         string bigResourcesDirectoryPath;
         string tempDirectoryPath;
         string unpackedWimFile;
+        string copiedWimFile;
         string name;
         string? err;
 
@@ -37,6 +38,7 @@ namespace WinBox_Maker
             bigResourcesDirectoryPath = Path.Combine(baseDirectoryPath, bigResourcesDirectoryName);
             tempDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_temp");
             unpackedWimFile = Path.Combine(tempDirectoryPath, "base_install.wim");
+            copiedWimFile = Path.Combine(tempDirectoryPath, "new_install.wim");
             name = Path.GetFileName(baseDirectoryPath);
 
             if (File.Exists(wnbFilePath))
@@ -207,13 +209,34 @@ namespace WinBox_Maker
             return windowsVersions.ToArray();
         }
 
-        public async Task BuildIsoAsync(Label processName, ProgressBar processValue, string exportPath)
+        public async Task BuildIsoAsync(Label processName, ProgressBar processValue, string exportPath, WindowsDescription newWindowsDescription)
         {
-            if (winBoxConfig.BaseWindowsImage == null) return;
-            string BaseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
+            if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
+            string baseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
+
+            processName.Text = "Copying an install.wim file";
+            await Program.CopyFileAsync(unpackedWimFile, copiedWimFile, processValue);
+
+            processName.Text = "Modification of install.wim";
+            using (Wim wimHandle = Wim.OpenWim(copiedWimFile, OpenFlags.None))
+            {
+                WimInfo wimInfo = wimHandle.GetWimInfo();
+                for (int i = (int)wimInfo.ImageCount; i >= 1; i--)
+                {
+                    if (wimHandle.GetImageName(i) == winBoxConfig.BaseWindowsVersion)
+                    {
+                        wimHandle.SetImageName(i, newWindowsDescription.name);
+                        wimHandle.SetImageDescription(i, newWindowsDescription.description);
+                    }
+                    else
+                    {
+                        wimHandle.DeleteImage(i);
+                    }
+                }
+            }
 
             processName.Text = "Copying an image file";
-            await Program.CopyFileAsync(BaseWindowsImageFullPath, exportPath, processValue);
+            await Program.CopyFileAsync(baseWindowsImageFullPath, exportPath, processValue);
 
             //processName.Text = "";
             

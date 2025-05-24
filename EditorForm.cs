@@ -75,7 +75,11 @@ namespace WinBox_Maker
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    await winBoxProject.BuildIsoAsync(ProcessName, ProcessValue, saveFileDialog.FileName);
+                    WindowsDescription windowsDescription = new WindowsDescription {
+                        name = winBoxProject.winBoxConfig.WinboxName,
+                        description = winBoxProject.winBoxConfig.WinboxDescription
+                    };
+                    await winBoxProject.BuildIsoAsync(ProcessName, ProcessValue, saveFileDialog.FileName, windowsDescription);
                 }
             }
             UnlockForm();
