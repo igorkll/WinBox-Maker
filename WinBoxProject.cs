@@ -150,8 +150,10 @@ namespace WinBox_Maker
         {
             if (winBoxConfig.BaseWindowsImage == null) return;
 
+            string BaseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
+
             processName.Text = "Extracting install.wim";
-            using (FileStream isoStream = File.Open(winBoxConfig.BaseWindowsImage, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (FileStream isoStream = File.Open(BaseWindowsImageFullPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 UdfReader cd = new UdfReader(isoStream);
                 using (var wimFile = cd.OpenFile(@"sources\install.wim", FileMode.Open, FileAccess.Read))
