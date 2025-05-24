@@ -31,6 +31,7 @@ namespace WinBox_Maker
             ProcessName.Text = "extracting install.wim";
             await winBoxProject.LoadWindowsImageAsync(ProcessValue);
             ProcessName.Text = defaultProcessName;
+            ProcessValue.Value = 0;
             UpdateWindowsVersionsList();
             UpdateText();
         }
