@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace WinBox_Maker
         //public List<string>? Resources { get; set; }
         public string? BaseWindowsImage { get; set; }
         public string? BaseWindowsVersion { get; set; }
+        public string? WinboxName { get; set; }
+        public string? WinboxDescription { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -20,6 +23,8 @@ namespace WinBox_Maker
         void InitDefaults()
         {
             //if (Resources == null) Resources = new List<string>();
+            if (WinboxName == null) WinboxName = "Winbox Name";
+            if (WinboxDescription == null) WinboxDescription = "Winbox Description";
         }
 
         public void Save(string wnbFilePath)

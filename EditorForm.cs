@@ -87,6 +87,10 @@ namespace WinBox_Maker
         {
             WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "not selected";
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
+
+            WinboxName.Text = winBoxProject.winBoxConfig.WinboxName;
+            WinboxDescription.Text = winBoxProject.winBoxConfig.WinboxDescription;
+
             WindowsDescription.Text = "";
             if (windowsDescriptions != null && winBoxProject.winBoxConfig.BaseWindowsVersion != null)
             {
@@ -163,6 +167,18 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.BaseWindowsVersion = null;
             winBoxProject.SaveConfig();
             UpdateText();
+        }
+
+        private void WinboxName_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.WinboxName = WinboxName.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void WinboxDescription_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.WinboxDescription = WinboxDescription.Text;
+            winBoxProject.SaveConfig();
         }
     }
 }

@@ -40,6 +40,9 @@
             ProcessName = new Label();
             WindowsDescription = new RichTextBox();
             label1 = new Label();
+            label2 = new Label();
+            WinboxName = new TextBox();
+            WinboxDescription = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -154,7 +157,7 @@
             // 
             // WindowsDescription
             // 
-            WindowsDescription.BackColor = Color.Silver;
+            WindowsDescription.BackColor = SystemColors.Window;
             WindowsDescription.Location = new Point(11, 129);
             WindowsDescription.Name = "WindowsDescription";
             WindowsDescription.ReadOnly = true;
@@ -172,12 +175,42 @@
             label1.TabIndex = 12;
             label1.Text = "Base windows";
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(12, 310);
+            label2.Name = "label2";
+            label2.Size = new Size(188, 38);
+            label2.TabIndex = 13;
+            label2.Text = "New windows";
+            // 
+            // WinboxName
+            // 
+            WinboxName.Location = new Point(12, 351);
+            WinboxName.Name = "WinboxName";
+            WinboxName.Size = new Size(303, 31);
+            WinboxName.TabIndex = 14;
+            WinboxName.TextChanged += WinboxName_TextChanged;
+            // 
+            // WinboxDescription
+            // 
+            WinboxDescription.Location = new Point(11, 388);
+            WinboxDescription.Name = "WinboxDescription";
+            WinboxDescription.Size = new Size(303, 178);
+            WinboxDescription.TabIndex = 15;
+            WinboxDescription.Text = "";
+            WinboxDescription.TextChanged += WinboxDescription_TextChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1002, 712);
+            Controls.Add(WinboxDescription);
+            Controls.Add(WinboxName);
+            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(WindowsDescription);
             Controls.Add(ProcessName);
@@ -214,5 +247,8 @@
         private Label ProcessName;
         private RichTextBox WindowsDescription;
         private Label label1;
+        private Label label2;
+        private TextBox WinboxName;
+        private RichTextBox WinboxDescription;
     }
 }
