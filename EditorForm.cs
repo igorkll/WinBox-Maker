@@ -94,7 +94,7 @@ namespace WinBox_Maker
                 {
                     if (windowsDescription.name == winBoxProject.winBoxConfig.BaseWindowsVersion)
                     {
-                        WindowsDescription.Text = windowsDescription.name;
+                        WindowsDescription.Text = windowsDescription.description;
                         break;
                     }
                 }

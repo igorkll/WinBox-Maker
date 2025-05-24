@@ -39,6 +39,7 @@
             WindowsVersionClear = new Button();
             ProcessName = new Label();
             WindowsDescription = new RichTextBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -85,7 +86,7 @@
             // 
             // WindowsSelect
             // 
-            WindowsSelect.Location = new Point(12, 12);
+            WindowsSelect.Location = new Point(12, 50);
             WindowsSelect.Name = "WindowsSelect";
             WindowsSelect.Size = new Size(303, 34);
             WindowsSelect.TabIndex = 4;
@@ -96,7 +97,7 @@
             // WindowsName
             // 
             WindowsName.AutoSize = true;
-            WindowsName.Location = new Point(439, 17);
+            WindowsName.Location = new Point(439, 55);
             WindowsName.Name = "WindowsName";
             WindowsName.Size = new Size(178, 25);
             WindowsName.TabIndex = 5;
@@ -104,7 +105,7 @@
             // 
             // WindowsClear
             // 
-            WindowsClear.Location = new Point(321, 12);
+            WindowsClear.Location = new Point(321, 50);
             WindowsClear.Name = "WindowsClear";
             WindowsClear.Size = new Size(112, 34);
             WindowsClear.TabIndex = 6;
@@ -115,7 +116,7 @@
             // WindowsVersionSelect
             // 
             WindowsVersionSelect.FormattingEnabled = true;
-            WindowsVersionSelect.Location = new Point(12, 52);
+            WindowsVersionSelect.Location = new Point(12, 90);
             WindowsVersionSelect.Name = "WindowsVersionSelect";
             WindowsVersionSelect.Size = new Size(303, 33);
             WindowsVersionSelect.TabIndex = 7;
@@ -123,7 +124,7 @@
             // 
             // WindowsVersionUpdate
             // 
-            WindowsVersionUpdate.Location = new Point(439, 52);
+            WindowsVersionUpdate.Location = new Point(439, 90);
             WindowsVersionUpdate.Name = "WindowsVersionUpdate";
             WindowsVersionUpdate.Size = new Size(112, 34);
             WindowsVersionUpdate.TabIndex = 8;
@@ -133,7 +134,7 @@
             // 
             // WindowsVersionClear
             // 
-            WindowsVersionClear.Location = new Point(321, 52);
+            WindowsVersionClear.Location = new Point(321, 90);
             WindowsVersionClear.Name = "WindowsVersionClear";
             WindowsVersionClear.Size = new Size(112, 34);
             WindowsVersionClear.TabIndex = 9;
@@ -143,6 +144,7 @@
             // 
             // ProcessName
             // 
+            ProcessName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ProcessName.AutoSize = true;
             ProcessName.Location = new Point(12, 625);
             ProcessName.Name = "ProcessName";
@@ -152,12 +154,23 @@
             // 
             // WindowsDescription
             // 
-            WindowsDescription.Location = new Point(11, 91);
+            WindowsDescription.BackColor = Color.Silver;
+            WindowsDescription.Location = new Point(11, 129);
             WindowsDescription.Name = "WindowsDescription";
             WindowsDescription.ReadOnly = true;
             WindowsDescription.Size = new Size(304, 178);
             WindowsDescription.TabIndex = 11;
             WindowsDescription.Text = "";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(189, 38);
+            label1.TabIndex = 12;
+            label1.Text = "Base windows";
             // 
             // EditorForm
             // 
@@ -165,6 +178,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1002, 712);
+            Controls.Add(label1);
             Controls.Add(WindowsDescription);
             Controls.Add(ProcessName);
             Controls.Add(WindowsVersionClear);
@@ -199,5 +213,6 @@
         private Button WindowsVersionClear;
         private Label ProcessName;
         private RichTextBox WindowsDescription;
+        private Label label1;
     }
 }
