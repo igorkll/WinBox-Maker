@@ -116,7 +116,7 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.BaseWindowsVersion = WindowsVersionSelect.Text;
             winBoxProject.SaveConfig();
-            UpdateGui();
+            UpdateGuiWithoutWindowsVersion();
         }
 
         private void WindowsVersionUpdate_Click(object sender, EventArgs e)
@@ -124,11 +124,10 @@ namespace WinBox_Maker
             UpdateWindowsVersionsList();
             UpdateGui();
         }
-
-        void UpdateGui()
+        
+        void UpdateGuiWithoutWindowsVersion()
         {
             WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "not selected";
-            WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
 
             WinboxName.Text = winBoxProject.winBoxConfig.WinboxName;
             WinboxDescription.Text = winBoxProject.winBoxConfig.WinboxDescription;
@@ -170,6 +169,12 @@ namespace WinBox_Maker
             }
 
             ExportIsoInstaller.Enabled = canExport;
+        }
+
+        void UpdateGui()
+        {
+            WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
+            UpdateGuiWithoutWindowsVersion();
         }
 
         void UpdateWindowsVersionsList()
