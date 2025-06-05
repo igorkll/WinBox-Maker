@@ -7,7 +7,7 @@ namespace WinBox_Maker
     internal static class Program
     {
         public const string version = "WinBox-Maker 0.0";
-        public const string logichubUrl = "https://igorkll.github.io/logichub/";
+        public const string logichubUrl = "https://igorkll.github.io/logichub/index.html";
         public static Form openProjectForm;
         static bool isClosingProgrammatically = false;
 

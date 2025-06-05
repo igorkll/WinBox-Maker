@@ -258,7 +258,12 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
         }
 
-        private void logichub_Click(object sender, EventArgs e)
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Program.OpenWebPage(Program.logichubUrl + "#winbox");
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
         {
             Program.OpenWebPage(Program.logichubUrl);
         }

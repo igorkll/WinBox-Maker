@@ -44,11 +44,14 @@
             label2 = new Label();
             WinboxName = new TextBox();
             WinboxDescription = new RichTextBox();
-            logichub = new Button();
+            pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // ProcessValue
@@ -204,16 +207,29 @@
             WinboxDescription.Text = "";
             WinboxDescription.TextChanged += WinboxDescription_TextChanged;
             // 
-            // logichub
+            // pictureBox1
             // 
-            logichub.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            logichub.Image = (Image)resources.GetObject("logichub.Image");
-            logichub.Location = new Point(855, 9);
-            logichub.Name = "logichub";
-            logichub.Size = new Size(128, 128);
-            logichub.TabIndex = 16;
-            logichub.UseVisualStyleBackColor = true;
-            logichub.Click += logichub_Click;
+            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(862, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(128, 128);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 17;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(862, 146);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(128, 128);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 18;
+            pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
             // 
             // EditorForm
             // 
@@ -221,7 +237,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1002, 712);
-            Controls.Add(logichub);
+            Controls.Add(pictureBox2);
+            Controls.Add(pictureBox1);
             Controls.Add(WinboxDescription);
             Controls.Add(WinboxName);
             Controls.Add(label2);
@@ -244,6 +261,8 @@
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -265,6 +284,7 @@
         private Label label2;
         private TextBox WinboxName;
         private RichTextBox WinboxDescription;
-        private Button logichub;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
     }
 }
