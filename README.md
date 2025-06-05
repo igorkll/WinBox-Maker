@@ -1,6 +1,7 @@
 # WinBox-Maker
 a tool for creating minimal embed versions of windows
 takes on the task of modifying the windows image to remove excess and embed software there
+the program needs to be run with administrator rights because it mounts images
 
 ## project structure
 * winbox.wnb - the main project file. contains all settings and paths

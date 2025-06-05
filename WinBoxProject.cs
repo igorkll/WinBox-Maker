@@ -221,6 +221,7 @@ namespace WinBox_Maker
             await Program.CopyFileAsync(unpackedWimFile, newWimFile, processValue);
 
             processName.Text = "Modification of install.wim";
+            processValue.Value = 50;
             await Task.Run(() =>
             {
                 using (Wim wimHandle = Wim.OpenWim(newWimFile, OpenFlags.None))
@@ -238,7 +239,6 @@ namespace WinBox_Maker
                             wimHandle.DeleteImage(i);
                         }
                     }
-                    processValue.Value = 50;
                     wimHandle.Overwrite(WriteFlags.None, Wim.DefaultThreads);
                 }
             });
