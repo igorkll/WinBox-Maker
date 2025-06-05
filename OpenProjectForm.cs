@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -69,6 +70,11 @@ namespace WinBox_Maker
                     }
                 }
             }
+        }
+
+        private void logichub_Click(object sender, EventArgs e)
+        {
+            Program.OpenWebPage("https://igorkll.github.io/logichub/");
         }
     }
 }

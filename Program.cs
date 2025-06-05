@@ -1,11 +1,12 @@
 using ManagedWimLib;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace WinBox_Maker
 {
     internal static class Program
     {
-        public static string version = "WinBox-Maker 0.0.0";
+        public static string version = "WinBox-Maker 0.0";
         public static Form openProjectForm;
         static bool isClosingProgrammatically = false;
 
@@ -137,6 +138,11 @@ namespace WinBox_Maker
                     progressBar.Value = (int)((bytesCopied * 100) / totalBytes);
                 }
             }
+        }
+
+        public static void OpenWebPage(string url)
+        {
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
         }
     }
 }
