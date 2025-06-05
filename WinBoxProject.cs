@@ -297,6 +297,7 @@ namespace WinBox_Maker
 
             await MakeModWim(processName, processValue, newWindowsDescription);
 
+            /*
             processName.Text = "Copying an image file";
             await Program.CopyFileAsync(baseWindowsImageFullPath, exportPath, processValue);
 
@@ -324,7 +325,7 @@ namespace WinBox_Maker
                     }
                 }
             }
-
+            */
         }
     }
 }
