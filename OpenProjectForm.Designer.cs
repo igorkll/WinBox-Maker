@@ -33,7 +33,11 @@
             OpenProject = new Button();
             NewProject = new Button();
             logichub = new Button();
+            pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
             tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -45,6 +49,8 @@
             tableLayoutPanel1.Controls.Add(OpenProject, 0, 1);
             tableLayoutPanel1.Controls.Add(NewProject, 1, 1);
             tableLayoutPanel1.Controls.Add(logichub, 2, 0);
+            tableLayoutPanel1.Controls.Add(pictureBox1, 0, 0);
+            tableLayoutPanel1.Controls.Add(pictureBox2, 1, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -89,16 +95,41 @@
             logichub.UseVisualStyleBackColor = true;
             logichub.Click += logichub_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(3, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(326, 293);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 3;
+            pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(335, 3);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(327, 293);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 4;
+            pictureBox2.TabStop = false;
+            // 
             // OpenProjectForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(tableLayoutPanel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "OpenProjectForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "OpenProject";
             tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 
@@ -108,5 +139,7 @@
         private Button OpenProject;
         private Button NewProject;
         private Button logichub;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
     }
 }

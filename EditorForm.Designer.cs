@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
             ProcessValue = new ProgressBar();
             ExportIsoInstaller = new Button();
             splitContainer1 = new SplitContainer();
@@ -43,6 +44,7 @@
             label2 = new Label();
             WinboxName = new TextBox();
             WinboxDescription = new RichTextBox();
+            logichub = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -202,12 +204,24 @@
             WinboxDescription.Text = "";
             WinboxDescription.TextChanged += WinboxDescription_TextChanged;
             // 
+            // logichub
+            // 
+            logichub.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            logichub.Image = (Image)resources.GetObject("logichub.Image");
+            logichub.Location = new Point(855, 9);
+            logichub.Name = "logichub";
+            logichub.Size = new Size(128, 128);
+            logichub.TabIndex = 16;
+            logichub.UseVisualStyleBackColor = true;
+            logichub.Click += logichub_Click;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1002, 712);
+            Controls.Add(logichub);
             Controls.Add(WinboxDescription);
             Controls.Add(WinboxName);
             Controls.Add(label2);
@@ -221,6 +235,7 @@
             Controls.Add(WindowsName);
             Controls.Add(WindowsSelect);
             Controls.Add(splitContainer1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(800, 400);
             Name = "EditorForm";
             StartPosition = FormStartPosition.CenterScreen;
@@ -250,5 +265,6 @@
         private Label label2;
         private TextBox WinboxName;
         private RichTextBox WinboxDescription;
+        private Button logichub;
     }
 }

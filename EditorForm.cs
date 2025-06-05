@@ -75,7 +75,8 @@ namespace WinBox_Maker
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    WindowsDescription windowsDescription = new WindowsDescription {
+                    WindowsDescription windowsDescription = new WindowsDescription
+                    {
                         name = winBoxProject.winBoxConfig.WinboxName,
                         description = winBoxProject.winBoxConfig.WinboxDescription
                     };
@@ -128,7 +129,7 @@ namespace WinBox_Maker
             UpdateWindowsVersionsList();
             UpdateGui();
         }
-        
+
         void UpdateGuiWithoutWindowsVersion()
         {
             WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "not selected";
@@ -255,6 +256,11 @@ namespace WinBox_Maker
         {
             winBoxProject.winBoxConfig.WinboxDescription = WinboxDescription.Text;
             winBoxProject.SaveConfig();
+        }
+
+        private void logichub_Click(object sender, EventArgs e)
+        {
+            Program.OpenWebPage(Program.logichubUrl);
         }
     }
 }

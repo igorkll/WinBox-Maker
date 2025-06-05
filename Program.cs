@@ -6,7 +6,8 @@ namespace WinBox_Maker
 {
     internal static class Program
     {
-        public static string version = "WinBox-Maker 0.0";
+        public const string version = "WinBox-Maker 0.0";
+        public const string logichubUrl = "https://igorkll.github.io/logichub/";
         public static Form openProjectForm;
         static bool isClosingProgrammatically = false;
 
@@ -49,11 +50,20 @@ namespace WinBox_Maker
 
             string libPath = null;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
                 libPath = Path.Combine(libBaseDir, libDir, "libwim-15.dll");
+                if (!File.Exists(libPath)) {
+                    libPath = Path.Combine(libBaseDir, "libwim-15.dll");
+                }
+            }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
                 libPath = Path.Combine(libBaseDir, libDir, "libwim.so");
+            }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
                 libPath = Path.Combine(libBaseDir, libDir, "libwim.dylib");
+            }
 
             if (libPath == null)
                 throw new PlatformNotSupportedException($"Unable to find native library.");
