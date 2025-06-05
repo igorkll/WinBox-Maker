@@ -249,8 +249,8 @@ namespace WinBox_Maker
                 Process process = new Process();
                 process.StartInfo.FileName = "dism.exe";
                 process.StartInfo.Arguments = $"/Mount-Wim /WimFile:\"{newWimFile}\" /index:1 /MountDir:\"{wimMountPath}\"";
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.RedirectStandardError = true;
+                //process.StartInfo.RedirectStandardOutput = true;
+                //process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
 
