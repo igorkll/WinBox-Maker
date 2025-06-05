@@ -27,7 +27,7 @@ namespace WinBox_Maker
         string bigResourcesDirectoryPath;
         string tempDirectoryPath;
         string unpackedWimFile;
-        string copiedWimFile;
+        string newWimFile;
         string wimMountPath;
         string name;
         string? err;
@@ -42,7 +42,7 @@ namespace WinBox_Maker
             bigResourcesDirectoryPath = Path.Combine(baseDirectoryPath, bigResourcesDirectoryName);
             tempDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_temp");
             unpackedWimFile = Path.Combine(tempDirectoryPath, "base_install.wim");
-            copiedWimFile = Path.Combine(tempDirectoryPath, "new_install.wim");
+            newWimFile = Path.Combine(tempDirectoryPath, "new_install.wim");
             wimMountPath = Path.Combine(tempDirectoryPath, "wim_mount");
             name = Path.GetFileName(baseDirectoryPath);
 
@@ -218,12 +218,12 @@ namespace WinBox_Maker
         public async Task MakeModWim(Label processName, ProgressBar processValue, WindowsDescription newWindowsDescription)
         {
             processName.Text = "Copying an install.wim file";
-            await Program.CopyFileAsync(unpackedWimFile, copiedWimFile, processValue);
+            await Program.CopyFileAsync(unpackedWimFile, newWimFile, processValue);
 
             processName.Text = "Modification of install.wim";
             await Task.Run(() =>
             {
-                using (Wim wimHandle = Wim.OpenWim(copiedWimFile, OpenFlags.None))
+                using (Wim wimHandle = Wim.OpenWim(newWimFile, OpenFlags.None))
                 {
                     WimInfo wimInfo = wimHandle.GetWimInfo();
                     for (int i = (int)wimInfo.ImageCount; i >= 1; i--)
@@ -248,7 +248,7 @@ namespace WinBox_Maker
             {
                 Process process = new Process();
                 process.StartInfo.FileName = "dism.exe";
-                process.StartInfo.Arguments = $"/Mount-Wim /WimFile:\"{copiedWimFile}\" /index:1 /MountDir:\"{wimMountPath}\"";
+                process.StartInfo.Arguments = $"/Mount-Wim /WimFile:\"{newWimFile}\" /index:1 /MountDir:\"{wimMountPath}\"";
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.UseShellExecute = false;
