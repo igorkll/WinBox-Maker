@@ -1,5 +1,6 @@
 using ManagedWimLib;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace WinBox_Maker
@@ -12,12 +13,56 @@ namespace WinBox_Maker
         static bool isClosingProgrammatically = false;
 
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             ApplicationConfiguration.Initialize();
             InitLibwim();
+
+            if (args.Length > 0)
+            {
+                string inputPath = args[0];
+                if (File.Exists(inputPath))
+                {
+                    consoleConvert(inputPath);
+                }
+                else if (Directory.Exists(inputPath))
+                {
+                    string[] files = Directory.GetFiles(inputPath, "*.wnb");
+                    if (files.Length > 0)
+                    {
+                        foreach (string file in files)
+                        {
+                            consoleConvert(file);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("there are no *.wnb files in the specified directory");
+                    }
+                }
+                else
+                {
+                    Console.Error.WriteLine("the input path is not a *.wnb file or a directory containing *.wnb files");
+                }
+
+                return;
+            }
+
             openProjectForm = new OpenProjectForm();
             Application.Run(openProjectForm);
+        }
+
+        static void consoleConvert(string path)
+        {
+            WinBoxProject winBoxProject = new WinBoxProject(path);
+            string? err = winBoxProject.GetError();
+            if (err != null)
+            {
+                Console.Error.WriteLine(err);
+                return;
+            }
+
+            WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
         }
 
         static void InitLibwim()

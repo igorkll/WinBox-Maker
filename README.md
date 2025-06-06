@@ -12,3 +12,6 @@ the program is primarily aimed at creating Windows images for operation in kiosk
 * winbox_build - a folder for saving builds. You don't have to use it, but it's the path to save default images (added to by default .gitignore)
 * winbox_temp - it is used during the image build process (added to by default .gitignore)
 * winbox_bigResources - a directory for large resource files that are not unique but are downloaded from the outside, such as initial windows images that should not be included in git repository (added to by default .gitignore)
+
+## command line arguments
+1. the path to the file .wnb is for automatically starting conversion from the command line. if it points to a directory, it will convert all files .wnb in this directory

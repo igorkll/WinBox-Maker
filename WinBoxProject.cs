@@ -21,7 +21,7 @@ namespace WinBox_Maker
         const string bigResourcesDirectoryName = "winbox_bigResources";
         public WinBoxConfig winBoxConfig;
         string wnbFilePath;
-        string baseDirectoryPath;
+        public string baseDirectoryPath;
         public string buildDirectoryPath;
         string resourcesDirectoryPath;
         string bigResourcesDirectoryPath;

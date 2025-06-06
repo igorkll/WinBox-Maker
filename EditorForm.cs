@@ -199,6 +199,7 @@ namespace WinBox_Maker
             }
 
             ExportIsoInstaller.Enabled = canExport;
+            ExportInstallWim.Enabled = canExport;
         }
 
         void UpdateGui()
