@@ -35,9 +35,13 @@
             logichub = new Button();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
+            panel1 = new Panel();
+            LICENSE = new Button();
+            README = new Button();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -51,6 +55,7 @@
             tableLayoutPanel1.Controls.Add(logichub, 2, 0);
             tableLayoutPanel1.Controls.Add(pictureBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(pictureBox2, 1, 0);
+            tableLayoutPanel1.Controls.Add(panel1, 2, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -78,7 +83,7 @@
             NewProject.Location = new Point(362, 329);
             NewProject.Margin = new Padding(30);
             NewProject.Name = "NewProject";
-            NewProject.Size = new Size(273, 91);
+            NewProject.Size = new Size(272, 91);
             NewProject.TabIndex = 1;
             NewProject.Text = "New Project";
             NewProject.UseVisualStyleBackColor = true;
@@ -112,10 +117,42 @@
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
             pictureBox2.Location = new Point(335, 3);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(327, 293);
+            pictureBox2.Size = new Size(326, 293);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 4;
             pictureBox2.TabStop = false;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(LICENSE);
+            panel1.Controls.Add(README);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(667, 302);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(130, 145);
+            panel1.TabIndex = 5;
+            // 
+            // LICENSE
+            // 
+            LICENSE.Anchor = AnchorStyles.Bottom;
+            LICENSE.Location = new Point(9, 84);
+            LICENSE.Name = "LICENSE";
+            LICENSE.Size = new Size(112, 34);
+            LICENSE.TabIndex = 1;
+            LICENSE.Text = "LICENSE";
+            LICENSE.UseVisualStyleBackColor = true;
+            LICENSE.Click += LICENSE_Click;
+            // 
+            // README
+            // 
+            README.Anchor = AnchorStyles.Top;
+            README.Location = new Point(9, 27);
+            README.Name = "README";
+            README.Size = new Size(112, 34);
+            README.TabIndex = 0;
+            README.Text = "README";
+            README.UseVisualStyleBackColor = true;
+            README.Click += README_Click;
             // 
             // OpenProjectForm
             // 
@@ -130,6 +167,7 @@
             tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -141,5 +179,8 @@
         private Button logichub;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
+        private Panel panel1;
+        private Button LICENSE;
+        private Button README;
     }
 }

@@ -76,5 +76,17 @@ namespace WinBox_Maker
         {
             Program.OpenWebPage(Program.logichubUrl);
         }
+
+        private void README_Click(object sender, EventArgs e)
+        {
+            Form form = new TextViewer("README.md");
+            form.Show();
+        }
+
+        private void LICENSE_Click(object sender, EventArgs e)
+        {
+            Form form = new TextViewer("LICENSE.txt");
+            form.Show();
+        }
     }
 }
