@@ -213,7 +213,7 @@
             ExportIsoInstaller.Name = "ExportIsoInstaller";
             ExportIsoInstaller.Size = new Size(223, 37);
             ExportIsoInstaller.TabIndex = 20;
-            ExportIsoInstaller.Text = "export iso installer";
+            ExportIsoInstaller.Text = "export .iso installer";
             ExportIsoInstaller.UseVisualStyleBackColor = true;
             ExportIsoInstaller.Click += ExportIsoInstaller_Click;
             // 
