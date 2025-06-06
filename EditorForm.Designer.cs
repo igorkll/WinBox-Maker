@@ -46,13 +46,16 @@
             ExportInstallWim = new Button();
             ExportIsoInstaller = new Button();
             ProcessValue = new ProgressBar();
+            button1 = new Button();
+            button2 = new Button();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // WindowsSelect
             // 
-            WindowsSelect.Location = new Point(12, 50);
+            WindowsSelect.Location = new Point(12, 90);
             WindowsSelect.Name = "WindowsSelect";
             WindowsSelect.Size = new Size(303, 34);
             WindowsSelect.TabIndex = 4;
@@ -63,7 +66,7 @@
             // WindowsName
             // 
             WindowsName.AutoSize = true;
-            WindowsName.Location = new Point(439, 55);
+            WindowsName.Location = new Point(439, 95);
             WindowsName.Name = "WindowsName";
             WindowsName.Size = new Size(178, 25);
             WindowsName.TabIndex = 5;
@@ -71,7 +74,7 @@
             // 
             // WindowsClear
             // 
-            WindowsClear.Location = new Point(321, 50);
+            WindowsClear.Location = new Point(321, 90);
             WindowsClear.Name = "WindowsClear";
             WindowsClear.Size = new Size(112, 34);
             WindowsClear.TabIndex = 6;
@@ -82,7 +85,7 @@
             // WindowsVersionSelect
             // 
             WindowsVersionSelect.FormattingEnabled = true;
-            WindowsVersionSelect.Location = new Point(12, 90);
+            WindowsVersionSelect.Location = new Point(12, 130);
             WindowsVersionSelect.Name = "WindowsVersionSelect";
             WindowsVersionSelect.Size = new Size(303, 33);
             WindowsVersionSelect.TabIndex = 7;
@@ -90,7 +93,7 @@
             // 
             // WindowsVersionUpdate
             // 
-            WindowsVersionUpdate.Location = new Point(439, 90);
+            WindowsVersionUpdate.Location = new Point(439, 130);
             WindowsVersionUpdate.Name = "WindowsVersionUpdate";
             WindowsVersionUpdate.Size = new Size(112, 34);
             WindowsVersionUpdate.TabIndex = 8;
@@ -100,7 +103,7 @@
             // 
             // WindowsVersionClear
             // 
-            WindowsVersionClear.Location = new Point(321, 90);
+            WindowsVersionClear.Location = new Point(321, 130);
             WindowsVersionClear.Name = "WindowsVersionClear";
             WindowsVersionClear.Size = new Size(112, 34);
             WindowsVersionClear.TabIndex = 9;
@@ -121,7 +124,7 @@
             // WindowsDescription
             // 
             WindowsDescription.BackColor = SystemColors.Window;
-            WindowsDescription.Location = new Point(11, 129);
+            WindowsDescription.Location = new Point(11, 169);
             WindowsDescription.Name = "WindowsDescription";
             WindowsDescription.ReadOnly = true;
             WindowsDescription.Size = new Size(304, 178);
@@ -132,7 +135,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(12, 9);
+            label1.Location = new Point(12, 49);
             label1.Name = "label1";
             label1.Size = new Size(189, 38);
             label1.TabIndex = 12;
@@ -142,7 +145,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(12, 310);
+            label2.Location = new Point(12, 350);
             label2.Name = "label2";
             label2.Size = new Size(188, 38);
             label2.TabIndex = 13;
@@ -150,7 +153,7 @@
             // 
             // WinboxName
             // 
-            WinboxName.Location = new Point(12, 351);
+            WinboxName.Location = new Point(12, 391);
             WinboxName.Name = "WinboxName";
             WinboxName.Size = new Size(303, 31);
             WinboxName.TabIndex = 14;
@@ -158,7 +161,7 @@
             // 
             // WinboxDescription
             // 
-            WinboxDescription.Location = new Point(11, 388);
+            WinboxDescription.Location = new Point(11, 428);
             WinboxDescription.Name = "WinboxDescription";
             WinboxDescription.Size = new Size(303, 178);
             WinboxDescription.TabIndex = 15;
@@ -221,12 +224,42 @@
             ProcessValue.Size = new Size(1258, 37);
             ProcessValue.TabIndex = 21;
             // 
+            // button1
+            // 
+            button1.Location = new Point(12, 12);
+            button1.Name = "button1";
+            button1.Size = new Size(112, 34);
+            button1.TabIndex = 22;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(130, 12);
+            button2.Name = "button2";
+            button2.Size = new Size(112, 34);
+            button2.TabIndex = 23;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(248, 12);
+            button3.Name = "button3";
+            button3.Size = new Size(112, 34);
+            button3.TabIndex = 24;
+            button3.Text = "button3";
+            button3.UseVisualStyleBackColor = true;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1258, 712);
+            Controls.Add(button3);
+            Controls.Add(button2);
+            Controls.Add(button1);
             Controls.Add(ExportInstallWim);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
@@ -273,5 +306,8 @@
         private Button ExportInstallWim;
         private Button ExportIsoInstaller;
         private ProgressBar ProcessValue;
+        private Button button1;
+        private Button button2;
+        private Button button3;
     }
 }

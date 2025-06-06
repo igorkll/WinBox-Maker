@@ -71,7 +71,7 @@
             OpenProject.Location = new Point(30, 329);
             OpenProject.Margin = new Padding(30);
             OpenProject.Name = "OpenProject";
-            OpenProject.Size = new Size(272, 91);
+            OpenProject.Size = new Size(270, 91);
             OpenProject.TabIndex = 0;
             OpenProject.Text = "Open Project";
             OpenProject.UseVisualStyleBackColor = true;
@@ -80,10 +80,10 @@
             // NewProject
             // 
             NewProject.Dock = DockStyle.Fill;
-            NewProject.Location = new Point(362, 329);
+            NewProject.Location = new Point(360, 329);
             NewProject.Margin = new Padding(30);
             NewProject.Name = "NewProject";
-            NewProject.Size = new Size(272, 91);
+            NewProject.Size = new Size(271, 91);
             NewProject.TabIndex = 1;
             NewProject.Text = "New Project";
             NewProject.UseVisualStyleBackColor = true;
@@ -106,7 +106,7 @@
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(326, 293);
+            pictureBox1.Size = new Size(324, 293);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
@@ -115,9 +115,9 @@
             // 
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(335, 3);
+            pictureBox2.Location = new Point(333, 3);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(326, 293);
+            pictureBox2.Size = new Size(325, 293);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 4;
             pictureBox2.TabStop = false;
@@ -127,15 +127,15 @@
             panel1.Controls.Add(LICENSE);
             panel1.Controls.Add(README);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(667, 302);
+            panel1.Location = new Point(664, 302);
             panel1.Name = "panel1";
-            panel1.Size = new Size(130, 145);
+            panel1.Size = new Size(133, 145);
             panel1.TabIndex = 5;
             // 
             // LICENSE
             // 
             LICENSE.Anchor = AnchorStyles.Bottom;
-            LICENSE.Location = new Point(9, 84);
+            LICENSE.Location = new Point(10, 84);
             LICENSE.Name = "LICENSE";
             LICENSE.Size = new Size(112, 34);
             LICENSE.TabIndex = 1;
@@ -146,7 +146,7 @@
             // README
             // 
             README.Anchor = AnchorStyles.Top;
-            README.Location = new Point(9, 27);
+            README.Location = new Point(10, 27);
             README.Name = "README";
             README.Size = new Size(112, 34);
             README.TabIndex = 0;
@@ -161,6 +161,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(tableLayoutPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MinimumSize = new Size(700, 500);
             Name = "OpenProjectForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "OpenProject";
