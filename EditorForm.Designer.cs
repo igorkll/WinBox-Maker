@@ -49,6 +49,7 @@
             back = new Button();
             README = new Button();
             LICENSE = new Button();
+            ExportImgPartition = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -254,12 +255,23 @@
             LICENSE.UseVisualStyleBackColor = true;
             LICENSE.Click += LICENSE_Click;
             // 
+            // ExportImgPartition
+            // 
+            ExportImgPartition.Location = new Point(1023, 549);
+            ExportImgPartition.Name = "ExportImgPartition";
+            ExportImgPartition.Size = new Size(223, 34);
+            ExportImgPartition.TabIndex = 25;
+            ExportImgPartition.Text = "export .img partition";
+            ExportImgPartition.UseVisualStyleBackColor = true;
+            ExportImgPartition.Click += ExportImgPartition_Click;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1258, 712);
+            Controls.Add(ExportImgPartition);
             Controls.Add(LICENSE);
             Controls.Add(README);
             Controls.Add(back);
@@ -312,5 +324,6 @@
         private Button back;
         private Button README;
         private Button LICENSE;
+        private Button ExportImgPartition;
     }
 }

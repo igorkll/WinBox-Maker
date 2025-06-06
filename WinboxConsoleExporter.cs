@@ -93,7 +93,7 @@ namespace WinBox_Maker
                 name = winBoxProject.winBoxConfig.WinboxName,
                 description = winBoxProject.winBoxConfig.WinboxDescription
             };
-            //winBoxProject.BuildWimAsync(UpdateProcessName, UpdateProcessValue, path, windowsDescription).Wait();
+            winBoxProject.BuildImgPartitionAsync(UpdateProcessName, UpdateProcessValue, path, windowsDescription).Wait();
         }
     }
 }
