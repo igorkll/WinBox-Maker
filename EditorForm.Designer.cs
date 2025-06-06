@@ -257,6 +257,7 @@
             // 
             // ExportImgPartition
             // 
+            ExportImgPartition.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             ExportImgPartition.Location = new Point(1023, 549);
             ExportImgPartition.Name = "ExportImgPartition";
             ExportImgPartition.Size = new Size(223, 34);
