@@ -55,7 +55,7 @@ namespace WinBox_Maker
         async void LoadWindowsTask()
         {
             LockForm();
-            await winBoxProject.LoadWindowsImageAsync(ProcessName, ProcessValue);
+            await winBoxProject.LoadWindowsImageAsync(UpdateProcessName, UpdateProcessValue);
             UnlockForm();
             UpdateWindowsVersionsList();
             UpdateGui();
@@ -80,7 +80,7 @@ namespace WinBox_Maker
                         name = winBoxProject.winBoxConfig.WinboxName,
                         description = winBoxProject.winBoxConfig.WinboxDescription
                     };
-                    await winBoxProject.BuildIsoAsync(ProcessName, ProcessValue, saveFileDialog.FileName, windowsDescription);
+                    await winBoxProject.BuildIsoAsync(UpdateProcessName, UpdateProcessValue, saveFileDialog.FileName, windowsDescription);
                 }
             }
             UnlockForm();
@@ -105,7 +105,7 @@ namespace WinBox_Maker
                         name = winBoxProject.winBoxConfig.WinboxName,
                         description = winBoxProject.winBoxConfig.WinboxDescription
                     };
-                    await winBoxProject.BuildWimAsync(ProcessName, ProcessValue, saveFileDialog.FileName, windowsDescription);
+                    await winBoxProject.BuildWimAsync(UpdateProcessName, UpdateProcessValue, saveFileDialog.FileName, windowsDescription);
                 }
             }
             UnlockForm();
@@ -114,7 +114,7 @@ namespace WinBox_Maker
         private async void WindowsSelect_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(ProcessName, ProcessValue, "Windows image (*.iso)|*.iso");
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Windows image (*.iso)|*.iso");
             UnlockForm();
             if (name != null)
             {
@@ -291,6 +291,16 @@ namespace WinBox_Maker
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             Program.OpenWebPage(Program.logichubUrl);
+        }
+
+        private void UpdateProcessName(string text)
+        {
+            ProcessName.Text = text;
+        }
+
+        private void UpdateProcessValue(int Value)
+        {
+            ProcessValue.Value = Value;
         }
     }
 }

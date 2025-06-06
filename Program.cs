@@ -129,7 +129,7 @@ namespace WinBox_Maker
             }
         }
 
-        public static async Task CopyFileAsync(string sourceFilePath, string destinationFilePath, ProgressBar progressBar)
+        public static async Task CopyFileAsync(string sourceFilePath, string destinationFilePath, Action<int> progressBar)
         {
             long totalBytes = new FileInfo(sourceFilePath).Length;
             long bytesCopied = 0;
@@ -145,7 +145,7 @@ namespace WinBox_Maker
                     await destinationStream.WriteAsync(buffer, 0, bytesRead);
                     bytesCopied += bytesRead;
 
-                    progressBar.Value = (int)((bytesCopied * 100) / totalBytes);
+                    progressBar((int)((bytesCopied * 100) / totalBytes));
                 }
             }
         }

@@ -66,8 +66,6 @@ namespace WinBox_Maker
                 Process process = new Process();
                 process.StartInfo.FileName = "dism.exe";
                 process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\"";
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
 
@@ -112,7 +110,7 @@ namespace WinBox_Maker
             winBoxConfig.Save(wnbFilePath);
         }
 
-        public async Task<string?> SelectResourceAsync(Label processName, ProgressBar processValue, string filter)
+        public async Task<string?> SelectResourceAsync(Action<string> processName, Action<int> processValue, string filter)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -147,7 +145,7 @@ namespace WinBox_Maker
                             projectFolderToCopy = resourcesDirectoryName;
                         }
 
-                        processName.Text = "Copying a resource file";
+                        processName("Copying a resource file");
                         await Program.CopyFileAsync(filePath, Path.Combine(baseDirectoryPath, projectFolderToCopy, fileName), processValue);
                         return Path.Combine(projectFolderToCopy, fileName);
                     }
@@ -178,12 +176,12 @@ namespace WinBox_Maker
             return winBoxConfig.BaseWindowsImage != null && !File.Exists(unpackedWimFile);
         }
 
-        public async Task LoadWindowsImageAsync(Label processName, ProgressBar processValue)
+        public async Task LoadWindowsImageAsync(Action<string> processName, Action<int> processValue)
         {
             if (winBoxConfig.BaseWindowsImage == null) return;
             string baseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
 
-            processName.Text = "Extracting install.wim";
+            processName("Extracting install.wim");
             using (FileStream isoStream = File.Open(baseWindowsImageFullPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 UdfReader cd = new UdfReader(isoStream);
@@ -202,7 +200,7 @@ namespace WinBox_Maker
                             await outputStream.WriteAsync(buffer, 0, bytesRead);
                             bytesCopied += bytesRead;
 
-                            processValue.Value = (int)((bytesCopied * 100) / totalBytes);
+                            processValue((int)((bytesCopied * 100) / totalBytes));
                         }
                     }
                 }
@@ -239,13 +237,13 @@ namespace WinBox_Maker
             return windowsVersions.ToArray();
         }
 
-        public async Task MakeModWim(Label processName, ProgressBar processValue, WindowsDescription newWindowsDescription, string newWimPath)
+        public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath)
         {
             //processName.Text = "Copying an install.wim file";
             //await Program.CopyFileAsync(unpackedWimFile, newWimPath, processValue);
 
-            processName.Text = "Modification of install.wim";
-            processValue.Value = 25;
+            processName("Modification of install.wim");
+            processValue(25);
             await Task.Run(() =>
             {
                 using (Wim wimHandle = Wim.OpenWim(unpackedWimFile, OpenFlags.None))
@@ -267,15 +265,13 @@ namespace WinBox_Maker
                 }
             });
 
-            processName.Text = "Mounting install.wim";
-            processValue.Value = 50;
+            processName("Mounting install.wim");
+            processValue(50);
             await Task.Run(() =>
             {
                 Process process = new Process();
                 process.StartInfo.FileName = "dism.exe";
                 process.StartInfo.Arguments = $"/Mount-Wim /WimFile:\"{newWimPath}\" /index:1 /MountDir:\"{wimMountPath}\"";
-                //process.StartInfo.RedirectStandardOutput = true;
-                //process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
 
@@ -290,15 +286,13 @@ namespace WinBox_Maker
                 }
             });
 
-            processName.Text = "Unmounting and save install.wim";
-            processValue.Value = 75;
+            processName("Unmounting and save install.wim");
+            processValue(75);
             await Task.Run(() =>
             {
                 Process process = new Process();
                 process.StartInfo.FileName = "dism.exe";
                 process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /commit";
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
 
@@ -314,7 +308,7 @@ namespace WinBox_Maker
             });
         }
 
-        public async Task BuildIsoAsync(Label processName, ProgressBar processValue, string exportPath, WindowsDescription newWindowsDescription)
+        public async Task BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
         {
             if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
             string baseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
@@ -352,7 +346,7 @@ namespace WinBox_Maker
             */
         }
 
-        public async Task BuildWimAsync(Label processName, ProgressBar processValue, string exportPath, WindowsDescription newWindowsDescription)
+        public async Task BuildWimAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
         {
             if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
 
