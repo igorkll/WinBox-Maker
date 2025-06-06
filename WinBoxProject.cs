@@ -65,7 +65,7 @@ namespace WinBox_Maker
             {
                 Process process = new Process();
                 process.StartInfo.FileName = "dism.exe";
-                process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\"";
+                process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /discard";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
 
