@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
-            ProcessValue = new ProgressBar();
-            ExportIsoInstaller = new Button();
-            splitContainer1 = new SplitContainer();
             WindowsSelect = new Button();
             WindowsName = new Label();
             WindowsClear = new Button();
@@ -46,51 +43,12 @@
             WinboxDescription = new RichTextBox();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
-            splitContainer1.Panel1.SuspendLayout();
-            splitContainer1.Panel2.SuspendLayout();
-            splitContainer1.SuspendLayout();
+            ExportInstallWim = new Button();
+            ExportIsoInstaller = new Button();
+            ProcessValue = new ProgressBar();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
-            // 
-            // ProcessValue
-            // 
-            ProcessValue.Dock = DockStyle.Fill;
-            ProcessValue.Location = new Point(0, 0);
-            ProcessValue.Margin = new Padding(0);
-            ProcessValue.Name = "ProcessValue";
-            ProcessValue.Size = new Size(799, 37);
-            ProcessValue.TabIndex = 0;
-            // 
-            // ExportIsoInstaller
-            // 
-            ExportIsoInstaller.Dock = DockStyle.Fill;
-            ExportIsoInstaller.Location = new Point(0, 0);
-            ExportIsoInstaller.Name = "ExportIsoInstaller";
-            ExportIsoInstaller.Size = new Size(175, 37);
-            ExportIsoInstaller.TabIndex = 1;
-            ExportIsoInstaller.Text = "export iso installer";
-            ExportIsoInstaller.UseVisualStyleBackColor = true;
-            ExportIsoInstaller.Click += ExportIsoInstaller_Click;
-            // 
-            // splitContainer1
-            // 
-            splitContainer1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            splitContainer1.Location = new Point(12, 660);
-            splitContainer1.Margin = new Padding(0);
-            splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            splitContainer1.Panel1.Controls.Add(ProcessValue);
-            // 
-            // splitContainer1.Panel2
-            // 
-            splitContainer1.Panel2.Controls.Add(ExportIsoInstaller);
-            splitContainer1.Size = new Size(978, 37);
-            splitContainer1.SplitterDistance = 799;
-            splitContainer1.TabIndex = 3;
             // 
             // WindowsSelect
             // 
@@ -154,7 +112,7 @@
             // 
             ProcessName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ProcessName.AutoSize = true;
-            ProcessName.Location = new Point(12, 625);
+            ProcessName.Location = new Point(0, 647);
             ProcessName.Name = "ProcessName";
             ProcessName.Size = new Size(122, 25);
             ProcessName.TabIndex = 10;
@@ -210,8 +168,9 @@
             // pictureBox1
             // 
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox1.Cursor = Cursors.Hand;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(862, 12);
+            pictureBox1.Location = new Point(1118, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(128, 128);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -222,8 +181,9 @@
             // pictureBox2
             // 
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox2.Cursor = Cursors.Hand;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(862, 146);
+            pictureBox2.Location = new Point(1118, 146);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(128, 128);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -231,12 +191,43 @@
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
             // 
+            // ExportInstallWim
+            // 
+            ExportInstallWim.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ExportInstallWim.Location = new Point(1023, 589);
+            ExportInstallWim.Name = "ExportInstallWim";
+            ExportInstallWim.Size = new Size(223, 37);
+            ExportInstallWim.TabIndex = 19;
+            ExportInstallWim.Text = "export install.wim";
+            ExportInstallWim.UseVisualStyleBackColor = true;
+            ExportInstallWim.Click += ExportInstallWim_Click;
+            // 
+            // ExportIsoInstaller
+            // 
+            ExportIsoInstaller.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ExportIsoInstaller.Location = new Point(1023, 632);
+            ExportIsoInstaller.Name = "ExportIsoInstaller";
+            ExportIsoInstaller.Size = new Size(223, 37);
+            ExportIsoInstaller.TabIndex = 20;
+            ExportIsoInstaller.Text = "export iso installer";
+            ExportIsoInstaller.UseVisualStyleBackColor = true;
+            ExportIsoInstaller.Click += ExportIsoInstaller_Click;
+            // 
+            // ProcessValue
+            // 
+            ProcessValue.Dock = DockStyle.Bottom;
+            ProcessValue.Location = new Point(0, 675);
+            ProcessValue.Name = "ProcessValue";
+            ProcessValue.Size = new Size(1258, 37);
+            ProcessValue.TabIndex = 21;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(1002, 712);
+            ClientSize = new Size(1258, 712);
+            Controls.Add(ExportInstallWim);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(WinboxDescription);
@@ -251,16 +242,13 @@
             Controls.Add(WindowsClear);
             Controls.Add(WindowsName);
             Controls.Add(WindowsSelect);
-            Controls.Add(splitContainer1);
+            Controls.Add(ProcessValue);
+            Controls.Add(ExportIsoInstaller);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(800, 400);
             Name = "EditorForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Editor";
-            splitContainer1.Panel1.ResumeLayout(false);
-            splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
-            splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
@@ -268,10 +256,6 @@
         }
 
         #endregion
-
-        private ProgressBar ProcessValue;
-        private Button ExportIsoInstaller;
-        private SplitContainer splitContainer1;
         private Button WindowsSelect;
         private Label WindowsName;
         private Button WindowsClear;
@@ -286,5 +270,8 @@
         private RichTextBox WinboxDescription;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
+        private Button ExportInstallWim;
+        private Button ExportIsoInstaller;
+        private ProgressBar ProcessValue;
     }
 }
