@@ -312,28 +312,51 @@ namespace WinBox_Maker
                         MessageBox.Show($"An error occurred: {ex.Message}", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 });
+
+                processName("Unmounting install.wim");
+                processValue(70);
+                await Task.Run(() =>
+                {
+                    Process process = new Process();
+                    process.StartInfo.FileName = "dism.exe";
+                    process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /discard";
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.CreateNoWindow = true;
+
+                    try
+                    {
+                        process.Start();
+                        process.WaitForExit();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred: {ex.Message}", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                });
             }
-
-            processName("Unmounting and save install.wim");
-            processValue(70);
-            await Task.Run(() =>
+            else
             {
-                Process process = new Process();
-                process.StartInfo.FileName = "dism.exe";
-                process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /commit";
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.CreateNoWindow = true;
+                processName("Unmounting and save install.wim");
+                processValue(70);
+                await Task.Run(() =>
+                {
+                    Process process = new Process();
+                    process.StartInfo.FileName = "dism.exe";
+                    process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /commit";
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.CreateNoWindow = true;
 
-                try
-                {
-                    process.Start();
-                    process.WaitForExit();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred: {ex.Message}", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            });
+                    try
+                    {
+                        process.Start();
+                        process.WaitForExit();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred: {ex.Message}", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                });
+            }
 
             processValue(100);
         }
@@ -374,6 +397,8 @@ namespace WinBox_Maker
                 }
             }
             */
+
+            File.Delete(newWimFile);
         }
 
         public async Task BuildWimAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
@@ -388,6 +413,8 @@ namespace WinBox_Maker
             if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
 
             await MakeModWim(processName, processValue, newWindowsDescription, newWimFile, exportPath);
+
+            File.Delete(newWimFile);
         }
     }
 }
