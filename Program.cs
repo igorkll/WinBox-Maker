@@ -7,6 +7,17 @@ namespace WinBox_Maker
 {
     internal static class Program
     {
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        const int SW_HIDE = 0;
+        const int SW_SHOW = 5;
+
+
         public const string version = "WinBox-Maker 0.0";
         public const string logichubUrl = "https://igorkll.github.io/logichub/index.html";
         public static Form openProjectForm;
@@ -48,6 +59,8 @@ namespace WinBox_Maker
                 return;
             }
 
+            IntPtr consoleWindow = GetConsoleWindow();
+            ShowWindow(consoleWindow, SW_HIDE);
             openProjectForm = new OpenProjectForm();
             Application.Run(openProjectForm);
         }
@@ -63,6 +76,7 @@ namespace WinBox_Maker
             }
 
             WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
+            winboxConsoleExporter.ExportInstallWim(null);
         }
 
         static void InitLibwim()
