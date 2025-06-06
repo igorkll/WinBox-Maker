@@ -36,6 +36,7 @@
             Textbox.Dock = DockStyle.Fill;
             Textbox.Location = new Point(0, 0);
             Textbox.Name = "Textbox";
+            Textbox.ReadOnly = true;
             Textbox.Size = new Size(778, 544);
             Textbox.TabIndex = 0;
             Textbox.Text = "";

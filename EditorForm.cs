@@ -303,5 +303,22 @@ namespace WinBox_Maker
         {
             ProcessValue.Value = Value;
         }
+
+        private void back_Click(object sender, EventArgs e)
+        {
+            Program.SwitchForm(this, Program.openProjectForm);
+        }
+
+        private void README_Click(object sender, EventArgs e)
+        {
+            Form form = new TextViewer("README.md");
+            form.Show();
+        }
+
+        private void LICENSE_Click(object sender, EventArgs e)
+        {
+            Form form = new TextViewer("LICENSE.txt");
+            form.Show();
+        }
     }
 }

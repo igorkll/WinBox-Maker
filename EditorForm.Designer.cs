@@ -46,9 +46,9 @@
             ExportInstallWim = new Button();
             ExportIsoInstaller = new Button();
             ProcessValue = new ProgressBar();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
+            back = new Button();
+            README = new Button();
+            LICENSE = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -224,32 +224,35 @@
             ProcessValue.Size = new Size(1258, 37);
             ProcessValue.TabIndex = 21;
             // 
-            // button1
+            // back
             // 
-            button1.Location = new Point(12, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 22;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            back.Location = new Point(12, 12);
+            back.Name = "back";
+            back.Size = new Size(112, 34);
+            back.TabIndex = 22;
+            back.Text = "< back";
+            back.UseVisualStyleBackColor = true;
+            back.Click += back_Click;
             // 
-            // button2
+            // README
             // 
-            button2.Location = new Point(130, 12);
-            button2.Name = "button2";
-            button2.Size = new Size(112, 34);
-            button2.TabIndex = 23;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            README.Location = new Point(130, 12);
+            README.Name = "README";
+            README.Size = new Size(112, 34);
+            README.TabIndex = 23;
+            README.Text = "README";
+            README.UseVisualStyleBackColor = true;
+            README.Click += README_Click;
             // 
-            // button3
+            // LICENSE
             // 
-            button3.Location = new Point(248, 12);
-            button3.Name = "button3";
-            button3.Size = new Size(112, 34);
-            button3.TabIndex = 24;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
+            LICENSE.Location = new Point(248, 12);
+            LICENSE.Name = "LICENSE";
+            LICENSE.Size = new Size(112, 34);
+            LICENSE.TabIndex = 24;
+            LICENSE.Text = "LICENSE";
+            LICENSE.UseVisualStyleBackColor = true;
+            LICENSE.Click += LICENSE_Click;
             // 
             // EditorForm
             // 
@@ -257,9 +260,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1258, 712);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(LICENSE);
+            Controls.Add(README);
+            Controls.Add(back);
             Controls.Add(ExportInstallWim);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
@@ -306,8 +309,8 @@
         private Button ExportInstallWim;
         private Button ExportIsoInstaller;
         private ProgressBar ProcessValue;
-        private Button button1;
-        private Button button2;
-        private Button button3;
+        private Button back;
+        private Button README;
+        private Button LICENSE;
     }
 }
