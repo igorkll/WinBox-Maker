@@ -53,13 +53,17 @@ namespace WinBox_Maker
             {
                 path = Path.Combine(path, $"{winBoxProject.winBoxConfig.WinboxName}{appendName}.{ext}");
             }
+            else if (!Path.IsPathRooted(path))
+            {
+                path = Path.Combine(winBoxProject.buildDirectoryPath, path);
+            }
             return path;
         }
 
         public void ExportIsoInstaller(string? path)
         {
             path = getExportPath(path, "iso", null);
-            Console.WriteLine($">> exporting iso installed from {{{winBoxProject.GetName()}}} to: {path}");
+            Console.WriteLine($">> exporting iso installer from {{{winBoxProject.GetName()}}} to: {path}");
             WindowsDescription windowsDescription = new WindowsDescription
             {
                 name = winBoxProject.winBoxConfig.WinboxName,

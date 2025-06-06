@@ -18,7 +18,7 @@ namespace WinBox_Maker
         const int SW_SHOW = 5;
 
 
-        public const string version = "WinBox-Maker 0.0";
+        public const string version = "WinBox-Maker 1.0";
         public const string logichubUrl = "https://igorkll.github.io/logichub/index.html";
         public static Form openProjectForm;
         static bool isClosingProgrammatically = false;
@@ -45,18 +45,23 @@ namespace WinBox_Maker
                     }
                 }
 
-                string inputPath = arguments[0];
+                string? inputPath = null;
+                if (arguments.Count > 0)
+                {
+                    inputPath = arguments[0];
+                }
+
                 string? outputPath = null;
-                if (args.Length > 1)
+                if (arguments.Count > 1)
                 {
                     outputPath = arguments[1];
                 }
 
-                if (File.Exists(inputPath))
+                if (inputPath != null && File.Exists(inputPath))
                 {
                     consoleConvert(inputPath, outputPath, flags);
                 }
-                else if (Directory.Exists(inputPath))
+                else if (inputPath != null && Directory.Exists(inputPath))
                 {
                     string[] files = Directory.GetFiles(inputPath, "*.wnb");
                     if (files.Length > 0)
