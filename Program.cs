@@ -31,10 +31,30 @@ namespace WinBox_Maker
 
             if (args.Length > 0)
             {
-                string inputPath = args[0];
+                List<string> flags = new List<string>();
+                List<string> arguments = new List<string>();
+                foreach (var arg in args)
+                {
+                    if (arg.StartsWith("-") || arg.StartsWith("/"))
+                    {
+                        flags.Add(arg.Substring(1));
+                    }
+                    else
+                    {
+                        arguments.Add(arg);
+                    }
+                }
+
+                string inputPath = arguments[0];
+                string? outputPath = null;
+                if (args.Length > 1)
+                {
+                    outputPath = arguments[1];
+                }
+
                 if (File.Exists(inputPath))
                 {
-                    consoleConvert(inputPath);
+                    consoleConvert(inputPath, outputPath, flags);
                 }
                 else if (Directory.Exists(inputPath))
                 {
@@ -43,12 +63,12 @@ namespace WinBox_Maker
                     {
                         foreach (string file in files)
                         {
-                            consoleConvert(file);
+                            consoleConvert(file, outputPath, flags);
                         }
                     }
                     else
                     {
-                        Console.WriteLine("there are no *.wnb files in the specified directory");
+                        Console.Error.WriteLine("there are no *.wnb files in the specified directory");
                     }
                 }
                 else
@@ -65,7 +85,7 @@ namespace WinBox_Maker
             Application.Run(openProjectForm);
         }
 
-        static void consoleConvert(string path)
+        static void consoleConvert(string path, string? output, List<string> flags)
         {
             WinBoxProject winBoxProject = new WinBoxProject(path);
             string? err = winBoxProject.GetError();
@@ -76,7 +96,22 @@ namespace WinBox_Maker
             }
 
             WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
-            winboxConsoleExporter.ExportInstallWim(null);
+            if (flags.Contains("i"))
+            {
+                winboxConsoleExporter.ExportIsoInstaller(output);
+            }
+            else if (flags.Contains("w"))
+            {
+                winboxConsoleExporter.ExportInstallWim(output);
+            }
+            else if (flags.Contains("r"))
+            {
+                winboxConsoleExporter.ExportImgPartition(output);
+            }
+            else
+            {
+                Console.Error.WriteLine("specify one of the keys to set the output format");
+            }
         }
 
         static void InitLibwim()

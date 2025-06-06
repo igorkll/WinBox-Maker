@@ -15,3 +15,9 @@ the program is primarily aimed at creating Windows images for operation in kiosk
 
 ## command line arguments
 1. the path to the file .wnb is for automatically starting conversion from the command line. if it points to a directory, it will convert all files .wnb in this directory
+2. the path for exporting the output file, if it points to a directory, exports it there under the default name for this *.wnb. if this argument is not specified, it will be exported with the default name to the winbox_build directory next to the *.wnb file (do not specify a specific path here if you specified the first argument as a directory for converting multiple ones *.wnb because this will cause one file to be overwritten by multiple projects)
+
+## command line flags
+* /i - exports the installer .iso
+* /w - exports the .wim file
+* /r - exports the .img partition

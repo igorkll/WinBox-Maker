@@ -11,8 +11,9 @@ namespace WinBox_Maker
     public class WinboxConsoleExporter
     {
         WinBoxProject winBoxProject;
-        const int totalLength = 15;
+        const int totalLength = 25;
         const int maxValue = 100;
+        bool needNewLine = false;
 
         public WinboxConsoleExporter(WinBoxProject winBoxProject)
         {
@@ -25,6 +26,11 @@ namespace WinBox_Maker
 
         private void UpdateProcessName(string text)
         {
+            if (needNewLine)
+            {
+                Console.WriteLine("");
+                needNewLine = false;
+            }
             Console.WriteLine($"> {text}");
         }
 
@@ -33,11 +39,27 @@ namespace WinBox_Maker
             int filledLength = (int)((Value / (double)maxValue) * totalLength);
             string progressBar = "[" + new string('#', filledLength) + new string(' ', totalLength - filledLength) + "]";
             Console.Write($"\r{progressBar} {Value}%");
+            needNewLine = true;
+        }
+
+        private string getExportPath(string? path, string ext, string? appendName)
+        {
+            appendName = appendName ?? "";
+            if (path == null)
+            {
+                path = Path.Combine(winBoxProject.buildDirectoryPath, $"{winBoxProject.winBoxConfig.WinboxName}{appendName}.{ext}");
+            }
+            else if (Directory.Exists(path))
+            {
+                path = Path.Combine(path, $"{winBoxProject.winBoxConfig.WinboxName}{appendName}.{ext}");
+            }
+            return path;
         }
 
         public void ExportIsoInstaller(string? path)
         {
-            path = path ?? Path.Combine(winBoxProject.buildDirectoryPath, $"{winBoxProject.winBoxConfig.WinboxName}.iso");
+            path = getExportPath(path, "iso", null);
+            Console.WriteLine($">> exporting iso installed from {{{winBoxProject.GetName()}}} to: {path}");
             WindowsDescription windowsDescription = new WindowsDescription
             {
                 name = winBoxProject.winBoxConfig.WinboxName,
@@ -48,13 +70,26 @@ namespace WinBox_Maker
 
         public void ExportInstallWim(string? path)
         {
-            path = path ?? Path.Combine(winBoxProject.buildDirectoryPath, $"{winBoxProject.winBoxConfig.WinboxName}.wim");
+            path = getExportPath(path, "wim", null);
+            Console.WriteLine($">> exporting install.wim from {{{winBoxProject.GetName()}}} to: {path}");
             WindowsDescription windowsDescription = new WindowsDescription
             {
                 name = winBoxProject.winBoxConfig.WinboxName,
                 description = winBoxProject.winBoxConfig.WinboxDescription
             };
             winBoxProject.BuildWimAsync(UpdateProcessName, UpdateProcessValue, path, windowsDescription).Wait();
+        }
+
+        public void ExportImgPartition(string? path)
+        {
+            path = getExportPath(path, "img", " (partition)");
+            Console.WriteLine($">> exporting img partition from {{{winBoxProject.GetName()}}} to: {path}");
+            WindowsDescription windowsDescription = new WindowsDescription
+            {
+                name = winBoxProject.winBoxConfig.WinboxName,
+                description = winBoxProject.winBoxConfig.WinboxDescription
+            };
+            //winBoxProject.BuildWimAsync(UpdateProcessName, UpdateProcessValue, path, windowsDescription).Wait();
         }
     }
 }
