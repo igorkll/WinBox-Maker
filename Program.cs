@@ -280,6 +280,8 @@ namespace WinBox_Maker
 
         public static async Task CopyFilesRecursivelyAsync(string sourceDir, string targetDir)
         {
+            Directory.CreateDirectory(targetDir);
+
             foreach (string file in Directory.GetFiles(sourceDir))
             {
                 string fileName = Path.GetFileName(file);
