@@ -266,6 +266,8 @@ namespace WinBox_Maker
             processValue(30);
             await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{newWimPath}\" /index:1 /MountDir:\"{wimMountPath}\"");
 
+            return;
+
             processName("Modification of the system files");
             processValue(50);
             await Program.ExecuteAsync("dism.exe", $"reg load HKLM\\TempHive \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
@@ -275,6 +277,7 @@ namespace WinBox_Maker
             await Program.ExecuteAsync("dism.exe", $"reg import reg\\disable_autoupdate.reg");
             await Program.ExecuteAsync("dism.exe", $"reg import reg\\disable_checkdisk.reg");
             await Program.ExecuteAsync("dism.exe", $"reg import reg\\disable_powerdown_checks.reg");
+            await Program.ExecuteAsync("dism.exe", $"reg import reg\\disable_bootmanager.reg");
             await Program.ExecuteAsync("dism.exe", $"reg unload HKLM\\TempHive");
 
             if (imgPartitionPath != null)

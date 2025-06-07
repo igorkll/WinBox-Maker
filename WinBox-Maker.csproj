@@ -19,6 +19,12 @@
     <None Remove="newproject.png" />
     <None Remove="openproject.png" />
     <None Remove="README.md" />
+    <None Remove="reg\disable_autoupdate.reg" />
+    <None Remove="reg\disable_bootmanager.reg" />
+    <None Remove="reg\disable_checkdisk.reg" />
+    <None Remove="reg\disable_defender.reg" />
+    <None Remove="reg\disable_powerdown_checks.reg" />
+    <None Remove="reg\disable_telemetry.reg" />
     <None Remove="reg\skip_oobe.reg" />
     <None Remove="winbox.png" />
   </ItemGroup>
@@ -41,6 +47,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\disable_autoupdate.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\disable_bootmanager.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\disable_checkdisk.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\disable_defender.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\disable_powerdown_checks.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\disable_telemetry.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\skip_oobe.reg">

@@ -6,3 +6,4 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE]
 "SkipMachineOOBE"=dword:00000001
 "SkipUserOOBE"=dword:00000001
+"BypassNRO"=dword:00000001
