@@ -273,9 +273,8 @@ namespace WinBox_Maker
                 process.StartInfo.Arguments = args;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
-
                 process.Start();
-                await Task.Run(() => process.WaitForExit());
+                await process.WaitForExitAsync();
             }
         }
     }
