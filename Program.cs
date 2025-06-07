@@ -298,10 +298,11 @@ namespace WinBox_Maker
 
         public static async Task CopyFileAsync(string sourceFile, string destFile)
         {
-            FileAttributes oldFileAttributes = File.GetAttributes(destFile);
+            FileAttributes? oldFileAttributes = null;
 
             if (File.Exists(destFile))
             {
+                oldFileAttributes = File.GetAttributes(destFile);
                 File.Delete(destFile);
             }
 
@@ -312,7 +313,10 @@ namespace WinBox_Maker
                 }
             }
 
-            File.SetAttributes(destFile, oldFileAttributes);
+            if (oldFileAttributes != null)
+            {
+                File.SetAttributes(destFile, (FileAttributes)oldFileAttributes);
+            }
         }
     }
 }
