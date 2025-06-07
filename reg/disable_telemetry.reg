@@ -1,10 +1,10 @@
 Windows Registry Editor Version 5.00
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection]
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\DataCollection]
 "AllowTelemetry"=dword:00000000
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting]
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\Windows Error Reporting]
 "Disable"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps]
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps]
 "DumpType"=dword:00000000

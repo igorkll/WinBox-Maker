@@ -1,7 +1,7 @@
 Windows Registry Editor Version 5.00
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters]
+[HKEY_LOCAL_MACHINE\WINBOX_SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters]
 "AutoShareWks"=dword:00000000
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters]
+[HKEY_LOCAL_MACHINE\WINBOX_SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters]
 "AutoShareWks"=dword:00000000
