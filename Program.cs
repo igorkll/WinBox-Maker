@@ -298,12 +298,21 @@ namespace WinBox_Maker
 
         public static async Task CopyFileAsync(string sourceFile, string destFile)
         {
+            FileAttributes oldFileAttributes = File.GetAttributes(destFile);
+
+            if (File.Exists(destFile))
+            {
+                File.Delete(destFile);
+            }
+
             using (FileStream sourceStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read, FileShare.None)) {
                 using (FileStream destinationStream = new FileStream(destFile, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     await sourceStream.CopyToAsync(destinationStream);
                 }
             }
+
+            File.SetAttributes(destFile, oldFileAttributes);
         }
     }
 }
