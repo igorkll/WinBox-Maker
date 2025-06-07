@@ -316,6 +316,8 @@ namespace WinBox_Maker
 
             await MakeModWim(processName, processValue, newWindowsDescription, newWimFile, null);
 
+            //await Program.ExecuteAsync("oscdimg.exe", "oscdimg -n -m -bc:\\путь_к_образу\\etfsboot.com c:\\путь_к_папке_с_файлами c:\\путь_к_новому_образу\\new_image.iso");
+
             /*
             processName.Text = "Copying an image file";
             await Program.CopyFileAsync(baseWindowsImageFullPath, exportPath, processValue);
