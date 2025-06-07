@@ -253,5 +253,30 @@ namespace WinBox_Maker
         {
             Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
         }
+
+        public static void Execute(string exec, string args)
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = exec;
+            process.StartInfo.Arguments = args;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.Start();
+            process.WaitForExit();
+        }
+
+        public static async Task ExecuteAsync(string exec, string args)
+        {
+            using (Process process = new Process())
+            {
+                process.StartInfo.FileName = exec;
+                process.StartInfo.Arguments = args;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+
+                process.Start();
+                await Task.Run(() => process.WaitForExit());
+            }
+        }
     }
 }

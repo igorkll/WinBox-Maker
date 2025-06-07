@@ -251,111 +251,42 @@ namespace WinBox_Maker
                     WimInfo wimInfo = wimHandle.GetWimInfo();
                     for (int i = (int)wimInfo.ImageCount; i >= 1; i--)
                     {
-                        if (wimHandle.GetImageName(i) == winBoxConfig.BaseWindowsVersion)
-                        {
-                            wimHandle.SetImageName(i, newWindowsDescription.name);
-                            wimHandle.SetImageDescription(i, newWindowsDescription.description);
-                        }
-                        else
+                        if (wimHandle.GetImageName(i) != winBoxConfig.BaseWindowsVersion)
                         {
                             wimHandle.DeleteImage(i);
                         }
                     }
+                    wimHandle.SetImageName(1, newWindowsDescription.name);
+                    wimHandle.SetImageDescription(1, newWindowsDescription.description);
                     wimHandle.Write(newWimPath, 1, WriteFlags.None, Wim.DefaultThreads);
                 }
             });
 
             processName("Mounting install.wim");
             processValue(30);
-            await Task.Run(() =>
-            {
-                Process process = new Process();
-                process.StartInfo.FileName = "dism.exe";
-                process.StartInfo.Arguments = $"/Mount-Wim /WimFile:\"{newWimPath}\" /index:1 /MountDir:\"{wimMountPath}\"";
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.CreateNoWindow = true;
-
-                try
-                {
-                    process.Start();
-                    process.WaitForExit();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred: {ex.Message}", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            });
+            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{newWimPath}\" /index:1 /MountDir:\"{wimMountPath}\"");
 
             processName("Modification of the system files");
             processValue(50);
-            File.WriteAllText(Path.Combine(wimMountPath, "test.txt"), "TEST");
+            await Program.ExecuteAsync("dism.exe", $"reg load HKLM\\TempHive \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
+            await Program.ExecuteAsync("dism.exe", $"reg import reg\\skip_oobe.reg");
+            await Program.ExecuteAsync("dism.exe", $"reg unload HKLM\\TempHive");
 
             if (imgPartitionPath != null)
             {
                 processName("Generating an .img image of a partition");
                 processValue(60);
-                await Task.Run(() =>
-                {
-                    Process process = new Process();
-                    process.StartInfo.FileName = "dism.exe";
-                    process.StartInfo.Arguments = $"/Capture-Image /ImageFile:\"{imgPartitionPath}\" /CaptureDir:\"{wimMountPath}\" /Name:\"{winBoxConfig.WinboxName}\"";
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.CreateNoWindow = true;
-
-                    try
-                    {
-                        process.Start();
-                        process.WaitForExit();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"An error occurred: {ex.Message}", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                });
+                await Program.ExecuteAsync("dism.exe", $"/Capture-Image /ImageFile:\"{imgPartitionPath}\" /CaptureDir:\"{wimMountPath}\" /Name:\"{winBoxConfig.WinboxName}\"");
 
                 processName("Unmounting install.wim");
                 processValue(70);
-                await Task.Run(() =>
-                {
-                    Process process = new Process();
-                    process.StartInfo.FileName = "dism.exe";
-                    process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /discard";
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.CreateNoWindow = true;
-
-                    try
-                    {
-                        process.Start();
-                        process.WaitForExit();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"An error occurred: {ex.Message}", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                });
+                await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /discard");
             }
             else
             {
                 processName("Unmounting and save install.wim");
                 processValue(70);
-                await Task.Run(() =>
-                {
-                    Process process = new Process();
-                    process.StartInfo.FileName = "dism.exe";
-                    process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /commit";
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.CreateNoWindow = true;
-
-                    try
-                    {
-                        process.Start();
-                        process.WaitForExit();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"An error occurred: {ex.Message}", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                });
+                await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /commit");
             }
 
             processValue(100);

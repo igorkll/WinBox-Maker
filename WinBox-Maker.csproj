@@ -19,6 +19,7 @@
     <None Remove="newproject.png" />
     <None Remove="openproject.png" />
     <None Remove="README.md" />
+    <None Remove="reg\skip_oobe.reg" />
     <None Remove="winbox.png" />
   </ItemGroup>
 
@@ -40,6 +41,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\skip_oobe.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="winbox.png">
