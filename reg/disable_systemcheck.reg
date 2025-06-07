@@ -12,3 +12,4 @@ Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\WINBOX_SYSTEM\CurrentControlSet\Control\Session Manager]
 "BootExecute"=""
+"ProtectionMode"=dword:00000000
