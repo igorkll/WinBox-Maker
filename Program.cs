@@ -277,5 +277,31 @@ namespace WinBox_Maker
                 await process.WaitForExitAsync();
             }
         }
+
+        public static async Task CopyFilesRecursivelyAsync(string sourceDir, string targetDir)
+        {
+            foreach (string file in Directory.GetFiles(sourceDir))
+            {
+                string fileName = Path.GetFileName(file);
+                string destFile = Path.Combine(targetDir, fileName);
+                await CopyFileAsync(file, destFile);
+            }
+
+            foreach (string directory in Directory.GetDirectories(sourceDir))
+            {
+                string newTargetDir = Path.Combine(targetDir, Path.GetFileName(directory));
+                await CopyFilesRecursivelyAsync(directory, newTargetDir);
+            }
+        }
+
+        public static async Task CopyFileAsync(string sourceFile, string destFile)
+        {
+            using (FileStream sourceStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read, FileShare.None))
+                using (FileStream destinationStream = new FileStream(destFile, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    await sourceStream.CopyToAsync(destinationStream);
+                }
+            }
+        }
     }
 }

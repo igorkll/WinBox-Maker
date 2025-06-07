@@ -14,6 +14,7 @@ the program is recommended to be used with the original English image of windows
 * winbox_build - a folder for saving builds. You don't have to use it, but it's the path to save default images (added to by default .gitignore)
 * winbox_temp - it is used during the image build process (added to by default .gitignore)
 * winbox_bigResources - a directory for large resource files that are not unique but are downloaded from the outside, such as initial windows images that should not be included in git repository (added to by default .gitignore)
+* winbox_resources/files - files from this directory will be moved to the root of the disk on the installed system with replacement
 
 ## command line arguments
 1. the path to the file .wnb is for automatically starting conversion from the command line. if it points to a directory, it will convert all files .wnb in this directory
