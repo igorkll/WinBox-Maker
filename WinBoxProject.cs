@@ -242,7 +242,7 @@ namespace WinBox_Maker
             //processName.Text = "Copying an install.wim file";
             //await Program.CopyFileAsync(unpackedWimFile, newWimPath, processValue);
 
-            processName("Modification of install.wim");
+            processName("Preparing of install.wim");
             processValue(20);
             await Task.Run(() =>
             {
