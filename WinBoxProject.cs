@@ -295,26 +295,6 @@ namespace WinBox_Maker
             await Program.ExecuteAsync("reg.exe", $"import {tempRegPath}");
         }
 
-        private void SetRunAsAdmin(string shortcutPath)
-        {
-            var shell = new IWshRuntimeLibrary.WshShell();
-            var shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
-            shortcut.Save();
-
-            var fileInfo = new System.IO.FileInfo(shortcutPath);
-            var filePath = fileInfo.FullName;
-
-            var processInfo = new System.Diagnostics.ProcessStartInfo
-            {
-                FileName = "cmd.exe",
-                Arguments = $"/c echo Y | runas /user:Administrator \"{filePath}\"",
-                UseShellExecute = true,
-                CreateNoWindow = true
-            };
-
-            System.Diagnostics.Process.Start(processInfo);
-        }
-
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
             //processName.Text = "Copying an install.wim file";
@@ -382,18 +362,22 @@ namespace WinBox_Maker
                 WshShell shell = new WshShell();
                 IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
 
-                shortcut.TargetPath = targetPath;
                 shortcut.WorkingDirectory = @"C:\WinboxProgram";
                 shortcut.Description = "";
-                shortcut.Arguments = winBoxConfig.ProgramArgs;
                 shortcut.IconLocation = targetPath;
-                shortcut.Save();
-
+                
                 if (winBoxConfig.ProgramAsAdmin == true)
                 {
-                    var shortcutFile = new Shell32.Shell().NameSpace(Path.GetDirectoryName(shortcutPath)).Items().Item(Path.GetFileName(shortcutPath));
-                    shortcutFile.InvokeVerb("runas");
+                    shortcut.TargetPath = "powershell.exe";
+                    shortcut.Arguments = $"Start-Process \"{targetPath} {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)}\" -Verb RunAs";
                 }
+                else
+                {
+                    shortcut.TargetPath = targetPath;
+                    shortcut.Arguments = winBoxConfig.ProgramArgs;
+                }
+
+                shortcut.Save();
             }
 
             if (imgPartitionPath != null)

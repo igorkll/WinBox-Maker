@@ -4,6 +4,7 @@ using ManagedWimLib;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace WinBox_Maker
@@ -303,6 +304,42 @@ namespace WinBox_Maker
                 process.Start();
                 await process.WaitForExitAsync();
             }
+        }
+
+        public static string ConvertToPowerShellFormat(string input)
+        {
+            StringBuilder result = new StringBuilder();
+            bool inQuotes = false;
+            string currentArg = "";
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                char c = input[i];
+
+                if (c == '\"')
+                {
+                    inQuotes = !inQuotes;
+                }
+                else if (c == ' ' && !inQuotes)
+                {
+                    if (currentArg.Length > 0)
+                    {
+                        result.Append($"\"{currentArg}\", ");
+                        currentArg = "";
+                    }
+                }
+                else
+                {
+                    currentArg += c;
+                }
+            }
+
+            if (currentArg.Length > 0)
+            {
+                result.Append($"\"{currentArg}\"");
+            }
+
+            return result.ToString();
         }
 
         public static async Task CopyFilesRecursivelyAsync(string sourceDir, string targetDir)
