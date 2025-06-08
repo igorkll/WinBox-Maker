@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace WinBox_Maker
@@ -23,8 +24,8 @@ namespace WinBox_Maker
         string wnbFilePath;
         public string baseDirectoryPath;
         public string buildDirectoryPath;
-        string resourcesDirectoryPath;
-        string bigResourcesDirectoryPath;
+        public string resourcesDirectoryPath;
+        public string bigResourcesDirectoryPath;
         string tempDirectoryPath;
         string unpackedWimFile;
         string newWimFile;
@@ -121,11 +122,11 @@ namespace WinBox_Maker
             winBoxConfig.Save(wnbFilePath);
         }
 
-        public async Task<string?> SelectResourceAsync(Action<string> processName, Action<int> processValue, string filter)
+        public async Task<string?> SelectResourceAsync(Action<string> processName, Action<int> processValue, string filter, string defaultDirectory, bool onlyDefaultDirectory)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = resourcesDirectoryPath;
+                openFileDialog.InitialDirectory = defaultDirectory;
                 openFileDialog.Filter = filter;
                 openFileDialog.Title = "Select Resource";
 
@@ -133,6 +134,20 @@ namespace WinBox_Maker
                 {
                     string filePath = openFileDialog.FileName;
                     string fileName = Path.GetFileName(filePath);
+
+                    if (onlyDefaultDirectory)
+                    {
+                        if (Program.IsPathInsideDirectory(filePath, defaultDirectory))
+                        {
+                            return Path.Combine(defaultDirectory, fileName);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"you can select a file only from the directory: {defaultDirectory}", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return null;
+                        }
+                    }
+
                     if (Program.IsPathInsideDirectory(filePath, resourcesDirectoryPath))
                     {
                         return Path.Combine(resourcesDirectoryName, fileName);
@@ -140,6 +155,10 @@ namespace WinBox_Maker
                     else if (Program.IsPathInsideDirectory(filePath, bigResourcesDirectoryPath))
                     {
                         return Path.Combine(bigResourcesDirectoryName, fileName);
+                    }
+                    else if (Program.IsPathInsideDirectory(filePath, defaultDirectory))
+                    {
+                        return Path.Combine(defaultDirectory, fileName);
                     }
 
                     DialogResult result = MessageBox.Show("the file is not located in the project's resource directory, if you use it like this, then the project config will have the absolute path to the file, which will make it impossible to build on another computer. do you want to copy the file so that you don't have to use an absolute path?", "copy the file?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
@@ -248,6 +267,30 @@ namespace WinBox_Maker
             return windowsVersions.ToArray();
         }
 
+        static string ReplaceAndPrependBackslash(string input)
+        {
+            string modified = input.Replace('/', '\\');
+
+            if (!modified.StartsWith("\\"))
+            {
+                modified = "\\" + modified;
+            }
+
+            return modified;
+        }
+
+        private async Task RegMod(string baseTree, string path, string key, string value)
+        {
+            path = ReplaceAndPrependBackslash(path);
+            string tempRegPath = Path.Combine(tempDirectoryPath, "temp.reg");
+            string regMod = $@"Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\WINBOX_{baseTree}{path}]
+""{key}""={value}
+";
+            await Program.ExecuteAsync("reg.exe", $"import {tempRegPath}");
+        }
+
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
             //processName.Text = "Copying an install.wim file";
@@ -338,8 +381,15 @@ namespace WinBox_Maker
 
             await MakeModWim(processName, processValue, newWindowsDescription, Path.Combine(unpackIsoPath, "sources\\install.wim"), null);
 
-            processName("Building an ISO image");
+            processName("ISO modification");
             processValue(80);
+            if (winBoxConfig.UseOemKey == true)
+            {
+                File.WriteAllText(Path.Combine(unpackIsoPath, "Sources\\PID.txt"), $"[PID]\nValue={winBoxConfig.OemKey}");
+            }
+
+            processName("Building an ISO image");
+            processValue(85);
             await Program.ExecuteAsync(Program.oscdimgPath, $"-m -u2 -b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
 
             processName("Deleting unpacked ISO files");

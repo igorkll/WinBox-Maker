@@ -139,7 +139,7 @@ namespace WinBox_Maker
         private async void WindowsSelect_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Windows image (*.iso)|*.iso");
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Windows image (*.iso)|*.iso", winBoxProject.bigResourcesDirectoryPath, false);
             UnlockForm();
             if (name != null)
             {
@@ -306,6 +306,18 @@ namespace WinBox_Maker
         private void WinboxDescription_TextChanged(object sender, EventArgs e)
         {
             winBoxProject.winBoxConfig.WinboxDescription = WinboxDescription.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void OemKey_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.OemKey = OemKey.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void UseOemKey_CheckedChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.UseOemKey = UseOemKey.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
 

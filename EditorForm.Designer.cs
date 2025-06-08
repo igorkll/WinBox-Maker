@@ -50,8 +50,12 @@
             README = new Button();
             LICENSE = new Button();
             ExportImgPartition = new Button();
+            panel1 = new Panel();
+            OemKey = new TextBox();
+            UseOemKey = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -138,9 +142,9 @@
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(12, 49);
             label1.Name = "label1";
-            label1.Size = new Size(189, 38);
+            label1.Size = new Size(602, 38);
             label1.TabIndex = 12;
-            label1.Text = "Base windows";
+            label1.Text = "Base windows (recommended Windows 10 Pro)";
             // 
             // label2
             // 
@@ -266,12 +270,43 @@
             ExportImgPartition.UseVisualStyleBackColor = true;
             ExportImgPartition.Click += ExportImgPartition_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.Window;
+            panel1.BorderStyle = BorderStyle.Fixed3D;
+            panel1.Controls.Add(OemKey);
+            panel1.Controls.Add(UseOemKey);
+            panel1.Location = new Point(321, 169);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(434, 75);
+            panel1.TabIndex = 26;
+            // 
+            // OemKey
+            // 
+            OemKey.Location = new Point(3, 3);
+            OemKey.Name = "OemKey";
+            OemKey.Size = new Size(424, 31);
+            OemKey.TabIndex = 1;
+            OemKey.TextChanged += OemKey_TextChanged;
+            // 
+            // UseOemKey
+            // 
+            UseOemKey.AutoSize = true;
+            UseOemKey.Location = new Point(3, 40);
+            UseOemKey.Name = "UseOemKey";
+            UseOemKey.Size = new Size(347, 29);
+            UseOemKey.TabIndex = 0;
+            UseOemKey.Text = "Activate windows with this product key";
+            UseOemKey.UseVisualStyleBackColor = true;
+            UseOemKey.CheckedChanged += UseOemKey_CheckedChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1258, 712);
+            Controls.Add(panel1);
             Controls.Add(ExportImgPartition);
             Controls.Add(LICENSE);
             Controls.Add(README);
@@ -300,6 +335,8 @@
             Text = "Editor";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -326,5 +363,8 @@
         private Button README;
         private Button LICENSE;
         private Button ExportImgPartition;
+        private Panel panel1;
+        private CheckBox UseOemKey;
+        private TextBox OemKey;
     }
 }

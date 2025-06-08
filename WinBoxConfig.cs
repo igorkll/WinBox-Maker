@@ -15,6 +15,8 @@ namespace WinBox_Maker
         public string? BaseWindowsVersion { get; set; }
         public string? WinboxName { get; set; }
         public string? WinboxDescription { get; set; }
+        public string? OemKey { get; set; }
+        public bool? UseOemKey { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -25,6 +27,8 @@ namespace WinBox_Maker
             //if (Resources == null) Resources = new List<string>();
             if (WinboxName == null) WinboxName = "Winbox Name";
             if (WinboxDescription == null) WinboxDescription = "Winbox Description";
+            if (OemKey == null) OemKey = "";
+            if (UseOemKey == null) UseOemKey = false;
         }
 
         public void Save(string wnbFilePath)
