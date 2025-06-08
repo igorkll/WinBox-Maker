@@ -85,6 +85,15 @@ namespace WinBox_Maker
                 catch (Exception ex) {}
             }
 
+            if (Directory.Exists(unpackIsoPath))
+            {
+                try
+                {
+                    Directory.Delete(unpackIsoPath, true);
+                }
+                catch (Exception ex) { }
+            }
+
             Program.CreateDirectory(buildDirectoryPath);
             Program.CreateDirectory(resourcesDirectoryPath);
             Program.CreateDirectory(bigResourcesDirectoryPath);

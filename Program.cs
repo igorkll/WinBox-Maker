@@ -344,7 +344,24 @@ namespace WinBox_Maker
             }
         }
 
-        private static async Task RecursiveUnpack(UdfReader cd, DiscDirectoryInfo currentDir, string outputDirectory, Action<int> processValue)
+        private static async Task<long> RecursiveGetUsedSpace(UdfReader cd, DiscDirectoryInfo currentDir)
+        {
+            long usedSpace = 0;
+
+            foreach (DiscFileInfo file in currentDir.GetFiles())
+            {
+                usedSpace += file.Length;
+            }
+
+            foreach (DiscDirectoryInfo dir in currentDir.GetDirectories())
+            {
+                usedSpace += await RecursiveGetUsedSpace(cd, dir);
+            }
+
+            return usedSpace;
+        }
+
+        private static async Task RecursiveUnpack(UdfReader cd, DiscDirectoryInfo currentDir, string outputDirectory, Action<int> processValue, long globalUsedSpace, long copied)
         {
             foreach (DiscFileInfo file in currentDir.GetFiles())
             {
@@ -353,20 +370,16 @@ namespace WinBox_Maker
 
                 using (var wimFile = cd.OpenFile(file.FullName, FileMode.Open, FileAccess.Read))
                 {
-                    long totalBytes = wimFile.Length;
-                    long bytesCopied = 0;
-
                     using (FileStream outputStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
                     {
-                        byte[] buffer = new byte[81920];
+                        byte[] buffer = new byte[1024 * 64 * 4];
                         int bytesRead;
 
                         while ((bytesRead = await wimFile.ReadAsync(buffer, 0, buffer.Length)) > 0)
                         {
                             await outputStream.WriteAsync(buffer, 0, bytesRead);
-                            bytesCopied += bytesRead;
-
-                            processValue((int)((bytesCopied * 100) / totalBytes));
+                            copied += bytesRead;
+                            processValue((int)((copied * 100) / globalUsedSpace));
                         }
                     }
                 }
@@ -375,7 +388,7 @@ namespace WinBox_Maker
             foreach (DiscDirectoryInfo dir in currentDir.GetDirectories())
             {
                 Directory.CreateDirectory(Path.Combine(outputDirectory, dir.FullName));
-                await RecursiveUnpack(cd, dir, outputDirectory, processValue);
+                await RecursiveUnpack(cd, dir, outputDirectory, processValue, globalUsedSpace, copied);
             }
         }
 
@@ -384,7 +397,7 @@ namespace WinBox_Maker
             using (FileStream isoStream = File.Open(isoPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 UdfReader cd = new UdfReader(isoStream);
-                await RecursiveUnpack(cd, cd.Root, outputDirectory, processValue);
+                await RecursiveUnpack(cd, cd.Root, outputDirectory, processValue, await RecursiveGetUsedSpace(cd, cd.Root), 0);
             }
         }
     }
