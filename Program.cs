@@ -344,37 +344,47 @@ namespace WinBox_Maker
             }
         }
 
+        private static async Task RecursiveUnpack(UdfReader cd, DiscDirectoryInfo currentDir, string outputDirectory, Action<int> processValue)
+        {
+            foreach (DiscFileInfo file in currentDir.GetFiles())
+            {
+                string outputPath = Path.Combine(outputDirectory, file.FullName);
+                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+
+                using (var wimFile = cd.OpenFile(file.FullName, FileMode.Open, FileAccess.Read))
+                {
+                    long totalBytes = wimFile.Length;
+                    long bytesCopied = 0;
+
+                    using (FileStream outputStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
+                    {
+                        byte[] buffer = new byte[81920];
+                        int bytesRead;
+
+                        while ((bytesRead = await wimFile.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        {
+                            await outputStream.WriteAsync(buffer, 0, bytesRead);
+                            bytesCopied += bytesRead;
+
+                            processValue((int)((bytesCopied * 100) / totalBytes));
+                        }
+                    }
+                }
+            }
+
+            foreach (DiscDirectoryInfo dir in currentDir.GetDirectories())
+            {
+                Directory.CreateDirectory(Path.Combine(outputDirectory, dir.FullName));
+                await RecursiveUnpack(cd, dir, outputDirectory, processValue);
+            }
+        }
+
         public static async Task UnpackUdfIso(string isoPath, string outputDirectory, Action<int> processValue)
         {
             using (FileStream isoStream = File.Open(isoPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 UdfReader cd = new UdfReader(isoStream);
-                foreach (DiscFileInfo file in cd.GetFiles())
-                {
-                    string outputPath = Path.Combine(outputDirectory, file.FullName);
-
-                    Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
-
-                    using (var wimFile = cd.OpenFile(file.FullName, FileMode.Open, FileAccess.Read))
-                    {
-                        long totalBytes = wimFile.Length;
-                        long bytesCopied = 0;
-
-                        using (FileStream outputStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
-                        {
-                            byte[] buffer = new byte[81920];
-                            int bytesRead;
-
-                            while ((bytesRead = await wimFile.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                            {
-                                await outputStream.WriteAsync(buffer, 0, bytesRead);
-                                bytesCopied += bytesRead;
-
-                                processValue((int)((bytesCopied * 100) / totalBytes));
-                            }
-                        }
-                    }
-                }
+                await RecursiveUnpack(cd, cd.Root, outputDirectory, processValue);
             }
         }
     }
