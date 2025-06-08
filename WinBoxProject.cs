@@ -29,6 +29,7 @@ namespace WinBox_Maker
         string unpackedWimFile;
         string newWimFile;
         string wimMountPath;
+        string unpackIsoPath;
         string name;
         string? err;
 
@@ -44,6 +45,7 @@ namespace WinBox_Maker
             unpackedWimFile = Path.Combine(tempDirectoryPath, "base_install.wim");
             newWimFile = Path.Combine(tempDirectoryPath, "new_install.wim");
             wimMountPath = Path.Combine(tempDirectoryPath, "wim_mount");
+            unpackIsoPath = Path.Combine(tempDirectoryPath, "iso_unpack");
             name = Path.GetFileName(baseDirectoryPath);
 
             if (File.Exists(wnbFilePath))
@@ -271,14 +273,14 @@ namespace WinBox_Maker
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\skip_oobe.reg");
-            //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_telemetry.reg");
+            await Program.ExecuteAsync("reg.exe", $"import reg\\disable_telemetry.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_defender.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_autoupdate.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_checkdisk.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_powerdown_checks.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_bootmanager.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_systemcheck.reg");
-            await Program.ExecuteAsync("reg.exe", $"import reg\\test.reg");
+            //await Program.ExecuteAsync("reg.exe", $"import reg\\test.reg");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
 
@@ -315,7 +317,10 @@ namespace WinBox_Maker
             if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
             string baseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
 
-            await MakeModWim(processName, processValue, newWindowsDescription, newWimFile, null);
+            processName("Unpacking the iso");
+            await Program.UnpackUdfIso(baseWindowsImageFullPath, unpackIsoPath, processValue);
+
+            //await MakeModWim(processName, processValue, newWindowsDescription, newWimFile, null);
 
             //await Program.ExecuteAsync("oscdimg.exe", "oscdimg -n -m -bc:\\путь_к_образу\\etfsboot.com c:\\путь_к_папке_с_файлами c:\\путь_к_новому_образу\\new_image.iso");
 

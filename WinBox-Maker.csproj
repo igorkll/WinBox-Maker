@@ -18,6 +18,20 @@
     <None Remove="logichub.png" />
     <None Remove="newproject.png" />
     <None Remove="openproject.png" />
+    <None Remove="oscdimg-amd64\efisys.bin" />
+    <None Remove="oscdimg-amd64\efisys_noprompt.bin" />
+    <None Remove="oscdimg-amd64\etfsboot.com" />
+    <None Remove="oscdimg-amd64\oscdimg.exe" />
+    <None Remove="oscdimg-arm64\efisys.bin" />
+    <None Remove="oscdimg-arm64\efisys_noprompt.bin" />
+    <None Remove="oscdimg-arm64\oscdimg.exe" />
+    <None Remove="oscdimg-arm\efisys.bin" />
+    <None Remove="oscdimg-arm\efisys_noprompt.bin" />
+    <None Remove="oscdimg-arm\oscdimg.exe" />
+    <None Remove="oscdimg-x86\efisys.bin" />
+    <None Remove="oscdimg-x86\efisys_noprompt.bin" />
+    <None Remove="oscdimg-x86\etfsboot.com" />
+    <None Remove="oscdimg-x86\oscdimg.exe" />
     <None Remove="README.md" />
     <None Remove="reg\disable_autoupdate.reg" />
     <None Remove="reg\disable_bootmanager.reg" />
@@ -46,6 +60,48 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="openproject.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-amd64\efisys.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-amd64\efisys_noprompt.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-amd64\etfsboot.com">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-amd64\oscdimg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-arm64\efisys.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-arm64\efisys_noprompt.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-arm64\oscdimg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-arm\efisys.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-arm\efisys_noprompt.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-arm\oscdimg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-x86\efisys.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-x86\efisys_noprompt.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-x86\etfsboot.com">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="oscdimg-x86\oscdimg.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="README.md">

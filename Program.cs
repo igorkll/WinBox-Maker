@@ -1,3 +1,5 @@
+using DiscUtils;
+using DiscUtils.Udf;
 using ManagedWimLib;
 using System.Diagnostics;
 using System.IO;
@@ -20,6 +22,7 @@ namespace WinBox_Maker
 
         public const string version = "WinBox-Maker 1.0";
         public const string logichubUrl = "https://igorkll.github.io/logichub/index.html";
+        public static string? oscdimgPath;
         public static Form openProjectForm;
         static bool isClosingProgrammatically = false;
 
@@ -28,6 +31,7 @@ namespace WinBox_Maker
         {
             ApplicationConfiguration.Initialize();
             InitLibwim();
+            InitOscdimg();
 
             if (args.Length > 0)
             {
@@ -116,6 +120,27 @@ namespace WinBox_Maker
             else
             {
                 Console.Error.WriteLine("specify one of the keys to set the output format");
+            }
+        }
+
+        static void InitOscdimg()
+        {
+            switch (RuntimeInformation.ProcessArchitecture)
+            {
+                case Architecture.X86:
+                    oscdimgPath = "oscdimg-x86";
+                    break;
+                case Architecture.X64:
+                    oscdimgPath = "oscdimg-amd64";
+                    break;
+                case Architecture.Arm:
+                    oscdimgPath = "oscdimg-arm";
+                    break;
+                case Architecture.Arm64:
+                    oscdimgPath = "oscdimg-arm64";
+                    break;
+                default:
+                    throw new PlatformNotSupportedException("the program does not support your processor architecture");
             }
         }
 
@@ -316,6 +341,40 @@ namespace WinBox_Maker
             if (oldFileAttributes != null)
             {
                 File.SetAttributes(destFile, (FileAttributes)oldFileAttributes);
+            }
+        }
+
+        public static async Task UnpackUdfIso(string isoPath, string outputDirectory, Action<int> processValue)
+        {
+            using (FileStream isoStream = File.Open(isoPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                UdfReader cd = new UdfReader(isoStream);
+                foreach (DiscFileInfo file in cd.GetFiles())
+                {
+                    string outputPath = Path.Combine(outputDirectory, file.FullName);
+
+                    Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+
+                    using (var wimFile = cd.OpenFile(file.FullName, FileMode.Open, FileAccess.Read))
+                    {
+                        long totalBytes = wimFile.Length;
+                        long bytesCopied = 0;
+
+                        using (FileStream outputStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
+                        {
+                            byte[] buffer = new byte[81920];
+                            int bytesRead;
+
+                            while ((bytesRead = await wimFile.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                            {
+                                await outputStream.WriteAsync(buffer, 0, bytesRead);
+                                bytesCopied += bytesRead;
+
+                                processValue((int)((bytesCopied * 100) / totalBytes));
+                            }
+                        }
+                    }
+                }
             }
         }
     }
