@@ -20,6 +20,7 @@ namespace WinBox_Maker
         public string? ProgramName { get; set; }
         public string? ProgramArgs { get; set; }
         public bool? ProgramAsAdmin { get; set; }
+        public bool? disable_lockscreen { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -34,6 +35,7 @@ namespace WinBox_Maker
             if (UseOemKey == null) UseOemKey = false;
             if (ProgramArgs == null) ProgramArgs = "";
             if (ProgramAsAdmin == null) ProgramAsAdmin = true;
+            if (disable_lockscreen == null) disable_lockscreen = true;
         }
 
         public void Save(string wnbFilePath)
