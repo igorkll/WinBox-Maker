@@ -27,6 +27,7 @@
     <None Remove="reg\disable_systemcheck.reg" />
     <None Remove="reg\disable_telemetry.reg" />
     <None Remove="reg\skip_oobe.reg" />
+    <None Remove="reg\test.reg" />
     <None Remove="winbox.png" />
   </ItemGroup>
 
@@ -72,6 +73,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\skip_oobe.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\test.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="winbox.png">
