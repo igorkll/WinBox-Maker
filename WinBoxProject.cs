@@ -330,9 +330,18 @@ namespace WinBox_Maker
             string[] unpackBlacklist = { "sources\\install.wim" };
             await Program.UnpackUdfIso(baseWindowsImageFullPath, unpackIsoPath, processValue, unpackBlacklist);
 
-            //await MakeModWim(processName, processValue, newWindowsDescription, newWimFile, null);
+            await MakeModWim(processName, processValue, newWindowsDescription, Path.Combine(unpackIsoPath, "sources\\install.wim"), null);
 
-            //await Program.ExecuteAsync("oscdimg.exe", "oscdimg -n -m -bc:\\путь_к_образу\\etfsboot.com c:\\путь_к_папке_с_файлами c:\\путь_к_новому_образу\\new_image.iso");
+            processName("Building an ISO image");
+            processValue(35);
+            await Program.ExecuteAsync(Program.oscdimgPath, $"-n -m -b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
+
+            processName("Deleting unpacked ISO files");
+            processValue(75);
+            await Task.Run(() =>
+            {
+                Directory.Delete(unpackIsoPath, true);
+            });
 
             /*
             processName.Text = "Copying an image file";

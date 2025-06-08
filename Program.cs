@@ -143,6 +143,7 @@ namespace WinBox_Maker
                 default:
                     throw new PlatformNotSupportedException("the program does not support your processor architecture");
             }
+            oscdimgPath = Path.Combine(oscdimgPath, "oscdimg.exe");
         }
 
         static void InitLibwim()
