@@ -376,7 +376,7 @@ namespace WinBox_Maker
             if (winBoxConfig.ProgramName != null)
             {
                 string targetPath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
-                string shortcutPath = Path.Combine(wimMountPath, "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp");
+                string shortcutPath = Path.Combine(wimMountPath, "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\winbox.lnk");
                 Directory.CreateDirectory(Path.GetDirectoryName(shortcutPath));
 
                 WshShell shell = new WshShell();
