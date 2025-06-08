@@ -318,13 +318,18 @@ namespace WinBox_Maker
                 processValue(70);
                 await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /commit");
             }
-
-            processValue(100);
         }
-
+        private async Task CompleteExportMsg(Action<string> processName, Action<int> processValue)
+        {
+            processName("Completed!");
+            processValue(100);
+            await Task.Delay(2000);
+        }
+ 
         public async Task BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
         {
             if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
+
             string baseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
 
             processName("Unpacking the iso");
@@ -334,47 +339,17 @@ namespace WinBox_Maker
             await MakeModWim(processName, processValue, newWindowsDescription, Path.Combine(unpackIsoPath, "sources\\install.wim"), null);
 
             processName("Building an ISO image");
-            processValue(35);
+            processValue(80);
             await Program.ExecuteAsync(Program.oscdimgPath, $"-m -u2 -b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
 
             processName("Deleting unpacked ISO files");
-            processValue(75);
+            processValue(90);
             await Task.Run(() =>
             {
                 Directory.Delete(unpackIsoPath, true);
             });
 
-            /*
-            processName.Text = "Copying an image file";
-            await Program.CopyFileAsync(baseWindowsImageFullPath, exportPath, processValue);
-
-            processName.Text = "Packaging of the modified install.wim in the installation image";
-            using (FileStream isoStream = File.Open(exportPath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-            {
-                UdfReader cd = new UdfReader(isoStream);
-                using (var wimFile = new FileStream(unpackedWimFile, FileMode.Open, FileAccess.Read))
-                {
-                    long totalBytes = wimFile.Length;
-                    long bytesCopied = 0;
-
-                    using (var outputStream = cd.OpenFile(@"sources\install.wim", FileMode.Open, FileAccess.Write))
-                    {
-                        byte[] buffer = new byte[81920];
-                        int bytesRead;
-
-                        while ((bytesRead = await wimFile.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                        {
-                            await outputStream.WriteAsync(buffer, 0, bytesRead);
-                            bytesCopied += bytesRead;
-
-                            processValue.Value = (int)((bytesCopied * 100) / totalBytes);
-                        }
-                    }
-                }
-            }
-            */
-
-            File.Delete(newWimFile);
+            await CompleteExportMsg(processName, processValue);
         }
 
         public async Task BuildWimAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
@@ -382,6 +357,8 @@ namespace WinBox_Maker
             if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
 
             await MakeModWim(processName, processValue, newWindowsDescription, exportPath, null);
+
+            await CompleteExportMsg(processName, processValue);
         }
 
         public async Task BuildImgPartitionAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
@@ -390,7 +367,11 @@ namespace WinBox_Maker
 
             await MakeModWim(processName, processValue, newWindowsDescription, newWimFile, exportPath);
 
+            processName("Deleting temp install.wim");
+            processValue(90);
             File.Delete(newWimFile);
+
+            await CompleteExportMsg(processName, processValue);
         }
     }
 }
