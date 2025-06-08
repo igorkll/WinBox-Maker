@@ -385,7 +385,7 @@ namespace WinBox_Maker
             processValue(80);
             if (winBoxConfig.UseOemKey == true)
             {
-                File.WriteAllText(Path.Combine(unpackIsoPath, "Sources\\PID.txt"), $"[PID]\nValue={winBoxConfig.OemKey}");
+                await File.WriteAllTextAsync(Path.Combine(unpackIsoPath, "Sources\\PID.txt"), $"[PID]\nValue={winBoxConfig.OemKey}");
             }
 
             processName("Building an ISO image");
