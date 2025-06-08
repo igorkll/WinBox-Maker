@@ -100,6 +100,8 @@ namespace WinBox_Maker
             Program.CreateDirectory(bigResourcesDirectoryPath);
             Program.CreateDirectory(tempDirectoryPath);
             Program.CreateDirectory(wimMountPath);
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "files"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "program"));
 
             string gitignorePath = Path.Combine(baseDirectoryPath, ".gitignore");
             if (!File.Exists(gitignorePath)) {
@@ -133,13 +135,13 @@ namespace WinBox_Maker
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = openFileDialog.FileName;
-                    string fileName = Path.GetFileName(filePath);
+                    string fileName = Path.GetRelativePath(defaultDirectory, filePath);
 
                     if (onlyDefaultDirectory)
                     {
                         if (Program.IsPathInsideDirectory(filePath, defaultDirectory))
                         {
-                            return Path.Combine(defaultDirectory, fileName);
+                            return fileName;
                         }
                         else
                         {

@@ -225,6 +225,7 @@ namespace WinBox_Maker
 
             ExportIsoInstaller.Enabled = canExport;
             ExportInstallWim.Enabled = canExport;
+            ExportImgPartition.Enabled = canExport;
         }
 
         void UpdateGui()
@@ -232,7 +233,7 @@ namespace WinBox_Maker
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
             OemKey.Text = winBoxProject.winBoxConfig.OemKey ?? "";
             UseOemKey.CheckState = winBoxProject.winBoxConfig.UseOemKey == true ? CheckState.Checked : CheckState.Unchecked;
-            ProgramName.Text = winBoxProject.winBoxConfig.ProgramName ?? "";
+            ProgramName.Text = winBoxProject.winBoxConfig.ProgramName ?? "not selected";
             ProgramArgs.Text = winBoxProject.winBoxConfig.ProgramArgs ?? "";
             ProgramAsAdmin.CheckState = winBoxProject.winBoxConfig.ProgramAsAdmin == true ? CheckState.Checked : CheckState.Unchecked;
             UpdateGuiWithoutWindowsVersion();
@@ -373,6 +374,24 @@ namespace WinBox_Maker
         {
             Form form = new TextViewer("LICENSE.txt");
             form.Show();
+        }
+
+        private async void AppSelect_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Executable files (*.exe;*.bat)|*.exe;*.bat|All files (*.*)|*.*", Path.Combine(winBoxProject.resourcesDirectoryPath, "program"), true);
+            UnlockForm();
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.ProgramName = name;
+            }
+            winBoxProject.SaveConfig();
+        }
+
+        private async void AppClear_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.ProgramName = null;
+            winBoxProject.SaveConfig();
         }
     }
 }

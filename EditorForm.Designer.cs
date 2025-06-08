@@ -369,6 +369,7 @@
             AppClear.TabIndex = 1;
             AppClear.Text = "clear";
             AppClear.UseVisualStyleBackColor = true;
+            AppClear.Click += AppClear_Click;
             // 
             // AppSelect
             // 
@@ -378,6 +379,7 @@
             AppSelect.TabIndex = 0;
             AppSelect.Text = "select";
             AppSelect.UseVisualStyleBackColor = true;
+            AppSelect.Click += AppSelect_Click;
             // 
             // label3
             // 
