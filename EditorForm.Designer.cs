@@ -187,9 +187,9 @@
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox1.Cursor = Cursors.Hand;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(1118, 12);
+            pictureBox1.Location = new Point(1182, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(128, 128);
+            pictureBox1.Size = new Size(64, 64);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 17;
             pictureBox1.TabStop = false;
@@ -200,9 +200,9 @@
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox2.Cursor = Cursors.Hand;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(1118, 146);
+            pictureBox2.Location = new Point(1112, 12);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(128, 128);
+            pictureBox2.Size = new Size(64, 64);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 18;
             pictureBox2.TabStop = false;
