@@ -53,9 +53,15 @@
             panel1 = new Panel();
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
+            panel2 = new Panel();
+            label3 = new Label();
+            AppSelect = new Button();
+            AppClear = new Button();
+            AppName = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -300,12 +306,63 @@
             UseOemKey.UseVisualStyleBackColor = true;
             UseOemKey.CheckedChanged += UseOemKey_CheckedChanged;
             // 
+            // panel2
+            // 
+            panel2.BackColor = SystemColors.Window;
+            panel2.BorderStyle = BorderStyle.Fixed3D;
+            panel2.Controls.Add(AppName);
+            panel2.Controls.Add(AppClear);
+            panel2.Controls.Add(AppSelect);
+            panel2.Location = new Point(326, 391);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(429, 215);
+            panel2.TabIndex = 27;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(326, 350);
+            label3.Name = "label3";
+            label3.Size = new Size(205, 38);
+            label3.TabIndex = 28;
+            label3.Text = "You application";
+            // 
+            // AppSelect
+            // 
+            AppSelect.Location = new Point(3, 3);
+            AppSelect.Name = "AppSelect";
+            AppSelect.Size = new Size(112, 34);
+            AppSelect.TabIndex = 0;
+            AppSelect.Text = "select";
+            AppSelect.UseVisualStyleBackColor = true;
+            // 
+            // AppClear
+            // 
+            AppClear.Location = new Point(121, 3);
+            AppClear.Name = "AppClear";
+            AppClear.Size = new Size(112, 34);
+            AppClear.TabIndex = 1;
+            AppClear.Text = "clear";
+            AppClear.UseVisualStyleBackColor = true;
+            // 
+            // AppName
+            // 
+            AppName.AutoSize = true;
+            AppName.Location = new Point(239, 8);
+            AppName.Name = "AppName";
+            AppName.Size = new Size(113, 25);
+            AppName.TabIndex = 2;
+            AppName.Text = "program exe";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1258, 712);
+            Controls.Add(label3);
+            Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(ExportImgPartition);
             Controls.Add(LICENSE);
@@ -337,6 +394,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -366,5 +425,10 @@
         private Panel panel1;
         private CheckBox UseOemKey;
         private TextBox OemKey;
+        private Panel panel2;
+        private Label label3;
+        private Button AppClear;
+        private Button AppSelect;
+        private Label AppName;
     }
 }
