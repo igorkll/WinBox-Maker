@@ -22,6 +22,6 @@ the program is recommended to be used with the original English image of windows
 2. the path for exporting the output file, if it points to a directory, exports it there under the default name for this *.wnb. if this argument is not specified, it will be exported with the default name to the winbox_build directory next to the *.wnb file. if you just specify the file name here, the file will be created with the specified name in the winbox_build directory (do not specify a specific path here if you specified the first argument as a directory for converting multiple ones *.wnb because this will cause one file to be overwritten by multiple projects)
 
 ## command line flags
-* /i - exports the installer .iso
+* /i - exports the .iso installer
 * /w - exports the .wim file
-* /r - exports the .img partition
+* /r - exports the .img partition (with a pre-installed system without a bootloader)
