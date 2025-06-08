@@ -54,10 +54,13 @@
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
             panel2 = new Panel();
-            label3 = new Label();
-            AppSelect = new Button();
+            ProgramAsAdmin = new CheckBox();
+            label4 = new Label();
+            ProgramArgs = new TextBox();
+            ProgramName = new Label();
             AppClear = new Button();
-            AppName = new Label();
+            AppSelect = new Button();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -310,7 +313,10 @@
             // 
             panel2.BackColor = SystemColors.Window;
             panel2.BorderStyle = BorderStyle.Fixed3D;
-            panel2.Controls.Add(AppName);
+            panel2.Controls.Add(ProgramAsAdmin);
+            panel2.Controls.Add(label4);
+            panel2.Controls.Add(ProgramArgs);
+            panel2.Controls.Add(ProgramName);
             panel2.Controls.Add(AppClear);
             panel2.Controls.Add(AppSelect);
             panel2.Location = new Point(326, 391);
@@ -318,24 +324,42 @@
             panel2.Size = new Size(429, 215);
             panel2.TabIndex = 27;
             // 
-            // label3
+            // ProgramAsAdmin
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(326, 350);
-            label3.Name = "label3";
-            label3.Size = new Size(205, 38);
-            label3.TabIndex = 28;
-            label3.Text = "You application";
+            ProgramAsAdmin.AutoSize = true;
+            ProgramAsAdmin.Location = new Point(3, 80);
+            ProgramAsAdmin.Name = "ProgramAsAdmin";
+            ProgramAsAdmin.Size = new Size(226, 29);
+            ProgramAsAdmin.TabIndex = 5;
+            ProgramAsAdmin.Text = "Run as an administrator";
+            ProgramAsAdmin.UseVisualStyleBackColor = true;
+            ProgramAsAdmin.CheckedChanged += ProgramAsAdmin_CheckedChanged;
             // 
-            // AppSelect
+            // label4
             // 
-            AppSelect.Location = new Point(3, 3);
-            AppSelect.Name = "AppSelect";
-            AppSelect.Size = new Size(112, 34);
-            AppSelect.TabIndex = 0;
-            AppSelect.Text = "select";
-            AppSelect.UseVisualStyleBackColor = true;
+            label4.AutoSize = true;
+            label4.Location = new Point(239, 49);
+            label4.Name = "label4";
+            label4.Size = new Size(100, 25);
+            label4.TabIndex = 4;
+            label4.Text = "Arguments";
+            // 
+            // ProgramArgs
+            // 
+            ProgramArgs.Location = new Point(3, 43);
+            ProgramArgs.Name = "ProgramArgs";
+            ProgramArgs.Size = new Size(230, 31);
+            ProgramArgs.TabIndex = 3;
+            ProgramArgs.TextChanged += ProgramArgs_TextChanged;
+            // 
+            // ProgramName
+            // 
+            ProgramName.AutoSize = true;
+            ProgramName.Location = new Point(239, 8);
+            ProgramName.Name = "ProgramName";
+            ProgramName.Size = new Size(113, 25);
+            ProgramName.TabIndex = 2;
+            ProgramName.Text = "program exe";
             // 
             // AppClear
             // 
@@ -346,14 +370,24 @@
             AppClear.Text = "clear";
             AppClear.UseVisualStyleBackColor = true;
             // 
-            // AppName
+            // AppSelect
             // 
-            AppName.AutoSize = true;
-            AppName.Location = new Point(239, 8);
-            AppName.Name = "AppName";
-            AppName.Size = new Size(113, 25);
-            AppName.TabIndex = 2;
-            AppName.Text = "program exe";
+            AppSelect.Location = new Point(3, 3);
+            AppSelect.Name = "AppSelect";
+            AppSelect.Size = new Size(112, 34);
+            AppSelect.TabIndex = 0;
+            AppSelect.Text = "select";
+            AppSelect.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(326, 350);
+            label3.Name = "label3";
+            label3.Size = new Size(205, 38);
+            label3.TabIndex = 28;
+            label3.Text = "You application";
             // 
             // EditorForm
             // 
@@ -429,6 +463,9 @@
         private Label label3;
         private Button AppClear;
         private Button AppSelect;
-        private Label AppName;
+        private Label ProgramName;
+        private Label label4;
+        private TextBox ProgramArgs;
+        private CheckBox ProgramAsAdmin;
     }
 }

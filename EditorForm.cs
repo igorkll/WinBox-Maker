@@ -15,7 +15,7 @@ namespace WinBox_Maker
         public EditorForm(WinBoxProject winBoxProject)
         {
             InitializeComponent();
-            this.Text = $"{Program.version} - {this.Text} ({winBoxProject.GetName()})";
+            this.Text = $"{WinBox_Maker.Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
             UnlockForm();
             if (winBoxProject.NeedLoadWindows())
@@ -230,6 +230,11 @@ namespace WinBox_Maker
         void UpdateGui()
         {
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
+            OemKey.Text = winBoxProject.winBoxConfig.OemKey ?? "";
+            UseOemKey.CheckState = winBoxProject.winBoxConfig.UseOemKey == true ? CheckState.Checked : CheckState.Unchecked;
+            ProgramName.Text = winBoxProject.winBoxConfig.ProgramName ?? "";
+            ProgramArgs.Text = winBoxProject.winBoxConfig.ProgramArgs ?? "";
+            ProgramAsAdmin.CheckState = winBoxProject.winBoxConfig.ProgramAsAdmin == true ? CheckState.Checked : CheckState.Unchecked;
             UpdateGuiWithoutWindowsVersion();
         }
 
@@ -321,14 +326,26 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
         }
 
+        private void ProgramArgs_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.ProgramArgs = ProgramArgs.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void ProgramAsAdmin_CheckedChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.ProgramAsAdmin = ProgramAsAdmin.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            Program.OpenWebPage(Program.logichubUrl + "#winbox");
+            WinBox_Maker.Program.OpenWebPage(WinBox_Maker.Program.logichubUrl + "#winbox");
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            Program.OpenWebPage(Program.logichubUrl);
+            WinBox_Maker.Program.OpenWebPage(WinBox_Maker.Program.logichubUrl);
         }
 
         private void UpdateProcessName(string text)
@@ -343,7 +360,7 @@ namespace WinBox_Maker
 
         private void back_Click(object sender, EventArgs e)
         {
-            Program.SwitchForm(this, Program.openProjectForm);
+            WinBox_Maker.Program.SwitchForm(this, WinBox_Maker.Program.openProjectForm);
         }
 
         private void README_Click(object sender, EventArgs e)

@@ -17,6 +17,9 @@ namespace WinBox_Maker
         public string? WinboxDescription { get; set; }
         public string? OemKey { get; set; }
         public bool? UseOemKey { get; set; }
+        public string? ProgramName { get; set; }
+        public string? ProgramArgs { get; set; }
+        public bool? ProgramAsAdmin { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -29,6 +32,8 @@ namespace WinBox_Maker
             if (WinboxDescription == null) WinboxDescription = "Winbox Description";
             if (OemKey == null) OemKey = "";
             if (UseOemKey == null) UseOemKey = false;
+            if (ProgramArgs == null) ProgramArgs = "";
+            if (ProgramAsAdmin == null) ProgramAsAdmin = true;
         }
 
         public void Save(string wnbFilePath)
