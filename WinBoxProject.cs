@@ -375,7 +375,7 @@ namespace WinBox_Maker
                 if (winBoxConfig.ProgramAsAdmin == true)
                 {
                     shortcut.TargetPath = "powershell.exe";
-                    shortcut.Arguments = $"Start-Process \"{targetPath} {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)}\" -Verb RunAs";
+                    shortcut.Arguments = $"Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -Verb RunAs";
                 }
                 else
                 {
