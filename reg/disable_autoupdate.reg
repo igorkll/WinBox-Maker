@@ -4,3 +4,6 @@ Windows Registry Editor Version 5.00
 "AUOptions"=dword:00000001
 "NoAutoUpdate"=dword:00000001
 "NoAutoRebootWithLoggedOnUsers"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update]
+"AUState"=dword:00000000
