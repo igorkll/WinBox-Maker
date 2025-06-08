@@ -13,6 +13,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using WshShell = IWshRuntimeLibrary.WshShell;
+using IWshShortcut = IWshRuntimeLibrary.IWshShortcut;
 
 namespace WinBox_Maker
 {
@@ -293,6 +295,26 @@ namespace WinBox_Maker
             await Program.ExecuteAsync("reg.exe", $"import {tempRegPath}");
         }
 
+        private void SetRunAsAdmin(string shortcutPath)
+        {
+            var shell = new IWshRuntimeLibrary.WshShell();
+            var shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
+            shortcut.Save();
+
+            var fileInfo = new System.IO.FileInfo(shortcutPath);
+            var filePath = fileInfo.FullName;
+
+            var processInfo = new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = $"/c echo Y | runas /user:Administrator \"{filePath}\"",
+                UseShellExecute = true,
+                CreateNoWindow = true
+            };
+
+            System.Diagnostics.Process.Start(processInfo);
+        }
+
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
             //processName.Text = "Copying an install.wim file";
@@ -349,6 +371,29 @@ namespace WinBox_Maker
             if (Directory.Exists(filesPath))
             {
                 await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
+            }
+
+            if (winBoxConfig.ProgramName != null)
+            {
+                string targetPath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
+                string shortcutPath = Path.Combine(wimMountPath, "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp");
+                Directory.CreateDirectory(Path.GetDirectoryName(shortcutPath));
+
+                WshShell shell = new WshShell();
+                IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
+
+                shortcut.TargetPath = targetPath;
+                shortcut.WorkingDirectory = @"C:\WinboxProgram";
+                shortcut.Description = "";
+                shortcut.Arguments = winBoxConfig.ProgramArgs;
+                shortcut.IconLocation = targetPath;
+                shortcut.Save();
+
+                if (winBoxConfig.ProgramAsAdmin == true)
+                {
+                    var shortcutFile = new Shell32.Shell().NameSpace(Path.GetDirectoryName(shortcutPath)).Items().Item(Path.GetFileName(shortcutPath));
+                    shortcutFile.InvokeVerb("runas");
+                }
             }
 
             if (imgPartitionPath != null)
