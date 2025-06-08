@@ -4,7 +4,7 @@ takes on the task of modifying the windows image to remove excess and embed soft
 the program is perfect for windows builds designed for ATM terminals and other devices that unauthorized people have access to and should not be allowed to leave the specified sandbox
 the program needs to be run with administrator rights because it mounts images
 the program is primarily aimed at creating Windows images for operation in kiosk mode, that is, the user will have access to only one of your programs that you add to the image and nothing more. however, the program can be used in other usage scenarios
-please note that the program requires the "dism" utility. usually it is built into Windows
+please note that the program requires the "dism" and "oscdimg" utility. usually it is built into Windows
 the program is recommended to be used with the original English image of windows 10 pro
 
 ## project structure
