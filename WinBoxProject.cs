@@ -337,13 +337,17 @@ namespace WinBox_Maker
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
 
-            /*
             string filesPath = Path.Combine(resourcesDirectoryPath, "files");
             if (Directory.Exists(filesPath))
             {
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
             }
-            */
+
+            string programPath = Path.Combine(resourcesDirectoryPath, "program");
+            if (Directory.Exists(filesPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
+            }
 
             if (imgPartitionPath != null)
             {

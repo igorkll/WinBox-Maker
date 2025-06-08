@@ -6,6 +6,7 @@ the program needs to be run with administrator rights because it mounts images
 the program is primarily aimed at creating Windows images for operation in kiosk mode, that is, the user will have access to only one of your programs that you add to the image and nothing more. however, the program can be used in other usage scenarios
 please note that the program requires the "dism" utility. usually it is built into Windows
 the program is recommended to be used with the original English image of windows 10 pro
+please note that winbox maker does not provide Windows images, it only provides a tool for reassembling Windows with a calculation for use in kiosk mode
 
 ## project structure
 * winbox.wnb - the main project file. contains all settings and paths
@@ -15,7 +16,7 @@ the program is recommended to be used with the original English image of windows
 * winbox_bigResources - a directory for large resource files that are not unique but are downloaded from the outside, such as base windows images that should not be included in git repository (added to by default .gitignore)
 * winbox_resources - a folder for your resources that are needed to build the system. these files should end up in the git repository
 * winbox_resources/files - files from this directory will be moved to the root of the disk on the installed system with replacement
-* winbox_resources/program - the directory for your application that will be used in kiosk mode. although this directory is not added to by default.gitignore if you plan to automatically copy your application files here during assembly and build a windows image with your application in post build event, then add this directory to .gitignore
+* winbox_resources/program - the directory for your application that will be used in kiosk mode. although this directory is not added to by default .gitignore if you plan to automatically copy your application files here during assembly and build a windows image with your application in post build event, then add this directory to .gitignore
 
 ## command line arguments
 1. the path to the file .wnb is for automatically starting conversion from the command line. if it points to a directory, it will convert all files .wnb in this directory
