@@ -380,18 +380,19 @@ namespace WinBox_Maker
         {
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Executable files (*.exe;*.bat)|*.exe;*.bat|All files (*.*)|*.*", Path.Combine(winBoxProject.resourcesDirectoryPath, "program"), true);
-            UnlockForm();
             if (name != null)
             {
                 winBoxProject.winBoxConfig.ProgramName = name;
             }
             winBoxProject.SaveConfig();
+            UnlockForm();
         }
 
         private async void AppClear_Click(object sender, EventArgs e)
         {
             winBoxProject.winBoxConfig.ProgramName = null;
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }
