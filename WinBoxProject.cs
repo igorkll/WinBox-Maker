@@ -334,7 +334,7 @@ namespace WinBox_Maker
 
             processName("Building an ISO image");
             processValue(35);
-            await Program.ExecuteAsync(Program.oscdimgPath, $"-n -m -b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
+            await Program.ExecuteAsync(Program.oscdimgPath, $"-m -u2 -b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
 
             processName("Deleting unpacked ISO files");
             processValue(75);
