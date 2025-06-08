@@ -4,6 +4,7 @@ using ManagedWimLib;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace WinBox_Maker
 {
@@ -344,42 +345,47 @@ namespace WinBox_Maker
             }
         }
 
-        private static async Task<long> RecursiveGetUsedSpace(UdfReader cd, DiscDirectoryInfo currentDir)
+        private static async Task<long> RecursiveGetUsedSpace(UdfReader cd, DiscDirectoryInfo currentDir, string[] blacklist)
         {
             long usedSpace = 0;
 
             foreach (DiscFileInfo file in currentDir.GetFiles())
             {
-                usedSpace += file.Length;
+                if (!blacklist.Contains(file.FullName))
+                {
+                    usedSpace += file.Length;
+                }
             }
 
             foreach (DiscDirectoryInfo dir in currentDir.GetDirectories())
             {
-                usedSpace += await RecursiveGetUsedSpace(cd, dir);
+                usedSpace += await RecursiveGetUsedSpace(cd, dir, blacklist);
             }
 
             return usedSpace;
         }
 
-        private static async Task RecursiveUnpack(UdfReader cd, DiscDirectoryInfo currentDir, string outputDirectory, Action<int> processValue, long globalUsedSpace, long copied)
+        private static async Task RecursiveUnpack(UdfReader cd, DiscDirectoryInfo currentDir, string outputDirectory, Action<int> processValue, long globalUsedSpace, long copied, string[] blacklist)
         {
             foreach (DiscFileInfo file in currentDir.GetFiles())
             {
-                string outputPath = Path.Combine(outputDirectory, file.FullName);
-                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+                if (!blacklist.Contains(file.FullName)) {
+                    string outputPath = Path.Combine(outputDirectory, file.FullName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
 
-                using (var wimFile = cd.OpenFile(file.FullName, FileMode.Open, FileAccess.Read))
-                {
-                    using (FileStream outputStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
+                    using (var wimFile = cd.OpenFile(file.FullName, FileMode.Open, FileAccess.Read))
                     {
-                        byte[] buffer = new byte[1024 * 64 * 4];
-                        int bytesRead;
-
-                        while ((bytesRead = await wimFile.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        using (FileStream outputStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
                         {
-                            await outputStream.WriteAsync(buffer, 0, bytesRead);
-                            copied += bytesRead;
-                            processValue((int)((copied * 100) / globalUsedSpace));
+                            byte[] buffer = new byte[1024 * 64 * 4];
+                            int bytesRead;
+
+                            while ((bytesRead = await wimFile.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                            {
+                                await outputStream.WriteAsync(buffer, 0, bytesRead);
+                                copied += bytesRead;
+                                processValue((int)((copied * 100) / globalUsedSpace));
+                            }
                         }
                     }
                 }
@@ -388,16 +394,16 @@ namespace WinBox_Maker
             foreach (DiscDirectoryInfo dir in currentDir.GetDirectories())
             {
                 Directory.CreateDirectory(Path.Combine(outputDirectory, dir.FullName));
-                await RecursiveUnpack(cd, dir, outputDirectory, processValue, globalUsedSpace, copied);
+                await RecursiveUnpack(cd, dir, outputDirectory, processValue, globalUsedSpace, copied, blacklist);
             }
         }
 
-        public static async Task UnpackUdfIso(string isoPath, string outputDirectory, Action<int> processValue)
+        public static async Task UnpackUdfIso(string isoPath, string outputDirectory, Action<int> processValue, string[] blacklist)
         {
             using (FileStream isoStream = File.Open(isoPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 UdfReader cd = new UdfReader(isoStream);
-                await RecursiveUnpack(cd, cd.Root, outputDirectory, processValue, await RecursiveGetUsedSpace(cd, cd.Root), 0);
+                await RecursiveUnpack(cd, cd.Root, outputDirectory, processValue, await RecursiveGetUsedSpace(cd, cd.Root, blacklist), 0, blacklist);
             }
         }
     }

@@ -327,7 +327,8 @@ namespace WinBox_Maker
             string baseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
 
             processName("Unpacking the iso");
-            await Program.UnpackUdfIso(baseWindowsImageFullPath, unpackIsoPath, processValue);
+            string[] unpackBlacklist = { "sources\\install.wim" };
+            await Program.UnpackUdfIso(baseWindowsImageFullPath, unpackIsoPath, processValue, unpackBlacklist);
 
             //await MakeModWim(processName, processValue, newWindowsDescription, newWimFile, null);
 
