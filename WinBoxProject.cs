@@ -283,8 +283,8 @@ namespace WinBox_Maker
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\skip_oobe.reg");
             await Program.ExecuteAsync("reg.exe", $"import reg\\disable_telemetry.reg");
-            //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_defender.reg");
-            //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_autoupdate.reg");
+            await Program.ExecuteAsync("reg.exe", $"import reg\\disable_defender.reg");
+            await Program.ExecuteAsync("reg.exe", $"import reg\\disable_autoupdate.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_checkdisk.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_powerdown_checks.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_bootmanager.reg");
