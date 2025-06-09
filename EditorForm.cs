@@ -397,7 +397,7 @@ namespace WinBox_Maker
             UnlockForm();
         }
 
-        private async void AppClear_Click(object sender, EventArgs e)
+        private void AppClear_Click(object sender, EventArgs e)
         {
             winBoxProject.winBoxConfig.ProgramName = null;
             winBoxProject.SaveConfig();
