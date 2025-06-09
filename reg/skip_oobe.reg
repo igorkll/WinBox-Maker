@@ -13,6 +13,9 @@ Windows Registry Editor Version 5.00
 "Sid"=hex:01,05,00,00,00,00,00,05,15,00,00,00,57,B8,B2,70,88,2A,E2,55,99,7A,1B,CE,E9,03,00,00
 "Flags"=dword:00000000
 "FullProfile"=dword:00000001
+"State"=dword:00000000
+"RefCount"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
 "AutoAdminLogon"=dword:00000001
+"DefaultUserName"="winbox"
