@@ -293,7 +293,9 @@ namespace WinBox_Maker
 [HKEY_LOCAL_MACHINE\WINBOX_{baseTree}{path}]
 ""{key}""={value}
 ";
-            await Program.ExecuteAsync("reg.exe", $"import {tempRegPath}");
+            await File.WriteAllTextAsync(tempRegPath, regMod);
+            await Program.ExecuteAsync("reg.exe", $"import \"{tempRegPath}\"");
+            File.Delete(tempRegPath);
         }
 
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
@@ -346,22 +348,19 @@ namespace WinBox_Maker
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_defender.reg");
                 
                 string deleteDir = Path.Combine(wimMountPath, "Program Files\\Windows Defender");
-                if (Directory.Exists(deleteDir))
-                {
-                    Directory.Delete(deleteDir, true);
-                }
+                if (Directory.Exists(deleteDir)) Directory.Delete(deleteDir, true);
+
+                deleteDir = Path.Combine(wimMountPath, "Program Files\\Windows Defender");
+                if (Directory.Exists(deleteDir)) Directory.Delete(deleteDir, true);
+
+                deleteDir = Path.Combine(wimMountPath, "Program Files\\Windows Defender Advanced Threat Protection");
+                if (Directory.Exists(deleteDir)) Directory.Delete(deleteDir, true);
 
                 deleteDir = Path.Combine(wimMountPath, "Program Files\\Windows Security");
-                if (Directory.Exists(deleteDir))
-                {
-                    Directory.Delete(deleteDir, true);
-                }
+                if (Directory.Exists(deleteDir)) Directory.Delete(deleteDir, true);
 
                 deleteDir = Path.Combine(wimMountPath, "ProgramData\\Microsoft\\Windows Defender");
-                if (Directory.Exists(deleteDir))
-                {
-                    Directory.Delete(deleteDir, true);
-                }
+                if (Directory.Exists(deleteDir)) Directory.Delete(deleteDir, true);
             }
 
             if (true)
