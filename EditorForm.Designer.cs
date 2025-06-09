@@ -217,9 +217,9 @@
             // ExportInstallWim
             // 
             ExportInstallWim.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportInstallWim.Location = new Point(1023, 589);
+            ExportInstallWim.Location = new Point(1035, 589);
             ExportInstallWim.Name = "ExportInstallWim";
-            ExportInstallWim.Size = new Size(223, 37);
+            ExportInstallWim.Size = new Size(211, 37);
             ExportInstallWim.TabIndex = 19;
             ExportInstallWim.Text = "export install.wim";
             ExportInstallWim.UseVisualStyleBackColor = true;
@@ -228,9 +228,9 @@
             // ExportIsoInstaller
             // 
             ExportIsoInstaller.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportIsoInstaller.Location = new Point(1023, 632);
+            ExportIsoInstaller.Location = new Point(1035, 632);
             ExportIsoInstaller.Name = "ExportIsoInstaller";
-            ExportIsoInstaller.Size = new Size(223, 37);
+            ExportIsoInstaller.Size = new Size(211, 37);
             ExportIsoInstaller.TabIndex = 20;
             ExportIsoInstaller.Text = "export .iso installer";
             ExportIsoInstaller.UseVisualStyleBackColor = true;
@@ -277,9 +277,9 @@
             // ExportImgPartition
             // 
             ExportImgPartition.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportImgPartition.Location = new Point(1023, 549);
+            ExportImgPartition.Location = new Point(1035, 549);
             ExportImgPartition.Name = "ExportImgPartition";
-            ExportImgPartition.Size = new Size(223, 34);
+            ExportImgPartition.Size = new Size(211, 34);
             ExportImgPartition.TabIndex = 25;
             ExportImgPartition.Text = "export .img partition";
             ExportImgPartition.UseVisualStyleBackColor = true;
@@ -455,6 +455,8 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
+            AutoScrollMargin = new Size(10, 30);
             BackColor = SystemColors.Control;
             ClientSize = new Size(1258, 712);
             Controls.Add(label5);
@@ -538,5 +540,6 @@
         private GroupBox ProgramMode;
         private RadioButton ProgramMode_InsteadExplorer;
         private RadioButton ProgramMode_AfterExplorer;
+        private VScrollBar vScrollBar1;
     }
 }
