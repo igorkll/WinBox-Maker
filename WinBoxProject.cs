@@ -342,6 +342,11 @@ namespace WinBox_Maker
 
             if (true)
             {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\skip_oobe.reg");
+            }
+
+            if (true)
+            {
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_telemetry.reg");
             }
 
@@ -470,7 +475,7 @@ namespace WinBox_Maker
                                     shellCmd = $"powershell.exe Start-Process \"{targetPath}\" -WindowStyle Maximized";
                                 }
                             }
-                            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(shellCmd));
+                            //await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(shellCmd));
                             break;
                         }
                 }
