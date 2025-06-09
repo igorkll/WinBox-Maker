@@ -345,7 +345,7 @@ namespace WinBox_Maker
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_telemetry.reg");
             }
 
-            if (true)
+            if (false)
             {
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_defender.reg");
                 
