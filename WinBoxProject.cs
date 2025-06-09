@@ -340,6 +340,7 @@ namespace WinBox_Maker
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_systemcheck.reg");
             await Program.ExecuteAsync("reg.exe", $"import reg\\restrict_explorer.reg");
             await Program.ExecuteAsync("reg.exe", $"import reg\\disable_UAC.reg");
+            await Program.ExecuteAsync("reg.exe", $"import reg\\disable_notifications.reg");
             if (winBoxConfig.disable_lockscreen == true) await Program.ExecuteAsync("reg.exe", $"import reg\\disable_lockscreen.reg");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
@@ -405,22 +406,22 @@ namespace WinBox_Maker
                             {
                                 if (winBoxConfig.ProgramArgs.Length > 0)
                                 {
-                                    shellCmd = $"Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -Verb RunAs -WindowStyle Maximized";
+                                    shellCmd = $"powershell.exe Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -Verb RunAs -WindowStyle Maximized";
                                 }
                                 else
                                 {
-                                    shellCmd = $"Start-Process \"{targetPath}\" -Verb RunAs -WindowStyle Maximized";
+                                    shellCmd = $"powershell.exe Start-Process \"{targetPath}\" -Verb RunAs -WindowStyle Maximized";
                                 }
                             }
                             else
                             {
                                 if (winBoxConfig.ProgramArgs.Length > 0)
                                 {
-                                    shellCmd = $"Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -WindowStyle Maximized";
+                                    shellCmd = $"powershell.exe Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -WindowStyle Maximized";
                                 }
                                 else
                                 {
-                                    shellCmd = $"Start-Process \"{targetPath}\" -WindowStyle Maximized";
+                                    shellCmd = $"powershell.exe Start-Process \"{targetPath}\" -WindowStyle Maximized";
                                 }
                             }
                             await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", shellCmd);

@@ -38,6 +38,7 @@
     <None Remove="reg\disable_checkdisk.reg" />
     <None Remove="reg\disable_defender.reg" />
     <None Remove="reg\disable_lockscreen.reg" />
+    <None Remove="reg\disable_notifications.reg" />
     <None Remove="reg\disable_powerdown_checks.reg" />
     <None Remove="reg\disable_systemcheck.reg" />
     <None Remove="reg\disable_telemetry.reg" />
@@ -139,6 +140,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\disable_defender.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\disable_notifications.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\restrict_explorer.reg">
