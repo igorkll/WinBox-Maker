@@ -400,8 +400,30 @@ namespace WinBox_Maker
 
                     case ProgramModeEnum.InsteadExplorer:
                         {
-                            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell",
-                                winBoxConfig.ProgramArgs.Length > 0 ? $"{targetPath} {winBoxConfig.ProgramArgs}" : targetPath);
+                            string shellCmd;
+                            if (winBoxConfig.ProgramAsAdmin == true)
+                            {
+                                if (winBoxConfig.ProgramArgs.Length > 0)
+                                {
+                                    shellCmd = $"Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -Verb RunAs -WindowStyle Maximized";
+                                }
+                                else
+                                {
+                                    shellCmd = $"Start-Process \"{targetPath}\" -Verb RunAs -WindowStyle Maximized";
+                                }
+                            }
+                            else
+                            {
+                                if (winBoxConfig.ProgramArgs.Length > 0)
+                                {
+                                    shellCmd = $"Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -WindowStyle Maximized";
+                                }
+                                else
+                                {
+                                    shellCmd = $"Start-Process \"{targetPath}\" -WindowStyle Maximized";
+                                }
+                            }
+                            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", shellCmd);
                             break;
                         }
                 }
