@@ -37,7 +37,6 @@
     <None Remove="reg\disable_bootmanager.reg" />
     <None Remove="reg\disable_checkdisk.reg" />
     <None Remove="reg\disable_defender.reg" />
-    <None Remove="reg\disable_explorer.reg" />
     <None Remove="reg\disable_lockscreen.reg" />
     <None Remove="reg\disable_powerdown_checks.reg" />
     <None Remove="reg\disable_systemcheck.reg" />
@@ -143,7 +142,7 @@
     <EmbeddedResource Include="reg\disable_defender.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="reg\disable_explorer.reg">
+    <EmbeddedResource Include="reg\restrict_explorer.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\disable_lockscreen.reg">

@@ -326,6 +326,7 @@ namespace WinBox_Maker
 
             processName("Modification of the system files");
             processValue(50);
+            // ----------------------- tweaks
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\skip_oobe.reg");
@@ -336,7 +337,7 @@ namespace WinBox_Maker
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_powerdown_checks.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_bootmanager.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_systemcheck.reg");
-            await Program.ExecuteAsync("reg.exe", $"import reg\\disable_explorer.reg");
+            await Program.ExecuteAsync("reg.exe", $"import reg\\restrict_explorer.reg");
             await Program.ExecuteAsync("reg.exe", $"import reg\\disable_UAC.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\test.reg");
             if (winBoxConfig.disable_lockscreen == true)
@@ -347,6 +348,7 @@ namespace WinBox_Maker
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
 
+            // ----------------------- installing the user's application
             string filesPath = Path.Combine(resourcesDirectoryPath, "files");
             if (Directory.Exists(filesPath))
             {

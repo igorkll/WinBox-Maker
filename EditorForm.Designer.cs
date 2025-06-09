@@ -61,6 +61,8 @@
             AppClear = new Button();
             AppSelect = new Button();
             label3 = new Label();
+            checkedListBox1 = new CheckedListBox();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -177,7 +179,7 @@
             // 
             WinboxDescription.Location = new Point(11, 428);
             WinboxDescription.Name = "WinboxDescription";
-            WinboxDescription.Size = new Size(303, 178);
+            WinboxDescription.Size = new Size(303, 191);
             WinboxDescription.TabIndex = 15;
             WinboxDescription.Text = "";
             WinboxDescription.TextChanged += WinboxDescription_TextChanged;
@@ -321,7 +323,7 @@
             panel2.Controls.Add(AppSelect);
             panel2.Location = new Point(326, 391);
             panel2.Name = "panel2";
-            panel2.Size = new Size(429, 215);
+            panel2.Size = new Size(429, 228);
             panel2.TabIndex = 27;
             // 
             // ProgramAsAdmin
@@ -391,12 +393,32 @@
             label3.TabIndex = 28;
             label3.Text = "You application";
             // 
+            // checkedListBox1
+            // 
+            checkedListBox1.FormattingEnabled = true;
+            checkedListBox1.Location = new Point(761, 391);
+            checkedListBox1.Name = "checkedListBox1";
+            checkedListBox1.Size = new Size(241, 228);
+            checkedListBox1.TabIndex = 29;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(761, 350);
+            label5.Name = "label5";
+            label5.Size = new Size(105, 38);
+            label5.TabIndex = 30;
+            label5.Text = "Tweaks";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1258, 712);
+            Controls.Add(label5);
+            Controls.Add(checkedListBox1);
             Controls.Add(label3);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -469,5 +491,7 @@
         private Label label4;
         private TextBox ProgramArgs;
         private CheckBox ProgramAsAdmin;
+        private CheckedListBox checkedListBox1;
+        private Label label5;
     }
 }
