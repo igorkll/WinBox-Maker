@@ -377,14 +377,15 @@ namespace WinBox_Maker
 
                             if (winBoxConfig.ProgramAsAdmin == true)
                             {
+                                shortcut.WindowStyle = 7;
                                 shortcut.TargetPath = "powershell.exe";
                                 if (winBoxConfig.ProgramArgs.Length > 0)
                                 {
-                                    shortcut.Arguments = $"Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -Verb RunAs";
+                                    shortcut.Arguments = $"Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -Verb RunAs -WindowStyle Maximized";
                                 }
                                 else
                                 {
-                                    shortcut.Arguments = $"Start-Process \"{targetPath}\" -Verb RunAs";
+                                    shortcut.Arguments = $"Start-Process \"{targetPath}\" -Verb RunAs -WindowStyle Maximized";
                                 }
                             }
                             else
