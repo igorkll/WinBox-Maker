@@ -343,6 +343,7 @@ namespace WinBox_Maker
             if (true)
             {
                 await Program.ExecuteAsync("reg.exe", $"import reg\\skip_oobe.reg");
+                await Program.CopyFilesRecursivelyAsync(Path.Combine(wimMountPath, "Users\\Default"), Path.Combine(wimMountPath, "Users\\winbox"));
             }
 
             if (true)
