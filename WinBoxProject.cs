@@ -404,14 +404,14 @@ namespace WinBox_Maker
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
             }
 
-            string programPath = Path.Combine(resourcesDirectoryPath, "program");
-            if (Directory.Exists(filesPath))
-            {
-                await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
-            }
-
             if (winBoxConfig.ProgramName != null)
             {
+                string programPath = Path.Combine(resourcesDirectoryPath, "program");
+                if (Directory.Exists(filesPath))
+                {
+                    await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
+                }
+
                 string targetPath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
                 switch (winBoxConfig.ProgramMode)
                 {
