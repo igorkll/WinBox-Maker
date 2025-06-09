@@ -339,12 +339,7 @@ namespace WinBox_Maker
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_systemcheck.reg");
             await Program.ExecuteAsync("reg.exe", $"import reg\\restrict_explorer.reg");
             await Program.ExecuteAsync("reg.exe", $"import reg\\disable_UAC.reg");
-            //await Program.ExecuteAsync("reg.exe", $"import reg\\test.reg");
-            if (winBoxConfig.disable_lockscreen == true)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_lockscreen.reg");
-                Directory.Delete(Path.Combine(wimMountPath, "Windows\\SystemApps\\Microsoft.LockApp_cw5n1h2txyewy"), true);
-            }
+            if (winBoxConfig.disable_lockscreen == true) await Program.ExecuteAsync("reg.exe", $"import reg\\disable_lockscreen.reg");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
 
