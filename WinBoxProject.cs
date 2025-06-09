@@ -470,7 +470,7 @@ namespace WinBox_Maker
                                     shellCmd = $"powershell.exe Start-Process \"{targetPath}\" -WindowStyle Maximized";
                                 }
                             }
-                            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", shellCmd);
+                            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(shellCmd));
                             break;
                         }
                 }

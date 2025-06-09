@@ -444,5 +444,11 @@ namespace WinBox_Maker
                 await RecursiveUnpack(cd, cd.Root, outputDirectory, processValue, await RecursiveGetUsedSpace(cd, cd.Root, blacklist), 0, blacklist);
             }
         }
+
+        public static string EscapeForRegFile(string input)
+        {
+            return "\"" + input.Replace("\\", "\\\\")
+                        .Replace("\"", "\\\"") + "\"";
+        }
     }
 }
