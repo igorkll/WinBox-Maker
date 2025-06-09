@@ -331,17 +331,64 @@ namespace WinBox_Maker
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\skip_oobe.reg");
-            await Program.ExecuteAsync("reg.exe", $"import reg\\disable_telemetry.reg");
-            await Program.ExecuteAsync("reg.exe", $"import reg\\disable_defender.reg");
-            await Program.ExecuteAsync("reg.exe", $"import reg\\disable_autoupdate.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_checkdisk.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_powerdown_checks.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_bootmanager.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_systemcheck.reg");
-            await Program.ExecuteAsync("reg.exe", $"import reg\\restrict_explorer.reg");
-            await Program.ExecuteAsync("reg.exe", $"import reg\\disable_UAC.reg");
-            await Program.ExecuteAsync("reg.exe", $"import reg\\disable_notifications.reg");
-            if (winBoxConfig.disable_lockscreen == true) await Program.ExecuteAsync("reg.exe", $"import reg\\disable_lockscreen.reg");
+
+            if (true)
+            {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_telemetry.reg");
+            }
+
+            if (true)
+            {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_defender.reg");
+                
+                string deleteDir = Path.Combine(wimMountPath, "Program Files\\Windows Defender");
+                if (Directory.Exists(deleteDir))
+                {
+                    Directory.Delete(deleteDir, true);
+                }
+
+                deleteDir = Path.Combine(wimMountPath, "Program Files\\Windows Security");
+                if (Directory.Exists(deleteDir))
+                {
+                    Directory.Delete(deleteDir, true);
+                }
+
+                deleteDir = Path.Combine(wimMountPath, "ProgramData\\Microsoft\\Windows Defender");
+                if (Directory.Exists(deleteDir))
+                {
+                    Directory.Delete(deleteDir, true);
+                }
+            }
+
+            if (true)
+            {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_autoupdate.reg");
+            }
+
+            if (true)
+            {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\restrict_explorer.reg");
+            }
+
+            if (true)
+            {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_UAC.reg");
+            }
+
+            if (true)
+            {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_notifications.reg");
+            }
+
+            if (winBoxConfig.disable_lockscreen == true)
+            {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_lockscreen.reg");
+            }
+            
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
 
