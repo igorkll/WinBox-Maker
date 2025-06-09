@@ -54,6 +54,9 @@
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
             panel2 = new Panel();
+            ProgramMode = new GroupBox();
+            ProgramMode_InsteadExplorer = new RadioButton();
+            ProgramMode_AfterExplorer = new RadioButton();
             ProgramAsAdmin = new CheckBox();
             label4 = new Label();
             ProgramArgs = new TextBox();
@@ -67,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            ProgramMode.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -315,6 +319,7 @@
             // 
             panel2.BackColor = SystemColors.Window;
             panel2.BorderStyle = BorderStyle.Fixed3D;
+            panel2.Controls.Add(ProgramMode);
             panel2.Controls.Add(ProgramAsAdmin);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(ProgramArgs);
@@ -325,6 +330,41 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(429, 228);
             panel2.TabIndex = 27;
+            // 
+            // ProgramMode
+            // 
+            ProgramMode.Controls.Add(ProgramMode_InsteadExplorer);
+            ProgramMode.Controls.Add(ProgramMode_AfterExplorer);
+            ProgramMode.Location = new Point(3, 115);
+            ProgramMode.Name = "ProgramMode";
+            ProgramMode.Size = new Size(300, 106);
+            ProgramMode.TabIndex = 6;
+            ProgramMode.TabStop = false;
+            ProgramMode.Text = "Application launch mode";
+            // 
+            // ProgramMode_InsteadExplorer
+            // 
+            ProgramMode_InsteadExplorer.AutoSize = true;
+            ProgramMode_InsteadExplorer.Location = new Point(6, 65);
+            ProgramMode_InsteadExplorer.Name = "ProgramMode_InsteadExplorer";
+            ProgramMode_InsteadExplorer.Size = new Size(186, 29);
+            ProgramMode_InsteadExplorer.TabIndex = 1;
+            ProgramMode_InsteadExplorer.TabStop = true;
+            ProgramMode_InsteadExplorer.Text = "Instead of explorer";
+            ProgramMode_InsteadExplorer.UseVisualStyleBackColor = true;
+            ProgramMode_InsteadExplorer.CheckedChanged += ProgramMode_InsteadExplorer_CheckedChanged;
+            // 
+            // ProgramMode_AfterExplorer
+            // 
+            ProgramMode_AfterExplorer.AutoSize = true;
+            ProgramMode_AfterExplorer.Location = new Point(6, 30);
+            ProgramMode_AfterExplorer.Name = "ProgramMode_AfterExplorer";
+            ProgramMode_AfterExplorer.Size = new Size(175, 29);
+            ProgramMode_AfterExplorer.TabIndex = 0;
+            ProgramMode_AfterExplorer.TabStop = true;
+            ProgramMode_AfterExplorer.Text = "After the explorer";
+            ProgramMode_AfterExplorer.UseVisualStyleBackColor = true;
+            ProgramMode_AfterExplorer.CheckedChanged += ProgramMode_AfterExplorer_CheckedChanged;
             // 
             // ProgramAsAdmin
             // 
@@ -454,6 +494,8 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ProgramMode.ResumeLayout(false);
+            ProgramMode.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -493,5 +535,8 @@
         private CheckBox ProgramAsAdmin;
         private CheckedListBox checkedListBox1;
         private Label label5;
+        private GroupBox ProgramMode;
+        private RadioButton ProgramMode_InsteadExplorer;
+        private RadioButton ProgramMode_AfterExplorer;
     }
 }

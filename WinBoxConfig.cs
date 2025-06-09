@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace WinBox_Maker
 {
+    public enum ProgramModeEnum
+    {
+        AfterExplorer,
+        InsteadExplorer
+    }
+
     public class WinBoxConfig
     {
         //public List<string>? Resources { get; set; }
@@ -21,6 +27,7 @@ namespace WinBox_Maker
         public string? ProgramArgs { get; set; }
         public bool? ProgramAsAdmin { get; set; }
         public bool? disable_lockscreen { get; set; }
+        public ProgramModeEnum? ProgramMode { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -36,11 +43,17 @@ namespace WinBox_Maker
             if (ProgramArgs == null) ProgramArgs = "";
             if (ProgramAsAdmin == null) ProgramAsAdmin = true;
             if (disable_lockscreen == null) disable_lockscreen = true;
+            if (ProgramMode == null) ProgramMode = ProgramModeEnum.AfterExplorer;
         }
 
         public void Save(string wnbFilePath)
         {
-            string json = JsonSerializer.Serialize(this);
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            string json = JsonSerializer.Serialize(this, options);
             File.WriteAllText(wnbFilePath, json);
         }
 

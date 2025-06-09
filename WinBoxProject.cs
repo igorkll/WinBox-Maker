@@ -1,6 +1,7 @@
 ﻿using DiscUtils.Raw;
 using DiscUtils.Udf;
 using ManagedWimLib;
+using Shell32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,8 +14,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using WshShell = IWshRuntimeLibrary.WshShell;
 using IWshShortcut = IWshRuntimeLibrary.IWshShortcut;
+using WshShell = IWshRuntimeLibrary.WshShell;
 
 namespace WinBox_Maker
 {
@@ -359,28 +360,50 @@ namespace WinBox_Maker
             if (winBoxConfig.ProgramName != null)
             {
                 string targetPath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
-                string shortcutPath = Path.Combine(wimMountPath, "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\winbox.lnk");
-                Directory.CreateDirectory(Path.GetDirectoryName(shortcutPath));
-
-                WshShell shell = new WshShell();
-                IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
-
-                shortcut.WorkingDirectory = @"C:\WinboxProgram";
-                shortcut.Description = "";
-                shortcut.IconLocation = targetPath;
-                
-                if (winBoxConfig.ProgramAsAdmin == true)
+                switch (winBoxConfig.ProgramMode)
                 {
-                    shortcut.TargetPath = "powershell.exe";
-                    shortcut.Arguments = $"Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -Verb RunAs";
-                }
-                else
-                {
-                    shortcut.TargetPath = targetPath;
-                    shortcut.Arguments = winBoxConfig.ProgramArgs;
-                }
+                    case ProgramModeEnum.AfterExplorer:
+                        {
+                            string shortcutPath = Path.Combine(wimMountPath, "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\winbox.lnk");
+                            Directory.CreateDirectory(Path.GetDirectoryName(shortcutPath));
 
-                shortcut.Save();
+                            WshShell shell = new WshShell();
+                            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
+
+                            shortcut.WorkingDirectory = @"C:\WinboxProgram";
+                            shortcut.Description = "";
+                            shortcut.IconLocation = targetPath;
+                            shortcut.WindowStyle = 3;
+
+                            if (winBoxConfig.ProgramAsAdmin == true)
+                            {
+                                shortcut.TargetPath = "powershell.exe";
+                                if (winBoxConfig.ProgramArgs.Length > 0)
+                                {
+                                    shortcut.Arguments = $"Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -Verb RunAs";
+                                }
+                                else
+                                {
+                                    shortcut.Arguments = $"Start-Process \"{targetPath}\" -Verb RunAs";
+                                }
+                            }
+                            else
+                            {
+                                shortcut.TargetPath = targetPath;
+                                shortcut.Arguments = winBoxConfig.ProgramArgs;
+                            }
+
+                            shortcut.Save();
+                            break;
+                        }
+
+                    case ProgramModeEnum.InsteadExplorer:
+                        {
+                            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell",
+                                winBoxConfig.ProgramArgs.Length > 0 ? $"{targetPath} {winBoxConfig.ProgramArgs}" : targetPath);
+                            break;
+                        }
+                }
             }
 
             if (imgPartitionPath != null)

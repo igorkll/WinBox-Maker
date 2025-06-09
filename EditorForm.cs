@@ -236,6 +236,15 @@ namespace WinBox_Maker
             ProgramName.Text = winBoxProject.winBoxConfig.ProgramName ?? "not selected";
             ProgramArgs.Text = winBoxProject.winBoxConfig.ProgramArgs ?? "";
             ProgramAsAdmin.CheckState = winBoxProject.winBoxConfig.ProgramAsAdmin == true ? CheckState.Checked : CheckState.Unchecked;
+            switch (winBoxProject.winBoxConfig.ProgramMode)
+            {
+                case ProgramModeEnum.AfterExplorer:
+                    ProgramMode_AfterExplorer.Checked = true;
+                    break;
+                case ProgramModeEnum.InsteadExplorer:
+                    ProgramMode_InsteadExplorer.Checked = true;
+                    break;
+            }
             UpdateGuiWithoutWindowsVersion();
         }
 
@@ -393,6 +402,24 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.ProgramName = null;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void ProgramMode_AfterExplorer_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ProgramMode_AfterExplorer.Checked)
+            {
+                winBoxProject.winBoxConfig.ProgramMode = ProgramModeEnum.AfterExplorer;
+                winBoxProject.SaveConfig();
+            }
+        }
+
+        private void ProgramMode_InsteadExplorer_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ProgramMode_InsteadExplorer.Checked)
+            {
+                winBoxProject.winBoxConfig.ProgramMode = ProgramModeEnum.InsteadExplorer;
+                winBoxProject.SaveConfig();
+            }
         }
     }
 }
