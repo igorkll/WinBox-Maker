@@ -391,6 +391,11 @@ namespace WinBox_Maker
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_notifications.reg");
             }
 
+            if (true)
+            {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_taskmgr.reg");
+            }
+
             if (winBoxConfig.disable_lockscreen == true)
             {
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_lockscreen.reg");

@@ -41,6 +41,7 @@
     <None Remove="reg\disable_notifications.reg" />
     <None Remove="reg\disable_powerdown_checks.reg" />
     <None Remove="reg\disable_systemcheck.reg" />
+    <None Remove="reg\disable_taskmgr.reg" />
     <None Remove="reg\disable_telemetry.reg" />
     <None Remove="reg\disable_UAC.reg" />
     <None Remove="reg\skip_oobe.reg" />
@@ -143,6 +144,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\disable_notifications.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\disable_taskmgr.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\restrict_explorer.reg">
