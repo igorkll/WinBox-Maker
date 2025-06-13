@@ -44,6 +44,7 @@
     <None Remove="reg\disable_taskmgr.reg" />
     <None Remove="reg\disable_telemetry.reg" />
     <None Remove="reg\disable_UAC.reg" />
+    <None Remove="reg\disable_winkeys.reg" />
     <None Remove="reg\skip_oobe.reg" />
     <None Remove="winbox.png" />
   </ItemGroup>
@@ -147,6 +148,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\disable_taskmgr.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\disable_winkeys.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\restrict_explorer.reg">

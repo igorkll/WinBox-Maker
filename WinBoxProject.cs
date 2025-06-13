@@ -340,7 +340,7 @@ namespace WinBox_Maker
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_bootmanager.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_systemcheck.reg");
 
-            if (true)
+            if (false)
             {
                 await Program.ExecuteAsync("reg.exe", $"import reg\\skip_oobe.reg");
                 await Program.CopyFilesRecursivelyAsync(Path.Combine(wimMountPath, "Users\\Default"), Path.Combine(wimMountPath, "Users\\winbox"));
@@ -394,6 +394,11 @@ namespace WinBox_Maker
             if (true)
             {
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_taskmgr.reg");
+            }
+
+            if (true)
+            {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_winkeys.reg");
             }
 
             if (winBoxConfig.disable_lockscreen == true)

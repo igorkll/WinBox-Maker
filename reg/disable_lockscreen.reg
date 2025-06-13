@@ -5,3 +5,8 @@ Windows Registry Editor Version 5.00
 
 [HLEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\Personalization]
 "NoLockScreen"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+"DisableLockWorkstation"=dword:00000001
+"DisableCad"=dword:00000001
+"EnableFirstLogonAnimation"=dword:00000000
