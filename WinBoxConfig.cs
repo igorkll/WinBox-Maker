@@ -43,7 +43,7 @@ namespace WinBox_Maker
             if (ProgramArgs == null) ProgramArgs = "";
             if (ProgramAsAdmin == null) ProgramAsAdmin = true;
             if (disable_lockscreen == null) disable_lockscreen = true;
-            if (ProgramMode == null) ProgramMode = ProgramModeEnum.AfterExplorer;
+            if (ProgramMode == null) ProgramMode = ProgramModeEnum.InsteadExplorer;
         }
 
         public void Save(string wnbFilePath)

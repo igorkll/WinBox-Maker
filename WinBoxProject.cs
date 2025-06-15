@@ -340,7 +340,7 @@ namespace WinBox_Maker
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_bootmanager.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_systemcheck.reg");
 
-            if (false)
+            if (true)
             {
                 await Program.ExecuteAsync("reg.exe", $"import reg\\skip_oobe.reg");
                 await Program.CopyFilesRecursivelyAsync(Path.Combine(wimMountPath, "Users\\Default"), Path.Combine(wimMountPath, "Users\\winbox"));
