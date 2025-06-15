@@ -397,7 +397,7 @@ namespace WinBox_Maker
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_taskmgr.reg");
             }
 
-            if (false)
+            if (true)
             {
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_winkeys.reg");
             }
