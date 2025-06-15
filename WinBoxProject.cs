@@ -331,7 +331,7 @@ namespace WinBox_Maker
             processValue(50);
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
-            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SAM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SAM")}\"");
+            //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SAM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SAM")}\"");
 
             // ----------------------- tweaks
 
@@ -341,7 +341,7 @@ namespace WinBox_Maker
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_bootmanager.reg");
             //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_systemcheck.reg");
 
-            if (true)
+            if (false)
             {
                 await Program.ExecuteAsync("reg.exe", $"import reg\\skip_oobe.reg");
                 await Program.CopyFilesRecursivelyAsync(Path.Combine(wimMountPath, "Users\\Default"), Path.Combine(wimMountPath, "Users\\winbox"));
@@ -495,7 +495,7 @@ namespace WinBox_Maker
 
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
-            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SAM");
+            //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SAM");
 
             if (imgPartitionPath != null)
             {
