@@ -45,6 +45,7 @@
     <None Remove="reg\disable_telemetry.reg" />
     <None Remove="reg\disable_UAC.reg" />
     <None Remove="reg\disable_winkeys.reg" />
+    <None Remove="reg\fake_activation.reg" />
     <None Remove="reg\skip_oobe.reg" />
     <None Remove="winbox.png" />
   </ItemGroup>
@@ -151,6 +152,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\disable_winkeys.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\fake_activation.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\restrict_explorer.reg">
