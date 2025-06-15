@@ -331,88 +331,8 @@ namespace WinBox_Maker
             processValue(50);
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
-            //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SAM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SAM")}\"");
 
-            // ----------------------- tweaks
-
-            //await Program.ExecuteAsync("reg.exe", $"import reg\\skip_oobe.reg");
-            //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_checkdisk.reg");
-            //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_powerdown_checks.reg");
-            //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_bootmanager.reg");
-            //await Program.ExecuteAsync("reg.exe", $"import reg\\disable_systemcheck.reg");
-
-            if (false)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\skip_oobe.reg");
-                await Program.CopyFilesRecursivelyAsync(Path.Combine(wimMountPath, "Users\\Default"), Path.Combine(wimMountPath, "Users\\winbox"));
-            }
-
-            if (true)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_telemetry.reg");
-            }
-
-            if (false)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_defender.reg");
-                
-                string deleteDir = Path.Combine(wimMountPath, "Program Files\\Windows Defender");
-                if (Directory.Exists(deleteDir)) Directory.Delete(deleteDir, true);
-
-                deleteDir = Path.Combine(wimMountPath, "Program Files\\Windows Defender");
-                if (Directory.Exists(deleteDir)) Directory.Delete(deleteDir, true);
-
-                deleteDir = Path.Combine(wimMountPath, "Program Files\\Windows Defender Advanced Threat Protection");
-                if (Directory.Exists(deleteDir)) Directory.Delete(deleteDir, true);
-
-                deleteDir = Path.Combine(wimMountPath, "Program Files\\Windows Security");
-                if (Directory.Exists(deleteDir)) Directory.Delete(deleteDir, true);
-
-                deleteDir = Path.Combine(wimMountPath, "ProgramData\\Microsoft\\Windows Defender");
-                if (Directory.Exists(deleteDir)) Directory.Delete(deleteDir, true);
-            }
-
-            if (true)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_autoupdate.reg");
-            }
-
-            if (true)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\restrict_explorer.reg");
-            }
-
-            if (true)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_UAC.reg");
-            }
-
-            if (true)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_notifications.reg");
-            }
-
-            if (true)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_taskmgr.reg");
-            }
-
-            if (true)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_winkeys.reg");
-            }
-
-            if (true)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\fake_activation.reg");
-            }
-
-            if (winBoxConfig.disable_lockscreen == true)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\disable_lockscreen.reg");
-            }
-
-            // ----------------------- installing the user's application
+            await Program.ExecuteAsync("reg.exe", $"import reg\\tweak.reg");
 
             string filesPath = Path.Combine(resourcesDirectoryPath, "files");
             if (Directory.Exists(filesPath))
@@ -420,87 +340,17 @@ namespace WinBox_Maker
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
             }
 
-            if (winBoxConfig.ProgramName != null)
+            string programPath = Path.Combine(resourcesDirectoryPath, "program");
+            if (Directory.Exists(filesPath))
             {
-                string programPath = Path.Combine(resourcesDirectoryPath, "program");
-                if (Directory.Exists(filesPath))
-                {
-                    await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
-                }
-
-                string targetPath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
-                switch (winBoxConfig.ProgramMode)
-                {
-                    case ProgramModeEnum.AfterExplorer:
-                        {
-                            string shortcutPath = Path.Combine(wimMountPath, "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\winbox.lnk");
-                            Directory.CreateDirectory(Path.GetDirectoryName(shortcutPath));
-
-                            WshShell shell = new WshShell();
-                            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
-
-                            shortcut.WorkingDirectory = @"C:\WinboxProgram";
-                            shortcut.Description = "";
-                            shortcut.IconLocation = targetPath;
-                            shortcut.WindowStyle = 3;
-
-                            if (winBoxConfig.ProgramAsAdmin == true)
-                            {
-                                shortcut.WindowStyle = 7;
-                                shortcut.TargetPath = "powershell.exe";
-                                if (winBoxConfig.ProgramArgs.Length > 0)
-                                {
-                                    shortcut.Arguments = $"Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -Verb RunAs -WindowStyle Maximized";
-                                }
-                                else
-                                {
-                                    shortcut.Arguments = $"Start-Process \"{targetPath}\" -Verb RunAs -WindowStyle Maximized";
-                                }
-                            }
-                            else
-                            {
-                                shortcut.TargetPath = targetPath;
-                                shortcut.Arguments = winBoxConfig.ProgramArgs;
-                            }
-
-                            shortcut.Save();
-                            break;
-                        }
-
-                    case ProgramModeEnum.InsteadExplorer:
-                        {
-                            string shellCmd;
-                            if (winBoxConfig.ProgramAsAdmin == true)
-                            {
-                                if (winBoxConfig.ProgramArgs.Length > 0)
-                                {
-                                    shellCmd = $"powershell.exe Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -Verb RunAs -WindowStyle Maximized";
-                                }
-                                else
-                                {
-                                    shellCmd = $"powershell.exe Start-Process \"{targetPath}\" -Verb RunAs -WindowStyle Maximized";
-                                }
-                            }
-                            else
-                            {
-                                if (winBoxConfig.ProgramArgs.Length > 0)
-                                {
-                                    shellCmd = $"powershell.exe Start-Process \"{targetPath}\" -ArgumentList {Program.ConvertToPowerShellFormat(winBoxConfig.ProgramArgs)} -WindowStyle Maximized";
-                                }
-                                else
-                                {
-                                    shellCmd = $"powershell.exe Start-Process \"{targetPath}\" -WindowStyle Maximized";
-                                }
-                            }
-                            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile("\"C:\\WinboxProgram\\test.exe\""));
-                            break;
-                        }
-                }
+                await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
             }
+
+            string targetPath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
+            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(targetPath));
 
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
-            //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SAM");
 
             if (imgPartitionPath != null)
             {
