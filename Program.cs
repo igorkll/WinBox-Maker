@@ -450,5 +450,10 @@ namespace WinBox_Maker
             return "\"" + input.Replace("\\", "\\\\")
                         .Replace("\"", "\\\"") + "\"";
         }
+
+        public static string ResourcePath(string path)
+        {
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
+        }
     }
 }

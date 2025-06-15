@@ -79,13 +79,13 @@ namespace WinBox_Maker
 
         private void README_Click(object sender, EventArgs e)
         {
-            Form form = new TextViewer("README.md");
+            Form form = new TextViewer(Program.ResourcePath("README.md"));
             form.Show();
         }
 
         private void LICENSE_Click(object sender, EventArgs e)
         {
-            Form form = new TextViewer("LICENSE.txt");
+            Form form = new TextViewer(Program.ResourcePath("LICENSE.txt"));
             form.Show();
         }
     }
