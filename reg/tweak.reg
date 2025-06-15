@@ -52,6 +52,7 @@ Windows Registry Editor Version 5.00
 ; "ImageState"="IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE"
 "ImageState"="IMAGE_STATE_UNDEPLOYABLE"
 ; "ImageState"="IMAGE_STATE_COMPLETE"
+; "ImageState"="IMAGE_STATE_GENERALIZE_RESEAL_TO_AUDIT"
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE]
 ; "DefaultAccountAction"=dword:00000001
