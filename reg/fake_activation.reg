@@ -1,7 +1,0 @@
-Windows Registry Editor Version 5.00
-
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\Activation]
-"ActivationInterval"=dword:000dbba0
-"Manual"=dword:00000001
-"NotificationDisabled"=dword:00000001
-"DownlevelActivation"=dword:00000002

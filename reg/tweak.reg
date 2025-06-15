@@ -49,6 +49,8 @@ Windows Registry Editor Version 5.00
 
 ; ---------------- setup oobe
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State]
+; "ImageState"="IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE"
+; "ImageState"="IMAGE_STATE_UNDEPLOYABLE"
 "ImageState"="IMAGE_STATE_COMPLETE"
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE]

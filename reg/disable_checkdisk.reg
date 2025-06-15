@@ -1,8 +1,0 @@
-Windows Registry Editor Version 5.00
-
-[HKEY_LOCAL_MACHINE\WINBOX_SYSTEM\CurrentControlSet\Control\Session Manager]
-"AutoChkTimeout"=dword:00000000
-"AutoChk"=""
-
-[HKEY_LOCAL_MACHINE\WINBOX_SYSTEM\CurrentControlSet\Services\Disk]
-"Start"=dword:00000004
