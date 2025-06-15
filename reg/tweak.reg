@@ -46,3 +46,13 @@ Windows Registry Editor Version 5.00
 "Manual"=dword:00000001
 "NotificationDisabled"=dword:00000001
 "DownlevelActivation"=dword:00000002
+
+; ---------------- setup oobe
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State]
+"ImageState"="IMAGE_STATE_COMPLETE"
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE]
+; "DefaultAccountAction"=dword:00000001
+; "DefaultAccountSAMName"="defaultuser0"
+; "DefaultAccountSID"=""
+"LaunchUserOOBE"=dword:00000001

@@ -47,6 +47,8 @@
     <None Remove="reg\disable_winkeys.reg" />
     <None Remove="reg\fake_activation.reg" />
     <None Remove="reg\skip_oobe.reg" />
+    <None Remove="reg\tweak.reg" />
+    <None Remove="tweak.reg" />
     <None Remove="winbox.png" />
   </ItemGroup>
 
@@ -176,6 +178,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\skip_oobe.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\tweak.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="winbox.png">
