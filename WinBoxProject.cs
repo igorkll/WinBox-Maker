@@ -396,7 +396,7 @@ namespace WinBox_Maker
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_taskmgr.reg");
             }
 
-            if (true)
+            if (false)
             {
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_winkeys.reg");
             }
@@ -486,7 +486,7 @@ namespace WinBox_Maker
                                     shellCmd = $"powershell.exe Start-Process \"{targetPath}\" -WindowStyle Maximized";
                                 }
                             }
-                            //await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(shellCmd));
+                            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(shellCmd));
                             break;
                         }
                 }
