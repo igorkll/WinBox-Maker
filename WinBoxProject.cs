@@ -402,6 +402,11 @@ namespace WinBox_Maker
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_winkeys.reg");
             }
 
+            if (true)
+            {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\fake_activation.reg");
+            }
+
             if (winBoxConfig.disable_lockscreen == true)
             {
                 await Program.ExecuteAsync("reg.exe", $"import reg\\disable_lockscreen.reg");
