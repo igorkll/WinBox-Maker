@@ -68,6 +68,10 @@ Windows Registry Editor Version 5.00
 "DisableCad"=dword:00000001
 "EnableFirstLogonAnimation"=dword:00000000
 
+; ---------------- 
+[HKEY_LOCAL_MACHINE\WINBOX_SYSTEM\CurrentControlSet\Control\CrashControl]
+"AutoReboot"=dword:00000000
+
 ; ---------------- setup winlogon
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon] 
 "AutoAdminLogon"="1"
