@@ -46,6 +46,7 @@
     <None Remove="reg\disable_UAC.reg" />
     <None Remove="reg\disable_winkeys.reg" />
     <None Remove="reg\fake_activation.reg" />
+    <None Remove="reg\hide_cursor.reg" />
     <None Remove="reg\skip_oobe.reg" />
     <None Remove="reg\tweak.reg" />
     <None Remove="tweak.reg" />
@@ -133,6 +134,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reg\hide_cursor.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\tweak.reg">

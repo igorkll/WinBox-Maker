@@ -319,8 +319,14 @@ namespace WinBox_Maker
             processValue(50);
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
+            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_DEFAULT \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\DEFAULT")}\"");
 
             await Program.ExecuteAsync("reg.exe", $"import reg\\tweak.reg");
+
+            if (true)
+            {
+                await Program.ExecuteAsync("reg.exe", $"import reg\\hide_cursor.reg");
+            }
 
             string filePath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts\\SetupComplete.cmd");
             string baseSetup = $@"@echo off
@@ -350,6 +356,7 @@ net localgroup Administrators winbox /add";
 
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
+            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_DEFAULT");
 
             if (imgPartitionPath != null)
             {
