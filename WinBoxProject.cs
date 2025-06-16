@@ -235,19 +235,23 @@ namespace WinBox_Maker
         {
             List<WindowsDescription> windowsVersions = new List<WindowsDescription>();
 
-            using (Wim wimHandle = Wim.OpenWim(unpackedWimFile, OpenFlags.None))
+            if (File.Exists(unpackedWimFile))
             {
-                WimInfo wimInfo = wimHandle.GetWimInfo();
-                for (int i = 1; i <= wimInfo.ImageCount; i++)
+                using (Wim wimHandle = Wim.OpenWim(unpackedWimFile, OpenFlags.None))
                 {
-                    //Console.WriteLine($"Image Index: {i}");
-                    //Console.WriteLine($"Name: {wimHandle.GetImageName(i)}");
-                    //Console.WriteLine($"Description: {wimHandle.GetImageDescription(i)}");
-                    WindowsDescription windowVersion = new WindowsDescription {
-                        name = wimHandle.GetImageName(i) ?? "failed to read windows name",
-                        description = wimHandle.GetImageDescription(i) ?? "failed to read windows description"
-                    };
-                    windowsVersions.Add(windowVersion);
+                    WimInfo wimInfo = wimHandle.GetWimInfo();
+                    for (int i = 1; i <= wimInfo.ImageCount; i++)
+                    {
+                        //Console.WriteLine($"Image Index: {i}");
+                        //Console.WriteLine($"Name: {wimHandle.GetImageName(i)}");
+                        //Console.WriteLine($"Description: {wimHandle.GetImageDescription(i)}");
+                        WindowsDescription windowVersion = new WindowsDescription
+                        {
+                            name = wimHandle.GetImageName(i) ?? "failed to read windows name",
+                            description = wimHandle.GetImageDescription(i) ?? "failed to read windows description"
+                        };
+                        windowsVersions.Add(windowVersion);
+                    }
                 }
             }
 
