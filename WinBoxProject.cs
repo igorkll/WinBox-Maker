@@ -328,7 +328,7 @@ net user winbox /add
 net localgroup Administrators winbox /add";
             if (winBoxConfig.UseOemKey == true && !winBoxConfig.OemKey.Contains("\""))
             {
-                baseSetup += $"\nslmgr.vbs /ipk \"{winBoxConfig.OemKey}\"\nslmgr.vbs /ato";
+                baseSetup += $"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
             }
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
             await File.WriteAllTextAsync(filePath, baseSetup);

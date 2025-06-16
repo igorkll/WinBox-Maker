@@ -49,14 +49,14 @@ Windows Registry Editor Version 5.00
 
 ; ---------------- disable Ctrl+Alt+Del
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\taskmgr.exe]
-"Debugger"="\"\""
+; "Debugger"="\"\""
 
 ; ---------------- setup winlogon
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon] 
-"AutoAdminLogon"="1"
-"ForceAutoLogon"="1"
-"DefaultUserName"="winbox"
-"DefaultPassword"=""
+; "AutoAdminLogon"="1"
+; "ForceAutoLogon"="1"
+; "DefaultUserName"="winbox"
+; "DefaultPassword"=""
 
 ; ---------------- setup oobe
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE]
