@@ -13,7 +13,7 @@ please note that winbox maker does not provide Windows images, it only provides 
 * .gitignore - it is created by default in the project if it is not present, so as not to commit unnecessary files if you create the project in the git repository. it won't be overwritten if you make changes there, but it will be created if you delete it
 * winbox_build - a folder for saving builds. You don't have to use it, but it's the path to save default images (added to by default .gitignore)
 * winbox_temp - it is used during the image build process (added to by default .gitignore)
-* winbox_bigResources - a directory for large resource files that are not unique but are downloaded from the outside, such as base windows images that should not be included in git repository (added to by default .gitignore)
+* winbox_images - directory for basic windows images (added to by default .gitignore)
 * winbox_resources - a folder for your resources that are needed to build the system. these files should end up in the git repository
 * winbox_resources/files - files from this directory will be moved to the root of the disk on the installed system with replacement
 * winbox_resources/program - the directory for your application that will be used in kiosk mode. although this directory is not added to by default .gitignore if you plan to automatically copy your application files here during assembly and build a windows image with your application in post build event, then add this directory to .gitignore

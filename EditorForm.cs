@@ -139,7 +139,7 @@ namespace WinBox_Maker
         private async void WindowsSelect_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Windows image (*.iso)|*.iso", winBoxProject.bigResourcesDirectoryPath, false);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Windows image (*.iso)|*.iso", winBoxProject.imagesDirectoryPath, false);
             UnlockForm();
             if (name != null)
             {

@@ -22,13 +22,13 @@ namespace WinBox_Maker
     public class WinBoxProject
     {
         const string resourcesDirectoryName = "winbox_resources";
-        const string bigResourcesDirectoryName = "winbox_bigResources";
+        const string imagesDirectoryName = "winbox_images";
         public WinBoxConfig winBoxConfig;
         string wnbFilePath;
         public string baseDirectoryPath;
         public string buildDirectoryPath;
         public string resourcesDirectoryPath;
-        public string bigResourcesDirectoryPath;
+        public string imagesDirectoryPath;
         string tempDirectoryPath;
         string unpackedWimFile;
         string newWimFile;
@@ -44,7 +44,7 @@ namespace WinBox_Maker
             baseDirectoryPath = Path.GetDirectoryName(wnbFilePath) ?? "";
             buildDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_build");
             resourcesDirectoryPath = Path.Combine(baseDirectoryPath, resourcesDirectoryName);
-            bigResourcesDirectoryPath = Path.Combine(baseDirectoryPath, bigResourcesDirectoryName);
+            imagesDirectoryPath = Path.Combine(baseDirectoryPath, imagesDirectoryName);
             tempDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_temp");
             unpackedWimFile = Path.Combine(tempDirectoryPath, "base_install.wim");
             newWimFile = Path.Combine(tempDirectoryPath, "new_install.wim");
@@ -100,7 +100,7 @@ namespace WinBox_Maker
 
             Program.CreateDirectory(buildDirectoryPath);
             Program.CreateDirectory(resourcesDirectoryPath);
-            Program.CreateDirectory(bigResourcesDirectoryPath);
+            Program.CreateDirectory(imagesDirectoryPath);
             Program.CreateDirectory(tempDirectoryPath);
             Program.CreateDirectory(wimMountPath);
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "files"));
@@ -138,13 +138,13 @@ namespace WinBox_Maker
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = openFileDialog.FileName;
-                    string fileName = Path.GetRelativePath(defaultDirectory, filePath);
+                    string fileName = Path.GetFileName(filePath);
 
                     if (onlyDefaultDirectory)
                     {
                         if (Program.IsPathInsideDirectory(filePath, defaultDirectory))
                         {
-                            return fileName;
+                            return Path.GetRelativePath(defaultDirectory, filePath);
                         }
                         else
                         {
@@ -153,34 +153,16 @@ namespace WinBox_Maker
                         }
                     }
 
-                    if (Program.IsPathInsideDirectory(filePath, resourcesDirectoryPath))
-                    {
-                        return Path.Combine(resourcesDirectoryName, fileName);
-                    }
-                    else if (Program.IsPathInsideDirectory(filePath, bigResourcesDirectoryPath))
-                    {
-                        return Path.Combine(bigResourcesDirectoryName, fileName);
-                    }
-                    else if (Program.IsPathInsideDirectory(filePath, defaultDirectory))
+                    if (Program.IsPathInsideDirectory(filePath, defaultDirectory))
                     {
                         return Path.Combine(defaultDirectory, fileName);
                     }
 
-                    DialogResult result = MessageBox.Show("the file is not located in the project's resource directory, if you use it like this, then the project config will have the absolute path to the file, which will make it impossible to build on another computer. do you want to copy the file so that you don't have to use an absolute path?", "copy the file?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    DialogResult result = MessageBox.Show("the file is not located in the project's directory, if you use it like this, then the project config will have the absolute path to the file, which will make it impossible to build on another computer. do you want to copy the file so that you don't have to use an absolute path?", "copy the file?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
-                        string projectFolderToCopy;
-                        FileInfo fileInfo = new FileInfo(filePath);
-                        if (fileInfo.Length > (1024 * 1024 * 1024))
-                        {
-                            projectFolderToCopy = bigResourcesDirectoryName;
-                        }
-                        else
-                        {
-                            projectFolderToCopy = resourcesDirectoryName;
-                        }
-
                         processName("Copying a resource file");
+                        string projectFolderToCopy = Path.GetRelativePath(baseDirectoryPath, defaultDirectory);
                         await Program.CopyFileAsync(filePath, Path.Combine(baseDirectoryPath, projectFolderToCopy, fileName), processValue);
                         return Path.Combine(projectFolderToCopy, fileName);
                     }
