@@ -330,8 +330,9 @@ namespace WinBox_Maker
             string filePath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts\\SetupComplete.cmd");
             string baseSetup = $@"@echo off
 reagentc.exe /disable
-bcdedit /set {{current}} recoveryenabled No
-bcdedit /set {{bootmgr}} displaybootmenu No
+bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
+bcdedit /set {{current}} recoveryenabled no
+bcdedit /set {{bootmgr}} displaybootmenu no
 bcdedit /set {{bootmgr}} timeout 0
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
 net user winbox /add
