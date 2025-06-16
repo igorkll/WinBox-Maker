@@ -55,7 +55,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon] 
 "AutoAdminLogon"="1"
 "ForceAutoLogon"="1"
-"DefaultUserName"="defaultuser0"
+"DefaultUserName"="winbox"
 "DefaultDomainName"="winbox"
 "DefaultPassword"=""
 

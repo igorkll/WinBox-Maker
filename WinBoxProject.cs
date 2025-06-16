@@ -320,7 +320,13 @@ namespace WinBox_Maker
 
             await Program.ExecuteAsync("reg.exe", $"import reg\\tweak.reg");
 
-            string filesPath = Path.Combine(resourcesDirectoryPath, "files");
+            string filesPath = Program.ResourcePath("files");
+            if (Directory.Exists(filesPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
+            }
+
+            filesPath = Path.Combine(resourcesDirectoryPath, "files");
             if (Directory.Exists(filesPath))
             {
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
