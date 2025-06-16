@@ -48,15 +48,14 @@ Windows Registry Editor Version 5.00
 "DownlevelActivation"=dword:00000002
 
 ; ---------------- disable Ctrl+Alt+Del
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\taskmgr.exe]
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\taskmgr.exe]
 "Debugger"="\"\""
 
 ; ---------------- setup winlogon
-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon] 
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon] 
 "AutoAdminLogon"="1"
 "ForceAutoLogon"="1"
 "DefaultUserName"="winbox"
-"DefaultDomainName"="winbox"
 "DefaultPassword"=""
 
 ; ---------------- setup oobe

@@ -1,6 +1,7 @@
 ﻿using DiscUtils.Raw;
 using DiscUtils.Udf;
 using ManagedWimLib;
+using Microsoft.VisualBasic.ApplicationServices;
 using Shell32;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using IWshShortcut = IWshRuntimeLibrary.IWshShortcut;
 using WshShell = IWshRuntimeLibrary.WshShell;
 
@@ -320,13 +322,18 @@ namespace WinBox_Maker
 
             await Program.ExecuteAsync("reg.exe", $"import reg\\tweak.reg");
 
-            string filesPath = Program.ResourcePath("files");
-            if (Directory.Exists(filesPath))
+            string filePath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts\\SetupComplete.cmd");
+            string baseSetup = $@"@echo off
+net user winbox /add
+net localgroup Administrators winbox /add";
+            if (winBoxConfig.UseOemKey == true && !winBoxConfig.OemKey.Contains("\""))
             {
-                await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
+                baseSetup += $"\nslmgr.vbs /ipk \"{winBoxConfig.OemKey}\"\nslmgr.vbs /ato";
             }
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            await File.WriteAllTextAsync(filePath, baseSetup);
 
-            filesPath = Path.Combine(resourcesDirectoryPath, "files");
+            string filesPath = Path.Combine(resourcesDirectoryPath, "files");
             if (Directory.Exists(filesPath))
             {
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);

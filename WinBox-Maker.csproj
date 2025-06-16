@@ -14,7 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="files\Windows\Setup\Scripts\add_local_user.cmd" />
     <None Remove="LICENSE.txt" />
     <None Remove="logichub.png" />
     <None Remove="newproject.png" />
@@ -79,9 +78,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="files\Windows\Setup\Scripts\add_local_user.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
