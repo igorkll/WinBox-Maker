@@ -318,7 +318,7 @@ namespace WinBox_Maker
             processName("Modification of the system files");
             processValue(50);
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
-            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
+            //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
 
             await Program.ExecuteAsync("reg.exe", $"import reg\\tweak.reg");
 
@@ -333,6 +333,7 @@ reagentc.exe /disable
 bcdedit /set {{current}} recoveryenabled No
 bcdedit /set {{bootmgr}} displaybootmenu No
 bcdedit /set {{bootmgr}} timeout 0
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
 net user winbox /add
 net localgroup Administrators winbox /add";
             if (winBoxConfig.UseOemKey == true && !winBoxConfig.OemKey.Contains("\""))
@@ -362,7 +363,7 @@ net localgroup Administrators winbox /add";
             await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(targetPath));
 
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
-            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
+            //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
 
             if (imgPartitionPath != null)
             {
