@@ -47,10 +47,22 @@ Windows Registry Editor Version 5.00
 "NotificationDisabled"=dword:00000001
 "DownlevelActivation"=dword:00000002
 
+; ---------------- disable Ctrl+Alt+Del
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\taskmgr.exe]
+"Debugger"="\"\""
+
+; ---------------- setup winlogon
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon] 
+"AutoAdminLogon"="1"
+"ForceAutoLogon"="1"
+"DefaultUserName"="defaultuser0"
+"DefaultDomainName"="winbox"
+"DefaultPassword"=""
+
 ; ---------------- setup oobe
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State]
 ; "ImageState"="IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE"
-"ImageState"="IMAGE_STATE_UNDEPLOYABLE"
+; "ImageState"="IMAGE_STATE_UNDEPLOYABLE"
 ; "ImageState"="IMAGE_STATE_COMPLETE"
 ; "ImageState"="IMAGE_STATE_GENERALIZE_RESEAL_TO_AUDIT"
 
@@ -58,4 +70,4 @@ Windows Registry Editor Version 5.00
 ; "DefaultAccountAction"=dword:00000001
 ; "DefaultAccountSAMName"="defaultuser0"
 ; "DefaultAccountSID"=""
-"LaunchUserOOBE"=dword:00000001
+; "LaunchUserOOBE"=dword:00000001
