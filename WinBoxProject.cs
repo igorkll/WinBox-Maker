@@ -351,7 +351,11 @@ net localgroup Administrators winbox /add";
                 await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
             }
 
-            string targetPath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
+            string targetPath = "\"" + @$"C:\WinboxProgram\{winBoxConfig.ProgramName}" + "\"";
+            if (winBoxConfig.ProgramArgs != null && winBoxConfig.ProgramArgs.Length > 0)
+            {
+                targetPath += " " + winBoxConfig.ProgramArgs;
+            }
             await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(targetPath));
 
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
