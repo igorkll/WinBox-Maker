@@ -330,6 +330,9 @@ namespace WinBox_Maker
             string filePath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts\\SetupComplete.cmd");
             string baseSetup = $@"@echo off
 reagentc.exe /disable
+bcdedit /set {{current}} recoveryenabled No
+bcdedit /set {{bootmgr}} displaybootmenu No
+bcdedit /set {{bootmgr}} timeout 0
 net user winbox /add
 net localgroup Administrators winbox /add";
             if (winBoxConfig.UseOemKey == true && !winBoxConfig.OemKey.Contains("\""))
