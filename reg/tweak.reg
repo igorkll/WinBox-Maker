@@ -60,14 +60,6 @@ Windows Registry Editor Version 5.00
 "DefaultPassword"=""
 
 ; ---------------- setup oobe
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State]
-; "ImageState"="IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE"
-; "ImageState"="IMAGE_STATE_UNDEPLOYABLE"
-; "ImageState"="IMAGE_STATE_COMPLETE"
-; "ImageState"="IMAGE_STATE_GENERALIZE_RESEAL_TO_AUDIT"
-
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE]
-; "DefaultAccountAction"=dword:00000001
-; "DefaultAccountSAMName"="defaultuser0"
-; "DefaultAccountSID"=""
-; "LaunchUserOOBE"=dword:00000001
+"SkipMachineOOBE"=dword:00000001
+"SkipUserOOBE"=dword:00000001
