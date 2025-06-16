@@ -319,7 +319,6 @@ namespace WinBox_Maker
             processValue(50);
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
-            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_DEFAULT \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\DEFAULT")}\"");
 
             await Program.ExecuteAsync("reg.exe", $"import reg\\tweak.reg");
 
@@ -330,6 +329,7 @@ namespace WinBox_Maker
 
             string filePath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts\\SetupComplete.cmd");
             string baseSetup = $@"@echo off
+reagentc.exe /disable
 net user winbox /add
 net localgroup Administrators winbox /add";
             if (winBoxConfig.UseOemKey == true && !winBoxConfig.OemKey.Contains("\""))
@@ -360,7 +360,6 @@ net localgroup Administrators winbox /add";
 
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
-            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_DEFAULT");
 
             if (imgPartitionPath != null)
             {

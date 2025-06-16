@@ -1,21 +1,4 @@
 Windows Registry Editor Version 5.00
 
-[HKEY_LOCAL_MACHINE\WINBOX_DEFAULT\Control Panel\Cursors]
-"Arrow"=""
-"Hand"=""
-"Help"=""
-"AppStarting"=""
-"Wait"=""
-"Crosshair"=""
-"IBeam"=""
-"NWPen"=""
-"No"=""
-"SizeNS"=""
-"SizeWE"=""
-"SizeNWSE"=""
-"SizeNESW"=""
-"SizeAll"=""
-"UpArrow"=""
-"Default"=""
-"CursorScheme"=""
-"CursorBaseSize"=dword:00000000
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization]
+"NoMouseCursor"=dword:00000001

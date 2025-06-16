@@ -17,6 +17,11 @@ Windows Registry Editor Version 5.00
 "DisableRealtimeMonitoring"=dword:00000001
 
 ; ---------------- disable updates
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]
+"DisableWindowsUpdateAccess"=dword:00000001
+"DoNotConnectToWindowsUpdateInternetLocations"=dword:00000001
+"SetDisableUXWUAccess"=dword:00000001
+
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU]
 "AUOptions"=dword:00000001
 "NoAutoUpdate"=dword:00000001
