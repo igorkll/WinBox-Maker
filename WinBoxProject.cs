@@ -347,7 +347,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
 net user winbox /add
 net localgroup Administrators winbox /add
-runas /user:winbox ""cmd.exe /c ""C:\WinboxResources\SetupUser.cmd""""";
+runas /user:winbox ""cmd.exe /c C:\WinboxResources\SetupUser.cmd""";
             if (winBoxConfig.UseOemKey == true && !winBoxConfig.OemKey.Contains("\""))
             {
                 baseSetup += $"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
@@ -357,7 +357,7 @@ runas /user:winbox ""cmd.exe /c ""C:\WinboxResources\SetupUser.cmd""""";
             // ------------------------------------ user setup
             string userSetup = $@"@echo off
 reg add ""HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f";
-            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "SetupUser.cmd"), baseSetup);
+            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "SetupUser.cmd"), userSetup);
 
             // ------------------------------------ copy files
             string filesPath = Path.Combine(resourcesDirectoryPath, "files");
