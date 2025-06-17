@@ -9,6 +9,35 @@ please note that the program requires the "dism" utility. usually it is built in
 the program is recommended to be used with the original English image of windows 10 pro
 please note that winbox maker does not provide Windows images, it only provides a tool for reassembling Windows for use in kiosk mode
 
+## what was disabled
+* explorer.exe
+* all keyboard shortcuts with Windows button
+* telemetry
+* windows defender
+* windows updates
+* UAC
+* task manager
+* creating screenshots
+* oobe
+* system recovery menu
+* automatic entry into recovery mode in case of sudden power outage
+* windows boot manager menu
+* snipping tool
+* creating dumps in case of bsod
+* system logging
+* calculator key
+* mail key
+* media select key
+* messager key
+* my computer key
+* logitech itouch key
+* logitech shopping key
+* logitech webcam key
+* left/right alt key
+* left/right windows key
+* power/sleep/wake key
+* printscreen key
+
 ## project structure
 * winbox.wnb - the main project file. contains all settings and paths
 * .gitignore - it is created by default in the project if it is not present, so as not to commit unnecessary files if you create the project in the git repository. it won't be overwritten if you make changes there, but it will be created if you delete it

@@ -48,7 +48,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
 "NoWinKeys"=dword:00000001
 
-; ---------------- hiding the activation message
+; ----------------
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\Activation]
 "ActivationInterval"=dword:000dbba0
 "Manual"=dword:00000001

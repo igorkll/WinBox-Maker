@@ -350,11 +350,10 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Applicat
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
 
-net user winbox /add
-net localgroup Administrators winbox /add
+reg add ""HKEY_USERS\.DEFAULT\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
 
-for /f ""tokens=2 delims=="" %%i in ('wmic useraccount where name^=""winbox"" get sid /format:list ^| find ""=""') do set ""SID=%%i""
-reg add ""HKEY_USERS\%SID%\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f";
+net user winbox /add
+net localgroup Administrators winbox /add";
 
             if (winBoxConfig.UseOemKey == true && !winBoxConfig.OemKey.Contains("\""))
             {
