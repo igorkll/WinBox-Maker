@@ -334,6 +334,7 @@ bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
 bcdedit /set {{current}} recoveryenabled no
 bcdedit /set {{bootmgr}} displaybootmenu no
 bcdedit /set {{bootmgr}} timeout 0
+reg add ""HKEY_USERS\.DEFAULT\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout"" /v ""Scancode Map"" /t REG_BINARY /d 00000000000000000000000012000000000021e000006ce000006de000011e000006be000013e0000014e0000012e000000380000005be000005ee000037e0000038e000005ce000005fe000063e000007c0000000000 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f
