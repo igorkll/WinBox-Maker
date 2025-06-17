@@ -107,6 +107,8 @@ namespace WinBox_Maker
             Program.CreateDirectory(wimMountPath);
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "files"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "program"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "drivers"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "packages"));
 
             string gitignorePath = Path.Combine(baseDirectoryPath, ".gitignore");
             if (!File.Exists(gitignorePath)) {
