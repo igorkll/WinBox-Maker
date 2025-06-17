@@ -71,6 +71,9 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData]
 "AllowLockScreen"=dword:00000000
 
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\ClearAutologon]
+"Enabled"=dword:00000000
+
 [HLEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\Personalization]
 "NoLockScreen"=dword:00000001
 
