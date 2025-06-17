@@ -29,6 +29,7 @@ please note that winbox maker does not provide Windows images, it only provides 
 * snipping tool
 * creating dumps in case of bsod
 * system logging
+* the following services are disabled: wbengine, wuauserv, RemoteRegistry, WSearch, SysMain, WerSvc, shellhwdetection, SSDPSRV, TermService, lanmanserver, napagent
 * checking the digital signature of drivers (it may not work on new versions of Windows)
 * calculator key
 * mail key

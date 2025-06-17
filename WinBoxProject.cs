@@ -346,12 +346,21 @@ sc config WSearch start= disabled
 sc config SysMain start= disabled
 sc config WerSvc start= disabled
 sc config shellhwdetection start= disabled
+sc config SSDPSRV start= disabled
+sc config TermService start= disabled
+sc config lanmanserver start= disabled
+sc config napagent start= disabled
 net stop wbengine
 net stop wuauserv
 net stop RemoteRegistry
 net stop WSearch
+net stop SysMain
 net stop WerSvc
-net stop shellhwdetection 
+net stop shellhwdetection
+net stop SSDPSRV
+net stop TermService
+net stop lanmanserver
+net stop napagent
 
 bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
 bcdedit /set {{current}} recoveryenabled no
