@@ -100,6 +100,10 @@ Windows Registry Editor Version 5.00
 "DisableSFC"=dword:00000001
 "SFCDisable"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
 "DisableSFC"=dword:00000001
 "SFCDisable"=dword:00000001
+
+; ---------------- disabling the verification of the signature of exe files
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"VerifySignatures"=dword:00000000
