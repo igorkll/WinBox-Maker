@@ -317,9 +317,12 @@ namespace WinBox_Maker
 
             processName("Modification of the system files");
             processValue(50);
+            string WindowsScriptsPath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts");
+            string WinboxResourcesPath = Path.Combine(wimMountPath, "WinboxResources");
+            Directory.CreateDirectory(WindowsScriptsPath);
+            Directory.CreateDirectory(WinboxResourcesPath);
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
             //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
-
             await Program.ExecuteAsync("reg.exe", $"import reg\\tweak.reg");
 
             if (true)
@@ -327,14 +330,13 @@ namespace WinBox_Maker
                 await Program.ExecuteAsync("reg.exe", $"import reg\\hide_cursor.reg");
             }
 
-            string filePath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts\\SetupComplete.cmd");
+            // ---- base setup
             string baseSetup = $@"@echo off
 reagentc.exe /disable
 bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
 bcdedit /set {{current}} recoveryenabled no
 bcdedit /set {{bootmgr}} displaybootmenu no
 bcdedit /set {{bootmgr}} timeout 0
-reg add ""HKEY_USERS\.DEFAULT\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout"" /v ""Scancode Map"" /t REG_BINARY /d 00000000000000000000000012000000000021e000006ce000006de000011e000006be000013e0000014e0000012e000000380000005be000005ee000037e0000038e000005ce000005fe000063e000007c0000000000 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f
@@ -343,14 +345,20 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Applicat
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
 net user winbox /add
-net localgroup Administrators winbox /add";
+net localgroup Administrators winbox /add
+runas /user:winbox ""cmd.exe /c ""C:\WinboxResources\SetupUser.cmd""""";
             if (winBoxConfig.UseOemKey == true && !winBoxConfig.OemKey.Contains("\""))
             {
                 baseSetup += $"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
             }
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-            await File.WriteAllTextAsync(filePath, baseSetup);
+            await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);
 
+            // ---- user setup
+            string userSetup = $@"@echo off
+reg add ""HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f";
+            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "SetupUser.cmd"), baseSetup);
+
+            // ---- copy files
             string filesPath = Path.Combine(resourcesDirectoryPath, "files");
             if (Directory.Exists(filesPath))
             {
