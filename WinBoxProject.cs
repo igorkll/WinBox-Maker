@@ -336,10 +336,12 @@ namespace WinBox_Maker
             // ------------------------------------ system setup
             string baseSetup = $@"@echo off
 reagentc.exe /disable
+
 bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
 bcdedit /set {{current}} recoveryenabled no
 bcdedit /set {{bootmgr}} displaybootmenu no
 bcdedit /set {{bootmgr}} timeout 0
+
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout"" /v ""Scancode Map"" /t REG_BINARY /d 00000000000000000000000012000000000021e000006ce000006de000011e000006be000013e0000014e0000012e000000380000005be000005ee000037e0000038e000005ce000005fe000063e000007c0000000000 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f
@@ -347,9 +349,19 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Hardware
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Application"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
+
 net user winbox /add
 net localgroup Administrators winbox /add
-runas /user:winbox ""cmd.exe /c C:\WinboxResources\SetupUser.cmd""";
+
+schtasks /create /tn ""RunSetupUser"" /tr ""C:\WinboxResources\SetupUser.cmd"" /sc once /st 00:00 /ru winbox /rl highest /f
+schtasks /run /tn ""RunSetupUser""
+
+:wait
+timeout /t 1 >nul
+schtasks /query /tn ""RunSetupUser"" | find ""Running"" >nul
+if %errorlevel%==0 (
+    goto wait
+)";
             if (winBoxConfig.UseOemKey == true && !winBoxConfig.OemKey.Contains("\""))
             {
                 baseSetup += $"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
