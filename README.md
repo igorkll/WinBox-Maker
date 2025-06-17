@@ -20,10 +20,12 @@ please note that winbox maker does not provide Windows images, it only provides 
 * creating screenshots
 * sticky keys
 * check disk
+* hibernation and fast loading
 * oobe
 * system recovery menu
 * automatic entry into recovery mode in case of sudden power outage
 * windows boot manager menu
+* sfc
 * snipping tool
 * creating dumps in case of bsod
 * system logging

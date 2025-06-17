@@ -94,3 +94,12 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE]
 "SkipMachineOOBE"=dword:00000001
 "SkipUserOOBE"=dword:00000001
+
+; ---------------- disable sfc
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"DisableSFC"=dword:00000001
+"SFCDisable"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"DisableSFC"=dword:00000001
+"SFCDisable"=dword:00000001

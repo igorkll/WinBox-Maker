@@ -336,6 +336,22 @@ namespace WinBox_Maker
             // ------------------------------------ system init
             string baseSetup = $@"@echo off
 reagentc.exe /disable
+chkntfs /x *
+powercfg -h off
+
+sc config wbengine start= disabled
+sc config wuauserv start= disabled
+sc config RemoteRegistry start= disabled
+sc config WSearch start= disabled
+sc config SysMain start= disabled
+sc config WerSvc start= disabled
+sc config shellhwdetection start= disabled
+net stop wbengine
+net stop wuauserv
+net stop RemoteRegistry
+net stop WSearch
+net stop WerSvc
+net stop shellhwdetection 
 
 bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
 bcdedit /set {{current}} recoveryenabled no
@@ -345,8 +361,6 @@ bcdedit /set loadoptions DISABLE_INTEGRITY_CHECKS
 bcdedit /set NOINTEGRITYCHECKS ON
 bcdedit /set TESTSIGNING ON
 
-chkntfs /x *
-
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout"" /v ""Scancode Map"" /t REG_BINARY /d 00000000000000000000000012000000000021e000006ce000006de000011e000006be000013e0000014e0000012e000000380000005be000005ee000037e0000038e000005ce000005fe000063e000007c0000000000 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f
@@ -354,6 +368,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Hardware
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Application"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"" /v AutoChkTimeout /t REG_DWORD /d 0 /f
 
 schtasks /create /tn ""SetAllowLockScreen_Logon"" /tr ""reg add \""HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Authentication\\LogonUI\\SessionData\"" /v AllowLockScreen /t REG_DWORD /d 0 /f"" /sc onlogon /rl highest /ru ""SYSTEM""
 schtasks /create /tn ""SetAllowLockScreen_Start"" /tr ""reg add \""HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Authentication\\LogonUI\\SessionData\"" /v AllowLockScreen /t REG_DWORD /d 0 /f"" /sc onstart /rl highest /ru ""SYSTEM""
