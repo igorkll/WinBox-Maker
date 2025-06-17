@@ -288,9 +288,6 @@ namespace WinBox_Maker
 
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
-            //processName.Text = "Copying an install.wim file";
-            //await Program.CopyFileAsync(unpackedWimFile, newWimPath, processValue);
-
             processName("Preparing of install.wim");
             processValue(20);
             await Task.Run(() =>
@@ -311,18 +308,22 @@ namespace WinBox_Maker
                 }
             });
 
+            // ------------------------------------ mounting system
             processName("Mounting install.wim");
             processValue(30);
             await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{newWimPath}\" /index:1 /MountDir:\"{wimMountPath}\"");
 
             processName("Modification of the system files");
             processValue(50);
+            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
+            //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
+
+            // ------------------------------------ tweaks
             string WindowsScriptsPath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts");
             string WinboxResourcesPath = Path.Combine(wimMountPath, "WinboxResources");
             Directory.CreateDirectory(WindowsScriptsPath);
             Directory.CreateDirectory(WinboxResourcesPath);
-            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
-            //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
+
             await Program.ExecuteAsync("reg.exe", $"import reg\\tweak.reg");
 
             if (true)
@@ -330,7 +331,7 @@ namespace WinBox_Maker
                 await Program.ExecuteAsync("reg.exe", $"import reg\\hide_cursor.reg");
             }
 
-            // ---- base setup
+            // ------------------------------------ system setup
             string baseSetup = $@"@echo off
 reagentc.exe /disable
 bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
@@ -353,24 +354,26 @@ runas /user:winbox ""cmd.exe /c ""C:\WinboxResources\SetupUser.cmd""""";
             }
             await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);
 
-            // ---- user setup
+            // ------------------------------------ user setup
             string userSetup = $@"@echo off
 reg add ""HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f";
             await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "SetupUser.cmd"), baseSetup);
 
-            // ---- copy files
+            // ------------------------------------ copy files
             string filesPath = Path.Combine(resourcesDirectoryPath, "files");
             if (Directory.Exists(filesPath))
             {
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
             }
 
+            // ------------------------------------ copy program files
             string programPath = Path.Combine(resourcesDirectoryPath, "program");
             if (Directory.Exists(filesPath))
             {
                 await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
             }
 
+            // ------------------------------------ setup application autorun
             string targetPath = "\"" + @$"C:\WinboxProgram\{winBoxConfig.ProgramName}" + "\"";
             if (winBoxConfig.ProgramArgs != null && winBoxConfig.ProgramArgs.Length > 0)
             {
@@ -378,6 +381,7 @@ reg add ""HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t
             }
             await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(targetPath));
 
+            // ------------------------------------ save & export
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
 
