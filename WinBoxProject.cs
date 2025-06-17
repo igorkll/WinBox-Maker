@@ -385,10 +385,25 @@ reg add ""HKEY_CURRENT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
 
+            string driversPath = Path.Combine(resourcesDirectoryPath, "drivers");
+            if (Directory.Exists(driversPath)) {
+                processName("Installing user drivers");
+                processValue(55);
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-driver /driver:\"{driversPath}\" /recurse /forceunsigned");
+            }
+
+            string packagesPath = Path.Combine(resourcesDirectoryPath, "packages");
+            if (Directory.Exists(packagesPath))
+            {
+                processName("Installing .cab/.msu packages");
+                processValue(60);
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-package /PackagePath:\"{packagesPath}\"");
+            }
+
             if (imgPartitionPath != null)
             {
                 processName("Generating an .img image of a partition");
-                processValue(60);
+                processValue(65);
                 await Program.ExecuteAsync("dism.exe", $"/Capture-Image /ImageFile:\"{imgPartitionPath}\" /CaptureDir:\"{wimMountPath}\" /Name:\"{winBoxConfig.WinboxName}\"");
 
                 processName("Unmounting install.wim");

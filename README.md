@@ -18,6 +18,8 @@ please note that winbox maker does not provide Windows images, it only provides 
 * winbox_resources - a folder for your resources that are needed to build the system. these files should end up in the git repository
 * winbox_resources/files - files from this directory will be moved to the root of the disk on the installed system with replacement
 * winbox_resources/program - the directory for your application that will be used in kiosk mode. although this directory is not added to by default .gitignore if you plan to automatically copy your application files here during assembly and build a windows image with your application in post build event, then add this directory to .gitignore
+* winbox_resources/drivers - the directory with the drivers with which the image should be built
+* winbox_resources/packages - you can add the .cab or .msu packages to this directory
 
 ## command line arguments
 1. the path to the file .wnb is for automatically starting conversion from the command line. if it points to a directory, it will convert all files .wnb in this directory
