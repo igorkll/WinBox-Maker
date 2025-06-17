@@ -10,7 +10,7 @@ the program is recommended to be used with the original English image of windows
 please note that winbox maker does not provide Windows images, it only provides a tool for reassembling Windows for use in kiosk mode
 
 ## what was disabled
-* explorer.exe
+* explorer.exe (the desktop is completely inaccessible)
 * all keyboard shortcuts with Windows button
 * telemetry
 * windows defender
@@ -25,6 +25,7 @@ please note that winbox maker does not provide Windows images, it only provides 
 * snipping tool
 * creating dumps in case of bsod
 * system logging
+* checking the digital signature of drivers (it may not work on new versions of Windows)
 * calculator key
 * mail key
 * media select key

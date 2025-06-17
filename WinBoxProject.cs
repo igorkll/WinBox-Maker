@@ -341,6 +341,9 @@ bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
 bcdedit /set {{current}} recoveryenabled no
 bcdedit /set {{bootmgr}} displaybootmenu no
 bcdedit /set {{bootmgr}} timeout 0
+bcdedit /set loadoptions DISABLE_INTEGRITY_CHECKS
+bcdedit /set NOINTEGRITYCHECKS ON
+bcdedit /set TESTSIGNING ON
 
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout"" /v ""Scancode Map"" /t REG_BINARY /d 00000000000000000000000012000000000021e000006ce000006de000011e000006be000013e0000014e0000012e000000380000005be000005ee000037e0000038e000005ce000005fe000063e000007c0000000000 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
@@ -350,7 +353,9 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Applicat
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
 
-reg add ""HKEY_USERS\.DEFAULT\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
+reg load HKLM\DEFAULT_USER ""C:\Users\Default\NTUSER.DAT""
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
+reg unload HKLM\DEFAULT_USER
 
 net user winbox /add
 net localgroup Administrators winbox /add";
