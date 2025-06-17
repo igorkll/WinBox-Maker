@@ -355,10 +355,12 @@ net localgroup Administrators winbox /add
 
 for /f ""tokens=2 delims=="" %%i in ('wmic useraccount where name^=""winbox"" get sid /format:list ^| find ""=""') do set ""SID=%%i""
 reg add ""HKEY_USERS\%SID%\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f";
+
             if (winBoxConfig.UseOemKey == true && !winBoxConfig.OemKey.Contains("\""))
             {
                 baseSetup += $"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
             }
+
             await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);
 
             // ------------------------------------ copy files
