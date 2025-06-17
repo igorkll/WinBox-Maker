@@ -67,7 +67,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\TabletPC]
 "DisableSnippingTool"=dword:00000001
 
-; ---------------- setup lockscreen
+; ---------------- disable lockscreen
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData]
 "AllowLockScreen"=dword:00000000
 
