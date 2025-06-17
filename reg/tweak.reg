@@ -38,6 +38,9 @@ Windows Registry Editor Version 5.00
 "PromptOnSecureDesktop"=dword:00000000
 
 ; ---------------- disable taskmgr
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\taskmgr.exe]
+"Debugger"="\"\""
+
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableTaskMgr"=dword:00000001
 
@@ -53,8 +56,16 @@ Windows Registry Editor Version 5.00
 "DownlevelActivation"=dword:00000002
 
 ; ---------------- disable Ctrl+Alt+Del
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\taskmgr.exe]
-"Debugger"="\"\""
+
+; ---------------- disable screenshot
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"DisableSnippingTool"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\Explorer]
+"DisableSnippingTool"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\TabletPC]
+"DisableSnippingTool"=dword:00000001
 
 ; ---------------- setup lockscreen
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData]
