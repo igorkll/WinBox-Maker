@@ -310,7 +310,7 @@
             // UseOemKey
             // 
             UseOemKey.AutoSize = true;
-            UseOemKey.Location = new Point(3, 44);
+            UseOemKey.Location = new Point(3, 40);
             UseOemKey.Name = "UseOemKey";
             UseOemKey.Size = new Size(347, 29);
             UseOemKey.TabIndex = 0;
