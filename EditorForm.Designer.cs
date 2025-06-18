@@ -89,7 +89,7 @@
             // WindowsName
             // 
             WindowsName.AutoSize = true;
-            WindowsName.Location = new Point(789, 107);
+            WindowsName.Location = new Point(789, 106);
             WindowsName.Name = "WindowsName";
             WindowsName.Size = new Size(178, 25);
             WindowsName.TabIndex = 5;
@@ -138,7 +138,7 @@
             // 
             ProcessName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ProcessName.AutoSize = true;
-            ProcessName.Location = new Point(0, 685);
+            ProcessName.Location = new Point(0, 686);
             ProcessName.Name = "ProcessName";
             ProcessName.Size = new Size(122, 25);
             ProcessName.TabIndex = 10;
@@ -231,7 +231,7 @@
             // ExportIsoInstaller
             // 
             ExportIsoInstaller.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportIsoInstaller.Location = new Point(1020, 667);
+            ExportIsoInstaller.Location = new Point(1020, 668);
             ExportIsoInstaller.Name = "ExportIsoInstaller";
             ExportIsoInstaller.Size = new Size(222, 38);
             ExportIsoInstaller.TabIndex = 20;
@@ -341,7 +341,7 @@
             // 
             ProgramType_WebPage.AutoSize = true;
             ProgramType_WebPage.Location = new Point(4, 188);
-            ProgramType_WebPage.Margin = new Padding(4);
+            ProgramType_WebPage.Margin = new Padding(4, 4, 4, 4);
             ProgramType_WebPage.Name = "ProgramType_WebPage";
             ProgramType_WebPage.Size = new Size(116, 29);
             ProgramType_WebPage.TabIndex = 9;
@@ -352,7 +352,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(341, 149);
+            label6.Location = new Point(340, 148);
             label6.Name = "label6";
             label6.Size = new Size(96, 25);
             label6.TabIndex = 8;
@@ -369,7 +369,7 @@
             // ProgramType_RawCommand
             // 
             ProgramType_RawCommand.AutoSize = true;
-            ProgramType_RawCommand.Location = new Point(4, 117);
+            ProgramType_RawCommand.Location = new Point(4, 111);
             ProgramType_RawCommand.Name = "ProgramType_RawCommand";
             ProgramType_RawCommand.Size = new Size(159, 29);
             ProgramType_RawCommand.TabIndex = 6;
@@ -381,7 +381,7 @@
             // ProgramType_ExecutableFile
             // 
             ProgramType_ExecutableFile.AutoSize = true;
-            ProgramType_ExecutableFile.Location = new Point(4, 3);
+            ProgramType_ExecutableFile.Location = new Point(3, 3);
             ProgramType_ExecutableFile.Name = "ProgramType_ExecutableFile";
             ProgramType_ExecutableFile.Size = new Size(151, 29);
             ProgramType_ExecutableFile.TabIndex = 5;
@@ -393,7 +393,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(249, 79);
+            label4.Location = new Point(249, 80);
             label4.Name = "label4";
             label4.Size = new Size(100, 25);
             label4.TabIndex = 4;
@@ -403,7 +403,7 @@
             // 
             ProgramArgs.Location = new Point(4, 76);
             ProgramArgs.Name = "ProgramArgs";
-            ProgramArgs.Size = new Size(239, 31);
+            ProgramArgs.Size = new Size(240, 31);
             ProgramArgs.TabIndex = 3;
             ProgramArgs.TextChanged += ProgramArgs_TextChanged;
             // 
@@ -451,7 +451,7 @@
             checkedListBox1.FormattingEnabled = true;
             checkedListBox1.Location = new Point(802, 264);
             checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(253, 256);
+            checkedListBox1.Size = new Size(253, 228);
             checkedListBox1.TabIndex = 29;
             // 
             // label5
@@ -478,7 +478,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 14F);
-            label7.Location = new Point(12, 523);
+            label7.Location = new Point(12, 524);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(139, 38);
@@ -488,7 +488,7 @@
             // button1
             // 
             button1.Location = new Point(342, 184);
-            button1.Margin = new Padding(4);
+            button1.Margin = new Padding(4, 4, 4, 4);
             button1.Name = "button1";
             button1.Size = new Size(112, 34);
             button1.TabIndex = 33;
@@ -533,7 +533,7 @@
             Controls.Add(ProcessValue);
             Controls.Add(ExportIsoInstaller);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MinimumSize = new Size(836, 356);
+            MinimumSize = new Size(834, 347);
             Name = "EditorForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Editor";
