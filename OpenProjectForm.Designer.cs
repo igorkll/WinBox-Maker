@@ -32,16 +32,21 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             OpenProject = new Button();
             NewProject = new Button();
-            logichub = new Button();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             panel1 = new Panel();
             LICENSE = new Button();
             README = new Button();
+            panel2 = new Panel();
+            pictureBox4 = new PictureBox();
+            pictureBox3 = new PictureBox();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -52,10 +57,10 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.Controls.Add(OpenProject, 0, 1);
             tableLayoutPanel1.Controls.Add(NewProject, 1, 1);
-            tableLayoutPanel1.Controls.Add(logichub, 2, 0);
             tableLayoutPanel1.Controls.Add(pictureBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(pictureBox2, 1, 0);
             tableLayoutPanel1.Controls.Add(panel1, 2, 1);
+            tableLayoutPanel1.Controls.Add(panel2, 2, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -71,7 +76,7 @@
             OpenProject.Location = new Point(30, 329);
             OpenProject.Margin = new Padding(30);
             OpenProject.Name = "OpenProject";
-            OpenProject.Size = new Size(270, 91);
+            OpenProject.Size = new Size(269, 91);
             OpenProject.TabIndex = 0;
             OpenProject.Text = "Open Project";
             OpenProject.UseVisualStyleBackColor = true;
@@ -80,25 +85,14 @@
             // NewProject
             // 
             NewProject.Dock = DockStyle.Fill;
-            NewProject.Location = new Point(360, 329);
+            NewProject.Location = new Point(359, 329);
             NewProject.Margin = new Padding(30);
             NewProject.Name = "NewProject";
-            NewProject.Size = new Size(270, 91);
+            NewProject.Size = new Size(269, 91);
             NewProject.TabIndex = 1;
             NewProject.Text = "New Project";
             NewProject.UseVisualStyleBackColor = true;
             NewProject.Click += NewProject_Click;
-            // 
-            // logichub
-            // 
-            logichub.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            logichub.Image = (Image)resources.GetObject("logichub.Image");
-            logichub.Location = new Point(669, 3);
-            logichub.Name = "logichub";
-            logichub.Size = new Size(128, 128);
-            logichub.TabIndex = 2;
-            logichub.UseVisualStyleBackColor = true;
-            logichub.Click += logichub_Click;
             // 
             // pictureBox1
             // 
@@ -106,7 +100,7 @@
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(324, 293);
+            pictureBox1.Size = new Size(323, 293);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
@@ -115,9 +109,9 @@
             // 
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(333, 3);
+            pictureBox2.Location = new Point(332, 3);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(324, 293);
+            pictureBox2.Size = new Size(323, 293);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 4;
             pictureBox2.TabStop = false;
@@ -127,9 +121,9 @@
             panel1.Controls.Add(LICENSE);
             panel1.Controls.Add(README);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(663, 302);
+            panel1.Location = new Point(661, 302);
             panel1.Name = "panel1";
-            panel1.Size = new Size(134, 145);
+            panel1.Size = new Size(136, 145);
             panel1.TabIndex = 5;
             // 
             // LICENSE
@@ -154,6 +148,38 @@
             README.UseVisualStyleBackColor = true;
             README.Click += README_Click;
             // 
+            // panel2
+            // 
+            panel2.Controls.Add(pictureBox4);
+            panel2.Controls.Add(pictureBox3);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(661, 3);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(136, 293);
+            panel2.TabIndex = 6;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(31, 111);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(96, 96);
+            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox4.TabIndex = 1;
+            pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(31, 9);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(96, 96);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 0;
+            pictureBox3.TabStop = false;
+            // 
             // OpenProjectForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -169,6 +195,9 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
         }
 
@@ -177,11 +206,13 @@
         private TableLayoutPanel tableLayoutPanel1;
         private Button OpenProject;
         private Button NewProject;
-        private Button logichub;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private Panel panel1;
         private Button LICENSE;
         private Button README;
+        private Panel panel2;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox4;
     }
 }

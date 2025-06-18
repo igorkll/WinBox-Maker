@@ -138,7 +138,7 @@
             // 
             ProcessName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ProcessName.AutoSize = true;
-            ProcessName.Location = new Point(0, 783);
+            ProcessName.Location = new Point(0, 685);
             ProcessName.Name = "ProcessName";
             ProcessName.Size = new Size(122, 25);
             ProcessName.TabIndex = 10;
@@ -196,7 +196,7 @@
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox1.Cursor = Cursors.Hand;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(1364, 16);
+            pictureBox1.Location = new Point(1146, 16);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(96, 96);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -209,7 +209,7 @@
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox2.Cursor = Cursors.Hand;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(1262, 16);
+            pictureBox2.Location = new Point(1146, 118);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(96, 96);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -220,7 +220,7 @@
             // ExportInstallWim
             // 
             ExportInstallWim.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportInstallWim.Location = new Point(1238, 722);
+            ExportInstallWim.Location = new Point(1020, 624);
             ExportInstallWim.Name = "ExportInstallWim";
             ExportInstallWim.Size = new Size(222, 38);
             ExportInstallWim.TabIndex = 19;
@@ -231,7 +231,7 @@
             // ExportIsoInstaller
             // 
             ExportIsoInstaller.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportIsoInstaller.Location = new Point(1238, 765);
+            ExportIsoInstaller.Location = new Point(1020, 667);
             ExportIsoInstaller.Name = "ExportIsoInstaller";
             ExportIsoInstaller.Size = new Size(222, 38);
             ExportIsoInstaller.TabIndex = 20;
@@ -242,9 +242,9 @@
             // ProcessValue
             // 
             ProcessValue.Dock = DockStyle.Bottom;
-            ProcessValue.Location = new Point(0, 809);
+            ProcessValue.Location = new Point(0, 711);
             ProcessValue.Name = "ProcessValue";
-            ProcessValue.Size = new Size(1476, 33);
+            ProcessValue.Size = new Size(1258, 33);
             ProcessValue.TabIndex = 21;
             // 
             // back
@@ -280,7 +280,7 @@
             // ExportImgPartition
             // 
             ExportImgPartition.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportImgPartition.Location = new Point(1238, 678);
+            ExportImgPartition.Location = new Point(1020, 580);
             ExportImgPartition.Name = "ExportImgPartition";
             ExportImgPartition.Size = new Size(222, 38);
             ExportImgPartition.TabIndex = 25;
@@ -502,7 +502,7 @@
             AutoScroll = true;
             AutoScrollMargin = new Size(10, 30);
             BackColor = SystemColors.Control;
-            ClientSize = new Size(1476, 842);
+            ClientSize = new Size(1258, 744);
             Controls.Add(button1);
             Controls.Add(label7);
             Controls.Add(OpenProjectFolder);
