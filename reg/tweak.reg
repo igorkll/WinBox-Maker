@@ -81,6 +81,10 @@ Windows Registry Editor Version 5.00
 "DisableLockWorkstation"=dword:00000001
 "DisableCad"=dword:00000001
 "EnableFirstLogonAnimation"=dword:00000000
+"DisableBackButton"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"EnableFirstLogonAnimation"=dword:00000000
 
 ; ---------------- disable sounds
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation]
