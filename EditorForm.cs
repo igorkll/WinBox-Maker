@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -210,7 +211,8 @@ namespace WinBox_Maker
                 switch (winBoxProject.winBoxConfig.ProgramType)
                 {
                     case ProgramTypeEnum.ExecutableFile:
-                        if (winBoxProject.winBoxConfig.ProgramName == null || winBoxProject.winBoxConfig.ProgramName.Length == 0) {
+                        if (winBoxProject.winBoxConfig.ProgramName == null || winBoxProject.winBoxConfig.ProgramName.Length == 0)
+                        {
                             canExport = false;
                         }
                         break;
@@ -440,6 +442,17 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.RawCommand = RawCommand.Text;
             winBoxProject.SaveConfig();
             UpdateGuiWithoutWindowsVersion();
+        }
+
+        private void OpenProjectFolder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("explorer.exe", winBoxProject.baseDirectoryPath);
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

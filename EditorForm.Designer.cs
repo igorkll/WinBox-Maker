@@ -66,6 +66,7 @@
             label3 = new Label();
             checkedListBox1 = new CheckedListBox();
             label5 = new Label();
+            OpenProjectFolder = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -447,6 +448,16 @@
             label5.TabIndex = 30;
             label5.Text = "Tweaks";
             // 
+            // OpenProjectFolder
+            // 
+            OpenProjectFolder.Location = new Point(366, 12);
+            OpenProjectFolder.Name = "OpenProjectFolder";
+            OpenProjectFolder.Size = new Size(235, 34);
+            OpenProjectFolder.TabIndex = 31;
+            OpenProjectFolder.Text = "Open Project Folder";
+            OpenProjectFolder.UseVisualStyleBackColor = true;
+            OpenProjectFolder.Click += OpenProjectFolder_Click;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -455,6 +466,7 @@
             AutoScrollMargin = new Size(10, 30);
             BackColor = SystemColors.Control;
             ClientSize = new Size(1258, 712);
+            Controls.Add(OpenProjectFolder);
             Controls.Add(label5);
             Controls.Add(checkedListBox1);
             Controls.Add(label3);
@@ -535,5 +547,6 @@
         private RadioButton ProgramType_RawCommand;
         private TextBox RawCommand;
         private Label label6;
+        private Button OpenProjectFolder;
     }
 }
