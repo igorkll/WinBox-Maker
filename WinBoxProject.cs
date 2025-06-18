@@ -382,8 +382,6 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"" 
 schtasks /create /tn ""SetAllowLockScreen_Logon"" /tr ""reg add \""HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Authentication\\LogonUI\\SessionData\"" /v AllowLockScreen /t REG_DWORD /d 0 /f"" /sc onlogon /rl highest /ru ""SYSTEM""
 schtasks /create /tn ""SetAllowLockScreen_Start"" /tr ""reg add \""HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Authentication\\LogonUI\\SessionData\"" /v AllowLockScreen /t REG_DWORD /d 0 /f"" /sc onstart /rl highest /ru ""SYSTEM""
 
-powershell -command ""Get-AppxPackage Microsoft.LockApp | Remove-AppxPackage""
-
 reg load HKLM\DEFAULT_USER ""C:\Users\Default\NTUSER.DAT""
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v Beep /t REG_SZ /d no /f
