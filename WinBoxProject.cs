@@ -333,6 +333,12 @@ namespace WinBox_Maker
                 await Program.ExecuteAsync("reg.exe", $"import reg\\hide_cursor.reg");
             }
 
+            string lockScreenAppPath = Path.Combine(wimMountPath, "Windows\\SystemApps\\Microsoft.LockApp_cw5n1h2txyewy");
+            if (Directory.Exists(lockScreenAppPath))
+            {
+                Directory.Delete(lockScreenAppPath, true);
+            }
+
             // ------------------------------------ system init
             string baseSetup = $@"@echo off
 reagentc.exe /disable
