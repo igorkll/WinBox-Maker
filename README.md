@@ -9,6 +9,9 @@ please note that the program requires the "dism" utility. usually it is built in
 the program is recommended to be used with the original English image of windows 10 pro
 please note that winbox maker does not provide Windows images, it only provides a tool for reassembling Windows for use in kiosk mode
 
+## notes
+* if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
+
 ## what was disabled
 * explorer.exe (the desktop is completely inaccessible)
 * all keyboard shortcuts with Windows button
