@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace WinBox_Maker
 {
-    public enum ProgramModeEnum
+    public enum ProgramTypeEnum
     {
-        AfterExplorer,
-        InsteadExplorer
+        ExecutableFile,
+        RawCommand
     }
 
     public class WinBoxConfig
@@ -25,9 +25,8 @@ namespace WinBox_Maker
         public bool? UseOemKey { get; set; }
         public string? ProgramName { get; set; }
         public string? ProgramArgs { get; set; }
-        public bool? ProgramAsAdmin { get; set; }
-        public bool? disable_lockscreen { get; set; }
-        public ProgramModeEnum? ProgramMode { get; set; }
+        public string? RawCommand { get; set; }
+        public ProgramTypeEnum? ProgramType { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -41,9 +40,8 @@ namespace WinBox_Maker
             if (OemKey == null) OemKey = "";
             if (UseOemKey == null) UseOemKey = false;
             if (ProgramArgs == null) ProgramArgs = "";
-            if (ProgramAsAdmin == null) ProgramAsAdmin = true;
-            if (disable_lockscreen == null) disable_lockscreen = true;
-            if (ProgramMode == null) ProgramMode = ProgramModeEnum.InsteadExplorer;
+            if (RawCommand == null) RawCommand = "";
+            if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
         }
 
         public void Save(string wnbFilePath)

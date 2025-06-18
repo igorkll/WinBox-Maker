@@ -54,10 +54,10 @@
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
             panel2 = new Panel();
-            ProgramMode = new GroupBox();
-            ProgramMode_InsteadExplorer = new RadioButton();
-            ProgramMode_AfterExplorer = new RadioButton();
-            ProgramAsAdmin = new CheckBox();
+            label6 = new Label();
+            RawCommand = new TextBox();
+            ProgramType_RawCommand = new RadioButton();
+            ProgramType_ExecutableFile = new RadioButton();
             label4 = new Label();
             ProgramArgs = new TextBox();
             ProgramName = new Label();
@@ -70,7 +70,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
-            ProgramMode.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -319,8 +318,10 @@
             // 
             panel2.BackColor = SystemColors.Window;
             panel2.BorderStyle = BorderStyle.Fixed3D;
-            panel2.Controls.Add(ProgramMode);
-            panel2.Controls.Add(ProgramAsAdmin);
+            panel2.Controls.Add(label6);
+            panel2.Controls.Add(RawCommand);
+            panel2.Controls.Add(ProgramType_RawCommand);
+            panel2.Controls.Add(ProgramType_ExecutableFile);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(ProgramArgs);
             panel2.Controls.Add(ProgramName);
@@ -331,56 +332,51 @@
             panel2.Size = new Size(429, 228);
             panel2.TabIndex = 27;
             // 
-            // ProgramMode
+            // label6
             // 
-            ProgramMode.Controls.Add(ProgramMode_InsteadExplorer);
-            ProgramMode.Controls.Add(ProgramMode_AfterExplorer);
-            ProgramMode.Location = new Point(3, 115);
-            ProgramMode.Name = "ProgramMode";
-            ProgramMode.Size = new Size(300, 106);
-            ProgramMode.TabIndex = 6;
-            ProgramMode.TabStop = false;
-            ProgramMode.Text = "Application launch mode";
+            label6.AutoSize = true;
+            label6.Location = new Point(326, 156);
+            label6.Name = "label6";
+            label6.Size = new Size(96, 25);
+            label6.TabIndex = 8;
+            label6.Text = "Command";
             // 
-            // ProgramMode_InsteadExplorer
+            // RawCommand
             // 
-            ProgramMode_InsteadExplorer.AutoSize = true;
-            ProgramMode_InsteadExplorer.Location = new Point(6, 65);
-            ProgramMode_InsteadExplorer.Name = "ProgramMode_InsteadExplorer";
-            ProgramMode_InsteadExplorer.Size = new Size(186, 29);
-            ProgramMode_InsteadExplorer.TabIndex = 1;
-            ProgramMode_InsteadExplorer.TabStop = true;
-            ProgramMode_InsteadExplorer.Text = "Instead of explorer";
-            ProgramMode_InsteadExplorer.UseVisualStyleBackColor = true;
-            ProgramMode_InsteadExplorer.CheckedChanged += ProgramMode_InsteadExplorer_CheckedChanged;
+            RawCommand.Location = new Point(3, 153);
+            RawCommand.Name = "RawCommand";
+            RawCommand.Size = new Size(317, 31);
+            RawCommand.TabIndex = 7;
+            RawCommand.TextChanged += RawCommand_TextChanged;
             // 
-            // ProgramMode_AfterExplorer
+            // ProgramType_RawCommand
             // 
-            ProgramMode_AfterExplorer.AutoSize = true;
-            ProgramMode_AfterExplorer.Location = new Point(6, 30);
-            ProgramMode_AfterExplorer.Name = "ProgramMode_AfterExplorer";
-            ProgramMode_AfterExplorer.Size = new Size(175, 29);
-            ProgramMode_AfterExplorer.TabIndex = 0;
-            ProgramMode_AfterExplorer.TabStop = true;
-            ProgramMode_AfterExplorer.Text = "After the explorer";
-            ProgramMode_AfterExplorer.UseVisualStyleBackColor = true;
-            ProgramMode_AfterExplorer.CheckedChanged += ProgramMode_AfterExplorer_CheckedChanged;
+            ProgramType_RawCommand.AutoSize = true;
+            ProgramType_RawCommand.Location = new Point(3, 118);
+            ProgramType_RawCommand.Name = "ProgramType_RawCommand";
+            ProgramType_RawCommand.Size = new Size(159, 29);
+            ProgramType_RawCommand.TabIndex = 6;
+            ProgramType_RawCommand.TabStop = true;
+            ProgramType_RawCommand.Text = "Raw Command";
+            ProgramType_RawCommand.UseVisualStyleBackColor = true;
+            ProgramType_RawCommand.CheckedChanged += ProgramType_RawCommand_CheckedChanged;
             // 
-            // ProgramAsAdmin
+            // ProgramType_ExecutableFile
             // 
-            ProgramAsAdmin.AutoSize = true;
-            ProgramAsAdmin.Location = new Point(3, 80);
-            ProgramAsAdmin.Name = "ProgramAsAdmin";
-            ProgramAsAdmin.Size = new Size(226, 29);
-            ProgramAsAdmin.TabIndex = 5;
-            ProgramAsAdmin.Text = "Run as an administrator";
-            ProgramAsAdmin.UseVisualStyleBackColor = true;
-            ProgramAsAdmin.CheckedChanged += ProgramAsAdmin_CheckedChanged;
+            ProgramType_ExecutableFile.AutoSize = true;
+            ProgramType_ExecutableFile.Location = new Point(3, 6);
+            ProgramType_ExecutableFile.Name = "ProgramType_ExecutableFile";
+            ProgramType_ExecutableFile.Size = new Size(151, 29);
+            ProgramType_ExecutableFile.TabIndex = 5;
+            ProgramType_ExecutableFile.TabStop = true;
+            ProgramType_ExecutableFile.Text = "Executable File";
+            ProgramType_ExecutableFile.UseVisualStyleBackColor = true;
+            ProgramType_ExecutableFile.CheckedChanged += ProgramType_ExecutableFile_CheckedChanged;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(239, 49);
+            label4.Location = new Point(239, 81);
             label4.Name = "label4";
             label4.Size = new Size(100, 25);
             label4.TabIndex = 4;
@@ -388,7 +384,7 @@
             // 
             // ProgramArgs
             // 
-            ProgramArgs.Location = new Point(3, 43);
+            ProgramArgs.Location = new Point(3, 81);
             ProgramArgs.Name = "ProgramArgs";
             ProgramArgs.Size = new Size(230, 31);
             ProgramArgs.TabIndex = 3;
@@ -397,7 +393,7 @@
             // ProgramName
             // 
             ProgramName.AutoSize = true;
-            ProgramName.Location = new Point(239, 8);
+            ProgramName.Location = new Point(239, 41);
             ProgramName.Name = "ProgramName";
             ProgramName.Size = new Size(113, 25);
             ProgramName.TabIndex = 2;
@@ -405,7 +401,7 @@
             // 
             // AppClear
             // 
-            AppClear.Location = new Point(121, 3);
+            AppClear.Location = new Point(121, 41);
             AppClear.Name = "AppClear";
             AppClear.Size = new Size(112, 34);
             AppClear.TabIndex = 1;
@@ -415,7 +411,7 @@
             // 
             // AppSelect
             // 
-            AppSelect.Location = new Point(3, 3);
+            AppSelect.Location = new Point(3, 41);
             AppSelect.Name = "AppSelect";
             AppSelect.Size = new Size(112, 34);
             AppSelect.TabIndex = 0;
@@ -496,8 +492,6 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ProgramMode.ResumeLayout(false);
-            ProgramMode.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -534,12 +528,12 @@
         private Label ProgramName;
         private Label label4;
         private TextBox ProgramArgs;
-        private CheckBox ProgramAsAdmin;
         private CheckedListBox checkedListBox1;
         private Label label5;
-        private GroupBox ProgramMode;
-        private RadioButton ProgramMode_InsteadExplorer;
-        private RadioButton ProgramMode_AfterExplorer;
         private VScrollBar vScrollBar1;
+        private RadioButton ProgramType_ExecutableFile;
+        private RadioButton ProgramType_RawCommand;
+        private TextBox RawCommand;
+        private Label label6;
     }
 }

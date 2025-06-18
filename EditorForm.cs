@@ -235,14 +235,14 @@ namespace WinBox_Maker
             UseOemKey.CheckState = winBoxProject.winBoxConfig.UseOemKey == true ? CheckState.Checked : CheckState.Unchecked;
             ProgramName.Text = winBoxProject.winBoxConfig.ProgramName ?? "not selected";
             ProgramArgs.Text = winBoxProject.winBoxConfig.ProgramArgs ?? "";
-            ProgramAsAdmin.CheckState = winBoxProject.winBoxConfig.ProgramAsAdmin == true ? CheckState.Checked : CheckState.Unchecked;
-            switch (winBoxProject.winBoxConfig.ProgramMode)
+            RawCommand.Text = winBoxProject.winBoxConfig.RawCommand ?? "";
+            switch (winBoxProject.winBoxConfig.ProgramType)
             {
-                case ProgramModeEnum.AfterExplorer:
-                    ProgramMode_AfterExplorer.Checked = true;
+                case ProgramTypeEnum.ExecutableFile:
+                    ProgramType_ExecutableFile.Checked = true;
                     break;
-                case ProgramModeEnum.InsteadExplorer:
-                    ProgramMode_InsteadExplorer.Checked = true;
+                case ProgramTypeEnum.RawCommand:
+                    ProgramType_RawCommand.Checked = true;
                     break;
             }
             UpdateGuiWithoutWindowsVersion();
@@ -341,13 +341,6 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.ProgramArgs = ProgramArgs.Text;
             winBoxProject.SaveConfig();
         }
-
-        private void ProgramAsAdmin_CheckedChanged(object sender, EventArgs e)
-        {
-            winBoxProject.winBoxConfig.ProgramAsAdmin = ProgramAsAdmin.CheckState == CheckState.Checked;
-            winBoxProject.SaveConfig();
-        }
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             WinBox_Maker.Program.OpenWebPage(WinBox_Maker.Program.logichubUrl + "#winbox");
@@ -404,22 +397,28 @@ namespace WinBox_Maker
             UpdateGui();
         }
 
-        private void ProgramMode_AfterExplorer_CheckedChanged(object sender, EventArgs e)
+        private void ProgramType_ExecutableFile_CheckedChanged(object sender, EventArgs e)
         {
-            if (ProgramMode_AfterExplorer.Checked)
+            if (ProgramType_ExecutableFile.Checked)
             {
-                winBoxProject.winBoxConfig.ProgramMode = ProgramModeEnum.AfterExplorer;
+                winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.ExecutableFile;
                 winBoxProject.SaveConfig();
             }
         }
 
-        private void ProgramMode_InsteadExplorer_CheckedChanged(object sender, EventArgs e)
+        private void ProgramType_RawCommand_CheckedChanged(object sender, EventArgs e)
         {
-            if (ProgramMode_InsteadExplorer.Checked)
+            if (ProgramType_RawCommand.Checked)
             {
-                winBoxProject.winBoxConfig.ProgramMode = ProgramModeEnum.InsteadExplorer;
+                winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.RawCommand;
                 winBoxProject.SaveConfig();
             }
+        }
+
+        private void RawCommand_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.RawCommand = RawCommand.Text;
+            winBoxProject.SaveConfig();
         }
     }
 }

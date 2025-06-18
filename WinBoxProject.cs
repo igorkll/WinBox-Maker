@@ -419,12 +419,26 @@ net localgroup Administrators winbox /add";
             }
 
             // ------------------------------------ setup application autorun
-            string targetPath = "\"" + @$"C:\WinboxProgram\{winBoxConfig.ProgramName}" + "\"";
-            if (winBoxConfig.ProgramArgs != null && winBoxConfig.ProgramArgs.Length > 0)
+            string command = "";
+            switch (winBoxConfig.ProgramType)
             {
-                targetPath += " " + winBoxConfig.ProgramArgs;
+                case ProgramTypeEnum.ExecutableFile:
+                    {
+                        command = "\"" + @$"C:\WinboxProgram\{winBoxConfig.ProgramName}" + "\"";
+                        if (winBoxConfig.ProgramArgs != null && winBoxConfig.ProgramArgs.Length > 0)
+                        {
+                            command += " " + winBoxConfig.ProgramArgs;
+                        }
+                    }
+                    break;
+
+                case ProgramTypeEnum.RawCommand:
+                    if (winBoxConfig.RawCommand != null) {
+                        command = winBoxConfig.RawCommand;
+                    }
+                    break;
             }
-            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(targetPath));
+            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(command));
 
             // ------------------------------------ save & export
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
