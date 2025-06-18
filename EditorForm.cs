@@ -46,7 +46,11 @@ namespace WinBox_Maker
         {
             foreach (Control control in this.Controls)
             {
-                if (control.Name != "LICENSE" && control.Name != "README" && !(control is ProgressBar) && !(control is Label) && !(control is PictureBox))
+                if (
+                    control.Name != "LICENSE" &&
+                    control.Name != "README" &&
+                    control.Name != "OpenProjectFolder" &&
+                    !(control is ProgressBar) && !(control is Label) && !(control is PictureBox))
                 {
                     control.Enabled = false;
                 }
