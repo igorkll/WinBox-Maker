@@ -70,6 +70,8 @@
             OpenProjectFolder = new Button();
             label7 = new Label();
             button1 = new Button();
+            textBox1 = new TextBox();
+            label8 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -149,7 +151,7 @@
             WinboxDescription.BackColor = SystemColors.Window;
             WinboxDescription.Location = new Point(15, 300);
             WinboxDescription.Name = "WinboxDescription";
-            WinboxDescription.Size = new Size(319, 220);
+            WinboxDescription.Size = new Size(319, 248);
             WinboxDescription.TabIndex = 11;
             WinboxDescription.Text = "";
             WinboxDescription.TextChanged += WinboxDescription_TextChanged;
@@ -294,7 +296,7 @@
             panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1.Controls.Add(OemKey);
             panel1.Controls.Add(UseOemKey);
-            panel1.Location = new Point(15, 564);
+            panel1.Location = new Point(15, 591);
             panel1.Name = "panel1";
             panel1.Size = new Size(451, 78);
             panel1.TabIndex = 26;
@@ -322,6 +324,8 @@
             // 
             panel2.BackColor = SystemColors.Window;
             panel2.BorderStyle = BorderStyle.Fixed3D;
+            panel2.Controls.Add(label8);
+            panel2.Controls.Add(textBox1);
             panel2.Controls.Add(ProgramType_WebPage);
             panel2.Controls.Add(label6);
             panel2.Controls.Add(RawCommand);
@@ -334,25 +338,25 @@
             panel2.Controls.Add(AppSelect);
             panel2.Location = new Point(344, 264);
             panel2.Name = "panel2";
-            panel2.Size = new Size(451, 256);
+            panel2.Size = new Size(451, 284);
             panel2.TabIndex = 27;
             // 
             // ProgramType_WebPage
             // 
             ProgramType_WebPage.AutoSize = true;
             ProgramType_WebPage.Location = new Point(4, 188);
-            ProgramType_WebPage.Margin = new Padding(4, 4, 4, 4);
+            ProgramType_WebPage.Margin = new Padding(4);
             ProgramType_WebPage.Name = "ProgramType_WebPage";
-            ProgramType_WebPage.Size = new Size(116, 29);
+            ProgramType_WebPage.Size = new Size(107, 29);
             ProgramType_WebPage.TabIndex = 9;
             ProgramType_WebPage.TabStop = true;
-            ProgramType_WebPage.Text = "Web Page";
+            ProgramType_WebPage.Text = "Web Site";
             ProgramType_WebPage.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(340, 148);
+            label6.Location = new Point(340, 149);
             label6.Name = "label6";
             label6.Size = new Size(96, 25);
             label6.TabIndex = 8;
@@ -451,7 +455,7 @@
             checkedListBox1.FormattingEnabled = true;
             checkedListBox1.Location = new Point(802, 264);
             checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(253, 228);
+            checkedListBox1.Size = new Size(253, 284);
             checkedListBox1.TabIndex = 29;
             // 
             // label5
@@ -478,7 +482,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 14F);
-            label7.Location = new Point(12, 524);
+            label7.Location = new Point(12, 551);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(139, 38);
@@ -488,12 +492,28 @@
             // button1
             // 
             button1.Location = new Point(342, 184);
-            button1.Margin = new Padding(4, 4, 4, 4);
+            button1.Margin = new Padding(4);
             button1.Name = "button1";
             button1.Size = new Size(112, 34);
             button1.TabIndex = 33;
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(4, 218);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(332, 31);
+            textBox1.TabIndex = 10;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(340, 221);
+            label8.Name = "label8";
+            label8.Size = new Size(34, 25);
+            label8.TabIndex = 11;
+            label8.Text = "Url";
             // 
             // EditorForm
             // 
@@ -590,5 +610,7 @@
         private RadioButton ProgramType_WebPage;
         private Label label7;
         private Button button1;
+        private TextBox textBox1;
+        private Label label8;
     }
 }
