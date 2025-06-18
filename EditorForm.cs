@@ -207,6 +207,24 @@ namespace WinBox_Maker
             }
             if (canExport)
             {
+                switch (winBoxProject.winBoxConfig.ProgramType)
+                {
+                    case ProgramTypeEnum.ExecutableFile:
+                        if (winBoxProject.winBoxConfig.ProgramName == null || winBoxProject.winBoxConfig.ProgramName.Length == 0) {
+                            canExport = false;
+                        }
+                        break;
+
+                    case ProgramTypeEnum.RawCommand:
+                        if (winBoxProject.winBoxConfig.RawCommand == null || winBoxProject.winBoxConfig.RawCommand.Length == 0)
+                        {
+                            canExport = false;
+                        }
+                        break;
+                }
+            }
+            if (canExport)
+            {
                 bool exists = false;
                 WindowsDescription[] localWindowsDescriptions = winBoxProject.GetWindowsDescriptions();
                 foreach (WindowsDescription item in localWindowsDescriptions)
@@ -403,6 +421,7 @@ namespace WinBox_Maker
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.ExecutableFile;
                 winBoxProject.SaveConfig();
+                UpdateGuiWithoutWindowsVersion();
             }
         }
 
@@ -412,6 +431,7 @@ namespace WinBox_Maker
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.RawCommand;
                 winBoxProject.SaveConfig();
+                UpdateGuiWithoutWindowsVersion();
             }
         }
 
@@ -419,6 +439,7 @@ namespace WinBox_Maker
         {
             winBoxProject.winBoxConfig.RawCommand = RawCommand.Text;
             winBoxProject.SaveConfig();
+            UpdateGuiWithoutWindowsVersion();
         }
     }
 }
