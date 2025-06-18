@@ -432,7 +432,7 @@ net localgroup Administrators winbox /add";
                             string vbsFile = $@"Set WshShell = CreateObject(""WScript.Shell"")
 WshShell.Run """"""{execFilePath}"""" {winBoxConfig.ProgramArgs ?? ""}"", 0, False";
                             await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), vbsFile);
-                            command = "cscript //nologo \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
+                            command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
                         }
                         else
                         {
