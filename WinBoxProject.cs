@@ -424,10 +424,23 @@ net localgroup Administrators winbox /add";
             {
                 case ProgramTypeEnum.ExecutableFile:
                     {
-                        command = "\"" + @$"C:\WinboxProgram\{winBoxConfig.ProgramName}" + "\"";
-                        if (winBoxConfig.ProgramArgs != null && winBoxConfig.ProgramArgs.Length > 0)
+                        string execFilePath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
+                        string extension = Path.GetExtension(winBoxConfig.ProgramName);
+                        if (extension != null && (extension.Equals(".bat", StringComparison.OrdinalIgnoreCase) ||
+                            extension.Equals(".cmd", StringComparison.OrdinalIgnoreCase)))
                         {
-                            command += " " + winBoxConfig.ProgramArgs;
+                            string vbsFile = $@"Set WshShell = CreateObject(""WScript.Shell"")
+WshShell.Run """"""{execFilePath}"""" {winBoxConfig.ProgramArgs ?? ""}"", 0, False";
+                            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), vbsFile);
+                            command = "cscript //nologo \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
+                        }
+                        else
+                        {
+                            command = "\"" + execFilePath + "\"";
+                            if (winBoxConfig.ProgramArgs != null && winBoxConfig.ProgramArgs.Length > 0)
+                            {
+                                command += " " + winBoxConfig.ProgramArgs;
+                            }
                         }
                     }
                     break;
