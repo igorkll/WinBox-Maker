@@ -78,10 +78,9 @@
             // 
             // WindowsSelect
             // 
-            WindowsSelect.Location = new Point(228, 67);
-            WindowsSelect.Margin = new Padding(2);
+            WindowsSelect.Location = new Point(342, 100);
             WindowsSelect.Name = "WindowsSelect";
-            WindowsSelect.Size = new Size(212, 25);
+            WindowsSelect.Size = new Size(318, 38);
             WindowsSelect.TabIndex = 4;
             WindowsSelect.Text = "Select base windows image";
             WindowsSelect.UseVisualStyleBackColor = true;
@@ -90,19 +89,17 @@
             // WindowsName
             // 
             WindowsName.AutoSize = true;
-            WindowsName.Location = new Point(526, 72);
-            WindowsName.Margin = new Padding(2, 0, 2, 0);
+            WindowsName.Location = new Point(789, 107);
             WindowsName.Name = "WindowsName";
-            WindowsName.Size = new Size(117, 15);
+            WindowsName.Size = new Size(178, 25);
             WindowsName.TabIndex = 5;
             WindowsName.Text = "base windows image";
             // 
             // WindowsClear
             // 
-            WindowsClear.Location = new Point(444, 67);
-            WindowsClear.Margin = new Padding(2);
+            WindowsClear.Location = new Point(666, 100);
             WindowsClear.Name = "WindowsClear";
-            WindowsClear.Size = new Size(78, 25);
+            WindowsClear.Size = new Size(117, 38);
             WindowsClear.TabIndex = 6;
             WindowsClear.Text = "Clear";
             WindowsClear.UseVisualStyleBackColor = true;
@@ -111,19 +108,17 @@
             // WindowsVersionSelect
             // 
             WindowsVersionSelect.FormattingEnabled = true;
-            WindowsVersionSelect.Location = new Point(229, 96);
-            WindowsVersionSelect.Margin = new Padding(2);
+            WindowsVersionSelect.Location = new Point(342, 144);
             WindowsVersionSelect.Name = "WindowsVersionSelect";
-            WindowsVersionSelect.Size = new Size(211, 23);
+            WindowsVersionSelect.Size = new Size(318, 33);
             WindowsVersionSelect.TabIndex = 7;
             WindowsVersionSelect.TextChanged += WindowsVersionSelect_TextChanged;
             // 
             // WindowsVersionUpdate
             // 
-            WindowsVersionUpdate.Location = new Point(526, 96);
-            WindowsVersionUpdate.Margin = new Padding(2);
+            WindowsVersionUpdate.Location = new Point(789, 144);
             WindowsVersionUpdate.Name = "WindowsVersionUpdate";
-            WindowsVersionUpdate.Size = new Size(78, 25);
+            WindowsVersionUpdate.Size = new Size(117, 33);
             WindowsVersionUpdate.TabIndex = 8;
             WindowsVersionUpdate.Text = "Update";
             WindowsVersionUpdate.UseVisualStyleBackColor = true;
@@ -131,10 +126,9 @@
             // 
             // WindowsVersionClear
             // 
-            WindowsVersionClear.Location = new Point(444, 96);
-            WindowsVersionClear.Margin = new Padding(2);
+            WindowsVersionClear.Location = new Point(666, 144);
             WindowsVersionClear.Name = "WindowsVersionClear";
-            WindowsVersionClear.Size = new Size(78, 25);
+            WindowsVersionClear.Size = new Size(117, 33);
             WindowsVersionClear.TabIndex = 9;
             WindowsVersionClear.Text = "Clear";
             WindowsVersionClear.UseVisualStyleBackColor = true;
@@ -144,20 +138,18 @@
             // 
             ProcessName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ProcessName.AutoSize = true;
-            ProcessName.Location = new Point(0, 522);
-            ProcessName.Margin = new Padding(2, 0, 2, 0);
+            ProcessName.Location = new Point(0, 783);
             ProcessName.Name = "ProcessName";
-            ProcessName.Size = new Size(80, 15);
+            ProcessName.Size = new Size(122, 25);
             ProcessName.TabIndex = 10;
             ProcessName.Text = "process name";
             // 
             // WinboxDescription
             // 
             WinboxDescription.BackColor = SystemColors.Window;
-            WinboxDescription.Location = new Point(10, 200);
-            WinboxDescription.Margin = new Padding(2);
+            WinboxDescription.Location = new Point(15, 300);
             WinboxDescription.Name = "WinboxDescription";
-            WinboxDescription.Size = new Size(214, 160);
+            WinboxDescription.Size = new Size(319, 220);
             WinboxDescription.TabIndex = 11;
             WinboxDescription.Text = "";
             // 
@@ -165,10 +157,9 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(8, 40);
-            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Location = new Point(12, 60);
             label1.Name = "label1";
-            label1.Size = new Size(411, 25);
+            label1.Size = new Size(602, 38);
             label1.TabIndex = 12;
             label1.Text = "Base windows (recommended Windows 10 Pro)";
             // 
@@ -176,29 +167,26 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(8, 149);
-            label2.Margin = new Padding(2, 0, 2, 0);
+            label2.Location = new Point(12, 224);
             label2.Name = "label2";
-            label2.Size = new Size(129, 25);
+            label2.Size = new Size(188, 38);
             label2.TabIndex = 13;
             label2.Text = "New windows";
             // 
             // WinboxName
             // 
-            WinboxName.Location = new Point(11, 176);
-            WinboxName.Margin = new Padding(2);
+            WinboxName.Location = new Point(16, 264);
             WinboxName.Name = "WinboxName";
-            WinboxName.Size = new Size(213, 23);
+            WinboxName.Size = new Size(318, 31);
             WinboxName.TabIndex = 14;
             WinboxName.TextChanged += WinboxName_TextChanged;
             // 
             // WindowsDescription
             // 
-            WindowsDescription.Location = new Point(11, 67);
-            WindowsDescription.Margin = new Padding(2);
+            WindowsDescription.Location = new Point(16, 100);
             WindowsDescription.Name = "WindowsDescription";
             WindowsDescription.ReadOnly = true;
-            WindowsDescription.Size = new Size(213, 80);
+            WindowsDescription.Size = new Size(318, 118);
             WindowsDescription.TabIndex = 15;
             WindowsDescription.Text = "";
             WindowsDescription.TextChanged += WinboxDescription_TextChanged;
@@ -208,10 +196,9 @@
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox1.Cursor = Cursors.Hand;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(909, 11);
-            pictureBox1.Margin = new Padding(2);
+            pictureBox1.Location = new Point(1364, 16);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(64, 64);
+            pictureBox1.Size = new Size(96, 96);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 17;
             pictureBox1.TabStop = false;
@@ -222,10 +209,9 @@
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox2.Cursor = Cursors.Hand;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(841, 11);
-            pictureBox2.Margin = new Padding(2);
+            pictureBox2.Location = new Point(1262, 16);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(64, 64);
+            pictureBox2.Size = new Size(96, 96);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 18;
             pictureBox2.TabStop = false;
@@ -234,10 +220,9 @@
             // ExportInstallWim
             // 
             ExportInstallWim.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportInstallWim.Location = new Point(825, 481);
-            ExportInstallWim.Margin = new Padding(2);
+            ExportInstallWim.Location = new Point(1238, 722);
             ExportInstallWim.Name = "ExportInstallWim";
-            ExportInstallWim.Size = new Size(148, 25);
+            ExportInstallWim.Size = new Size(222, 38);
             ExportInstallWim.TabIndex = 19;
             ExportInstallWim.Text = "export install.wim";
             ExportInstallWim.UseVisualStyleBackColor = true;
@@ -246,10 +231,9 @@
             // ExportIsoInstaller
             // 
             ExportIsoInstaller.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportIsoInstaller.Location = new Point(825, 510);
-            ExportIsoInstaller.Margin = new Padding(2);
+            ExportIsoInstaller.Location = new Point(1238, 765);
             ExportIsoInstaller.Name = "ExportIsoInstaller";
-            ExportIsoInstaller.Size = new Size(148, 25);
+            ExportIsoInstaller.Size = new Size(222, 38);
             ExportIsoInstaller.TabIndex = 20;
             ExportIsoInstaller.Text = "export .iso installer";
             ExportIsoInstaller.UseVisualStyleBackColor = true;
@@ -258,18 +242,16 @@
             // ProcessValue
             // 
             ProcessValue.Dock = DockStyle.Bottom;
-            ProcessValue.Location = new Point(0, 539);
-            ProcessValue.Margin = new Padding(2);
+            ProcessValue.Location = new Point(0, 809);
             ProcessValue.Name = "ProcessValue";
-            ProcessValue.Size = new Size(984, 22);
+            ProcessValue.Size = new Size(1476, 33);
             ProcessValue.TabIndex = 21;
             // 
             // back
             // 
-            back.Location = new Point(12, 8);
-            back.Margin = new Padding(2);
+            back.Location = new Point(18, 12);
             back.Name = "back";
-            back.Size = new Size(78, 30);
+            back.Size = new Size(117, 45);
             back.TabIndex = 22;
             back.Text = "< back";
             back.UseVisualStyleBackColor = true;
@@ -277,10 +259,9 @@
             // 
             // README
             // 
-            README.Location = new Point(92, 8);
-            README.Margin = new Padding(2);
+            README.Location = new Point(138, 12);
             README.Name = "README";
-            README.Size = new Size(78, 30);
+            README.Size = new Size(117, 45);
             README.TabIndex = 23;
             README.Text = "README";
             README.UseVisualStyleBackColor = true;
@@ -288,10 +269,9 @@
             // 
             // LICENSE
             // 
-            LICENSE.Location = new Point(174, 8);
-            LICENSE.Margin = new Padding(2);
+            LICENSE.Location = new Point(261, 12);
             LICENSE.Name = "LICENSE";
-            LICENSE.Size = new Size(78, 30);
+            LICENSE.Size = new Size(117, 45);
             LICENSE.TabIndex = 24;
             LICENSE.Text = "LICENSE";
             LICENSE.UseVisualStyleBackColor = true;
@@ -300,10 +280,9 @@
             // ExportImgPartition
             // 
             ExportImgPartition.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportImgPartition.Location = new Point(825, 452);
-            ExportImgPartition.Margin = new Padding(2);
+            ExportImgPartition.Location = new Point(1238, 678);
             ExportImgPartition.Name = "ExportImgPartition";
-            ExportImgPartition.Size = new Size(148, 25);
+            ExportImgPartition.Size = new Size(222, 38);
             ExportImgPartition.TabIndex = 25;
             ExportImgPartition.Text = "export .img partition";
             ExportImgPartition.UseVisualStyleBackColor = true;
@@ -315,28 +294,25 @@
             panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1.Controls.Add(OemKey);
             panel1.Controls.Add(UseOemKey);
-            panel1.Location = new Point(10, 389);
-            panel1.Margin = new Padding(2);
+            panel1.Location = new Point(15, 564);
             panel1.Name = "panel1";
-            panel1.Size = new Size(302, 53);
+            panel1.Size = new Size(451, 78);
             panel1.TabIndex = 26;
             // 
             // OemKey
             // 
-            OemKey.Location = new Point(2, 2);
-            OemKey.Margin = new Padding(2);
+            OemKey.Location = new Point(3, 3);
             OemKey.Name = "OemKey";
-            OemKey.Size = new Size(294, 23);
+            OemKey.Size = new Size(439, 31);
             OemKey.TabIndex = 1;
             OemKey.TextChanged += OemKey_TextChanged;
             // 
             // UseOemKey
             // 
             UseOemKey.AutoSize = true;
-            UseOemKey.Location = new Point(2, 29);
-            UseOemKey.Margin = new Padding(2);
+            UseOemKey.Location = new Point(3, 44);
             UseOemKey.Name = "UseOemKey";
-            UseOemKey.Size = new Size(233, 19);
+            UseOemKey.Size = new Size(347, 29);
             UseOemKey.TabIndex = 0;
             UseOemKey.Text = "Activate windows with this product key";
             UseOemKey.UseVisualStyleBackColor = true;
@@ -356,18 +332,18 @@
             panel2.Controls.Add(ProgramName);
             panel2.Controls.Add(AppClear);
             panel2.Controls.Add(AppSelect);
-            panel2.Location = new Point(229, 176);
-            panel2.Margin = new Padding(2);
+            panel2.Location = new Point(344, 264);
             panel2.Name = "panel2";
-            panel2.Size = new Size(302, 184);
+            panel2.Size = new Size(451, 256);
             panel2.TabIndex = 27;
             // 
             // ProgramType_WebPage
             // 
             ProgramType_WebPage.AutoSize = true;
-            ProgramType_WebPage.Location = new Point(3, 125);
+            ProgramType_WebPage.Location = new Point(4, 188);
+            ProgramType_WebPage.Margin = new Padding(4);
             ProgramType_WebPage.Name = "ProgramType_WebPage";
-            ProgramType_WebPage.Size = new Size(78, 19);
+            ProgramType_WebPage.Size = new Size(116, 29);
             ProgramType_WebPage.TabIndex = 9;
             ProgramType_WebPage.TabStop = true;
             ProgramType_WebPage.Text = "Web Page";
@@ -376,29 +352,26 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(230, 100);
-            label6.Margin = new Padding(2, 0, 2, 0);
+            label6.Location = new Point(341, 149);
             label6.Name = "label6";
-            label6.Size = new Size(64, 15);
+            label6.Size = new Size(96, 25);
             label6.TabIndex = 8;
             label6.Text = "Command";
             // 
             // RawCommand
             // 
-            RawCommand.Location = new Point(3, 97);
-            RawCommand.Margin = new Padding(2);
+            RawCommand.Location = new Point(4, 146);
             RawCommand.Name = "RawCommand";
-            RawCommand.Size = new Size(223, 23);
+            RawCommand.Size = new Size(332, 31);
             RawCommand.TabIndex = 7;
             RawCommand.TextChanged += RawCommand_TextChanged;
             // 
             // ProgramType_RawCommand
             // 
             ProgramType_RawCommand.AutoSize = true;
-            ProgramType_RawCommand.Location = new Point(3, 78);
-            ProgramType_RawCommand.Margin = new Padding(2);
+            ProgramType_RawCommand.Location = new Point(4, 117);
             ProgramType_RawCommand.Name = "ProgramType_RawCommand";
-            ProgramType_RawCommand.Size = new Size(107, 19);
+            ProgramType_RawCommand.Size = new Size(159, 29);
             ProgramType_RawCommand.TabIndex = 6;
             ProgramType_RawCommand.TabStop = true;
             ProgramType_RawCommand.Text = "Raw Command";
@@ -408,10 +381,9 @@
             // ProgramType_ExecutableFile
             // 
             ProgramType_ExecutableFile.AutoSize = true;
-            ProgramType_ExecutableFile.Location = new Point(3, 2);
-            ProgramType_ExecutableFile.Margin = new Padding(2);
+            ProgramType_ExecutableFile.Location = new Point(4, 3);
             ProgramType_ExecutableFile.Name = "ProgramType_ExecutableFile";
-            ProgramType_ExecutableFile.Size = new Size(103, 19);
+            ProgramType_ExecutableFile.Size = new Size(151, 29);
             ProgramType_ExecutableFile.TabIndex = 5;
             ProgramType_ExecutableFile.TabStop = true;
             ProgramType_ExecutableFile.Text = "Executable File";
@@ -421,38 +393,34 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(169, 54);
-            label4.Margin = new Padding(2, 0, 2, 0);
+            label4.Location = new Point(249, 79);
             label4.Name = "label4";
-            label4.Size = new Size(66, 15);
+            label4.Size = new Size(100, 25);
             label4.TabIndex = 4;
             label4.Text = "Arguments";
             // 
             // ProgramArgs
             // 
-            ProgramArgs.Location = new Point(3, 51);
-            ProgramArgs.Margin = new Padding(2);
+            ProgramArgs.Location = new Point(4, 76);
             ProgramArgs.Name = "ProgramArgs";
-            ProgramArgs.Size = new Size(162, 23);
+            ProgramArgs.Size = new Size(239, 31);
             ProgramArgs.TabIndex = 3;
             ProgramArgs.TextChanged += ProgramArgs_TextChanged;
             // 
             // ProgramName
             // 
             ProgramName.AutoSize = true;
-            ProgramName.Location = new Point(166, 25);
-            ProgramName.Margin = new Padding(2, 0, 2, 0);
+            ProgramName.Location = new Point(249, 40);
             ProgramName.Name = "ProgramName";
-            ProgramName.Size = new Size(74, 15);
+            ProgramName.Size = new Size(113, 25);
             ProgramName.TabIndex = 2;
             ProgramName.Text = "program exe";
             // 
             // AppClear
             // 
-            AppClear.Location = new Point(84, 22);
-            AppClear.Margin = new Padding(2);
+            AppClear.Location = new Point(126, 33);
             AppClear.Name = "AppClear";
-            AppClear.Size = new Size(78, 25);
+            AppClear.Size = new Size(117, 38);
             AppClear.TabIndex = 1;
             AppClear.Text = "clear";
             AppClear.UseVisualStyleBackColor = true;
@@ -460,10 +428,9 @@
             // 
             // AppSelect
             // 
-            AppSelect.Location = new Point(2, 22);
-            AppSelect.Margin = new Padding(2);
+            AppSelect.Location = new Point(3, 33);
             AppSelect.Name = "AppSelect";
-            AppSelect.Size = new Size(78, 25);
+            AppSelect.Size = new Size(117, 38);
             AppSelect.TabIndex = 0;
             AppSelect.Text = "select";
             AppSelect.UseVisualStyleBackColor = true;
@@ -473,39 +440,35 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(228, 150);
-            label3.Margin = new Padding(2, 0, 2, 0);
+            label3.Location = new Point(342, 225);
             label3.Name = "label3";
-            label3.Size = new Size(142, 25);
+            label3.Size = new Size(205, 38);
             label3.TabIndex = 28;
             label3.Text = "You application";
             // 
             // checkedListBox1
             // 
             checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Location = new Point(535, 176);
-            checkedListBox1.Margin = new Padding(2);
+            checkedListBox1.Location = new Point(802, 264);
             checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(170, 184);
+            checkedListBox1.Size = new Size(253, 256);
             checkedListBox1.TabIndex = 29;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(535, 149);
-            label5.Margin = new Padding(2, 0, 2, 0);
+            label5.Location = new Point(802, 224);
             label5.Name = "label5";
-            label5.Size = new Size(79, 25);
+            label5.Size = new Size(116, 38);
             label5.TabIndex = 30;
             label5.Text = "Settings";
             // 
             // OpenProjectFolder
             // 
-            OpenProjectFolder.Location = new Point(256, 8);
-            OpenProjectFolder.Margin = new Padding(2);
+            OpenProjectFolder.Location = new Point(384, 12);
             OpenProjectFolder.Name = "OpenProjectFolder";
-            OpenProjectFolder.Size = new Size(164, 30);
+            OpenProjectFolder.Size = new Size(246, 45);
             OpenProjectFolder.TabIndex = 31;
             OpenProjectFolder.Text = "Open Project Folder";
             OpenProjectFolder.UseVisualStyleBackColor = true;
@@ -515,29 +478,31 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 14F);
-            label7.Location = new Point(8, 362);
+            label7.Location = new Point(12, 523);
+            label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
-            label7.Size = new Size(96, 25);
+            label7.Size = new Size(139, 38);
             label7.TabIndex = 32;
             label7.Text = "Activation";
             // 
             // button1
             // 
-            button1.Location = new Point(228, 124);
+            button1.Location = new Point(342, 184);
+            button1.Margin = new Padding(4);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(112, 34);
             button1.TabIndex = 33;
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(144F, 144F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             AutoScroll = true;
             AutoScrollMargin = new Size(10, 30);
             BackColor = SystemColors.Control;
-            ClientSize = new Size(984, 561);
+            ClientSize = new Size(1476, 842);
             Controls.Add(button1);
             Controls.Add(label7);
             Controls.Add(OpenProjectFolder);
@@ -568,8 +533,7 @@
             Controls.Add(ProcessValue);
             Controls.Add(ExportIsoInstaller);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(2);
-            MinimumSize = new Size(565, 256);
+            MinimumSize = new Size(836, 356);
             Name = "EditorForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Editor";

@@ -83,7 +83,7 @@
             NewProject.Location = new Point(360, 329);
             NewProject.Margin = new Padding(30);
             NewProject.Name = "NewProject";
-            NewProject.Size = new Size(271, 91);
+            NewProject.Size = new Size(270, 91);
             NewProject.TabIndex = 1;
             NewProject.Text = "New Project";
             NewProject.UseVisualStyleBackColor = true;
@@ -117,7 +117,7 @@
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
             pictureBox2.Location = new Point(333, 3);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(325, 293);
+            pictureBox2.Size = new Size(324, 293);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 4;
             pictureBox2.TabStop = false;
@@ -127,15 +127,15 @@
             panel1.Controls.Add(LICENSE);
             panel1.Controls.Add(README);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(664, 302);
+            panel1.Location = new Point(663, 302);
             panel1.Name = "panel1";
-            panel1.Size = new Size(133, 145);
+            panel1.Size = new Size(134, 145);
             panel1.TabIndex = 5;
             // 
             // LICENSE
             // 
             LICENSE.Anchor = AnchorStyles.Bottom;
-            LICENSE.Location = new Point(10, 84);
+            LICENSE.Location = new Point(11, 84);
             LICENSE.Name = "LICENSE";
             LICENSE.Size = new Size(112, 34);
             LICENSE.TabIndex = 1;
@@ -146,7 +146,7 @@
             // README
             // 
             README.Anchor = AnchorStyles.Top;
-            README.Location = new Point(10, 27);
+            README.Location = new Point(11, 27);
             README.Name = "README";
             README.Size = new Size(112, 34);
             README.TabIndex = 0;
@@ -156,8 +156,8 @@
             // 
             // OpenProjectForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(144F, 144F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(800, 450);
             Controls.Add(tableLayoutPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
