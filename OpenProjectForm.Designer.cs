@@ -76,7 +76,7 @@
             OpenProject.Location = new Point(30, 329);
             OpenProject.Margin = new Padding(30);
             OpenProject.Name = "OpenProject";
-            OpenProject.Size = new Size(269, 91);
+            OpenProject.Size = new Size(268, 91);
             OpenProject.TabIndex = 0;
             OpenProject.Text = "Open Project";
             OpenProject.UseVisualStyleBackColor = true;
@@ -85,7 +85,7 @@
             // NewProject
             // 
             NewProject.Dock = DockStyle.Fill;
-            NewProject.Location = new Point(359, 329);
+            NewProject.Location = new Point(358, 329);
             NewProject.Margin = new Padding(30);
             NewProject.Name = "NewProject";
             NewProject.Size = new Size(269, 91);
@@ -100,7 +100,7 @@
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(323, 293);
+            pictureBox1.Size = new Size(322, 293);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
@@ -109,7 +109,7 @@
             // 
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(332, 3);
+            pictureBox2.Location = new Point(331, 3);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(323, 293);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -121,9 +121,9 @@
             panel1.Controls.Add(LICENSE);
             panel1.Controls.Add(README);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(661, 302);
+            panel1.Location = new Point(660, 302);
             panel1.Name = "panel1";
-            panel1.Size = new Size(136, 145);
+            panel1.Size = new Size(137, 145);
             panel1.TabIndex = 5;
             // 
             // LICENSE
@@ -153,32 +153,36 @@
             panel2.Controls.Add(pictureBox4);
             panel2.Controls.Add(pictureBox3);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(661, 3);
+            panel2.Location = new Point(660, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(136, 293);
+            panel2.Size = new Size(137, 293);
             panel2.TabIndex = 6;
             // 
             // pictureBox4
             // 
             pictureBox4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox4.Cursor = Cursors.Hand;
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(31, 111);
+            pictureBox4.Location = new Point(32, 111);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(96, 96);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.TabIndex = 1;
             pictureBox4.TabStop = false;
+            pictureBox4.Click += pictureBox4_Click;
             // 
             // pictureBox3
             // 
             pictureBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox3.Cursor = Cursors.Hand;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(31, 9);
+            pictureBox3.Location = new Point(32, 9);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(96, 96);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 0;
             pictureBox3.TabStop = false;
+            pictureBox3.Click += pictureBox3_Click;
             // 
             // OpenProjectForm
             // 

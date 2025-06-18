@@ -88,5 +88,15 @@ namespace WinBox_Maker
             Form form = new TextViewer(Program.ResourcePath("LICENSE.txt"));
             form.Show();
         }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            WinBox_Maker.Program.OpenWebPage(WinBox_Maker.Program.logichubUrl + "#winbox");
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            WinBox_Maker.Program.OpenWebPage(WinBox_Maker.Program.logichubUrl);
+        }
     }
 }

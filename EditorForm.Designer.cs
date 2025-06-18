@@ -152,6 +152,7 @@
             WinboxDescription.Size = new Size(319, 220);
             WinboxDescription.TabIndex = 11;
             WinboxDescription.Text = "";
+            WinboxDescription.TextChanged += WinboxDescription_TextChanged;
             // 
             // label1
             // 
@@ -189,7 +190,6 @@
             WindowsDescription.Size = new Size(318, 118);
             WindowsDescription.TabIndex = 15;
             WindowsDescription.Text = "";
-            WindowsDescription.TextChanged += WinboxDescription_TextChanged;
             // 
             // pictureBox1
             // 
