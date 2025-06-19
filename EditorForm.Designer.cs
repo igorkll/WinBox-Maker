@@ -312,16 +312,16 @@
             panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1.Controls.Add(OemKey);
             panel1.Controls.Add(UseOemKey);
-            panel1.Location = new Point(15, 591);
+            panel1.Location = new Point(340, 591);
             panel1.Name = "panel1";
-            panel1.Size = new Size(451, 78);
+            panel1.Size = new Size(455, 78);
             panel1.TabIndex = 26;
             // 
             // OemKey
             // 
             OemKey.Location = new Point(3, 3);
             OemKey.Name = "OemKey";
-            OemKey.Size = new Size(439, 31);
+            OemKey.Size = new Size(445, 31);
             OemKey.TabIndex = 1;
             OemKey.TextChanged += OemKey_TextChanged;
             // 
@@ -546,7 +546,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 14F);
-            label7.Location = new Point(12, 551);
+            label7.Location = new Point(342, 551);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(139, 38);
@@ -567,7 +567,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label10.Location = new Point(472, 551);
+            label10.Location = new Point(16, 551);
             label10.Name = "label10";
             label10.Size = new Size(149, 38);
             label10.TabIndex = 34;
@@ -585,9 +585,9 @@
             panel3.Controls.Add(label12);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(postinstall_bat_sel);
-            panel3.Location = new Point(472, 591);
+            panel3.Location = new Point(16, 591);
             panel3.Name = "panel3";
-            panel3.Size = new Size(323, 145);
+            panel3.Size = new Size(318, 145);
             panel3.TabIndex = 35;
             // 
             // postinstall_reg
