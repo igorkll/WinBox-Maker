@@ -353,7 +353,15 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
             string baseSetup = $@"@echo off
 reagentc.exe /disable
 chkntfs /x *
+
 powercfg -h off
+powercfg -change -standby-timeout-ac 0
+powercfg -change -standby-timeout-dc 0
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
+powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}
+powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
+powercfg -s SCHEME_CURRENT
 
 sc config wbengine start= disabled
 sc config wuauserv start= disabled
@@ -395,6 +403,16 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"" /v AutoChkTimeout /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power"" /v HibernateEnabledDefault /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
+
+dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
+dism /online /enable-feature /all /featurename:Client-DeviceLockdown
+dism /online /enable-feature /all /featurename:Client-KeyboardFilter
+
+reg add ""HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideAutoLogonUI /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideFirstLogonAnimation /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v BrandingNeutral /t REG_DWORD /d 1 /f
 
 schtasks /create /tn ""SetAllowLockScreen_Logon"" /tr ""reg add \""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData\"" /v AllowLockScreen /t REG_DWORD /d 0 /f"" /sc onlogon /rl highest /ru ""SYSTEM""
 schtasks /create /tn ""SetAllowLockScreen_Start"" /tr ""reg add \""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData\"" /v AllowLockScreen /t REG_DWORD /d 0 /f"" /sc onstart /rl highest /ru ""SYSTEM""

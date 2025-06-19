@@ -70,7 +70,6 @@
             AppClear = new Button();
             AppSelect = new Button();
             label3 = new Label();
-            checkedListBox1 = new CheckedListBox();
             label5 = new Label();
             OpenProjectFolder = new Button();
             label7 = new Label();
@@ -85,11 +84,15 @@
             label12 = new Label();
             label11 = new Label();
             postinstall_bat_sel = new Button();
+            panel4 = new Panel();
+            label13 = new Label();
+            ScreenTimeout = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -514,14 +517,6 @@
             label3.TabIndex = 28;
             label3.Text = "You application";
             // 
-            // checkedListBox1
-            // 
-            checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Location = new Point(802, 264);
-            checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(253, 284);
-            checkedListBox1.TabIndex = 29;
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -666,6 +661,34 @@
             postinstall_bat_sel.UseVisualStyleBackColor = true;
             postinstall_bat_sel.Click += postinstall_bat_sel_Click;
             // 
+            // panel4
+            // 
+            panel4.BackColor = SystemColors.Window;
+            panel4.BorderStyle = BorderStyle.Fixed3D;
+            panel4.Controls.Add(label13);
+            panel4.Controls.Add(ScreenTimeout);
+            panel4.Location = new Point(802, 264);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(264, 276);
+            panel4.TabIndex = 36;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(108, 241);
+            label13.Name = "label13";
+            label13.Size = new Size(134, 25);
+            label13.TabIndex = 1;
+            label13.Text = "Screen Timeout";
+            // 
+            // ScreenTimeout
+            // 
+            ScreenTimeout.Location = new Point(3, 238);
+            ScreenTimeout.Name = "ScreenTimeout";
+            ScreenTimeout.Size = new Size(99, 31);
+            ScreenTimeout.TabIndex = 0;
+            ScreenTimeout.TextChanged += ScreenTimeout_TextChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -674,13 +697,13 @@
             AutoScrollMargin = new Size(10, 30);
             BackColor = SystemColors.Control;
             ClientSize = new Size(1258, 944);
+            Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(label10);
             Controls.Add(button1);
             Controls.Add(label7);
             Controls.Add(OpenProjectFolder);
             Controls.Add(label5);
-            Controls.Add(checkedListBox1);
             Controls.Add(label3);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -718,6 +741,8 @@
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -754,7 +779,6 @@
         private Label ProgramName;
         private Label label4;
         private TextBox ProgramArgs;
-        private CheckedListBox checkedListBox1;
         private Label label5;
         private VScrollBar vScrollBar1;
         private RadioButton ProgramType_ExecutableFile;
@@ -780,5 +804,8 @@
         private Button postinstall_reg_clr;
         private Label postinstall_reg;
         private Label postinstall_bat;
+        private Panel panel4;
+        private Label label13;
+        private TextBox ScreenTimeout;
     }
 }

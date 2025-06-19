@@ -271,6 +271,7 @@ namespace WinBox_Maker
             WebSessionTimeout.Text = winBoxProject.winBoxConfig.WebSessionTimeout.ToString();
             postinstall_bat.Text = winBoxProject.winBoxConfig.PostInstall_bat ?? "not selected";
             postinstall_reg.Text = winBoxProject.winBoxConfig.PostInstall_reg ?? "not selected";
+            ScreenTimeout.Text = winBoxProject.winBoxConfig.ScreenTimeout.ToString();
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -316,7 +317,7 @@ namespace WinBox_Maker
                     if (WindowsVersionSelect.Items.Count > 0)
                     {
                         bool findedTarget = false;
-                        
+
                         foreach (WindowsDescription item in windowsDescriptions)
                         {
                             if (item.name.EndsWith("enterprise", StringComparison.OrdinalIgnoreCase))
@@ -588,6 +589,38 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.PostInstall_reg = null;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void ResetScreenTimeout(int value)
+        {
+            winBoxProject.winBoxConfig.ScreenTimeout = value;
+            ScreenTimeout.Text = winBoxProject.winBoxConfig.ScreenTimeout.ToString();
+        }
+
+        private void ScreenTimeout_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                winBoxProject.winBoxConfig.ScreenTimeout = int.Parse(ScreenTimeout.Text);
+                if (winBoxProject.winBoxConfig.ScreenTimeout < 0)
+                {
+                    ResetScreenTimeout(0);
+                }
+                else if (winBoxProject.winBoxConfig.WebSessionTimeout > 360)
+                {
+                    ResetScreenTimeout(360);
+                }
+            }
+            catch (FormatException)
+            {
+                ResetScreenTimeout(winBoxProject.winBoxConfig.ScreenTimeout ?? 0);
+            }
+            catch (OverflowException)
+            {
+                ResetScreenTimeout(winBoxProject.winBoxConfig.ScreenTimeout ?? 0);
+            }
+            winBoxProject.SaveConfig();
+            UpdateGuiWithoutWindowsVersion();
         }
     }
 }

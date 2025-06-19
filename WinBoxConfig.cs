@@ -31,6 +31,7 @@ namespace WinBox_Maker
         public string? PostInstall_bat { get; set; }
         public string? PostInstall_reg { get; set; }
         public int? WebSessionTimeout { get; set; }
+        public int? ScreenTimeout { get; set; }
         public ProgramTypeEnum? ProgramType { get; set; }
 
         public WinBoxConfig() {
@@ -48,6 +49,7 @@ namespace WinBox_Maker
             if (RawCommand == null) RawCommand = "";
             if (WebSite == null) WebSite = "";
             if (WebSessionTimeout == null) WebSessionTimeout = 0;
+            if (ScreenTimeout == null) ScreenTimeout = 0;
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
         }
 

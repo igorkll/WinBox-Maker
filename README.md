@@ -29,6 +29,7 @@ please note that winbox maker does not provide Windows images, it only provides 
 * check disk
 * hibernation and fast loading
 * oobe
+* firewall
 * system recovery menu
 * automatic entry into recovery mode in case of sudden power outage
 * windows boot manager menu
