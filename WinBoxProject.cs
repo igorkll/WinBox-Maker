@@ -1,5 +1,6 @@
 ﻿using DiscUtils.Raw;
 using DiscUtils.Udf;
+using DiscUtils.Vfs;
 using ManagedWimLib;
 using Microsoft.VisualBasic.ApplicationServices;
 using Shell32;
@@ -288,6 +289,14 @@ namespace WinBox_Maker
             File.Delete(tempRegPath);
         }
 
+        public async Task WriteHiddenBatExecuter(string ExecuterPath, string batPath, string? args)
+        {
+            string vbsFile = $@"Set WshShell = CreateObject(""WScript.Shell"")
+WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
+            await File.WriteAllTextAsync(ExecuterPath, vbsFile);
+            
+        }
+
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
             processName("Preparing of install.wim");
@@ -397,7 +406,7 @@ reg unload HKLM\DEFAULT_USER
 net user winbox /add
 net localgroup Administrators winbox /add";
 
-            if (winBoxConfig.UseOemKey == true && !winBoxConfig.OemKey.Contains("\""))
+            if (winBoxConfig.UseOemKey == true && winBoxConfig.OemKey != null && !winBoxConfig.OemKey.Contains("\""))
             {
                 baseSetup += $"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
             }
@@ -429,9 +438,7 @@ net localgroup Administrators winbox /add";
                         if (extension != null && (extension.Equals(".bat", StringComparison.OrdinalIgnoreCase) ||
                             extension.Equals(".cmd", StringComparison.OrdinalIgnoreCase)))
                         {
-                            string vbsFile = $@"Set WshShell = CreateObject(""WScript.Shell"")
-WshShell.Run """"""{execFilePath}"""" {winBoxConfig.ProgramArgs ?? ""}"", 0, False";
-                            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), vbsFile);
+                            await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), execFilePath, winBoxConfig.ProgramArgs);
                             command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
                         }
                         else
@@ -450,6 +457,17 @@ WshShell.Run """"""{execFilePath}"""" {winBoxConfig.ProgramArgs ?? ""}"", 0, Fal
                         command = winBoxConfig.RawCommand;
                     }
                     break;
+
+                case ProgramTypeEnum.WebSite:
+                    if (winBoxConfig.WebSite != null && !winBoxConfig.WebSite.Contains("\""))
+                    {
+                        string execFilePath = @"C:\WinboxResources\run_edge.bat";
+                        string batFile = $@"";
+                        await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "run_edge.bat"), batFile);
+                        await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_edge_script_hidden.vbs"), execFilePath, null);
+                        command = "wscript \"C:\\WinboxResources\\run_edge_script_hidden.vbs\"";
+                    }
+                    break;
             }
             await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(command));
 
@@ -458,14 +476,14 @@ WshShell.Run """"""{execFilePath}"""" {winBoxConfig.ProgramArgs ?? ""}"", 0, Fal
             //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
 
             string driversPath = Path.Combine(resourcesDirectoryPath, "drivers");
-            if (Directory.Exists(driversPath)) {
+            if (Program.IsDirectoryNotEmpty(driversPath)) {
                 processName("Installing user drivers");
                 processValue(55);
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-driver /driver:\"{driversPath}\" /recurse /forceunsigned");
             }
 
             string packagesPath = Path.Combine(resourcesDirectoryPath, "packages");
-            if (Directory.Exists(packagesPath))
+            if (Program.IsDirectoryNotEmpty(packagesPath))
             {
                 processName("Installing .cab/.msu packages");
                 processValue(60);

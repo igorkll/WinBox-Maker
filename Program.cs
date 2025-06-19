@@ -455,5 +455,13 @@ namespace WinBox_Maker
         {
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
         }
+        public static bool IsDirectoryNotEmpty(string path)
+        {
+            if (Directory.Exists(path))
+            {
+                return Directory.GetFiles(path).Length > 0 || Directory.GetDirectories(path).Length > 0;
+            }
+            return false;
+        }
     }
 }
