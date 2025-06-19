@@ -85,6 +85,13 @@ Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "EnableFirstLogonAnimation"=dword:00000000
+"HideFastUserSwitching"=dword:00000001
+"shutdownwithoutlogon"=dword:00000000
+"undockwithoutlogon"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\System]
+"DisableLockScreen"=dword:00000001
+"DisableLogonBackgroundImage"=dword:00000001
 
 ; ---------------- disable sounds
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation]
