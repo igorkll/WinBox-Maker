@@ -54,9 +54,11 @@
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
             panel2 = new Panel();
+            label9 = new Label();
+            WebSessionTimeout = new TextBox();
             label8 = new Label();
-            textBox1 = new TextBox();
-            ProgramType_WebPage = new RadioButton();
+            WebSite = new TextBox();
+            ProgramType_WebSite = new RadioButton();
             label6 = new Label();
             RawCommand = new TextBox();
             ProgramType_RawCommand = new RadioButton();
@@ -72,8 +74,6 @@
             OpenProjectFolder = new Button();
             label7 = new Label();
             button1 = new Button();
-            textBox2 = new TextBox();
-            label9 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -327,10 +327,10 @@
             panel2.BackColor = SystemColors.Window;
             panel2.BorderStyle = BorderStyle.Fixed3D;
             panel2.Controls.Add(label9);
-            panel2.Controls.Add(textBox2);
+            panel2.Controls.Add(WebSessionTimeout);
             panel2.Controls.Add(label8);
-            panel2.Controls.Add(textBox1);
-            panel2.Controls.Add(ProgramType_WebPage);
+            panel2.Controls.Add(WebSite);
+            panel2.Controls.Add(ProgramType_WebSite);
             panel2.Controls.Add(label6);
             panel2.Controls.Add(RawCommand);
             panel2.Controls.Add(ProgramType_RawCommand);
@@ -345,6 +345,23 @@
             panel2.Size = new Size(451, 284);
             panel2.TabIndex = 27;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(135, 249);
+            label9.Name = "label9";
+            label9.Size = new Size(298, 25);
+            label9.TabIndex = 13;
+            label9.Text = "Session timeout (in minutes 0-1440)";
+            // 
+            // WebSessionTimeout
+            // 
+            WebSessionTimeout.Location = new Point(4, 246);
+            WebSessionTimeout.Name = "WebSessionTimeout";
+            WebSessionTimeout.Size = new Size(125, 31);
+            WebSessionTimeout.TabIndex = 12;
+            WebSessionTimeout.TextChanged += WebSessionTimeout_TextChanged;
+            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -354,24 +371,26 @@
             label8.TabIndex = 11;
             label8.Text = "Url";
             // 
-            // textBox1
+            // WebSite
             // 
-            textBox1.Location = new Point(4, 214);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(332, 31);
-            textBox1.TabIndex = 10;
+            WebSite.Location = new Point(4, 214);
+            WebSite.Name = "WebSite";
+            WebSite.Size = new Size(332, 31);
+            WebSite.TabIndex = 10;
+            WebSite.TextChanged += WebSite_TextChanged;
             // 
-            // ProgramType_WebPage
+            // ProgramType_WebSite
             // 
-            ProgramType_WebPage.AutoSize = true;
-            ProgramType_WebPage.Location = new Point(3, 182);
-            ProgramType_WebPage.Margin = new Padding(4);
-            ProgramType_WebPage.Name = "ProgramType_WebPage";
-            ProgramType_WebPage.Size = new Size(107, 29);
-            ProgramType_WebPage.TabIndex = 9;
-            ProgramType_WebPage.TabStop = true;
-            ProgramType_WebPage.Text = "Web Site";
-            ProgramType_WebPage.UseVisualStyleBackColor = true;
+            ProgramType_WebSite.AutoSize = true;
+            ProgramType_WebSite.Location = new Point(3, 182);
+            ProgramType_WebSite.Margin = new Padding(4);
+            ProgramType_WebSite.Name = "ProgramType_WebSite";
+            ProgramType_WebSite.Size = new Size(107, 29);
+            ProgramType_WebSite.TabIndex = 9;
+            ProgramType_WebSite.TabStop = true;
+            ProgramType_WebSite.Text = "Web Site";
+            ProgramType_WebSite.UseVisualStyleBackColor = true;
+            ProgramType_WebSite.CheckedChanged += ProgramType_WebSite_CheckedChanged;
             // 
             // label6
             // 
@@ -519,22 +538,6 @@
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
             // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(4, 246);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(150, 31);
-            textBox2.TabIndex = 12;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(160, 249);
-            label9.Name = "label9";
-            label9.Size = new Size(139, 25);
-            label9.TabIndex = 13;
-            label9.Text = "Session timeout";
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -627,12 +630,12 @@
         private TextBox RawCommand;
         private Label label6;
         private Button OpenProjectFolder;
-        private RadioButton ProgramType_WebPage;
+        private RadioButton ProgramType_WebSite;
         private Label label7;
         private Button button1;
-        private TextBox textBox1;
+        private TextBox WebSite;
         private Label label8;
-        private TextBox textBox2;
+        private TextBox WebSessionTimeout;
         private Label label9;
     }
 }

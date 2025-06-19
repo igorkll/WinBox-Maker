@@ -227,6 +227,13 @@ namespace WinBox_Maker
                             canExport = false;
                         }
                         break;
+
+                    case ProgramTypeEnum.WebSite:
+                        if (winBoxProject.winBoxConfig.WebSite == null || winBoxProject.winBoxConfig.WebSite.Length == 0)
+                        {
+                            canExport = false;
+                        }
+                        break;
                 }
             }
             if (canExport)
@@ -260,13 +267,20 @@ namespace WinBox_Maker
             ProgramName.Text = winBoxProject.winBoxConfig.ProgramName ?? "not selected";
             ProgramArgs.Text = winBoxProject.winBoxConfig.ProgramArgs ?? "";
             RawCommand.Text = winBoxProject.winBoxConfig.RawCommand ?? "";
+            WebSite.Text = winBoxProject.winBoxConfig.WebSite ?? "";
+            WebSessionTimeout.Text = winBoxProject.winBoxConfig.WebSessionTimeout.ToString();
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
                     ProgramType_ExecutableFile.Checked = true;
                     break;
+
                 case ProgramTypeEnum.RawCommand:
                     ProgramType_RawCommand.Checked = true;
+                    break;
+
+                case ProgramTypeEnum.WebSite:
+                    ProgramType_WebSite.Checked = true;
                     break;
             }
             UpdateGuiWithoutWindowsVersion();
@@ -441,6 +455,16 @@ namespace WinBox_Maker
             }
         }
 
+        private void ProgramType_WebSite_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ProgramType_WebSite.Checked)
+            {
+                winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.WebSite;
+                winBoxProject.SaveConfig();
+                UpdateGuiWithoutWindowsVersion();
+            }
+        }
+
         private void RawCommand_TextChanged(object sender, EventArgs e)
         {
             winBoxProject.winBoxConfig.RawCommand = RawCommand.Text;
@@ -457,6 +481,45 @@ namespace WinBox_Maker
             catch (Exception ex)
             {
             }
+        }
+
+        private void WebSite_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.WebSite = WebSite.Text;
+            winBoxProject.SaveConfig();
+            UpdateGuiWithoutWindowsVersion();
+        }
+
+        private void ResetWebSessionTimeout(int value)
+        {
+            winBoxProject.winBoxConfig.WebSessionTimeout = value;
+            WebSessionTimeout.Text = winBoxProject.winBoxConfig.WebSessionTimeout.ToString();
+        }
+
+        private void WebSessionTimeout_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                winBoxProject.winBoxConfig.WebSessionTimeout = int.Parse(WebSessionTimeout.Text);
+                if (winBoxProject.winBoxConfig.WebSessionTimeout < 0)
+                {
+                    ResetWebSessionTimeout(0);
+                }
+                else if (winBoxProject.winBoxConfig.WebSessionTimeout > 1440)
+                {
+                    ResetWebSessionTimeout(1440);
+                }
+            }
+            catch (FormatException)
+            {
+                ResetWebSessionTimeout(winBoxProject.winBoxConfig.WebSessionTimeout ?? 0);
+            }
+            catch (OverflowException)
+            {
+                ResetWebSessionTimeout(winBoxProject.winBoxConfig.WebSessionTimeout ?? 0);
+            }
+            winBoxProject.SaveConfig();
+            UpdateGuiWithoutWindowsVersion();
         }
     }
 }

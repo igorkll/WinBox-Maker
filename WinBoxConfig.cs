@@ -11,7 +11,8 @@ namespace WinBox_Maker
     public enum ProgramTypeEnum
     {
         ExecutableFile,
-        RawCommand
+        RawCommand,
+        WebSite
     }
 
     public class WinBoxConfig
@@ -26,6 +27,8 @@ namespace WinBox_Maker
         public string? ProgramName { get; set; }
         public string? ProgramArgs { get; set; }
         public string? RawCommand { get; set; }
+        public string? WebSite { get; set; }
+        public int? WebSessionTimeout { get; set; }
         public ProgramTypeEnum? ProgramType { get; set; }
 
         public WinBoxConfig() {
@@ -41,6 +44,8 @@ namespace WinBox_Maker
             if (UseOemKey == null) UseOemKey = false;
             if (ProgramArgs == null) ProgramArgs = "";
             if (RawCommand == null) RawCommand = "";
+            if (WebSite == null) WebSite = "";
+            if (WebSessionTimeout == null) WebSessionTimeout = 0;
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
         }
 
