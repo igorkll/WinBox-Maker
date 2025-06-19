@@ -55,7 +55,10 @@ Windows Registry Editor Version 5.00
 "NotificationDisabled"=dword:00000001
 "DownlevelActivation"=dword:00000002
 
-; ---------------- disable Ctrl+Alt+Del
+; ---------------- disable hotkeys
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter]
+"Alt+F4"="Blocked"
+"Alt"="Blocked"
 
 ; ---------------- disable screenshot
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
@@ -68,6 +71,9 @@ Windows Registry Editor Version 5.00
 "DisableSnippingTool"=dword:00000001
 
 ; ---------------- disable lockscreen
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData]
+"AnimationDisabled"=dword:00000001
+
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData]
 "AllowLockScreen"=dword:00000000
 
@@ -93,6 +99,11 @@ Windows Registry Editor Version 5.00
 "DisableLockScreen"=dword:00000001
 "DisableLogonBackgroundImage"=dword:00000001
 
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon]
+"HideAutoLogonUI"=dword:00000001
+"HideFirstLogonAnimation"=dword:00000001
+"BrandingNeutral"=dword:00000001
+
 ; ---------------- disable sounds
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation]
 "DisableStartupSound"=dword:00000001
@@ -101,7 +112,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon] 
 "AutoAdminLogon"="1"
 "ForceAutoLogon"="1"
-; "SystemAutoLogon"=dword:00000001
+"UIVerbosityLevel"=dword:00000001
 "DefaultUserName"="winbox"
 "DefaultPassword"=""
 

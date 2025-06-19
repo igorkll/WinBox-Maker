@@ -7,6 +7,7 @@ using Shell32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -515,6 +516,8 @@ if %errorlevel%==0 (
                 processValue(60);
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-package /PackagePath:\"{packagesPath}\"");
             }
+
+            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /featurename:Client-EmbeddedLogon /featurename:Client-DeviceLockdown /featurename:Client-KeyboardFilter");
 
             if (imgPartitionPath != null)
             {
