@@ -177,9 +177,9 @@
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(12, 60);
             label1.Name = "label1";
-            label1.Size = new Size(602, 38);
+            label1.Size = new Size(684, 38);
             label1.TabIndex = 12;
-            label1.Text = "Base windows (recommended Windows 10 Pro)";
+            label1.Text = "Base windows (recommended Windows 10 Enterprise)";
             // 
             // label2
             // 

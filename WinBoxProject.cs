@@ -478,15 +478,26 @@ net localgroup Administrators winbox /add";
                         string execFilePath = @"C:\WinboxResources\run_edge.bat";
                         string batFile = $@"@echo off
 
+set ""edgePath1=C:\WinboxResources\edge\msedge.exe""
 set ""edgePath1=C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe""
 set ""edgePath2=C:\Program Files\Microsoft\Edge\Application\msedge.exe""
+
 set ""msedgePath=""
 if exist ""%edgePath1%"" (
     set ""msedgePath=%edgePath1%""
 ) else (
     if exist ""%edgePath2%"" (
         set ""msedgePath=%edgePath2%""
+    ) else (
+        if exist ""%edgePath3%"" (
+            set ""msedgePath=%edgePath3%""
+        )
     )
+)
+
+if ""%msedgePath%""=="""" (
+    powershell -Command ""Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show('Microsoft Edge not found. please check the winbox configuration','Winbox Broken', [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)""
+    exit /b
 )
 
 :restart

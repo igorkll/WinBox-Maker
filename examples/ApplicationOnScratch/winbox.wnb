@@ -1,6 +1,6 @@
 {
-  "BaseWindowsImage": "D:\\OSImages\\Win10_22H2_English_x64v1.iso",
-  "BaseWindowsVersion": "Windows 10 Pro",
+  "BaseWindowsImage": "D:\\OSImages\\en_windows_10_enterprise_x64.iso",
+  "BaseWindowsVersion": "Windows 10 Enterprise",
   "WinboxName": "Application On Scratch",
   "WinboxDescription": "example Scratch application for winbox",
   "OemKey": "",
@@ -9,6 +9,8 @@
   "ProgramArgs": "",
   "RawCommand": "",
   "WebSite": "C:\\WinboxProgram\\app.html",
+  "PostInstall_bat": null,
+  "PostInstall_reg": null,
   "WebSessionTimeout": 0,
   "ProgramType": 2
 }

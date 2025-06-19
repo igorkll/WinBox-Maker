@@ -315,17 +315,32 @@ namespace WinBox_Maker
                 {
                     if (WindowsVersionSelect.Items.Count > 0)
                     {
-                        bool findedPro = false;
+                        bool findedTarget = false;
+                        
                         foreach (WindowsDescription item in windowsDescriptions)
                         {
-                            if (item.name.EndsWith("pro", StringComparison.OrdinalIgnoreCase))
+                            if (item.name.EndsWith("enterprise", StringComparison.OrdinalIgnoreCase))
                             {
                                 winBoxProject.winBoxConfig.BaseWindowsVersion = item.name;
-                                findedPro = true;
+                                findedTarget = true;
+                                break;
                             }
                         }
 
-                        if (!findedPro)
+                        if (!findedTarget)
+                        {
+                            foreach (WindowsDescription item in windowsDescriptions)
+                            {
+                                if (item.name.EndsWith("pro", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    winBoxProject.winBoxConfig.BaseWindowsVersion = item.name;
+                                    findedTarget = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!findedTarget)
                         {
                             winBoxProject.winBoxConfig.BaseWindowsVersion = windowsDescriptions[0].name;
                         }
