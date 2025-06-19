@@ -357,10 +357,10 @@ chkntfs /x *
 powercfg -h off
 powercfg -change -standby-timeout-ac 0
 powercfg -change -standby-timeout-dc 0
-powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
-powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
 powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}
 powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
 powercfg -s SCHEME_CURRENT
 
 sc config wbengine start= disabled
