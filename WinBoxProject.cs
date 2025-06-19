@@ -513,11 +513,15 @@ if %errorlevel%==0 (
             if (Program.IsDirectoryNotEmpty(packagesPath))
             {
                 processName("Installing .cab/.msu packages");
-                processValue(60);
+                processValue(58);
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-package /PackagePath:\"{packagesPath}\"");
             }
 
-            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /featurename:Client-EmbeddedLogon /featurename:Client-DeviceLockdown /featurename:Client-KeyboardFilter");
+            processName("Enabling necessary windows components");
+            processValue(60);
+            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /featurename:Client-EmbeddedLogon");
+            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /featurename:Client-DeviceLockdown");
+            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /featurename:Client-KeyboardFilter");
 
             if (imgPartitionPath != null)
             {
