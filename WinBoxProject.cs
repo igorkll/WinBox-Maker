@@ -519,9 +519,9 @@ if %errorlevel%==0 (
 
             processName("Enabling necessary windows components");
             processValue(60);
-            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /featurename:Client-EmbeddedLogon");
-            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /featurename:Client-DeviceLockdown");
-            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /featurename:Client-KeyboardFilter");
+            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedLogon");
+            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-DeviceLockdown");
+            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-KeyboardFilter");
 
             if (imgPartitionPath != null)
             {
