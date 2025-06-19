@@ -22,7 +22,7 @@ namespace WinBox_Maker
         const int SW_SHOW = 5;
 
 
-        public const string version = "WinBox-Maker 1.0";
+        public const string version = "WinBox-Maker 0.1.0";
         public const string logichubUrl = "https://igorkll.github.io/logichub/index.html";
         public static string? oscdimgPath;
         public static Form openProjectForm;
