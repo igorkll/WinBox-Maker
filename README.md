@@ -15,6 +15,8 @@ please note that winbox maker does not provide Windows images, it only provides 
 
 ## what was disabled
 * explorer.exe (the desktop is completely inaccessible)
+* alt+f4
+* ctrl+alt+del
 * all keyboard shortcuts with Windows button
 * telemetry
 * windows defender
@@ -50,6 +52,36 @@ please note that winbox maker does not provide Windows images, it only provides 
 * printscreen key
 * f1 - f24 keys
 * web back, favorites, forward, home, refresh, search, stop keys
+
+### the following keys and combinations have been disabled at the system level
+* Alt+F4
+* Alt+Space
+* Alt+Tab
+* Alt+Win
+* Application
+* BrowserBack
+* BrowserFavorites
+* BrowserForward
+* BrowserHome
+* BrowserRefresh
+* BrowserSearch
+* BrowserStop
+* Ctrl+Alt+Del
+* Ctrl+Esc
+* Ctrl+F4
+* Ctrl+Tab
+* Ctrl+Win
+* Ctrl+Win+F
+* F21
+* LaunchApp1
+* LaunchApp2
+* LaunchMail
+* LaunchMediaSelect
+* LShift+LAlt+NumLock
+* LShift+LAlt+PrintScrn
+* Shift+Ctrl+Esc
+* Shift+Win
+* Windows
 
 ## project structure
 * winbox.wnb - the main project file. contains all settings and paths
