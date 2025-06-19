@@ -43,10 +43,12 @@ please note that winbox maker does not provide Windows images, it only provides 
 * logitech itouch key
 * logitech shopping key
 * logitech webcam key
-* left/right alt key
-* left/right windows key
+* left/right alt keys
+* left/right windows keys
 * power/sleep/wake key
 * printscreen key
+* f1 - f24 keys
+* web back, favorites, forward, home, refresh, search, stop keys
 
 ## project structure
 * winbox.wnb - the main project file. contains all settings and paths
