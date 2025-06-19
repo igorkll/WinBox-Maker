@@ -11,6 +11,7 @@ please note that winbox maker does not provide Windows images, it only provides 
 
 ## notes
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
+* when you burn the installation ISO to a USB stick via rufus or a similar program, DO NOT USE the windows installation customization feature, as this will cause conflicts with those tweaks that already exist in winbox and it may work incorrectly
 
 ## what was disabled
 * explorer.exe (the desktop is completely inaccessible)
