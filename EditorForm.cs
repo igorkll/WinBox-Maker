@@ -269,6 +269,8 @@ namespace WinBox_Maker
             RawCommand.Text = winBoxProject.winBoxConfig.RawCommand ?? "";
             WebSite.Text = winBoxProject.winBoxConfig.WebSite ?? "";
             WebSessionTimeout.Text = winBoxProject.winBoxConfig.WebSessionTimeout.ToString();
+            postinstall_bat.Text = winBoxProject.winBoxConfig.PostInstall_bat ?? "not selected";
+            postinstall_reg.Text = winBoxProject.winBoxConfig.PostInstall_reg ?? "not selected";
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -533,6 +535,44 @@ namespace WinBox_Maker
                 winBoxProject.SaveConfig();
                 UpdateGui();
             }
+        }
+
+        private async void postinstall_bat_sel_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Bat scripts (*.bat;*.cmd)|*.bat;*.cmd|All files (*.*)|*.*", Path.Combine(winBoxProject.resourcesDirectoryPath, "files"), true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.PostInstall_bat = name;
+            }
+            winBoxProject.SaveConfig();
+            UnlockForm();
+        }
+
+        private void postinstall_bat_clr_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.PostInstall_bat = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private async void postinstall_reg_sel_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Registry files (*.reg)|*.reg|All files (*.*)|*.*", Path.Combine(winBoxProject.resourcesDirectoryPath, "files"), true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.PostInstall_reg = name;
+            }
+            winBoxProject.SaveConfig();
+            UnlockForm();
+        }
+
+        private void postinstall_reg_clr_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.PostInstall_reg = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }

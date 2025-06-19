@@ -75,10 +75,21 @@
             OpenProjectFolder = new Button();
             label7 = new Label();
             button1 = new Button();
+            label10 = new Label();
+            panel3 = new Panel();
+            postinstall_reg = new Label();
+            postinstall_bat = new Label();
+            postinstall_reg_clr = new Button();
+            postinstall_reg_sel = new Button();
+            postinstall_bat_clr = new Button();
+            label12 = new Label();
+            label11 = new Label();
+            postinstall_bat_sel = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -143,7 +154,8 @@
             // 
             ProcessName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ProcessName.AutoSize = true;
-            ProcessName.Location = new Point(0, 686);
+            ProcessName.Location = new Point(0, 886);
+            ProcessName.Margin = new Padding(3, 0, 3, 40);
             ProcessName.Name = "ProcessName";
             ProcessName.Size = new Size(122, 25);
             ProcessName.TabIndex = 10;
@@ -225,7 +237,7 @@
             // ExportInstallWim
             // 
             ExportInstallWim.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportInstallWim.Location = new Point(1020, 624);
+            ExportInstallWim.Location = new Point(1020, 824);
             ExportInstallWim.Name = "ExportInstallWim";
             ExportInstallWim.Size = new Size(222, 38);
             ExportInstallWim.TabIndex = 19;
@@ -236,7 +248,8 @@
             // ExportIsoInstaller
             // 
             ExportIsoInstaller.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportIsoInstaller.Location = new Point(1020, 668);
+            ExportIsoInstaller.Location = new Point(1020, 868);
+            ExportIsoInstaller.Margin = new Padding(3, 3, 3, 40);
             ExportIsoInstaller.Name = "ExportIsoInstaller";
             ExportIsoInstaller.Size = new Size(222, 38);
             ExportIsoInstaller.TabIndex = 20;
@@ -247,7 +260,7 @@
             // ProcessValue
             // 
             ProcessValue.Dock = DockStyle.Bottom;
-            ProcessValue.Location = new Point(0, 711);
+            ProcessValue.Location = new Point(0, 911);
             ProcessValue.Name = "ProcessValue";
             ProcessValue.Size = new Size(1258, 33);
             ProcessValue.TabIndex = 21;
@@ -285,7 +298,7 @@
             // ExportImgPartition
             // 
             ExportImgPartition.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportImgPartition.Location = new Point(1020, 580);
+            ExportImgPartition.Location = new Point(1020, 780);
             ExportImgPartition.Name = "ExportImgPartition";
             ExportImgPartition.Size = new Size(222, 38);
             ExportImgPartition.TabIndex = 25;
@@ -550,6 +563,109 @@
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.Location = new Point(472, 551);
+            label10.Name = "label10";
+            label10.Size = new Size(149, 38);
+            label10.TabIndex = 34;
+            label10.Text = "Post install";
+            // 
+            // panel3
+            // 
+            panel3.BackColor = SystemColors.Window;
+            panel3.BorderStyle = BorderStyle.Fixed3D;
+            panel3.Controls.Add(postinstall_reg);
+            panel3.Controls.Add(postinstall_bat);
+            panel3.Controls.Add(postinstall_reg_clr);
+            panel3.Controls.Add(postinstall_reg_sel);
+            panel3.Controls.Add(postinstall_bat_clr);
+            panel3.Controls.Add(label12);
+            panel3.Controls.Add(label11);
+            panel3.Controls.Add(postinstall_bat_sel);
+            panel3.Location = new Point(472, 591);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(323, 145);
+            panel3.TabIndex = 35;
+            // 
+            // postinstall_reg
+            // 
+            postinstall_reg.AutoSize = true;
+            postinstall_reg.Location = new Point(185, 103);
+            postinstall_reg.Name = "postinstall_reg";
+            postinstall_reg.Size = new Size(66, 25);
+            postinstall_reg.TabIndex = 7;
+            postinstall_reg.Text = "reg file";
+            // 
+            // postinstall_bat
+            // 
+            postinstall_bat.AutoSize = true;
+            postinstall_bat.Location = new Point(185, 38);
+            postinstall_bat.Name = "postinstall_bat";
+            postinstall_bat.Size = new Size(86, 25);
+            postinstall_bat.TabIndex = 6;
+            postinstall_bat.Text = "bat script";
+            // 
+            // postinstall_reg_clr
+            // 
+            postinstall_reg_clr.Location = new Point(97, 98);
+            postinstall_reg_clr.Name = "postinstall_reg_clr";
+            postinstall_reg_clr.Size = new Size(82, 34);
+            postinstall_reg_clr.TabIndex = 5;
+            postinstall_reg_clr.Text = "clear";
+            postinstall_reg_clr.UseVisualStyleBackColor = true;
+            postinstall_reg_clr.Click += postinstall_reg_clr_Click;
+            // 
+            // postinstall_reg_sel
+            // 
+            postinstall_reg_sel.Location = new Point(9, 98);
+            postinstall_reg_sel.Name = "postinstall_reg_sel";
+            postinstall_reg_sel.Size = new Size(82, 34);
+            postinstall_reg_sel.TabIndex = 4;
+            postinstall_reg_sel.Text = "select";
+            postinstall_reg_sel.UseVisualStyleBackColor = true;
+            postinstall_reg_sel.Click += postinstall_reg_sel_Click;
+            // 
+            // postinstall_bat_clr
+            // 
+            postinstall_bat_clr.Location = new Point(97, 33);
+            postinstall_bat_clr.Name = "postinstall_bat_clr";
+            postinstall_bat_clr.Size = new Size(82, 34);
+            postinstall_bat_clr.TabIndex = 3;
+            postinstall_bat_clr.Text = "clear";
+            postinstall_bat_clr.UseVisualStyleBackColor = true;
+            postinstall_bat_clr.Click += postinstall_bat_clr_Click;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(9, 70);
+            label12.Name = "label12";
+            label12.Size = new Size(70, 25);
+            label12.TabIndex = 2;
+            label12.Text = "Reg file";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(6, 5);
+            label11.Name = "label11";
+            label11.Size = new Size(85, 25);
+            label11.TabIndex = 1;
+            label11.Text = "Bat script";
+            // 
+            // postinstall_bat_sel
+            // 
+            postinstall_bat_sel.Location = new Point(9, 33);
+            postinstall_bat_sel.Name = "postinstall_bat_sel";
+            postinstall_bat_sel.Size = new Size(82, 34);
+            postinstall_bat_sel.TabIndex = 0;
+            postinstall_bat_sel.Text = "select";
+            postinstall_bat_sel.UseVisualStyleBackColor = true;
+            postinstall_bat_sel.Click += postinstall_bat_sel_Click;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -557,7 +673,9 @@
             AutoScroll = true;
             AutoScrollMargin = new Size(10, 30);
             BackColor = SystemColors.Control;
-            ClientSize = new Size(1258, 744);
+            ClientSize = new Size(1258, 944);
+            Controls.Add(panel3);
+            Controls.Add(label10);
             Controls.Add(button1);
             Controls.Add(label7);
             Controls.Add(OpenProjectFolder);
@@ -598,6 +716,8 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -650,5 +770,15 @@
         private TextBox WebSessionTimeout;
         private Label label9;
         private Button OpenLocalHtml;
+        private Label label10;
+        private Panel panel3;
+        private Button postinstall_bat_sel;
+        private Label label11;
+        private Label label12;
+        private Button postinstall_bat_clr;
+        private Button postinstall_reg_sel;
+        private Button postinstall_reg_clr;
+        private Label postinstall_reg;
+        private Label postinstall_bat;
     }
 }

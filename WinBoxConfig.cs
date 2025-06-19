@@ -28,6 +28,8 @@ namespace WinBox_Maker
         public string? ProgramArgs { get; set; }
         public string? RawCommand { get; set; }
         public string? WebSite { get; set; }
+        public string? PostInstall_bat { get; set; }
+        public string? PostInstall_reg { get; set; }
         public int? WebSessionTimeout { get; set; }
         public ProgramTypeEnum? ProgramType { get; set; }
 
