@@ -58,7 +58,25 @@ Windows Registry Editor Version 5.00
 ; ---------------- disable hotkeys
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter]
 "Alt+F4"="Blocked"
-"Alt"="Blocked"
+"Alt+Space"="Blocked"
+"Alt+Tab"="Blocked"
+"Alt+Win"="Blocked"
+"Application"="Blocked"
+"BrowserBack"="Blocked"
+"BrowserFavorites"="Blocked"
+"BrowserForward"="Blocked"
+"BrowserHome"="Blocked"
+"BrowserRefresh"="Blocked"
+"BrowserSearch"="Blocked"
+"BrowserStop"="Blocked"
+"Ctrl+Alt+Del"="Blocked"
+"Ctrl+Esc"="Blocked"
+"Ctrl+F4"="Blocked"
+"Ctrl+Tab"="Blocked"
+""="Blocked"
+""="Blocked"
+""="Blocked"
+""="Blocked"
 
 ; ---------------- disable screenshot
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
