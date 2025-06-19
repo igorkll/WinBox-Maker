@@ -413,10 +413,10 @@
             ProgramType_WebSite.Location = new Point(3, 182);
             ProgramType_WebSite.Margin = new Padding(4);
             ProgramType_WebSite.Name = "ProgramType_WebSite";
-            ProgramType_WebSite.Size = new Size(107, 29);
+            ProgramType_WebSite.Size = new Size(419, 29);
             ProgramType_WebSite.TabIndex = 9;
             ProgramType_WebSite.TabStop = true;
-            ProgramType_WebSite.Text = "Web Site";
+            ProgramType_WebSite.Text = "Web Site (uses edge, don't forget to integrate it)";
             ProgramType_WebSite.UseVisualStyleBackColor = true;
             ProgramType_WebSite.CheckedChanged += ProgramType_WebSite_CheckedChanged;
             // 
