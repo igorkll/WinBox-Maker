@@ -121,6 +121,7 @@ Windows Registry Editor Version 5.00
 "HideFastUserSwitching"=dword:00000001
 "shutdownwithoutlogon"=dword:00000000
 "undockwithoutlogon"=dword:00000000
+"DisableCAD"=dword:00000001
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\System]
 "DisableLockScreen"=dword:00000001
