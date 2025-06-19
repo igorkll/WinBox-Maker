@@ -57,6 +57,7 @@ Windows Registry Editor Version 5.00
 
 ; ---------------- disable hotkeys
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter]
+"DisableKeyboardFilterForAdministrators"=dword:00000000
 "Alt+F4"="Blocked"
 "Alt+Space"="Blocked"
 "Alt+Tab"="Blocked"
@@ -73,10 +74,18 @@ Windows Registry Editor Version 5.00
 "Ctrl+Esc"="Blocked"
 "Ctrl+F4"="Blocked"
 "Ctrl+Tab"="Blocked"
-""="Blocked"
-""="Blocked"
-""="Blocked"
-""="Blocked"
+"Ctrl+Win"="Blocked"
+"Ctrl+Win+F"="Blocked"
+"F21"="Blocked"
+"LaunchApp1"="Blocked"
+"LaunchApp2"="Blocked"
+"LaunchMail"="Blocked"
+"LaunchMediaSelect"="Blocked"
+"LShift+LAlt+NumLock"="Blocked"
+"LShift+LAlt+PrintScrn"="Blocked"
+"Shift+Ctrl+Esc"="Blocked"
+"Shift+Win"="Blocked"
+"Windows"="Blocked"
 
 ; ---------------- disable screenshot
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
