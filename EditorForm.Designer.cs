@@ -54,6 +54,7 @@
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
             panel2 = new Panel();
+            OpenLocalHtml = new Button();
             label9 = new Label();
             WebSessionTimeout = new TextBox();
             label8 = new Label();
@@ -326,6 +327,7 @@
             // 
             panel2.BackColor = SystemColors.Window;
             panel2.BorderStyle = BorderStyle.Fixed3D;
+            panel2.Controls.Add(OpenLocalHtml);
             panel2.Controls.Add(label9);
             panel2.Controls.Add(WebSessionTimeout);
             panel2.Controls.Add(label8);
@@ -344,6 +346,16 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(451, 284);
             panel2.TabIndex = 27;
+            // 
+            // OpenLocalHtml
+            // 
+            OpenLocalHtml.Location = new Point(274, 214);
+            OpenLocalHtml.Name = "OpenLocalHtml";
+            OpenLocalHtml.Size = new Size(62, 31);
+            OpenLocalHtml.TabIndex = 14;
+            OpenLocalHtml.Text = "html";
+            OpenLocalHtml.UseVisualStyleBackColor = true;
+            OpenLocalHtml.Click += OpenLocalHtml_Click;
             // 
             // label9
             // 
@@ -375,7 +387,7 @@
             // 
             WebSite.Location = new Point(4, 214);
             WebSite.Name = "WebSite";
-            WebSite.Size = new Size(332, 31);
+            WebSite.Size = new Size(264, 31);
             WebSite.TabIndex = 10;
             WebSite.TextChanged += WebSite_TextChanged;
             // 
@@ -637,5 +649,6 @@
         private Label label8;
         private TextBox WebSessionTimeout;
         private Label label9;
+        private Button OpenLocalHtml;
     }
 }

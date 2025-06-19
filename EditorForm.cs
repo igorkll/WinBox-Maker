@@ -521,5 +521,18 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
             UpdateGuiWithoutWindowsVersion();
         }
+
+        private async void OpenLocalHtml_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Local html page (*.html)|*.html", Path.Combine(winBoxProject.resourcesDirectoryPath, "program"), true);
+            UnlockForm();
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.WebSite = @$"C:\WinboxProgram\{name}";
+                winBoxProject.SaveConfig();
+                UpdateGui();
+            }
+        }
     }
 }
