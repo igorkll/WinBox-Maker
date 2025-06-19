@@ -41,7 +41,7 @@ please note that winbox maker does not provide Windows images, it only provides 
 * the following services are disabled: wbengine, wuauserv, RemoteRegistry, WSearch, SysMain, WerSvc, shellhwdetection, SSDPSRV, TermService, lanmanserver, napagent
 * checking the digital signature of drivers (it may not work on new versions of Windows)
 * lock screen
-* logon animation
+* logon animation (it only works normally in the enterprise version)
 
 ### these keys were disabled by changing the keyboard layout
 * calculator key
