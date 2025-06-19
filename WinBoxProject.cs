@@ -462,7 +462,30 @@ net localgroup Administrators winbox /add";
                     if (winBoxConfig.WebSite != null && !winBoxConfig.WebSite.Contains("\""))
                     {
                         string execFilePath = @"C:\WinboxResources\run_edge.bat";
-                        string batFile = $@"";
+                        string batFile = $@"@echo off
+
+set ""edgePath1=C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe""
+set ""edgePath2=C:\Program Files\Microsoft\Edge\Application\msedge.exe""
+set ""msedgePath=""
+if exist ""%edgePath1%"" (
+    set ""msedgePath=%edgePath1%""
+) else (
+    if exist ""%edgePath2%"" (
+        set ""msedgePath=%edgePath2%""
+    )
+)
+
+:restart
+start """" ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-type=fullscreen --kiosk-idle-timeout-minutes={winBoxConfig.WebSessionTimeout}
+
+:loop
+timeout /t 1
+tasklist | find /i ""msedge.exe"" >nul
+if %errorlevel%==0 (
+    goto loop
+) else (
+    goto restart
+)";
                         await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "run_edge.bat"), batFile);
                         await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_edge_script_hidden.vbs"), execFilePath, null);
                         command = "wscript \"C:\\WinboxResources\\run_edge_script_hidden.vbs\"";
