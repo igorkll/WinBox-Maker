@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -16,6 +17,15 @@ namespace WinBox_Maker
         public EditorForm(WinBoxProject winBoxProject)
         {
             InitializeComponent();
+            
+            ArchitectureSelect.Items.Clear();
+            ArchitectureSelect.Items.Add("x64");
+            ArchitectureSelect.Items.Add("x86");
+            ArchitectureSelect.Items.Add("arm64");
+
+            TweakList.Items.Clear();
+            TweakList.Items.Add("Integrate microsoft edge");
+
             this.Text = $"{WinBox_Maker.Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
             UnlockForm();
@@ -179,6 +189,12 @@ namespace WinBox_Maker
             UpdateGuiWithoutWindowsVersion();
         }
 
+        private void ArchitectureSelect_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.Architecture = ArchitectureSelect.Text;
+            winBoxProject.SaveConfig();
+        }
+
         private void WindowsVersionUpdate_Click(object sender, EventArgs e)
         {
             UpdateWindowsVersionsList();
@@ -262,6 +278,7 @@ namespace WinBox_Maker
         void UpdateGui()
         {
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
+            ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
             OemKey.Text = winBoxProject.winBoxConfig.OemKey ?? "";
             UseOemKey.CheckState = winBoxProject.winBoxConfig.UseOemKey == true ? CheckState.Checked : CheckState.Unchecked;
             ProgramName.Text = winBoxProject.winBoxConfig.ProgramName ?? "not selected";

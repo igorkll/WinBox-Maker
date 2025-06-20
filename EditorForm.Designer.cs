@@ -73,7 +73,6 @@
             label5 = new Label();
             OpenProjectFolder = new Button();
             label7 = new Label();
-            button1 = new Button();
             label10 = new Label();
             panel3 = new Panel();
             postinstall_reg = new Label();
@@ -85,8 +84,11 @@
             label11 = new Label();
             postinstall_bat_sel = new Button();
             panel4 = new Panel();
+            TweakList = new CheckedListBox();
             label13 = new Label();
             ScreenTimeout = new TextBox();
+            ArchitectureSelect = new ComboBox();
+            label14 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -157,7 +159,7 @@
             // 
             ProcessName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ProcessName.AutoSize = true;
-            ProcessName.Location = new Point(0, 886);
+            ProcessName.Location = new Point(0, 786);
             ProcessName.Margin = new Padding(3, 0, 3, 40);
             ProcessName.Name = "ProcessName";
             ProcessName.Size = new Size(122, 25);
@@ -240,7 +242,7 @@
             // ExportInstallWim
             // 
             ExportInstallWim.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportInstallWim.Location = new Point(1020, 824);
+            ExportInstallWim.Location = new Point(1020, 724);
             ExportInstallWim.Name = "ExportInstallWim";
             ExportInstallWim.Size = new Size(222, 38);
             ExportInstallWim.TabIndex = 19;
@@ -251,7 +253,7 @@
             // ExportIsoInstaller
             // 
             ExportIsoInstaller.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportIsoInstaller.Location = new Point(1020, 868);
+            ExportIsoInstaller.Location = new Point(1020, 768);
             ExportIsoInstaller.Margin = new Padding(3, 3, 3, 40);
             ExportIsoInstaller.Name = "ExportIsoInstaller";
             ExportIsoInstaller.Size = new Size(222, 38);
@@ -263,7 +265,7 @@
             // ProcessValue
             // 
             ProcessValue.Dock = DockStyle.Bottom;
-            ProcessValue.Location = new Point(0, 911);
+            ProcessValue.Location = new Point(0, 811);
             ProcessValue.Name = "ProcessValue";
             ProcessValue.Size = new Size(1258, 33);
             ProcessValue.TabIndex = 21;
@@ -301,7 +303,7 @@
             // ExportImgPartition
             // 
             ExportImgPartition.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportImgPartition.Location = new Point(1020, 780);
+            ExportImgPartition.Location = new Point(1020, 680);
             ExportImgPartition.Name = "ExportImgPartition";
             ExportImgPartition.Size = new Size(222, 38);
             ExportImgPartition.TabIndex = 25;
@@ -548,16 +550,6 @@
             label7.TabIndex = 32;
             label7.Text = "Activation";
             // 
-            // button1
-            // 
-            button1.Location = new Point(342, 184);
-            button1.Margin = new Padding(4);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 33;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            // 
             // label10
             // 
             label10.AutoSize = true;
@@ -588,7 +580,7 @@
             // postinstall_reg
             // 
             postinstall_reg.AutoSize = true;
-            postinstall_reg.Location = new Point(185, 103);
+            postinstall_reg.Location = new Point(179, 103);
             postinstall_reg.Name = "postinstall_reg";
             postinstall_reg.Size = new Size(66, 25);
             postinstall_reg.TabIndex = 7;
@@ -597,7 +589,7 @@
             // postinstall_bat
             // 
             postinstall_bat.AutoSize = true;
-            postinstall_bat.Location = new Point(185, 38);
+            postinstall_bat.Location = new Point(179, 38);
             postinstall_bat.Name = "postinstall_bat";
             postinstall_bat.Size = new Size(86, 25);
             postinstall_bat.TabIndex = 6;
@@ -605,7 +597,7 @@
             // 
             // postinstall_reg_clr
             // 
-            postinstall_reg_clr.Location = new Point(97, 98);
+            postinstall_reg_clr.Location = new Point(91, 98);
             postinstall_reg_clr.Name = "postinstall_reg_clr";
             postinstall_reg_clr.Size = new Size(82, 34);
             postinstall_reg_clr.TabIndex = 5;
@@ -615,7 +607,7 @@
             // 
             // postinstall_reg_sel
             // 
-            postinstall_reg_sel.Location = new Point(9, 98);
+            postinstall_reg_sel.Location = new Point(3, 98);
             postinstall_reg_sel.Name = "postinstall_reg_sel";
             postinstall_reg_sel.Size = new Size(82, 34);
             postinstall_reg_sel.TabIndex = 4;
@@ -625,7 +617,7 @@
             // 
             // postinstall_bat_clr
             // 
-            postinstall_bat_clr.Location = new Point(97, 33);
+            postinstall_bat_clr.Location = new Point(91, 33);
             postinstall_bat_clr.Name = "postinstall_bat_clr";
             postinstall_bat_clr.Size = new Size(82, 34);
             postinstall_bat_clr.TabIndex = 3;
@@ -636,7 +628,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(9, 70);
+            label12.Location = new Point(3, 70);
             label12.Name = "label12";
             label12.Size = new Size(70, 25);
             label12.TabIndex = 2;
@@ -645,7 +637,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(6, 5);
+            label11.Location = new Point(0, 5);
             label11.Name = "label11";
             label11.Size = new Size(85, 25);
             label11.TabIndex = 1;
@@ -653,7 +645,7 @@
             // 
             // postinstall_bat_sel
             // 
-            postinstall_bat_sel.Location = new Point(9, 33);
+            postinstall_bat_sel.Location = new Point(3, 33);
             postinstall_bat_sel.Name = "postinstall_bat_sel";
             postinstall_bat_sel.Size = new Size(82, 34);
             postinstall_bat_sel.TabIndex = 0;
@@ -665,12 +657,22 @@
             // 
             panel4.BackColor = SystemColors.Window;
             panel4.BorderStyle = BorderStyle.Fixed3D;
+            panel4.Controls.Add(TweakList);
             panel4.Controls.Add(label13);
             panel4.Controls.Add(ScreenTimeout);
             panel4.Location = new Point(802, 264);
             panel4.Name = "panel4";
             panel4.Size = new Size(264, 276);
             panel4.TabIndex = 36;
+            // 
+            // TweakList
+            // 
+            TweakList.BackColor = SystemColors.Control;
+            TweakList.FormattingEnabled = true;
+            TweakList.Location = new Point(3, 3);
+            TweakList.Name = "TweakList";
+            TweakList.Size = new Size(254, 144);
+            TweakList.TabIndex = 2;
             // 
             // label13
             // 
@@ -689,6 +691,24 @@
             ScreenTimeout.TabIndex = 0;
             ScreenTimeout.TextChanged += ScreenTimeout_TextChanged;
             // 
+            // ArchitectureSelect
+            // 
+            ArchitectureSelect.FormattingEnabled = true;
+            ArchitectureSelect.Location = new Point(342, 181);
+            ArchitectureSelect.Name = "ArchitectureSelect";
+            ArchitectureSelect.Size = new Size(318, 33);
+            ArchitectureSelect.TabIndex = 37;
+            ArchitectureSelect.TextChanged += ArchitectureSelect_TextChanged;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(666, 184);
+            label14.Name = "label14";
+            label14.Size = new Size(389, 25);
+            label14.TabIndex = 38;
+            label14.Text = "select the actual architecture of your image here";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -696,11 +716,12 @@
             AutoScroll = true;
             AutoScrollMargin = new Size(10, 30);
             BackColor = SystemColors.Control;
-            ClientSize = new Size(1258, 944);
+            ClientSize = new Size(1258, 844);
+            Controls.Add(label14);
+            Controls.Add(ArchitectureSelect);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(label10);
-            Controls.Add(button1);
             Controls.Add(label7);
             Controls.Add(OpenProjectFolder);
             Controls.Add(label5);
@@ -788,7 +809,6 @@
         private Button OpenProjectFolder;
         private RadioButton ProgramType_WebSite;
         private Label label7;
-        private Button button1;
         private TextBox WebSite;
         private Label label8;
         private TextBox WebSessionTimeout;
@@ -807,5 +827,8 @@
         private Panel panel4;
         private Label label13;
         private TextBox ScreenTimeout;
+        private ComboBox ArchitectureSelect;
+        private Label label14;
+        private CheckedListBox TweakList;
     }
 }

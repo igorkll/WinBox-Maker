@@ -13,5 +13,6 @@
   "PostInstall_reg": null,
   "WebSessionTimeout": 1,
   "ScreenTimeout": 3,
+  "Architecture": "x64",
   "ProgramType": 2
 }
