@@ -98,6 +98,7 @@ namespace WinBox_Maker
 
         static void consoleConvert(string path, string? output, List<string> flags)
         {
+            path = Path.GetFullPath(path);
             WinBoxProject winBoxProject = new WinBoxProject(path);
             string? err = winBoxProject.GetError();
             if (err != null)
@@ -106,17 +107,19 @@ namespace WinBox_Maker
                 return;
             }
 
-            WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
             if (flags.Contains("i"))
             {
+                WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
                 winboxConsoleExporter.ExportIsoInstaller(output);
             }
             else if (flags.Contains("w"))
             {
+                WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
                 winboxConsoleExporter.ExportInstallWim(output);
             }
             else if (flags.Contains("r"))
             {
+                WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
                 winboxConsoleExporter.ExportImgPartition(output);
             }
             else
