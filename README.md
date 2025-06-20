@@ -1,13 +1,13 @@
 # WinBox-Maker 0.1.0
-a tool for creating minimal embed versions of windows
-takes on the task of modifying the windows image to remove excess and embed software there
-the program is perfect for windows builds designed for ATM terminals and other devices that unauthorized people have access to and should not be allowed to leave the specified sandbox
-the program needs to be run with administrator rights because it mounts images
-the program is primarily aimed at creating Windows images for operation in kiosk mode, that is, the user will have access to only one of your programs that you add to the image and nothing more
-however, the program can be used in other usage scenarios (for example, creating a TV set-top box or a Windows-based slot machine)
-please note that the program requires the "dism" utility. usually it is built into Windows
-the program is recommended to be used with the original English image of "Windows 10 Enterprise"
-please note that winbox maker does not provide Windows images, it only provides a tool for reassembling Windows for use in kiosk mode
+a tool for creating minimal embed versions of windows  
+takes on the task of modifying the windows image to remove excess and embed software there  
+the program is perfect for windows builds designed for ATM terminals and other devices that unauthorized people have access to and should not be allowed to leave the specified sandbox  
+the program needs to be run with administrator rights because it mounts images  
+the program is primarily aimed at creating Windows images for operation in kiosk mode, that is, the user will have access to only one of your programs that you add to the image and nothing more  
+however, the program can be used in other usage scenarios (for example, creating a TV set-top box or a Windows-based slot machine)  
+please note that the program requires the "dism" utility. usually it is built into Windows  
+the program is recommended to be used with the original English image of "Windows 10 Enterprise"  
+please note that winbox maker does not provide Windows images, it only provides a tool for reassembling Windows for use in kiosk mode  
 
 ## notes
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
