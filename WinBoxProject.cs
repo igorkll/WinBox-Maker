@@ -450,6 +450,7 @@ net localgroup Administrators winbox /add";
                 baseSetup += $"\n\"C:\\{winBoxConfig.PostInstall_bat}\"";
             }
 
+            await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_SetupComplete.cmd"), baseSetup);
             await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);
 
             // ------------------------------------ copy files
