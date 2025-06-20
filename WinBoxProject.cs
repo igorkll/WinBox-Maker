@@ -433,6 +433,12 @@ net localgroup Administrators winbox /add";
                 baseSetup += $"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
             }
 
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge"))
+            {
+                await Program.CopyFileAsync(Program.getBlobPath(winBoxConfig, "MicrosoftEdge.msi"), Path.Combine(WinboxResourcesPath, "MicrosoftEdge.msi"));
+                baseSetup += $"\nstart /wait msiexec /i \"C:\\WinboxResources\\MicrosoftEdge.msi\" /quiet /norestart";
+            }
+
             if (winBoxConfig.PostInstall_reg != null && !winBoxConfig.PostInstall_reg.Contains("\"") && File.Exists(Path.Combine(wimMountPath, winBoxConfig.PostInstall_reg)))
             {
                 baseSetup += $"\nregedit /s \"C:\\{winBoxConfig.PostInstall_reg}\"";
@@ -441,12 +447,6 @@ net localgroup Administrators winbox /add";
             if (winBoxConfig.PostInstall_bat != null && !winBoxConfig.PostInstall_bat.Contains("\"") && File.Exists(Path.Combine(wimMountPath, winBoxConfig.PostInstall_bat)))
             {
                 baseSetup += $"\n\"C:\\{winBoxConfig.PostInstall_bat}\"";
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge"))
-            {
-                await Program.CopyFileAsync(Program.getBlobPath(winBoxConfig, "MicrosoftEdge.msi"), Path.Combine(WinboxResourcesPath, "MicrosoftEdge.msi"));
-                baseSetup += $"\nstart /wait msiexec /i \"C:\\WinboxResources\\MicrosoftEdge.msi\" /quiet /norestart";
             }
 
             await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);
