@@ -13,6 +13,7 @@ namespace WinBox_Maker
         const string defaultProcessName = "not busy";
         WinBoxProject winBoxProject;
         WindowsDescription[]? windowsDescriptions;
+        bool softwareCheck = true;
 
         public EditorForm(WinBoxProject winBoxProject)
         {
@@ -27,6 +28,7 @@ namespace WinBox_Maker
 
             TweakList.Items.Clear();
             AddTweakToList("Integrate microsoft edge");
+            softwareCheck = false;
 
             UnlockForm();
             if (winBoxProject.NeedLoadWindows())
@@ -643,6 +645,17 @@ namespace WinBox_Maker
             }
             winBoxProject.SaveConfig();
             UpdateGuiWithoutWindowsVersion();
+        }
+
+        private void TweakList_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (softwareCheck) return;
+
+            int index = e.Index;
+            string title = TweakList.Items[index].ToString();
+            bool state = e.NewValue == CheckState.Checked;
+            Program.setTweakEnabled(winBoxProject.winBoxConfig, title, state);
+            winBoxProject.SaveConfig();
         }
     }
 }

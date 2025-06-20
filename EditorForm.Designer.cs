@@ -673,6 +673,7 @@
             TweakList.Name = "TweakList";
             TweakList.Size = new Size(254, 144);
             TweakList.TabIndex = 2;
+            TweakList.ItemCheck += TweakList_ItemCheck;
             // 
             // label13
             // 
