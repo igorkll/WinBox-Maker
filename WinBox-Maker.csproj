@@ -17,6 +17,12 @@
     <None Remove="blobs\arm64\MicrosoftEdge.msi" />
     <None Remove="blobs\x64\MicrosoftEdge.msi" />
     <None Remove="blobs\x86\MicrosoftEdge.msi" />
+    <None Remove="examples\ApplicationOnScratch\.gitignore" />
+    <None Remove="examples\ApplicationOnScratch\source\app.sb3" />
+    <None Remove="examples\ApplicationOnScratch\source\htmlifier-offline.html" />
+    <None Remove="examples\ApplicationOnScratch\source\logo.png" />
+    <None Remove="examples\ApplicationOnScratch\winbox.wnb" />
+    <None Remove="examples\ApplicationOnScratch\winbox_resources\program\app.html" />
     <None Remove="LICENSE.txt" />
     <None Remove="logichub.png" />
     <None Remove="newproject.png" />
@@ -91,6 +97,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="blobs\x86\MicrosoftEdge.msi">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="examples\ApplicationOnScratch\.gitignore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="examples\ApplicationOnScratch\source\app.sb3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="examples\ApplicationOnScratch\source\htmlifier-offline.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="examples\ApplicationOnScratch\source\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="examples\ApplicationOnScratch\winbox.wnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="examples\ApplicationOnScratch\winbox_resources\program\app.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

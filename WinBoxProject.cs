@@ -299,6 +299,11 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
             
         }
 
+        public async Task CopyResource(string name)
+        {
+            await Program.CopyFileAsync(Program.ResourcePath(Path.Combine("resources", name)), Path.Combine(wimMountPath, "WinboxResources", name));
+        }
+
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
             processName("Preparing of install.wim");
@@ -436,6 +441,8 @@ net localgroup Administrators winbox /add";
 
             if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
             {
+                await CopyResource("empty.cur");
+                await CopyResource("hide_cursor.reg");
                 baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\hide_cursor.reg\"";
             }
 
@@ -459,12 +466,6 @@ net localgroup Administrators winbox /add";
             if (Directory.Exists(filesPath))
             {
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
-            }
-
-            string resourcesPath = Program.ResourcePath("resources");
-            if (Directory.Exists(resourcesPath))
-            {
-                await Program.CopyFilesRecursivelyAsync(resourcesPath, WinboxResourcesPath);
             }
 
             // ------------------------------------ copy program files
