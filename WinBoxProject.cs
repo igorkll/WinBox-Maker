@@ -417,9 +417,8 @@ reg load HKLM\DEFAULT_USER ""C:\Users\Default\NTUSER.DAT""
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v Beep /t REG_SZ /d no /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v ExtendedSounds /t REG_SZ /d no /f
-reg add ""HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v AccentColor /t REG_DWORD /d 0 /f
-reg add ""HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v ColorizationColor /t REG_DWORD /d 0 /f
-reg unload HKLM\DEFAULT_USER
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v AccentColor /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v ColorizationColor /t REG_DWORD /d 0 /f
 
 net user winbox /add
 net localgroup Administrators winbox /add";
@@ -449,6 +448,8 @@ net localgroup Administrators winbox /add";
             {
                 baseSetup += $"\r\n\"C:\\{winBoxConfig.PostInstall_bat}\"";
             }
+
+            baseSetup += "\r\nreg unload HKLM\\DEFAULT_USER";
 
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_SetupComplete.cmd"), baseSetup);
             await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);

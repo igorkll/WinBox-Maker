@@ -1,6 +1,6 @@
 Windows Registry Editor Version 5.00
 
-[HKEY_CURRENT_USER\Control Panel\Cursors]
+[HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Cursors]
 "Arrow"="C:\\WinboxResources\\empty.cur"
 "Help"="C:\\WinboxResources\\empty.cur"
 "IBeam"="C:\\WinboxResources\\empty.cur"
