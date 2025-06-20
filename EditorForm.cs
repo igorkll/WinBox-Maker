@@ -28,6 +28,7 @@ namespace WinBox_Maker
 
             TweakList.Items.Clear();
             AddTweakToList("Integrate microsoft edge");
+            AddTweakToList("Hide Cursor");
             softwareCheck = false;
 
             UnlockForm();

@@ -17,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using WinBox_Maker.Properties;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using IWshShortcut = IWshRuntimeLibrary.IWshShortcut;
 using WshShell = IWshRuntimeLibrary.WshShell;
@@ -338,11 +339,6 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
 
             await Program.ExecuteAsync("reg.exe", $"import reg\\tweak.reg");
 
-            if (true)
-            {
-                await Program.ExecuteAsync("reg.exe", $"import reg\\hide_cursor.reg");
-            }
-
             string lockScreenAppPath = Path.Combine(wimMountPath, "Windows\\SystemApps\\Microsoft.LockApp_cw5n1h2txyewy");
             if (Directory.Exists(lockScreenAppPath))
             {
@@ -439,6 +435,11 @@ net localgroup Administrators winbox /add";
                 baseSetup += $"\nstart /wait msiexec /i \"C:\\WinboxResources\\MicrosoftEdge.msi\" /quiet /norestart";
             }
 
+            if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
+            {
+                baseSetup += $"\nregedit /s \"C:\\WinboxResources\\hide_cursor.reg\"";
+            }
+
             if (winBoxConfig.PostInstall_reg != null && !winBoxConfig.PostInstall_reg.Contains("\"") && File.Exists(Path.Combine(wimMountPath, winBoxConfig.PostInstall_reg)))
             {
                 baseSetup += $"\nregedit /s \"C:\\{winBoxConfig.PostInstall_reg}\"";
@@ -456,6 +457,12 @@ net localgroup Administrators winbox /add";
             if (Directory.Exists(filesPath))
             {
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
+            }
+
+            string resourcesPath = Program.ResourcePath("resources");
+            if (Directory.Exists(resourcesPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(resourcesPath, WinboxResourcesPath);
             }
 
             // ------------------------------------ copy program files
@@ -525,7 +532,7 @@ if ""%msedgePath%""=="""" (
 )
 
 :restart
-start """" ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-type=fullscreen --kiosk-idle-timeout-minutes={winBoxConfig.WebSessionTimeout}
+start """" ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-type=fullscreen --kiosk-idle-timeout-minutes={winBoxConfig.WebSessionTimeout} --no-first-run
 
 :loop
 timeout /t 1
