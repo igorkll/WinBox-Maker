@@ -14,5 +14,8 @@
   "WebSessionTimeout": 1,
   "ScreenTimeout": 3,
   "Architecture": "x64",
-  "ProgramType": 2
+  "ProgramType": 2,
+  "TweakList": [
+    "Integrate microsoft edge"
+  ]
 }

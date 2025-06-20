@@ -466,5 +466,20 @@ namespace WinBox_Maker
             }
             return false;
         }
+
+        public static bool isTweakEnabled(WinBoxConfig winBoxConfig, String checktweak)
+        {
+            if (winBoxConfig.TweakList != null)
+            {
+                foreach (String tweak in winBoxConfig.TweakList)
+                {
+                    if (tweak == checktweak)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

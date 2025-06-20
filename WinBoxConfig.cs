@@ -34,6 +34,7 @@ namespace WinBox_Maker
         public int? ScreenTimeout { get; set; }
         public string? Architecture { get; set; }
         public ProgramTypeEnum? ProgramType { get; set; }
+        public List<string>? TweakList { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -52,6 +53,7 @@ namespace WinBox_Maker
             if (WebSessionTimeout == null) WebSessionTimeout = 0;
             if (ScreenTimeout == null) ScreenTimeout = 0;
             if (Architecture == null) Architecture = "x64";
+            if (TweakList == null) TweakList = ["Integrate microsoft edge"];
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
         }
 

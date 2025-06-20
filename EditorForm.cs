@@ -17,17 +17,17 @@ namespace WinBox_Maker
         public EditorForm(WinBoxProject winBoxProject)
         {
             InitializeComponent();
-            
+            this.Text = $"{WinBox_Maker.Program.version} - {this.Text} ({winBoxProject.GetName()})";
+            this.winBoxProject = winBoxProject;
+
             ArchitectureSelect.Items.Clear();
             ArchitectureSelect.Items.Add("x64");
             ArchitectureSelect.Items.Add("x86");
             ArchitectureSelect.Items.Add("arm64");
 
             TweakList.Items.Clear();
-            TweakList.Items.Add("Integrate microsoft edge");
+            AddTweakToList("Integrate microsoft edge");
 
-            this.Text = $"{WinBox_Maker.Program.version} - {this.Text} ({winBoxProject.GetName()})";
-            this.winBoxProject = winBoxProject;
             UnlockForm();
             if (winBoxProject.NeedLoadWindows())
             {
@@ -39,6 +39,11 @@ namespace WinBox_Maker
                 UpdateWindowsVersionsList();
                 UpdateGui();
             }
+        }
+
+        void AddTweakToList(String tweak)
+        {
+            TweakList.Items.Add(tweak, Program.isTweakEnabled(winBoxProject.winBoxConfig, tweak));
         }
 
         void UnlockForm()
