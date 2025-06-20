@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Net.WebRequestMethods;
+using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace WinBox_Maker
 {
@@ -14,12 +15,14 @@ namespace WinBox_Maker
         WinBoxProject winBoxProject;
         WindowsDescription[]? windowsDescriptions;
         bool softwareCheck = true;
+        TaskbarManager taskbarManager;
 
         public EditorForm(WinBoxProject winBoxProject)
         {
             InitializeComponent();
             this.Text = $"{WinBox_Maker.Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
+            this.taskbarManager = TaskbarManager.Instance;
 
             ArchitectureSelect.Items.Clear();
             ArchitectureSelect.Items.Add("x64");
@@ -440,6 +443,16 @@ namespace WinBox_Maker
         private void UpdateProcessValue(int Value)
         {
             ProcessValue.Value = Value;
+
+            if (Value == 0)
+            {
+                taskbarManager.SetProgressState(TaskbarProgressBarState.NoProgress);
+            }
+            else
+            {
+                taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
+                taskbarManager.SetProgressValue(Value, 100);
+            }
         }
 
         private void back_Click(object sender, EventArgs e)

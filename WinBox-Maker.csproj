@@ -191,6 +191,7 @@
     <PackageReference Include="DiscUtils.Iso9660" Version="0.16.13" />
     <PackageReference Include="DiscUtils.Udf" Version="0.16.13" />
     <PackageReference Include="ManagedWimLib" Version="2.6.0" />
+    <PackageReference Include="WindowsAPICodePack" Version="8.0.6" />
   </ItemGroup>
 
   <ItemGroup>

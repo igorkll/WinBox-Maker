@@ -72,6 +72,8 @@ namespace WinBox_Maker
                 winBoxConfig.Save(wnbFilePath);
             }
 
+            Program.Execute("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
+
             if (Directory.Exists(wimMountPath))
             {
                 Process process = new Process();
