@@ -443,6 +443,12 @@ net localgroup Administrators winbox /add";
                 baseSetup += $"\n\"C:\\{winBoxConfig.PostInstall_bat}\"";
             }
 
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge"))
+            {
+                await Program.CopyFileAsync(Program.getBlobPath(winBoxConfig, "MicrosoftEdge.msi"), Path.Combine(WinboxResourcesPath, "MicrosoftEdge.msi"));
+                baseSetup += $"\nstart /wait msiexec /i \"C:\\WinboxResources\\MicrosoftEdge.msi\" /quiet /norestart";
+            }
+
             await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);
 
             // ------------------------------------ copy files

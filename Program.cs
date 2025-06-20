@@ -147,7 +147,7 @@ namespace WinBox_Maker
                 default:
                     throw new PlatformNotSupportedException("the program does not support your processor architecture");
             }
-            oscdimgPath = Path.Combine(oscdimgPath, "oscdimg.exe");
+            oscdimgPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, oscdimgPath, "oscdimg.exe");
         }
 
         static void InitLibwim()
@@ -497,6 +497,11 @@ namespace WinBox_Maker
             {
                 winBoxConfig.TweakList.Remove(setTweak);
             } 
+        }
+
+        public static string getBlobPath(WinBoxConfig winBoxConfig, String blobname)
+        {
+            return ResourcePath(Path.Combine("blobs", winBoxConfig.Architecture, blobname));
         }
     }
 }
