@@ -378,6 +378,8 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v Beep /t REG_S
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v ExtendedSounds /t REG_SZ /d no /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v AccentColor /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v ColorizationColor /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v DontShowUI /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v Disabled /t REG_DWORD /d 1 /f
 
 net user winbox /add
 net localgroup Administrators winbox /add";
