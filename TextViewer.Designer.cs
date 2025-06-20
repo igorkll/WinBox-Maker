@@ -37,7 +37,7 @@
             Textbox.Location = new Point(0, 0);
             Textbox.Name = "Textbox";
             Textbox.ReadOnly = true;
-            Textbox.Size = new Size(778, 544);
+            Textbox.Size = new Size(1178, 644);
             Textbox.TabIndex = 0;
             Textbox.Text = "";
             // 
@@ -45,7 +45,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(778, 544);
+            ClientSize = new Size(1178, 644);
             Controls.Add(Textbox);
             MinimumSize = new Size(320, 240);
             Name = "TextViewer";
