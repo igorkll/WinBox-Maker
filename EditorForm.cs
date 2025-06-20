@@ -443,16 +443,8 @@ namespace WinBox_Maker
         private void UpdateProcessValue(int Value)
         {
             ProcessValue.Value = Value;
-
-            if (Value == 0)
-            {
-                taskbarManager.SetProgressState(TaskbarProgressBarState.NoProgress);
-            }
-            else
-            {
-                taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
-                taskbarManager.SetProgressValue(Value, 100);
-            }
+            taskbarManager.SetProgressState(Value == 0 ? TaskbarProgressBarState.NoProgress : TaskbarProgressBarState.Normal);
+            taskbarManager.SetProgressValue(Value, 100);
         }
 
         private void back_Click(object sender, EventArgs e)
