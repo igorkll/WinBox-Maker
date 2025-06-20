@@ -14,6 +14,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="blobs\arm64\MicrosoftEdge.msi" />
+    <None Remove="blobs\x64\MicrosoftEdge.msi" />
+    <None Remove="blobs\x86\MicrosoftEdge.msi" />
     <None Remove="LICENSE.txt" />
     <None Remove="logichub.png" />
     <None Remove="newproject.png" />
@@ -79,6 +82,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="blobs\arm64\MicrosoftEdge.msi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="blobs\x64\MicrosoftEdge.msi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="blobs\x86\MicrosoftEdge.msi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
