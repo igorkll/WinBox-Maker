@@ -306,6 +306,15 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
             await Program.CopyFileAsync(Program.ResourcePath(Path.Combine("resources", name)), Path.Combine(wimMountPath, "WinboxResources", name));
         }
 
+        public async Task CopyBlob(string name)
+        {
+            string? path = Program.getBlobPath(winBoxConfig, name);
+            if (path != null)
+            {
+                await Program.CopyFileAsync(path, Path.Combine(wimMountPath, "WinboxResources", name));
+            }
+        }
+
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
             processName("Preparing of install.wim");
@@ -391,7 +400,7 @@ net localgroup Administrators winbox /add";
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge"))
             {
-                await Program.CopyFileAsync(Program.getBlobPath(winBoxConfig, "MicrosoftEdge.msi"), Path.Combine(WinboxResourcesPath, "MicrosoftEdge.msi"));
+                await CopyBlob("MicrosoftEdge.msi");
                 baseSetup += $"\r\nstart /wait msiexec /i \"C:\\WinboxResources\\MicrosoftEdge.msi\" /quiet /norestart";
             }
 
@@ -424,9 +433,17 @@ net localgroup Administrators winbox /add";
 
             baseSetup += "\r\nreg unload HKLM\\DEFAULT_USER";
 
-            if (winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"") && File.Exists(Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo)))
+            if (winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\""))
             {
-                
+                string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
+                if (File.Exists(logoPath))
+                {
+                    await CopyBlob("HackBGRT.zip");
+                    await Program.CopyFileAsync(logoPath, Path.Combine(WinboxResourcesPath, "logo.bmp"));
+                    baseSetup += "\r\ntar -xf C:\\WinboxResources\\HackBGRT.zip -C C:\\WinboxResources";
+                    baseSetup += "\r\ncopy /Y C:\\WinboxResources\\logo.bmp C:\\WinboxResources\\HackBGRT-2.5.2\\splash.bmp";
+                    baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install";
+                }
             }
 
             await CopyResource("update_system.bat");
