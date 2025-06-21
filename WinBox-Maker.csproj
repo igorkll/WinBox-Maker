@@ -61,7 +61,6 @@
     <None Remove="reg\tweak.reg" />
     <None Remove="resources\empty.cur" />
     <None Remove="resources\hide_cursor.reg" />
-    <None Remove="resources\update_system.bat" />
     <None Remove="tweak.reg" />
     <None Remove="winbox.png" />
   </ItemGroup>
@@ -189,9 +188,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="resources\hide_cursor.reg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="resources\update_system.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="winbox.png">
