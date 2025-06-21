@@ -290,16 +290,23 @@ namespace WinBox_Maker
         {
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
             ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
+
             OemKey.Text = winBoxProject.winBoxConfig.OemKey ?? "";
             UseOemKey.CheckState = winBoxProject.winBoxConfig.UseOemKey == true ? CheckState.Checked : CheckState.Unchecked;
+
             ProgramName.Text = winBoxProject.winBoxConfig.ProgramName ?? "not selected";
             ProgramArgs.Text = winBoxProject.winBoxConfig.ProgramArgs ?? "";
             RawCommand.Text = winBoxProject.winBoxConfig.RawCommand ?? "";
+
             WebSite.Text = winBoxProject.winBoxConfig.WebSite ?? "";
             WebSessionTimeout.Text = winBoxProject.winBoxConfig.WebSessionTimeout.ToString();
+
             postinstall_bat.Text = winBoxProject.winBoxConfig.PostInstall_bat ?? "not selected";
             postinstall_reg.Text = winBoxProject.winBoxConfig.PostInstall_reg ?? "not selected";
+            CustomBootLogo.Text = winBoxProject.winBoxConfig.CustomBootLogo ?? "not selected";
+
             ScreenTimeout.Text = winBoxProject.winBoxConfig.ScreenTimeout.ToString();
+
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -586,7 +593,7 @@ namespace WinBox_Maker
         private async void postinstall_bat_sel_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Bat scripts (*.bat;*.cmd)|*.bat;*.cmd|All files (*.*)|*.*", Path.Combine(winBoxProject.resourcesDirectoryPath, "files"), true);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Bat scripts (*.bat;*.cmd)|*.bat;*.cmd|All files (*.*)|*.*", winBoxProject.resourcesDirectoryPath, true);
             if (name != null)
             {
                 winBoxProject.winBoxConfig.PostInstall_bat = name;
@@ -605,7 +612,7 @@ namespace WinBox_Maker
         private async void postinstall_reg_sel_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Registry files (*.reg)|*.reg|All files (*.*)|*.*", Path.Combine(winBoxProject.resourcesDirectoryPath, "files"), true);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Registry files (*.reg)|*.reg|All files (*.*)|*.*", winBoxProject.resourcesDirectoryPath, true);
             if (name != null)
             {
                 winBoxProject.winBoxConfig.PostInstall_reg = name;
@@ -662,6 +669,25 @@ namespace WinBox_Maker
             bool state = e.NewValue == CheckState.Checked;
             Program.setTweakEnabled(winBoxProject.winBoxConfig, title, state);
             winBoxProject.SaveConfig();
+        }
+
+        private async void CustomBootLogo_select_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "BMP files (*.bmp)|*.bmp", winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.CustomBootLogo = name;
+            }
+            winBoxProject.SaveConfig();
+            UnlockForm();
+        }
+
+        private void CustomBootLogo_clear_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.CustomBootLogo = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }

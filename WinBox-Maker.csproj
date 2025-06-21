@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <None Remove="blobs\arm64\MicrosoftEdge.msi" />
+    <None Remove="blobs\def\HackBGRT.zip" />
     <None Remove="blobs\x64\MicrosoftEdge.msi" />
     <None Remove="blobs\x86\MicrosoftEdge.msi" />
     <None Remove="examples\ApplicationOnScratch\.gitignore" />
@@ -22,6 +23,7 @@
     <None Remove="examples\ApplicationOnScratch\source\htmlifier-offline.html" />
     <None Remove="examples\ApplicationOnScratch\source\logo.png" />
     <None Remove="examples\ApplicationOnScratch\winbox.wnb" />
+    <None Remove="examples\ApplicationOnScratch\winbox_resources\logo.bmp" />
     <None Remove="examples\ApplicationOnScratch\winbox_resources\program\app.html" />
     <None Remove="LICENSE.txt" />
     <None Remove="logichub.png" />
@@ -93,6 +95,9 @@
     <EmbeddedResource Include="blobs\arm64\MicrosoftEdge.msi">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="blobs\def\HackBGRT.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="blobs\x64\MicrosoftEdge.msi">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -112,6 +117,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="examples\ApplicationOnScratch\winbox.wnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="examples\ApplicationOnScratch\winbox_resources\logo.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="examples\ApplicationOnScratch\winbox_resources\program\app.html">

@@ -17,5 +17,6 @@
   "ProgramType": 2,
   "TweakList": [
     "Integrate microsoft edge"
-  ]
+  ],
+  "CustomBootLogo": "logo.bmp"
 }

@@ -35,6 +35,7 @@ namespace WinBox_Maker
         public string? Architecture { get; set; }
         public ProgramTypeEnum? ProgramType { get; set; }
         public List<string>? TweakList { get; set; }
+        public string? CustomBootLogo { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();

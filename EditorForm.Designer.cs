@@ -75,6 +75,10 @@
             label7 = new Label();
             label10 = new Label();
             panel3 = new Panel();
+            CustomBootLogo = new Label();
+            CustomBootLogo_clear = new Button();
+            CustomBootLogo_select = new Button();
+            label15 = new Label();
             postinstall_reg = new Label();
             postinstall_bat = new Label();
             postinstall_reg_clr = new Button();
@@ -159,7 +163,7 @@
             // 
             ProcessName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ProcessName.AutoSize = true;
-            ProcessName.Location = new Point(0, 786);
+            ProcessName.Location = new Point(0, 886);
             ProcessName.Margin = new Padding(3, 0, 3, 40);
             ProcessName.Name = "ProcessName";
             ProcessName.Size = new Size(122, 25);
@@ -242,7 +246,7 @@
             // ExportInstallWim
             // 
             ExportInstallWim.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportInstallWim.Location = new Point(1020, 724);
+            ExportInstallWim.Location = new Point(1020, 824);
             ExportInstallWim.Name = "ExportInstallWim";
             ExportInstallWim.Size = new Size(222, 38);
             ExportInstallWim.TabIndex = 19;
@@ -253,7 +257,7 @@
             // ExportIsoInstaller
             // 
             ExportIsoInstaller.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportIsoInstaller.Location = new Point(1020, 768);
+            ExportIsoInstaller.Location = new Point(1020, 868);
             ExportIsoInstaller.Margin = new Padding(3, 3, 3, 40);
             ExportIsoInstaller.Name = "ExportIsoInstaller";
             ExportIsoInstaller.Size = new Size(222, 38);
@@ -265,7 +269,7 @@
             // ProcessValue
             // 
             ProcessValue.Dock = DockStyle.Bottom;
-            ProcessValue.Location = new Point(0, 811);
+            ProcessValue.Location = new Point(0, 911);
             ProcessValue.Name = "ProcessValue";
             ProcessValue.Size = new Size(1258, 33);
             ProcessValue.TabIndex = 21;
@@ -303,7 +307,7 @@
             // ExportImgPartition
             // 
             ExportImgPartition.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportImgPartition.Location = new Point(1020, 680);
+            ExportImgPartition.Location = new Point(1020, 780);
             ExportImgPartition.Name = "ExportImgPartition";
             ExportImgPartition.Size = new Size(222, 38);
             ExportImgPartition.TabIndex = 25;
@@ -564,6 +568,10 @@
             // 
             panel3.BackColor = SystemColors.Window;
             panel3.BorderStyle = BorderStyle.Fixed3D;
+            panel3.Controls.Add(CustomBootLogo);
+            panel3.Controls.Add(CustomBootLogo_clear);
+            panel3.Controls.Add(CustomBootLogo_select);
+            panel3.Controls.Add(label15);
             panel3.Controls.Add(postinstall_reg);
             panel3.Controls.Add(postinstall_bat);
             panel3.Controls.Add(postinstall_reg_clr);
@@ -574,8 +582,46 @@
             panel3.Controls.Add(postinstall_bat_sel);
             panel3.Location = new Point(16, 591);
             panel3.Name = "panel3";
-            panel3.Size = new Size(318, 145);
+            panel3.Size = new Size(318, 205);
             panel3.TabIndex = 35;
+            // 
+            // CustomBootLogo
+            // 
+            CustomBootLogo.AutoSize = true;
+            CustomBootLogo.Location = new Point(179, 167);
+            CustomBootLogo.Name = "CustomBootLogo";
+            CustomBootLogo.Size = new Size(78, 25);
+            CustomBootLogo.TabIndex = 11;
+            CustomBootLogo.Text = "bmp file";
+            // 
+            // CustomBootLogo_clear
+            // 
+            CustomBootLogo_clear.Location = new Point(91, 162);
+            CustomBootLogo_clear.Name = "CustomBootLogo_clear";
+            CustomBootLogo_clear.Size = new Size(82, 34);
+            CustomBootLogo_clear.TabIndex = 10;
+            CustomBootLogo_clear.Text = "clear";
+            CustomBootLogo_clear.UseVisualStyleBackColor = true;
+            CustomBootLogo_clear.Click += CustomBootLogo_clear_Click;
+            // 
+            // CustomBootLogo_select
+            // 
+            CustomBootLogo_select.Location = new Point(3, 162);
+            CustomBootLogo_select.Name = "CustomBootLogo_select";
+            CustomBootLogo_select.Size = new Size(82, 34);
+            CustomBootLogo_select.TabIndex = 9;
+            CustomBootLogo_select.Text = "select";
+            CustomBootLogo_select.UseVisualStyleBackColor = true;
+            CustomBootLogo_select.Click += CustomBootLogo_select_Click;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(3, 135);
+            label15.Name = "label15";
+            label15.Size = new Size(92, 25);
+            label15.TabIndex = 8;
+            label15.Text = "Boot logo";
             // 
             // postinstall_reg
             // 
@@ -678,7 +724,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(108, 241);
+            label13.Location = new Point(117, 241);
             label13.Name = "label13";
             label13.Size = new Size(134, 25);
             label13.TabIndex = 1;
@@ -688,7 +734,7 @@
             // 
             ScreenTimeout.Location = new Point(3, 238);
             ScreenTimeout.Name = "ScreenTimeout";
-            ScreenTimeout.Size = new Size(99, 31);
+            ScreenTimeout.Size = new Size(111, 31);
             ScreenTimeout.TabIndex = 0;
             ScreenTimeout.TextChanged += ScreenTimeout_TextChanged;
             // 
@@ -717,7 +763,7 @@
             AutoScroll = true;
             AutoScrollMargin = new Size(10, 30);
             BackColor = SystemColors.Control;
-            ClientSize = new Size(1258, 844);
+            ClientSize = new Size(1258, 944);
             Controls.Add(label14);
             Controls.Add(ArchitectureSelect);
             Controls.Add(panel4);
@@ -831,5 +877,9 @@
         private ComboBox ArchitectureSelect;
         private Label label14;
         private CheckedListBox TweakList;
+        private Label label15;
+        private Button CustomBootLogo_select;
+        private Button CustomBootLogo_clear;
+        private Label CustomBootLogo;
     }
 }

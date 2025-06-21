@@ -402,17 +402,32 @@ net localgroup Administrators winbox /add";
                 baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\hide_cursor.reg\"";
             }
 
-            if (winBoxConfig.PostInstall_reg != null && !winBoxConfig.PostInstall_reg.Contains("\"") && File.Exists(Path.Combine(wimMountPath, winBoxConfig.PostInstall_reg)))
+            if (winBoxConfig.PostInstall_reg != null && !winBoxConfig.PostInstall_reg.Contains("\""))
             {
-                baseSetup += $"\r\nregedit /s \"C:\\{winBoxConfig.PostInstall_reg}\"";
+                string regPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_reg);
+                if (File.Exists(regPath))
+                {
+                    await Program.CopyFileAsync(regPath, Path.Combine(WinboxResourcesPath, "postinstall.reg"));
+                    baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\postinstall.reg\"";
+                }
             }
 
-            if (winBoxConfig.PostInstall_bat != null && !winBoxConfig.PostInstall_bat.Contains("\"") && File.Exists(Path.Combine(wimMountPath, winBoxConfig.PostInstall_bat)))
+            if (winBoxConfig.PostInstall_bat != null && !winBoxConfig.PostInstall_bat.Contains("\""))
             {
-                baseSetup += $"\r\n\"C:\\{winBoxConfig.PostInstall_bat}\"";
+                string batPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_bat);
+                if (File.Exists(batPath))
+                {
+                    await Program.CopyFileAsync(batPath, Path.Combine(WinboxResourcesPath, "postinstall.bat"));
+                    baseSetup += $"\r\n\"C:\\C:\\WinboxResources\\postinstall.bat\"";
+                }
             }
 
             baseSetup += "\r\nreg unload HKLM\\DEFAULT_USER";
+
+            if (winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"") && File.Exists(Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo)))
+            {
+                
+            }
 
             await CopyResource("update_system.bat");
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_SetupComplete.cmd"), baseSetup);
