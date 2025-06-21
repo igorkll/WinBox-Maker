@@ -485,7 +485,7 @@ net localgroup Administrators winbox /add";
                 {
                     await CopyBlob("HackBGRT.zip");
                     await Program.CopyFileAsync(logoPath, Path.Combine(WinboxResourcesPath, "logo.bmp"));
-                    baseSetup += "\r\ntar -xf C:\\WinboxResources\\HackBGRT.zip -C C:\\WinboxResources";
+                    baseSetup += "\r\npowershell \"Expand-Archive -Path C:\\WinboxResources\\HackBGRT.zip -DestinationPath C:\\WinboxResources\"";
                     baseSetup += "\r\ncopy /Y C:\\WinboxResources\\logo.bmp C:\\WinboxResources\\HackBGRT-2.5.2\\splash.bmp";
                     baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install";
                 }
