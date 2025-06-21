@@ -445,7 +445,7 @@ net localgroup Administrators winbox /add";
                 baseSetup += $"\r\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
             }
 
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge"))
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
             {
                 await CopyBlob("MicrosoftEdge.msi");
                 baseSetup += $"\r\nstart /wait msiexec /i \"C:\\WinboxResources\\MicrosoftEdge.msi\" /quiet /norestart";
