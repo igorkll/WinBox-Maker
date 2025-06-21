@@ -504,12 +504,15 @@ namespace WinBox_Maker
             string blobPath = ResourcePath(Path.Combine("blobs", winBoxConfig.Architecture, blobname));
             if (File.Exists(blobPath))
             {
-                blobPath = ResourcePath(Path.Combine("blobs", "def", blobname));
-                if (File.Exists(blobPath))
-                {
-                    return blobPath;
-                }
+                return blobPath;
             }
+
+            blobPath = ResourcePath(Path.Combine("blobs", "def", blobname));
+            if (File.Exists(blobPath))
+            {
+                return blobPath;
+            }
+
             return null;
         }
     }
