@@ -389,6 +389,7 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v Ac
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v ColorizationColor /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v DontShowUI /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v Disabled /t REG_DWORD /d 1 /f
+reg unload HKLM\DEFAULT_USER
 
 net user winbox /add
 net localgroup Administrators winbox /add";
@@ -427,11 +428,9 @@ net localgroup Administrators winbox /add";
                 if (File.Exists(batPath))
                 {
                     await Program.CopyFileAsync(batPath, Path.Combine(WinboxResourcesPath, "postinstall.bat"));
-                    baseSetup += $"\r\n\"C:\\C:\\WinboxResources\\postinstall.bat\"";
+                    baseSetup += $"\r\n\"C:\\WinboxResources\\postinstall.bat\"";
                 }
             }
-
-            baseSetup += "\r\nreg unload HKLM\\DEFAULT_USER";
 
             if (winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\""))
             {
