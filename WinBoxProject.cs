@@ -440,6 +440,8 @@ reg unload HKLM\DEFAULT_USER
 net user winbox /add
 net localgroup Administrators winbox /add";
 
+            bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
+
             if (winBoxConfig.UseOemKey == true && winBoxConfig.OemKey != null && !winBoxConfig.OemKey.Contains("\""))
             {
                 baseSetup += $"\r\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
@@ -449,6 +451,12 @@ net localgroup Administrators winbox /add";
             {
                 await CopyBlob("MicrosoftEdge.msi");
                 baseSetup += $"\r\nstart /wait msiexec /i \"C:\\WinboxResources\\MicrosoftEdge.msi\" /quiet /norestart";
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate net framework 4.8.1") || customBootLogo)
+            {
+                await CopyBlob("net481.exe");
+                baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\net481.exe\" /quiet /norestart";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
@@ -478,7 +486,7 @@ net localgroup Administrators winbox /add";
                 }
             }
 
-            if (winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\""))
+            if (customBootLogo)
             {
                 string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
                 if (File.Exists(logoPath))
@@ -487,7 +495,7 @@ net localgroup Administrators winbox /add";
                     await Program.CopyFileAsync(logoPath, Path.Combine(WinboxResourcesPath, "logo.bmp"));
                     baseSetup += "\r\npowershell \"Expand-Archive -Path C:\\WinboxResources\\HackBGRT.zip -DestinationPath C:\\WinboxResources\"";
                     baseSetup += "\r\ncopy /Y C:\\WinboxResources\\logo.bmp C:\\WinboxResources\\HackBGRT-2.5.2\\splash.bmp";
-                    baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install";
+                    baseSetup += "\r\nstart /wait C:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install";
                 }
             }
 

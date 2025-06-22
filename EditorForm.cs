@@ -31,6 +31,7 @@ namespace WinBox_Maker
 
             TweakList.Items.Clear();
             AddTweakToList("Integrate microsoft edge");
+            AddTweakToList("Integrate net framework 4.8.1");
             AddTweakToList("Hide Cursor");
             softwareCheck = false;
 
