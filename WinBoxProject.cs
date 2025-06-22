@@ -456,13 +456,13 @@ net localgroup Administrators winbox /add";
             if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.8.1"))
             {
                 await CopyBlob("net481.exe");
-                baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\net481.exe\" /quiet /norestart";
+                baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\net481.exe\" /q";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.7.2") || customBootLogo)
             {
                 await CopyBlob("net472.exe");
-                baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\net472.exe\" /quiet /norestart";
+                baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\net472.exe\" /q";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
