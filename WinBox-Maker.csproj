@@ -16,6 +16,8 @@
   <ItemGroup>
     <None Remove="blobs\arm64\MicrosoftEdge.msi" />
     <None Remove="blobs\def\HackBGRT.zip" />
+    <None Remove="blobs\def\net462.exe" />
+    <None Remove="blobs\def\net472.exe" />
     <None Remove="blobs\def\net481.exe" />
     <None Remove="blobs\x64\MicrosoftEdge.msi" />
     <None Remove="blobs\x86\MicrosoftEdge.msi" />
@@ -96,6 +98,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="blobs\def\HackBGRT.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="blobs\def\net472.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="blobs\def\net481.exe">

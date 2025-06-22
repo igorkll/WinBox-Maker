@@ -453,10 +453,16 @@ net localgroup Administrators winbox /add";
                 baseSetup += $"\r\nstart /wait msiexec /i \"C:\\WinboxResources\\MicrosoftEdge.msi\" /quiet /norestart";
             }
 
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate net framework 4.8.1") || customBootLogo)
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.8.1"))
             {
                 await CopyBlob("net481.exe");
                 baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\net481.exe\" /quiet /norestart";
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.7.2") || customBootLogo)
+            {
+                await CopyBlob("net472.exe");
+                baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\net472.exe\" /quiet /norestart";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
@@ -482,7 +488,7 @@ net localgroup Administrators winbox /add";
                 if (File.Exists(batPath))
                 {
                     await Program.CopyFileAsync(batPath, Path.Combine(WinboxResourcesPath, "postinstall.bat"));
-                    baseSetup += $"\r\ncall \"C:\\WinboxResources\\postinstall.bat\"";
+                    baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\postinstall.bat\"";
                 }
             }
 
@@ -493,7 +499,7 @@ net localgroup Administrators winbox /add";
                 {
                     await CopyBlob("HackBGRT.zip");
                     await Program.CopyFileAsync(logoPath, Path.Combine(WinboxResourcesPath, "logo.bmp"));
-                    baseSetup += "\r\npowershell \"Expand-Archive -Path C:\\WinboxResources\\HackBGRT.zip -DestinationPath C:\\WinboxResources\"";
+                    baseSetup += "\r\npowershell -C \"Expand-Archive -Path C:\\WinboxResources\\HackBGRT.zip -DestinationPath C:\\WinboxResources\"";
                     baseSetup += "\r\ncopy /Y C:\\WinboxResources\\logo.bmp C:\\WinboxResources\\HackBGRT-2.5.2\\splash.bmp";
                     baseSetup += "\r\nstart /wait C:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install";
                 }
