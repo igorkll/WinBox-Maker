@@ -34,6 +34,8 @@ namespace WinBox_Maker
             AddTweakToList("Integrate net 4.8.1");
             AddTweakToList("Integrate net 4.7.2");
             AddTweakToList("Hide Cursor");
+            AddTweakToList("Disable boot circle");
+            AddTweakToList("Disable boot logo");
             softwareCheck = false;
 
             UnlockForm();
