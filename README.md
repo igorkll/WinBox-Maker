@@ -43,6 +43,7 @@ please note that winbox maker does not provide Windows images, it only provides 
 * checking the digital signature of drivers (it may not work on new versions of Windows)
 * lock screen
 * logon animation (it only works normally in the enterprise version)
+* animation of opening and closing windows
 
 ### these keys were disabled by changing the keyboard layout
 * calculator key
