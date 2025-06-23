@@ -431,14 +431,6 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
 reagentc.exe /disable
 
-bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
-bcdedit /set {{current}} recoveryenabled no
-bcdedit /set {{bootmgr}} displaybootmenu no
-bcdedit /set {{bootmgr}} timeout 0
-bcdedit /set loadoptions DISABLE_INTEGRITY_CHECKS
-bcdedit /set NOINTEGRITYCHECKS ON
-bcdedit /set TESTSIGNING ON
-
 powercfg -h off
 powercfg -change -standby-timeout-ac 0
 powercfg -change -standby-timeout-dc 0
@@ -446,7 +438,32 @@ powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
 powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}
 powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
 powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
-powercfg -s SCHEME_CURRENT";
+powercfg -s SCHEME_CURRENT
+
+bcdedit /set {{bootmgr}} displaybootmenu no
+bcdedit /set {{bootmgr}} timeout 0
+bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
+bcdedit /set {{current}} recoveryenabled no
+bcdedit /set {{current}} loadoptions DISABLE_INTEGRITY_CHECKS
+bcdedit /set {{current}} NOINTEGRITYCHECKS ON
+bcdedit /set {{current}} TESTSIGNING ON
+
+bcdedit /set {{bootmgr}} bootstatuspolicy ignoreallfailures
+bcdedit /set {{bootmgr}} recoveryenabled no
+bcdedit /set {{bootmgr}} loadoptions DISABLE_INTEGRITY_CHECKS
+bcdedit /set {{bootmgr}} NOINTEGRITYCHECKS ON
+bcdedit /set {{bootmgr}} TESTSIGNING ON
+
+bcdedit /set {{current}} displaybootmenu no
+bcdedit /set {{current}} timeout 0
+
+bcdedit /set {{default}} displaybootmenu no
+bcdedit /set {{default}} timeout 0
+bcdedit /set {{default}} bootstatuspolicy ignoreallfailures
+bcdedit /set {{default}} recoveryenabled no
+bcdedit /set {{default}} loadoptions DISABLE_INTEGRITY_CHECKS
+bcdedit /set {{default}} NOINTEGRITYCHECKS ON
+bcdedit /set {{default}} TESTSIGNING ON";
 
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
 
