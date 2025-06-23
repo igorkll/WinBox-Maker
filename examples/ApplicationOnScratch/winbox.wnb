@@ -16,7 +16,8 @@
   "Architecture": "x64",
   "ProgramType": 2,
   "TweakList": [
-    "Integrate microsoft edge"
+    "Integrate microsoft edge",
+    "Disable boot circle"
   ],
   "CustomBootLogo": "logo.bmp"
 }
