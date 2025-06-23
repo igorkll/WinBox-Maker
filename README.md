@@ -91,6 +91,12 @@ please note that winbox maker does not provide Windows images, it only provides 
 * Shift+Win
 * Windows
 
+## changes in the edge browser
+* disabled all hotkeys
+* disabled updates
+* page translation is disabled
+* synchronization is disabled
+
 ## project structure
 * winbox.wnb - the main project file. contains all settings and paths
 * .gitignore - it is created by default in the project if it is not present, so as not to commit unnecessary files if you create the project in the git repository. it won't be overwritten if you make changes there, but it will be created if you delete it
@@ -103,6 +109,23 @@ please note that winbox maker does not provide Windows images, it only provides 
 * winbox_resources/drivers - the directory with the drivers with which the image should be built
 * winbox_resources/packages - you can add the .cab or .msu packages to this directory
 * winbox_resources/cursor - the directory where you can upload custom cursor files (.cur for different states)
+
+## custom cursor files (winbox_resources/cursor)
+* AppStarting.ani
+* Arrow.cur
+* Crosshair.cur
+* Hand.cur
+* Help.cur
+* IBeam.cur
+* No.cur
+* NWPen.cur
+* SizeAll.cur
+* SizeNESW.cur
+* SizeNS.cur
+* SizeNWSE.cur
+* SizeWE.cur
+* UpArrow.cur
+* Wait.ani
 
 ## command line arguments
 1. the path to the file .wnb is for automatically starting conversion from the command line. if it points to a directory, it will convert all files .wnb in this directory

@@ -165,8 +165,32 @@ Windows Registry Editor Version 5.00
 "VerifySignatures"=dword:00000000
 
 ; ---------------- disable animations
-[HKEY_CURRENT_USER\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "TaskbarAnimations"=dword:0
 
-[HKEY_CURRENT_USER\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects]
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects]
 "VisualFXSetting"=dword:3
+
+; ---------------- disable edge hotkeys
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge]
+"ConfigureKeyboardShortcuts"="{\"disabled\": [\"new_tab\", \"fullscreen\", \"close_tab\", \"zoom_reset\", \"zoom_out\", \"zoom_in\", \"web_select\", \"web_capture\", \"view_source\", \"vertical_tabs_toggle\", \"task_manager\", \"system_print\", \"sidebar_search_selected_text\", \"show_favorites_bar_toggle\", \"settings_and_more_menu\", \"send_feedback\", \"select_previous_tab\", \"select_next_tab\", \"select_last_tab\", \"save_page\", \"reopen_tab\", \"refresh_bypassing_cache\", \"refresh\", \"read_aloud_toggle\", \"profile\", \"print\", \"paste_and_go\", \"open_file\", \"new_window\", \"new_tab\", \"new_inprivate_window\", \"new_application_guard_window\", \"mute_tab_toggle\", \"immersive_reader_toggle\", \"home\", \"history\", \"help_page\", \"forward\", \"focus_web_pane\", \"focus_settings_and_more\", \"focus_search\", \"focus_reading_bar\", \"focus_previous_pane\", \"focus_next_pane\", \"focus_inactive_notification\", \"focus_favorites\", \"focus_app_toolbar\", \"focus_address_bar\", \"find_previous\", \"find_next\", \"find\", \"favorites\", \"favorite_this_tab\", \"favorite_all_tabs\", \"duplicate_tab\", \"downloads\", \"dev_tools_toggle\", \"dev_tools_elements\", \"dev_tools_console\", \"dev_tools\", \"collections\", \"close_window\", \"close_find_or_stop\", \"clear_browsing_data\", \"caret_browsing_toggle\", \"back\"]}"
+
+; ---------------- disable edge updates
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge]
+"ComponentUpdatesEnabled"=dword:0
+"Update"=dword:0
+"AutoUpdate"=dword:0
+
+; ---------------- disable edge translate
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge]
+"TranslateEnabled"=dword:0
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge\Recommended]
+"TranslateEnabled"=dword:0
+
+; ---------------- disable edge sync
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge]
+"SyncDisabled"=dword:1
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge\Recommended]
+"SyncDisabled"=dword:1
