@@ -1,6 +1,6 @@
 {
-  "BaseWindowsImage": null,
-  "BaseWindowsVersion": null,
+  "BaseWindowsImage": "D:\\OSImages\\en_windows_10_enterprise_x64.iso",
+  "BaseWindowsVersion": "Windows 10 Enterprise",
   "WinboxName": "Custom Cursor Example",
   "WinboxDescription": "Custom Cursor Example",
   "OemKey": "",

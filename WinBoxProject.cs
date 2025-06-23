@@ -463,6 +463,8 @@ bcdedit /set {{default}} NOINTEGRITYCHECKS ON
 bcdedit /set {{default}} TESTSIGNING ON";
 
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
+            string cursorPath = Path.Combine(resourcesDirectoryPath, "cursor");
+            bool customCursor = Directory.Exists(cursorPath) && !Program.IsDirectoryEmpty(cursorPath);
 
             if (winBoxConfig.UseOemKey == true && winBoxConfig.OemKey != null && !winBoxConfig.OemKey.Contains("\""))
             {
@@ -502,6 +504,12 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 await CopyResource("empty.cur");
                 await CopyResource("hide_cursor.reg");
                 baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\hide_cursor.reg\"";
+            }
+            else if (customCursor)
+            {
+                await Program.CopyFilesRecursivelyAsync(cursorPath, Path.Combine(WinboxResourcesPath, "cursor"));
+                await CopyResource("custom_cursor.reg");
+                baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\custom_cursor.reg\"";
             }
 
             if (customBootLogo)
@@ -554,12 +562,6 @@ net localgroup Administrators winbox /add";
             if (Directory.Exists(filesPath))
             {
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
-            }
-
-            string cursorPath = Path.Combine(resourcesDirectoryPath, "cursor");
-            if (Directory.Exists(cursorPath))
-            {
-                await Program.CopyFilesRecursivelyAsync(cursorPath, Path.Combine(wimMountPath, "Windows", "Cursors"));
             }
 
             // ------------------------------------ copy program files

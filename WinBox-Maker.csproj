@@ -62,6 +62,7 @@
     <None Remove="reg\fake_activation.reg" />
     <None Remove="reg\skip_oobe.reg" />
     <None Remove="reg\tweak.reg" />
+    <None Remove="resources\custom_cursor.reg" />
     <None Remove="resources\empty.cur" />
     <None Remove="resources\hide_cursor.reg" />
     <None Remove="tweak.reg" />
@@ -191,6 +192,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reg\tweak.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\custom_cursor.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="resources\empty.cur">

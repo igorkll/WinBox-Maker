@@ -1,0 +1,18 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Cursors]
+"AppStarting"="C:\\WinboxResources\\cursor\\AppStarting.ani"
+"Arrow"="C:\\WinboxResources\\cursor\\Arrow.cur"
+"Crosshair"="C:\\WinboxResources\\cursor\\Crosshair.cur"
+"Hand"="C:\\WinboxResources\\cursor\\Hand.cur"
+"Help"="C:\\WinboxResources\\cursor\\Help.cur"
+"IBeam"="C:\\WinboxResources\\cursor\\IBeam.cur"
+"No"="C:\\WinboxResources\\cursor\\No.cur"
+"NWPen"="C:\\WinboxResources\\cursor\\NWPen.cur"
+"SizeAll"="C:\\WinboxResources\\cursor\\SizeAll.cur"
+"SizeNESW"="C:\\WinboxResources\\cursor\\SizeNESW.cur"
+"SizeNS"="C:\\WinboxResources\\cursor\\SizeNS.cur"
+"SizeNWSE"="C:\\WinboxResources\\cursor\\SizeNWSE.cur"
+"SizeWE"="C:\\WinboxResources\\cursor\\SizeWE.cur"
+"UpArrow"="C:\\WinboxResources\\cursor\\UpArrow.cur"
+"Wait"="C:\\WinboxResources\\cursor\\Wait.ani"
