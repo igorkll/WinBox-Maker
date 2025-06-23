@@ -454,7 +454,8 @@ namespace WinBox_Maker
         private void UpdateProcessValue(int Value)
         {
             ProcessValue.Value = Value;
-            taskbarManager.SetProgressState(Value == 0 ? TaskbarProgressBarState.NoProgress : TaskbarProgressBarState.Normal);
+            //taskbarManager.SetProgressState(Value == 0 ? TaskbarProgressBarState.NoProgress : TaskbarProgressBarState.Normal);
+            taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
             taskbarManager.SetProgressValue(Value, 100);
         }
 
