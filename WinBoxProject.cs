@@ -369,6 +369,8 @@ dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
 dism /online /enable-feature /all /featurename:Client-DeviceLockdown
 dism /online /enable-feature /all /featurename:Client-KeyboardFilter
 
+sc config edgeupdate start= disabled
+sc config edgeupdatem start= disabled
 sc config wbengine start= disabled
 sc config wuauserv start= disabled
 sc config RemoteRegistry start= disabled

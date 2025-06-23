@@ -180,6 +180,22 @@ Windows Registry Editor Version 5.00
 "ComponentUpdatesEnabled"=dword:0
 "Update"=dword:0
 "AutoUpdate"=dword:0
+"UpdateDefault"=dword:0
+"DoNotUpdateToEdgeWithChromium"=dword:1
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\EdgeUpdate]
+"ComponentUpdatesEnabled"=dword:0
+"Update"=dword:0
+"AutoUpdate"=dword:0
+"UpdateDefault"=dword:0
+"DoNotUpdateToEdgeWithChromium"=dword:1
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\EdgeUpdate]
+"ComponentUpdatesEnabled"=dword:0
+"Update"=dword:0
+"AutoUpdate"=dword:0
+"UpdateDefault"=dword:0
+"DoNotUpdateToEdgeWithChromium"=dword:1
 
 ; ---------------- disable edge translate
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge]
