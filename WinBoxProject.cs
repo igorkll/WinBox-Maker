@@ -486,6 +486,19 @@ powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}";
                 baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\hide_cursor.reg\"";
             }
 
+            if (customBootLogo)
+            {
+                string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
+                if (File.Exists(logoPath))
+                {
+                    await CopyBlob("HackBGRT.zip");
+                    await Program.CopyFileAsync(logoPath, Path.Combine(WinboxResourcesPath, "logo.bmp"));
+                    baseSetup += "\r\npowershell -C \"Expand-Archive -Path C:\\WinboxResources\\HackBGRT.zip -DestinationPath C:\\WinboxResources\"";
+                    baseSetup += "\r\ncopy /Y C:\\WinboxResources\\logo.bmp C:\\WinboxResources\\HackBGRT-2.5.2\\splash.bmp";
+                    baseSetup += "\r\nstart /wait C:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install";
+                }
+            }
+
             if (winBoxConfig.PostInstall_reg != null && !winBoxConfig.PostInstall_reg.Contains("\""))
             {
                 string regPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_reg);
@@ -506,20 +519,7 @@ powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}";
                 }
             }
 
-            if (customBootLogo)
-            {
-                string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
-                if (File.Exists(logoPath))
-                {
-                    await CopyBlob("HackBGRT.zip");
-                    await Program.CopyFileAsync(logoPath, Path.Combine(WinboxResourcesPath, "logo.bmp"));
-                    baseSetup += "\r\npowershell -C \"Expand-Archive -Path C:\\WinboxResources\\HackBGRT.zip -DestinationPath C:\\WinboxResources\"";
-                    baseSetup += "\r\ncopy /Y C:\\WinboxResources\\logo.bmp C:\\WinboxResources\\HackBGRT-2.5.2\\splash.bmp";
-                    baseSetup += "\r\nstart /wait C:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install";
-                }
-            }
 
-            
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_UpdateSystemSettings.txt"), updateSystemSettings);
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_SetupComplete.txt"), baseSetup);
 
