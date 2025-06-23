@@ -163,3 +163,10 @@ Windows Registry Editor Version 5.00
 ; ---------------- disabling the verification of the signature of exe files
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "VerifySignatures"=dword:00000000
+
+; ---------------- disable animations
+[HKEY_CURRENT_USER\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"TaskbarAnimations"=dword:0
+
+[HKEY_CURRENT_USER\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects]
+"VisualFXSetting"=dword:3

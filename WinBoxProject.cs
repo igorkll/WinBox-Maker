@@ -418,7 +418,8 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v Ac
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v ColorizationColor /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v DontShowUI /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v Disabled /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v UserPreferencesMask /t REG_BINARY /d 90 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v UserPreferencesMask /t REG_BINARY /d 9012038010000000 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" /v MinAnimate /t REG_SZ /d ""0"" /f
 reg unload HKLM\DEFAULT_USER
 
 net user winbox /add
@@ -442,7 +443,10 @@ powercfg -h off
 powercfg -change -standby-timeout-ac 0
 powercfg -change -standby-timeout-dc 0
 powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
-powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}";
+powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
+powercfg -s SCHEME_CURRENT";
 
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
 
