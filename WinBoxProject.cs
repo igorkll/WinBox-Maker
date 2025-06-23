@@ -709,8 +709,9 @@ if %errorlevel%==0 (
 
             processName("Building an ISO image");
             processValue(85);
-            await Program.ExecuteAsync(Program.oscdimgPath, $"-m -u2 -b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
-
+            //await Program.ExecuteAsync(Program.oscdimgPath, $"-m -u2 -b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
+            await Program.ExecuteAsync(Program.oscdimgPath, $"-m -o -u2 -udfver102 -bootdata:2#p0,e,b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\"#pEF,e,b\"{Path.Combine(unpackIsoPath, "efi\\microsoft\\boot\\efisys.bin")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
+            
             processName("Deleting unpacked ISO files");
             processValue(90);
             await Task.Run(() =>
