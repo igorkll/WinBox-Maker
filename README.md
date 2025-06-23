@@ -13,7 +13,7 @@ please note that winbox maker does not provide Windows images, it only provides 
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
 * when you burn the installation ISO to a USB stick via rufus or a similar program, DO NOT USE the windows installation customization feature, as this will cause conflicts with those tweaks that already exist in winbox and it may work incorrectly
 * it is recommended to use "Windows 10 Enterprise" specifically, otherwise some things probably won't work, such as disabling the login animation and disabling keyboard shortcuts in the system itself
-* at the moment, the custom boot logo installation only works on UEFI systems (you also need to turn off secure boot)
+* at the moment, the custom boot logo installation only works on UEFI systems (you also need to turn off secure boot) (it may also not work at all for reasons unknown to me)
 
 ## what was disabled
 * explorer.exe (the desktop is completely inaccessible)
@@ -102,6 +102,7 @@ please note that winbox maker does not provide Windows images, it only provides 
 * winbox_resources/program - the directory for your application that will be used in kiosk mode. although this directory is not added to by default .gitignore if you plan to automatically copy your application files here during assembly and build a windows image with your application in post build event, then add this directory to .gitignore
 * winbox_resources/drivers - the directory with the drivers with which the image should be built
 * winbox_resources/packages - you can add the .cab or .msu packages to this directory
+* winbox_resources/cursor - the directory where you can upload custom cursor files (.cur for different states)
 
 ## command line arguments
 1. the path to the file .wnb is for automatically starting conversion from the command line. if it points to a directory, it will convert all files .wnb in this directory

@@ -54,7 +54,7 @@ namespace WinBox_Maker
             if (WebSessionTimeout == null) WebSessionTimeout = 0;
             if (ScreenTimeout == null) ScreenTimeout = 0;
             if (Architecture == null) Architecture = "x64";
-            if (TweakList == null) TweakList = ["Integrate microsoft edge"];
+            if (TweakList == null) TweakList = [];
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
         }
 

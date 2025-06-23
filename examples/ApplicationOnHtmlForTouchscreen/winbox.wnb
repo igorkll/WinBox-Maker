@@ -1,0 +1,25 @@
+{
+  "BaseWindowsImage": "D:\\OSImages\\en_windows_10_enterprise_x64.iso",
+  "BaseWindowsVersion": "Windows 10 Enterprise",
+  "WinboxName": "Application On Html",
+  "WinboxDescription": "for kiosks with touch screen\nthe mouse cursor was hidden on purpose",
+  "OemKey": "",
+  "UseOemKey": false,
+  "ProgramName": null,
+  "ProgramArgs": "",
+  "RawCommand": "",
+  "WebSite": "C:\\WinboxProgram\\app.html",
+  "PostInstall_bat": null,
+  "PostInstall_reg": null,
+  "WebSessionTimeout": 0,
+  "ScreenTimeout": 0,
+  "Architecture": "x64",
+  "ProgramType": 2,
+  "TweakList": [
+    "Integrate microsoft edge",
+    "Disable boot circle",
+    "Disable boot logo",
+    "Hide Cursor"
+  ],
+  "CustomBootLogo": null
+}

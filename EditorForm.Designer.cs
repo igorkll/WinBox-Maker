@@ -619,9 +619,9 @@
             label15.AutoSize = true;
             label15.Location = new Point(3, 135);
             label15.Name = "label15";
-            label15.Size = new Size(92, 25);
+            label15.Size = new Size(146, 25);
             label15.TabIndex = 8;
-            label15.Text = "Boot logo";
+            label15.Text = "Boot logo (BETA)";
             // 
             // postinstall_reg
             // 

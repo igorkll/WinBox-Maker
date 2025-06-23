@@ -114,6 +114,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "program"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "packages"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "cursor"));
 
             string gitignorePath = Path.Combine(baseDirectoryPath, ".gitignore");
             if (!File.Exists(gitignorePath)) {
@@ -419,11 +420,7 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v Co
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v DontShowUI /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v Disabled /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v UserPreferencesMask /t REG_BINARY /d 9012038010000000 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" /v MinAnimate /t REG_SZ /d ""0"" /f
-reg unload HKLM\DEFAULT_USER
-
-net user winbox /add
-net localgroup Administrators winbox /add";
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" /v MinAnimate /t REG_SZ /d ""0"" /f";
 
             string updateSystemSettings = $@"@echo off
 
@@ -540,6 +537,11 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 }
             }
 
+            baseSetup += $"\r\n";
+            baseSetup += @$"reg unload HKLM\DEFAULT_USER
+
+net user winbox /add
+net localgroup Administrators winbox /add";
 
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_UpdateSystemSettings.txt"), updateSystemSettings);
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_SetupComplete.txt"), baseSetup);
@@ -552,6 +554,12 @@ bcdedit /set {{default}} TESTSIGNING ON";
             if (Directory.Exists(filesPath))
             {
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
+            }
+
+            string cursorPath = Path.Combine(resourcesDirectoryPath, "cursor");
+            if (Directory.Exists(cursorPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(cursorPath, Path.Combine(wimMountPath, "Windows", "Cursors"));
             }
 
             // ------------------------------------ copy program files
