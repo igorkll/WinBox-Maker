@@ -11,7 +11,7 @@
   "WebSite": "C:\\WinboxProgram\\app.html",
   "PostInstall_bat": null,
   "PostInstall_reg": null,
-  "WebSessionTimeout": 1,
+  "WebSessionTimeout": 0,
   "ScreenTimeout": 3,
   "Architecture": "x64",
   "ProgramType": 2,

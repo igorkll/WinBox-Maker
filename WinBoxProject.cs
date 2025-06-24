@@ -611,8 +611,10 @@ net localgroup Administrators winbox /add";
                         string batFile = $@"@echo off
 
 set ""edgePath1=C:\WinboxResources\edge\msedge.exe""
-set ""edgePath1=C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe""
-set ""edgePath2=C:\Program Files\Microsoft\Edge\Application\msedge.exe""
+set ""edgePath2=C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe""
+set ""edgePath3=C:\Program Files\Microsoft\Edge\Application\msedge.exe""
+set ""edgePath4=C:\Program Files (x86)\Microsoft\Edge Beta\Application\msedge.exe""
+set ""edgePath5=C:\Program Files\Microsoft\Edge Beta\Application\msedge.exe""
 
 set ""msedgePath=""
 if exist ""%edgePath1%"" (
@@ -623,6 +625,14 @@ if exist ""%edgePath1%"" (
     ) else (
         if exist ""%edgePath3%"" (
             set ""msedgePath=%edgePath3%""
+        ) else (
+            if exist ""%edgePath4%"" (
+                set ""msedgePath=%edgePath4%""
+            ) else (
+                if exist ""%edgePath5%"" (
+                    set ""msedgePath=%edgePath5%""
+                )
+            )
         )
     )
 )
