@@ -529,25 +529,25 @@ bcdedit /set {{default}} TESTSIGNING ON";
             if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
             {
                 await CopyBlob("MicrosoftEdge.msi");
-                baseSetup += $"\r\nstart /wait msiexec /i \"C:\\WinboxResources\\MicrosoftEdge.msi\" /quiet /norestart";
+                baseSetup += $"\r\nstart /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.8.1"))
             {
                 await CopyBlob("net481.exe");
-                baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\net481.exe\" /q";
+                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net481.exe /q";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.7.2") || customBootLogo)
             {
                 await CopyBlob("net472.exe");
-                baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\net472.exe\" /q";
+                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net472.exe /q";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate vc redist"))
             {
                 await CopyBlob("vc_redist.exe");
-                baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\vc_redist.exe\" /install /quiet /norestart";
+                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\vc_redist.exe /install /quiet /norestart";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
