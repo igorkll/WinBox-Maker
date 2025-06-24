@@ -5,7 +5,7 @@
   "WinboxDescription": "an example of how you can write an application in C and wingdi and create a winbox based on it",
   "OemKey": "",
   "UseOemKey": false,
-  "ProgramName": null,
+  "ProgramName": "InformationPanel.exe",
   "ProgramArgs": "",
   "RawCommand": "",
   "WebSite": "",
