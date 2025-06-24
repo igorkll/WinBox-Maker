@@ -708,7 +708,7 @@
             panel4.Controls.Add(ScreenTimeout);
             panel4.Location = new Point(802, 264);
             panel4.Name = "panel4";
-            panel4.Size = new Size(264, 276);
+            panel4.Size = new Size(314, 279);
             panel4.TabIndex = 36;
             // 
             // TweakList
@@ -717,14 +717,14 @@
             TweakList.FormattingEnabled = true;
             TweakList.Location = new Point(3, 3);
             TweakList.Name = "TweakList";
-            TweakList.Size = new Size(254, 144);
+            TweakList.Size = new Size(304, 172);
             TweakList.TabIndex = 2;
             TweakList.ItemCheck += TweakList_ItemCheck;
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(117, 241);
+            label13.Location = new Point(117, 243);
             label13.Name = "label13";
             label13.Size = new Size(134, 25);
             label13.TabIndex = 1;
@@ -732,7 +732,7 @@
             // 
             // ScreenTimeout
             // 
-            ScreenTimeout.Location = new Point(3, 238);
+            ScreenTimeout.Location = new Point(3, 240);
             ScreenTimeout.Name = "ScreenTimeout";
             ScreenTimeout.Size = new Size(111, 31);
             ScreenTimeout.TabIndex = 0;
