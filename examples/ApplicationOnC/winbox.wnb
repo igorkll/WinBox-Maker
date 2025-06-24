@@ -18,7 +18,8 @@
   "TweakList": [
     "Hide Cursor",
     "Disable boot circle",
-    "Disable boot logo"
+    "Disable boot logo",
+    "Integrate vc redist"
   ],
   "CustomBootLogo": null
 }

@@ -15,12 +15,14 @@
 
   <ItemGroup>
     <None Remove="blobs\arm64\MicrosoftEdge.msi" />
+    <None Remove="blobs\arm64\vc_redist.exe" />
     <None Remove="blobs\def\HackBGRT.zip" />
-    <None Remove="blobs\def\net462.exe" />
     <None Remove="blobs\def\net472.exe" />
     <None Remove="blobs\def\net481.exe" />
     <None Remove="blobs\x64\MicrosoftEdge.msi" />
+    <None Remove="blobs\x64\vc_redist.exe" />
     <None Remove="blobs\x86\MicrosoftEdge.msi" />
+    <None Remove="blobs\x86\vc_redist.exe" />
     <None Remove="examples\ApplicationOnScratch\.gitignore" />
     <None Remove="examples\ApplicationOnScratch\source\app.sb3" />
     <None Remove="examples\ApplicationOnScratch\source\htmlifier-offline.html" />
@@ -98,6 +100,9 @@
     <EmbeddedResource Include="blobs\arm64\MicrosoftEdge.msi">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="blobs\arm64\vc_redist.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="blobs\def\HackBGRT.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -110,7 +115,13 @@
     <EmbeddedResource Include="blobs\x64\MicrosoftEdge.msi">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="blobs\x64\vc_redist.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="blobs\x86\MicrosoftEdge.msi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="blobs\x86\vc_redist.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="examples\ApplicationOnScratch\.gitignore">

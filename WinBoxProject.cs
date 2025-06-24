@@ -544,6 +544,12 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\net472.exe\" /q";
             }
 
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate vc redist"))
+            {
+                await CopyBlob("vc_redist.exe");
+                baseSetup += $"\r\nstart /wait \"C:\\WinboxResources\\vc_redist.exe\" /install /quiet /norestart";
+            }
+
             if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
             {
                 await CopyResource("empty.cur");
