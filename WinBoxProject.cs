@@ -13,6 +13,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,6 +37,7 @@ namespace WinBox_Maker
         public string imagesDirectoryPath;
         string tempDirectoryPath;
         string unpackedWimFile;
+        string wimInfoFile;
         string newWimFile;
         string wimMountPath;
         string unpackIsoPath;
@@ -52,6 +54,7 @@ namespace WinBox_Maker
             imagesDirectoryPath = Path.Combine(baseDirectoryPath, imagesDirectoryName);
             tempDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_temp");
             unpackedWimFile = Path.Combine(tempDirectoryPath, "base_install.wim");
+            wimInfoFile = Path.Combine(tempDirectoryPath, "installWimInfo.json");
             newWimFile = Path.Combine(tempDirectoryPath, "new_install.wim");
             wimMountPath = Path.Combine(tempDirectoryPath, "wim_mount");
             unpackIsoPath = Path.Combine(tempDirectoryPath, "iso_unpack");
@@ -200,10 +203,10 @@ namespace WinBox_Maker
 
         public bool NeedLoadWindows()
         {
-            return winBoxConfig.BaseWindowsImage != null && !File.Exists(unpackedWimFile);
+            return winBoxConfig.BaseWindowsImage != null && !File.Exists(wimInfoFile);
         }
 
-        public async Task LoadWindowsImageAsync(Action<string> processName, Action<int> processValue)
+        public async Task ExtractInstallWim(Action<string> processName, Action<int> processValue)
         {
             if (winBoxConfig.BaseWindowsImage == null) return;
             string baseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
@@ -234,38 +237,73 @@ namespace WinBox_Maker
             }
         }
 
-        public void UnloadWindowsImage()
+        public async Task DeleteInstallWim(Action<string> processName)
         {
-            if (File.Exists(unpackedWimFile)) {
-                File.Delete(unpackedWimFile);
+            if (File.Exists(unpackedWimFile))
+            {
+                processName("Deleting install.wim");
+                await Task.Run(() =>
+                {
+                    File.Delete(unpackedWimFile);
+                });
             }
         }
 
-        public WindowsDescription[] GetWindowsDescriptions()
+        public async Task LoadWindowsImageAsync(Action<string> processName, Action<int> processValue)
         {
-            List<WindowsDescription> windowsVersions = new List<WindowsDescription>();
+            if (winBoxConfig.BaseWindowsImage == null) return;
+
+            await ExtractInstallWim(processName, processValue);
 
             if (File.Exists(unpackedWimFile))
             {
                 using (Wim wimHandle = Wim.OpenWim(unpackedWimFile, OpenFlags.None))
                 {
                     WimInfo wimInfo = wimHandle.GetWimInfo();
+                    List<WindowsDescription> windowsDescriptions = new List<WindowsDescription>();
+
                     for (int i = 1; i <= wimInfo.ImageCount; i++)
                     {
-                        //Console.WriteLine($"Image Index: {i}");
-                        //Console.WriteLine($"Name: {wimHandle.GetImageName(i)}");
-                        //Console.WriteLine($"Description: {wimHandle.GetImageDescription(i)}");
                         WindowsDescription windowVersion = new WindowsDescription
                         {
                             name = wimHandle.GetImageName(i) ?? "failed to read windows name",
                             description = wimHandle.GetImageDescription(i) ?? "failed to read windows description"
                         };
-                        windowsVersions.Add(windowVersion);
+
+                        windowsDescriptions.Add(windowVersion);
                     }
+
+                    string json = JsonSerializer.Serialize(windowsDescriptions, new JsonSerializerOptions { WriteIndented = true });
+                    await File.WriteAllTextAsync(wimInfoFile, json);
                 }
             }
 
-            return windowsVersions.ToArray();
+            processValue(50);
+            await DeleteInstallWim(processName);
+        }
+
+        public void UnloadWindowsImage()
+        {
+            if (File.Exists(wimInfoFile))
+            {
+                File.Delete(wimInfoFile);
+            }
+        }
+
+        public WindowsDescription[] GetWindowsDescriptions()
+        {
+            if (File.Exists(wimInfoFile))
+            {
+                string json = File.ReadAllText(wimInfoFile);
+
+                List<WindowsDescription>? windowsVersions = JsonSerializer.Deserialize<List<WindowsDescription>>(json);
+                if (windowsVersions != null)
+                {
+                    return windowsVersions.ToArray();
+                }
+            }
+
+            return [];
         }
 
         static string ReplaceAndPrependBackslash(string input)
@@ -318,6 +356,8 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
 
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
+            await ExtractInstallWim(processName, processValue);
+
             processName("Preparing of install.wim");
             processValue(20);
             await Task.Run(() =>
@@ -337,6 +377,9 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
                     wimHandle.Write(newWimPath, 1, WriteFlags.None, Wim.DefaultThreads);
                 }
             });
+
+            processValue(25);
+            await DeleteInstallWim(processName);
 
             // ------------------------------------ mounting system
             processName("Mounting install.wim");
@@ -761,7 +804,10 @@ if %errorlevel%==0 (
 
             processName("Deleting temp install.wim");
             processValue(90);
-            File.Delete(newWimFile);
+            await Task.Run(() =>
+            {
+                File.Delete(newWimFile);
+            });
 
             await CompleteExportMsg(processName, processValue);
         }

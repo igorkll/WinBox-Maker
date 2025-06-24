@@ -8,7 +8,7 @@ namespace WinBox_Maker
 {
     public class WindowsDescription
     {
-        public string name;
-        public string description;
+        public string name { get; set; }
+        public string description { get; set; }
     }
 }
