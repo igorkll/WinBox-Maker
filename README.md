@@ -10,6 +10,9 @@ please note that the program requires the "dism" utility. usually it is built in
 the program is recommended to be used with the original English image of "Windows 10 Enterprise"  
 please note that winbox maker does not provide Windows images, it only provides a tool for reassembling Windows for use in kiosk mode  
 
+## warnings
+* if you are going to assemble the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)
+
 ## notes
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
 * when you burn the installation ISO to a USB stick via rufus or a similar program, DO NOT USE the windows installation customization feature, as this will cause conflicts with those tweaks that already exist in winbox and it may work incorrectly
