@@ -36,10 +36,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
             gdi_text(hdc, 5, 5, "Hello, Fullscreen!");
 
             EndPaint(hwnd, &paintstruct);
-            break;
+            return 0;
         }
-
-        return 0;
     }
 
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
