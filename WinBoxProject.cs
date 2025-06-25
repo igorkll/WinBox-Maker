@@ -568,6 +568,12 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net8017.exe /quiet /norestart";
             }
 
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate net 9.0.6"))
+            {
+                await CopyBlob("net906.exe");
+                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net906.exe /quiet /norestart";
+            }
+
             if (Program.isTweakEnabled(winBoxConfig, "Integrate vc redist"))
             {
                 await CopyBlob("vc_redist.exe");

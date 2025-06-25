@@ -16,15 +16,18 @@
   <ItemGroup>
     <None Remove="blobs\arm64\MicrosoftEdge.msi" />
     <None Remove="blobs\arm64\net8017.exe" />
+    <None Remove="blobs\arm64\net906.exe" />
     <None Remove="blobs\arm64\vc_redist.exe" />
     <None Remove="blobs\def\HackBGRT.zip" />
     <None Remove="blobs\def\net472.exe" />
     <None Remove="blobs\def\net481.exe" />
     <None Remove="blobs\x64\MicrosoftEdge.msi" />
     <None Remove="blobs\x64\net8017.exe" />
+    <None Remove="blobs\x64\net906.exe" />
     <None Remove="blobs\x64\vc_redist.exe" />
     <None Remove="blobs\x86\MicrosoftEdge.msi" />
     <None Remove="blobs\x86\net8017.exe" />
+    <None Remove="blobs\x86\net906.exe" />
     <None Remove="blobs\x86\vc_redist.exe" />
     <None Remove="LICENSE.txt" />
     <None Remove="logichub.png" />
@@ -99,6 +102,9 @@
     <EmbeddedResource Include="blobs\arm64\net8017.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="blobs\arm64\net906.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="blobs\arm64\vc_redist.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -117,6 +123,9 @@
     <EmbeddedResource Include="blobs\x64\net8017.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="blobs\x64\net906.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="blobs\x64\vc_redist.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -124,6 +133,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="blobs\x86\net8017.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="blobs\x86\net906.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="blobs\x86\vc_redist.exe">
