@@ -31,9 +31,10 @@ namespace WinBox_Maker
 
             TweakList.Items.Clear();
             AddTweakToList("Integrate microsoft edge");
+            AddTweakToList("Integrate vc redist");
+            AddTweakToList("Integrate net 8.0.17");
             AddTweakToList("Integrate net 4.8.1");
             AddTweakToList("Integrate net 4.7.2");
-            AddTweakToList("Integrate vc redist");
             AddTweakToList("Hide Cursor");
             AddTweakToList("Disable boot circle");
             AddTweakToList("Disable boot logo");

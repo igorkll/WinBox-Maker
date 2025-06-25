@@ -426,6 +426,15 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
             // ------------------------------------ system init
             string baseSetup = $@"@echo off
 
+powercfg -h off
+powercfg -change -standby-timeout-ac 0
+powercfg -change -standby-timeout-dc 0
+powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
+powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
+powercfg -s SCHEME_CURRENT
+
 dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
 dism /online /enable-feature /all /featurename:Client-DeviceLockdown
 dism /online /enable-feature /all /featurename:Client-KeyboardFilter
@@ -491,15 +500,6 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
 reagentc.exe /disable
 
-powercfg -h off
-powercfg -change -standby-timeout-ac 0
-powercfg -change -standby-timeout-dc 0
-powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
-powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}
-powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
-powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
-powercfg -s SCHEME_CURRENT
-
 bcdedit /set {{bootmgr}} displaybootmenu no
 bcdedit /set {{bootmgr}} timeout 0
 bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
@@ -560,6 +560,12 @@ bcdedit /set {{default}} TESTSIGNING ON";
             {
                 await CopyBlob("net472.exe");
                 baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net472.exe /q";
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate net 8.0.17"))
+            {
+                await CopyBlob("net8017.exe");
+                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net8017.exe /quiet /norestart";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate vc redist"))
