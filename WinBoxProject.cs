@@ -588,8 +588,7 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 if (File.Exists(logoPath))
                 {
                     await UnpackBlob("HackBGRT.zip");
-                    await Program.CopyFileAsync(logoPath, Path.Combine(WinboxResourcesPath, "logo.bmp"));
-                    baseSetup += "\r\ncopy /Y C:\\WinboxResources\\logo.bmp C:\\WinboxResources\\HackBGRT-2.5.2\\splash.bmp";
+                    await Program.CopyFileAsync(logoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "splash.bmp"));
                     baseSetup += "\r\nstart /wait C:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install";
                 }
             }
@@ -626,18 +625,18 @@ net localgroup Administrators winbox /add";
             await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "UpdateSystemSettings.bat"), updateSystemSettings);
             await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);
 
+            // ------------------------------------ copy program files
+            string programPath = Path.Combine(resourcesDirectoryPath, "program");
+            if (Directory.Exists(programPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
+            }
+
             // ------------------------------------ copy files
             string filesPath = Path.Combine(resourcesDirectoryPath, "files");
             if (Directory.Exists(filesPath))
             {
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
-            }
-
-            // ------------------------------------ copy program files
-            string programPath = Path.Combine(resourcesDirectoryPath, "program");
-            if (Directory.Exists(filesPath))
-            {
-                await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
             }
 
             // ------------------------------------ setup application autorun
