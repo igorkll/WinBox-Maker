@@ -22,6 +22,7 @@ using WinBox_Maker.Properties;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using IWshShortcut = IWshRuntimeLibrary.IWshShortcut;
 using WshShell = IWshRuntimeLibrary.WshShell;
+using System.IO.Compression;
 
 namespace WinBox_Maker
 {
@@ -354,6 +355,24 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
             }
         }
 
+        public async Task UnpackBlob(string name)
+        {
+            string? path = Program.getBlobPath(winBoxConfig, name);
+            if (path != null)
+            {
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        ZipFile.ExtractToDirectory(path, Path.Combine(wimMountPath, "WinboxResources"));
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                });
+            }
+        }
+
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
             await ExtractInstallWim(processName, processValue);
@@ -568,9 +587,8 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
                 if (File.Exists(logoPath))
                 {
-                    await CopyBlob("HackBGRT.zip");
+                    await UnpackBlob("HackBGRT.zip");
                     await Program.CopyFileAsync(logoPath, Path.Combine(WinboxResourcesPath, "logo.bmp"));
-                    baseSetup += "\r\npowershell -C \"Expand-Archive -Path C:\\WinboxResources\\HackBGRT.zip -DestinationPath C:\\WinboxResources\"";
                     baseSetup += "\r\ncopy /Y C:\\WinboxResources\\logo.bmp C:\\WinboxResources\\HackBGRT-2.5.2\\splash.bmp";
                     baseSetup += "\r\nstart /wait C:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install";
                 }
