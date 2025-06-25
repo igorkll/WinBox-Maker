@@ -22,7 +22,6 @@ using WinBox_Maker.Properties;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using IWshShortcut = IWshRuntimeLibrary.IWshShortcut;
 using WshShell = IWshRuntimeLibrary.WshShell;
-using System.IO.Compression;
 
 namespace WinBox_Maker
 {
