@@ -1,4 +1,5 @@
-# WinBox-Maker 0.1.0
+# WinBox-Maker 1.1.0
+![preview](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/main/preview.png)
 download "blobs" folder: https://drive.google.com/file/d/1xH0g-R7ckmCbhAJV-ED4NHXPXl_dOrfH/view?usp=sharing
 program examples: https://github.com/igorkll/WinBox-Maker-programs  
 a tool for creating minimal embed versions of windows  
