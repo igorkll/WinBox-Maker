@@ -1,6 +1,6 @@
 # WinBox-Maker 0.1.0
 download "blobs" folder: https://drive.google.com/file/d/1xH0g-R7ckmCbhAJV-ED4NHXPXl_dOrfH/view?usp=sharing
-program examples: https://github.com/igorkll/WinBox-Maker-programs
+program examples: https://github.com/igorkll/WinBox-Maker-programs  
 a tool for creating minimal embed versions of windows  
 takes on the task of modifying the windows image to remove excess and embed software there  
 the program is perfect for windows builds designed for ATM terminals and other devices that unauthorized people have access to and should not be allowed to leave the specified sandbox  
