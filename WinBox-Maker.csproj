@@ -14,40 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="blobs\arm64\MicrosoftEdge.msi" />
-    <None Remove="blobs\arm64\net8017.exe" />
-    <None Remove="blobs\arm64\net906.exe" />
-    <None Remove="blobs\arm64\vc_redist.exe" />
-    <None Remove="blobs\def\HackBGRT.zip" />
-    <None Remove="blobs\def\net472.exe" />
-    <None Remove="blobs\def\net481.exe" />
-    <None Remove="blobs\x64\MicrosoftEdge.msi" />
-    <None Remove="blobs\x64\net8017.exe" />
-    <None Remove="blobs\x64\net906.exe" />
-    <None Remove="blobs\x64\vc_redist.exe" />
-    <None Remove="blobs\x86\MicrosoftEdge.msi" />
-    <None Remove="blobs\x86\net8017.exe" />
-    <None Remove="blobs\x86\net906.exe" />
-    <None Remove="blobs\x86\vc_redist.exe" />
-    <None Remove="LICENSE.txt" />
-    <None Remove="logichub.png" />
-    <None Remove="newproject.png" />
-    <None Remove="openproject.png" />
-    <None Remove="oscdimg-amd64\efisys.bin" />
-    <None Remove="oscdimg-amd64\efisys_noprompt.bin" />
-    <None Remove="oscdimg-amd64\etfsboot.com" />
-    <None Remove="oscdimg-amd64\oscdimg.exe" />
-    <None Remove="oscdimg-arm64\efisys.bin" />
-    <None Remove="oscdimg-arm64\efisys_noprompt.bin" />
-    <None Remove="oscdimg-arm64\oscdimg.exe" />
-    <None Remove="oscdimg-arm\efisys.bin" />
-    <None Remove="oscdimg-arm\efisys_noprompt.bin" />
-    <None Remove="oscdimg-arm\oscdimg.exe" />
-    <None Remove="oscdimg-x86\efisys.bin" />
-    <None Remove="oscdimg-x86\efisys_noprompt.bin" />
-    <None Remove="oscdimg-x86\etfsboot.com" />
-    <None Remove="oscdimg-x86\oscdimg.exe" />
-    <None Remove="README.md" />
     <None Remove="reg\disable_autoupdate.reg" />
     <None Remove="reg\disable_bootmanager.reg" />
     <None Remove="reg\disable_checkdisk.reg" />
@@ -62,12 +28,7 @@
     <None Remove="reg\disable_winkeys.reg" />
     <None Remove="reg\fake_activation.reg" />
     <None Remove="reg\skip_oobe.reg" />
-    <None Remove="reg\tweak.reg" />
-    <None Remove="resources\custom_cursor.reg" />
-    <None Remove="resources\empty.cur" />
-    <None Remove="resources\hide_cursor.reg" />
     <None Remove="tweak.reg" />
-    <None Remove="winbox.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -93,126 +54,6 @@
 
   <ItemGroup>
     <Content Include="winbox.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="blobs\arm64\MicrosoftEdge.msi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\arm64\net8017.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\arm64\net906.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\arm64\vc_redist.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\def\HackBGRT.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\def\net472.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\def\net481.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\x64\MicrosoftEdge.msi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\x64\net8017.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\x64\net906.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\x64\vc_redist.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\x86\MicrosoftEdge.msi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\x86\net8017.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\x86\net906.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="blobs\x86\vc_redist.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LICENSE.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="logichub.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="newproject.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="openproject.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-amd64\efisys.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-amd64\efisys_noprompt.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-amd64\etfsboot.com">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-amd64\oscdimg.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-arm64\efisys.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-arm64\efisys_noprompt.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-arm64\oscdimg.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-arm\efisys.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-arm\efisys_noprompt.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-arm\oscdimg.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-x86\efisys.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-x86\efisys_noprompt.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-x86\etfsboot.com">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="oscdimg-x86\oscdimg.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="README.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="reg\tweak.reg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="resources\custom_cursor.reg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="resources\empty.cur">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="resources\hide_cursor.reg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="winbox.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -243,9 +84,126 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="blobs\arm64\MicrosoftEdge.msi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\arm64\net8017.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\arm64\net906.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\arm64\vc_redist.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\def\HackBGRT.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\def\net472.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\def\net481.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\x64\MicrosoftEdge.msi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\x64\net8017.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\x64\net906.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\x64\vc_redist.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\x86\MicrosoftEdge.msi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\x86\net8017.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\x86\net906.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="blobs\x86\vc_redist.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="logichub.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="newproject.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="openproject.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-amd64\efisys.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-amd64\efisys_noprompt.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-amd64\etfsboot.com">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-amd64\oscdimg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-arm64\efisys.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-arm64\efisys_noprompt.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-arm64\oscdimg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-arm\efisys.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-arm\efisys_noprompt.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-arm\oscdimg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-x86\efisys.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-x86\efisys_noprompt.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-x86\etfsboot.com">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="oscdimg-x86\oscdimg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="reg\tweak.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\custom_cursor.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\empty.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\hide_cursor.reg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="winbox.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
