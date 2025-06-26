@@ -526,6 +526,8 @@ bcdedit /set {{default}} loadoptions DISABLE_INTEGRITY_CHECKS
 bcdedit /set {{default}} NOINTEGRITYCHECKS ON
 bcdedit /set {{default}} TESTSIGNING ON";
 
+            string applicationScript = $@"@echo off";
+
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
             string cursorPath = Path.Combine(resourcesDirectoryPath, "cursor");
             bool customCursor = Directory.Exists(cursorPath) && !Program.IsDirectoryEmpty(cursorPath);
@@ -578,7 +580,7 @@ bcdedit /set {{default}} TESTSIGNING ON";
             if (Program.isTweakEnabled(winBoxConfig, "Integrate app runtime 1.7.3"))
             {
                 await CopyBlob("appruntime173.exe");
-                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\appruntime173.exe";
+                applicationScript += $"\r\nC:\\WinboxResources\\appruntime173.exe";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
@@ -743,7 +745,12 @@ if %errorlevel%==0 (
                     }
                     break;
             }
-            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(command));
+
+            applicationScript += "\r\n" + command;
+
+            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "app_script.bat"), applicationScript);
+            await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_app_script_hidden.vbs"), @"C:\WinboxResources\app_script.bat", null);
+            await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile("wscript \"C:\\WinboxResources\\run_app_script_hidden.vbs\""));
 
             // ------------------------------------ save & export
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
