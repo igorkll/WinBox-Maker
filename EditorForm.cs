@@ -36,6 +36,7 @@ namespace WinBox_Maker
             AddTweakToList("Integrate net 8.0.17");
             AddTweakToList("Integrate net 4.8.1");
             AddTweakToList("Integrate net 4.7.2");
+            AddTweakToList("Integrate app runtime 1.7.3");
             AddTweakToList("Hide Cursor");
             AddTweakToList("Disable boot circle");
             AddTweakToList("Disable boot logo");

@@ -499,6 +499,7 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" 
 reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
 
 reagentc.exe /disable
+netsh advfirewall set allprofiles state off
 
 bcdedit /set {{bootmgr}} displaybootmenu no
 bcdedit /set {{bootmgr}} timeout 0
@@ -544,10 +545,10 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 updateSystemSettings += $"\r\nbcdedit /set {{globalsettings}} custom:16000067 true";
             }
 
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate vc redist"))
             {
-                await CopyBlob("MicrosoftEdge.msi");
-                baseSetup += $"\r\nstart /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart";
+                await CopyBlob("vc_redist.exe");
+                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\vc_redist.exe /install /quiet /norestart";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.8.1"))
@@ -574,10 +575,16 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net906.exe /quiet /norestart";
             }
 
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate vc redist"))
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate app runtime 1.7.3"))
             {
-                await CopyBlob("vc_redist.exe");
-                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\vc_redist.exe /install /quiet /norestart";
+                await CopyBlob("appruntime173.exe");
+                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\appruntime173.exe";
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
+            {
+                await CopyBlob("MicrosoftEdge.msi");
+                baseSetup += $"\r\nstart /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
