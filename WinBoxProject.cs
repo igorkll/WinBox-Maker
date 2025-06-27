@@ -583,9 +583,9 @@ bcdedit /set {{default}} TESTSIGNING ON";
             if (Program.isTweakEnabled(winBoxConfig, "Integrate app runtime 1.7.3"))
             {
                 await CopyBlob("appruntime173.exe");
-                applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\appruntime.installed\" (";
+                applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\appruntime173.installed\" (";
                 applicationScript += $"\r\nC:\\WinboxResources\\appruntime173.exe";
-                applicationScript += $"\r\necho. > \"C:\\WinboxResources\\appruntime.installed\"";
+                applicationScript += $"\r\necho. > \"C:\\WinboxResources\\appruntime173.installed\"";
                 applicationScript += $"\r\n)";
             }
 
