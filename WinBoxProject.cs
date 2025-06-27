@@ -5,13 +5,16 @@ using ManagedWimLib;
 using Microsoft.VisualBasic.ApplicationServices;
 using Shell32;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.IO;
 using System.IO.Compression;
+using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -580,7 +583,10 @@ bcdedit /set {{default}} TESTSIGNING ON";
             if (Program.isTweakEnabled(winBoxConfig, "Integrate app runtime 1.7.3"))
             {
                 await CopyBlob("appruntime173.exe");
+                applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\appruntime.installed\" (";
                 applicationScript += $"\r\nC:\\WinboxResources\\appruntime173.exe";
+                applicationScript += $"\r\necho. > \"C:\\WinboxResources\\appruntime.installed\"";
+                applicationScript += $"\r\n)";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
@@ -672,6 +678,15 @@ net localgroup Administrators winbox /add";
                         {
                             await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), execFilePath, winBoxConfig.ProgramArgs);
                             command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
+                        }
+                        else if (extension != null && (extension.Equals(".msix", StringComparison.OrdinalIgnoreCase) ||
+                            extension.Equals(".appx", StringComparison.OrdinalIgnoreCase)))
+                        {
+                            applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\userapp.installed\" (";
+                            applicationScript += $"\r\nAdd-AppPackage -Path \"{execFilePath}\" -AllowUnsigned";
+                            applicationScript += $"\r\necho. > \"C:\\WinboxResources\\userapp.installed\"";
+                            applicationScript += $"\r\n)";
+                            command = "";
                         }
                         else
                         {
