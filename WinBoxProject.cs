@@ -686,7 +686,7 @@ net localgroup Administrators winbox /add";
                             applicationScript += $"\r\nAdd-AppPackage -Path \"{execFilePath}\" -AllowUnsigned";
                             applicationScript += $"\r\necho. > \"C:\\WinboxResources\\userapp.installed\"";
                             applicationScript += $"\r\n)";
-                            command = "";
+                            command = "cmd.exe";
                         }
                         else
                         {
