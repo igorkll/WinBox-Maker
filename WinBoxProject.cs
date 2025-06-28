@@ -679,15 +679,6 @@ net localgroup Administrators winbox /add";
                             await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), execFilePath, winBoxConfig.ProgramArgs);
                             command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
                         }
-                        else if (extension != null && (extension.Equals(".msix", StringComparison.OrdinalIgnoreCase) ||
-                            extension.Equals(".appx", StringComparison.OrdinalIgnoreCase)))
-                        {
-                            applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\userapp.installed\" (";
-                            applicationScript += $"\r\nAdd-AppPackage -Path \"{execFilePath}\" -AllowUnsigned";
-                            applicationScript += $"\r\necho. > \"C:\\WinboxResources\\userapp.installed\"";
-                            applicationScript += $"\r\n)";
-                            command = "cmd.exe";
-                        }
                         else
                         {
                             command = "\"" + execFilePath + "\"";

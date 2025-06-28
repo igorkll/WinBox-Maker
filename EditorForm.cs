@@ -483,7 +483,7 @@ namespace WinBox_Maker
         private async void AppSelect_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Executable files (*.exe;*.bat;*.cmd;*.appx;*.msix)|*.exe;*.bat;*.cmd;*.appx;*.msix|All files (*.*)|*.*", Path.Combine(winBoxProject.resourcesDirectoryPath, "program"), true);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Executable files (*.exe;*.bat;*.cmd)|*.exe;*.bat;*.cmd|All files (*.*)|*.*", Path.Combine(winBoxProject.resourcesDirectoryPath, "program"), true);
             if (name != null)
             {
                 winBoxProject.winBoxConfig.ProgramName = name;
