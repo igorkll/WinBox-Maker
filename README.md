@@ -20,6 +20,7 @@ please note that winbox maker does not provide Windows images, it only provides 
 * when you burn the installation ISO to a USB stick via rufus or a similar program, DO NOT USE the windows installation customization feature, as this will cause conflicts with those tweaks that already exist in winbox and it may work incorrectly
 * it is recommended to use "Windows 10 Enterprise" specifically, otherwise some things probably won't work, such as disabling the login animation and disabling keyboard shortcuts in the system itself
 * at the moment, the custom boot logo installation only works on UEFI systems (you also need to turn off secure boot) (it may also not work at all for reasons unknown to me)
+* your program from the winbox_resources/program folder on the target system is located in C:\WinboxProgram
 
 ## what was disabled
 * explorer.exe (the desktop is completely inaccessible)
