@@ -115,6 +115,8 @@ please note that winbox maker does not provide Windows images, it only provides 
 * winbox_resources/files - files from this directory will be moved to the root of the disk on the installed system with replacement
 * winbox_resources/program - the directory for your application that will be used in kiosk mode. although this directory is not added to by default .gitignore if you plan to automatically copy your application files here during assembly and build a windows image with your application in post build event, then add this directory to .gitignore
 * winbox_resources/drivers - the directory with the drivers with which the image should be built
+* winbox_resources/nvidia_drivers - put the driver installers for your nvidia graphics cards here
+* winbox_resources/amd_drivers - put the driver installers for your AMD graphics cards here
 * winbox_resources/packages - you can add the .cab or .msu packages to this directory
 * winbox_resources/cursor - the directory where you can upload custom cursor files (.cur for different states)
 

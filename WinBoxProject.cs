@@ -119,6 +119,8 @@ namespace WinBox_Maker
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "files"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "program"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "drivers"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "nvidia_drivers"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "amd_drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "packages"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "cursor"));
 
@@ -418,6 +420,17 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
             Directory.CreateDirectory(WindowsScriptsPath);
             Directory.CreateDirectory(WinboxResourcesPath);
 
+            string nvidiaDriversPath = Path.Combine(resourcesDirectoryPath, "nvidia_drivers");
+            if (Directory.Exists(nvidiaDriversPath)) {
+                await Program.CopyFilesRecursivelyAsync(nvidiaDriversPath, Path.Combine(WinboxResourcesPath, "nvidia_drivers"));
+            }
+
+            string amdDriversPath = Path.Combine(resourcesDirectoryPath, "amd_drivers");
+            if (Directory.Exists(amdDriversPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(amdDriversPath, Path.Combine(WinboxResourcesPath, "amd_drivers"));
+            }
+
             await Program.ExecuteAsync("reg.exe", $"import reg\\tweak.reg");
 
             string lockScreenAppPath = Path.Combine(wimMountPath, "Windows\\SystemApps\\Microsoft.LockApp_cw5n1h2txyewy");
@@ -495,7 +508,8 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v Co
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v DontShowUI /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v Disabled /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v UserPreferencesMask /t REG_BINARY /d 9012038010000000 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" /v MinAnimate /t REG_SZ /d ""0"" /f";
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" /v MinAnimate /t REG_SZ /d ""0"" /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVTweak"" /v OverlayHook /t REG_DWORD /d 0 /f";
 
             string updateSystemSettings = $@"@echo off
 
@@ -529,7 +543,25 @@ bcdedit /set {{default}} loadoptions DISABLE_INTEGRITY_CHECKS
 bcdedit /set {{default}} NOINTEGRITYCHECKS ON
 bcdedit /set {{default}} TESTSIGNING ON";
 
-            string applicationScript = $@"@echo off";
+            string applicationScript = $@"@echo off
+
+set ""nvidiaDriverDir=C:\WinboxResources\nvidia_drivers""
+if exist ""%nvidiaDriverDir%"" (
+    cd /d ""%nvidiaDriverDir%""
+
+    for %%f in (*.exe) do (
+        start /wait """" ""%%f"" -s
+    )
+)
+
+set ""amdDriverDir=C:\WinboxResources\amd_drivers""
+if exist ""%amdDriverDir%"" (
+    cd /d ""%amdDriverDir%""
+
+    for %%f in (*.exe) do (
+        start /wait """" ""%%f"" -install
+    )
+)";
 
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
             string cursorPath = Path.Combine(resourcesDirectoryPath, "cursor");
@@ -671,6 +703,7 @@ net localgroup Administrators winbox /add";
             {
                 case ProgramTypeEnum.ExecutableFile:
                     {
+                        applicationScript += "\r\ncd C:\\WinboxProgram";
                         string execFilePath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
                         string extension = Path.GetExtension(winBoxConfig.ProgramName);
                         if (extension != null && (extension.Equals(".bat", StringComparison.OrdinalIgnoreCase) ||
