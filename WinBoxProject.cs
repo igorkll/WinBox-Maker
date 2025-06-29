@@ -545,22 +545,26 @@ bcdedit /set {{default}} TESTSIGNING ON";
 
             string applicationScript = $@"@echo off
 
-set ""nvidiaDriverDir=C:\WinboxResources\nvidia_drivers""
-if exist ""%nvidiaDriverDir%"" (
-    cd /d ""%nvidiaDriverDir%""
+IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
+    set ""nvidiaDriverDir=C:\WinboxResources\nvidia_drivers""
+    if exist ""%nvidiaDriverDir%"" (
+        cd /d ""%nvidiaDriverDir%""
 
-    for %%f in (*.exe) do (
-        start /wait """" ""%%f"" -s
+        for %%f in (*.exe) do (
+            start /wait """" ""%%f"" -s
+        )
     )
-)
 
-set ""amdDriverDir=C:\WinboxResources\amd_drivers""
-if exist ""%amdDriverDir%"" (
-    cd /d ""%amdDriverDir%""
+    set ""amdDriverDir=C:\WinboxResources\amd_drivers""
+    if exist ""%amdDriverDir%"" (
+        cd /d ""%amdDriverDir%""
 
-    for %%f in (*.exe) do (
-        start /wait """" ""%%f"" -install
+        for %%f in (*.exe) do (
+            start /wait """" ""%%f"" -install
+        )
     )
+
+    echo. > ""C:\WinboxResources\drivers.installed""
 )";
 
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
