@@ -93,17 +93,31 @@
             ScreenTimeout = new TextBox();
             ArchitectureSelect = new ComboBox();
             label14 = new Label();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
+            tabPage3 = new TabPage();
+            tabPage4 = new TabPage();
+            tabPage5 = new TabPage();
+            tabPage6 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            tabPage3.SuspendLayout();
+            tabPage4.SuspendLayout();
+            tabPage5.SuspendLayout();
+            tabPage6.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
             // 
-            WindowsSelect.Location = new Point(342, 100);
+            WindowsSelect.Location = new Point(6, 44);
             WindowsSelect.Name = "WindowsSelect";
             WindowsSelect.Size = new Size(318, 38);
             WindowsSelect.TabIndex = 4;
@@ -114,7 +128,7 @@
             // WindowsName
             // 
             WindowsName.AutoSize = true;
-            WindowsName.Location = new Point(789, 106);
+            WindowsName.Location = new Point(453, 51);
             WindowsName.Name = "WindowsName";
             WindowsName.Size = new Size(178, 25);
             WindowsName.TabIndex = 5;
@@ -122,7 +136,7 @@
             // 
             // WindowsClear
             // 
-            WindowsClear.Location = new Point(666, 100);
+            WindowsClear.Location = new Point(330, 44);
             WindowsClear.Name = "WindowsClear";
             WindowsClear.Size = new Size(117, 38);
             WindowsClear.TabIndex = 6;
@@ -133,7 +147,7 @@
             // WindowsVersionSelect
             // 
             WindowsVersionSelect.FormattingEnabled = true;
-            WindowsVersionSelect.Location = new Point(342, 144);
+            WindowsVersionSelect.Location = new Point(6, 88);
             WindowsVersionSelect.Name = "WindowsVersionSelect";
             WindowsVersionSelect.Size = new Size(318, 33);
             WindowsVersionSelect.TabIndex = 7;
@@ -141,7 +155,7 @@
             // 
             // WindowsVersionUpdate
             // 
-            WindowsVersionUpdate.Location = new Point(789, 144);
+            WindowsVersionUpdate.Location = new Point(453, 87);
             WindowsVersionUpdate.Name = "WindowsVersionUpdate";
             WindowsVersionUpdate.Size = new Size(117, 33);
             WindowsVersionUpdate.TabIndex = 8;
@@ -151,7 +165,7 @@
             // 
             // WindowsVersionClear
             // 
-            WindowsVersionClear.Location = new Point(666, 144);
+            WindowsVersionClear.Location = new Point(330, 88);
             WindowsVersionClear.Name = "WindowsVersionClear";
             WindowsVersionClear.Size = new Size(117, 33);
             WindowsVersionClear.TabIndex = 9;
@@ -163,7 +177,7 @@
             // 
             ProcessName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ProcessName.AutoSize = true;
-            ProcessName.Location = new Point(0, 886);
+            ProcessName.Location = new Point(0, 585);
             ProcessName.Margin = new Padding(3, 0, 3, 40);
             ProcessName.Name = "ProcessName";
             ProcessName.Size = new Size(122, 25);
@@ -173,7 +187,7 @@
             // WinboxDescription
             // 
             WinboxDescription.BackColor = SystemColors.Window;
-            WinboxDescription.Location = new Point(15, 300);
+            WinboxDescription.Location = new Point(6, 81);
             WinboxDescription.Name = "WinboxDescription";
             WinboxDescription.Size = new Size(319, 248);
             WinboxDescription.TabIndex = 11;
@@ -184,7 +198,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(12, 60);
+            label1.Location = new Point(6, 3);
             label1.Name = "label1";
             label1.Size = new Size(684, 38);
             label1.TabIndex = 12;
@@ -194,7 +208,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(12, 224);
+            label2.Location = new Point(6, 3);
             label2.Name = "label2";
             label2.Size = new Size(188, 38);
             label2.TabIndex = 13;
@@ -202,7 +216,7 @@
             // 
             // WinboxName
             // 
-            WinboxName.Location = new Point(16, 264);
+            WinboxName.Location = new Point(6, 44);
             WinboxName.Name = "WinboxName";
             WinboxName.Size = new Size(318, 31);
             WinboxName.TabIndex = 14;
@@ -210,7 +224,7 @@
             // 
             // WindowsDescription
             // 
-            WindowsDescription.Location = new Point(16, 100);
+            WindowsDescription.Location = new Point(6, 166);
             WindowsDescription.Name = "WindowsDescription";
             WindowsDescription.ReadOnly = true;
             WindowsDescription.Size = new Size(318, 118);
@@ -222,7 +236,7 @@
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox1.Cursor = Cursors.Hand;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(1146, 16);
+            pictureBox1.Location = new Point(1066, 16);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(96, 96);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -235,7 +249,7 @@
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox2.Cursor = Cursors.Hand;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(1146, 118);
+            pictureBox2.Location = new Point(1066, 118);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(96, 96);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -246,7 +260,7 @@
             // ExportInstallWim
             // 
             ExportInstallWim.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportInstallWim.Location = new Point(1020, 824);
+            ExportInstallWim.Location = new Point(940, 523);
             ExportInstallWim.Name = "ExportInstallWim";
             ExportInstallWim.Size = new Size(222, 38);
             ExportInstallWim.TabIndex = 19;
@@ -257,7 +271,7 @@
             // ExportIsoInstaller
             // 
             ExportIsoInstaller.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportIsoInstaller.Location = new Point(1020, 868);
+            ExportIsoInstaller.Location = new Point(940, 567);
             ExportIsoInstaller.Margin = new Padding(3, 3, 3, 40);
             ExportIsoInstaller.Name = "ExportIsoInstaller";
             ExportIsoInstaller.Size = new Size(222, 38);
@@ -269,14 +283,14 @@
             // ProcessValue
             // 
             ProcessValue.Dock = DockStyle.Bottom;
-            ProcessValue.Location = new Point(0, 911);
+            ProcessValue.Location = new Point(0, 611);
             ProcessValue.Name = "ProcessValue";
-            ProcessValue.Size = new Size(1258, 33);
+            ProcessValue.Size = new Size(1178, 33);
             ProcessValue.TabIndex = 21;
             // 
             // back
             // 
-            back.Location = new Point(18, 12);
+            back.Location = new Point(12, 12);
             back.Name = "back";
             back.Size = new Size(117, 45);
             back.TabIndex = 22;
@@ -286,7 +300,7 @@
             // 
             // README
             // 
-            README.Location = new Point(138, 12);
+            README.Location = new Point(135, 12);
             README.Name = "README";
             README.Size = new Size(117, 45);
             README.TabIndex = 23;
@@ -296,7 +310,7 @@
             // 
             // LICENSE
             // 
-            LICENSE.Location = new Point(261, 12);
+            LICENSE.Location = new Point(258, 12);
             LICENSE.Name = "LICENSE";
             LICENSE.Size = new Size(117, 45);
             LICENSE.TabIndex = 24;
@@ -307,7 +321,7 @@
             // ExportImgPartition
             // 
             ExportImgPartition.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportImgPartition.Location = new Point(1020, 780);
+            ExportImgPartition.Location = new Point(940, 479);
             ExportImgPartition.Name = "ExportImgPartition";
             ExportImgPartition.Size = new Size(222, 38);
             ExportImgPartition.TabIndex = 25;
@@ -321,7 +335,7 @@
             panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1.Controls.Add(OemKey);
             panel1.Controls.Add(UseOemKey);
-            panel1.Location = new Point(340, 591);
+            panel1.Location = new Point(6, 44);
             panel1.Name = "panel1";
             panel1.Size = new Size(455, 78);
             panel1.TabIndex = 26;
@@ -364,7 +378,7 @@
             panel2.Controls.Add(ProgramName);
             panel2.Controls.Add(AppClear);
             panel2.Controls.Add(AppSelect);
-            panel2.Location = new Point(344, 264);
+            panel2.Location = new Point(6, 44);
             panel2.Name = "panel2";
             panel2.Size = new Size(451, 284);
             panel2.TabIndex = 27;
@@ -517,7 +531,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(342, 225);
+            label3.Location = new Point(6, 3);
             label3.Name = "label3";
             label3.Size = new Size(205, 38);
             label3.TabIndex = 28;
@@ -527,7 +541,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(802, 224);
+            label5.Location = new Point(6, 3);
             label5.Name = "label5";
             label5.Size = new Size(116, 38);
             label5.TabIndex = 30;
@@ -535,7 +549,7 @@
             // 
             // OpenProjectFolder
             // 
-            OpenProjectFolder.Location = new Point(384, 12);
+            OpenProjectFolder.Location = new Point(381, 12);
             OpenProjectFolder.Name = "OpenProjectFolder";
             OpenProjectFolder.Size = new Size(246, 45);
             OpenProjectFolder.TabIndex = 31;
@@ -547,7 +561,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 14F);
-            label7.Location = new Point(342, 551);
+            label7.Location = new Point(5, 3);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(139, 38);
@@ -558,7 +572,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label10.Location = new Point(16, 551);
+            label10.Location = new Point(3, 3);
             label10.Name = "label10";
             label10.Size = new Size(149, 38);
             label10.TabIndex = 34;
@@ -580,7 +594,7 @@
             panel3.Controls.Add(label12);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(postinstall_bat_sel);
-            panel3.Location = new Point(16, 591);
+            panel3.Location = new Point(6, 44);
             panel3.Name = "panel3";
             panel3.Size = new Size(318, 205);
             panel3.TabIndex = 35;
@@ -703,28 +717,27 @@
             // 
             panel4.BackColor = SystemColors.Window;
             panel4.BorderStyle = BorderStyle.Fixed3D;
-            panel4.Controls.Add(TweakList);
             panel4.Controls.Add(label13);
             panel4.Controls.Add(ScreenTimeout);
-            panel4.Location = new Point(802, 264);
+            panel4.Location = new Point(316, 44);
             panel4.Name = "panel4";
-            panel4.Size = new Size(314, 279);
+            panel4.Size = new Size(314, 284);
             panel4.TabIndex = 36;
             // 
             // TweakList
             // 
             TweakList.BackColor = SystemColors.Control;
             TweakList.FormattingEnabled = true;
-            TweakList.Location = new Point(3, 3);
+            TweakList.Location = new Point(6, 44);
             TweakList.Name = "TweakList";
-            TweakList.Size = new Size(304, 172);
+            TweakList.Size = new Size(304, 284);
             TweakList.TabIndex = 2;
             TweakList.ItemCheck += TweakList_ItemCheck;
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(117, 243);
+            label13.Location = new Point(120, 6);
             label13.Name = "label13";
             label13.Size = new Size(134, 25);
             label13.TabIndex = 1;
@@ -732,7 +745,7 @@
             // 
             // ScreenTimeout
             // 
-            ScreenTimeout.Location = new Point(3, 240);
+            ScreenTimeout.Location = new Point(3, 3);
             ScreenTimeout.Name = "ScreenTimeout";
             ScreenTimeout.Size = new Size(111, 31);
             ScreenTimeout.TabIndex = 0;
@@ -741,7 +754,7 @@
             // ArchitectureSelect
             // 
             ArchitectureSelect.FormattingEnabled = true;
-            ArchitectureSelect.Location = new Point(342, 181);
+            ArchitectureSelect.Location = new Point(6, 127);
             ArchitectureSelect.Name = "ArchitectureSelect";
             ArchitectureSelect.Size = new Size(318, 33);
             ArchitectureSelect.TabIndex = 37;
@@ -750,11 +763,107 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(666, 184);
+            label14.Location = new Point(330, 130);
             label14.Name = "label14";
             label14.Size = new Size(389, 25);
             label14.TabIndex = 38;
             label14.Text = "select the actual architecture of your image here";
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
+            tabControl1.Controls.Add(tabPage5);
+            tabControl1.Controls.Add(tabPage6);
+            tabControl1.Location = new Point(12, 63);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(959, 385);
+            tabControl1.TabIndex = 39;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(label1);
+            tabPage1.Controls.Add(label14);
+            tabPage1.Controls.Add(WindowsDescription);
+            tabPage1.Controls.Add(ArchitectureSelect);
+            tabPage1.Controls.Add(WindowsSelect);
+            tabPage1.Controls.Add(WindowsVersionSelect);
+            tabPage1.Controls.Add(WindowsVersionClear);
+            tabPage1.Controls.Add(WindowsVersionUpdate);
+            tabPage1.Controls.Add(WindowsClear);
+            tabPage1.Controls.Add(WindowsName);
+            tabPage1.Location = new Point(4, 34);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(951, 347);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "base";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(label2);
+            tabPage2.Controls.Add(WinboxName);
+            tabPage2.Controls.Add(WinboxDescription);
+            tabPage2.Location = new Point(4, 34);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(951, 347);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "new";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(panel2);
+            tabPage3.Controls.Add(label3);
+            tabPage3.Location = new Point(4, 34);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(951, 347);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "app";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(TweakList);
+            tabPage4.Controls.Add(label5);
+            tabPage4.Controls.Add(panel4);
+            tabPage4.Location = new Point(4, 34);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(3);
+            tabPage4.Size = new Size(951, 347);
+            tabPage4.TabIndex = 3;
+            tabPage4.Text = "settings";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            tabPage5.Controls.Add(label10);
+            tabPage5.Controls.Add(panel3);
+            tabPage5.Location = new Point(4, 34);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding(3);
+            tabPage5.Size = new Size(951, 347);
+            tabPage5.TabIndex = 4;
+            tabPage5.Text = "post install";
+            tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            tabPage6.Controls.Add(label7);
+            tabPage6.Controls.Add(panel1);
+            tabPage6.Location = new Point(4, 34);
+            tabPage6.Name = "tabPage6";
+            tabPage6.Padding = new Padding(3);
+            tabPage6.Size = new Size(951, 347);
+            tabPage6.TabIndex = 5;
+            tabPage6.Text = "activation";
+            tabPage6.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
@@ -762,19 +871,10 @@
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoScroll = true;
             AutoScrollMargin = new Size(10, 30);
-            BackColor = SystemColors.Control;
-            ClientSize = new Size(1258, 944);
-            Controls.Add(label14);
-            Controls.Add(ArchitectureSelect);
-            Controls.Add(panel4);
-            Controls.Add(panel3);
-            Controls.Add(label10);
-            Controls.Add(label7);
+            BackColor = Color.DimGray;
+            ClientSize = new Size(1178, 644);
+            Controls.Add(tabControl1);
             Controls.Add(OpenProjectFolder);
-            Controls.Add(label5);
-            Controls.Add(label3);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
             Controls.Add(ExportImgPartition);
             Controls.Add(LICENSE);
             Controls.Add(README);
@@ -782,18 +882,7 @@
             Controls.Add(ExportInstallWim);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
-            Controls.Add(WindowsDescription);
-            Controls.Add(WinboxName);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(WinboxDescription);
             Controls.Add(ProcessName);
-            Controls.Add(WindowsVersionClear);
-            Controls.Add(WindowsVersionUpdate);
-            Controls.Add(WindowsVersionSelect);
-            Controls.Add(WindowsClear);
-            Controls.Add(WindowsName);
-            Controls.Add(WindowsSelect);
             Controls.Add(ProcessValue);
             Controls.Add(ExportIsoInstaller);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -811,6 +900,19 @@
             panel3.PerformLayout();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
+            tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
+            tabPage5.ResumeLayout(false);
+            tabPage5.PerformLayout();
+            tabPage6.ResumeLayout(false);
+            tabPage6.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -881,5 +983,12 @@
         private Button CustomBootLogo_select;
         private Button CustomBootLogo_clear;
         private Label CustomBootLogo;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private TabPage tabPage3;
+        private TabPage tabPage4;
+        private TabPage tabPage5;
+        private TabPage tabPage6;
     }
 }
