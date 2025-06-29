@@ -560,7 +560,7 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
         cd /d ""%amdDriverDir%""
 
         for %%f in (*.exe) do (
-            start /wait """" ""%%f"" -install
+            start /wait """" ""%%f"" /S
         )
     )
 
