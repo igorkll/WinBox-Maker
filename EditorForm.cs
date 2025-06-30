@@ -1,3 +1,4 @@
+using Microsoft.WindowsAPICodePack.Taskbar;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -5,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Net.WebRequestMethods;
-using Microsoft.WindowsAPICodePack.Taskbar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace WinBox_Maker
 {
@@ -60,30 +61,54 @@ namespace WinBox_Maker
             TweakList.Items.Add(tweak, Program.isTweakEnabled(winBoxProject.winBoxConfig, tweak));
         }
 
-        void UnlockForm()
+        void UnlockFormRecursion(Control parent)
         {
             ProcessName.Text = defaultProcessName;
             ProcessValue.Value = 0;
-            foreach (Control control in this.Controls)
+            foreach (Control control in parent.Controls)
             {
                 control.Enabled = true;
+
+                if (control.HasChildren)
+                {
+                    UnlockFormRecursion(control);
+                }
             }
             UpdateGui();
         }
 
-        void LockForm()
+        void LockFormRecursion(Control parent)
         {
-            foreach (Control control in this.Controls)
+            foreach (Control control in parent.Controls)
             {
                 if (
                     control.Name != "LICENSE" &&
                     control.Name != "README" &&
                     control.Name != "OpenProjectFolder" &&
-                    !(control is ProgressBar) && !(control is Label) && !(control is PictureBox))
+                    !(control is ProgressBar) &&
+                    !(control is Label) &&
+                    !(control is PictureBox) &&
+                    !(control is TabControl) &&
+                    !(control is TabPage))
                 {
                     control.Enabled = false;
                 }
+
+                if (control.HasChildren)
+                {
+                    LockFormRecursion(control);
+                }
             }
+        }
+
+        void UnlockForm()
+        {
+            UnlockFormRecursion(this);
+        }
+
+        void LockForm()
+        {
+            LockFormRecursion(this);
         }
 
         async void LoadWindowsTask()

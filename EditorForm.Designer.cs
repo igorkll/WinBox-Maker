@@ -189,6 +189,7 @@
             // 
             ProcessName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ProcessName.AutoSize = true;
+            ProcessName.ForeColor = SystemColors.Window;
             ProcessName.Location = new Point(0, 585);
             ProcessName.Margin = new Padding(3, 0, 3, 40);
             ProcessName.Name = "ProcessName";
