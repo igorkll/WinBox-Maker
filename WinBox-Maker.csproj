@@ -220,6 +220,9 @@
     <None Update="resources\hide_cursor.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="resources\usbmmidd_v2\custom_usbmmidd.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="winbox.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
