@@ -714,6 +714,13 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
                 }
             }
 
+            if (winBoxConfig.AddVirtualDisplay == true)
+            {
+                await UnpackBlob("usbmmidd_v2.zip");
+                applicationScript += $"\r\nreg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\WUDF\\Services\\usbmmIdd\\Parameters\\Monitors\" /v \"0\" /t REG_SZ /d \"{winBoxConfig.VirtualDisplayWidth},{winBoxConfig.VirtualDisplayHeight}\" /f";
+                applicationScript += $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\usbmmidd.bat";
+            }
+
             baseSetup += $"\r\n";
             baseSetup += @$"reg unload HKLM\DEFAULT_USER
 
