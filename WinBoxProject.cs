@@ -707,7 +707,7 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
 net user winbox /add
 net localgroup Administrators winbox /add";
 
-            await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_appScript.txt"), applicationScript);
+            await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_AppScript.txt"), applicationScript);
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_UpdateSystemSettings.txt"), updateSystemSettings);
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_SetupComplete.txt"), baseSetup);
 
