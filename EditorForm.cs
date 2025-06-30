@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
@@ -339,6 +340,10 @@ namespace WinBox_Maker
             postinstall_user_bat.Text = winBoxProject.winBoxConfig.PostInstall_user_bat ?? "not selected";
             postinstall_user_reg.Text = winBoxProject.winBoxConfig.PostInstall_user_reg ?? "not selected";
             CustomBootLogo.Text = winBoxProject.winBoxConfig.CustomBootLogo ?? "not selected";
+
+            AddVirtualDisplay.CheckState = winBoxProject.winBoxConfig.AddVirtualDisplay == true ? CheckState.Checked : CheckState.Unchecked;
+            VirtualDisplayWidth.Text = winBoxProject.winBoxConfig.VirtualDisplayWidth.ToString();
+            VirtualDisplayHeight.Text = winBoxProject.winBoxConfig.VirtualDisplayHeight.ToString();
 
             ScreenTimeout.Text = winBoxProject.winBoxConfig.ScreenTimeout.ToString();
 
@@ -767,6 +772,76 @@ namespace WinBox_Maker
         private void WindowsDescription_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void AddVirtualDisplay_CheckedChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.AddVirtualDisplay = AddVirtualDisplay.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void ResetVirtualDisplayWidth(int value)
+        {
+            winBoxProject.winBoxConfig.VirtualDisplayWidth = value;
+            VirtualDisplayWidth.Text = winBoxProject.winBoxConfig.VirtualDisplayWidth.ToString();
+        }
+
+        private void VirtualDisplayWidth_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                winBoxProject.winBoxConfig.VirtualDisplayWidth = int.Parse(VirtualDisplayWidth.Text);
+                if (winBoxProject.winBoxConfig.VirtualDisplayWidth < 0)
+                {
+                    ResetVirtualDisplayWidth(0);
+                }
+                else if (winBoxProject.winBoxConfig.VirtualDisplayWidth > 4096)
+                {
+                    ResetVirtualDisplayWidth(4096);
+                }
+            }
+            catch (FormatException)
+            {
+                ResetVirtualDisplayWidth(winBoxProject.winBoxConfig.VirtualDisplayWidth ?? 0);
+            }
+            catch (OverflowException)
+            {
+                ResetVirtualDisplayWidth(winBoxProject.winBoxConfig.VirtualDisplayWidth ?? 0);
+            }
+            winBoxProject.SaveConfig();
+            UpdateGuiWithoutWindowsVersion();
+        }
+
+        private void ResetVirtualDisplayHeight(int value)
+        {
+            winBoxProject.winBoxConfig.VirtualDisplayHeight = value;
+            VirtualDisplayHeight.Text = winBoxProject.winBoxConfig.VirtualDisplayHeight.ToString();
+        }
+
+        private void VirtualDisplayHeight_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                winBoxProject.winBoxConfig.VirtualDisplayHeight = int.Parse(VirtualDisplayHeight.Text);
+                if (winBoxProject.winBoxConfig.VirtualDisplayHeight < 0)
+                {
+                    ResetVirtualDisplayHeight(0);
+                }
+                else if (winBoxProject.winBoxConfig.VirtualDisplayHeight > 4096)
+                {
+                    ResetVirtualDisplayHeight(4096);
+                }
+            }
+            catch (FormatException)
+            {
+                ResetVirtualDisplayHeight(winBoxProject.winBoxConfig.VirtualDisplayHeight ?? 0);
+            }
+            catch (OverflowException)
+            {
+                ResetVirtualDisplayHeight(winBoxProject.winBoxConfig.VirtualDisplayHeight ?? 0);
+            }
+            winBoxProject.SaveConfig();
+            UpdateGuiWithoutWindowsVersion();
         }
     }
 }

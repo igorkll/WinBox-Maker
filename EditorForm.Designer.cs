@@ -111,6 +111,13 @@
             postinstall_user_bat_clr = new Button();
             label17 = new Label();
             tabPage6 = new TabPage();
+            tabPage7 = new TabPage();
+            panel6 = new Panel();
+            AddVirtualDisplay = new CheckBox();
+            VirtualDisplayWidth = new TextBox();
+            VirtualDisplayHeight = new TextBox();
+            label18 = new Label();
+            label19 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -125,6 +132,8 @@
             tabPage5.SuspendLayout();
             panel5.SuspendLayout();
             tabPage6.SuspendLayout();
+            tabPage7.SuspendLayout();
+            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -607,7 +616,7 @@
             panel3.Controls.Add(postinstall_bat_sel);
             panel3.Location = new Point(6, 44);
             panel3.Name = "panel3";
-            panel3.Size = new Size(318, 142);
+            panel3.Size = new Size(446, 142);
             panel3.TabIndex = 35;
             // 
             // postinstall_reg
@@ -792,6 +801,7 @@
             tabControl1.Controls.Add(tabPage4);
             tabControl1.Controls.Add(tabPage5);
             tabControl1.Controls.Add(tabPage6);
+            tabControl1.Controls.Add(tabPage7);
             tabControl1.Location = new Point(12, 63);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -891,9 +901,9 @@
             panel5.Controls.Add(label20);
             panel5.Controls.Add(postinstall_user_reg_sel);
             panel5.Controls.Add(postinstall_user_bat_clr);
-            panel5.Location = new Point(627, 44);
+            panel5.Location = new Point(502, 44);
             panel5.Name = "panel5";
-            panel5.Size = new Size(318, 142);
+            panel5.Size = new Size(446, 142);
             panel5.TabIndex = 37;
             // 
             // postinstall_user_reg
@@ -994,6 +1004,75 @@
             tabPage6.Text = "activation";
             tabPage6.UseVisualStyleBackColor = true;
             // 
+            // tabPage7
+            // 
+            tabPage7.Controls.Add(panel6);
+            tabPage7.Location = new Point(4, 34);
+            tabPage7.Name = "tabPage7";
+            tabPage7.Padding = new Padding(3);
+            tabPage7.Size = new Size(951, 347);
+            tabPage7.TabIndex = 6;
+            tabPage7.Text = "winbox service";
+            tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            panel6.BorderStyle = BorderStyle.Fixed3D;
+            panel6.Controls.Add(label19);
+            panel6.Controls.Add(label18);
+            panel6.Controls.Add(VirtualDisplayHeight);
+            panel6.Controls.Add(VirtualDisplayWidth);
+            panel6.Controls.Add(AddVirtualDisplay);
+            panel6.Location = new Point(6, 6);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(259, 124);
+            panel6.TabIndex = 0;
+            // 
+            // AddVirtualDisplay
+            // 
+            AddVirtualDisplay.AutoSize = true;
+            AddVirtualDisplay.Location = new Point(3, 3);
+            AddVirtualDisplay.Name = "AddVirtualDisplay";
+            AddVirtualDisplay.Size = new Size(186, 29);
+            AddVirtualDisplay.TabIndex = 0;
+            AddVirtualDisplay.Text = "Add virtual display";
+            AddVirtualDisplay.UseVisualStyleBackColor = true;
+            AddVirtualDisplay.CheckedChanged += AddVirtualDisplay_CheckedChanged;
+            // 
+            // VirtualDisplayWidth
+            // 
+            VirtualDisplayWidth.Location = new Point(3, 38);
+            VirtualDisplayWidth.Name = "VirtualDisplayWidth";
+            VirtualDisplayWidth.Size = new Size(150, 31);
+            VirtualDisplayWidth.TabIndex = 1;
+            VirtualDisplayWidth.TextChanged += VirtualDisplayWidth_TextChanged;
+            // 
+            // VirtualDisplayHeight
+            // 
+            VirtualDisplayHeight.Location = new Point(3, 75);
+            VirtualDisplayHeight.Name = "VirtualDisplayHeight";
+            VirtualDisplayHeight.Size = new Size(150, 31);
+            VirtualDisplayHeight.TabIndex = 2;
+            VirtualDisplayHeight.TextChanged += VirtualDisplayHeight_TextChanged;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(159, 41);
+            label18.Name = "label18";
+            label18.Size = new Size(60, 25);
+            label18.TabIndex = 3;
+            label18.Text = "Width";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(159, 78);
+            label19.Name = "label19";
+            label19.Size = new Size(65, 25);
+            label19.TabIndex = 4;
+            label19.Text = "Height";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -1044,6 +1123,9 @@
             panel5.PerformLayout();
             tabPage6.ResumeLayout(false);
             tabPage6.PerformLayout();
+            tabPage7.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1132,5 +1214,12 @@
         private Label label20;
         private Button postinstall_user_reg_sel;
         private Button postinstall_user_bat_clr;
+        private TabPage tabPage7;
+        private Panel panel6;
+        private CheckBox AddVirtualDisplay;
+        private TextBox VirtualDisplayHeight;
+        private TextBox VirtualDisplayWidth;
+        private Label label18;
+        private Label label19;
     }
 }

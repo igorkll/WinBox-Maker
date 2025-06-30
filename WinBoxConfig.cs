@@ -38,6 +38,10 @@ namespace WinBox_Maker
         public ProgramTypeEnum? ProgramType { get; set; }
         public List<string>? TweakList { get; set; }
         public string? CustomBootLogo { get; set; }
+        public bool? AddVirtualDisplay { get; set; }
+        public int? VirtualDisplayWidth { get; set; }
+        public int? VirtualDisplayHeight { get; set; }
+        
 
         public WinBoxConfig() {
             InitDefaults();
@@ -58,6 +62,9 @@ namespace WinBox_Maker
             if (Architecture == null) Architecture = "x64";
             if (TweakList == null) TweakList = [];
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
+            if (AddVirtualDisplay == null) AddVirtualDisplay = false;
+            if (VirtualDisplayWidth == null) VirtualDisplayWidth = 960;
+            if (VirtualDisplayHeight == null) VirtualDisplayHeight = 640;
         }
 
         public void Save(string wnbFilePath)
