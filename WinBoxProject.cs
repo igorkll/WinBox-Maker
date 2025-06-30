@@ -377,8 +377,20 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
             }
         }
 
+        private async Task RemoveTemp(Action<string> processName) {
+            processName("Cleaning temporary files");
+            string tempDriversPath = Path.Combine(tempDirectoryPath, "drivers");
+            if (Directory.Exists(tempDriversPath))
+            {
+                Directory.Delete(tempDriversPath, true);
+            }
+        }
+
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
+            processValue(5);
+            await RemoveTemp(processName);
+
             await ExtractInstallWim(processName, processValue);
 
             processName("Preparing of install.wim");
@@ -428,7 +440,15 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
             string amdDriversPath = Path.Combine(resourcesDirectoryPath, "amd_drivers");
             if (Directory.Exists(amdDriversPath))
             {
-                await Program.CopyFilesRecursivelyAsync(amdDriversPath, Path.Combine(WinboxResourcesPath, "amd_drivers"));
+                string[] files = Directory.GetFiles(amdDriversPath);
+                int number = 0;
+                foreach (string file in files)
+                {
+                    string path = Path.Combine(tempDirectoryPath, "drivers", "amd" + number);
+                    Directory.CreateDirectory(path);
+                    await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
+                    number++;
+                }
             }
 
             await Program.ExecuteAsync("reg.exe", $"import reg\\tweak.reg");
@@ -554,15 +574,6 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
 
         for %%f in (*.exe) do (
             start /wait """" ""%%f"" -s
-        )
-    )
-
-    set ""amdDriverDir=C:\WinboxResources\amd_drivers""
-    if exist ""%amdDriverDir%"" (
-        cd /d ""%amdDriverDir%""
-
-        for %%f in (*.exe) do (
-            start /wait """" ""%%f"" /S
         )
     )
 
@@ -835,6 +846,14 @@ if %errorlevel%==0 (
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-driver /driver:\"{driversPath}\" /recurse /forceunsigned");
             }
 
+            string tempDriversPath = Path.Combine(tempDirectoryPath, "drivers");
+            if (Program.IsDirectoryNotEmpty(tempDriversPath))
+            {
+                processName("Installing user drivers");
+                processValue(55);
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-driver /driver:\"{tempDriversPath}\" /recurse /forceunsigned");
+            }
+
             string packagesPath = Path.Combine(resourcesDirectoryPath, "packages");
             if (Program.IsDirectoryNotEmpty(packagesPath))
             {
@@ -865,6 +884,9 @@ if %errorlevel%==0 (
                 processValue(70);
                 await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /commit");
             }
+
+            processValue(75);
+            await RemoveTemp(processName);
         }
         private async Task CompleteExportMsg(Action<string> processName, Action<int> processValue)
         {

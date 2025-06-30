@@ -25,6 +25,7 @@ namespace WinBox_Maker
         public const string version = "WinBox-Maker 1.2.0";
         public const string logichubUrl = "https://igorkll.github.io/logichub/index.html";
         public static string? oscdimgPath;
+        public static string? z7Path;
         public static Form openProjectForm;
         static bool isClosingProgrammatically = false;
 
@@ -34,6 +35,8 @@ namespace WinBox_Maker
             ApplicationConfiguration.Initialize();
             InitLibwim();
             InitOscdimg();
+
+            z7Path = ResourcePath("7z.exe");
 
             if (args.Length > 0)
             {
