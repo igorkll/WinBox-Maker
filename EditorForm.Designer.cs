@@ -88,9 +88,9 @@
             label11 = new Label();
             postinstall_bat_sel = new Button();
             panel4 = new Panel();
-            TweakList = new CheckedListBox();
             label13 = new Label();
             ScreenTimeout = new TextBox();
+            TweakList = new CheckedListBox();
             ArchitectureSelect = new ComboBox();
             label14 = new Label();
             tabControl1 = new TabControl();
@@ -210,9 +210,9 @@
             label2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.Location = new Point(6, 3);
             label2.Name = "label2";
-            label2.Size = new Size(188, 38);
+            label2.Size = new Size(333, 38);
             label2.TabIndex = 13;
-            label2.Text = "New windows";
+            label2.Text = "New windows description";
             // 
             // WinboxName
             // 
@@ -724,16 +724,6 @@
             panel4.Size = new Size(314, 284);
             panel4.TabIndex = 36;
             // 
-            // TweakList
-            // 
-            TweakList.BackColor = SystemColors.Control;
-            TweakList.FormattingEnabled = true;
-            TweakList.Location = new Point(6, 44);
-            TweakList.Name = "TweakList";
-            TweakList.Size = new Size(304, 284);
-            TweakList.TabIndex = 2;
-            TweakList.ItemCheck += TweakList_ItemCheck;
-            // 
             // label13
             // 
             label13.AutoSize = true;
@@ -750,6 +740,16 @@
             ScreenTimeout.Size = new Size(111, 31);
             ScreenTimeout.TabIndex = 0;
             ScreenTimeout.TextChanged += ScreenTimeout_TextChanged;
+            // 
+            // TweakList
+            // 
+            TweakList.BackColor = SystemColors.Control;
+            TweakList.FormattingEnabled = true;
+            TweakList.Location = new Point(6, 44);
+            TweakList.Name = "TweakList";
+            TweakList.Size = new Size(304, 284);
+            TweakList.TabIndex = 2;
+            TweakList.ItemCheck += TweakList_ItemCheck;
             // 
             // ArchitectureSelect
             // 
@@ -813,7 +813,7 @@
             tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(951, 347);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "new";
+            tabPage2.Text = "description";
             tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
