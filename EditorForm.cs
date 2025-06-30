@@ -311,6 +311,8 @@ namespace WinBox_Maker
 
             postinstall_bat.Text = winBoxProject.winBoxConfig.PostInstall_bat ?? "not selected";
             postinstall_reg.Text = winBoxProject.winBoxConfig.PostInstall_reg ?? "not selected";
+            postinstall_user_bat.Text = winBoxProject.winBoxConfig.PostInstall_user_bat ?? "not selected";
+            postinstall_user_reg.Text = winBoxProject.winBoxConfig.PostInstall_user_reg ?? "not selected";
             CustomBootLogo.Text = winBoxProject.winBoxConfig.CustomBootLogo ?? "not selected";
 
             ScreenTimeout.Text = winBoxProject.winBoxConfig.ScreenTimeout.ToString();
@@ -637,6 +639,44 @@ namespace WinBox_Maker
             UpdateGui();
         }
 
+        private async void postinstall_user_bat_sel_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Bat scripts (*.bat;*.cmd)|*.bat;*.cmd|All files (*.*)|*.*", winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.PostInstall_user_bat = name;
+            }
+            winBoxProject.SaveConfig();
+            UnlockForm();
+        }
+
+        private void postinstall_user_bat_clr_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.PostInstall_user_bat = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private async void postinstall_user_reg_sel_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Registry files (*.reg)|*.reg|All files (*.*)|*.*", winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.PostInstall_user_reg = name;
+            }
+            winBoxProject.SaveConfig();
+            UnlockForm();
+        }
+
+        private void postinstall_user_reg_clr_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.PostInstall_user_reg = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
         private void ResetScreenTimeout(int value)
         {
             winBoxProject.winBoxConfig.ScreenTimeout = value;
@@ -697,6 +737,11 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.CustomBootLogo = null;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void WindowsDescription_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

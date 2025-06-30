@@ -75,10 +75,6 @@
             label7 = new Label();
             label10 = new Label();
             panel3 = new Panel();
-            CustomBootLogo = new Label();
-            CustomBootLogo_clear = new Button();
-            CustomBootLogo_select = new Button();
-            label15 = new Label();
             postinstall_reg = new Label();
             postinstall_bat = new Label();
             postinstall_reg_clr = new Button();
@@ -87,6 +83,10 @@
             label12 = new Label();
             label11 = new Label();
             postinstall_bat_sel = new Button();
+            CustomBootLogo = new Label();
+            CustomBootLogo_clear = new Button();
+            CustomBootLogo_select = new Button();
+            label15 = new Label();
             panel4 = new Panel();
             label13 = new Label();
             ScreenTimeout = new TextBox();
@@ -95,10 +95,21 @@
             label14 = new Label();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            label16 = new Label();
             tabPage2 = new TabPage();
             tabPage3 = new TabPage();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
+            panel5 = new Panel();
+            postinstall_user_reg = new Label();
+            label21 = new Label();
+            postinstall_user_bat = new Label();
+            postinstall_user_bat_sel = new Button();
+            postinstall_user_reg_clr = new Button();
+            label20 = new Label();
+            postinstall_user_reg_sel = new Button();
+            postinstall_user_bat_clr = new Button();
+            label17 = new Label();
             tabPage6 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -112,6 +123,7 @@
             tabPage3.SuspendLayout();
             tabPage4.SuspendLayout();
             tabPage5.SuspendLayout();
+            panel5.SuspendLayout();
             tabPage6.SuspendLayout();
             SuspendLayout();
             // 
@@ -200,9 +212,9 @@
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(6, 3);
             label1.Name = "label1";
-            label1.Size = new Size(684, 38);
+            label1.Size = new Size(189, 38);
             label1.TabIndex = 12;
-            label1.Text = "Base windows (recommended Windows 10 Enterprise)";
+            label1.Text = "Base windows";
             // 
             // label2
             // 
@@ -224,12 +236,14 @@
             // 
             // WindowsDescription
             // 
+            WindowsDescription.BackColor = SystemColors.Window;
             WindowsDescription.Location = new Point(6, 166);
             WindowsDescription.Name = "WindowsDescription";
             WindowsDescription.ReadOnly = true;
             WindowsDescription.Size = new Size(318, 118);
             WindowsDescription.TabIndex = 15;
             WindowsDescription.Text = "";
+            WindowsDescription.TextChanged += WindowsDescription_TextChanged;
             // 
             // pictureBox1
             // 
@@ -574,18 +588,14 @@
             label10.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label10.Location = new Point(3, 3);
             label10.Name = "label10";
-            label10.Size = new Size(149, 38);
+            label10.Size = new Size(439, 38);
             label10.TabIndex = 34;
-            label10.Text = "Post install";
+            label10.Text = "System user (SetupComplete.cmd)";
             // 
             // panel3
             // 
             panel3.BackColor = SystemColors.Window;
             panel3.BorderStyle = BorderStyle.Fixed3D;
-            panel3.Controls.Add(CustomBootLogo);
-            panel3.Controls.Add(CustomBootLogo_clear);
-            panel3.Controls.Add(CustomBootLogo_select);
-            panel3.Controls.Add(label15);
             panel3.Controls.Add(postinstall_reg);
             panel3.Controls.Add(postinstall_bat);
             panel3.Controls.Add(postinstall_reg_clr);
@@ -596,46 +606,8 @@
             panel3.Controls.Add(postinstall_bat_sel);
             panel3.Location = new Point(6, 44);
             panel3.Name = "panel3";
-            panel3.Size = new Size(318, 205);
+            panel3.Size = new Size(318, 142);
             panel3.TabIndex = 35;
-            // 
-            // CustomBootLogo
-            // 
-            CustomBootLogo.AutoSize = true;
-            CustomBootLogo.Location = new Point(179, 167);
-            CustomBootLogo.Name = "CustomBootLogo";
-            CustomBootLogo.Size = new Size(78, 25);
-            CustomBootLogo.TabIndex = 11;
-            CustomBootLogo.Text = "bmp file";
-            // 
-            // CustomBootLogo_clear
-            // 
-            CustomBootLogo_clear.Location = new Point(91, 162);
-            CustomBootLogo_clear.Name = "CustomBootLogo_clear";
-            CustomBootLogo_clear.Size = new Size(82, 34);
-            CustomBootLogo_clear.TabIndex = 10;
-            CustomBootLogo_clear.Text = "clear";
-            CustomBootLogo_clear.UseVisualStyleBackColor = true;
-            CustomBootLogo_clear.Click += CustomBootLogo_clear_Click;
-            // 
-            // CustomBootLogo_select
-            // 
-            CustomBootLogo_select.Location = new Point(3, 162);
-            CustomBootLogo_select.Name = "CustomBootLogo_select";
-            CustomBootLogo_select.Size = new Size(82, 34);
-            CustomBootLogo_select.TabIndex = 9;
-            CustomBootLogo_select.Text = "select";
-            CustomBootLogo_select.UseVisualStyleBackColor = true;
-            CustomBootLogo_select.Click += CustomBootLogo_select_Click;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Location = new Point(3, 135);
-            label15.Name = "label15";
-            label15.Size = new Size(146, 25);
-            label15.TabIndex = 8;
-            label15.Text = "Boot logo (BETA)";
             // 
             // postinstall_reg
             // 
@@ -713,12 +685,54 @@
             postinstall_bat_sel.UseVisualStyleBackColor = true;
             postinstall_bat_sel.Click += postinstall_bat_sel_Click;
             // 
+            // CustomBootLogo
+            // 
+            CustomBootLogo.AutoSize = true;
+            CustomBootLogo.Location = new Point(176, 248);
+            CustomBootLogo.Name = "CustomBootLogo";
+            CustomBootLogo.Size = new Size(78, 25);
+            CustomBootLogo.TabIndex = 11;
+            CustomBootLogo.Text = "bmp file";
+            // 
+            // CustomBootLogo_clear
+            // 
+            CustomBootLogo_clear.Location = new Point(91, 243);
+            CustomBootLogo_clear.Name = "CustomBootLogo_clear";
+            CustomBootLogo_clear.Size = new Size(82, 34);
+            CustomBootLogo_clear.TabIndex = 10;
+            CustomBootLogo_clear.Text = "clear";
+            CustomBootLogo_clear.UseVisualStyleBackColor = true;
+            CustomBootLogo_clear.Click += CustomBootLogo_clear_Click;
+            // 
+            // CustomBootLogo_select
+            // 
+            CustomBootLogo_select.Location = new Point(3, 243);
+            CustomBootLogo_select.Name = "CustomBootLogo_select";
+            CustomBootLogo_select.Size = new Size(82, 34);
+            CustomBootLogo_select.TabIndex = 9;
+            CustomBootLogo_select.Text = "select";
+            CustomBootLogo_select.UseVisualStyleBackColor = true;
+            CustomBootLogo_select.Click += CustomBootLogo_select_Click;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(3, 215);
+            label15.Name = "label15";
+            label15.Size = new Size(214, 25);
+            label15.TabIndex = 8;
+            label15.Text = "Custom boot logo (BETA)";
+            // 
             // panel4
             // 
             panel4.BackColor = SystemColors.Window;
             panel4.BorderStyle = BorderStyle.Fixed3D;
+            panel4.Controls.Add(CustomBootLogo);
+            panel4.Controls.Add(label15);
             panel4.Controls.Add(label13);
+            panel4.Controls.Add(CustomBootLogo_clear);
             panel4.Controls.Add(ScreenTimeout);
+            panel4.Controls.Add(CustomBootLogo_select);
             panel4.Location = new Point(316, 44);
             panel4.Name = "panel4";
             panel4.Size = new Size(314, 284);
@@ -785,6 +799,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label16);
             tabPage1.Controls.Add(label1);
             tabPage1.Controls.Add(label14);
             tabPage1.Controls.Add(WindowsDescription);
@@ -802,6 +817,15 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "base";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(6, 319);
+            label16.Name = "label16";
+            label16.Size = new Size(315, 25);
+            label16.TabIndex = 39;
+            label16.Text = "recommended Windows 10 Enterprise";
             // 
             // tabPage2
             // 
@@ -843,6 +867,8 @@
             // 
             // tabPage5
             // 
+            tabPage5.Controls.Add(panel5);
+            tabPage5.Controls.Add(label17);
             tabPage5.Controls.Add(label10);
             tabPage5.Controls.Add(panel3);
             tabPage5.Location = new Point(4, 34);
@@ -852,6 +878,108 @@
             tabPage5.TabIndex = 4;
             tabPage5.Text = "post install";
             tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            panel5.BorderStyle = BorderStyle.Fixed3D;
+            panel5.Controls.Add(postinstall_user_reg);
+            panel5.Controls.Add(label21);
+            panel5.Controls.Add(postinstall_user_bat);
+            panel5.Controls.Add(postinstall_user_bat_sel);
+            panel5.Controls.Add(postinstall_user_reg_clr);
+            panel5.Controls.Add(label20);
+            panel5.Controls.Add(postinstall_user_reg_sel);
+            panel5.Controls.Add(postinstall_user_bat_clr);
+            panel5.Location = new Point(627, 44);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(318, 142);
+            panel5.TabIndex = 37;
+            // 
+            // postinstall_user_reg
+            // 
+            postinstall_user_reg.AutoSize = true;
+            postinstall_user_reg.Location = new Point(182, 103);
+            postinstall_user_reg.Name = "postinstall_user_reg";
+            postinstall_user_reg.Size = new Size(66, 25);
+            postinstall_user_reg.TabIndex = 15;
+            postinstall_user_reg.Text = "reg file";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(3, 5);
+            label21.Name = "label21";
+            label21.Size = new Size(85, 25);
+            label21.TabIndex = 9;
+            label21.Text = "Bat script";
+            // 
+            // postinstall_user_bat
+            // 
+            postinstall_user_bat.AutoSize = true;
+            postinstall_user_bat.Location = new Point(182, 38);
+            postinstall_user_bat.Name = "postinstall_user_bat";
+            postinstall_user_bat.Size = new Size(86, 25);
+            postinstall_user_bat.TabIndex = 14;
+            postinstall_user_bat.Text = "bat script";
+            // 
+            // postinstall_user_bat_sel
+            // 
+            postinstall_user_bat_sel.Location = new Point(6, 33);
+            postinstall_user_bat_sel.Name = "postinstall_user_bat_sel";
+            postinstall_user_bat_sel.Size = new Size(82, 34);
+            postinstall_user_bat_sel.TabIndex = 8;
+            postinstall_user_bat_sel.Text = "select";
+            postinstall_user_bat_sel.UseVisualStyleBackColor = true;
+            postinstall_user_bat_sel.Click += postinstall_user_bat_sel_Click;
+            // 
+            // postinstall_user_reg_clr
+            // 
+            postinstall_user_reg_clr.Location = new Point(94, 98);
+            postinstall_user_reg_clr.Name = "postinstall_user_reg_clr";
+            postinstall_user_reg_clr.Size = new Size(82, 34);
+            postinstall_user_reg_clr.TabIndex = 13;
+            postinstall_user_reg_clr.Text = "clear";
+            postinstall_user_reg_clr.UseVisualStyleBackColor = true;
+            postinstall_user_reg_clr.Click += postinstall_user_reg_clr_Click;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(6, 70);
+            label20.Name = "label20";
+            label20.Size = new Size(70, 25);
+            label20.TabIndex = 10;
+            label20.Text = "Reg file";
+            // 
+            // postinstall_user_reg_sel
+            // 
+            postinstall_user_reg_sel.Location = new Point(6, 98);
+            postinstall_user_reg_sel.Name = "postinstall_user_reg_sel";
+            postinstall_user_reg_sel.Size = new Size(82, 34);
+            postinstall_user_reg_sel.TabIndex = 12;
+            postinstall_user_reg_sel.Text = "select";
+            postinstall_user_reg_sel.UseVisualStyleBackColor = true;
+            postinstall_user_reg_sel.Click += postinstall_user_reg_sel_Click;
+            // 
+            // postinstall_user_bat_clr
+            // 
+            postinstall_user_bat_clr.Location = new Point(94, 33);
+            postinstall_user_bat_clr.Name = "postinstall_user_bat_clr";
+            postinstall_user_bat_clr.Size = new Size(82, 34);
+            postinstall_user_bat_clr.TabIndex = 11;
+            postinstall_user_bat_clr.Text = "clear";
+            postinstall_user_bat_clr.UseVisualStyleBackColor = true;
+            postinstall_user_bat_clr.Click += postinstall_user_bat_clr_Click;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label17.Location = new Point(773, 3);
+            label17.Name = "label17";
+            label17.Size = new Size(172, 38);
+            label17.TabIndex = 36;
+            label17.Text = "Winbox user";
             // 
             // tabPage6
             // 
@@ -911,6 +1039,8 @@
             tabPage4.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             tabPage6.ResumeLayout(false);
             tabPage6.PerformLayout();
             ResumeLayout(false);
@@ -990,5 +1120,16 @@
         private TabPage tabPage4;
         private TabPage tabPage5;
         private TabPage tabPage6;
+        private Label label16;
+        private Label label17;
+        private Panel panel5;
+        private Label postinstall_user_reg;
+        private Label label21;
+        private Label postinstall_user_bat;
+        private Button postinstall_user_bat_sel;
+        private Button postinstall_user_reg_clr;
+        private Label label20;
+        private Button postinstall_user_reg_sel;
+        private Button postinstall_user_bat_clr;
     }
 }

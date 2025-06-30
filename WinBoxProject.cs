@@ -655,7 +655,7 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
                 }
             }
 
-            if (winBoxConfig.PostInstall_reg != null && !winBoxConfig.PostInstall_reg.Contains("\""))
+            if (winBoxConfig.PostInstall_reg != null)
             {
                 string regPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_reg);
                 if (File.Exists(regPath))
@@ -665,7 +665,7 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
                 }
             }
 
-            if (winBoxConfig.PostInstall_bat != null && !winBoxConfig.PostInstall_bat.Contains("\""))
+            if (winBoxConfig.PostInstall_bat != null)
             {
                 string batPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_bat);
                 if (File.Exists(batPath))
@@ -675,12 +675,39 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
                 }
             }
 
+            if (winBoxConfig.PostInstall_user_reg != null)
+            {
+                string regPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_user_reg);
+                if (File.Exists(regPath))
+                {
+                    await Program.CopyFileAsync(regPath, Path.Combine(WinboxResourcesPath, "postinstall_user.reg"));
+                    applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\postinstall_reg.installed\" (";
+                    applicationScript += $"\r\nregedit /s \"C:\\WinboxResources\\postinstall_user.reg\"";
+                    applicationScript += $"\r\necho. > \"C:\\WinboxResources\\postinstall_reg.installed\"";
+                    applicationScript += $"\r\n)";
+                }
+            }
+
+            if (winBoxConfig.PostInstall_user_bat != null)
+            {
+                string batPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_user_bat);
+                if (File.Exists(batPath))
+                {
+                    await Program.CopyFileAsync(batPath, Path.Combine(WinboxResourcesPath, "postinstall_user.bat"));
+                    applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\postinstall_bat.installed\" (";
+                    applicationScript += $"\r\ncall \"C:\\WinboxResources\\postinstall_user.bat\"";
+                    applicationScript += $"\r\necho. > \"C:\\WinboxResources\\postinstall_bat.installed\"";
+                    applicationScript += $"\r\n)";
+                }
+            }
+
             baseSetup += $"\r\n";
             baseSetup += @$"reg unload HKLM\DEFAULT_USER
 
 net user winbox /add
 net localgroup Administrators winbox /add";
 
+            await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_appScript.txt"), applicationScript);
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_UpdateSystemSettings.txt"), updateSystemSettings);
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_SetupComplete.txt"), baseSetup);
 
