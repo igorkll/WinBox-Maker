@@ -445,6 +445,8 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
 powercfg -h off
 powercfg -change -standby-timeout-ac 0
 powercfg -change -standby-timeout-dc 0
+powercfg -change -hibernate-timeout-ac 0
+powercfg -change -hibernate-timeout-dc 0
 powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
 powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}
 powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
