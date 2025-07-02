@@ -725,7 +725,7 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
 
             if (useWinboxService)
             {
-                await Program.CopyFilesRecursivelyAsync(AppDomain.CurrentDomain.BaseDirectory, Path.Combine(WinboxResourcesPath, "winbox_maker"));
+                //await Program.CopyFilesRecursivelyAsync(AppDomain.CurrentDomain.BaseDirectory, Path.Combine(WinboxResourcesPath, "winbox_maker"));
             }
 
             if (winBoxConfig.UseEmbeddedDisplay == true)
