@@ -3,11 +3,14 @@
 #include <stdio.h>
 #include <stddef.h>
 
+//pixels, not bytes
+#define DRAW_BUFFER_SIZE (1024 * 16)
+
 typedef struct {
-    uint16_t width;
-    uint16_t height;
+    int32_t width;
+    int32_t height;
     uint8_t bits;
 } ImageInfo;
 
 ImageInfo bmp_readImageInfo(const char* path);
-ImageInfo bmp_draw(const char* path, uint16_t x, uint16_t y);
+ImageInfo bmp_draw(const char* path);

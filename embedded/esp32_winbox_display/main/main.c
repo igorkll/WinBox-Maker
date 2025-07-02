@@ -5,6 +5,7 @@
 #include <string.h>
 #include <driver/uart.h>
 #include "hal.h"
+#include "bmp.h"
 
 #define LOGO_PATH "/storage/logo.bmp"
 #define UART_NUM UART_NUM_0
@@ -25,13 +26,18 @@ void uart_init() {
 }
 
 void _main() {
+    hal_display_backlight(true);
     if (!BOOT_DISABLE_LOGO) {
-        if (BOOT_DISABLE_LOGO_CENTERING) {
-            bmp_draw(LOGO_PATH, 0, 0, );
-        } else {
-            ImageInfo imageInfo = bmp_readImageInfo(LOGO_PATH);
-            bmp_draw(LOGO_PATH, (DISPLAY_WIDTH / 2) - (imageInfo.width / 2), (DISPLAY_HEIGHT / 2) - (imageInfo.height / 2), );
+        ImageInfo imageInfo = bmp_readImageInfo(LOGO_PATH);
+        int offsetX = 0;
+        int offsetY = 0;
+        if (!BOOT_DISABLE_LOGO_CENTERING) {
+            offsetX = (DISPLAY_WIDTH / 2) - (imageInfo.width / 2);
+            offsetY = (DISPLAY_HEIGHT / 2) - (imageInfo.height / 2);
         }
+        hal_display_sendSelect(offsetX, offsetY, imageInfo.width, imageInfo.height);
+        bmp_draw(LOGO_PATH);
+        hal_display_sendSelectAll();
     }
     hal_display_backlight(true);
 

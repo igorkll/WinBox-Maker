@@ -77,15 +77,17 @@ static const _command display_init[] = {
 };
 
 // X+ Y+
-//#define _ROTATION_0 0
-//#define _ROTATION_1 (1<<5) | (1<<6) | (1<<2)
-//#define _ROTATION_2 (1<<6) | (1<<7) | (1<<2) | (1<<4)
-//#define _ROTATION_3 (1<<5) | (1<<7) | (1<<4)
+#define _ROTATION_0 0
+#define _ROTATION_1 (1<<5) | (1<<6) | (1<<2)
+#define _ROTATION_2 (1<<6) | (1<<7) | (1<<2) | (1<<4)
+#define _ROTATION_3 (1<<5) | (1<<7) | (1<<4)
 // Y+ X+
-#define _ROTATION_0 (1<<5)
-#define _ROTATION_1 (1<<6) | (1<<2)
-#define _ROTATION_2 (1<<5) | (1<<6) | (1<<7) | (1<<2) | (1<<4)
-#define _ROTATION_3 (1<<7) | (1<<4)
+
+//#define _ROTATION_0 (1<<5)
+//#define _ROTATION_1 (1<<6) | (1<<2)
+//#define _ROTATION_2 (1<<5) | (1<<6) | (1<<7) | (1<<2) | (1<<4)
+//#define _ROTATION_3 (1<<7) | (1<<4)
+
 static _command _rotate(uint8_t rotation) {
 	uint8_t regvalue = 0;
 	switch (rotation) {
@@ -123,15 +125,15 @@ static _command _rotate(uint8_t rotation) {
 }
 
 static _commandList _select(uint16_t x, uint16_t y, uint16_t x2, uint16_t y2) {
-	/*
 	return (_commandList) {
+        .count = 3,
 		.list = {
 			{0x2A, {x >> 8, x & 0xff, x2 >> 8, x2 & 0xff}, 4},
 			{0x2B, {y >> 8, y & 0xff, y2 >> 8, y2 & 0xff}, 4},
 			{0x2C, {0}, 0, -1}
 		}
 	};
-	*/
+	/*
 	return (_commandList) {
 		.count = 3,
 		.list = {
@@ -140,6 +142,7 @@ static _commandList _select(uint16_t x, uint16_t y, uint16_t x2, uint16_t y2) {
 			{0x2C, {0}, 0, -1}
 		}
 	};
+    */
 }
 
 static _commandList _selectFrame(uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
@@ -201,19 +204,19 @@ static void _doCommandList(const _commandList* list) {
 	_doCommands(list->list, list->count);
 }
 
-static void _sendSelect(uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
+void hal_display_sendSelect(uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
 	_commandList list = _selectFrame(x, y, width, height);
 	_doCommandList(&list);
 }
 
-static void _sendSelectAll() {
-	_sendSelect(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+void hal_display_sendSelectAll() {
+	hal_display_sendSelect(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
 
 #define CLEAR_BUFFER_SIZE 2048
 static uint16_t clear_buffer[CLEAR_BUFFER_SIZE] = {0};
 static void _clear() {
-	_sendSelectAll();
+	hal_display_sendSelectAll();
 	for (size_t i = 0; i < (DISPLAY_WIDTH * DISPLAY_HEIGHT * BYTES_PER_COLOR) / sizeof(clear_buffer); i++) {
 		_sendData(clear_buffer, sizeof(clear_buffer));
 	}
@@ -223,7 +226,7 @@ static uint16_t swap_endian(uint16_t value) {
     return (value << 8) | (value >> 8);
 }
 
-uint16_t rgb888_to_rgb565(uint32_t rgb888) {
+uint16_t hal_rgb888_to_rgb565(uint32_t rgb888) {
     uint8_t r = (rgb888 >> 16) & 0xFF;
     uint8_t g = (rgb888 >> 8) & 0xFF;
     uint8_t b = rgb888 & 0xFF;
@@ -242,7 +245,7 @@ uint16_t rgb888_to_rgb565(uint32_t rgb888) {
 // ----------------------------------------------
 
 static void _initDisplay() {
-    uint16_t clear_color = rgb888_to_rgb565(BOOT_BACKGROUND);
+    uint16_t clear_color = hal_rgb888_to_rgb565(BOOT_BACKGROUND);
     for (size_t i = 0; i < CLEAR_BUFFER_SIZE; i++) {
 		clear_buffer[i] = clear_color;
 	}
@@ -302,7 +305,7 @@ static void _initDisplay() {
 	_doCommand(_rotate(DISPLAY_ROTATION));
 	_clear();
 	_doCommand(display_enable);
-	_sendSelectAll();
+	hal_display_sendSelectAll();
 }
 
 void hal_display_backlight(bool state) {

@@ -1,4 +1,5 @@
 #include "bmp.h"
+#include "hal.h"
 
 #pragma pack(push, 1)
 
@@ -97,9 +98,11 @@ typedef struct {
 
 #pragma pack(pop)
 
-static ImageInfo _parse(const char* path, void(*dot)(uint16_t x, uint16_t y, uint32_t tcolor)) {
+static ImageInfo _parse(const char* path, bool pushToDisplay) {
+    ImageInfo info = {};
+
     FILE *file = fopen(path, "rb");
-    if (file == NULL) return (ImageInfo) {0, 0};
+    if (file == NULL) return info;
 
     // check & read header
     BITMAPFILEHEADER_struct BITMAPFILEHEADER;
@@ -107,11 +110,10 @@ static ImageInfo _parse(const char* path, void(*dot)(uint16_t x, uint16_t y, uin
     if (BITMAPFILEHEADER.bfTypeB != 'B' || BITMAPFILEHEADER.bfTypeM != 'M') {
         printf("BMP ERROR: invalid bmp signature: %c%c\n", BITMAPFILEHEADER.bfTypeB, BITMAPFILEHEADER.bfTypeM);
         fclose(file);
-        return (ImageInfo) {0, 0};
+        return info;
     }
 
     // read info
-    ImageInfo info = {0};
     uint32_t bcSize;
     fread(&bcSize, sizeof(uint32_t), 1, file);
     switch (bcSize) {
@@ -158,13 +160,18 @@ static ImageInfo _parse(const char* path, void(*dot)(uint16_t x, uint16_t y, uin
         }
     }
 
-    if (dot != NULL) {
+    if (pushToDisplay) {
         bool reverseLines = info.height < 0;
         info.height = abs(info.height);
 
-        fseek(file, BITMAPFILEHEADER.bfOffBits, SEEK_SET);
-        for (int iy = reverseLines ? 0 : info.height - 1; reverseLines ? iy < info.height : iy >= 0; reverseLines ? iy++ : iy--) {
+        uint16_t* buffer = malloc(DRAW_BUFFER_SIZE * 2);
+        size_t bufferPos = 0;
+        for (int iy = 0; iy < info.height; iy++) {
             for (int ix = 0; ix < info.width; ix++) {
+                size_t iiy = reverseLines ? iy : (info.height - iy - 1);
+                size_t offset = (ix + (iiy * info.width)) * (info.bits / 8);
+                fseek(file, BITMAPFILEHEADER.bfOffBits + offset, SEEK_SET);
+
                 uint8_t red = 0;
                 uint8_t green = 0;
                 uint8_t blue = 0;
@@ -174,17 +181,22 @@ static ImageInfo _parse(const char* path, void(*dot)(uint16_t x, uint16_t y, uin
                 fread(&red, 1, 1, file);
                 if (info.bits == 32) {
                     fread(&alpha, 1, 1, file);
-                    if (alpha == 0) {
-                        red = 0;
-                        green = 0;
-                        blue = 0;
-                    }
                 }
+
                 if (alpha > 0) {
-                    dot(ix, iy, (red << 16) | (green << 8) | blue);
+                    if (bufferPos >= DRAW_BUFFER_SIZE) {
+                        hal_display_sendBuffer((uint8_t*)buffer, bufferPos);
+                        bufferPos = 0;
+                    }
+                    buffer[bufferPos++] = hal_rgb888_to_rgb565((red << 16) | (green << 8) | blue);
                 }
             }
         }
+        if (bufferPos > 0) {
+            hal_display_sendBuffer((uint8_t*)buffer, bufferPos);
+            bufferPos = 0;
+        }
+        free(buffer);
     }
 
     fclose(file);
@@ -192,19 +204,9 @@ static ImageInfo _parse(const char* path, void(*dot)(uint16_t x, uint16_t y, uin
 }
 
 ImageInfo bmp_readImageInfo(const char* path) {
-    return _parse(path, NULL);
+    return _parse(path, false);
 }
 
-static uint16_t offsetX;
-static uint16_t offsetY;
-static void (*userDot) (uint16_t x, uint16_t y, uint32_t tcolor);
-static void _dot(uint16_t x, uint16_t y, uint32_t color) {
-    userDot(x + offsetX, y + offsetY, color);
-}
-
-ImageInfo bmp_draw(const char* path, uint16_t x, uint16_t y, void(*dot)(uint16_t x, uint16_t y, uint32_t tcolor)) {
-    offsetX = x;
-    offsetY = y;
-    userDot = dot;
-    return _parse(path, _dot);
+ImageInfo bmp_draw(const char* path) {
+    return _parse(path, true);
 }
