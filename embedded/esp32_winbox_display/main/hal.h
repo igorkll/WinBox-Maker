@@ -22,3 +22,7 @@ typedef struct {
 
 uint8_t hal_touchscreen_touchCount();
 hal_touchscreen_point hal_touchscreen_getPoint(uint8_t index);
+
+// ----------------------------------------------
+
+void hal_delay(size_t time);

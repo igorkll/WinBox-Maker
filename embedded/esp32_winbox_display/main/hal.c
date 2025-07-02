@@ -12,7 +12,6 @@
 #include <math.h>
 #include <esp_system.h>
 #include <nvs_flash.h>
-#include <map.h>
 #include "hal.h"
 #include "main.h"
 
@@ -35,6 +34,15 @@ typedef struct {
 	_command list[8];
 	size_t count;
 } _commandList;
+
+typedef struct {
+    bool state;
+} spi_pretransfer_info;
+
+static void _spi_pre_transfer_callback(spi_transaction_t* t) {
+    spi_pretransfer_info* pretransfer_info = (spi_pretransfer_info*)t->user;
+    gpio_set_level(DISPLAY_DC, pretransfer_info->state);
+}
 
 static const _command display_enable = {0x29, {0}, 0, 0};
 static const _command display_invert = {0x21, {0}, 0, 0};
@@ -144,20 +152,28 @@ static _commandList _selectFrame(uint16_t x, uint16_t y, uint16_t width, uint16_
 }
 
 static void _sendCommand(const uint8_t cmd) {
+    spi_pretransfer_info pre_transfer_info = {
+        .state = false
+    };
+
     spi_transaction_t t = {
         .length = 8,
         .tx_buffer = &cmd,
-        .user = 0
+        .user = (void*)(&pre_transfer_info)
     };
 
     ESP_ERROR_CHECK(spi_device_transmit(display, &t));
 }
 
 static void _sendData(const uint8_t* data, size_t size) {
+    spi_pretransfer_info pre_transfer_info = {
+        .state = true
+    };
+
     spi_transaction_t t = {
         .length = size * 8,
         .tx_buffer = data,
-        .user = 1
+        .user = (void*)(&pre_transfer_info)
     };
     
     ESP_ERROR_CHECK(spi_device_transmit(display, &t));
@@ -165,7 +181,7 @@ static void _sendData(const uint8_t* data, size_t size) {
 
 static bool _doCommand(const _command command) {
     _sendCommand(command.cmd);
-    _sendData(command.data, command.datalen);
+    if (command.datalen > 0) _sendData(command.data, command.datalen);
 
 	if (command.delay > 0) {
 		vTaskDelay(command.delay / portTICK_PERIOD_MS);
@@ -222,11 +238,15 @@ static void _initDisplay() {
 
 	// ---- init spi device
     spi_device_interface_config_t devcfg = {
-        .clock_speed_hz = freq,
+        .clock_speed_hz = DISPLAY_FREQ,
         .mode = 0,
-        .spics_io_num = cs,
+        #ifdef DISPLAY_CS
+			.spics_io_num=DISPLAY_CS,
+		#else
+			.spics_io_num=-1,
+		#endif
         .input_delay_ns = 0,
-        .queue_size = 2,
+        .queue_size = 1,
         .pre_cb = _spi_pre_transfer_callback,
         .flags = SPI_DEVICE_NO_DUMMY
     };
@@ -405,6 +425,12 @@ static void _initFilesystem() {
 }
 
 // ----------------------------------------------
+
+void hal_delay(size_t time) {
+    size_t ticks = time / portTICK_PERIOD_MS;
+    if (ticks <= 0) ticks = 1;
+    vTaskDelay(ticks);
+}
 
 void app_main() {
     #ifdef DISPLAY_BL
