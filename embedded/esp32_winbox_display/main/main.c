@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include "hal.h"
 
-void app_main() {
+void _main() {
 
 }
