@@ -10,6 +10,7 @@ typedef struct {
     int32_t width;
     int32_t height;
     uint8_t bits;
+    bool reverseLines;
 } ImageInfo;
 
 ImageInfo bmp_readImageInfo(const char* path);

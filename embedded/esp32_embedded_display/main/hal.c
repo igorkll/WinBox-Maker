@@ -46,6 +46,7 @@ static void _spi_pre_transfer_callback(spi_transaction_t* t) {
 
 static const _command display_enable = {0x29, {0}, 0, 0};
 static const _command display_invert = {0x21, {0}, 0, 0};
+static bool reverse = false;
 
 static const _command display_init[] = {
 	/* rgb 565 - big endian */
@@ -108,12 +109,21 @@ static _command _rotate(uint8_t rotation) {
 			break;
 	}
 
+    bool reverseX = false;
+    bool reverseY = false;
+
+    if (rotation == 1 || rotation == 3) {
+        reverseX = true;
+    } else {
+        reverseY = true;
+    }
+
 	if (DISPLAY_SWAP_RGB) regvalue ^= (1 << 3);
-	if (DISPLAY_FLIP_X) {
+	if (DISPLAY_FLIP_X ^ reverseX) {
 		regvalue ^= (1 << 6);
 		regvalue ^= (1 << 2);
 	}
-	if (DISPLAY_FLIP_Y) {
+	if (DISPLAY_FLIP_Y ^ reverseY) {
 		regvalue ^= (1 << 7);
 		regvalue ^= (1 << 4);
 	}
@@ -207,6 +217,11 @@ static void _doCommandList(const _commandList* list) {
 void hal_display_sendSelect(uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
 	_commandList list = _selectFrame(x, y, width, height);
 	_doCommandList(&list);
+}
+
+void hal_display_sendReverse(bool _reverse) {
+    reverse = _reverse;
+    _doCommand(_rotate(DISPLAY_ROTATION));
 }
 
 void hal_display_sendSelectAll() {

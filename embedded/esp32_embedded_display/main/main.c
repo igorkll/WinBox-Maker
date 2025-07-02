@@ -35,8 +35,14 @@ void _main() {
             offsetX = (DISPLAY_WIDTH / 2) - (imageInfo.width / 2);
             offsetY = (DISPLAY_HEIGHT / 2) - (imageInfo.height / 2);
         }
+        if (imageInfo.reverseLines) {
+            hal_display_sendReverse(true);
+        }
         hal_display_sendSelect(offsetX, offsetY, imageInfo.width, imageInfo.height);
         bmp_draw(LOGO_PATH);
+        if (imageInfo.reverseLines) {
+            hal_display_sendReverse(false);
+        }
         hal_display_sendSelectAll();
     }
     hal_display_backlight(true);

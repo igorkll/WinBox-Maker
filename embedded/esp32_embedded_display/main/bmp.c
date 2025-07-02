@@ -160,18 +160,16 @@ static ImageInfo _parse(const char* path, bool pushToDisplay) {
         }
     }
 
+    info.reverseLines = info.height > 0;
+    info.height = abs(info.height);
+
     if (pushToDisplay) {
-        bool reverseLines = info.height < 0;
-        info.height = abs(info.height);
+        fseek(file, BITMAPFILEHEADER.bfOffBits, SEEK_SET);
 
         uint16_t* buffer = malloc(DRAW_BUFFER_SIZE * 2);
         size_t bufferPos = 0;
         for (int iy = 0; iy < info.height; iy++) {
             for (int ix = 0; ix < info.width; ix++) {
-                size_t iiy = reverseLines ? iy : (info.height - iy - 1);
-                size_t offset = (ix + (iiy * info.width)) * (info.bits / 8);
-                fseek(file, BITMAPFILEHEADER.bfOffBits + offset, SEEK_SET);
-
                 uint8_t red = 0;
                 uint8_t green = 0;
                 uint8_t blue = 0;
