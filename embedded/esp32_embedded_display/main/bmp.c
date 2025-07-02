@@ -183,17 +183,22 @@ static ImageInfo _parse(const char* path, bool pushToDisplay) {
                     fread(&alpha, 1, 1, file);
                 }
 
+                uint32_t color;
                 if (alpha > 0) {
-                    if (bufferPos >= DRAW_BUFFER_SIZE) {
-                        hal_display_sendBuffer((uint8_t*)buffer, bufferPos * 2);
-                        bufferPos = 0;
-                    }
-                    buffer[bufferPos++] = hal_rgb888_to_rgb565((red << 16) | (green << 8) | blue);
+                    color = (red << 16) | (green << 8) | blue;
+                } else {
+                    color = BOOT_BACKGROUND;
                 }
+
+                if (bufferPos >= DRAW_BUFFER_SIZE) {
+                    hal_display_sendBuffer((uint8_t*)buffer, bufferPos * 2);
+                    bufferPos = 0;
+                }
+                buffer[bufferPos++] = hal_rgb888_to_rgb565(color);
             }
         }
         if (bufferPos > 0) {
-            hal_display_sendBuffer((uint8_t*)buffer, bufferPos);
+            hal_display_sendBuffer((uint8_t*)buffer, bufferPos * 2);
             bufferPos = 0;
         }
         free(buffer);
