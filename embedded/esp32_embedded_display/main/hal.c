@@ -112,10 +112,12 @@ static _command _rotate(uint8_t rotation) {
     bool reverseX = false;
     bool reverseY = false;
 
-    if (rotation == 1 || rotation == 3) {
-        reverseX = true;
-    } else {
-        reverseY = true;
+    if (reverse) {
+        if (rotation == 1 || rotation == 3) {
+            reverseX = true;
+        } else {
+            reverseY = true;
+        }
     }
 
 	if (DISPLAY_SWAP_RGB) regvalue ^= (1 << 3);

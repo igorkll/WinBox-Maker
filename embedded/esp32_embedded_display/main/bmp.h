@@ -5,6 +5,8 @@
 
 //pixels, not bytes
 #define DRAW_BUFFER_SIZE (1024 * 16)
+//bytes, not pixels
+#define BMP_BUFFER_SIZE (1024 * 64)
 
 typedef struct {
     int32_t width;

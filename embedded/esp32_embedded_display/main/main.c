@@ -26,23 +26,14 @@ void uart_init() {
 }
 
 void _main() {
-    hal_display_backlight(true);
     if (!BOOT_DISABLE_LOGO) {
         ImageInfo imageInfo = bmp_readImageInfo(LOGO_PATH);
-        int offsetX = 0;
-        int offsetY = 0;
-        if (!BOOT_DISABLE_LOGO_CENTERING) {
-            offsetX = (DISPLAY_WIDTH / 2) - (imageInfo.width / 2);
-            offsetY = (DISPLAY_HEIGHT / 2) - (imageInfo.height / 2);
-        }
-        if (imageInfo.reverseLines) {
-            hal_display_sendReverse(true);
-        }
+        int offsetX = (DISPLAY_WIDTH / 2) - (imageInfo.width / 2);
+        int offsetY = (DISPLAY_HEIGHT / 2) - (imageInfo.height / 2);
+        if (imageInfo.reverseLines) hal_display_sendReverse(true);
         hal_display_sendSelect(offsetX, offsetY, imageInfo.width, imageInfo.height);
         bmp_draw(LOGO_PATH);
-        if (imageInfo.reverseLines) {
-            hal_display_sendReverse(false);
-        }
+        if (imageInfo.reverseLines) hal_display_sendReverse(false);
         hal_display_sendSelectAll();
     }
     hal_display_backlight(true);

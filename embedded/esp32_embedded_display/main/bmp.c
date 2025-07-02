@@ -167,18 +167,26 @@ static ImageInfo _parse(const char* path, bool pushToDisplay) {
         fseek(file, BITMAPFILEHEADER.bfOffBits, SEEK_SET);
 
         uint16_t* buffer = malloc(DRAW_BUFFER_SIZE * 2);
+        uint8_t* bmpBuffer = malloc(BMP_BUFFER_SIZE);
         size_t bufferPos = 0;
+        size_t bmpBufferPos = BMP_BUFFER_SIZE;
+
+        uint8_t bmpRead() {
+            if (bmpBufferPos >= BMP_BUFFER_SIZE) {
+                fread(bmpBuffer, 1, BMP_BUFFER_SIZE, file);
+                bmpBufferPos = 0;
+            }
+            return bmpBuffer[bmpBufferPos++];
+        }
+
         for (int iy = 0; iy < info.height; iy++) {
             for (int ix = 0; ix < info.width; ix++) {
-                uint8_t red = 0;
-                uint8_t green = 0;
-                uint8_t blue = 0;
+                uint8_t blue = bmpRead();
+                uint8_t green = bmpRead();
+                uint8_t red = bmpRead();
                 uint8_t alpha = 255;
-                fread(&blue, 1, 1, file);
-                fread(&green, 1, 1, file);
-                fread(&red, 1, 1, file);
                 if (info.bits == 32) {
-                    fread(&alpha, 1, 1, file);
+                    alpha = bmpRead();
                 }
 
                 uint32_t color;
@@ -200,6 +208,7 @@ static ImageInfo _parse(const char* path, bool pushToDisplay) {
             bufferPos = 0;
         }
         free(buffer);
+        free(bmpBuffer);
     }
 
     fclose(file);
