@@ -1028,7 +1028,7 @@
             panel7.Controls.Add(UseEmbeddedDisplay);
             panel7.Location = new Point(6, 136);
             panel7.Name = "panel7";
-            panel7.Size = new Size(259, 124);
+            panel7.Size = new Size(287, 124);
             panel7.TabIndex = 1;
             // 
             // EmbedDisplayReadme
@@ -1046,9 +1046,9 @@
             UseEmbeddedDisplay.AutoSize = true;
             UseEmbeddedDisplay.Location = new Point(3, 3);
             UseEmbeddedDisplay.Name = "UseEmbeddedDisplay";
-            UseEmbeddedDisplay.Size = new Size(225, 29);
+            UseEmbeddedDisplay.Size = new Size(256, 29);
             UseEmbeddedDisplay.TabIndex = 0;
-            UseEmbeddedDisplay.Text = "Support Embed display";
+            UseEmbeddedDisplay.Text = "Support Embedded display";
             UseEmbeddedDisplay.UseVisualStyleBackColor = true;
             UseEmbeddedDisplay.CheckedChanged += UseEmbeddedDisplay_CheckedChanged;
             // 
@@ -1062,7 +1062,7 @@
             panel6.Controls.Add(AddVirtualDisplay);
             panel6.Location = new Point(6, 6);
             panel6.Name = "panel6";
-            panel6.Size = new Size(259, 124);
+            panel6.Size = new Size(287, 124);
             panel6.TabIndex = 0;
             // 
             // label19

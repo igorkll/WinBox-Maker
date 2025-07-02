@@ -342,7 +342,7 @@ namespace WinBox_Maker
             CustomBootLogo.Text = winBoxProject.winBoxConfig.CustomBootLogo ?? "not selected";
 
             AddVirtualDisplay.CheckState = winBoxProject.winBoxConfig.AddVirtualDisplay == true ? CheckState.Checked : CheckState.Unchecked;
-            UseEmbeddedDisplay.CheckState = winBoxProject.winBoxConfig.UseEmbedDisplay == true ? CheckState.Checked : CheckState.Unchecked;
+            UseEmbeddedDisplay.CheckState = winBoxProject.winBoxConfig.UseEmbeddedDisplay == true ? CheckState.Checked : CheckState.Unchecked;
             VirtualDisplayWidth.Text = winBoxProject.winBoxConfig.VirtualDisplayWidth.ToString();
             VirtualDisplayHeight.Text = winBoxProject.winBoxConfig.VirtualDisplayHeight.ToString();
 
@@ -858,7 +858,7 @@ namespace WinBox_Maker
 
         private void EmbedDisplayReadme_Click(object sender, EventArgs e)
         {
-            Form form = new TextViewer(Program.ResourcePath("embedDisplay.txt"));
+            Form form = new TextViewer(Program.ResourcePath("embeddedDisplay.txt"));
             form.Show();
         }
 

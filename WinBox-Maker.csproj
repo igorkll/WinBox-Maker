@@ -153,13 +153,28 @@
     <None Update="embedded\esp32_embedded_display\CMakeLists.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="embedded\esp32_embedded_display\main\bmp.c">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="embedded\esp32_embedded_display\main\bmp.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="embedded\esp32_embedded_display\main\CMakeLists.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="embedded\esp32_embedded_display\main\config.h">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="embedded\esp32_embedded_display\main\hal.c">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="embedded\esp32_embedded_display\main\hal.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="embedded\esp32_embedded_display\main\main.c">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="embedded\esp32_embedded_display\main\main.h">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="embedded\esp32_embedded_display\partitions.csv">
@@ -168,10 +183,13 @@
     <None Update="embedded\esp32_embedded_display\sdkconfig.defaults">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="embedded\esp32_embedded_display\storage\logo.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="embedded\esp32_embedded_display\storage\winbox.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="embedDisplay.txt">
+    <None Update="embeddedDisplay.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="LICENSE.txt">
