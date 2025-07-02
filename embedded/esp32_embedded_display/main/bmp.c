@@ -185,7 +185,7 @@ static ImageInfo _parse(const char* path, bool pushToDisplay) {
 
                 if (alpha > 0) {
                     if (bufferPos >= DRAW_BUFFER_SIZE) {
-                        hal_display_sendBuffer((uint8_t*)buffer, bufferPos);
+                        hal_display_sendBuffer((uint8_t*)buffer, bufferPos * 2);
                         bufferPos = 0;
                     }
                     buffer[bufferPos++] = hal_rgb888_to_rgb565((red << 16) | (green << 8) | blue);

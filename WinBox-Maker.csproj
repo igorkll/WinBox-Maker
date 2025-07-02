@@ -147,6 +147,30 @@
     <None Update="blobs\x86\vc_redist.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="embedded\esp32_embedded_display\.gitignore">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="embedded\esp32_embedded_display\CMakeLists.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="embedded\esp32_embedded_display\main\CMakeLists.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="embedded\esp32_embedded_display\main\config.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="embedded\esp32_embedded_display\main\main.c">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="embedded\esp32_embedded_display\partitions.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="embedded\esp32_embedded_display\sdkconfig.defaults">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="embedded\esp32_embedded_display\storage\winbox.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="embedDisplay.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
