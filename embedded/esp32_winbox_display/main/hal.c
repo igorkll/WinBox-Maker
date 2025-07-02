@@ -210,7 +210,8 @@ static void _sendSelectAll() {
 	_sendSelect(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
 
-static const uint8_t clear_buffer[4096] = {0};
+#define CLEAR_BUFFER_SIZE 2048
+static uint16_t clear_buffer[CLEAR_BUFFER_SIZE] = {0};
 static void _clear() {
 	_sendSelectAll();
 	for (size_t i = 0; i < (DISPLAY_WIDTH * DISPLAY_HEIGHT * BYTES_PER_COLOR) / sizeof(clear_buffer); i++) {
@@ -218,9 +219,34 @@ static void _clear() {
 	}
 }
 
+static uint16_t swap_endian(uint16_t value) {
+    return (value << 8) | (value >> 8);
+}
+
+uint16_t rgb888_to_rgb565(uint32_t rgb888) {
+    uint8_t r = (rgb888 >> 16) & 0xFF;
+    uint8_t g = (rgb888 >> 8) & 0xFF;
+    uint8_t b = rgb888 & 0xFF;
+
+    uint16_t r5 = (r >> 3) & 0x1F;
+    uint16_t g6 = (g >> 2) & 0x3F;
+    uint16_t b5 = (b >> 3) & 0x1F;
+
+    uint16_t out = (r5 << 11) | (g6 << 5) | b5;
+    #ifdef DISPLAY_SWAP_ENDIAN
+        out = swap_endian(out);
+    #endif
+    return out;
+}
+
 // ----------------------------------------------
 
 static void _initDisplay() {
+    uint16_t clear_color = rgb888_to_rgb565(BOOT_BACKGROUND);
+    for (size_t i = 0; i < CLEAR_BUFFER_SIZE; i++) {
+		clear_buffer[i] = clear_color;
+	}
+
 	// ---- init spi bus
 	spi_bus_config_t buscfg={
 		#ifdef DISPLAY_MISO
