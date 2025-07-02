@@ -10,4 +10,4 @@ typedef struct {
 } ImageInfo;
 
 ImageInfo bmp_readImageInfo(const char* path);
-ImageInfo bmp_draw(const char* path, int x, int y);
+ImageInfo bmp_draw(const char* path, uint16_t x, uint16_t y);

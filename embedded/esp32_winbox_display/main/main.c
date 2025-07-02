@@ -6,6 +6,7 @@
 #include <driver/uart.h>
 #include "hal.h"
 
+#define LOGO_PATH "/storage/logo.bmp"
 #define UART_NUM UART_NUM_0
 #define BUF_SIZE 1024
 
@@ -24,9 +25,14 @@ void uart_init() {
 }
 
 void _main() {
-    #ifdef BOOT_DISABLE_LOGO
-
-    #endif
+    if (!BOOT_DISABLE_LOGO) {
+        if (BOOT_DISABLE_LOGO_CENTERING) {
+            bmp_draw(LOGO_PATH, 0, 0, );
+        } else {
+            ImageInfo imageInfo = bmp_readImageInfo(LOGO_PATH);
+            bmp_draw(LOGO_PATH, (DISPLAY_WIDTH / 2) - (imageInfo.width / 2), (DISPLAY_HEIGHT / 2) - (imageInfo.height / 2), );
+        }
+    }
     hal_display_backlight(true);
 
     uart_init();

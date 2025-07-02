@@ -181,7 +181,7 @@ static ImageInfo _parse(const char* path, void(*dot)(uint16_t x, uint16_t y, uin
                     }
                 }
                 if (alpha > 0) {
-                    dot(ix, iy, );
+                    dot(ix, iy, (red << 16) | (green << 8) | blue);
                 }
             }
         }
@@ -195,6 +195,16 @@ ImageInfo bmp_readImageInfo(const char* path) {
     return _parse(path, NULL);
 }
 
-ImageInfo bmp_draw(const char* path, int x, int y, void(*dot)(uint16_t x, uint16_t y, uint32_t tcolor)) {
-    
+static uint16_t offsetX;
+static uint16_t offsetY;
+static void (*userDot) (uint16_t x, uint16_t y, uint32_t tcolor);
+static void _dot(uint16_t x, uint16_t y, uint32_t color) {
+    userDot(x + offsetX, y + offsetY, color);
+}
+
+ImageInfo bmp_draw(const char* path, uint16_t x, uint16_t y, void(*dot)(uint16_t x, uint16_t y, uint32_t tcolor)) {
+    offsetX = x;
+    offsetY = y;
+    userDot = dot;
+    return _parse(path, _dot);
 }
