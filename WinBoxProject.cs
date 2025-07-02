@@ -583,6 +583,7 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
             string cursorPath = Path.Combine(resourcesDirectoryPath, "cursor");
             bool customCursor = Directory.Exists(cursorPath) && !Program.IsDirectoryEmpty(cursorPath);
+            bool useWinboxService = winBoxConfig.UseEmbeddedDisplay == true;
 
             if (winBoxConfig.UseOemKey == true && winBoxConfig.OemKey != null && !winBoxConfig.OemKey.Contains("\""))
             {
@@ -617,7 +618,7 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
                 baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net472.exe /q";
             }
 
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate net 8.0.17"))
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate net 8.0.17") || useWinboxService)
             {
                 await CopyBlob("net8017.exe");
                 baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net8017.exe /quiet /norestart";
@@ -720,6 +721,16 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
                 await CopyResource("usbmmidd_v2\\custom_usbmmidd.bat");
                 applicationScript += $"\r\nreg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\WUDF\\Services\\usbmmIdd\\Parameters\\Monitors\" /v 0 /t REG_SZ /d \"{winBoxConfig.VirtualDisplayWidth},{winBoxConfig.VirtualDisplayHeight}\" /f";
                 applicationScript += $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\custom_usbmmidd.bat";
+            }
+
+            if (useWinboxService)
+            {
+                await Program.CopyFilesRecursivelyAsync(AppDomain.CurrentDomain.BaseDirectory, Path.Combine(WinboxResourcesPath, "winbox_maker"));
+            }
+
+            if (winBoxConfig.UseEmbeddedDisplay == true)
+            {
+                applicationScript += $"\r\nstart /B \"\" C:\\WinboxResources\\winbox_maker\\WinBox-Maker.exe ";
             }
 
             baseSetup += $"\r\n";

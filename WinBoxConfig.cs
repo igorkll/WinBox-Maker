@@ -41,7 +41,8 @@ namespace WinBox_Maker
         public bool? AddVirtualDisplay { get; set; }
         public int? VirtualDisplayWidth { get; set; }
         public int? VirtualDisplayHeight { get; set; }
-        
+        public bool? UseEmbeddedDisplay { get; set; }
+
 
         public WinBoxConfig() {
             InitDefaults();
@@ -65,6 +66,7 @@ namespace WinBox_Maker
             if (AddVirtualDisplay == null) AddVirtualDisplay = false;
             if (VirtualDisplayWidth == null) VirtualDisplayWidth = 960;
             if (VirtualDisplayHeight == null) VirtualDisplayHeight = 640;
+            if (UseEmbeddedDisplay == null) UseEmbeddedDisplay = false;
         }
 
         public void Save(string wnbFilePath)

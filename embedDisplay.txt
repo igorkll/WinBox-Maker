@@ -1,0 +1,4 @@
+this feature allows you to use small DIY displays with winbox.
+to do this, flash your microcontroller with the firmware, which you can find if you click on the "Open Embedded Folder" button.
+you will probably need to adjust the firmware for your display and touchscreen to make everything work.
+in winbox maker, activate the virtual display function (an image will be captured from it for transmission to the embedded display)

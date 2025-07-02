@@ -112,12 +112,16 @@
             label17 = new Label();
             tabPage6 = new TabPage();
             tabPage7 = new TabPage();
+            panel7 = new Panel();
+            EmbedDisplayReadme = new Button();
+            UseEmbeddedDisplay = new CheckBox();
             panel6 = new Panel();
-            AddVirtualDisplay = new CheckBox();
-            VirtualDisplayWidth = new TextBox();
-            VirtualDisplayHeight = new TextBox();
-            label18 = new Label();
             label19 = new Label();
+            label18 = new Label();
+            VirtualDisplayHeight = new TextBox();
+            VirtualDisplayWidth = new TextBox();
+            AddVirtualDisplay = new CheckBox();
+            OpenEmbeddedFolder = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -133,6 +137,7 @@
             panel5.SuspendLayout();
             tabPage6.SuspendLayout();
             tabPage7.SuspendLayout();
+            panel7.SuspendLayout();
             panel6.SuspendLayout();
             SuspendLayout();
             // 
@@ -1006,6 +1011,7 @@
             // 
             // tabPage7
             // 
+            tabPage7.Controls.Add(panel7);
             tabPage7.Controls.Add(panel6);
             tabPage7.Location = new Point(4, 34);
             tabPage7.Name = "tabPage7";
@@ -1014,6 +1020,37 @@
             tabPage7.TabIndex = 6;
             tabPage7.Text = "winbox service";
             tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // panel7
+            // 
+            panel7.BorderStyle = BorderStyle.Fixed3D;
+            panel7.Controls.Add(EmbedDisplayReadme);
+            panel7.Controls.Add(UseEmbeddedDisplay);
+            panel7.Location = new Point(6, 136);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(259, 124);
+            panel7.TabIndex = 1;
+            // 
+            // EmbedDisplayReadme
+            // 
+            EmbedDisplayReadme.Location = new Point(140, 83);
+            EmbedDisplayReadme.Name = "EmbedDisplayReadme";
+            EmbedDisplayReadme.Size = new Size(112, 34);
+            EmbedDisplayReadme.TabIndex = 1;
+            EmbedDisplayReadme.Text = "README";
+            EmbedDisplayReadme.UseVisualStyleBackColor = true;
+            EmbedDisplayReadme.Click += EmbedDisplayReadme_Click;
+            // 
+            // UseEmbeddedDisplay
+            // 
+            UseEmbeddedDisplay.AutoSize = true;
+            UseEmbeddedDisplay.Location = new Point(3, 3);
+            UseEmbeddedDisplay.Name = "UseEmbeddedDisplay";
+            UseEmbeddedDisplay.Size = new Size(225, 29);
+            UseEmbeddedDisplay.TabIndex = 0;
+            UseEmbeddedDisplay.Text = "Support Embed display";
+            UseEmbeddedDisplay.UseVisualStyleBackColor = true;
+            UseEmbeddedDisplay.CheckedChanged += UseEmbeddedDisplay_CheckedChanged;
             // 
             // panel6
             // 
@@ -1028,6 +1065,40 @@
             panel6.Size = new Size(259, 124);
             panel6.TabIndex = 0;
             // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(159, 78);
+            label19.Name = "label19";
+            label19.Size = new Size(65, 25);
+            label19.TabIndex = 4;
+            label19.Text = "Height";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(159, 41);
+            label18.Name = "label18";
+            label18.Size = new Size(60, 25);
+            label18.TabIndex = 3;
+            label18.Text = "Width";
+            // 
+            // VirtualDisplayHeight
+            // 
+            VirtualDisplayHeight.Location = new Point(3, 75);
+            VirtualDisplayHeight.Name = "VirtualDisplayHeight";
+            VirtualDisplayHeight.Size = new Size(150, 31);
+            VirtualDisplayHeight.TabIndex = 2;
+            VirtualDisplayHeight.TextChanged += VirtualDisplayHeight_TextChanged;
+            // 
+            // VirtualDisplayWidth
+            // 
+            VirtualDisplayWidth.Location = new Point(3, 38);
+            VirtualDisplayWidth.Name = "VirtualDisplayWidth";
+            VirtualDisplayWidth.Size = new Size(150, 31);
+            VirtualDisplayWidth.TabIndex = 1;
+            VirtualDisplayWidth.TextChanged += VirtualDisplayWidth_TextChanged;
+            // 
             // AddVirtualDisplay
             // 
             AddVirtualDisplay.AutoSize = true;
@@ -1039,39 +1110,15 @@
             AddVirtualDisplay.UseVisualStyleBackColor = true;
             AddVirtualDisplay.CheckedChanged += AddVirtualDisplay_CheckedChanged;
             // 
-            // VirtualDisplayWidth
+            // OpenEmbeddedFolder
             // 
-            VirtualDisplayWidth.Location = new Point(3, 38);
-            VirtualDisplayWidth.Name = "VirtualDisplayWidth";
-            VirtualDisplayWidth.Size = new Size(150, 31);
-            VirtualDisplayWidth.TabIndex = 1;
-            VirtualDisplayWidth.TextChanged += VirtualDisplayWidth_TextChanged;
-            // 
-            // VirtualDisplayHeight
-            // 
-            VirtualDisplayHeight.Location = new Point(3, 75);
-            VirtualDisplayHeight.Name = "VirtualDisplayHeight";
-            VirtualDisplayHeight.Size = new Size(150, 31);
-            VirtualDisplayHeight.TabIndex = 2;
-            VirtualDisplayHeight.TextChanged += VirtualDisplayHeight_TextChanged;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Location = new Point(159, 41);
-            label18.Name = "label18";
-            label18.Size = new Size(60, 25);
-            label18.TabIndex = 3;
-            label18.Text = "Width";
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Location = new Point(159, 78);
-            label19.Name = "label19";
-            label19.Size = new Size(65, 25);
-            label19.TabIndex = 4;
-            label19.Text = "Height";
+            OpenEmbeddedFolder.Location = new Point(633, 12);
+            OpenEmbeddedFolder.Name = "OpenEmbeddedFolder";
+            OpenEmbeddedFolder.Size = new Size(246, 45);
+            OpenEmbeddedFolder.TabIndex = 40;
+            OpenEmbeddedFolder.Text = "Open Embedded Folder";
+            OpenEmbeddedFolder.UseVisualStyleBackColor = true;
+            OpenEmbeddedFolder.Click += OpenEmbeddedFolder_Click;
             // 
             // EditorForm
             // 
@@ -1081,6 +1128,7 @@
             AutoScrollMargin = new Size(10, 30);
             BackColor = Color.DimGray;
             ClientSize = new Size(1178, 644);
+            Controls.Add(OpenEmbeddedFolder);
             Controls.Add(tabControl1);
             Controls.Add(OpenProjectFolder);
             Controls.Add(ExportImgPartition);
@@ -1124,6 +1172,8 @@
             tabPage6.ResumeLayout(false);
             tabPage6.PerformLayout();
             tabPage7.ResumeLayout(false);
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             ResumeLayout(false);
@@ -1221,5 +1271,9 @@
         private TextBox VirtualDisplayWidth;
         private Label label18;
         private Label label19;
+        private Panel panel7;
+        private CheckBox UseEmbeddedDisplay;
+        private Button OpenEmbeddedFolder;
+        private Button EmbedDisplayReadme;
     }
 }
