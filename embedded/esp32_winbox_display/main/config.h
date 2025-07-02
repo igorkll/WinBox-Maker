@@ -1,4 +1,4 @@
-#define BOOT_BACKGROUND 0xff00ff
+#define BOOT_BACKGROUND 0x000000
 #define BOOT_DISABLE_LOGO false
 #define BOOT_DISABLE_LOGO_CENTERING false
 

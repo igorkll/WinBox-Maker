@@ -24,7 +24,9 @@ void uart_init() {
 }
 
 void _main() {
-    
+    #ifdef BOOT_DISABLE_LOGO
+
+    #endif
     hal_display_backlight(true);
 
     uart_init();
