@@ -731,7 +731,7 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
 
             if (winBoxConfig.UseEmbeddedDisplay == true)
             {
-                applicationScript += $"\r\nstart /B \"\" C:\\WinboxResources\\winbox_maker\\WinBox-Maker.exe ";
+                //applicationScript += $"\r\nstart /B \"\" C:\\WinboxResources\\winbox_maker\\WinBox-Maker.exe";
             }
 
             baseSetup += $"\r\n";
