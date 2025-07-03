@@ -86,6 +86,7 @@ namespace WinBox_Maker
                     control.Name != "LICENSE" &&
                     control.Name != "README" &&
                     control.Name != "OpenProjectFolder" &&
+                    control.Name != "OpenEmbeddedFolder" &&
                     !(control is ProgressBar) &&
                     !(control is Label) &&
                     !(control is PictureBox) &&
