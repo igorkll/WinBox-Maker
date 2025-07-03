@@ -719,9 +719,13 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
             {
                 await UnpackBlob("usbmmidd_v2.zip");
                 await CopyResource("usbmmidd_v2\\custom_usbmmidd.bat");
-                baseSetup += $"\r\nreg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\WUDF\\Services\\usbmmIdd\\Parameters\\Monitors\" /v 0 /t REG_SZ /d \"{winBoxConfig.VirtualDisplayWidth},{winBoxConfig.VirtualDisplayHeight}\" /f";
-                baseSetup += $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\custom_usbmmidd.bat";
-                applicationScript += $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\custom_usbmmidd.bat";
+                string regStr = $"\r\nreg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\WUDF\\Services\\usbmmIdd\\Parameters\\Monitors\" /v 0 /t REG_SZ /d \"{winBoxConfig.VirtualDisplayWidth},{winBoxConfig.VirtualDisplayHeight}\" /f";
+                string addDisplay = $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\custom_usbmmidd.bat";
+                baseSetup += regStr;
+                baseSetup += addDisplay;
+                baseSetup += regStr;
+                applicationScript += regStr;
+                applicationScript += addDisplay;
             }
 
             if (useWinboxService)
