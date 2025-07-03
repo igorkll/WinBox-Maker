@@ -92,6 +92,7 @@ namespace WinBox_Maker
                     !(control is Label) &&
                     !(control is PictureBox) &&
                     !(control is TabControl) &&
+                    !(control is Panel) &&
                     !(control is TabPage))
                 {
                     control.Enabled = false;

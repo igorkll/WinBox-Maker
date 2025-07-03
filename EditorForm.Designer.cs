@@ -837,7 +837,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(6, 319);
+            label16.Location = new Point(3, 319);
             label16.Name = "label16";
             label16.Size = new Size(315, 25);
             label16.TabIndex = 39;
@@ -1033,7 +1033,7 @@
             // 
             // EmbedDisplayReadme
             // 
-            EmbedDisplayReadme.Location = new Point(140, 83);
+            EmbedDisplayReadme.Location = new Point(168, 83);
             EmbedDisplayReadme.Name = "EmbedDisplayReadme";
             EmbedDisplayReadme.Size = new Size(112, 34);
             EmbedDisplayReadme.TabIndex = 1;

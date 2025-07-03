@@ -337,6 +337,7 @@ namespace WinBox_Maker
             File.Delete(tempRegPath);
         }
 
+        /*
         public async Task WriteHiddenBatExecuter(string ExecuterPath, string batPath, string? args)
         {
             string vbsFile = $@"Set WshShell = CreateObject(""WScript.Shell"")
@@ -344,6 +345,18 @@ WshShell.Run """"""{batPath}"""" {args ?? ""}"", 0, False";
             await File.WriteAllTextAsync(ExecuterPath, vbsFile);
             
         }
+        */
+
+        public async Task WriteHiddenBatExecuter(string executerPath, string batPath, string? args)
+        {
+            string argsStr = "";
+            if (args != null && args.Length > 0) argsStr = $@"-ArgumentList '{args.Replace("'", "''")}'";
+            string vbsFile = $@"Set WshShell = CreateObject(""WScript.Shell"")
+WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb RunAs -WindowStyle Hidden"""" "", 0, False";
+
+            await File.WriteAllTextAsync(executerPath, vbsFile);
+        }
+
 
         public async Task CopyResource(string name)
         {
@@ -793,7 +806,7 @@ net localgroup Administrators winbox /add";
 
                 case ProgramTypeEnum.RawCommand:
                     if (winBoxConfig.RawCommand != null) {
-                        applicationScript += "\r\ncd C:\\";
+                        applicationScript += "\r\ncd C:\\WinboxProgram";
                         command = winBoxConfig.RawCommand;
                     }
                     break;
