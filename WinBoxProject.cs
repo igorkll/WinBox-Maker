@@ -789,6 +789,7 @@ net localgroup Administrators winbox /add";
 
                 case ProgramTypeEnum.RawCommand:
                     if (winBoxConfig.RawCommand != null) {
+                        applicationScript += "\r\ncd C:\\";
                         command = winBoxConfig.RawCommand;
                     }
                     break;
