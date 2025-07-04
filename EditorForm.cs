@@ -31,6 +31,9 @@ namespace WinBox_Maker
             ArchitectureSelect.Items.Add("x86");
             ArchitectureSelect.Items.Add("arm64");
 
+            OpenEmbeddedFolder.Visible = false;
+            tabControl1.TabPages.Remove(tabPage7);
+
             TweakList.Items.Clear();
             AddTweakToList("Integrate microsoft edge");
             AddTweakToList("Integrate vc redist");
@@ -42,6 +45,7 @@ namespace WinBox_Maker
             AddTweakToList("Hide Cursor");
             AddTweakToList("Disable boot circle");
             AddTweakToList("Disable boot logo");
+            AddTweakToList("Do not disable hotkeys by changing the layout");
             softwareCheck = false;
 
             UnlockForm();

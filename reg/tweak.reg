@@ -40,9 +40,6 @@ Windows Registry Editor Version 5.00
 "PromptOnSecureDesktop"=dword:00000000
 
 ; ---------------- disable taskmgr
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\taskmgr.exe]
-"Debugger"="\"\""
-
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableTaskMgr"=dword:00000001
 

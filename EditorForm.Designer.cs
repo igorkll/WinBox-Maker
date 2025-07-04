@@ -748,7 +748,7 @@
             panel4.Controls.Add(CustomBootLogo_clear);
             panel4.Controls.Add(ScreenTimeout);
             panel4.Controls.Add(CustomBootLogo_select);
-            panel4.Location = new Point(316, 44);
+            panel4.Location = new Point(505, 44);
             panel4.Name = "panel4";
             panel4.Size = new Size(314, 284);
             panel4.TabIndex = 36;
@@ -776,7 +776,7 @@
             TweakList.FormattingEnabled = true;
             TweakList.Location = new Point(6, 44);
             TweakList.Name = "TweakList";
-            TweakList.Size = new Size(304, 284);
+            TweakList.Size = new Size(493, 284);
             TweakList.TabIndex = 2;
             TweakList.ItemCheck += TweakList_ItemCheck;
             // 
