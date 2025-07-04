@@ -733,12 +733,13 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
                 await UnpackBlob("usbmmidd_v2.zip");
                 await CopyResource("usbmmidd_v2\\install_driver.bat");
                 await CopyResource("usbmmidd_v2\\add_display.bat");
+                await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_add_display_hidden.vbs"), "C:\\WinboxResources\\usbmmidd_v2\\add_display.bat", null);
                 string regStr = $"\r\nreg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\WUDF\\Services\\usbmmIdd\\Parameters\\Monitors\" /v 0 /t REG_SZ /d \"{winBoxConfig.VirtualDisplayWidth},{winBoxConfig.VirtualDisplayHeight}\" /f";
-                string installDriver = $"\r\ncd C:\\WinboxResources\\usbmmidd_v2\r\ncall C:\\WinboxResources\\usbmmidd_v2\\install_driver.bat";
-                string addDisplay = $"\r\ncd C:\\WinboxResources\\usbmmidd_v2\r\ncall C:\\WinboxResources\\usbmmidd_v2\\add_display.bat";
+                string installDriver = $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\install_driver.bat";
+                string addDisplay = $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\add_display.bat";
                 baseSetup += installDriver;
                 baseSetup += regStr;
-                applicationScript += addDisplay;
+                baseSetup += addDisplay;
             }
 
             if (useWinboxService)
