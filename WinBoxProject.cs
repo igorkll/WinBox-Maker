@@ -444,8 +444,17 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             Directory.CreateDirectory(WinboxResourcesPath);
 
             string nvidiaDriversPath = Path.Combine(resourcesDirectoryPath, "nvidia_drivers");
-            if (Directory.Exists(nvidiaDriversPath)) {
-                await Program.CopyFilesRecursivelyAsync(nvidiaDriversPath, Path.Combine(WinboxResourcesPath, "nvidia_drivers"));
+            if (Directory.Exists(nvidiaDriversPath))
+            {
+                string[] files = Directory.GetFiles(nvidiaDriversPath);
+                int number = 0;
+                foreach (string file in files)
+                {
+                    string path = Path.Combine(tempDirectoryPath, "drivers", "nvidia" + number);
+                    Directory.CreateDirectory(path);
+                    await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
+                    number++;
+                }
             }
 
             string amdDriversPath = Path.Combine(resourcesDirectoryPath, "amd_drivers");
@@ -575,20 +584,7 @@ bcdedit /set {{default}} loadoptions DISABLE_INTEGRITY_CHECKS
 bcdedit /set {{default}} NOINTEGRITYCHECKS ON
 bcdedit /set {{default}} TESTSIGNING ON";
 
-            string applicationScript = $@"@echo off
-
-IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
-    set ""nvidiaDriverDir=C:\WinboxResources\nvidia_drivers""
-    if exist ""%nvidiaDriverDir%"" (
-        cd /d ""%nvidiaDriverDir%""
-
-        for %%f in (*.exe) do (
-            start /wait """" ""%%f"" -s
-        )
-    )
-
-    echo. > ""C:\WinboxResources\drivers.installed""
-)";
+            string applicationScript = $@"@echo off";
 
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
             string cursorPath = Path.Combine(resourcesDirectoryPath, "cursor");
