@@ -13,7 +13,8 @@ the program is recommended to be used with the original English image of "Window
 please note that winbox maker does not provide Windows images, it only provides a tool for reassembling Windows for use in kiosk mode  
 
 ## warnings
-* if you are going to assemble the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)
+* if you are going to build the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)
+* img export is not working at the moment.
 
 ## notes
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)

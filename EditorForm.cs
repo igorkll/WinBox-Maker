@@ -32,6 +32,7 @@ namespace WinBox_Maker
             ArchitectureSelect.Items.Add("arm64");
 
             OpenEmbeddedFolder.Visible = false;
+            ExportImgPartition.Visible = false;
             tabControl1.TabPages.Remove(tabPage7);
 
             TweakList.Items.Clear();
@@ -761,7 +762,8 @@ namespace WinBox_Maker
         private async void CustomBootLogo_select_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "BMP files (*.bmp)|*.bmp", winBoxProject.resourcesDirectoryPath, true);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Image Files (*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff)|*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff"
+, winBoxProject.resourcesDirectoryPath, true);
             if (name != null)
             {
                 winBoxProject.winBoxConfig.CustomBootLogo = name;

@@ -679,7 +679,10 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
                 if (File.Exists(logoPath))
                 {
                     await UnpackBlob("HackBGRT.zip");
-                    await Program.CopyFileAsync(logoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "splash.bmp"));
+                    string debugBootLogoPath = Path.Combine(tempDirectoryPath, "debug_logo.bmp");
+                    string splashBootLogoPath = Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "splash.bmp");
+                    ImageConverter.ConvertToBmp_54_24(logoPath, debugBootLogoPath);
+                    File.Copy(debugBootLogoPath, splashBootLogoPath, true);
                     baseSetup += "\r\nstart /wait C:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install";
                 }
             }
