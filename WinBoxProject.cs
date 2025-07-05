@@ -684,9 +684,12 @@ IF NOT EXIST ""C:\WinboxResources\drivers.installed"" (
                     string splashBootLogoPath = Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "splash.bmp");
                     ImageConverter.ConvertToBmp_54_24(logoPath, debugBootLogoPath);
                     File.Copy(debugBootLogoPath, splashBootLogoPath, true);
-                    baseSetup += "\r\nstart /wait C:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot enable-overwrite";
+                    baseSetup += "\r\ncd C:\\WinboxResources\\HackBGRT-2.5.2";
+                    baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot enable-overwrite";
                 }
             }
+
+            baseSetup += "\r\ncd C:\\";
 
             if (winBoxConfig.PostInstall_reg != null)
             {
