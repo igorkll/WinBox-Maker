@@ -45,9 +45,13 @@ namespace WinBox_Maker
                     for (int x = 0; x < width; x++)
                     {
                         Color pixel = bitmap.GetPixel(x, y);
-                        fs.WriteByte(pixel.B);
-                        fs.WriteByte(pixel.G);
-                        fs.WriteByte(pixel.R);
+                        float alpha = pixel.A / 255.0f;
+                        byte finalR = (byte)(alpha * pixel.R);
+                        byte finalG = (byte)(alpha * pixel.G);
+                        byte finalB = (byte)(alpha * pixel.B);
+                        fs.WriteByte(finalB);
+                        fs.WriteByte(finalG);
+                        fs.WriteByte(finalR);
                     }
 
                     for (int padding = 0; padding < rowSize - (width * 3); padding++)

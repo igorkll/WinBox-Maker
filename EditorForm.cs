@@ -767,6 +767,7 @@ namespace WinBox_Maker
             if (name != null)
             {
                 winBoxProject.winBoxConfig.CustomBootLogo = name;
+                //ImageConverter.ConvertToBmp_54_24(Path.Combine(winBoxProject.resourcesDirectoryPath, winBoxProject.winBoxConfig.CustomBootLogo), Path.Combine(winBoxProject.baseDirectoryPath, "winbox_temp", "debug.bmp"));
             }
             winBoxProject.SaveConfig();
             UnlockForm();
