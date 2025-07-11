@@ -676,10 +676,15 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 if (File.Exists(logoPath))
                 {
                     await UnpackBlob("HackBGRT.zip");
+
                     string debugBootLogoPath = Path.Combine(tempDirectoryPath, "debug_logo.bmp");
                     string splashBootLogoPath = Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "splash.bmp");
                     ImageConverter.ConvertToBmp_54_24(logoPath, debugBootLogoPath);
                     File.Copy(debugBootLogoPath, splashBootLogoPath, true);
+
+                    string configBootLogoPath = Program.ResourcePath(Path.Combine("resources", winBoxConfig.CustomBootLogo_centering == true ? "hackBGRT_centering.txt" : "hackBGRT.txt"));
+                    File.Copy(configBootLogoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "config.txt"), true);
+
                     baseSetup += "\r\ncd C:\\WinboxResources\\HackBGRT-2.5.2";
                     baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot enable-overwrite";
                 }

@@ -351,6 +351,7 @@ namespace WinBox_Maker
 
             AddVirtualDisplay.CheckState = winBoxProject.winBoxConfig.AddVirtualDisplay == true ? CheckState.Checked : CheckState.Unchecked;
             UseEmbeddedDisplay.CheckState = winBoxProject.winBoxConfig.UseEmbeddedDisplay == true ? CheckState.Checked : CheckState.Unchecked;
+            CustomBootLogo_centering.CheckState = winBoxProject.winBoxConfig.CustomBootLogo_centering == true ? CheckState.Checked : CheckState.Unchecked;
             VirtualDisplayWidth.Text = winBoxProject.winBoxConfig.VirtualDisplayWidth.ToString();
             VirtualDisplayHeight.Text = winBoxProject.winBoxConfig.VirtualDisplayHeight.ToString();
 
@@ -875,6 +876,12 @@ namespace WinBox_Maker
         private void UseEmbeddedDisplay_CheckedChanged(object sender, EventArgs e)
         {
             winBoxProject.winBoxConfig.UseEmbeddedDisplay = UseEmbeddedDisplay.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void CustomBootLogo_centering_CheckedChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.CustomBootLogo_centering = CustomBootLogo_centering.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
     }

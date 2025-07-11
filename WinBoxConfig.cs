@@ -42,6 +42,7 @@ namespace WinBox_Maker
         public int? VirtualDisplayWidth { get; set; }
         public int? VirtualDisplayHeight { get; set; }
         public bool? UseEmbeddedDisplay { get; set; }
+        public bool? CustomBootLogo_centering { get; set; }
 
 
         public WinBoxConfig() {
@@ -67,6 +68,7 @@ namespace WinBox_Maker
             if (VirtualDisplayWidth == null) VirtualDisplayWidth = 960;
             if (VirtualDisplayHeight == null) VirtualDisplayHeight = 640;
             if (UseEmbeddedDisplay == null) UseEmbeddedDisplay = false;
+            if (CustomBootLogo_centering == null) CustomBootLogo_centering = false;
         }
 
         public void Save(string wnbFilePath)

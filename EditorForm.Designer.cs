@@ -88,6 +88,7 @@
             CustomBootLogo_select = new Button();
             label15 = new Label();
             panel4 = new Panel();
+            CustomBootLogo_centering = new CheckBox();
             label13 = new Label();
             ScreenTimeout = new TextBox();
             TweakList = new CheckedListBox();
@@ -703,7 +704,7 @@
             // CustomBootLogo
             // 
             CustomBootLogo.AutoSize = true;
-            CustomBootLogo.Location = new Point(176, 248);
+            CustomBootLogo.Location = new Point(176, 213);
             CustomBootLogo.Name = "CustomBootLogo";
             CustomBootLogo.Size = new Size(78, 25);
             CustomBootLogo.TabIndex = 11;
@@ -711,7 +712,7 @@
             // 
             // CustomBootLogo_clear
             // 
-            CustomBootLogo_clear.Location = new Point(91, 243);
+            CustomBootLogo_clear.Location = new Point(88, 208);
             CustomBootLogo_clear.Name = "CustomBootLogo_clear";
             CustomBootLogo_clear.Size = new Size(82, 34);
             CustomBootLogo_clear.TabIndex = 10;
@@ -721,7 +722,7 @@
             // 
             // CustomBootLogo_select
             // 
-            CustomBootLogo_select.Location = new Point(3, 243);
+            CustomBootLogo_select.Location = new Point(3, 208);
             CustomBootLogo_select.Name = "CustomBootLogo_select";
             CustomBootLogo_select.Size = new Size(82, 34);
             CustomBootLogo_select.TabIndex = 9;
@@ -732,7 +733,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(3, 215);
+            label15.Location = new Point(3, 180);
             label15.Name = "label15";
             label15.Size = new Size(214, 25);
             label15.TabIndex = 8;
@@ -742,6 +743,7 @@
             // 
             panel4.BackColor = SystemColors.Window;
             panel4.BorderStyle = BorderStyle.Fixed3D;
+            panel4.Controls.Add(CustomBootLogo_centering);
             panel4.Controls.Add(CustomBootLogo);
             panel4.Controls.Add(label15);
             panel4.Controls.Add(label13);
@@ -752,6 +754,17 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(314, 284);
             panel4.TabIndex = 36;
+            // 
+            // CustomBootLogo_centering
+            // 
+            CustomBootLogo_centering.AutoSize = true;
+            CustomBootLogo_centering.Location = new Point(3, 248);
+            CustomBootLogo_centering.Name = "CustomBootLogo_centering";
+            CustomBootLogo_centering.Size = new Size(111, 29);
+            CustomBootLogo_centering.TabIndex = 12;
+            CustomBootLogo_centering.Text = "centering";
+            CustomBootLogo_centering.UseVisualStyleBackColor = true;
+            CustomBootLogo_centering.CheckedChanged += CustomBootLogo_centering_CheckedChanged;
             // 
             // label13
             // 
@@ -1275,5 +1288,6 @@
         private CheckBox UseEmbeddedDisplay;
         private Button OpenEmbeddedFolder;
         private Button EmbedDisplayReadme;
+        private CheckBox CustomBootLogo_centering;
     }
 }
