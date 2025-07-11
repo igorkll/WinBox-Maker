@@ -852,9 +852,9 @@
             label16.AutoSize = true;
             label16.Location = new Point(3, 319);
             label16.Name = "label16";
-            label16.Size = new Size(315, 25);
+            label16.Size = new Size(582, 25);
             label16.TabIndex = 39;
-            label16.Text = "recommended Windows 10 Enterprise";
+            label16.Text = "recommended \"Windows 10 Enterprise\" or \"Windows 10 IoT Enterprise\"";
             // 
             // tabPage2
             // 

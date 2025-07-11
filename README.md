@@ -9,7 +9,7 @@ the program needs to be run with administrator rights because it mounts images
 the program is primarily aimed at creating Windows images for operation in kiosk mode, that is, the user will have access to only one of your programs that you add to the image and nothing more  
 however, the program can be used in other usage scenarios (for example, creating a TV set-top box or a Windows-based slot machine)  
 please note that the program requires the "dism" utility. usually it is built into Windows  
-the program is recommended to be used with the original English image of "Windows 10 Enterprise"  
+the program is recommended to be used with the original English image of "Windows 10 Enterprise" or "Windows 10 IoT Enterprise"
 please note that winbox maker does not provide Windows images, it only provides a tool for reassembling Windows for use in kiosk mode  
 
 ## warnings
@@ -20,7 +20,7 @@ please note that winbox maker does not provide Windows images, it only provides 
 
 ## notes
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
-* it is recommended to use "Windows 10 Enterprise" specifically, otherwise some things probably won't work, such as disabling the login animation and disabling keyboard shortcuts in the system itself
+* it is recommended to use "Windows 10 Enterprise" or "Windows 10 IoT Enterprise" specifically, otherwise some things probably won't work, such as disabling the login animation and disabling keyboard shortcuts in the system itself
 * at the moment, the custom boot logo installation only works on UEFI systems (you also need to turn off secure boot) (it may also not work at all for reasons unknown to me)
 * your program from the winbox_resources/program folder on the target system is located in C:\WinboxProgram
 
