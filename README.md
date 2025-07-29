@@ -13,12 +13,15 @@ however, the program can be used in other usage scenarios (for example, creating
 please note that the program requires the "dism" utility. usually it is built into Windows  
 the program is recommended to be used with the original English image of "Windows 10 Enterprise" or "Windows 10 IoT Enterprise"
 please note that winbox maker does not provide Windows images, it only provides a tool for reassembling Windows for use in kiosk mode  
+if the application fails, winbox will NOT crash on the Windows desktop. you will just have a black screen. This makes winbox maker safe to use in cases where passersby will have access to the device  
+during testing of winbox maker, there was not a single way to get into any system menu (if such behavior is not provided in the application) without using a boot disk or other modification of system files  
 
 ## warnings
 * if you are going to build the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)
-* img export is not working at the moment.
+* img export is not working at the moment
 * when you burn the installation ISO to a USB stick via rufus or a similar program, DO NOT USE the windows installation customization feature, as this will cause conflicts with those tweaks that already exist in winbox and it may work incorrectly
 * if you enable "Do not disable hotkeys by changing the layout", then probably many keyboard shortcuts can continue to work! It can be VERY UNSAFE for kiosks in public places. the reason for this: windows
+* if your application uses file picker from windows, then this is a backdoor! since if you write "cmd" in the path bar, the command line will open, which is unacceptable for devices in kiosk mode
 
 ## notes
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
@@ -148,4 +151,3 @@ please note that winbox maker does not provide Windows images, it only provides 
 ## command line flags
 * /i - exports the .iso installer
 * /w - exports the .wim file
-* /r - exports the .img partition (with a pre-installed system without a bootloader)
