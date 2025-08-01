@@ -932,6 +932,13 @@ if %errorlevel%==0 (
             await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-DeviceLockdown");
             await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-KeyboardFilter");
 
+            if (winBoxConfig.winmountedEnabled == true)
+            {
+                processValue(63);
+                processName("Executing a win-mounted event");
+                await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.winmountedEvent);
+            }
+
             if (imgPartitionPath != null)
             {
                 processName("Generating an .img image of a partition");

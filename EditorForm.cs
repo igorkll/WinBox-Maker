@@ -359,8 +359,12 @@ namespace WinBox_Maker
 
             prebuildEnabled.CheckState = winBoxProject.winBoxConfig.prebuildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             prebuildEvent.Text = winBoxProject.winBoxConfig.prebuildEvent ?? "";
+
             postbuildEnabled.CheckState = winBoxProject.winBoxConfig.postbuildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             postbuildEvent.Text = winBoxProject.winBoxConfig.postbuildEvent ?? "";
+
+            winmountedEnabled.CheckState = winBoxProject.winBoxConfig.winmountedEnabled == true ? CheckState.Checked : CheckState.Unchecked;
+            winmountedEvent.Text = winBoxProject.winBoxConfig.winmountedEvent ?? "";
 
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
@@ -911,6 +915,18 @@ namespace WinBox_Maker
         private void postbuildEvent_TextChanged(object sender, EventArgs e)
         {
             winBoxProject.winBoxConfig.postbuildEvent = postbuildEvent.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void winmountedEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.winmountedEnabled = winmountedEnabled.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void winmountedEvent_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.winmountedEvent = winmountedEvent.Text;
             winBoxProject.SaveConfig();
         }
     }

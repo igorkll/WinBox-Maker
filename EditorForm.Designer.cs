@@ -124,6 +124,10 @@
             VirtualDisplayWidth = new TextBox();
             AddVirtualDisplay = new CheckBox();
             tabPage8 = new TabPage();
+            panel10 = new Panel();
+            winmountedEnabled = new CheckBox();
+            winmountedEvent = new RichTextBox();
+            label24 = new Label();
             panel9 = new Panel();
             postbuildEnabled = new CheckBox();
             postbuildEvent = new RichTextBox();
@@ -152,6 +156,7 @@
             panel7.SuspendLayout();
             panel6.SuspendLayout();
             tabPage8.SuspendLayout();
+            panel10.SuspendLayout();
             panel9.SuspendLayout();
             panel8.SuspendLayout();
             SuspendLayout();
@@ -1140,6 +1145,7 @@
             // 
             // tabPage8
             // 
+            tabPage8.Controls.Add(panel10);
             tabPage8.Controls.Add(panel9);
             tabPage8.Controls.Add(panel8);
             tabPage8.Location = new Point(4, 34);
@@ -1149,6 +1155,48 @@
             tabPage8.Text = "events";
             tabPage8.UseVisualStyleBackColor = true;
             // 
+            // panel10
+            // 
+            panel10.BorderStyle = BorderStyle.Fixed3D;
+            panel10.Controls.Add(winmountedEnabled);
+            panel10.Controls.Add(winmountedEvent);
+            panel10.Controls.Add(label24);
+            panel10.Location = new Point(491, 3);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(457, 163);
+            panel10.TabIndex = 3;
+            // 
+            // winmountedEnabled
+            // 
+            winmountedEnabled.AutoSize = true;
+            winmountedEnabled.CheckAlign = ContentAlignment.MiddleRight;
+            winmountedEnabled.Location = new Point(349, 6);
+            winmountedEnabled.Name = "winmountedEnabled";
+            winmountedEnabled.Size = new Size(101, 29);
+            winmountedEnabled.TabIndex = 2;
+            winmountedEnabled.Text = "enabled";
+            winmountedEnabled.UseVisualStyleBackColor = true;
+            winmountedEnabled.CheckedChanged += winmountedEnabled_CheckedChanged;
+            // 
+            // winmountedEvent
+            // 
+            winmountedEvent.Location = new Point(3, 41);
+            winmountedEvent.Name = "winmountedEvent";
+            winmountedEvent.Size = new Size(447, 115);
+            winmountedEvent.TabIndex = 1;
+            winmountedEvent.Text = "";
+            winmountedEvent.TextChanged += winmountedEvent_TextChanged;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label24.Location = new Point(-2, 0);
+            label24.Name = "label24";
+            label24.Size = new Size(259, 38);
+            label24.TabIndex = 0;
+            label24.Text = "win-mounted event";
+            // 
             // panel9
             // 
             panel9.BorderStyle = BorderStyle.Fixed3D;
@@ -1157,14 +1205,14 @@
             panel9.Controls.Add(label23);
             panel9.Location = new Point(3, 172);
             panel9.Name = "panel9";
-            panel9.Size = new Size(476, 163);
+            panel9.Size = new Size(457, 163);
             panel9.TabIndex = 1;
             // 
             // postbuildEnabled
             // 
             postbuildEnabled.AutoSize = true;
             postbuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            postbuildEnabled.Location = new Point(368, 3);
+            postbuildEnabled.Location = new Point(349, 3);
             postbuildEnabled.Name = "postbuildEnabled";
             postbuildEnabled.Size = new Size(101, 29);
             postbuildEnabled.TabIndex = 2;
@@ -1176,7 +1224,7 @@
             // 
             postbuildEvent.Location = new Point(3, 41);
             postbuildEvent.Name = "postbuildEvent";
-            postbuildEvent.Size = new Size(466, 115);
+            postbuildEvent.Size = new Size(447, 115);
             postbuildEvent.TabIndex = 1;
             postbuildEvent.Text = "";
             postbuildEvent.TextChanged += postbuildEvent_TextChanged;
@@ -1199,14 +1247,14 @@
             panel8.Controls.Add(label22);
             panel8.Location = new Point(3, 3);
             panel8.Name = "panel8";
-            panel8.Size = new Size(476, 163);
+            panel8.Size = new Size(457, 163);
             panel8.TabIndex = 0;
             // 
             // prebuildEnabled
             // 
             prebuildEnabled.AutoSize = true;
             prebuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            prebuildEnabled.Location = new Point(368, 6);
+            prebuildEnabled.Location = new Point(349, 6);
             prebuildEnabled.Name = "prebuildEnabled";
             prebuildEnabled.Size = new Size(101, 29);
             prebuildEnabled.TabIndex = 2;
@@ -1218,7 +1266,7 @@
             // 
             prebuildEvent.Location = new Point(3, 41);
             prebuildEvent.Name = "prebuildEvent";
-            prebuildEvent.Size = new Size(466, 115);
+            prebuildEvent.Size = new Size(447, 115);
             prebuildEvent.TabIndex = 1;
             prebuildEvent.Text = "";
             prebuildEvent.TextChanged += prebuildEvent_TextChanged;
@@ -1306,6 +1354,8 @@
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             tabPage8.ResumeLayout(false);
+            panel10.ResumeLayout(false);
+            panel10.PerformLayout();
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             panel8.ResumeLayout(false);
@@ -1420,5 +1470,11 @@
         private RichTextBox postbuildEvent;
         private CheckBox postbuildEnabled;
         private CheckBox prebuildEnabled;
+        private Panel panel10;
+        private CheckBox checkBox1;
+        private RichTextBox richTextBox1;
+        private Label label24;
+        private RichTextBox winmountedEvent;
+        private CheckBox winmountedEnabled;
     }
 }

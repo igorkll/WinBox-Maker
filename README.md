@@ -32,6 +32,7 @@ during testing of winbox maker, there was not a single way to get into any syste
 * it is better not to use the function of replacing the boot logo in winbox maker, the right solution would be to make your own UEFI with your own boot logo or change an existing one. also, if the computer is in a public place, it is better not to make a UEFI menu
 * all build events work from the project folder
 * in the post-build event, you get the path to the output file as an argument to your script
+* the win-mounted event is triggered when the Windows image is mounted and all winbox maker patches have already been applied to it. this event can be used to apply additional patches to Windows through the winbox_temp/wim_mount directory
 
 ## what was disabled
 * explorer.exe (the desktop is completely inaccessible)

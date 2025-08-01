@@ -47,6 +47,8 @@ namespace WinBox_Maker
         public string? prebuildEvent { get; set; }
         public bool? postbuildEnabled { get; set; }
         public string? postbuildEvent { get; set; }
+        public bool? winmountedEnabled { get; set; }
+        public string? winmountedEvent { get; set; }
 
 
         public WinBoxConfig() {
@@ -77,6 +79,8 @@ namespace WinBox_Maker
             if (prebuildEvent == null) prebuildEvent = "";
             if (postbuildEnabled == null) postbuildEnabled = false;
             if (postbuildEvent == null) postbuildEvent = "";
+            if (winmountedEnabled == null) winmountedEnabled = false;
+            if (winmountedEvent == null) winmountedEvent = "";
         }
 
         public void Save(string wnbFilePath)
@@ -104,7 +108,7 @@ namespace WinBox_Maker
 
         public bool isBuildEventsUsed()
         {
-            return prebuildEnabled == true || postbuildEnabled == true;
+            return prebuildEnabled == true || postbuildEnabled == true || winmountedEnabled == true;
         }
     }
 }
