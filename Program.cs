@@ -520,7 +520,7 @@ namespace WinBox_Maker
             return null;
         }
 
-        public async static Task<string> executeBuildEvent(string directory, string buildEvent)
+        public async static Task executeBuildEvent(string directory, string buildEvent)
         {
             string buildEventFilePath = Path.Combine(directory, "winbox_temp", "build_event.bat");
 
@@ -528,19 +528,15 @@ namespace WinBox_Maker
 
             Process process = new Process();
             process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.Arguments = $"winbox_temp\\build_event.bat";
+            process.StartInfo.Arguments = $"/C winbox_temp\\build_event.bat";
             process.StartInfo.WorkingDirectory = directory;
-            process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.CreateNoWindow = true;
             process.Start();
 
-            File.Delete(buildEventFilePath);
-
-            string output = process.StandardOutput.ReadToEnd();
             await process.WaitForExitAsync();
 
-            return output;
+            File.Delete(buildEventFilePath);
         }
     }
 }
