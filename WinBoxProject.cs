@@ -956,7 +956,7 @@ if %errorlevel%==0 (
         {
             if (winBoxConfig.postbuildEnabled == true)
             {
-                processValue(2);
+                processValue(99);
                 processName("Executing a post-build event");
                 await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.postbuildEvent);
             }
