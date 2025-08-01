@@ -1,4 +1,4 @@
-# WinBox-Maker 1.3.0
+# WinBox-Maker 1.4.0
 ![preview1](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview.png)
 ![preview2](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview2.png)
 ![preview3](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview3.png)
@@ -22,12 +22,14 @@ during testing of winbox maker, there was not a single way to get into any syste
 * when you burn the installation ISO to a USB stick via rufus or a similar program, DO NOT USE the windows installation customization feature, as this will cause conflicts with those tweaks that already exist in winbox and it may work incorrectly
 * if you enable "Do not disable hotkeys by changing the layout", then probably many keyboard shortcuts can continue to work! It can be VERY UNSAFE for kiosks in public places. the reason for this: windows
 * if your application uses file picker from windows, then this is a backdoor! since if you write "cmd" in the path bar, the command line will open, which is unacceptable for devices in kiosk mode
+* the project may contain prebuild and postbuild events, and since the program runs on behalf of the administrator, it can be quite dangerous if you do not fully trust the project you are building. Before building an unknown winbox maker project, be sure to check the contents of the events tab
 
 ## notes
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
 * it is recommended to use "Windows 10 Enterprise" or "Windows 10 IoT Enterprise" specifically, otherwise some things probably won't work, such as disabling the login animation and disabling keyboard shortcuts in the system itself
 * at the moment, the custom boot logo installation only works on UEFI systems (you also need to turn off secure boot) (it may also not work at all for reasons unknown to me)
 * your program from the winbox_resources/program folder on the target system is located in C:\WinboxProgram
+* it is better not to use the function of replacing the boot logo in winbox maker, the right solution would be to make your own UEFI with your own boot logo or change an existing one. also, if the computer is in a public place, it is better not to make a UEFI menu
 
 ## what was disabled
 * explorer.exe (the desktop is completely inaccessible)

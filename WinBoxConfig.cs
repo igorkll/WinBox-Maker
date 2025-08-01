@@ -43,6 +43,10 @@ namespace WinBox_Maker
         public int? VirtualDisplayHeight { get; set; }
         public bool? UseEmbeddedDisplay { get; set; }
         public bool? CustomBootLogo_centering { get; set; }
+        public bool? prebuildEnabled { get; set; }
+        public string? prebuildEvent { get; set; }
+        public bool? postbuildEnabled { get; set; }
+        public string? postbuildEvent { get; set; }
 
 
         public WinBoxConfig() {
@@ -69,6 +73,10 @@ namespace WinBox_Maker
             if (VirtualDisplayHeight == null) VirtualDisplayHeight = 640;
             if (UseEmbeddedDisplay == null) UseEmbeddedDisplay = false;
             if (CustomBootLogo_centering == null) CustomBootLogo_centering = false;
+            if (prebuildEnabled == null) prebuildEnabled = false;
+            if (prebuildEvent == null) prebuildEvent = "";
+            if (postbuildEnabled == null) postbuildEnabled = false;
+            if (postbuildEvent == null) postbuildEvent = "";
         }
 
         public void Save(string wnbFilePath)
@@ -92,6 +100,11 @@ namespace WinBox_Maker
                 return winBoxConfig;
             } catch (Exception ex) {}
             return null;
+        }
+
+        public bool isBuildEventsUsed()
+        {
+            return prebuildEnabled == true || postbuildEnabled == true;
         }
     }
 }

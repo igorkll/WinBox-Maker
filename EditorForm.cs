@@ -357,6 +357,11 @@ namespace WinBox_Maker
 
             ScreenTimeout.Text = winBoxProject.winBoxConfig.ScreenTimeout.ToString();
 
+            prebuildEnabled.CheckState = winBoxProject.winBoxConfig.prebuildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
+            prebuildEvent.Text = winBoxProject.winBoxConfig.prebuildEvent ?? "";
+            postbuildEnabled.CheckState = winBoxProject.winBoxConfig.postbuildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
+            postbuildEvent.Text = winBoxProject.winBoxConfig.postbuildEvent ?? "";
+
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -882,6 +887,30 @@ namespace WinBox_Maker
         private void CustomBootLogo_centering_CheckedChanged(object sender, EventArgs e)
         {
             winBoxProject.winBoxConfig.CustomBootLogo_centering = CustomBootLogo_centering.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void prebuildEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.prebuildEnabled = prebuildEnabled.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void prebuildEvent_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.prebuildEvent = prebuildEvent.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void postbuildEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.postbuildEnabled = postbuildEnabled.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void postbuildEvent_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.postbuildEvent = postbuildEvent.Text;
             winBoxProject.SaveConfig();
         }
     }

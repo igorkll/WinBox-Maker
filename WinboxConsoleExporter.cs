@@ -14,6 +14,7 @@ namespace WinBox_Maker
         const int totalLength = 50;
         const int maxValue = 100;
         bool needNewLine = false;
+        string? oldProgressName;
 
         public WinboxConsoleExporter(WinBoxProject winBoxProject)
         {
@@ -36,6 +37,8 @@ namespace WinBox_Maker
 
         private void UpdateProcessName(string text)
         {
+            if (text == oldProgressName) return;
+            oldProgressName = text;
             NewLine();
             Console.WriteLine($"> {text}");
         }
@@ -66,8 +69,18 @@ namespace WinBox_Maker
             return path;
         }
 
+        void eventWarningDelay()
+        {
+            if (!winBoxProject.winBoxConfig.isBuildEventsUsed()) return;
+            for (int i = 10; i >= 1; i--) {
+                UpdateProcessName($"{Program.buildEventsWarning}. wait {i}...");
+                Thread.Sleep(1000);
+            }
+        }
+
         public void ExportIsoInstaller(string? path)
         {
+            eventWarningDelay();
             path = getExportPath(path, "iso", null);
             Console.WriteLine($">> exporting iso installer from {winBoxProject.GetName()} to: {path}");
             WindowsDescription windowsDescription = new WindowsDescription
@@ -81,6 +94,7 @@ namespace WinBox_Maker
 
         public void ExportInstallWim(string? path)
         {
+            eventWarningDelay();
             path = getExportPath(path, "wim", null);
             Console.WriteLine($">> exporting install.wim from {winBoxProject.GetName()} to: {path}");
             WindowsDescription windowsDescription = new WindowsDescription
@@ -94,6 +108,7 @@ namespace WinBox_Maker
 
         public void ExportImgPartition(string? path)
         {
+            eventWarningDelay();
             path = getExportPath(path, "img", " (partition)");
             Console.WriteLine($">> exporting img partition from {winBoxProject.GetName()} to: {path}");
             WindowsDescription windowsDescription = new WindowsDescription

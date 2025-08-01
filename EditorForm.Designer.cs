@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
             WindowsSelect = new Button();
             WindowsName = new Label();
@@ -123,6 +124,16 @@
             VirtualDisplayWidth = new TextBox();
             AddVirtualDisplay = new CheckBox();
             OpenEmbeddedFolder = new Button();
+            tabPage8 = new TabPage();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            panel8 = new Panel();
+            panel9 = new Panel();
+            label22 = new Label();
+            label23 = new Label();
+            prebuildEvent = new RichTextBox();
+            postbuildEvent = new RichTextBox();
+            postbuildEnabled = new CheckBox();
+            prebuildEnabled = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -140,6 +151,9 @@
             tabPage7.SuspendLayout();
             panel7.SuspendLayout();
             panel6.SuspendLayout();
+            tabPage8.SuspendLayout();
+            panel8.SuspendLayout();
+            panel9.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -820,6 +834,7 @@
             tabControl1.Controls.Add(tabPage5);
             tabControl1.Controls.Add(tabPage6);
             tabControl1.Controls.Add(tabPage7);
+            tabControl1.Controls.Add(tabPage8);
             tabControl1.Location = new Point(12, 63);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -1133,6 +1148,107 @@
             OpenEmbeddedFolder.UseVisualStyleBackColor = true;
             OpenEmbeddedFolder.Click += OpenEmbeddedFolder_Click;
             // 
+            // tabPage8
+            // 
+            tabPage8.Controls.Add(panel9);
+            tabPage8.Controls.Add(panel8);
+            tabPage8.Location = new Point(4, 34);
+            tabPage8.Name = "tabPage8";
+            tabPage8.Size = new Size(951, 347);
+            tabPage8.TabIndex = 7;
+            tabPage8.Text = "events";
+            tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.ImageScalingSize = new Size(24, 24);
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
+            // 
+            // panel8
+            // 
+            panel8.BorderStyle = BorderStyle.Fixed3D;
+            panel8.Controls.Add(prebuildEnabled);
+            panel8.Controls.Add(prebuildEvent);
+            panel8.Controls.Add(label22);
+            panel8.Location = new Point(3, 3);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(476, 163);
+            panel8.TabIndex = 0;
+            // 
+            // panel9
+            // 
+            panel9.BorderStyle = BorderStyle.Fixed3D;
+            panel9.Controls.Add(postbuildEnabled);
+            panel9.Controls.Add(postbuildEvent);
+            panel9.Controls.Add(label23);
+            panel9.Location = new Point(3, 172);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(476, 163);
+            panel9.TabIndex = 1;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label22.Location = new Point(-2, 0);
+            label22.Name = "label22";
+            label22.Size = new Size(207, 38);
+            label22.TabIndex = 0;
+            label22.Text = "pre-build event";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label23.Location = new Point(-2, 0);
+            label23.Name = "label23";
+            label23.Size = new Size(219, 38);
+            label23.TabIndex = 0;
+            label23.Text = "post-build event";
+            // 
+            // prebuildEvent
+            // 
+            prebuildEvent.Location = new Point(3, 41);
+            prebuildEvent.Name = "prebuildEvent";
+            prebuildEvent.Size = new Size(466, 115);
+            prebuildEvent.TabIndex = 1;
+            prebuildEvent.Text = "";
+            prebuildEvent.TextChanged += prebuildEvent_TextChanged;
+            // 
+            // postbuildEvent
+            // 
+            postbuildEvent.Location = new Point(3, 41);
+            postbuildEvent.Name = "postbuildEvent";
+            postbuildEvent.Size = new Size(466, 115);
+            postbuildEvent.TabIndex = 1;
+            postbuildEvent.Text = "";
+            postbuildEvent.TextChanged += postbuildEvent_TextChanged;
+            // 
+            // postbuildEnabled
+            // 
+            postbuildEnabled.AutoSize = true;
+            postbuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
+            postbuildEnabled.Location = new Point(379, 6);
+            postbuildEnabled.Name = "postbuildEnabled";
+            postbuildEnabled.Size = new Size(90, 29);
+            postbuildEnabled.TabIndex = 2;
+            postbuildEnabled.Text = "enable";
+            postbuildEnabled.UseVisualStyleBackColor = true;
+            postbuildEnabled.CheckedChanged += postbuildEnabled_CheckedChanged;
+            // 
+            // prebuildEnabled
+            // 
+            prebuildEnabled.AutoSize = true;
+            prebuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
+            prebuildEnabled.Location = new Point(379, 6);
+            prebuildEnabled.Name = "prebuildEnabled";
+            prebuildEnabled.Size = new Size(90, 29);
+            prebuildEnabled.TabIndex = 2;
+            prebuildEnabled.Text = "enable";
+            prebuildEnabled.UseVisualStyleBackColor = true;
+            prebuildEnabled.CheckedChanged += prebuildEnabled_CheckedChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -1189,6 +1305,11 @@
             panel7.PerformLayout();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
+            tabPage8.ResumeLayout(false);
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1289,5 +1410,15 @@
         private Button OpenEmbeddedFolder;
         private Button EmbedDisplayReadme;
         private CheckBox CustomBootLogo_centering;
+        private TabPage tabPage8;
+        private ContextMenuStrip contextMenuStrip1;
+        private Panel panel8;
+        private Panel panel9;
+        private Label label22;
+        private Label label23;
+        private RichTextBox prebuildEvent;
+        private RichTextBox postbuildEvent;
+        private CheckBox postbuildEnabled;
+        private CheckBox prebuildEnabled;
     }
 }
