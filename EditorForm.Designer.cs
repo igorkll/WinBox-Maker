@@ -123,17 +123,17 @@
             VirtualDisplayHeight = new TextBox();
             VirtualDisplayWidth = new TextBox();
             AddVirtualDisplay = new CheckBox();
-            OpenEmbeddedFolder = new Button();
             tabPage8 = new TabPage();
-            contextMenuStrip1 = new ContextMenuStrip(components);
-            panel8 = new Panel();
             panel9 = new Panel();
-            label22 = new Label();
-            label23 = new Label();
-            prebuildEvent = new RichTextBox();
-            postbuildEvent = new RichTextBox();
             postbuildEnabled = new CheckBox();
+            postbuildEvent = new RichTextBox();
+            label23 = new Label();
+            panel8 = new Panel();
             prebuildEnabled = new CheckBox();
+            prebuildEvent = new RichTextBox();
+            label22 = new Label();
+            OpenEmbeddedFolder = new Button();
+            contextMenuStrip1 = new ContextMenuStrip(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -152,8 +152,8 @@
             panel7.SuspendLayout();
             panel6.SuspendLayout();
             tabPage8.SuspendLayout();
-            panel8.SuspendLayout();
             panel9.SuspendLayout();
+            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1138,16 +1138,6 @@
             AddVirtualDisplay.UseVisualStyleBackColor = true;
             AddVirtualDisplay.CheckedChanged += AddVirtualDisplay_CheckedChanged;
             // 
-            // OpenEmbeddedFolder
-            // 
-            OpenEmbeddedFolder.Location = new Point(633, 12);
-            OpenEmbeddedFolder.Name = "OpenEmbeddedFolder";
-            OpenEmbeddedFolder.Size = new Size(246, 45);
-            OpenEmbeddedFolder.TabIndex = 40;
-            OpenEmbeddedFolder.Text = "Open Embedded Folder";
-            OpenEmbeddedFolder.UseVisualStyleBackColor = true;
-            OpenEmbeddedFolder.Click += OpenEmbeddedFolder_Click;
-            // 
             // tabPage8
             // 
             tabPage8.Controls.Add(panel9);
@@ -1158,23 +1148,6 @@
             tabPage8.TabIndex = 7;
             tabPage8.Text = "events";
             tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // contextMenuStrip1
-            // 
-            contextMenuStrip1.ImageScalingSize = new Size(24, 24);
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(61, 4);
-            // 
-            // panel8
-            // 
-            panel8.BorderStyle = BorderStyle.Fixed3D;
-            panel8.Controls.Add(prebuildEnabled);
-            panel8.Controls.Add(prebuildEvent);
-            panel8.Controls.Add(label22);
-            panel8.Location = new Point(3, 3);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(476, 163);
-            panel8.TabIndex = 0;
             // 
             // panel9
             // 
@@ -1187,15 +1160,26 @@
             panel9.Size = new Size(476, 163);
             panel9.TabIndex = 1;
             // 
-            // label22
+            // postbuildEnabled
             // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label22.Location = new Point(-2, 0);
-            label22.Name = "label22";
-            label22.Size = new Size(207, 38);
-            label22.TabIndex = 0;
-            label22.Text = "pre-build event";
+            postbuildEnabled.AutoSize = true;
+            postbuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
+            postbuildEnabled.Location = new Point(368, 3);
+            postbuildEnabled.Name = "postbuildEnabled";
+            postbuildEnabled.Size = new Size(101, 29);
+            postbuildEnabled.TabIndex = 2;
+            postbuildEnabled.Text = "enabled";
+            postbuildEnabled.UseVisualStyleBackColor = true;
+            postbuildEnabled.CheckedChanged += postbuildEnabled_CheckedChanged;
+            // 
+            // postbuildEvent
+            // 
+            postbuildEvent.Location = new Point(3, 41);
+            postbuildEvent.Name = "postbuildEvent";
+            postbuildEvent.Size = new Size(466, 115);
+            postbuildEvent.TabIndex = 1;
+            postbuildEvent.Text = "";
+            postbuildEvent.TextChanged += postbuildEvent_TextChanged;
             // 
             // label23
             // 
@@ -1207,6 +1191,29 @@
             label23.TabIndex = 0;
             label23.Text = "post-build event";
             // 
+            // panel8
+            // 
+            panel8.BorderStyle = BorderStyle.Fixed3D;
+            panel8.Controls.Add(prebuildEnabled);
+            panel8.Controls.Add(prebuildEvent);
+            panel8.Controls.Add(label22);
+            panel8.Location = new Point(3, 3);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(476, 163);
+            panel8.TabIndex = 0;
+            // 
+            // prebuildEnabled
+            // 
+            prebuildEnabled.AutoSize = true;
+            prebuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
+            prebuildEnabled.Location = new Point(368, 6);
+            prebuildEnabled.Name = "prebuildEnabled";
+            prebuildEnabled.Size = new Size(101, 29);
+            prebuildEnabled.TabIndex = 2;
+            prebuildEnabled.Text = "enabled";
+            prebuildEnabled.UseVisualStyleBackColor = true;
+            prebuildEnabled.CheckedChanged += prebuildEnabled_CheckedChanged;
+            // 
             // prebuildEvent
             // 
             prebuildEvent.Location = new Point(3, 41);
@@ -1216,38 +1223,31 @@
             prebuildEvent.Text = "";
             prebuildEvent.TextChanged += prebuildEvent_TextChanged;
             // 
-            // postbuildEvent
+            // label22
             // 
-            postbuildEvent.Location = new Point(3, 41);
-            postbuildEvent.Name = "postbuildEvent";
-            postbuildEvent.Size = new Size(466, 115);
-            postbuildEvent.TabIndex = 1;
-            postbuildEvent.Text = "";
-            postbuildEvent.TextChanged += postbuildEvent_TextChanged;
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label22.Location = new Point(-2, 0);
+            label22.Name = "label22";
+            label22.Size = new Size(207, 38);
+            label22.TabIndex = 0;
+            label22.Text = "pre-build event";
             // 
-            // postbuildEnabled
+            // OpenEmbeddedFolder
             // 
-            postbuildEnabled.AutoSize = true;
-            postbuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            postbuildEnabled.Location = new Point(379, 6);
-            postbuildEnabled.Name = "postbuildEnabled";
-            postbuildEnabled.Size = new Size(90, 29);
-            postbuildEnabled.TabIndex = 2;
-            postbuildEnabled.Text = "enable";
-            postbuildEnabled.UseVisualStyleBackColor = true;
-            postbuildEnabled.CheckedChanged += postbuildEnabled_CheckedChanged;
+            OpenEmbeddedFolder.Location = new Point(633, 12);
+            OpenEmbeddedFolder.Name = "OpenEmbeddedFolder";
+            OpenEmbeddedFolder.Size = new Size(246, 45);
+            OpenEmbeddedFolder.TabIndex = 40;
+            OpenEmbeddedFolder.Text = "Open Embedded Folder";
+            OpenEmbeddedFolder.UseVisualStyleBackColor = true;
+            OpenEmbeddedFolder.Click += OpenEmbeddedFolder_Click;
             // 
-            // prebuildEnabled
+            // contextMenuStrip1
             // 
-            prebuildEnabled.AutoSize = true;
-            prebuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            prebuildEnabled.Location = new Point(379, 6);
-            prebuildEnabled.Name = "prebuildEnabled";
-            prebuildEnabled.Size = new Size(90, 29);
-            prebuildEnabled.TabIndex = 2;
-            prebuildEnabled.Text = "enable";
-            prebuildEnabled.UseVisualStyleBackColor = true;
-            prebuildEnabled.CheckedChanged += prebuildEnabled_CheckedChanged;
+            contextMenuStrip1.ImageScalingSize = new Size(24, 24);
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
             // 
             // EditorForm
             // 
@@ -1306,10 +1306,10 @@
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             tabPage8.ResumeLayout(false);
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }

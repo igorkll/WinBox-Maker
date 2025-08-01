@@ -952,13 +952,13 @@ if %errorlevel%==0 (
             processValue(75);
             await RemoveTemp(processName);
         }
-        private async Task CompleteExport(Action<string> processName, Action<int> processValue)
+        private async Task CompleteExport(Action<string> processName, Action<int> processValue, string exportPath)
         {
             if (winBoxConfig.postbuildEnabled == true)
             {
                 processValue(99);
                 processName("Executing a post-build event");
-                await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.postbuildEvent);
+                await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.postbuildEvent, $"\"{exportPath}\"");
             }
 
             processName("Completed!");
@@ -997,7 +997,7 @@ if %errorlevel%==0 (
                 Directory.Delete(unpackIsoPath, true);
             });
 
-            await CompleteExport(processName, processValue);
+            await CompleteExport(processName, processValue, exportPath);
         }
 
         public async Task BuildWimAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
@@ -1006,7 +1006,7 @@ if %errorlevel%==0 (
 
             await MakeModWim(processName, processValue, newWindowsDescription, exportPath, null);
 
-            await CompleteExport(processName, processValue);
+            await CompleteExport(processName, processValue, exportPath);
         }
 
         public async Task BuildImgPartitionAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
@@ -1022,7 +1022,7 @@ if %errorlevel%==0 (
                 File.Delete(newWimFile);
             });
 
-            await CompleteExport(processName, processValue);
+            await CompleteExport(processName, processValue, exportPath);
         }
     }
 }
