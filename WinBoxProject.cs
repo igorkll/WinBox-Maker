@@ -407,6 +407,13 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
 
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
+            if (winBoxConfig.prebuildEnabled == true)
+            {
+                processValue(2);
+                processName("Executing a pre-build event");
+                await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.prebuildEvent);
+            }
+
             processValue(5);
             await RemoveTemp(processName);
 
@@ -945,8 +952,15 @@ if %errorlevel%==0 (
             processValue(75);
             await RemoveTemp(processName);
         }
-        private async Task CompleteExportMsg(Action<string> processName, Action<int> processValue)
+        private async Task CompleteExport(Action<string> processName, Action<int> processValue)
         {
+            if (winBoxConfig.postbuildEnabled == true)
+            {
+                processValue(2);
+                processName("Executing a post-build event");
+                await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.postbuildEvent);
+            }
+
             processName("Completed!");
             processValue(100);
             await Task.Delay(2000);
@@ -983,7 +997,7 @@ if %errorlevel%==0 (
                 Directory.Delete(unpackIsoPath, true);
             });
 
-            await CompleteExportMsg(processName, processValue);
+            await CompleteExport(processName, processValue);
         }
 
         public async Task BuildWimAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
@@ -992,7 +1006,7 @@ if %errorlevel%==0 (
 
             await MakeModWim(processName, processValue, newWindowsDescription, exportPath, null);
 
-            await CompleteExportMsg(processName, processValue);
+            await CompleteExport(processName, processValue);
         }
 
         public async Task BuildImgPartitionAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
@@ -1008,7 +1022,7 @@ if %errorlevel%==0 (
                 File.Delete(newWimFile);
             });
 
-            await CompleteExportMsg(processName, processValue);
+            await CompleteExport(processName, processValue);
         }
     }
 }
