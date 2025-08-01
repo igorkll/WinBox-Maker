@@ -528,7 +528,7 @@ namespace WinBox_Maker
 
             Process process = new Process();
             process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.Arguments = $"/C \"winbox_temp\\build_event.bat\"";
+            process.StartInfo.Arguments = $"winbox_temp\\build_event.bat";
             process.StartInfo.WorkingDirectory = directory;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.UseShellExecute = false;
