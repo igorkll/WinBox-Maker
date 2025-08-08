@@ -55,6 +55,7 @@
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
             panel2 = new Panel();
+            ProgramName = new TextBox();
             OpenLocalHtml = new Button();
             label9 = new Label();
             WebSessionTimeout = new TextBox();
@@ -67,7 +68,6 @@
             ProgramType_ExecutableFile = new RadioButton();
             label4 = new Label();
             ProgramArgs = new TextBox();
-            ProgramName = new Label();
             AppClear = new Button();
             AppSelect = new Button();
             label3 = new Label();
@@ -420,6 +420,7 @@
             // 
             panel2.BackColor = SystemColors.Window;
             panel2.BorderStyle = BorderStyle.Fixed3D;
+            panel2.Controls.Add(ProgramName);
             panel2.Controls.Add(OpenLocalHtml);
             panel2.Controls.Add(label9);
             panel2.Controls.Add(WebSessionTimeout);
@@ -432,13 +433,20 @@
             panel2.Controls.Add(ProgramType_ExecutableFile);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(ProgramArgs);
-            panel2.Controls.Add(ProgramName);
             panel2.Controls.Add(AppClear);
             panel2.Controls.Add(AppSelect);
             panel2.Location = new Point(6, 44);
             panel2.Name = "panel2";
             panel2.Size = new Size(451, 284);
             panel2.TabIndex = 27;
+            // 
+            // ProgramName
+            // 
+            ProgramName.Location = new Point(4, 33);
+            ProgramName.Name = "ProgramName";
+            ProgramName.Size = new Size(240, 31);
+            ProgramName.TabIndex = 15;
+            ProgramName.TextChanged += ProgramName_TextChanged;
             // 
             // OpenLocalHtml
             // 
@@ -541,7 +549,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(249, 80);
+            label4.Location = new Point(251, 73);
             label4.Name = "label4";
             label4.Size = new Size(100, 25);
             label4.TabIndex = 4;
@@ -549,26 +557,17 @@
             // 
             // ProgramArgs
             // 
-            ProgramArgs.Location = new Point(4, 76);
+            ProgramArgs.Location = new Point(4, 70);
             ProgramArgs.Name = "ProgramArgs";
             ProgramArgs.Size = new Size(240, 31);
             ProgramArgs.TabIndex = 3;
             ProgramArgs.TextChanged += ProgramArgs_TextChanged;
             // 
-            // ProgramName
-            // 
-            ProgramName.AutoSize = true;
-            ProgramName.Location = new Point(249, 40);
-            ProgramName.Name = "ProgramName";
-            ProgramName.Size = new Size(113, 25);
-            ProgramName.TabIndex = 2;
-            ProgramName.Text = "program exe";
-            // 
             // AppClear
             // 
-            AppClear.Location = new Point(126, 33);
+            AppClear.Location = new Point(342, 33);
             AppClear.Name = "AppClear";
-            AppClear.Size = new Size(117, 38);
+            AppClear.Size = new Size(88, 31);
             AppClear.TabIndex = 1;
             AppClear.Text = "clear";
             AppClear.UseVisualStyleBackColor = true;
@@ -576,9 +575,9 @@
             // 
             // AppSelect
             // 
-            AppSelect.Location = new Point(3, 33);
+            AppSelect.Location = new Point(249, 33);
             AppSelect.Name = "AppSelect";
-            AppSelect.Size = new Size(117, 38);
+            AppSelect.Size = new Size(87, 31);
             AppSelect.TabIndex = 0;
             AppSelect.Text = "select";
             AppSelect.UseVisualStyleBackColor = true;
@@ -1458,7 +1457,6 @@
         private Label label3;
         private Button AppClear;
         private Button AppSelect;
-        private Label ProgramName;
         private Label label4;
         private TextBox ProgramArgs;
         private Label label5;
@@ -1546,5 +1544,6 @@
         private Button pythonVersionsUpdate;
         private Panel panel11;
         private Label label25;
+        private TextBox ProgramName;
     }
 }

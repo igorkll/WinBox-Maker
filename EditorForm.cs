@@ -352,7 +352,7 @@ namespace WinBox_Maker
             OemKey.Text = winBoxProject.winBoxConfig.OemKey ?? "";
             UseOemKey.CheckState = winBoxProject.winBoxConfig.UseOemKey == true ? CheckState.Checked : CheckState.Unchecked;
 
-            ProgramName.Text = winBoxProject.winBoxConfig.ProgramName ?? "not selected";
+            ProgramName.Text = winBoxProject.winBoxConfig.ProgramName ?? "";
             ProgramArgs.Text = winBoxProject.winBoxConfig.ProgramArgs ?? "";
             RawCommand.Text = winBoxProject.winBoxConfig.RawCommand ?? "";
 
@@ -956,6 +956,13 @@ namespace WinBox_Maker
         {
             winBoxProject.winBoxConfig.pythonVersion = pythonVersion.Text;
             winBoxProject.SaveConfig();
+        }
+
+        private void ProgramName_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.ProgramName = ProgramName.Text;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }
