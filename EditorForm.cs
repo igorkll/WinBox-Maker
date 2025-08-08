@@ -31,6 +31,8 @@ namespace WinBox_Maker
             ArchitectureSelect.Items.Add("x86");
             ArchitectureSelect.Items.Add("arm64");
 
+            ClearPythonList();
+
             OpenEmbeddedFolder.Visible = false;
             ExportImgPartition.Visible = false;
             tabControl1.TabPages.Remove(tabPage7);
@@ -60,6 +62,12 @@ namespace WinBox_Maker
                 UpdateWindowsVersionsList();
                 UpdateGui();
             }
+        }
+
+        void ClearPythonList()
+        {
+            pythonVersion.Items.Clear();
+            pythonVersion.Items.Add("none");
         }
 
         void AddTweakToList(String tweak)
@@ -328,8 +336,16 @@ namespace WinBox_Maker
             ExportImgPartition.Enabled = canExport;
         }
 
+        void UpdateCurrentPythonVersion()
+        {
+            pythonVersion.Text = winBoxProject.winBoxConfig.pythonVersion ?? "none";
+            if (pythonVersion.Text == "") pythonVersion.Text = "none";
+        }
+
         void UpdateGui()
         {
+            UpdateCurrentPythonVersion();
+
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
             ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
 
@@ -927,6 +943,18 @@ namespace WinBox_Maker
         private void winmountedEvent_TextChanged(object sender, EventArgs e)
         {
             winBoxProject.winBoxConfig.winmountedEvent = winmountedEvent.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void pythonVersionsUpdate_Click(object sender, EventArgs e)
+        {
+            ClearPythonList();
+            UpdateCurrentPythonVersion();
+        }
+
+        private void pythonVersion_TextChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.pythonVersion = pythonVersion.Text;
             winBoxProject.SaveConfig();
         }
     }

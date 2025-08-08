@@ -136,6 +136,11 @@
             prebuildEnabled = new CheckBox();
             prebuildEvent = new RichTextBox();
             label22 = new Label();
+            tabPage9 = new TabPage();
+            panel11 = new Panel();
+            label25 = new Label();
+            pythonVersion = new ComboBox();
+            pythonVersionsUpdate = new Button();
             OpenEmbeddedFolder = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -159,6 +164,8 @@
             panel10.SuspendLayout();
             panel9.SuspendLayout();
             panel8.SuspendLayout();
+            tabPage9.SuspendLayout();
+            panel11.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -192,6 +199,7 @@
             // 
             // WindowsVersionSelect
             // 
+            WindowsVersionSelect.DropDownStyle = ComboBoxStyle.DropDownList;
             WindowsVersionSelect.FormattingEnabled = true;
             WindowsVersionSelect.Location = new Point(6, 88);
             WindowsVersionSelect.Name = "WindowsVersionSelect";
@@ -814,6 +822,7 @@
             // 
             // ArchitectureSelect
             // 
+            ArchitectureSelect.DropDownStyle = ComboBoxStyle.DropDownList;
             ArchitectureSelect.FormattingEnabled = true;
             ArchitectureSelect.Location = new Point(6, 127);
             ArchitectureSelect.Name = "ArchitectureSelect";
@@ -840,6 +849,7 @@
             tabControl1.Controls.Add(tabPage6);
             tabControl1.Controls.Add(tabPage7);
             tabControl1.Controls.Add(tabPage8);
+            tabControl1.Controls.Add(tabPage9);
             tabControl1.Location = new Point(12, 63);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -1281,6 +1291,58 @@
             label22.TabIndex = 0;
             label22.Text = "pre-build event";
             // 
+            // tabPage9
+            // 
+            tabPage9.Controls.Add(panel11);
+            tabPage9.Location = new Point(4, 34);
+            tabPage9.Name = "tabPage9";
+            tabPage9.Padding = new Padding(3);
+            tabPage9.Size = new Size(951, 347);
+            tabPage9.TabIndex = 8;
+            tabPage9.Text = "interpreters";
+            tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // panel11
+            // 
+            panel11.BorderStyle = BorderStyle.Fixed3D;
+            panel11.Controls.Add(label25);
+            panel11.Controls.Add(pythonVersion);
+            panel11.Controls.Add(pythonVersionsUpdate);
+            panel11.Location = new Point(6, 6);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(289, 338);
+            panel11.TabIndex = 3;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label25.Location = new Point(3, 0);
+            label25.Name = "label25";
+            label25.Size = new Size(104, 38);
+            label25.TabIndex = 3;
+            label25.Text = "python";
+            // 
+            // pythonVersion
+            // 
+            pythonVersion.DropDownStyle = ComboBoxStyle.DropDownList;
+            pythonVersion.FormattingEnabled = true;
+            pythonVersion.Location = new Point(3, 46);
+            pythonVersion.Name = "pythonVersion";
+            pythonVersion.Size = new Size(279, 33);
+            pythonVersion.TabIndex = 0;
+            pythonVersion.TextChanged += pythonVersion_TextChanged;
+            // 
+            // pythonVersionsUpdate
+            // 
+            pythonVersionsUpdate.Location = new Point(3, 85);
+            pythonVersionsUpdate.Name = "pythonVersionsUpdate";
+            pythonVersionsUpdate.Size = new Size(279, 34);
+            pythonVersionsUpdate.TabIndex = 2;
+            pythonVersionsUpdate.Text = "Get python versions";
+            pythonVersionsUpdate.UseVisualStyleBackColor = true;
+            pythonVersionsUpdate.Click += pythonVersionsUpdate_Click;
+            // 
             // OpenEmbeddedFolder
             // 
             OpenEmbeddedFolder.Location = new Point(633, 12);
@@ -1360,6 +1422,9 @@
             panel9.PerformLayout();
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
+            tabPage9.ResumeLayout(false);
+            panel11.ResumeLayout(false);
+            panel11.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1476,5 +1541,10 @@
         private Label label24;
         private RichTextBox winmountedEvent;
         private CheckBox winmountedEnabled;
+        private TabPage tabPage9;
+        private ComboBox pythonVersion;
+        private Button pythonVersionsUpdate;
+        private Panel panel11;
+        private Label label25;
     }
 }

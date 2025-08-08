@@ -49,6 +49,7 @@ namespace WinBox_Maker
         public string? postbuildEvent { get; set; }
         public bool? winmountedEnabled { get; set; }
         public string? winmountedEvent { get; set; }
+        public string? pythonVersion { get; set; }
 
 
         public WinBoxConfig() {
@@ -81,6 +82,7 @@ namespace WinBox_Maker
             if (postbuildEvent == null) postbuildEvent = "";
             if (winmountedEnabled == null) winmountedEnabled = false;
             if (winmountedEvent == null) winmountedEvent = "";
+            if (pythonVersion == null) pythonVersion = "";
         }
 
         public void Save(string wnbFilePath)
