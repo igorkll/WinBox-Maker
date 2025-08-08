@@ -1,8 +1,8 @@
 # WinBox-Maker 1.4.0
-![preview1](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview.png)
-![preview2](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview2.png)
-![preview3](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview3.png)
-download "blobs" folder: https://drive.google.com/file/d/1xH0g-R7ckmCbhAJV-ED4NHXPXl_dOrfH/view?usp=sharing
+![preview1](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview.png)  
+![preview2](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview2.png)  
+![preview3](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview3.png)  
+download "blobs" folder: https://drive.google.com/file/d/1xH0g-R7ckmCbhAJV-ED4NHXPXl_dOrfH/view?usp=sharing  
 program examples: https://github.com/igorkll/WinBox-Maker-programs  
 a tool for creating minimal embed versions of windows  
 takes on the task of modifying the windows image to remove excess and embed software there  
@@ -15,6 +15,8 @@ the program is recommended to be used with the original English image of "Window
 please note that winbox maker does not provide Windows images, it only provides a tool for reassembling Windows for use in kiosk mode  
 if the application fails, winbox will NOT crash on the Windows desktop. you will just have a black screen. This makes winbox maker safe to use in cases where passersby will have access to the device  
 during testing of winbox maker, there was not a single way to get into any system menu (if such behavior is not provided in the application) without using a boot disk or other modification of system files  
+you can select the executable file by clicking "select" in the app section, but if you use automatic compilation of the project from the source code when building winbox,  
+you will not be able to select the file this way. in this case, just enter the file name manually. (automatic compilation of the user application has not yet been implemented)  
 
 ## warnings
 * if you are going to build the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)
