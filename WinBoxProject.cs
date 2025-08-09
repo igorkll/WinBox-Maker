@@ -396,13 +396,19 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             }
         }
 
-        private async Task RemoveTemp(Action<string> processName) {
-            processName("Cleaning temporary files");
-            string tempDriversPath = Path.Combine(tempDirectoryPath, "drivers");
+        private async Task RemoveTempFolder(string folder)
+        {
+            string tempDriversPath = Path.Combine(tempDirectoryPath, folder);
             if (Directory.Exists(tempDriversPath))
             {
                 Directory.Delete(tempDriversPath, true);
             }
+        }
+
+        private async Task RemoveTemp(Action<string> processName) {
+            processName("Cleaning temporary files");
+            await RemoveTempFolder("drivers");
+            await RemoveTempFolder("program");
         }
 
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
@@ -416,6 +422,17 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
 
             processValue(5);
             await RemoveTemp(processName);
+
+            // ------------------------------------ compiling a user program
+
+            string tempProgramPath = Path.Combine(tempDirectoryPath, "program");
+            if (false)
+            {
+                processValue(10);
+                processName("Compiling a user project");
+            }
+
+            // ------------------------------------ creating a new install.wim file for subsequent modification
 
             await ExtractInstallWim(processName, processValue);
 
@@ -795,6 +812,11 @@ net localgroup Administrators winbox /add";
             if (Directory.Exists(programPath))
             {
                 await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
+            }
+
+            if (Directory.Exists(tempProgramPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(tempProgramPath, Path.Combine(wimMountPath, "WinboxProgram"));
             }
 
             // ------------------------------------ copy files
