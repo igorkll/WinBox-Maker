@@ -827,6 +827,8 @@ net localgroup Administrators winbox /add";
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
             }
 
+            await File.WriteAllTextAsync(Path.Combine(wimMountPath, "README.txt"), $"this image was created by the {Program.version} free software\nhttps://github.com/igorkll/WinBox-Maker");
+
             // ------------------------------------ setup application autorun
             string command = "";
             switch (winBoxConfig.ProgramType)
