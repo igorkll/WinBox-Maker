@@ -99,9 +99,35 @@ namespace WinBox_Maker
             WinBox_Maker.Program.OpenWebPage(WinBox_Maker.Program.logichubUrl);
         }
 
+        void UnlockFormRecursion(Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                control.Enabled = true;
+
+                if (control.HasChildren)
+                {
+                    UnlockFormRecursion(control);
+                }
+            }
+        }
+
+        void UnlockForm()
+        {
+            UnlockFormRecursion(this);
+        }
+
+        void LockForm()
+        {
+            OpenProject.Enabled = false;
+            NewProject.Enabled = false;
+            pictureBox5.Enabled = false;
+        }
+
         private void pictureBox5_Click(object sender, EventArgs e)
         {
-            Form form = new ProgramSettings();
+            LockForm();
+            Form form = new ProgramSettings(UnlockForm);
             form.Show();
         }
     }

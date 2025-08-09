@@ -13,11 +13,18 @@ namespace WinBox_Maker
 {
     public partial class ProgramSettings : Form
     {
-        public ProgramSettings()
+        Action exitCallback;
+
+        public ProgramSettings(Action _exitCallback)
         {
             InitializeComponent();
+            exitCallback = _exitCallback;
+            this.FormClosing += new FormClosingEventHandler(FormClosingCallback);
         }
 
-        
+        private void FormClosingCallback(object? sender, FormClosingEventArgs e)
+        {
+            exitCallback();
+        }
     }
 }

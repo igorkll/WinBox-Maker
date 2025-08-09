@@ -520,7 +520,9 @@ namespace WinBox_Maker
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-
+            LockForm();
+            Form form = new ProgramSettings(UnlockForm);
+            form.Show();
         }
 
         private void UpdateProcessName(string text)
