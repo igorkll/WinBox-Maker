@@ -147,7 +147,7 @@
             MinimumSize = new Size(700, 500);
             Name = "ProgramSettings";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Winbox Maker Settings";
+            Text = "Winbox-Maker Settings";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
