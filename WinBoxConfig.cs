@@ -12,7 +12,8 @@ namespace WinBox_Maker
     {
         ExecutableFile,
         RawCommand,
-        WebSite
+        WebSite,
+        WindowsDesktop
     }
 
     public class WinBoxConfig

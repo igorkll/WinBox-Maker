@@ -283,55 +283,7 @@ namespace WinBox_Maker
                 }
             }
 
-            bool canExport = true;
-            if (winBoxProject.winBoxConfig.BaseWindowsImage == null || winBoxProject.winBoxConfig.BaseWindowsVersion == null)
-            {
-                canExport = false;
-            }
-            if (canExport)
-            {
-                switch (winBoxProject.winBoxConfig.ProgramType)
-                {
-                    case ProgramTypeEnum.ExecutableFile:
-                        if (winBoxProject.winBoxConfig.ProgramName == null || winBoxProject.winBoxConfig.ProgramName.Length == 0)
-                        {
-                            canExport = false;
-                        }
-                        break;
-
-                    case ProgramTypeEnum.RawCommand:
-                        if (winBoxProject.winBoxConfig.RawCommand == null || winBoxProject.winBoxConfig.RawCommand.Length == 0)
-                        {
-                            canExport = false;
-                        }
-                        break;
-
-                    case ProgramTypeEnum.WebSite:
-                        if (winBoxProject.winBoxConfig.WebSite == null || winBoxProject.winBoxConfig.WebSite.Length == 0)
-                        {
-                            canExport = false;
-                        }
-                        break;
-                }
-            }
-            if (canExport)
-            {
-                bool exists = false;
-                WindowsDescription[] localWindowsDescriptions = winBoxProject.GetWindowsDescriptions();
-                foreach (WindowsDescription item in localWindowsDescriptions)
-                {
-                    if (item.name == winBoxProject.winBoxConfig.BaseWindowsVersion)
-                    {
-                        exists = true;
-                        break;
-                    }
-                }
-                if (!exists)
-                {
-                    canExport = false;
-                }
-            }
-
+            bool canExport = winBoxProject.canExport();
             ExportIsoInstaller.Enabled = canExport;
             ExportInstallWim.Enabled = canExport;
             ExportImgPartition.Enabled = canExport;
@@ -395,6 +347,10 @@ namespace WinBox_Maker
 
                 case ProgramTypeEnum.WebSite:
                     ProgramType_WebSite.Checked = true;
+                    break;
+
+                case ProgramTypeEnum.WindowsDesktop:
+                    ProgramType_WindowsDesktop.Checked = true;
                     break;
             }
             UpdateGuiWithoutWindowsVersion();
@@ -599,6 +555,16 @@ namespace WinBox_Maker
             if (ProgramType_WebSite.Checked)
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.WebSite;
+                winBoxProject.SaveConfig();
+                UpdateGuiWithoutWindowsVersion();
+            }
+        }
+
+        private void ProgramType_WindowsDesktop_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ProgramType_WindowsDesktop.Checked)
+            {
+                winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.WindowsDesktop;
                 winBoxProject.SaveConfig();
                 UpdateGuiWithoutWindowsVersion();
             }

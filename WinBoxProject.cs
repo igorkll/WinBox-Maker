@@ -913,6 +913,10 @@ if %errorlevel%==0 (
                         command = "wscript \"C:\\WinboxResources\\run_edge_script_hidden.vbs\"";
                     }
                     break;
+
+                case ProgramTypeEnum.WindowsDesktop:
+                    command = "start explorer.exe";
+                    break;
             }
 
             applicationScript += "\r\n" + command;
@@ -1052,6 +1056,65 @@ if %errorlevel%==0 (
             });
 
             await CompleteExport(processName, processValue, exportPath);
+        }
+
+        public bool canExport()
+        {
+            bool canExport = true;
+            if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null)
+            {
+                canExport = false;
+            }
+
+            if (canExport)
+            {
+                switch (winBoxConfig.ProgramType)
+                {
+                    case ProgramTypeEnum.ExecutableFile:
+                        if (winBoxConfig.ProgramName == null || winBoxConfig.ProgramName.Length == 0)
+                        {
+                            canExport = false;
+                        }
+                        break;
+
+                    case ProgramTypeEnum.RawCommand:
+                        if (winBoxConfig.RawCommand == null || winBoxConfig.RawCommand.Length == 0)
+                        {
+                            canExport = false;
+                        }
+                        break;
+
+                    case ProgramTypeEnum.WebSite:
+                        if (winBoxConfig.WebSite == null || winBoxConfig.WebSite.Length == 0)
+                        {
+                            canExport = false;
+                        }
+                        break;
+
+                    case ProgramTypeEnum.WindowsDesktop:
+                        break;
+                }
+            }
+
+            if (canExport)
+            {
+                bool exists = false;
+                WindowsDescription[] localWindowsDescriptions = GetWindowsDescriptions();
+                foreach (WindowsDescription item in localWindowsDescriptions)
+                {
+                    if (item.name == winBoxConfig.BaseWindowsVersion)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists)
+                {
+                    canExport = false;
+                }
+            }
+
+            return canExport;
         }
     }
 }

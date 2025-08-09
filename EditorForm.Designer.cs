@@ -53,6 +53,7 @@
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
             panel2 = new Panel();
+            ProgramType_WindowsDesktop = new RadioButton();
             ProgramName = new TextBox();
             OpenLocalHtml = new Button();
             label9 = new Label();
@@ -402,6 +403,7 @@
             // 
             panel2.BackColor = SystemColors.Window;
             panel2.BorderStyle = BorderStyle.Fixed3D;
+            panel2.Controls.Add(ProgramType_WindowsDesktop);
             panel2.Controls.Add(ProgramName);
             panel2.Controls.Add(OpenLocalHtml);
             panel2.Controls.Add(label9);
@@ -419,8 +421,20 @@
             panel2.Controls.Add(AppSelect);
             panel2.Location = new Point(6, 44);
             panel2.Name = "panel2";
-            panel2.Size = new Size(451, 284);
+            panel2.Size = new Size(637, 297);
             panel2.TabIndex = 27;
+            // 
+            // ProgramType_WindowsDesktop
+            // 
+            ProgramType_WindowsDesktop.AutoSize = true;
+            ProgramType_WindowsDesktop.Location = new Point(458, 3);
+            ProgramType_WindowsDesktop.Name = "ProgramType_WindowsDesktop";
+            ProgramType_WindowsDesktop.Size = new Size(181, 29);
+            ProgramType_WindowsDesktop.TabIndex = 16;
+            ProgramType_WindowsDesktop.TabStop = true;
+            ProgramType_WindowsDesktop.Text = "Windows desktop";
+            ProgramType_WindowsDesktop.UseVisualStyleBackColor = true;
+            ProgramType_WindowsDesktop.CheckedChanged += ProgramType_WindowsDesktop_CheckedChanged;
             // 
             // ProgramName
             // 
@@ -443,7 +457,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(135, 249);
+            label9.Location = new Point(135, 254);
             label9.Name = "label9";
             label9.Size = new Size(298, 25);
             label9.TabIndex = 13;
@@ -451,7 +465,7 @@
             // 
             // WebSessionTimeout
             // 
-            WebSessionTimeout.Location = new Point(4, 246);
+            WebSessionTimeout.Location = new Point(4, 251);
             WebSessionTimeout.Name = "WebSessionTimeout";
             WebSessionTimeout.Size = new Size(125, 31);
             WebSessionTimeout.TabIndex = 12;
@@ -1561,5 +1575,6 @@
         private Label label26;
         private TabPage tabPage10;
         private PictureBox pictureBox3;
+        private RadioButton ProgramType_WindowsDesktop;
     }
 }
