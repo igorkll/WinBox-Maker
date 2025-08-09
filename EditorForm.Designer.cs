@@ -34,8 +34,6 @@
             WindowsName = new Label();
             WindowsClear = new Button();
             WindowsVersionSelect = new ComboBox();
-            WindowsVersionUpdate = new Button();
-            WindowsVersionClear = new Button();
             ProcessName = new Label();
             WinboxDescription = new RichTextBox();
             label1 = new Label();
@@ -97,6 +95,7 @@
             label14 = new Label();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            label26 = new Label();
             label16 = new Label();
             tabPage2 = new TabPage();
             tabPage3 = new TabPage();
@@ -206,26 +205,6 @@
             WindowsVersionSelect.Size = new Size(318, 33);
             WindowsVersionSelect.TabIndex = 7;
             WindowsVersionSelect.TextChanged += WindowsVersionSelect_TextChanged;
-            // 
-            // WindowsVersionUpdate
-            // 
-            WindowsVersionUpdate.Location = new Point(453, 87);
-            WindowsVersionUpdate.Name = "WindowsVersionUpdate";
-            WindowsVersionUpdate.Size = new Size(117, 33);
-            WindowsVersionUpdate.TabIndex = 8;
-            WindowsVersionUpdate.Text = "Update";
-            WindowsVersionUpdate.UseVisualStyleBackColor = true;
-            WindowsVersionUpdate.Click += WindowsVersionUpdate_Click;
-            // 
-            // WindowsVersionClear
-            // 
-            WindowsVersionClear.Location = new Point(330, 88);
-            WindowsVersionClear.Name = "WindowsVersionClear";
-            WindowsVersionClear.Size = new Size(117, 33);
-            WindowsVersionClear.TabIndex = 9;
-            WindowsVersionClear.Text = "Clear";
-            WindowsVersionClear.UseVisualStyleBackColor = true;
-            WindowsVersionClear.Click += WindowsVersionClear_Click;
             // 
             // ProcessName
             // 
@@ -834,9 +813,9 @@
             label14.AutoSize = true;
             label14.Location = new Point(330, 130);
             label14.Name = "label14";
-            label14.Size = new Size(389, 25);
+            label14.Size = new Size(338, 25);
             label14.TabIndex = 38;
-            label14.Text = "select the actual architecture of your image here";
+            label14.Text = "select the architecture of your image here";
             // 
             // tabControl1
             // 
@@ -857,6 +836,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label26);
             tabPage1.Controls.Add(label16);
             tabPage1.Controls.Add(label1);
             tabPage1.Controls.Add(label14);
@@ -864,8 +844,6 @@
             tabPage1.Controls.Add(ArchitectureSelect);
             tabPage1.Controls.Add(WindowsSelect);
             tabPage1.Controls.Add(WindowsVersionSelect);
-            tabPage1.Controls.Add(WindowsVersionClear);
-            tabPage1.Controls.Add(WindowsVersionUpdate);
             tabPage1.Controls.Add(WindowsClear);
             tabPage1.Controls.Add(WindowsName);
             tabPage1.Location = new Point(4, 34);
@@ -875,6 +853,15 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "base";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Location = new Point(330, 91);
+            label26.Name = "label26";
+            label26.Size = new Size(438, 25);
+            label26.TabIndex = 40;
+            label26.Text = "select the windows version that will be used as a basis";
             // 
             // label16
             // 
@@ -1433,8 +1420,6 @@
         private Label WindowsName;
         private Button WindowsClear;
         private ComboBox WindowsVersionSelect;
-        private Button WindowsVersionUpdate;
-        private Button WindowsVersionClear;
         private Label ProcessName;
         private RichTextBox WinboxDescription;
         private Label label1;
@@ -1545,5 +1530,6 @@
         private Panel panel11;
         private Label label25;
         private TextBox ProgramName;
+        private Label label26;
     }
 }

@@ -127,12 +127,13 @@ you will not be able to select the file this way. in this case, just enter the f
 * winbox_images - directory for basic windows images (added to by default .gitignore)
 * winbox_resources - a folder for your resources that are needed to build the system. these files should end up in the git repository
 * winbox_resources/files - files from this directory will be moved to the root of the disk on the installed system with replacement
-* winbox_resources/program - the directory for your application that will be used in kiosk mode
+* winbox_resources/program - the directory for your application that will be used in kiosk mode. make this directory empty if you are using automatic compilation of the project from the source code using winbox maker
 * winbox_resources/drivers - the directory with the drivers with which the image should be built
 * winbox_resources/nvidia_drivers - put the driver installers for your nvidia graphics cards here
 * winbox_resources/amd_drivers - put the driver installers for your AMD graphics cards here
 * winbox_resources/packages - you can add the .cab or .msu packages to this directory
 * winbox_resources/cursor - the directory where you can upload custom cursor files (.cur for different states)
+* winbox_resources/sources - the source code of your application for building using winbox maker
 
 ## custom cursor files (winbox_resources/cursor)
 * AppStarting.ani
