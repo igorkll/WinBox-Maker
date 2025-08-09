@@ -114,10 +114,17 @@ namespace WinBox_Maker
         {
             path = Path.GetFullPath(path);
             WinBoxProject winBoxProject = new WinBoxProject(path);
+
             string? err = winBoxProject.GetError();
             if (err != null)
             {
                 Console.Error.WriteLine(err);
+                return;
+            }
+
+            if (!winBoxProject.canExport())
+            {
+                Console.Error.WriteLine("export is not possible at the moment, the configuration is set incorrectly");
                 return;
             }
 
