@@ -31,7 +31,7 @@ namespace WinBox_Maker
         public static string? appconfigPath;
         public static Form openProjectForm;
         static bool isClosingProgrammatically = false;
-        static WinboxMakerConfig winboxSettings;
+        public static WinboxMakerConfig winboxSettings;
 
         [STAThread]
         static void Main(string[] args)

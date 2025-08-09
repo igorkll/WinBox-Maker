@@ -30,13 +30,13 @@
         {
             msbuildPath = new TextBox();
             panel1 = new Panel();
+            selectPip = new Button();
+            selectCmake = new Button();
+            pipPath = new TextBox();
+            cmakePath = new TextBox();
             selectMsbuild = new Button();
             AutoDetect = new Button();
             label1 = new Label();
-            cmakePath = new TextBox();
-            pipPath = new TextBox();
-            selectCmake = new Button();
-            selectPip = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -45,8 +45,9 @@
             msbuildPath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             msbuildPath.Location = new Point(3, 6);
             msbuildPath.Name = "msbuildPath";
-            msbuildPath.Size = new Size(570, 31);
+            msbuildPath.Size = new Size(748, 31);
             msbuildPath.TabIndex = 1;
+            msbuildPath.TextChanged += msbuildPath_TextChanged;
             // 
             // panel1
             // 
@@ -63,13 +64,51 @@
             panel1.Controls.Add(msbuildPath);
             panel1.Location = new Point(12, 50);
             panel1.Name = "panel1";
-            panel1.Size = new Size(781, 173);
+            panel1.Size = new Size(959, 173);
             panel1.TabIndex = 3;
+            // 
+            // selectPip
+            // 
+            selectPip.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            selectPip.Location = new Point(757, 80);
+            selectPip.Name = "selectPip";
+            selectPip.Size = new Size(195, 31);
+            selectPip.TabIndex = 9;
+            selectPip.Text = "Select pip";
+            selectPip.UseVisualStyleBackColor = true;
+            // 
+            // selectCmake
+            // 
+            selectCmake.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            selectCmake.Location = new Point(757, 43);
+            selectCmake.Name = "selectCmake";
+            selectCmake.Size = new Size(195, 31);
+            selectCmake.TabIndex = 8;
+            selectCmake.Text = "Select cmake";
+            selectCmake.UseVisualStyleBackColor = true;
+            // 
+            // pipPath
+            // 
+            pipPath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            pipPath.Location = new Point(3, 80);
+            pipPath.Name = "pipPath";
+            pipPath.Size = new Size(748, 31);
+            pipPath.TabIndex = 7;
+            pipPath.TextChanged += pipPath_TextChanged;
+            // 
+            // cmakePath
+            // 
+            cmakePath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cmakePath.Location = new Point(3, 43);
+            cmakePath.Name = "cmakePath";
+            cmakePath.Size = new Size(748, 31);
+            cmakePath.TabIndex = 6;
+            cmakePath.TextChanged += cmakePath_TextChanged;
             // 
             // selectMsbuild
             // 
             selectMsbuild.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            selectMsbuild.Location = new Point(579, 6);
+            selectMsbuild.Location = new Point(757, 6);
             selectMsbuild.Name = "selectMsbuild";
             selectMsbuild.Size = new Size(195, 31);
             selectMsbuild.TabIndex = 5;
@@ -79,12 +118,13 @@
             // AutoDetect
             // 
             AutoDetect.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            AutoDetect.Location = new Point(579, 132);
+            AutoDetect.Location = new Point(757, 132);
             AutoDetect.Name = "AutoDetect";
             AutoDetect.Size = new Size(195, 34);
             AutoDetect.TabIndex = 4;
             AutoDetect.Text = "Auto search";
             AutoDetect.UseVisualStyleBackColor = true;
+            AutoDetect.Click += AutoDetect_Click;
             // 
             // label1
             // 
@@ -96,48 +136,12 @@
             label1.TabIndex = 2;
             label1.Text = "Paths";
             // 
-            // cmakePath
-            // 
-            cmakePath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            cmakePath.Location = new Point(3, 43);
-            cmakePath.Name = "cmakePath";
-            cmakePath.Size = new Size(570, 31);
-            cmakePath.TabIndex = 6;
-            // 
-            // pipPath
-            // 
-            pipPath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            pipPath.Location = new Point(3, 80);
-            pipPath.Name = "pipPath";
-            pipPath.Size = new Size(570, 31);
-            pipPath.TabIndex = 7;
-            // 
-            // selectCmake
-            // 
-            selectCmake.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            selectCmake.Location = new Point(579, 43);
-            selectCmake.Name = "selectCmake";
-            selectCmake.Size = new Size(195, 31);
-            selectCmake.TabIndex = 8;
-            selectCmake.Text = "Select cmake";
-            selectCmake.UseVisualStyleBackColor = true;
-            // 
-            // selectPip
-            // 
-            selectPip.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            selectPip.Location = new Point(579, 80);
-            selectPip.Name = "selectPip";
-            selectPip.Size = new Size(195, 31);
-            selectPip.TabIndex = 9;
-            selectPip.Text = "Select pip";
-            selectPip.UseVisualStyleBackColor = true;
-            // 
             // ProgramSettings
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(978, 544);
             Controls.Add(panel1);
             Controls.Add(label1);
             MinimumSize = new Size(700, 500);
