@@ -101,7 +101,8 @@ namespace WinBox_Maker
 
         private void pictureBox5_Click(object sender, EventArgs e)
         {
-
+            Form form = new ProgramSettings();
+            form.Show();
         }
     }
 }

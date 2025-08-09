@@ -27,8 +27,11 @@ namespace WinBox_Maker
         public const string logichubUrl = "https://igorkll.github.io/logichub/index.html";
         public static string? oscdimgPath;
         public static string? z7Path;
+        public static string? appdataPath;
+        public static string? appconfigPath;
         public static Form openProjectForm;
         static bool isClosingProgrammatically = false;
+        static WinboxMakerConfig winboxSettings;
 
         [STAThread]
         static void Main(string[] args)
@@ -38,6 +41,13 @@ namespace WinBox_Maker
             InitOscdimg();
 
             z7Path = ResourcePath("7z.exe");
+
+            string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            appdataPath = Path.Combine(localAppDataPath, "Winbox-Maker");
+            if (!Directory.Exists(appdataPath)) Directory.CreateDirectory(appdataPath);
+            appconfigPath = Path.Combine(appdataPath, "config.json");
+
+            winboxSettings = WinboxMakerConfig.Load();
 
             if (args.Length > 0)
             {
