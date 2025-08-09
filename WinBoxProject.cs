@@ -800,7 +800,6 @@ bcdedit /set {{default}} TESTSIGNING ON";
 net user winbox /add
 net localgroup Administrators winbox /add";
 
-            await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_AppScript.txt"), applicationScript);
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_UpdateSystemSettings.txt"), updateSystemSettings);
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_SetupComplete.txt"), baseSetup);
 
@@ -921,6 +920,7 @@ if %errorlevel%==0 (
 
             applicationScript += "\r\n" + command;
 
+            await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_AppScript.txt"), applicationScript);
             await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "app_script.bat"), applicationScript);
             await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_app_script_hidden.vbs"), @"C:\WinboxResources\app_script.bat", null);
             await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile("wscript \"C:\\WinboxResources\\run_app_script_hidden.vbs\""));
