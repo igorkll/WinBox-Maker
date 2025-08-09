@@ -505,11 +505,13 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
 
             await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"");
 
+            /*
             string lockScreenAppPath = Path.Combine(wimMountPath, "Windows\\SystemApps\\Microsoft.LockApp_cw5n1h2txyewy");
             if (Directory.Exists(lockScreenAppPath))
             {
                 Directory.Delete(lockScreenAppPath, true);
             }
+            */
 
             // ------------------------------------ system init
             string baseSetup = $@"@echo off
