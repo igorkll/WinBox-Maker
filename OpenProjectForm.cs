@@ -98,5 +98,10 @@ namespace WinBox_Maker
         {
             WinBox_Maker.Program.OpenWebPage(WinBox_Maker.Program.logichubUrl);
         }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

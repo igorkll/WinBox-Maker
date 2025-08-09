@@ -96,7 +96,7 @@ namespace WinBox_Maker
             foreach (Control control in parent.Controls)
             {
                 if (
-                    control.Name != "LICENSE" &&
+                    (control.Name != "LICENSE" &&
                     control.Name != "README" &&
                     control.Name != "OpenProjectFolder" &&
                     control.Name != "OpenEmbeddedFolder" &&
@@ -106,7 +106,8 @@ namespace WinBox_Maker
                     !(control is PictureBox) &&
                     !(control is TabControl) &&
                     !(control is Panel) &&
-                    !(control is TabPage))
+                    !(control is TabPage)) ||
+                    control.Name == "pictureBox3")
                 {
                     control.Enabled = false;
                 }
@@ -515,6 +516,11 @@ namespace WinBox_Maker
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             WinBox_Maker.Program.OpenWebPage(WinBox_Maker.Program.logichubUrl);
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void UpdateProcessName(string text)

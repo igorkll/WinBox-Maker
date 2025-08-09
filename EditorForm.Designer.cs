@@ -140,8 +140,10 @@
             label25 = new Label();
             pythonVersion = new ComboBox();
             pythonVersionsUpdate = new Button();
+            tabPage10 = new TabPage();
             OpenEmbeddedFolder = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
+            pictureBox3 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -165,6 +167,7 @@
             panel8.SuspendLayout();
             tabPage9.SuspendLayout();
             panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -272,7 +275,7 @@
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox1.Cursor = Cursors.Hand;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(1066, 16);
+            pictureBox1.Location = new Point(1066, 117);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(96, 96);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -285,7 +288,7 @@
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox2.Cursor = Cursors.Hand;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(1066, 118);
+            pictureBox2.Location = new Point(1066, 219);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(96, 96);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -813,9 +816,9 @@
             label14.AutoSize = true;
             label14.Location = new Point(330, 130);
             label14.Name = "label14";
-            label14.Size = new Size(338, 25);
+            label14.Size = new Size(551, 25);
             label14.TabIndex = 38;
-            label14.Text = "select the architecture of your image here";
+            label14.Text = "must match the architecture of the image and the target architecture";
             // 
             // tabControl1
             // 
@@ -828,6 +831,7 @@
             tabControl1.Controls.Add(tabPage7);
             tabControl1.Controls.Add(tabPage8);
             tabControl1.Controls.Add(tabPage9);
+            tabControl1.Controls.Add(tabPage10);
             tabControl1.Location = new Point(12, 63);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -1329,6 +1333,15 @@
             pythonVersionsUpdate.UseVisualStyleBackColor = true;
             pythonVersionsUpdate.Click += pythonVersionsUpdate_Click;
             // 
+            // tabPage10
+            // 
+            tabPage10.Location = new Point(4, 34);
+            tabPage10.Name = "tabPage10";
+            tabPage10.Size = new Size(951, 347);
+            tabPage10.TabIndex = 9;
+            tabPage10.Text = "build";
+            tabPage10.UseVisualStyleBackColor = true;
+            // 
             // OpenEmbeddedFolder
             // 
             OpenEmbeddedFolder.Location = new Point(633, 12);
@@ -1345,6 +1358,19 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
+            // pictureBox3
+            // 
+            pictureBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox3.Cursor = Cursors.Hand;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(1066, 12);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(96, 96);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 41;
+            pictureBox3.TabStop = false;
+            pictureBox3.Click += pictureBox3_Click;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -1353,6 +1379,7 @@
             AutoScrollMargin = new Size(10, 30);
             BackColor = Color.DimGray;
             ClientSize = new Size(1178, 644);
+            Controls.Add(pictureBox3);
             Controls.Add(OpenEmbeddedFolder);
             Controls.Add(tabControl1);
             Controls.Add(OpenProjectFolder);
@@ -1411,6 +1438,7 @@
             tabPage9.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1531,5 +1559,7 @@
         private Label label25;
         private TextBox ProgramName;
         private Label label26;
+        private TabPage tabPage10;
+        private PictureBox pictureBox3;
     }
 }
