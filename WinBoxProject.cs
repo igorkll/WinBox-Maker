@@ -412,9 +412,9 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await RemoveTempFolder("program");
         }
 
-        public async Task DownloadFile(DownloadItem downloadItem)
+        public async Task<bool> DownloadFile(DownloadItem downloadItem)
         {
-            if (downloadItem.path.Contains("..")) return;
+            if (downloadItem.path.Contains("..")) return false;
 
             bool needDelete = false;
             string downloadPath;
@@ -423,21 +423,28 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 downloadPath = Path.Combine(Program.downloadCachePath, Program.CalculateMD5(downloadItem.url));
                 if (!File.Exists(downloadPath))
                 {
-                    await Program.DownloadFileAsync(downloadItem.url, downloadPath);
+                    if (!await Program.DownloadFileAsync(downloadItem.url, downloadPath))
+                    {
+                        return false;
+                    }
                 }
             }
             else
             {
                 needDelete = true;
                 downloadPath = Path.Combine(Program.appdataPath, "last_download");
-                await Program.DownloadFileAsync(downloadItem.url, downloadPath);
+                if (!await Program.DownloadFileAsync(downloadItem.url, downloadPath))
+                {
+                    return false;
+                }
             }
 
             string outputPath = Path.Combine(baseDirectoryPath, downloadItem.path);
 
             if (downloadItem.unpack == true)
             {
-
+                Directory.CreateDirectory(outputPath);
+                await Program.ExecuteAsync(Program.z7Path, @$"x ""{downloadPath}"" -o""{outputPath}""");
             }
             else
             {
@@ -449,9 +456,11 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             {
                 File.Delete(downloadPath);
             }
+
+            return true;
         }
 
-        public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
+        public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
             if (winBoxConfig.prebuildEnabled == true)
             {
@@ -471,7 +480,11 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 processName("Downloading user files");
                 foreach (DownloadItem downloadItem in winBoxConfig.DownloadItems)
                 {
-                    await DownloadFile(downloadItem);
+                    if (!await DownloadFile(downloadItem))
+                    {
+                        Program.Error("couldn't download user file");
+                        return false;
+                    }
                 }
             }
 
@@ -1054,6 +1067,8 @@ if %errorlevel%==0 (
 
             processValue(75);
             await RemoveTemp(processName);
+
+            return true;
         }
         private async Task CompleteExport(Action<string> processName, Action<int> processValue, string exportPath)
         {

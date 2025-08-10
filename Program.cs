@@ -33,6 +33,7 @@ namespace WinBox_Maker
         public static Form openProjectForm;
         static bool isClosingProgrammatically = false;
         public static WinboxMakerConfig winboxSettings;
+        static bool consoleExporter = false;
 
         public static string? appdataPath;
         public static string? downloadCachePath;
@@ -64,6 +65,8 @@ namespace WinBox_Maker
 
             if (args.Length > 0)
             {
+                consoleExporter = true;
+
                 List<string> flags = new List<string>();
                 List<string> arguments = new List<string>();
                 foreach (var arg in args)
@@ -121,6 +124,18 @@ namespace WinBox_Maker
             ShowWindow(consoleWindow, SW_HIDE);
             openProjectForm = new OpenProjectForm();
             Application.Run(openProjectForm);
+        }
+
+        static public void Error(string err)
+        {
+            if (consoleExporter)
+            {
+                Console.Error.WriteLine(err);
+            }
+            else
+            {
+                MessageBox.Show(err, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         static void consoleConvert(string path, string? output, List<string> flags)
