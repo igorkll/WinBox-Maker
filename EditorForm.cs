@@ -19,8 +19,10 @@ namespace WinBox_Maker
         WindowsDescription[]? windowsDescriptions;
         bool softwareCheck = true;
         TaskbarManager taskbarManager;
+        int currentBuildItemIndex = -1;
         int currentDownloadItemIndex = -1;
         DownloadItem? currentDownloadItem;
+        BuildItem? currentBuildItem;
 
         public EditorForm(WinBoxProject winBoxProject)
         {
@@ -41,6 +43,7 @@ namespace WinBox_Maker
             tabControl1.TabPages.Remove(tabPage7);
 
             UpdateDownloadItemsList();
+            UpdateBuildItemsList();
 
             softwareCheck = true;
             TweakList.Items.Clear();
@@ -96,6 +99,40 @@ namespace WinBox_Maker
             softwareCheck = false;
             currentDownloadItemIndex = lastItemIndex;
             UpdateSelectedDownloadItem(lastDownloadItem);
+        }
+
+        void UpdateBuildItemsList()
+        {
+            softwareCheck = true;
+            BuildItem? lastBuildItem = null;
+            int lastItemIndex = -1;
+            BuildItems.Items.Clear();
+            foreach (BuildItem buildItem in winBoxProject.winBoxConfig.BuildItems)
+            {
+                lastItemIndex = BuildItems.Items.Add(buildItem.name);
+                lastBuildItem = buildItem;
+            }
+            if (lastItemIndex >= 0)
+            {
+                BuildItems.SetItemChecked(lastItemIndex, true);
+            }
+            softwareCheck = false;
+            currentBuildItemIndex = lastItemIndex;
+            UpdateSelectedBuildItem(lastBuildItem);
+        }
+
+        void UpdateSelectedBuildItem(BuildItem? buildItem)
+        {
+            currentBuildItem = buildItem;
+            if (buildItem == null)
+            {
+                bl_panel.Visible = false;
+            }
+            else
+            {
+                bl_panel.Visible = true;
+                bl_title.Text = buildItem.name ?? "";
+            }
         }
 
         void UpdateSelectedDownloadItem(DownloadItem? downloadItem)
@@ -1133,7 +1170,7 @@ namespace WinBox_Maker
         private void addBuild_Click(object sender, EventArgs e)
         {
             BuildItem buildItem = new BuildItem();
-            buildItem.name = $"build item {winBoxProject.winBoxConfig.DownloadItems.Count() + 1}";
+            buildItem.name = $"build item {winBoxProject.winBoxConfig.BuildItems.Count() + 1}";
             winBoxProject.winBoxConfig.BuildItems.Add(buildItem);
             winBoxProject.SaveConfig();
             UpdateBuildItemsList();
@@ -1154,6 +1191,37 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.BuildItems.Remove(currentBuildItem);
             winBoxProject.SaveConfig();
             UpdateBuildItemsList();
+        }
+
+        private void BuildItems_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (softwareCheck) return;
+
+            softwareCheck = true;
+            bool state = e.NewValue == CheckState.Checked;
+            if (state)
+            {
+                int index = e.Index;
+                for (int i = 0; i < BuildItems.Items.Count; i++)
+                {
+                    BuildItems.SetItemChecked(i, index == i);
+                }
+                currentBuildItemIndex = index;
+                UpdateSelectedBuildItem(winBoxProject.winBoxConfig.BuildItems[index]);
+            }
+            else
+            {
+                currentBuildItemIndex = -1;
+                UpdateSelectedBuildItem(null);
+            }
+            softwareCheck = false;
+        }
+
+        private void bl_title_TextChanged(object sender, EventArgs e)
+        {
+            currentBuildItem.name = bl_title.Text;
+            BuildItems.Items[currentBuildItemIndex] = bl_title.Text;
+            winBoxProject.SaveConfig();
         }
     }
 }

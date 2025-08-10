@@ -147,6 +147,7 @@
             pythonVersionsUpdate = new Button();
             tabPage10 = new TabPage();
             bl_panel = new Panel();
+            bl_delete = new Button();
             label31 = new Label();
             bl_title = new TextBox();
             bl_tabcontrol = new TabControl();
@@ -160,7 +161,7 @@
             bl_cmake = new TabPage();
             buildEnabled = new CheckBox();
             addBuild = new Button();
-            checkedListBox1 = new CheckedListBox();
+            BuildItems = new CheckedListBox();
             tabPage11 = new TabPage();
             downloadEnabled = new CheckBox();
             dl_panel = new Panel();
@@ -180,7 +181,6 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
-            bl_delete = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1442,7 +1442,7 @@
             tabPage10.Controls.Add(bl_panel);
             tabPage10.Controls.Add(buildEnabled);
             tabPage10.Controls.Add(addBuild);
-            tabPage10.Controls.Add(checkedListBox1);
+            tabPage10.Controls.Add(BuildItems);
             tabPage10.Location = new Point(4, 34);
             tabPage10.Name = "tabPage10";
             tabPage10.Size = new Size(951, 347);
@@ -1462,6 +1462,16 @@
             bl_panel.Size = new Size(611, 284);
             bl_panel.TabIndex = 3;
             // 
+            // bl_delete
+            // 
+            bl_delete.Location = new Point(3, 42);
+            bl_delete.Name = "bl_delete";
+            bl_delete.Size = new Size(112, 34);
+            bl_delete.TabIndex = 3;
+            bl_delete.Text = "delete";
+            bl_delete.UseVisualStyleBackColor = true;
+            bl_delete.Click += bl_delete_Click;
+            // 
             // label31
             // 
             label31.AutoSize = true;
@@ -1477,6 +1487,7 @@
             bl_title.Name = "bl_title";
             bl_title.Size = new Size(524, 31);
             bl_title.TabIndex = 1;
+            bl_title.TextChanged += bl_title_TextChanged;
             // 
             // bl_tabcontrol
             // 
@@ -1562,7 +1573,7 @@
             bl_cmake.Location = new Point(4, 34);
             bl_cmake.Name = "bl_cmake";
             bl_cmake.Padding = new Padding(3);
-            bl_cmake.Size = new Size(593, 197);
+            bl_cmake.Size = new Size(593, 157);
             bl_cmake.TabIndex = 1;
             bl_cmake.Text = "cmake";
             bl_cmake.UseVisualStyleBackColor = true;
@@ -1588,13 +1599,14 @@
             addBuild.UseVisualStyleBackColor = true;
             addBuild.Click += addBuild_Click;
             // 
-            // checkedListBox1
+            // BuildItems
             // 
-            checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Location = new Point(6, 6);
-            checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(322, 284);
-            checkedListBox1.TabIndex = 0;
+            BuildItems.FormattingEnabled = true;
+            BuildItems.Location = new Point(6, 6);
+            BuildItems.Name = "BuildItems";
+            BuildItems.Size = new Size(322, 284);
+            BuildItems.TabIndex = 0;
+            BuildItems.ItemCheck += BuildItems_ItemCheck;
             // 
             // tabPage11
             // 
@@ -1789,16 +1801,6 @@
             openProgramData.Text = "Open Program Data";
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
-            // 
-            // bl_delete
-            // 
-            bl_delete.Location = new Point(3, 42);
-            bl_delete.Name = "bl_delete";
-            bl_delete.Size = new Size(112, 34);
-            bl_delete.TabIndex = 3;
-            bl_delete.Text = "delete";
-            bl_delete.UseVisualStyleBackColor = true;
-            bl_delete.Click += bl_delete_Click;
             // 
             // EditorForm
             // 
@@ -2023,7 +2025,7 @@
         private Button dl_delete;
         private Button openProgramData;
         private TabPage tabPage10;
-        private CheckedListBox checkedListBox1;
+        private CheckedListBox BuildItems;
         private Button addBuild;
         private CheckBox buildEnabled;
         private Panel bl_panel;
