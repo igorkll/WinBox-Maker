@@ -125,6 +125,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "amd_drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "packages"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "cursor"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "sources"));
 
             string gitignorePath = Path.Combine(baseDirectoryPath, ".gitignore");
             if (!File.Exists(gitignorePath)) {

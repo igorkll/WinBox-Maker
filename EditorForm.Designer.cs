@@ -1551,6 +1551,7 @@
             bl_path.Name = "bl_path";
             bl_path.Size = new Size(334, 31);
             bl_path.TabIndex = 2;
+            bl_path.TextChanged += bl_path_TextChanged;
             // 
             // label32
             // 
@@ -1567,6 +1568,7 @@
             bl_conf.Name = "bl_conf";
             bl_conf.Size = new Size(150, 31);
             bl_conf.TabIndex = 0;
+            bl_conf.TextChanged += bl_conf_TextChanged;
             // 
             // bl_cmake
             // 

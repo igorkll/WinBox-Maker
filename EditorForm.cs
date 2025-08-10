@@ -311,6 +311,7 @@ namespace WinBox_Maker
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Windows image (*.iso)|*.iso", winBoxProject.imagesDirectoryPath, false);
             UnlockForm();
+
             if (name != null)
             {
                 winBoxProject.UnloadWindowsImage();
@@ -623,12 +624,13 @@ namespace WinBox_Maker
         {
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Executable files (*.exe;*.bat;*.cmd)|*.exe;*.bat;*.cmd|All files (*.*)|*.*", Path.Combine(winBoxProject.resourcesDirectoryPath, "program"), true);
+            UnlockForm();
+
             if (name != null)
             {
                 winBoxProject.winBoxConfig.ProgramName = name;
+                winBoxProject.SaveConfig();
             }
-            winBoxProject.SaveConfig();
-            UnlockForm();
         }
 
         private void AppClear_Click(object sender, EventArgs e)
@@ -740,6 +742,7 @@ namespace WinBox_Maker
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Local html page (*.html)|*.html", Path.Combine(winBoxProject.resourcesDirectoryPath, "program"), true);
             UnlockForm();
+
             if (name != null)
             {
                 winBoxProject.winBoxConfig.WebSite = @$"C:\WinboxProgram\{name}";
@@ -752,12 +755,13 @@ namespace WinBox_Maker
         {
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Bat scripts (*.bat;*.cmd)|*.bat;*.cmd|All files (*.*)|*.*", winBoxProject.resourcesDirectoryPath, true);
+            UnlockForm();
+
             if (name != null)
             {
                 winBoxProject.winBoxConfig.PostInstall_bat = name;
+                winBoxProject.SaveConfig();
             }
-            winBoxProject.SaveConfig();
-            UnlockForm();
         }
 
         private void postinstall_bat_clr_Click(object sender, EventArgs e)
@@ -771,12 +775,13 @@ namespace WinBox_Maker
         {
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Registry files (*.reg)|*.reg|All files (*.*)|*.*", winBoxProject.resourcesDirectoryPath, true);
+            UnlockForm();
+
             if (name != null)
             {
                 winBoxProject.winBoxConfig.PostInstall_reg = name;
+                winBoxProject.SaveConfig();
             }
-            winBoxProject.SaveConfig();
-            UnlockForm();
         }
 
         private void postinstall_reg_clr_Click(object sender, EventArgs e)
@@ -790,12 +795,13 @@ namespace WinBox_Maker
         {
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Bat scripts (*.bat;*.cmd)|*.bat;*.cmd|All files (*.*)|*.*", winBoxProject.resourcesDirectoryPath, true);
+            UnlockForm();
+
             if (name != null)
             {
                 winBoxProject.winBoxConfig.PostInstall_user_bat = name;
+                winBoxProject.SaveConfig();
             }
-            winBoxProject.SaveConfig();
-            UnlockForm();
         }
 
         private void postinstall_user_bat_clr_Click(object sender, EventArgs e)
@@ -809,12 +815,13 @@ namespace WinBox_Maker
         {
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Registry files (*.reg)|*.reg|All files (*.*)|*.*", winBoxProject.resourcesDirectoryPath, true);
+            UnlockForm();
+
             if (name != null)
             {
                 winBoxProject.winBoxConfig.PostInstall_user_reg = name;
+                winBoxProject.SaveConfig();
             }
-            winBoxProject.SaveConfig();
-            UnlockForm();
         }
 
         private void postinstall_user_reg_clr_Click(object sender, EventArgs e)
@@ -896,13 +903,14 @@ namespace WinBox_Maker
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Image Files (*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff)|*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff"
 , winBoxProject.resourcesDirectoryPath, true);
+            UnlockForm();
+
             if (name != null)
             {
                 winBoxProject.winBoxConfig.CustomBootLogo = name;
                 //ImageConverter.ConvertToBmp_54_24(Path.Combine(winBoxProject.resourcesDirectoryPath, winBoxProject.winBoxConfig.CustomBootLogo), Path.Combine(winBoxProject.baseDirectoryPath, "winbox_temp", "debug.bmp"));
+                winBoxProject.SaveConfig();
             }
-            winBoxProject.SaveConfig();
-            UnlockForm();
         }
 
         private void CustomBootLogo_clear_Click(object sender, EventArgs e)
@@ -1185,17 +1193,28 @@ namespace WinBox_Maker
             UpdateBuildItemsList();
         }
 
-        private void bl_select_Click(object sender, EventArgs e)
+        private async void bl_select_Click(object sender, EventArgs e)
         {
-            currentBuildItem.msbuild_path = null;
-            bl_conf.Text = currentBuildItem.msbuild_path;
-            winBoxProject.SaveConfig();
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue,
+                "Msbuild project (*.sln)|*.sln|All files (*.*)|*.*",
+                Path.Combine(winBoxProject.resourcesDirectoryPath, "sources"),
+                true
+            );
+            UnlockForm();
+
+            if (name != null)
+            {
+                currentBuildItem.msbuild_path = name;
+                bl_path.Text = currentBuildItem.msbuild_path;
+                winBoxProject.SaveConfig();
+            }
         }
 
         private void bl_clear_Click(object sender, EventArgs e)
         {
             currentBuildItem.msbuild_path = "";
-            bl_conf.Text = "";
+            bl_path.Text = "";
             winBoxProject.SaveConfig();
         }
 
@@ -1234,6 +1253,18 @@ namespace WinBox_Maker
         {
             currentBuildItem.name = bl_title.Text;
             BuildItems.Items[currentBuildItemIndex] = bl_title.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void bl_conf_TextChanged(object sender, EventArgs e)
+        {
+            currentBuildItem.msbuild_configuration = bl_conf.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void bl_path_TextChanged(object sender, EventArgs e)
+        {
+            currentBuildItem.msbuild_path = bl_path.Text;
             winBoxProject.SaveConfig();
         }
     }
