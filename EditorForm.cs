@@ -1051,9 +1051,9 @@ namespace WinBox_Maker
         {
             DownloadItem downloadItem = new DownloadItem();
             downloadItem.name = $"download item {winBoxProject.winBoxConfig.DownloadItems.Count() + 1}";
-            downloadItem.url = "";
-            downloadItem.path = "";
-            downloadItem.cache = false;
+            downloadItem.url = "https://raw.githubusercontent.com/igorkll/trashfolder/refs/heads/main/sound3/1.mp3";
+            downloadItem.path = "winbox_resources/files/DIRECTORIES ARE/CREATED AUTOMATICALLY/example.mp3";
+            downloadItem.cache = true;
             downloadItem.unpack = false;
             winBoxProject.winBoxConfig.DownloadItems.Add(downloadItem);
             winBoxProject.SaveConfig();
