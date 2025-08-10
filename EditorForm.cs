@@ -349,10 +349,22 @@ namespace WinBox_Maker
                     ProgramType_WebSite.Checked = true;
                     break;
 
-                case ProgramTypeEnum.WindowsDesktop:
-                    ProgramType_WindowsDesktop.Checked = true;
+                case ProgramTypeEnum.None:
+                    ProgramType_None.Checked = true;
                     break;
             }
+
+            switch (winBoxProject.winBoxConfig.LaunchMode)
+            {
+                case ProgramLaunchModeEnum.insteadDesktop:
+                    insteadDesktop.Checked = true;
+                    break;
+
+                case ProgramLaunchModeEnum.afterDesktop:
+                    afterDesktop.Checked = true;
+                    break;
+            }
+
             UpdateGuiWithoutWindowsVersion();
         }
 
@@ -560,11 +572,11 @@ namespace WinBox_Maker
             }
         }
 
-        private void ProgramType_WindowsDesktop_CheckedChanged(object sender, EventArgs e)
+        private void ProgramType_None_CheckedChanged(object sender, EventArgs e)
         {
-            if (ProgramType_WindowsDesktop.Checked)
+            if (ProgramType_None.Checked)
             {
-                winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.WindowsDesktop;
+                winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.None;
                 winBoxProject.SaveConfig();
                 UpdateGuiWithoutWindowsVersion();
             }
@@ -937,6 +949,26 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.ProgramName = ProgramName.Text;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void insteadDesktop_CheckedChanged(object sender, EventArgs e)
+        {
+            if (insteadDesktop.Checked)
+            {
+                winBoxProject.winBoxConfig.LaunchMode = ProgramLaunchModeEnum.insteadDesktop;
+                winBoxProject.SaveConfig();
+                UpdateGuiWithoutWindowsVersion();
+            }
+        }
+
+        private void afterDesktop_CheckedChanged(object sender, EventArgs e)
+        {
+            if (afterDesktop.Checked)
+            {
+                winBoxProject.winBoxConfig.LaunchMode = ProgramLaunchModeEnum.afterDesktop;
+                winBoxProject.SaveConfig();
+                UpdateGuiWithoutWindowsVersion();
+            }
         }
     }
 }

@@ -918,8 +918,7 @@ if %errorlevel%==0 (
                     }
                     break;
 
-                case ProgramTypeEnum.WindowsDesktop:
-                    dontChangeShell = true;
+                case ProgramTypeEnum.None:
                     break;
             }
 
@@ -1103,7 +1102,7 @@ if %errorlevel%==0 (
                         }
                         break;
 
-                    case ProgramTypeEnum.WindowsDesktop:
+                    case ProgramTypeEnum.None:
                         break;
                 }
             }

@@ -53,7 +53,7 @@
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
             panel2 = new Panel();
-            ProgramType_WindowsDesktop = new RadioButton();
+            ProgramType_None = new RadioButton();
             ProgramName = new TextBox();
             OpenLocalHtml = new Button();
             label9 = new Label();
@@ -100,6 +100,10 @@
             label16 = new Label();
             tabPage2 = new TabPage();
             tabPage3 = new TabPage();
+            label27 = new Label();
+            panel12 = new Panel();
+            afterDesktop = new RadioButton();
+            insteadDesktop = new RadioButton();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
             panel5 = new Panel();
@@ -155,6 +159,7 @@
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             tabPage3.SuspendLayout();
+            panel12.SuspendLayout();
             tabPage4.SuspendLayout();
             tabPage5.SuspendLayout();
             panel5.SuspendLayout();
@@ -403,7 +408,7 @@
             // 
             panel2.BackColor = SystemColors.Window;
             panel2.BorderStyle = BorderStyle.Fixed3D;
-            panel2.Controls.Add(ProgramType_WindowsDesktop);
+            panel2.Controls.Add(ProgramType_None);
             panel2.Controls.Add(ProgramName);
             panel2.Controls.Add(OpenLocalHtml);
             panel2.Controls.Add(label9);
@@ -421,24 +426,24 @@
             panel2.Controls.Add(AppSelect);
             panel2.Location = new Point(6, 44);
             panel2.Name = "panel2";
-            panel2.Size = new Size(637, 297);
+            panel2.Size = new Size(439, 297);
             panel2.TabIndex = 27;
             // 
-            // ProgramType_WindowsDesktop
+            // ProgramType_None
             // 
-            ProgramType_WindowsDesktop.AutoSize = true;
-            ProgramType_WindowsDesktop.Location = new Point(458, 3);
-            ProgramType_WindowsDesktop.Name = "ProgramType_WindowsDesktop";
-            ProgramType_WindowsDesktop.Size = new Size(181, 29);
-            ProgramType_WindowsDesktop.TabIndex = 16;
-            ProgramType_WindowsDesktop.TabStop = true;
-            ProgramType_WindowsDesktop.Text = "Windows desktop";
-            ProgramType_WindowsDesktop.UseVisualStyleBackColor = true;
-            ProgramType_WindowsDesktop.CheckedChanged += ProgramType_WindowsDesktop_CheckedChanged;
+            ProgramType_None.AutoSize = true;
+            ProgramType_None.Location = new Point(5, 262);
+            ProgramType_None.Name = "ProgramType_None";
+            ProgramType_None.Size = new Size(80, 29);
+            ProgramType_None.TabIndex = 16;
+            ProgramType_None.TabStop = true;
+            ProgramType_None.Text = "None";
+            ProgramType_None.UseVisualStyleBackColor = true;
+            ProgramType_None.CheckedChanged += ProgramType_None_CheckedChanged;
             // 
             // ProgramName
             // 
-            ProgramName.Location = new Point(4, 33);
+            ProgramName.Location = new Point(3, 33);
             ProgramName.Name = "ProgramName";
             ProgramName.Size = new Size(240, 31);
             ProgramName.TabIndex = 15;
@@ -446,7 +451,7 @@
             // 
             // OpenLocalHtml
             // 
-            OpenLocalHtml.Location = new Point(274, 214);
+            OpenLocalHtml.Location = new Point(273, 197);
             OpenLocalHtml.Name = "OpenLocalHtml";
             OpenLocalHtml.Size = new Size(62, 31);
             OpenLocalHtml.TabIndex = 14;
@@ -457,7 +462,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(135, 254);
+            label9.Location = new Point(134, 232);
             label9.Name = "label9";
             label9.Size = new Size(298, 25);
             label9.TabIndex = 13;
@@ -465,7 +470,7 @@
             // 
             // WebSessionTimeout
             // 
-            WebSessionTimeout.Location = new Point(4, 251);
+            WebSessionTimeout.Location = new Point(3, 229);
             WebSessionTimeout.Name = "WebSessionTimeout";
             WebSessionTimeout.Size = new Size(125, 31);
             WebSessionTimeout.TabIndex = 12;
@@ -474,7 +479,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(340, 220);
+            label8.Location = new Point(341, 200);
             label8.Name = "label8";
             label8.Size = new Size(34, 25);
             label8.TabIndex = 11;
@@ -482,7 +487,7 @@
             // 
             // WebSite
             // 
-            WebSite.Location = new Point(4, 214);
+            WebSite.Location = new Point(3, 197);
             WebSite.Name = "WebSite";
             WebSite.Size = new Size(264, 31);
             WebSite.TabIndex = 10;
@@ -491,7 +496,7 @@
             // ProgramType_WebSite
             // 
             ProgramType_WebSite.AutoSize = true;
-            ProgramType_WebSite.Location = new Point(3, 182);
+            ProgramType_WebSite.Location = new Point(5, 166);
             ProgramType_WebSite.Margin = new Padding(4);
             ProgramType_WebSite.Name = "ProgramType_WebSite";
             ProgramType_WebSite.Size = new Size(107, 29);
@@ -504,7 +509,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(340, 149);
+            label6.Location = new Point(336, 134);
             label6.Name = "label6";
             label6.Size = new Size(96, 25);
             label6.TabIndex = 8;
@@ -512,7 +517,7 @@
             // 
             // RawCommand
             // 
-            RawCommand.Location = new Point(4, 146);
+            RawCommand.Location = new Point(3, 131);
             RawCommand.Name = "RawCommand";
             RawCommand.Size = new Size(332, 31);
             RawCommand.TabIndex = 7;
@@ -521,7 +526,7 @@
             // ProgramType_RawCommand
             // 
             ProgramType_RawCommand.AutoSize = true;
-            ProgramType_RawCommand.Location = new Point(4, 111);
+            ProgramType_RawCommand.Location = new Point(5, 100);
             ProgramType_RawCommand.Name = "ProgramType_RawCommand";
             ProgramType_RawCommand.Size = new Size(159, 29);
             ProgramType_RawCommand.TabIndex = 6;
@@ -533,7 +538,7 @@
             // ProgramType_ExecutableFile
             // 
             ProgramType_ExecutableFile.AutoSize = true;
-            ProgramType_ExecutableFile.Location = new Point(3, 3);
+            ProgramType_ExecutableFile.Location = new Point(5, 2);
             ProgramType_ExecutableFile.Name = "ProgramType_ExecutableFile";
             ProgramType_ExecutableFile.Size = new Size(151, 29);
             ProgramType_ExecutableFile.TabIndex = 5;
@@ -545,7 +550,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(251, 73);
+            label4.Location = new Point(248, 68);
             label4.Name = "label4";
             label4.Size = new Size(100, 25);
             label4.TabIndex = 4;
@@ -553,7 +558,7 @@
             // 
             // ProgramArgs
             // 
-            ProgramArgs.Location = new Point(4, 70);
+            ProgramArgs.Location = new Point(3, 65);
             ProgramArgs.Name = "ProgramArgs";
             ProgramArgs.Size = new Size(240, 31);
             ProgramArgs.TabIndex = 3;
@@ -561,7 +566,7 @@
             // 
             // AppClear
             // 
-            AppClear.Location = new Point(342, 33);
+            AppClear.Location = new Point(337, 33);
             AppClear.Name = "AppClear";
             AppClear.Size = new Size(88, 31);
             AppClear.TabIndex = 1;
@@ -571,7 +576,7 @@
             // 
             // AppSelect
             // 
-            AppSelect.Location = new Point(249, 33);
+            AppSelect.Location = new Point(248, 33);
             AppSelect.Name = "AppSelect";
             AppSelect.Size = new Size(87, 31);
             AppSelect.TabIndex = 0;
@@ -905,6 +910,8 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(label27);
+            tabPage3.Controls.Add(panel12);
             tabPage3.Controls.Add(panel2);
             tabPage3.Controls.Add(label3);
             tabPage3.Location = new Point(4, 34);
@@ -914,6 +921,50 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "app";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label27.Location = new Point(451, 3);
+            label27.Name = "label27";
+            label27.Size = new Size(184, 38);
+            label27.TabIndex = 30;
+            label27.Text = "Launch mode";
+            // 
+            // panel12
+            // 
+            panel12.BorderStyle = BorderStyle.Fixed3D;
+            panel12.Controls.Add(afterDesktop);
+            panel12.Controls.Add(insteadDesktop);
+            panel12.Location = new Point(451, 44);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(494, 72);
+            panel12.TabIndex = 29;
+            // 
+            // afterDesktop
+            // 
+            afterDesktop.AutoSize = true;
+            afterDesktop.Location = new Point(3, 35);
+            afterDesktop.Name = "afterDesktop";
+            afterDesktop.Size = new Size(422, 29);
+            afterDesktop.TabIndex = 1;
+            afterDesktop.TabStop = true;
+            afterDesktop.Text = "after the desktop (UNSAFE FOR PUBLIC KIOSKS!)";
+            afterDesktop.UseVisualStyleBackColor = true;
+            afterDesktop.CheckedChanged += afterDesktop_CheckedChanged;
+            // 
+            // insteadDesktop
+            // 
+            insteadDesktop.AutoSize = true;
+            insteadDesktop.Location = new Point(3, 4);
+            insteadDesktop.Name = "insteadDesktop";
+            insteadDesktop.Size = new Size(216, 29);
+            insteadDesktop.TabIndex = 0;
+            insteadDesktop.TabStop = true;
+            insteadDesktop.Text = "instead of the desktop";
+            insteadDesktop.UseVisualStyleBackColor = true;
+            insteadDesktop.CheckedChanged += insteadDesktop_CheckedChanged;
             // 
             // tabPage4
             // 
@@ -1429,6 +1480,8 @@
             tabPage2.PerformLayout();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
+            panel12.ResumeLayout(false);
+            panel12.PerformLayout();
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
             tabPage5.ResumeLayout(false);
@@ -1488,7 +1541,6 @@
         private TextBox ProgramArgs;
         private Label label5;
         private VScrollBar vScrollBar1;
-        private RadioButton ProgramType_ExecutableFile;
         private RadioButton ProgramType_RawCommand;
         private TextBox RawCommand;
         private Label label6;
@@ -1575,6 +1627,11 @@
         private Label label26;
         private TabPage tabPage10;
         private PictureBox pictureBox3;
-        private RadioButton ProgramType_WindowsDesktop;
+        private RadioButton ProgramType_None;
+        private RadioButton ProgramType_ExecutableFile;
+        private Label label27;
+        private Panel panel12;
+        private RadioButton afterDesktop;
+        private RadioButton insteadDesktop;
     }
 }

@@ -13,7 +13,13 @@ namespace WinBox_Maker
         ExecutableFile,
         RawCommand,
         WebSite,
-        WindowsDesktop
+        None
+    }
+
+    public enum ProgramLaunchModeEnum
+    {
+        insteadDesktop,
+        afterDesktop
     }
 
     public class WinBoxConfig
@@ -37,6 +43,7 @@ namespace WinBox_Maker
         public int? ScreenTimeout { get; set; }
         public string? Architecture { get; set; }
         public ProgramTypeEnum? ProgramType { get; set; }
+        public ProgramLaunchModeEnum? LaunchMode { get; set; }
         public List<string>? TweakList { get; set; }
         public string? CustomBootLogo { get; set; }
         public bool? AddVirtualDisplay { get; set; }
@@ -72,6 +79,7 @@ namespace WinBox_Maker
             if (Architecture == null) Architecture = "x64";
             if (TweakList == null) TweakList = [];
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
+            if (LaunchMode == null) LaunchMode = ProgramLaunchModeEnum.insteadDesktop;
             if (AddVirtualDisplay == null) AddVirtualDisplay = false;
             if (VirtualDisplayWidth == null) VirtualDisplayWidth = 960;
             if (VirtualDisplayHeight == null) VirtualDisplayHeight = 640;
