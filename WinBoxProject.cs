@@ -512,7 +512,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             }
 
             string tempProgramPath = Path.Combine(tempDirectoryPath, "program");
-            if (false)
+            if (winBoxConfig.buildEnabled == true)
             {
                 processValue(15);
                 processName("Compiling a user project");

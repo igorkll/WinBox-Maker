@@ -1464,7 +1464,7 @@
             // 
             // bl_delete
             // 
-            bl_delete.Location = new Point(3, 42);
+            bl_delete.Location = new Point(492, 243);
             bl_delete.Name = "bl_delete";
             bl_delete.Size = new Size(112, 34);
             bl_delete.TabIndex = 3;
@@ -1493,7 +1493,7 @@
             // 
             bl_tabcontrol.Controls.Add(bl_msbuild);
             bl_tabcontrol.Controls.Add(bl_cmake);
-            bl_tabcontrol.Location = new Point(3, 82);
+            bl_tabcontrol.Location = new Point(3, 42);
             bl_tabcontrol.Name = "bl_tabcontrol";
             bl_tabcontrol.SelectedIndex = 0;
             bl_tabcontrol.Size = new Size(601, 195);
@@ -1577,6 +1577,7 @@
             bl_cmake.TabIndex = 1;
             bl_cmake.Text = "cmake";
             bl_cmake.UseVisualStyleBackColor = true;
+            bl_cmake.Click += bl_cmake_Click;
             // 
             // buildEnabled
             // 

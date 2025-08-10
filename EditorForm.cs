@@ -1164,13 +1164,23 @@ namespace WinBox_Maker
 
         private void bl_msbuild_Click(object sender, EventArgs e)
         {
+            currentBuildItem.type = BuildItemType.msbuild;
+            winBoxProject.SaveConfig();
+        }
 
+        private void bl_cmake_Click(object sender, EventArgs e)
+        {
+            currentBuildItem.type = BuildItemType.cmake;
+            winBoxProject.SaveConfig();
         }
 
         private void addBuild_Click(object sender, EventArgs e)
         {
             BuildItem buildItem = new BuildItem();
             buildItem.name = $"build item {winBoxProject.winBoxConfig.BuildItems.Count() + 1}";
+            buildItem.type = BuildItemType.msbuild;
+            buildItem.msbuild_configuration = "Release";
+
             winBoxProject.winBoxConfig.BuildItems.Add(buildItem);
             winBoxProject.SaveConfig();
             UpdateBuildItemsList();
