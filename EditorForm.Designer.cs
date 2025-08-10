@@ -1476,7 +1476,7 @@
             richTextBox1.ReadOnly = true;
             richTextBox1.Size = new Size(483, 96);
             richTextBox1.TabIndex = 11;
-            richTextBox1.Text = "the title only affects the display in the list\nthe path is specified relative to the project folder\nit is recommended to add to .gitignore the paths where you will download files";
+            richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
             // dl_delete
             // 
