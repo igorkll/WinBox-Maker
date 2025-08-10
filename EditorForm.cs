@@ -200,7 +200,8 @@ namespace WinBox_Maker
                     !(control is TabControl) &&
                     !(control is Panel) &&
                     !(control is TabPage)) ||
-                    control.Name == "pictureBox3")
+                    control.Name == "pictureBox3" ||
+                    control.Name == "bl_tabcontrol")
                 {
                     control.Enabled = false;
                 }

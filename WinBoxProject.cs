@@ -448,7 +448,9 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             {
                 case BuildItemType.msbuild:
                     if (Program.winboxSettings.path_msbuild != null) {
-                        await Program.ExecuteAsync(Program.winboxSettings.path_msbuild, $"\"{buildItem.msbuild_path}\" /p:Configuration=\"{buildItem.msbuild_configuration}\"");
+                        string arch = winBoxConfig.Architecture;
+                        if (arch == "arm64") arch = "ARM64";
+                        await Program.ExecuteAsync(Program.winboxSettings.path_msbuild, $"\"{buildItem.msbuild_path}\" /p:Configuration=\"{buildItem.msbuild_configuration}\" /p:Platform=\"{arch}\"");
                         return true;
                     }
                     break;
