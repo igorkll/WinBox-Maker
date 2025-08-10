@@ -416,9 +416,27 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
         {
             if (downloadItem.path.Contains("..")) return;
 
+            string downloadPath;
+            if (downloadItem.cache == true)
+            {
+                downloadPath = Path.Combine(Program.downloadCachePath, Program.CalculateMD5(downloadItem.url));
+                if (!File.Exists(downloadPath))
+                {
+                    await Program.DownloadFileAsync(downloadItem.url, downloadPath);
+                }
+            }
+            else
+            {
+                downloadPath = Path.Combine(Program.appdataPath, "last_download");
+                await Program.DownloadFileAsync(downloadItem.url, downloadPath);
+            }
+
             string outputPath = Path.Combine(baseDirectoryPath, downloadItem.path);
 
-            await Program.DownloadFileAsync(downloadItem.url, outputPath);
+            
+
+            Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+            await Program.CopyFileAsync(downloadPath, outputPath);
         }
 
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
@@ -734,10 +752,10 @@ bcdedit /set {{default}} TESTSIGNING ON";
                     string debugBootLogoPath = Path.Combine(tempDirectoryPath, "debug_logo.bmp");
                     string splashBootLogoPath = Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "splash.bmp");
                     ImageConverter.ConvertToBmp_54_24(logoPath, debugBootLogoPath);
-                    File.Copy(debugBootLogoPath, splashBootLogoPath, true);
+                    await Program.CopyFileAsync(debugBootLogoPath, splashBootLogoPath);
 
                     string configBootLogoPath = Program.ResourcePath(Path.Combine("resources", winBoxConfig.CustomBootLogo_centering == true ? "hackBGRT_centering.txt" : "hackBGRT.txt"));
-                    File.Copy(configBootLogoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "config.txt"), true);
+                    await Program.CopyFileAsync(configBootLogoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "config.txt"));
 
                     baseSetup += "\r\ncd C:\\WinboxResources\\HackBGRT-2.5.2";
                     baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot enable-overwrite";
