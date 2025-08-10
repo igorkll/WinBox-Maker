@@ -1498,6 +1498,7 @@
             bl_tabcontrol.SelectedIndex = 0;
             bl_tabcontrol.Size = new Size(601, 195);
             bl_tabcontrol.TabIndex = 0;
+            bl_tabcontrol.SelectedIndexChanged += bl_tabcontrol_SelectedIndexChanged;
             // 
             // bl_msbuild
             // 
@@ -1514,7 +1515,6 @@
             bl_msbuild.TabIndex = 0;
             bl_msbuild.Text = "msbuild";
             bl_msbuild.UseVisualStyleBackColor = true;
-            bl_msbuild.Click += bl_msbuild_Click;
             // 
             // bl_clear
             // 
@@ -1577,7 +1577,6 @@
             bl_cmake.TabIndex = 1;
             bl_cmake.Text = "cmake";
             bl_cmake.UseVisualStyleBackColor = true;
-            bl_cmake.Click += bl_cmake_Click;
             // 
             // buildEnabled
             // 

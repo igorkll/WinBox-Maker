@@ -132,6 +132,9 @@ namespace WinBox_Maker
             {
                 bl_panel.Visible = true;
                 bl_title.Text = buildItem.name ?? "";
+                bl_path.Text = buildItem.msbuild_path ?? "";
+                bl_conf.Text = buildItem.msbuild_configuration ?? "";
+                bl_tabcontrol.SelectedIndex = (int)currentBuildItem.type;
             }
         }
 
@@ -1162,15 +1165,10 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
         }
 
-        private void bl_msbuild_Click(object sender, EventArgs e)
+        private void bl_tabcontrol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentBuildItem.type = BuildItemType.msbuild;
-            winBoxProject.SaveConfig();
-        }
-
-        private void bl_cmake_Click(object sender, EventArgs e)
-        {
-            currentBuildItem.type = BuildItemType.cmake;
+            TabPage selectedTab = bl_tabcontrol.SelectedTab;
+            currentBuildItem.type = (BuildItemType)bl_tabcontrol.SelectedIndex;
             winBoxProject.SaveConfig();
         }
 
@@ -1179,6 +1177,7 @@ namespace WinBox_Maker
             BuildItem buildItem = new BuildItem();
             buildItem.name = $"build item {winBoxProject.winBoxConfig.BuildItems.Count() + 1}";
             buildItem.type = BuildItemType.msbuild;
+            buildItem.msbuild_path = "";
             buildItem.msbuild_configuration = "Release";
 
             winBoxProject.winBoxConfig.BuildItems.Add(buildItem);
@@ -1188,12 +1187,16 @@ namespace WinBox_Maker
 
         private void bl_select_Click(object sender, EventArgs e)
         {
-
+            currentBuildItem.msbuild_path = null;
+            bl_conf.Text = currentBuildItem.msbuild_path;
+            winBoxProject.SaveConfig();
         }
 
         private void bl_clear_Click(object sender, EventArgs e)
         {
-
+            currentBuildItem.msbuild_path = "";
+            bl_conf.Text = "";
+            winBoxProject.SaveConfig();
         }
 
         private void bl_delete_Click(object sender, EventArgs e)
