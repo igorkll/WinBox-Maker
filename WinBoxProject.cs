@@ -442,6 +442,21 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await tcs.Task;
         }
 
+        public async Task<bool> BuildUserProject(BuildItem buildItem)
+        {
+            switch (buildItem.type)
+            {
+                case BuildItemType.msbuild:
+                    if (Program.winboxSettings.path_msbuild != null) {
+                        await Program.ExecuteAsync(Program.winboxSettings.path_msbuild, $"\"{buildItem.msbuild_path}\" /p:Configuration=\"{buildItem.msbuild_configuration}\"");
+                        return true;
+                    }
+                    break;
+            }
+
+            return false;
+        }
+
         public async Task DownloadFile(DownloadItem downloadItem, Action<int> processValue)
         {
             if (downloadItem.path.Contains("..")) return;
@@ -517,6 +532,14 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             {
                 processValue(15);
                 processName("Compiling a user project");
+                foreach (BuildItem buildItem in winBoxConfig.BuildItems)
+                {
+                    if (!await BuildUserProject(buildItem))
+                    {
+                        Program.Error("couldn't build a custom project. the paths to the required build system may not be configured in the winbox maker settings");
+                        return false;
+                    }
+                }
             }
 
             // ------------------------------------ creating a new install.wim file for subsequent modification
