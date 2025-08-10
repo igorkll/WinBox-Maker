@@ -15,6 +15,7 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Intrinsics.Arm;
+using System.Security.Policy;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -411,6 +412,15 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await RemoveTempFolder("program");
         }
 
+        public async Task DownloadFile(DownloadItem downloadItem)
+        {
+            if (downloadItem.path.Contains("..")) return;
+
+            string outputPath = Path.Combine(baseDirectoryPath, downloadItem.path);
+
+            await Program.DownloadFileAsync(downloadItem.url, outputPath);
+        }
+
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
         {
             if (winBoxConfig.prebuildEnabled == true)
@@ -425,10 +435,20 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
 
             // ------------------------------------ compiling a user program
 
+            if (winBoxConfig.downloadEnabled == true)
+            {
+                processValue(10);
+                processName("Downloading user files");
+                foreach (DownloadItem downloadItem in winBoxConfig.DownloadItems)
+                {
+                    await DownloadFile(downloadItem);
+                }
+            }
+
             string tempProgramPath = Path.Combine(tempDirectoryPath, "program");
             if (false)
             {
-                processValue(10);
+                processValue(15);
                 processName("Compiling a user project");
             }
 

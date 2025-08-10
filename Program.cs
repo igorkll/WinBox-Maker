@@ -4,6 +4,7 @@ using ManagedWimLib;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -28,11 +29,20 @@ namespace WinBox_Maker
         public const string logichubUrl = "https://igorkll.github.io/logichub/index.html";
         public static string? oscdimgPath;
         public static string? z7Path;
-        public static string? appdataPath;
-        public static string? appconfigPath;
         public static Form openProjectForm;
         static bool isClosingProgrammatically = false;
         public static WinboxMakerConfig winboxSettings;
+
+        public static string? appdataPath;
+        public static string? downloadCachePath;
+        public static string? appconfigPath;
+
+        static string getAppdataSubdirectory(string subdirectory)
+        {
+            string path = Path.Combine(appdataPath, subdirectory);
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            return path;
+        }
 
         [STAThread]
         static void Main(string[] args)
@@ -47,6 +57,7 @@ namespace WinBox_Maker
             appdataPath = Path.Combine(localAppDataPath, "Winbox-Maker");
             if (!Directory.Exists(appdataPath)) Directory.CreateDirectory(appdataPath);
             appconfigPath = Path.Combine(appdataPath, "config.json");
+            downloadCachePath = getAppdataSubdirectory("DownloadCache");
 
             winboxSettings = WinboxMakerConfig.Load();
 
@@ -555,6 +566,31 @@ namespace WinBox_Maker
             await process.WaitForExitAsync();
 
             File.Delete(buildEventFilePath);
+        }
+
+        public static async Task<bool> DownloadFileAsync(string url, string destinationPath)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    using (HttpResponseMessage response = await client.GetAsync(url))
+                    {
+                        response.EnsureSuccessStatusCode();
+
+                        using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
+                                      fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None))
+                        {
+                            await contentStream.CopyToAsync(fileStream);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
