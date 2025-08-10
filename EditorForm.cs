@@ -19,6 +19,7 @@ namespace WinBox_Maker
         WindowsDescription[]? windowsDescriptions;
         bool softwareCheck = true;
         TaskbarManager taskbarManager;
+        int currentDownloadItemIndex = -1;
         DownloadItem? currentDownloadItem;
 
         public EditorForm(WinBoxProject winBoxProject)
@@ -85,6 +86,7 @@ namespace WinBox_Maker
                 DownloadItems.SetItemChecked(lastItemIndex, true);
             }
             softwareCheck = false;
+            currentDownloadItemIndex = lastItemIndex;
             UpdateSelectedDownloadItem(lastDownloadItem);
         }
 
@@ -828,10 +830,12 @@ namespace WinBox_Maker
                 {
                     DownloadItems.SetItemChecked(i, index == i);
                 }
+                currentDownloadItemIndex = index;
                 UpdateSelectedDownloadItem(winBoxProject.winBoxConfig.DownloadItems[index]);
             }
             else
             {
+                currentDownloadItemIndex = -1;
                 UpdateSelectedDownloadItem(null);
             }
             softwareCheck = false;
@@ -1066,6 +1070,7 @@ namespace WinBox_Maker
         private void dl_name_TextChanged(object sender, EventArgs e)
         {
             currentDownloadItem.name = dl_name.Text;
+            DownloadItems.Items[currentDownloadItemIndex] = dl_name.Text;
             winBoxProject.SaveConfig();
         }
 
