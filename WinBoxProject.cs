@@ -416,6 +416,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
         {
             if (downloadItem.path.Contains("..")) return;
 
+            bool needDelete = false;
             string downloadPath;
             if (downloadItem.cache == true)
             {
@@ -427,16 +428,27 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             }
             else
             {
+                needDelete = true;
                 downloadPath = Path.Combine(Program.appdataPath, "last_download");
                 await Program.DownloadFileAsync(downloadItem.url, downloadPath);
             }
 
             string outputPath = Path.Combine(baseDirectoryPath, downloadItem.path);
 
-            
+            if (downloadItem.unpack == true)
+            {
 
-            Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
-            await Program.CopyFileAsync(downloadPath, outputPath);
+            }
+            else
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+                await Program.CopyFileAsync(downloadPath, outputPath);
+            }
+
+            if (needDelete)
+            {
+                File.Delete(downloadPath);
+            }
         }
 
         public async Task MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
