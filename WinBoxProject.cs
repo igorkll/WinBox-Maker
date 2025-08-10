@@ -446,13 +446,16 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
 
         public async Task<bool> BuildUserProject(BuildItem buildItem)
         {
+            string outputDir = Path.Combine(tempDirectoryPath, "program");
+
             switch (buildItem.type)
             {
                 case BuildItemType.msbuild:
                     if (Program.winboxSettings.path_msbuild != null) {
                         string arch = winBoxConfig.Architecture;
                         if (arch == "arm64") arch = "ARM64";
-                        await Program.ExecuteAsync(Program.winboxSettings.path_msbuild, $"\"{Path.Combine(sourcesDirectoryPath, buildItem.msbuild_path)}\" /p:Configuration=\"{buildItem.msbuild_configuration}\" /p:Platform=\"{arch}\"");
+                        await Program.ExecuteAsync(Program.winboxSettings.path_msbuild,
+                            $"\"{Path.Combine(sourcesDirectoryPath, buildItem.msbuild_path)}\" /p:Configuration=\"{buildItem.msbuild_configuration}\" /p:Platform=\"{arch}\" /p:OutputPath=\"{outputDir}\" /p:OutDir=\"{outputDir}\"");
                         return true;
                     }
                     break;
