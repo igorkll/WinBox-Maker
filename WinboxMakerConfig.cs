@@ -42,13 +42,13 @@ namespace WinBox_Maker
 
             foreach (string version in versions)
             {
-                foreach (string edition in versions)
+                foreach (string edition in editions)
                 {
-                    string path1 = $"{disk}:\\Program Files\\Microsoft Visual Studio\\{version}\\{edition}\\MSBuild\\Current\\Bin\\MSBuild.exe";
-                    if (File.Exists(path1)) return path1;
+                    string path = $"{disk}:\\Program Files\\Microsoft Visual Studio\\{version}\\{edition}\\MSBuild\\Current\\Bin\\MSBuild.exe";
+                    if (File.Exists(path)) return path;
 
-                    string path2 = $"{disk}:\\Program Files (x86)\\Microsoft Visual Studio\\{version}\\{edition}\\MSBuild\\Current\\Bin\\MSBuild.exe";
-                    if (File.Exists(path2)) return path2;
+                    path = $"{disk}:\\Program Files (x86)\\Microsoft Visual Studio\\{version}\\{edition}\\MSBuild\\Current\\Bin\\MSBuild.exe";
+                    if (File.Exists(path)) return path;
                 }
             }
 
