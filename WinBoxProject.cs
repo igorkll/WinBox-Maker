@@ -830,8 +830,7 @@ net localgroup Administrators winbox /add";
             await File.WriteAllTextAsync(Path.Combine(wimMountPath, "README.txt"), $"this image was created by the {Program.version} free software\r\nhttps://github.com/igorkll/WinBox-Maker");
 
             // ------------------------------------ setup application autorun
-            string command = "";
-            bool dontChangeShell = false;
+            string? command = null;
             switch (winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -922,17 +921,27 @@ if %errorlevel%==0 (
                     break;
             }
 
-            applicationScript += "\r\n" + command;
+            if (command != null)
+            {
+                applicationScript += "\r\n" + command;
+            }
 
             await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_AppScript.txt"), applicationScript);
             await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "app_script.bat"), applicationScript);
-            await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_app_script_hidden.vbs"), @"C:\WinboxResources\app_script.bat", null);
-            if (dontChangeShell)
+            if (winBoxConfig.LaunchMode == ProgramLaunchModeEnum.afterDesktop)
             {
-                //NEED CREATE ICON ON AUTORUN
+                await WriteHiddenBatExecuter(
+                    Path.Combine(
+                        wimMountPath,
+                        "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\run_app_script_hidden.vbs"
+                    ),
+                    @"C:\WinboxResources\app_script.bat",
+                    null
+                );
             }
             else
             {
+                await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_app_script_hidden.vbs"), @"C:\WinboxResources\app_script.bat", null);
                 await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile("wscript \"C:\\WinboxResources\\run_app_script_hidden.vbs\""));
             }
 
