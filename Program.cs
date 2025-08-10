@@ -584,33 +584,6 @@ namespace WinBox_Maker
             File.Delete(buildEventFilePath);
         }
 
-        public static async Task<bool> DownloadFileAsync(string url, string destinationPath)
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.Timeout = TimeSpan.FromMinutes(10);
-                try
-                {
-                    using (HttpResponseMessage response = await client.GetAsync(url))
-                    {
-                        response.EnsureSuccessStatusCode();
-
-                        using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
-                                      fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None))
-                        {
-                            await contentStream.CopyToAsync(fileStream);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Error(ex.ToString());
-                    return false;
-                }
-            }
-            return true;
-        }
-
         public static string CalculateMD5(string input)
         {
             using (MD5 md5 = MD5.Create())

@@ -413,21 +413,45 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await RemoveTempFolder("program");
         }
 
-        void RawDownloadFile(string url, string path, Action<int> processValue)
+        async Task RawDownloadFile(string url, string path, Action<int> processValue)
         {
+            var tcs = new TaskCompletionSource<bool>();
+
             using (WebClient wc = new WebClient())
             {
                 wc.DownloadProgressChanged += (sender, e) =>
                 {
                     processValue(e.ProgressPercentage);
                 };
-                wc.DownloadFileAsync(new System.Uri(url), path);
+
+                wc.DownloadFileCompleted += (sender, e) =>
+                {
+                    if (e.Error != null)
+                    {
+                        tcs.SetException(e.Error);
+                    }
+                    else
+                    {
+                        tcs.SetResult(true);
+                    }
+                };
+
+                try
+                {
+                    wc.DownloadFileAsync(new Uri(url), path);
+                }
+                catch (Exception ex)
+                {
+                    tcs.SetException(ex);
+                }
             }
+
+            await tcs.Task;
         }
 
         public async Task DownloadFile(DownloadItem downloadItem, Action<int> processValue)
         {
-            if (downloadItem.path.Contains("..")) return false;
+            if (downloadItem.path.Contains("..")) return;
 
             bool needDelete = false;
             string downloadPath;
@@ -436,14 +460,14 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 downloadPath = Path.Combine(Program.downloadCachePath, Program.CalculateMD5(downloadItem.url));
                 if (!File.Exists(downloadPath))
                 {
-                    RawDownloadFile(downloadItem.url, downloadPath, processValue);
+                    await RawDownloadFile(downloadItem.url, downloadPath, processValue);
                 }
             }
             else
             {
                 needDelete = true;
                 downloadPath = Path.Combine(Program.appdataPath, "last_download");
-                RawDownloadFile(downloadItem.url, downloadPath, processValue);
+                await RawDownloadFile(downloadItem.url, downloadPath, processValue);
             }
 
             string outputPath = Path.Combine(baseDirectoryPath, downloadItem.path);
