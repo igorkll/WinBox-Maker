@@ -194,6 +194,8 @@ namespace WinBox_Maker
                     control.Name != "OpenEmbeddedFolder" &&
                     control.Name != "openProgramData" &&
                     control.Name != "EmbedDisplayReadme" &&
+                    control.Name != "BuildItems" &&
+                    control.Name != "DownloadItems" &&
                     !(control is ProgressBar) &&
                     !(control is Label) &&
                     !(control is PictureBox) &&
@@ -1267,6 +1269,11 @@ namespace WinBox_Maker
         {
             currentBuildItem.msbuild_path = bl_path.Text;
             winBoxProject.SaveConfig();
+        }
+
+        private void BuildItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

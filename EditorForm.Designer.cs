@@ -1609,6 +1609,7 @@
             BuildItems.Size = new Size(322, 284);
             BuildItems.TabIndex = 0;
             BuildItems.ItemCheck += BuildItems_ItemCheck;
+            BuildItems.SelectedIndexChanged += BuildItems_SelectedIndexChanged;
             // 
             // tabPage11
             // 
