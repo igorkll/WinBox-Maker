@@ -70,17 +70,20 @@ namespace WinBox_Maker
 
         void UpdateDownloadItemsList()
         {
+            softwareCheck = true;
             DownloadItem? lastDownloadItem = null;
             int lastItemIndex = -1;
+            DownloadItems.Items.Clear();
             foreach (DownloadItem downloadItem in winBoxProject.winBoxConfig.DownloadItems)
             {
                 lastItemIndex = DownloadItems.Items.Add(downloadItem.name);
                 lastDownloadItem = downloadItem;
             }
-            if (lastItemIndex > 0)
+            if (lastItemIndex >= 0)
             {
                 DownloadItems.SetItemChecked(lastItemIndex, true);
             }
+            softwareCheck = false;
             UpdateSelectedDownloadItem(lastDownloadItem);
         }
 
@@ -94,6 +97,7 @@ namespace WinBox_Maker
             else
             {
                 dl_panel.Visible = true;
+                dl_name.Text = downloadItem.name ?? "";
                 dl_url.Text = downloadItem.url ?? "";
                 dl_path.Text = downloadItem.path ?? "";
                 dl_cache.CheckState = downloadItem.cache == true ? CheckState.Checked : CheckState.Unchecked;
@@ -1040,10 +1044,13 @@ namespace WinBox_Maker
 
         private void addDownload_Click(object sender, EventArgs e)
         {
-            DownloadItem downloadItem = { 
-                .name
-            };
-            winBoxProject.winBoxConfig.DownloadItems.Add();
+            DownloadItem downloadItem = new DownloadItem();
+            downloadItem.name = "asd";
+            downloadItem.url = "";
+            downloadItem.path = "";
+            downloadItem.cache = false;
+            downloadItem.unpack = false;
+            winBoxProject.winBoxConfig.DownloadItems.Add(downloadItem);
             UpdateDownloadItemsList();
         }
     }
