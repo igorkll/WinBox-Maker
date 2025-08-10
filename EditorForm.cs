@@ -388,6 +388,7 @@ namespace WinBox_Maker
             winmountedEnabled.CheckState = winBoxProject.winBoxConfig.winmountedEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             winmountedEvent.Text = winBoxProject.winBoxConfig.winmountedEvent ?? "";
 
+            buildEnabled.CheckState = winBoxProject.winBoxConfig.buildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             downloadEnabled.CheckState = winBoxProject.winBoxConfig.downloadEnabled == true ? CheckState.Checked : CheckState.Unchecked;
 
             switch (winBoxProject.winBoxConfig.ProgramType)
@@ -1116,6 +1117,12 @@ namespace WinBox_Maker
             catch (Exception ex)
             {
             }
+        }
+
+        private void buildEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.buildEnabled = buildEnabled.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
         }
     }
 }

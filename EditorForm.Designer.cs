@@ -146,6 +146,10 @@
             pythonVersion = new ComboBox();
             pythonVersionsUpdate = new Button();
             tabPage10 = new TabPage();
+            panel13 = new Panel();
+            buildEnabled = new CheckBox();
+            addBuild = new Button();
+            checkedListBox1 = new CheckedListBox();
             tabPage11 = new TabPage();
             downloadEnabled = new CheckBox();
             dl_panel = new Panel();
@@ -189,6 +193,7 @@
             panel8.SuspendLayout();
             tabPage9.SuspendLayout();
             panel11.SuspendLayout();
+            tabPage10.SuspendLayout();
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -1419,12 +1424,52 @@
             // 
             // tabPage10
             // 
+            tabPage10.Controls.Add(panel13);
+            tabPage10.Controls.Add(buildEnabled);
+            tabPage10.Controls.Add(addBuild);
+            tabPage10.Controls.Add(checkedListBox1);
             tabPage10.Location = new Point(4, 34);
             tabPage10.Name = "tabPage10";
             tabPage10.Size = new Size(951, 347);
             tabPage10.TabIndex = 9;
             tabPage10.Text = "build";
             tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // panel13
+            // 
+            panel13.BorderStyle = BorderStyle.Fixed3D;
+            panel13.Location = new Point(334, 6);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(611, 284);
+            panel13.TabIndex = 3;
+            // 
+            // buildEnabled
+            // 
+            buildEnabled.AutoSize = true;
+            buildEnabled.Location = new Point(124, 311);
+            buildEnabled.Name = "buildEnabled";
+            buildEnabled.Size = new Size(145, 29);
+            buildEnabled.TabIndex = 2;
+            buildEnabled.Text = "Build enabled";
+            buildEnabled.UseVisualStyleBackColor = true;
+            buildEnabled.CheckedChanged += buildEnabled_CheckedChanged;
+            // 
+            // addBuild
+            // 
+            addBuild.Location = new Point(6, 307);
+            addBuild.Name = "addBuild";
+            addBuild.Size = new Size(112, 34);
+            addBuild.TabIndex = 1;
+            addBuild.Text = "add";
+            addBuild.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBox1
+            // 
+            checkedListBox1.FormattingEnabled = true;
+            checkedListBox1.Location = new Point(6, 6);
+            checkedListBox1.Name = "checkedListBox1";
+            checkedListBox1.Size = new Size(322, 284);
+            checkedListBox1.TabIndex = 0;
             // 
             // tabPage11
             // 
@@ -1690,6 +1735,8 @@
             tabPage9.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
+            tabPage10.ResumeLayout(false);
+            tabPage10.PerformLayout();
             tabPage11.ResumeLayout(false);
             tabPage11.PerformLayout();
             dl_panel.ResumeLayout(false);
@@ -1814,7 +1861,6 @@
         private Label label25;
         private TextBox ProgramName;
         private Label label26;
-        private TabPage tabPage10;
         private PictureBox pictureBox3;
         private RadioButton ProgramType_None;
         private RadioButton ProgramType_ExecutableFile;
@@ -1836,5 +1882,10 @@
         private TextBox dl_name;
         private Button dl_delete;
         private Button openProgramData;
+        private TabPage tabPage10;
+        private CheckedListBox checkedListBox1;
+        private Button addBuild;
+        private CheckBox buildEnabled;
+        private Panel panel13;
     }
 }

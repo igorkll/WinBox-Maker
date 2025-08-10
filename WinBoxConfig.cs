@@ -59,6 +59,7 @@ namespace WinBox_Maker
         public string? winmountedEvent { get; set; }
         public string? pythonVersion { get; set; }
         public bool? downloadEnabled { get; set; }
+        public bool? buildEnabled { get; set; }
         public List<DownloadItem>? DownloadItems { get; set; }
 
 
@@ -95,6 +96,7 @@ namespace WinBox_Maker
             if (winmountedEvent == null) winmountedEvent = "";
             if (pythonVersion == null) pythonVersion = "";
             if (downloadEnabled == null) downloadEnabled = false;
+            if (buildEnabled == null) buildEnabled = false;
             if (DownloadItems == null) DownloadItems = new List<DownloadItem>();
         }
 
@@ -123,7 +125,7 @@ namespace WinBox_Maker
 
         public bool isBuildEventsUsed()
         {
-            return prebuildEnabled == true || postbuildEnabled == true || winmountedEnabled == true || downloadEnabled == true;
+            return prebuildEnabled == true || postbuildEnabled == true || winmountedEnabled == true || downloadEnabled == true || buildEnabled == true;
         }
     }
 }
