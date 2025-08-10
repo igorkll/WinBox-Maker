@@ -335,6 +335,8 @@ namespace WinBox_Maker
             winmountedEnabled.CheckState = winBoxProject.winBoxConfig.winmountedEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             winmountedEvent.Text = winBoxProject.winBoxConfig.winmountedEvent ?? "";
 
+            downloadEnabled.CheckState = winBoxProject.winBoxConfig.downloadEnabled == true ? CheckState.Checked : CheckState.Unchecked;
+
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -969,6 +971,12 @@ namespace WinBox_Maker
                 winBoxProject.SaveConfig();
                 UpdateGuiWithoutWindowsVersion();
             }
+        }
+
+        private void downloadEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.downloadEnabled = downloadEnabled.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
         }
     }
 }

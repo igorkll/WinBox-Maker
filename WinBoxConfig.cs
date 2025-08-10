@@ -58,6 +58,7 @@ namespace WinBox_Maker
         public bool? winmountedEnabled { get; set; }
         public string? winmountedEvent { get; set; }
         public string? pythonVersion { get; set; }
+        public bool? downloadEnabled { get; set; }
 
 
         public WinBoxConfig() {
@@ -92,6 +93,7 @@ namespace WinBox_Maker
             if (winmountedEnabled == null) winmountedEnabled = false;
             if (winmountedEvent == null) winmountedEvent = "";
             if (pythonVersion == null) pythonVersion = "";
+            if (downloadEnabled == null) downloadEnabled = false;
         }
 
         public void Save(string wnbFilePath)
@@ -119,7 +121,7 @@ namespace WinBox_Maker
 
         public bool isBuildEventsUsed()
         {
-            return prebuildEnabled == true || postbuildEnabled == true || winmountedEnabled == true;
+            return prebuildEnabled == true || postbuildEnabled == true || winmountedEnabled == true || downloadEnabled == true;
         }
     }
 }

@@ -146,6 +146,17 @@
             pythonVersion = new ComboBox();
             pythonVersionsUpdate = new Button();
             tabPage10 = new TabPage();
+            tabPage11 = new TabPage();
+            downloadEnabled = new CheckBox();
+            panel13 = new Panel();
+            label29 = new Label();
+            textBox1 = new TextBox();
+            dl_cache = new CheckBox();
+            dl_unpack = new CheckBox();
+            label28 = new Label();
+            dl_url = new TextBox();
+            addDownload = new Button();
+            checkedListBox1 = new CheckedListBox();
             OpenEmbeddedFolder = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
@@ -173,6 +184,8 @@
             panel8.SuspendLayout();
             tabPage9.SuspendLayout();
             panel11.SuspendLayout();
+            tabPage11.SuspendLayout();
+            panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
@@ -851,6 +864,7 @@
             tabControl1.Controls.Add(tabPage8);
             tabControl1.Controls.Add(tabPage9);
             tabControl1.Controls.Add(tabPage10);
+            tabControl1.Controls.Add(tabPage11);
             tabControl1.Location = new Point(12, 63);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -1407,6 +1421,114 @@
             tabPage10.Text = "build";
             tabPage10.UseVisualStyleBackColor = true;
             // 
+            // tabPage11
+            // 
+            tabPage11.Controls.Add(downloadEnabled);
+            tabPage11.Controls.Add(panel13);
+            tabPage11.Controls.Add(addDownload);
+            tabPage11.Controls.Add(checkedListBox1);
+            tabPage11.Location = new Point(4, 34);
+            tabPage11.Name = "tabPage11";
+            tabPage11.Padding = new Padding(3);
+            tabPage11.Size = new Size(951, 347);
+            tabPage11.TabIndex = 10;
+            tabPage11.Text = "downloading";
+            tabPage11.UseVisualStyleBackColor = true;
+            // 
+            // downloadEnabled
+            // 
+            downloadEnabled.AutoSize = true;
+            downloadEnabled.Location = new Point(124, 311);
+            downloadEnabled.Name = "downloadEnabled";
+            downloadEnabled.Size = new Size(188, 29);
+            downloadEnabled.TabIndex = 3;
+            downloadEnabled.Text = "Download enabled";
+            downloadEnabled.UseVisualStyleBackColor = true;
+            downloadEnabled.CheckedChanged += downloadEnabled_CheckedChanged;
+            // 
+            // panel13
+            // 
+            panel13.BorderStyle = BorderStyle.Fixed3D;
+            panel13.Controls.Add(label29);
+            panel13.Controls.Add(textBox1);
+            panel13.Controls.Add(dl_cache);
+            panel13.Controls.Add(dl_unpack);
+            panel13.Controls.Add(label28);
+            panel13.Controls.Add(dl_url);
+            panel13.Location = new Point(334, 6);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(611, 284);
+            panel13.TabIndex = 2;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(549, 43);
+            label29.Name = "label29";
+            label29.Size = new Size(48, 25);
+            label29.TabIndex = 5;
+            label29.Text = "path";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(3, 40);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(540, 31);
+            textBox1.TabIndex = 4;
+            // 
+            // dl_cache
+            // 
+            dl_cache.AutoSize = true;
+            dl_cache.Location = new Point(3, 77);
+            dl_cache.Name = "dl_cache";
+            dl_cache.Size = new Size(114, 29);
+            dl_cache.TabIndex = 3;
+            dl_cache.Text = "use cache";
+            dl_cache.UseVisualStyleBackColor = true;
+            // 
+            // dl_unpack
+            // 
+            dl_unpack.AutoSize = true;
+            dl_unpack.Location = new Point(3, 112);
+            dl_unpack.Name = "dl_unpack";
+            dl_unpack.Size = new Size(210, 29);
+            dl_unpack.TabIndex = 2;
+            dl_unpack.Text = "unpacking the archive";
+            dl_unpack.UseVisualStyleBackColor = true;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new Point(549, 6);
+            label28.Name = "label28";
+            label28.Size = new Size(43, 25);
+            label28.TabIndex = 1;
+            label28.Text = "URL";
+            // 
+            // dl_url
+            // 
+            dl_url.Location = new Point(3, 3);
+            dl_url.Name = "dl_url";
+            dl_url.Size = new Size(540, 31);
+            dl_url.TabIndex = 0;
+            // 
+            // addDownload
+            // 
+            addDownload.Location = new Point(6, 307);
+            addDownload.Name = "addDownload";
+            addDownload.Size = new Size(112, 34);
+            addDownload.TabIndex = 1;
+            addDownload.Text = "add";
+            addDownload.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBox1
+            // 
+            checkedListBox1.FormattingEnabled = true;
+            checkedListBox1.Location = new Point(6, 6);
+            checkedListBox1.Name = "checkedListBox1";
+            checkedListBox1.Size = new Size(322, 284);
+            checkedListBox1.TabIndex = 0;
+            // 
             // OpenEmbeddedFolder
             // 
             OpenEmbeddedFolder.Location = new Point(633, 12);
@@ -1505,6 +1627,10 @@
             tabPage9.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
+            tabPage11.ResumeLayout(false);
+            tabPage11.PerformLayout();
+            panel13.ResumeLayout(false);
+            panel13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -1613,7 +1739,7 @@
         private CheckBox postbuildEnabled;
         private CheckBox prebuildEnabled;
         private Panel panel10;
-        private CheckBox checkBox1;
+        private CheckBox dl_unpack;
         private RichTextBox richTextBox1;
         private Label label24;
         private RichTextBox winmountedEvent;
@@ -1633,5 +1759,15 @@
         private Panel panel12;
         private RadioButton afterDesktop;
         private RadioButton insteadDesktop;
+        private TabPage tabPage11;
+        private CheckedListBox checkedListBox1;
+        private Button addDownload;
+        private Panel panel13;
+        private TextBox dl_url;
+        private Label label28;
+        private CheckBox dl_cache;
+        private CheckBox downloadEnabled;
+        private Label label29;
+        private TextBox textBox1;
     }
 }

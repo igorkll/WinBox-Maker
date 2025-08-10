@@ -37,6 +37,7 @@
             selectMsbuild = new Button();
             AutoDetect = new Button();
             label1 = new Label();
+            openProgramData = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -136,12 +137,23 @@
             label1.TabIndex = 2;
             label1.Text = "Paths";
             // 
+            // openProgramData
+            // 
+            openProgramData.Location = new Point(755, 468);
+            openProgramData.Name = "openProgramData";
+            openProgramData.Size = new Size(211, 64);
+            openProgramData.TabIndex = 4;
+            openProgramData.Text = "Open program data";
+            openProgramData.UseVisualStyleBackColor = true;
+            openProgramData.Click += openProgramData_Click;
+            // 
             // ProgramSettings
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = SystemColors.Control;
             ClientSize = new Size(978, 544);
+            Controls.Add(openProgramData);
             Controls.Add(panel1);
             Controls.Add(label1);
             MinimumSize = new Size(700, 500);
@@ -164,5 +176,6 @@
         private TextBox cmakePath;
         private Button selectPip;
         private Button selectCmake;
+        private Button openProgramData;
     }
 }

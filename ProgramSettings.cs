@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -57,6 +58,17 @@ namespace WinBox_Maker
         {
             Program.winboxSettings.path_pip = pipPath.Text;
             Program.winboxSettings.Save();
+        }
+
+        private void openProgramData_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("explorer.exe", Program.appdataPath);
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }
