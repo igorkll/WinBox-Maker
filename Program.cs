@@ -169,7 +169,7 @@ namespace WinBox_Maker
             else if (flags.Contains("r"))
             {
                 WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
-                winboxConsoleExporter.ExportImgPartition(output);
+                winboxConsoleExporter.ExportImg(output);
             }
             else
             {

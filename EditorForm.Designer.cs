@@ -48,7 +48,7 @@
             back = new Button();
             README = new Button();
             LICENSE = new Button();
-            ExportImgPartition = new Button();
+            ExportImg = new Button();
             panel1 = new Panel();
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
@@ -401,16 +401,16 @@
             LICENSE.UseVisualStyleBackColor = true;
             LICENSE.Click += LICENSE_Click;
             // 
-            // ExportImgPartition
+            // ExportImg
             // 
-            ExportImgPartition.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportImgPartition.Location = new Point(940, 479);
-            ExportImgPartition.Name = "ExportImgPartition";
-            ExportImgPartition.Size = new Size(222, 38);
-            ExportImgPartition.TabIndex = 25;
-            ExportImgPartition.Text = "export .img partition";
-            ExportImgPartition.UseVisualStyleBackColor = true;
-            ExportImgPartition.Click += ExportImgPartition_Click;
+            ExportImg.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ExportImg.Location = new Point(940, 479);
+            ExportImg.Name = "ExportImg";
+            ExportImg.Size = new Size(222, 38);
+            ExportImg.TabIndex = 25;
+            ExportImg.Text = "export installed .img";
+            ExportImg.UseVisualStyleBackColor = true;
+            ExportImg.Click += ExportImg_Click;
             // 
             // panel1
             // 
@@ -1818,7 +1818,7 @@
             Controls.Add(OpenEmbeddedFolder);
             Controls.Add(tabControl1);
             Controls.Add(OpenProjectFolder);
-            Controls.Add(ExportImgPartition);
+            Controls.Add(ExportImg);
             Controls.Add(LICENSE);
             Controls.Add(README);
             Controls.Add(back);
@@ -1910,7 +1910,7 @@
         private Button back;
         private Button README;
         private Button LICENSE;
-        private Button ExportImgPartition;
+        private Button ExportImg;
         private Panel panel1;
         private CheckBox UseOemKey;
         private TextBox OemKey;

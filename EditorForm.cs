@@ -39,7 +39,7 @@ namespace WinBox_Maker
             ClearPythonList();
 
             OpenEmbeddedFolder.Visible = false;
-            ExportImgPartition.Visible = false;
+            //ExportImg.Visible = false;
             tabControl1.TabPages.Remove(tabPage7);
 
             UpdateDownloadItemsList();
@@ -284,16 +284,16 @@ namespace WinBox_Maker
             UnlockForm();
         }
 
-        private async void ExportImgPartition_Click(object sender, EventArgs e)
+        private async void ExportImg_Click(object sender, EventArgs e)
         {
             LockForm();
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
                 saveFileDialog.InitialDirectory = winBoxProject.buildDirectoryPath;
-                saveFileDialog.Filter = "WinBox installed partition (*.img)|*.img";
-                saveFileDialog.Title = $"Save you WinBox installed .img partition ({winBoxProject.winBoxConfig.WinboxName})";
-                saveFileDialog.DefaultExt = "iso";
-                saveFileDialog.FileName = winBoxProject.winBoxConfig.WinboxName + " (partition)";
+                saveFileDialog.Filter = "WinBox installed (*.img)|*.img";
+                saveFileDialog.Title = $"Save you WinBox installed .img ({winBoxProject.winBoxConfig.WinboxName})";
+                saveFileDialog.DefaultExt = "img";
+                saveFileDialog.FileName = winBoxProject.winBoxConfig.WinboxName;
                 saveFileDialog.AddExtension = true;
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -303,7 +303,7 @@ namespace WinBox_Maker
                         name = winBoxProject.winBoxConfig.WinboxName,
                         description = winBoxProject.winBoxConfig.WinboxDescription
                     };
-                    await winBoxProject.BuildImgPartitionAsync(UpdateProcessName, UpdateProcessValue, saveFileDialog.FileName, windowsDescription);
+                    await winBoxProject.BuildImgAsync(UpdateProcessName, UpdateProcessValue, saveFileDialog.FileName, windowsDescription);
                 }
             }
             UnlockForm();
@@ -383,7 +383,7 @@ namespace WinBox_Maker
             bool canExport = winBoxProject.canExport();
             ExportIsoInstaller.Enabled = canExport;
             ExportInstallWim.Enabled = canExport;
-            ExportImgPartition.Enabled = canExport;
+            ExportImg.Enabled = canExport;
         }
 
         void UpdateCurrentPythonVersion()

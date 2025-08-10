@@ -106,17 +106,17 @@ namespace WinBox_Maker
             NewLine();
         }
 
-        public void ExportImgPartition(string? path)
+        public void ExportImg(string? path)
         {
             eventWarningDelay();
-            path = getExportPath(path, "img", " (partition)");
-            Console.WriteLine($">> exporting img partition from {winBoxProject.GetName()} to: {path}");
+            path = getExportPath(path, "img", null);
+            Console.WriteLine($">> exporting img from {winBoxProject.GetName()} to: {path}");
             WindowsDescription windowsDescription = new WindowsDescription
             {
                 name = winBoxProject.winBoxConfig.WinboxName,
                 description = winBoxProject.winBoxConfig.WinboxDescription
             };
-            winBoxProject.BuildImgPartitionAsync(UpdateProcessName, UpdateProcessValue, path, windowsDescription).Wait();
+            winBoxProject.BuildImgAsync(UpdateProcessName, UpdateProcessValue, path, windowsDescription).Wait();
             NewLine();
         }
     }
