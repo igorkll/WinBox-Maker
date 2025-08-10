@@ -588,6 +588,7 @@ namespace WinBox_Maker
         {
             using (HttpClient client = new HttpClient())
             {
+                client.Timeout = TimeSpan.FromMinutes(10);
                 try
                 {
                     using (HttpResponseMessage response = await client.GetAsync(url))
@@ -603,6 +604,7 @@ namespace WinBox_Maker
                 }
                 catch (Exception ex)
                 {
+                    Error(ex.ToString());
                     return false;
                 }
             }

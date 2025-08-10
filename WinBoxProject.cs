@@ -13,6 +13,7 @@ using System.IO;
 using System.IO.Compression;
 using System.IO.Packaging;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Policy;
@@ -412,7 +413,19 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await RemoveTempFolder("program");
         }
 
-        public async Task<bool> DownloadFile(DownloadItem downloadItem)
+        void RawDownloadFile(string url, string path, Action<int> processValue)
+        {
+            using (WebClient wc = new WebClient())
+            {
+                wc.DownloadProgressChanged += (sender, e) =>
+                {
+                    processValue(e.ProgressPercentage);
+                };
+                wc.DownloadFileAsync(new System.Uri(url), path);
+            }
+        }
+
+        public async Task DownloadFile(DownloadItem downloadItem, Action<int> processValue)
         {
             if (downloadItem.path.Contains("..")) return false;
 
@@ -423,20 +436,14 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 downloadPath = Path.Combine(Program.downloadCachePath, Program.CalculateMD5(downloadItem.url));
                 if (!File.Exists(downloadPath))
                 {
-                    if (!await Program.DownloadFileAsync(downloadItem.url, downloadPath))
-                    {
-                        return false;
-                    }
+                    RawDownloadFile(downloadItem.url, downloadPath, processValue);
                 }
             }
             else
             {
                 needDelete = true;
                 downloadPath = Path.Combine(Program.appdataPath, "last_download");
-                if (!await Program.DownloadFileAsync(downloadItem.url, downloadPath))
-                {
-                    return false;
-                }
+                RawDownloadFile(downloadItem.url, downloadPath, processValue);
             }
 
             string outputPath = Path.Combine(baseDirectoryPath, downloadItem.path);
@@ -456,8 +463,6 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             {
                 File.Delete(downloadPath);
             }
-
-            return true;
         }
 
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgPartitionPath)
@@ -480,9 +485,11 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 processName("Downloading user files");
                 foreach (DownloadItem downloadItem in winBoxConfig.DownloadItems)
                 {
-                    if (!await DownloadFile(downloadItem))
+                    try
                     {
-                        Program.Error("couldn't download user file");
+                        await DownloadFile(downloadItem, processValue);
+                    } catch (Exception ex) {
+                        Program.Error("couldn't download user file: " + ex);
                         return false;
                     }
                 }
@@ -1094,7 +1101,10 @@ if %errorlevel%==0 (
             string[] unpackBlacklist = { "sources\\install.wim" };
             await Program.UnpackUdfIso(baseWindowsImageFullPath, unpackIsoPath, processValue, unpackBlacklist);
 
-            await MakeModWim(processName, processValue, newWindowsDescription, Path.Combine(unpackIsoPath, "sources\\install.wim"), null);
+            if (!await MakeModWim(processName, processValue, newWindowsDescription, Path.Combine(unpackIsoPath, "sources\\install.wim"), null))
+            {
+                goto end;
+            }
 
             processName("ISO modification");
             processValue(80);
@@ -1107,7 +1117,8 @@ if %errorlevel%==0 (
             processValue(85);
             //await Program.ExecuteAsync(Program.oscdimgPath, $"-m -u2 -b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
             await Program.ExecuteAsync(Program.oscdimgPath, $"-m -o -u2 -udfver102 -bootdata:2#p0,e,b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\"#pEF,e,b\"{Path.Combine(unpackIsoPath, "efi\\microsoft\\boot\\efisys.bin")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
-            
+
+            end:
             processName("Deleting unpacked ISO files");
             processValue(90);
             await Task.Run(() =>
