@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiscUtils.Raw;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -34,6 +35,46 @@ namespace WinBox_Maker
             return programPath;
         }
 
+        string? checkMsbuild(char disk)
+        {
+            string[] versions = { "2022", "2019", "2017", "2015", "2013", "2012" };
+            string[] editions = { "Community", "Professional", "Enterprise", "Ultimate" };
+
+            foreach (string version in versions)
+            {
+                foreach (string edition in versions)
+                {
+                    string path1 = $"{disk}:\\Program Files\\Microsoft Visual Studio\\{version}\\{edition}\\MSBuild\\Current\\Bin\\MSBuild.exe";
+                    if (File.Exists(path1)) return path1;
+
+                    string path2 = $"{disk}:\\Program Files (x86)\\Microsoft Visual Studio\\{version}\\{edition}\\MSBuild\\Current\\Bin\\MSBuild.exe";
+                    if (File.Exists(path2)) return path2;
+                }
+            }
+
+            return null;
+        }
+
+        string? findMsbuild()
+        {
+            string? path = checkMsbuild('C');
+            if (path != null) return path;
+
+            path = checkMsbuild('D');
+            if (path != null) return path;
+
+            for (char letter = 'A'; letter <= 'Z'; letter++)
+            {
+                if (letter != 'C' && letter != 'D')
+                {
+                    path = checkMsbuild(letter);
+                    if (path != null) return path;
+                }
+            }
+
+            return null;
+        }
+
         public void AutoDetect(bool forceSave=false)
         {
             string? old_path_msbuild = path_msbuild;
@@ -44,7 +85,7 @@ namespace WinBox_Maker
             if (!File.Exists(path_cmake)) path_cmake = null;
             if (!File.Exists(path_pip)) path_pip = null;
 
-            path_msbuild = path_msbuild ?? FindProgram("msbuild.exe");
+            path_msbuild = path_msbuild ?? FindProgram("msbuild.exe") ?? findMsbuild();
             path_cmake = path_cmake ?? FindProgram("cmake.exe");
             path_pip = path_pip ?? FindProgram("pip.exe");
 
