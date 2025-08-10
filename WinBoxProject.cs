@@ -40,6 +40,7 @@ namespace WinBox_Maker
         public string buildDirectoryPath;
         public string resourcesDirectoryPath;
         public string imagesDirectoryPath;
+        public string sourcesDirectoryPath;
         string tempDirectoryPath;
         string unpackedWimFile;
         string wimInfoFile;
@@ -63,6 +64,7 @@ namespace WinBox_Maker
             newWimFile = Path.Combine(tempDirectoryPath, "new_install.wim");
             wimMountPath = Path.Combine(tempDirectoryPath, "wim_mount");
             unpackIsoPath = Path.Combine(tempDirectoryPath, "iso_unpack");
+            sourcesDirectoryPath = Path.Combine(resourcesDirectoryPath, "sources");
             name = Path.GetFileName(baseDirectoryPath);
 
             if (File.Exists(wnbFilePath))
@@ -125,7 +127,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "amd_drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "packages"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "cursor"));
-            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "sources"));
+            Program.CreateDirectory(sourcesDirectoryPath);
 
             string gitignorePath = Path.Combine(baseDirectoryPath, ".gitignore");
             if (!File.Exists(gitignorePath)) {
@@ -450,7 +452,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                     if (Program.winboxSettings.path_msbuild != null) {
                         string arch = winBoxConfig.Architecture;
                         if (arch == "arm64") arch = "ARM64";
-                        await Program.ExecuteAsync(Program.winboxSettings.path_msbuild, $"\"{buildItem.msbuild_path}\" /p:Configuration=\"{buildItem.msbuild_configuration}\" /p:Platform=\"{arch}\"");
+                        await Program.ExecuteAsync(Program.winboxSettings.path_msbuild, $"\"{Path.Combine(sourcesDirectoryPath, buildItem.msbuild_path)}\" /p:Configuration=\"{buildItem.msbuild_configuration}\" /p:Platform=\"{arch}\"");
                         return true;
                     }
                     break;

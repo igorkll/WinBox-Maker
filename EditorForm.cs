@@ -1199,7 +1199,7 @@ namespace WinBox_Maker
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue,
                 "Msbuild project (*.sln)|*.sln|All files (*.*)|*.*",
-                Path.Combine(winBoxProject.resourcesDirectoryPath, "sources"),
+                winBoxProject.sourcesDirectoryPath,
                 true
             );
             UnlockForm();
