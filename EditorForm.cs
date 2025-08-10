@@ -68,6 +68,14 @@ namespace WinBox_Maker
                 UpdateWindowsVersionsList();
                 UpdateGui();
             }
+
+            eventWarningDelay();
+        }
+
+        void eventWarningDelay()
+        {
+            if (!winBoxProject.winBoxConfig.isBuildEventsUsed()) return;
+            MessageBox.Show(Program.buildEventsWarning, null, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         void UpdateDownloadItemsList()

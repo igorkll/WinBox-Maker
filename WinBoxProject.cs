@@ -130,14 +130,6 @@ namespace WinBox_Maker
             if (!File.Exists(gitignorePath)) {
                 File.WriteAllText(gitignorePath, $"## WinBox-Maker\n\nwinbox_build\nwinbox_temp\nwinbox_images\n");
             }
-
-            eventWarningDelay();
-        }
-
-        void eventWarningDelay()
-        {
-            if (!winBoxConfig.isBuildEventsUsed() || Program.consoleExporter) return;
-            MessageBox.Show(Program.buildEventsWarning, null, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         public string? GetName()
