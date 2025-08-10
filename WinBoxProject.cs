@@ -504,88 +504,63 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             }
         }
 
-        public async Task ExportImg(string wimPath, string imgExportPath)
+        public static async Task ExportImg(string wimPath, string imgExportPath)
         {
-            if (string.IsNullOrWhiteSpace(wimMountPath)) throw new ArgumentException(nameof(wimMountPath));
-            if (string.IsNullOrWhiteSpace(imgExportPath)) throw new ArgumentException(nameof(imgExportPath));
+            if (!File.Exists(wimPath))
+                throw new FileNotFoundException("WIM file not found", wimPath);
 
-            const int sizeMb = 15 * 1024; // 15 GB
-            string tempVhd = Path.ChangeExtension(imgExportPath, ".vhd");
-            string tempFolder = Path.GetTempPath();
-            string winMount = Path.Combine(tempFolder, "vhd_win_" + Guid.NewGuid().ToString("N"));
-            string efiMount = Path.Combine(tempFolder, "vhd_efi_" + Guid.NewGuid().ToString("N"));
-            Directory.CreateDirectory(winMount);
-            Directory.CreateDirectory(efiMount);
+            string vhdxPath = Path.ChangeExtension(imgExportPath, ".vhdx");
+            long vhdxSizeGb = 15; // можно вынести в параметры или вычислять по размеру WIM
 
-            string createScript = Path.Combine(tempFolder, "create_vdisk_" + Guid.NewGuid().ToString("N") + ".txt");
-            string detachScript = Path.Combine(tempFolder, "detach_vdisk_" + Guid.NewGuid().ToString("N") + ".txt");
-
-            // DiskPart script: create VHD, attach, GPT, EFI + MSR + Windows partition, mount to folders
-            var sb = new StringBuilder();
-            sb.AppendLine($"create vdisk file=\"{tempVhd}\" maximum={sizeMb} type=expandable");
-            sb.AppendLine($"select vdisk file=\"{tempVhd}\"");
-            sb.AppendLine("attach vdisk");
-            sb.AppendLine("convert gpt");
-            sb.AppendLine("create partition efi size=260");               // EFI ( ~260 MB )
-            sb.AppendLine("format fs=fat32 quick label=EFI");
-            sb.AppendLine($"assign mount=\"{efiMount}\"");
-            sb.AppendLine("create partition msr size=16");
-            sb.AppendLine("create partition primary");
-            sb.AppendLine("format fs=ntfs quick label=Windows");
-            sb.AppendLine($"assign mount=\"{winMount}\"");
-            sb.AppendLine("exit");
-
-            File.WriteAllText(createScript, sb.ToString(), Encoding.ASCII);
-
-            // DiskPart detach script
-            File.WriteAllText(detachScript, $"select vdisk file=\"{tempVhd}\"\r\ndetach vdisk\r\nexit\r\n", Encoding.ASCII);
+            string workDir = Path.Combine(Path.GetTempPath(), "WimConv_" + Guid.NewGuid());
+            Directory.CreateDirectory(workDir);
 
             try
             {
-                // 1) create+attach vdisk and partitions
-                await Program.ExecuteAsync("diskpart.exe", $"/s \"{createScript}\"");
+                // 1) Создаём VHDX
+                await Program.ExecuteAsync("powershell", $"New-VHD -Path '{vhdxPath}' -SizeBytes {vhdxSizeGb}GB -Dynamic");
 
-                // 2) apply WIM (index 1 used here; change index if needed)
-                // Ensure trailing backslash for ApplyDir
-                string applyDir = winMount.EndsWith("\\") ? winMount : winMount + "\\";
-                await Program.ExecuteAsync("dism.exe", $"/Apply-Image /ImageFile:\"{wimPath}\" /Index:1 /ApplyDir:\"{applyDir}\"");
+                // 2) Монтируем VHDX
+                await Program.ExecuteAsync("powershell", $"Mount-VHD -Path '{vhdxPath}'");
 
-                // 3) install UEFI boot files to the EFI partition
-                // (we used mount folders, so pass them directly)
-                string windowsPath = Path.Combine(winMount, "Windows");
-                await Program.ExecuteAsync("bcdboot.exe", $"\"{windowsPath}\" /s \"{efiMount}\" /f UEFI");
+                // 3) Создаём diskpart скрипт для разметки GPT+EFI
+                string diskpartScript = Path.Combine(workDir, "diskpart.txt");
+                await File.WriteAllTextAsync(diskpartScript, $@"
+select vdisk file=""{vhdxPath}""
+attach vdisk
+convert gpt
+create partition efi size=100
+format quick fs=fat32 label=System
+assign letter=S
+create partition msr size=16
+create partition primary
+format quick fs=ntfs label=Windows
+assign letter=W
+exit
+");
 
-                // 4) detach vdisk
-                await Program.ExecuteAsync("diskpart.exe", $"/s \"{detachScript}\"");
+                // 4) Запускаем diskpart
+                await Program.ExecuteAsync("diskpart", $"/s \"{diskpartScript}\"");
 
-                // 5) try to convert VHD -> raw IMG using qemu-img (if available)
-                try
-                {
-                    await Program.ExecuteAsync("D:\\Program Files (x86)\\qemu\\qemu-img.exe", $"convert -f vpc -O raw \"{tempVhd}\" \"{imgExportPath}\"");
-                    // remove intermediate VHD
-                    File.Delete(tempVhd);
-                }
-                catch (Exception exConvert)
-                {
-                    // если конвертация не удалась — бросаем понятное исключение,
-                    // оставляя .vhd в tempVhd для ручной конвертации.
-                    throw new InvalidOperationException(
-                        $"Создан VHD: {tempVhd}. Не удалось конвертировать в raw .img — qemu-img не найден или завершился с ошибкой. " +
-                        $"Конвертируй вручную: qemu-img convert -f vpc -O raw \"{tempVhd}\" \"{imgExportPath}\"", exConvert);
-                }
+                // 5) Применяем WIM образ в раздел Windows
+                await Program.ExecuteAsync("dism", $"/Apply-Image /ImageFile:\"{wimPath}\" /Index:1 /ApplyDir:W:\\");
+
+                // 6) Создаём EFI загрузчик
+                await Program.ExecuteAsync("bcdboot", "W:\\Windows /s S: /f UEFI");
+
+                // 7) Отключаем VHDX
+                await Program.ExecuteAsync("powershell", $"Dismount-VHD -Path '{vhdxPath}'");
+
+                // 8) Конвертируем VHDX в RAW IMG через qemu-img
+                await Program.ExecuteAsync("D:\\Program Files (x86)\\qemu\\qemu-img", $"convert -O raw \"{vhdxPath}\" \"{imgExportPath}\"");
+
+                Console.WriteLine("Экспорт завершён успешно.");
             }
             finally
             {
-                // пробуем удалить временные файлы/папки (не критично, если не удалось)
-                TryDeleteFile(createScript);
-                TryDeleteFile(detachScript);
-                TryDeleteDirectory(winMount);
-                TryDeleteDirectory(efiMount);
+                if (Directory.Exists(workDir))
+                    Directory.Delete(workDir, true);
             }
-
-            // локальные вспомогательные методы
-            void TryDeleteFile(string p) { try { if (File.Exists(p)) File.Delete(p); } catch { } }
-            void TryDeleteDirectory(string p) { try { if (Directory.Exists(p)) Directory.Delete(p, true); } catch { } }
         }
 
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath)
