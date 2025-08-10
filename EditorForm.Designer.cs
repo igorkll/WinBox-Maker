@@ -146,7 +146,18 @@
             pythonVersion = new ComboBox();
             pythonVersionsUpdate = new Button();
             tabPage10 = new TabPage();
-            panel13 = new Panel();
+            bl_panel = new Panel();
+            label31 = new Label();
+            bl_title = new TextBox();
+            bl_tabcontrol = new TabControl();
+            bl_msbuild = new TabPage();
+            bl_clear = new Button();
+            bl_select = new Button();
+            label33 = new Label();
+            bl_path = new TextBox();
+            label32 = new Label();
+            bl_conf = new TextBox();
+            bl_cmake = new TabPage();
             buildEnabled = new CheckBox();
             addBuild = new Button();
             checkedListBox1 = new CheckedListBox();
@@ -169,6 +180,7 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
+            bl_delete = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -194,6 +206,9 @@
             tabPage9.SuspendLayout();
             panel11.SuspendLayout();
             tabPage10.SuspendLayout();
+            bl_panel.SuspendLayout();
+            bl_tabcontrol.SuspendLayout();
+            bl_msbuild.SuspendLayout();
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -1424,7 +1439,7 @@
             // 
             // tabPage10
             // 
-            tabPage10.Controls.Add(panel13);
+            tabPage10.Controls.Add(bl_panel);
             tabPage10.Controls.Add(buildEnabled);
             tabPage10.Controls.Add(addBuild);
             tabPage10.Controls.Add(checkedListBox1);
@@ -1435,13 +1450,122 @@
             tabPage10.Text = "build";
             tabPage10.UseVisualStyleBackColor = true;
             // 
-            // panel13
+            // bl_panel
             // 
-            panel13.BorderStyle = BorderStyle.Fixed3D;
-            panel13.Location = new Point(334, 6);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(611, 284);
-            panel13.TabIndex = 3;
+            bl_panel.BorderStyle = BorderStyle.Fixed3D;
+            bl_panel.Controls.Add(bl_delete);
+            bl_panel.Controls.Add(label31);
+            bl_panel.Controls.Add(bl_title);
+            bl_panel.Controls.Add(bl_tabcontrol);
+            bl_panel.Location = new Point(334, 6);
+            bl_panel.Name = "bl_panel";
+            bl_panel.Size = new Size(611, 284);
+            bl_panel.TabIndex = 3;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Location = new Point(533, 6);
+            label31.Name = "label31";
+            label31.Size = new Size(41, 25);
+            label31.TabIndex = 2;
+            label31.Text = "title";
+            // 
+            // bl_title
+            // 
+            bl_title.Location = new Point(3, 5);
+            bl_title.Name = "bl_title";
+            bl_title.Size = new Size(524, 31);
+            bl_title.TabIndex = 1;
+            // 
+            // bl_tabcontrol
+            // 
+            bl_tabcontrol.Controls.Add(bl_msbuild);
+            bl_tabcontrol.Controls.Add(bl_cmake);
+            bl_tabcontrol.Location = new Point(3, 82);
+            bl_tabcontrol.Name = "bl_tabcontrol";
+            bl_tabcontrol.SelectedIndex = 0;
+            bl_tabcontrol.Size = new Size(601, 195);
+            bl_tabcontrol.TabIndex = 0;
+            // 
+            // bl_msbuild
+            // 
+            bl_msbuild.Controls.Add(bl_clear);
+            bl_msbuild.Controls.Add(bl_select);
+            bl_msbuild.Controls.Add(label33);
+            bl_msbuild.Controls.Add(bl_path);
+            bl_msbuild.Controls.Add(label32);
+            bl_msbuild.Controls.Add(bl_conf);
+            bl_msbuild.Location = new Point(4, 34);
+            bl_msbuild.Name = "bl_msbuild";
+            bl_msbuild.Padding = new Padding(3);
+            bl_msbuild.Size = new Size(593, 157);
+            bl_msbuild.TabIndex = 0;
+            bl_msbuild.Text = "msbuild";
+            bl_msbuild.UseVisualStyleBackColor = true;
+            bl_msbuild.Click += bl_msbuild_Click;
+            // 
+            // bl_clear
+            // 
+            bl_clear.Location = new Point(435, 6);
+            bl_clear.Name = "bl_clear";
+            bl_clear.Size = new Size(85, 31);
+            bl_clear.TabIndex = 5;
+            bl_clear.Text = "clear";
+            bl_clear.UseVisualStyleBackColor = true;
+            bl_clear.Click += bl_clear_Click;
+            // 
+            // bl_select
+            // 
+            bl_select.Location = new Point(346, 6);
+            bl_select.Name = "bl_select";
+            bl_select.Size = new Size(85, 31);
+            bl_select.TabIndex = 4;
+            bl_select.Text = "select";
+            bl_select.UseVisualStyleBackColor = true;
+            bl_select.Click += bl_select_Click;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Location = new Point(526, 9);
+            label33.Name = "label33";
+            label33.Size = new Size(48, 25);
+            label33.TabIndex = 3;
+            label33.Text = "path";
+            // 
+            // bl_path
+            // 
+            bl_path.Location = new Point(6, 6);
+            bl_path.Name = "bl_path";
+            bl_path.Size = new Size(334, 31);
+            bl_path.TabIndex = 2;
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Location = new Point(162, 46);
+            label32.Name = "label32";
+            label32.Size = new Size(121, 25);
+            label32.TabIndex = 1;
+            label32.Text = "Configuration";
+            // 
+            // bl_conf
+            // 
+            bl_conf.Location = new Point(6, 43);
+            bl_conf.Name = "bl_conf";
+            bl_conf.Size = new Size(150, 31);
+            bl_conf.TabIndex = 0;
+            // 
+            // bl_cmake
+            // 
+            bl_cmake.Location = new Point(4, 34);
+            bl_cmake.Name = "bl_cmake";
+            bl_cmake.Padding = new Padding(3);
+            bl_cmake.Size = new Size(593, 197);
+            bl_cmake.TabIndex = 1;
+            bl_cmake.Text = "cmake";
+            bl_cmake.UseVisualStyleBackColor = true;
             // 
             // buildEnabled
             // 
@@ -1462,6 +1586,7 @@
             addBuild.TabIndex = 1;
             addBuild.Text = "add";
             addBuild.UseVisualStyleBackColor = true;
+            addBuild.Click += addBuild_Click;
             // 
             // checkedListBox1
             // 
@@ -1665,6 +1790,16 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
+            // bl_delete
+            // 
+            bl_delete.Location = new Point(3, 42);
+            bl_delete.Name = "bl_delete";
+            bl_delete.Size = new Size(112, 34);
+            bl_delete.TabIndex = 3;
+            bl_delete.Text = "delete";
+            bl_delete.UseVisualStyleBackColor = true;
+            bl_delete.Click += bl_delete_Click;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -1737,6 +1872,11 @@
             panel11.PerformLayout();
             tabPage10.ResumeLayout(false);
             tabPage10.PerformLayout();
+            bl_panel.ResumeLayout(false);
+            bl_panel.PerformLayout();
+            bl_tabcontrol.ResumeLayout(false);
+            bl_msbuild.ResumeLayout(false);
+            bl_msbuild.PerformLayout();
             tabPage11.ResumeLayout(false);
             tabPage11.PerformLayout();
             dl_panel.ResumeLayout(false);
@@ -1886,6 +2026,18 @@
         private CheckedListBox checkedListBox1;
         private Button addBuild;
         private CheckBox buildEnabled;
-        private Panel panel13;
+        private Panel bl_panel;
+        private TabControl bl_tabcontrol;
+        private TabPage bl_msbuild;
+        private TabPage bl_cmake;
+        private TextBox bl_title;
+        private Label label31;
+        private TextBox bl_conf;
+        private Label label32;
+        private TextBox bl_path;
+        private Label label33;
+        private Button bl_clear;
+        private Button bl_select;
+        private Button bl_delete;
     }
 }

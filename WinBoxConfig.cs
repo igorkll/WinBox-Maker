@@ -61,6 +61,7 @@ namespace WinBox_Maker
         public bool? downloadEnabled { get; set; }
         public bool? buildEnabled { get; set; }
         public List<DownloadItem>? DownloadItems { get; set; }
+        public List<BuildItem>? BuildItems { get; set; }
 
 
         public WinBoxConfig() {
@@ -98,6 +99,7 @@ namespace WinBox_Maker
             if (downloadEnabled == null) downloadEnabled = false;
             if (buildEnabled == null) buildEnabled = false;
             if (DownloadItems == null) DownloadItems = new List<DownloadItem>();
+            if (BuildItems == null) BuildItems = new List<BuildItem>();
         }
 
         public void Save(string wnbFilePath)

@@ -1124,5 +1124,36 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.buildEnabled = buildEnabled.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
+
+        private void bl_msbuild_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addBuild_Click(object sender, EventArgs e)
+        {
+            BuildItem buildItem = new BuildItem();
+            buildItem.name = $"build item {winBoxProject.winBoxConfig.DownloadItems.Count() + 1}";
+            winBoxProject.winBoxConfig.BuildItems.Add(buildItem);
+            winBoxProject.SaveConfig();
+            UpdateBuildItemsList();
+        }
+
+        private void bl_select_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bl_clear_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bl_delete_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.BuildItems.Remove(currentBuildItem);
+            winBoxProject.SaveConfig();
+            UpdateBuildItemsList();
+        }
     }
 }
