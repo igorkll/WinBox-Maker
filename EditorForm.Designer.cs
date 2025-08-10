@@ -156,10 +156,12 @@
             label28 = new Label();
             dl_url = new TextBox();
             addDownload = new Button();
-            checkedListBox1 = new CheckedListBox();
+            DownloadItems = new CheckedListBox();
             OpenEmbeddedFolder = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
+            dl_name = new TextBox();
+            label30 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1426,7 +1428,7 @@
             tabPage11.Controls.Add(downloadEnabled);
             tabPage11.Controls.Add(dl_panel);
             tabPage11.Controls.Add(addDownload);
-            tabPage11.Controls.Add(checkedListBox1);
+            tabPage11.Controls.Add(DownloadItems);
             tabPage11.Location = new Point(4, 34);
             tabPage11.Name = "tabPage11";
             tabPage11.Padding = new Padding(3);
@@ -1449,6 +1451,8 @@
             // dl_panel
             // 
             dl_panel.BorderStyle = BorderStyle.Fixed3D;
+            dl_panel.Controls.Add(label30);
+            dl_panel.Controls.Add(dl_name);
             dl_panel.Controls.Add(label29);
             dl_panel.Controls.Add(dl_path);
             dl_panel.Controls.Add(dl_cache);
@@ -1463,7 +1467,7 @@
             // label29
             // 
             label29.AutoSize = true;
-            label29.Location = new Point(549, 43);
+            label29.Location = new Point(533, 77);
             label29.Name = "label29";
             label29.Size = new Size(48, 25);
             label29.TabIndex = 5;
@@ -1471,15 +1475,15 @@
             // 
             // dl_path
             // 
-            dl_path.Location = new Point(3, 40);
+            dl_path.Location = new Point(3, 74);
             dl_path.Name = "dl_path";
-            dl_path.Size = new Size(540, 31);
+            dl_path.Size = new Size(524, 31);
             dl_path.TabIndex = 4;
             // 
             // dl_cache
             // 
             dl_cache.AutoSize = true;
-            dl_cache.Location = new Point(3, 77);
+            dl_cache.Location = new Point(3, 111);
             dl_cache.Name = "dl_cache";
             dl_cache.Size = new Size(114, 29);
             dl_cache.TabIndex = 3;
@@ -1489,7 +1493,7 @@
             // dl_unpack
             // 
             dl_unpack.AutoSize = true;
-            dl_unpack.Location = new Point(3, 112);
+            dl_unpack.Location = new Point(3, 146);
             dl_unpack.Name = "dl_unpack";
             dl_unpack.Size = new Size(210, 29);
             dl_unpack.TabIndex = 2;
@@ -1499,7 +1503,7 @@
             // label28
             // 
             label28.AutoSize = true;
-            label28.Location = new Point(549, 6);
+            label28.Location = new Point(533, 40);
             label28.Name = "label28";
             label28.Size = new Size(43, 25);
             label28.TabIndex = 1;
@@ -1507,9 +1511,9 @@
             // 
             // dl_url
             // 
-            dl_url.Location = new Point(3, 3);
+            dl_url.Location = new Point(3, 37);
             dl_url.Name = "dl_url";
-            dl_url.Size = new Size(540, 31);
+            dl_url.Size = new Size(524, 31);
             dl_url.TabIndex = 0;
             // 
             // addDownload
@@ -1520,15 +1524,16 @@
             addDownload.TabIndex = 1;
             addDownload.Text = "add";
             addDownload.UseVisualStyleBackColor = true;
+            addDownload.Click += addDownload_Click;
             // 
-            // checkedListBox1
+            // DownloadItems
             // 
-            checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Location = new Point(6, 6);
-            checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(322, 284);
-            checkedListBox1.TabIndex = 0;
-            checkedListBox1.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
+            DownloadItems.FormattingEnabled = true;
+            DownloadItems.Location = new Point(6, 6);
+            DownloadItems.Name = "DownloadItems";
+            DownloadItems.Size = new Size(322, 284);
+            DownloadItems.TabIndex = 0;
+            DownloadItems.ItemCheck += DownloadItems_ItemCheck;
             // 
             // OpenEmbeddedFolder
             // 
@@ -1558,6 +1563,22 @@
             pictureBox3.TabIndex = 41;
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
+            // 
+            // dl_name
+            // 
+            dl_name.Location = new Point(3, 3);
+            dl_name.Name = "dl_name";
+            dl_name.Size = new Size(524, 31);
+            dl_name.TabIndex = 6;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Location = new Point(533, 6);
+            label30.Name = "label30";
+            label30.Size = new Size(56, 25);
+            label30.TabIndex = 7;
+            label30.Text = "name";
             // 
             // EditorForm
             // 
@@ -1761,7 +1782,7 @@
         private RadioButton afterDesktop;
         private RadioButton insteadDesktop;
         private TabPage tabPage11;
-        private CheckedListBox checkedListBox1;
+        private CheckedListBox DownloadItems;
         private Button addDownload;
         private Panel dl_panel;
         private TextBox dl_url;
@@ -1770,5 +1791,7 @@
         private CheckBox downloadEnabled;
         private Label label29;
         private TextBox dl_path;
+        private Label label30;
+        private TextBox dl_name;
     }
 }

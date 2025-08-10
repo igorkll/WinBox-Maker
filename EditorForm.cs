@@ -1,4 +1,5 @@
 using Microsoft.WindowsAPICodePack.Taskbar;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -38,7 +39,7 @@ namespace WinBox_Maker
             ExportImgPartition.Visible = false;
             tabControl1.TabPages.Remove(tabPage7);
 
-            UpdateSelectedDownloadItem(null);
+            UpdateDownloadItemsList();
 
             TweakList.Items.Clear();
             AddTweakToList("Integrate microsoft edge");
@@ -65,6 +66,22 @@ namespace WinBox_Maker
                 UpdateWindowsVersionsList();
                 UpdateGui();
             }
+        }
+
+        void UpdateDownloadItemsList()
+        {
+            DownloadItem? lastDownloadItem = null;
+            int lastItemIndex = -1;
+            foreach (DownloadItem downloadItem in winBoxProject.winBoxConfig.DownloadItems)
+            {
+                lastItemIndex = DownloadItems.Items.Add(downloadItem.name);
+                lastDownloadItem = downloadItem;
+            }
+            if (lastItemIndex > 0)
+            {
+                DownloadItems.SetItemChecked(lastItemIndex, true);
+            }
+            UpdateSelectedDownloadItem(lastDownloadItem);
         }
 
         void UpdateSelectedDownloadItem(DownloadItem? downloadItem)
@@ -793,6 +810,28 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
         }
 
+        private void DownloadItems_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (softwareCheck) return;
+
+            softwareCheck = true;
+            bool state = e.NewValue == CheckState.Checked;
+            if (state)
+            {
+                int index = e.Index;
+                for (int i = 0; i < DownloadItems.Items.Count; i++)
+                {
+                    DownloadItems.SetItemChecked(i, index == i);
+                }
+                UpdateSelectedDownloadItem(winBoxProject.winBoxConfig.DownloadItems[index]);
+            }
+            else
+            {
+                UpdateSelectedDownloadItem(null);
+            }
+            softwareCheck = false;
+        }
+
         private async void CustomBootLogo_select_Click(object sender, EventArgs e)
         {
             LockForm();
@@ -997,6 +1036,15 @@ namespace WinBox_Maker
         {
             winBoxProject.winBoxConfig.downloadEnabled = downloadEnabled.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
+        }
+
+        private void addDownload_Click(object sender, EventArgs e)
+        {
+            DownloadItem downloadItem = { 
+                .name
+            };
+            winBoxProject.winBoxConfig.DownloadItems.Add();
+            UpdateDownloadItemsList();
         }
     }
 }
