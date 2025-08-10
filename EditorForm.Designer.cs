@@ -164,6 +164,7 @@
             OpenEmbeddedFolder = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
+            openProgramData = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -625,7 +626,7 @@
             // 
             OpenProjectFolder.Location = new Point(381, 12);
             OpenProjectFolder.Name = "OpenProjectFolder";
-            OpenProjectFolder.Size = new Size(246, 45);
+            OpenProjectFolder.Size = new Size(203, 45);
             OpenProjectFolder.TabIndex = 31;
             OpenProjectFolder.Text = "Open Project Folder";
             OpenProjectFolder.UseVisualStyleBackColor = true;
@@ -1582,9 +1583,9 @@
             // 
             // OpenEmbeddedFolder
             // 
-            OpenEmbeddedFolder.Location = new Point(633, 12);
+            OpenEmbeddedFolder.Location = new Point(799, 12);
             OpenEmbeddedFolder.Name = "OpenEmbeddedFolder";
-            OpenEmbeddedFolder.Size = new Size(246, 45);
+            OpenEmbeddedFolder.Size = new Size(239, 45);
             OpenEmbeddedFolder.TabIndex = 40;
             OpenEmbeddedFolder.Text = "Open Embedded Folder";
             OpenEmbeddedFolder.UseVisualStyleBackColor = true;
@@ -1609,6 +1610,16 @@
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
             // 
+            // openProgramData
+            // 
+            openProgramData.Location = new Point(590, 12);
+            openProgramData.Name = "openProgramData";
+            openProgramData.Size = new Size(203, 45);
+            openProgramData.TabIndex = 42;
+            openProgramData.Text = "Open Program Data";
+            openProgramData.UseVisualStyleBackColor = true;
+            openProgramData.Click += openProgramData_Click;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -1617,6 +1628,7 @@
             AutoScrollMargin = new Size(10, 30);
             BackColor = Color.DimGray;
             ClientSize = new Size(1178, 644);
+            Controls.Add(openProgramData);
             Controls.Add(pictureBox3);
             Controls.Add(OpenEmbeddedFolder);
             Controls.Add(tabControl1);
@@ -1823,5 +1835,6 @@
         private Label label30;
         private TextBox dl_name;
         private Button dl_delete;
+        private Button openProgramData;
     }
 }

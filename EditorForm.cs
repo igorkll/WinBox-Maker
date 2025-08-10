@@ -1097,5 +1097,16 @@ namespace WinBox_Maker
             currentDownloadItem.unpack = dl_unpack.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
+
+        private void openProgramData_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("explorer.exe", Program.appdataPath);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
     }
 }

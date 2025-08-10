@@ -143,7 +143,7 @@
             openProgramData.Name = "openProgramData";
             openProgramData.Size = new Size(211, 64);
             openProgramData.TabIndex = 4;
-            openProgramData.Text = "Open program data";
+            openProgramData.Text = "Open Program Data";
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
