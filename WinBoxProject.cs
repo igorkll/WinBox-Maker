@@ -136,7 +136,7 @@ namespace WinBox_Maker
 
         void eventWarningDelay()
         {
-            if (!winBoxConfig.isBuildEventsUsed()) return;
+            if (!winBoxConfig.isBuildEventsUsed() || Program.consoleExporter) return;
             MessageBox.Show(Program.buildEventsWarning, null, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 

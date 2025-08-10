@@ -33,7 +33,7 @@ namespace WinBox_Maker
         public static Form openProjectForm;
         static bool isClosingProgrammatically = false;
         public static WinboxMakerConfig winboxSettings;
-        static bool consoleExporter = false;
+        public static bool consoleExporter = false;
 
         public static string? appdataPath;
         public static string? downloadCachePath;
