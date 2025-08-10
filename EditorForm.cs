@@ -41,6 +41,7 @@ namespace WinBox_Maker
 
             UpdateDownloadItemsList();
 
+            softwareCheck = true;
             TweakList.Items.Clear();
             AddTweakToList("Integrate microsoft edge");
             AddTweakToList("Integrate vc redist");
@@ -1045,13 +1046,51 @@ namespace WinBox_Maker
         private void addDownload_Click(object sender, EventArgs e)
         {
             DownloadItem downloadItem = new DownloadItem();
-            downloadItem.name = "asd";
+            downloadItem.name = $"download item {winBoxProject.winBoxConfig.DownloadItems.Count() + 1}";
             downloadItem.url = "";
             downloadItem.path = "";
             downloadItem.cache = false;
             downloadItem.unpack = false;
             winBoxProject.winBoxConfig.DownloadItems.Add(downloadItem);
+            winBoxProject.SaveConfig();
             UpdateDownloadItemsList();
+        }
+
+        private void dl_delete_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.DownloadItems.Remove(currentDownloadItem);
+            winBoxProject.SaveConfig();
+            UpdateDownloadItemsList();
+        }
+
+        private void dl_name_TextChanged(object sender, EventArgs e)
+        {
+            currentDownloadItem.name = dl_name.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void dl_url_TextChanged(object sender, EventArgs e)
+        {
+            currentDownloadItem.url = dl_url.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void dl_path_TextChanged(object sender, EventArgs e)
+        {
+            currentDownloadItem.path = dl_path.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void dl_cache_CheckedChanged(object sender, EventArgs e)
+        {
+            currentDownloadItem.cache = dl_cache.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void dl_unpack_CheckedChanged(object sender, EventArgs e)
+        {
+            currentDownloadItem.unpack = dl_unpack.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
         }
     }
 }

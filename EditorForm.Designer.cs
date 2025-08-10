@@ -149,6 +149,9 @@
             tabPage11 = new TabPage();
             downloadEnabled = new CheckBox();
             dl_panel = new Panel();
+            dl_delete = new Button();
+            label30 = new Label();
+            dl_name = new TextBox();
             label29 = new Label();
             dl_path = new TextBox();
             dl_cache = new CheckBox();
@@ -160,8 +163,6 @@
             OpenEmbeddedFolder = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
-            dl_name = new TextBox();
-            label30 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1451,6 +1452,7 @@
             // dl_panel
             // 
             dl_panel.BorderStyle = BorderStyle.Fixed3D;
+            dl_panel.Controls.Add(dl_delete);
             dl_panel.Controls.Add(label30);
             dl_panel.Controls.Add(dl_name);
             dl_panel.Controls.Add(label29);
@@ -1463,6 +1465,33 @@
             dl_panel.Name = "dl_panel";
             dl_panel.Size = new Size(611, 284);
             dl_panel.TabIndex = 2;
+            // 
+            // dl_delete
+            // 
+            dl_delete.Location = new Point(492, 243);
+            dl_delete.Name = "dl_delete";
+            dl_delete.Size = new Size(112, 34);
+            dl_delete.TabIndex = 8;
+            dl_delete.Text = "delete";
+            dl_delete.UseVisualStyleBackColor = true;
+            dl_delete.Click += dl_delete_Click;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Location = new Point(533, 6);
+            label30.Name = "label30";
+            label30.Size = new Size(56, 25);
+            label30.TabIndex = 7;
+            label30.Text = "name";
+            // 
+            // dl_name
+            // 
+            dl_name.Location = new Point(3, 3);
+            dl_name.Name = "dl_name";
+            dl_name.Size = new Size(524, 31);
+            dl_name.TabIndex = 6;
+            dl_name.TextChanged += dl_name_TextChanged;
             // 
             // label29
             // 
@@ -1479,6 +1508,7 @@
             dl_path.Name = "dl_path";
             dl_path.Size = new Size(524, 31);
             dl_path.TabIndex = 4;
+            dl_path.TextChanged += dl_path_TextChanged;
             // 
             // dl_cache
             // 
@@ -1489,6 +1519,7 @@
             dl_cache.TabIndex = 3;
             dl_cache.Text = "use cache";
             dl_cache.UseVisualStyleBackColor = true;
+            dl_cache.CheckedChanged += dl_cache_CheckedChanged;
             // 
             // dl_unpack
             // 
@@ -1499,6 +1530,7 @@
             dl_unpack.TabIndex = 2;
             dl_unpack.Text = "unpacking the archive";
             dl_unpack.UseVisualStyleBackColor = true;
+            dl_unpack.CheckedChanged += dl_unpack_CheckedChanged;
             // 
             // label28
             // 
@@ -1515,6 +1547,7 @@
             dl_url.Name = "dl_url";
             dl_url.Size = new Size(524, 31);
             dl_url.TabIndex = 0;
+            dl_url.TextChanged += dl_url_TextChanged;
             // 
             // addDownload
             // 
@@ -1563,22 +1596,6 @@
             pictureBox3.TabIndex = 41;
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
-            // 
-            // dl_name
-            // 
-            dl_name.Location = new Point(3, 3);
-            dl_name.Name = "dl_name";
-            dl_name.Size = new Size(524, 31);
-            dl_name.TabIndex = 6;
-            // 
-            // label30
-            // 
-            label30.AutoSize = true;
-            label30.Location = new Point(533, 6);
-            label30.Name = "label30";
-            label30.Size = new Size(56, 25);
-            label30.TabIndex = 7;
-            label30.Text = "name";
             // 
             // EditorForm
             // 
@@ -1793,5 +1810,6 @@
         private TextBox dl_path;
         private Label label30;
         private TextBox dl_name;
+        private Button dl_delete;
     }
 }

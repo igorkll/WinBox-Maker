@@ -1,6 +1,7 @@
 using DiscUtils;
 using DiscUtils.Udf;
 using ManagedWimLib;
+using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -516,7 +517,7 @@ namespace WinBox_Maker
             }
             else
             {
-                winBoxConfig.TweakList.Remove(setTweak);
+                winBoxConfig.TweakList.RemoveAll(s => s == setTweak);
             } 
         }
 
