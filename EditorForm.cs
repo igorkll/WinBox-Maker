@@ -18,6 +18,7 @@ namespace WinBox_Maker
         WindowsDescription[]? windowsDescriptions;
         bool softwareCheck = true;
         TaskbarManager taskbarManager;
+        DownloadItem? currentDownloadItem;
 
         public EditorForm(WinBoxProject winBoxProject)
         {
@@ -36,6 +37,8 @@ namespace WinBox_Maker
             OpenEmbeddedFolder.Visible = false;
             ExportImgPartition.Visible = false;
             tabControl1.TabPages.Remove(tabPage7);
+
+            UpdateSelectedDownloadItem(null);
 
             TweakList.Items.Clear();
             AddTweakToList("Integrate microsoft edge");
@@ -61,6 +64,23 @@ namespace WinBox_Maker
             {
                 UpdateWindowsVersionsList();
                 UpdateGui();
+            }
+        }
+
+        void UpdateSelectedDownloadItem(DownloadItem? downloadItem)
+        {
+            currentDownloadItem = downloadItem;
+            if (downloadItem == null)
+            {
+                dl_panel.Visible = false;
+            }
+            else
+            {
+                dl_panel.Visible = true;
+                dl_url.Text = downloadItem.url ?? "";
+                dl_path.Text = downloadItem.path ?? "";
+                dl_cache.CheckState = downloadItem.cache == true ? CheckState.Checked : CheckState.Unchecked;
+                dl_unpack.CheckState = downloadItem.unpack == true ? CheckState.Checked : CheckState.Unchecked;
             }
         }
 

@@ -59,6 +59,7 @@ namespace WinBox_Maker
         public string? winmountedEvent { get; set; }
         public string? pythonVersion { get; set; }
         public bool? downloadEnabled { get; set; }
+        public List<DownloadItem>? DownloadItems { get; set; }
 
 
         public WinBoxConfig() {
@@ -94,6 +95,7 @@ namespace WinBox_Maker
             if (winmountedEvent == null) winmountedEvent = "";
             if (pythonVersion == null) pythonVersion = "";
             if (downloadEnabled == null) downloadEnabled = false;
+            if (DownloadItems == null) DownloadItems = new List<DownloadItem>();
         }
 
         public void Save(string wnbFilePath)

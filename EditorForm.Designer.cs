@@ -148,9 +148,9 @@
             tabPage10 = new TabPage();
             tabPage11 = new TabPage();
             downloadEnabled = new CheckBox();
-            panel13 = new Panel();
+            dl_panel = new Panel();
             label29 = new Label();
-            textBox1 = new TextBox();
+            dl_path = new TextBox();
             dl_cache = new CheckBox();
             dl_unpack = new CheckBox();
             label28 = new Label();
@@ -185,7 +185,7 @@
             tabPage9.SuspendLayout();
             panel11.SuspendLayout();
             tabPage11.SuspendLayout();
-            panel13.SuspendLayout();
+            dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
@@ -1424,7 +1424,7 @@
             // tabPage11
             // 
             tabPage11.Controls.Add(downloadEnabled);
-            tabPage11.Controls.Add(panel13);
+            tabPage11.Controls.Add(dl_panel);
             tabPage11.Controls.Add(addDownload);
             tabPage11.Controls.Add(checkedListBox1);
             tabPage11.Location = new Point(4, 34);
@@ -1446,19 +1446,19 @@
             downloadEnabled.UseVisualStyleBackColor = true;
             downloadEnabled.CheckedChanged += downloadEnabled_CheckedChanged;
             // 
-            // panel13
+            // dl_panel
             // 
-            panel13.BorderStyle = BorderStyle.Fixed3D;
-            panel13.Controls.Add(label29);
-            panel13.Controls.Add(textBox1);
-            panel13.Controls.Add(dl_cache);
-            panel13.Controls.Add(dl_unpack);
-            panel13.Controls.Add(label28);
-            panel13.Controls.Add(dl_url);
-            panel13.Location = new Point(334, 6);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(611, 284);
-            panel13.TabIndex = 2;
+            dl_panel.BorderStyle = BorderStyle.Fixed3D;
+            dl_panel.Controls.Add(label29);
+            dl_panel.Controls.Add(dl_path);
+            dl_panel.Controls.Add(dl_cache);
+            dl_panel.Controls.Add(dl_unpack);
+            dl_panel.Controls.Add(label28);
+            dl_panel.Controls.Add(dl_url);
+            dl_panel.Location = new Point(334, 6);
+            dl_panel.Name = "dl_panel";
+            dl_panel.Size = new Size(611, 284);
+            dl_panel.TabIndex = 2;
             // 
             // label29
             // 
@@ -1469,12 +1469,12 @@
             label29.TabIndex = 5;
             label29.Text = "path";
             // 
-            // textBox1
+            // dl_path
             // 
-            textBox1.Location = new Point(3, 40);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(540, 31);
-            textBox1.TabIndex = 4;
+            dl_path.Location = new Point(3, 40);
+            dl_path.Name = "dl_path";
+            dl_path.Size = new Size(540, 31);
+            dl_path.TabIndex = 4;
             // 
             // dl_cache
             // 
@@ -1528,6 +1528,7 @@
             checkedListBox1.Name = "checkedListBox1";
             checkedListBox1.Size = new Size(322, 284);
             checkedListBox1.TabIndex = 0;
+            checkedListBox1.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
             // 
             // OpenEmbeddedFolder
             // 
@@ -1629,8 +1630,8 @@
             panel11.PerformLayout();
             tabPage11.ResumeLayout(false);
             tabPage11.PerformLayout();
-            panel13.ResumeLayout(false);
-            panel13.PerformLayout();
+            dl_panel.ResumeLayout(false);
+            dl_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -1762,12 +1763,12 @@
         private TabPage tabPage11;
         private CheckedListBox checkedListBox1;
         private Button addDownload;
-        private Panel panel13;
+        private Panel dl_panel;
         private TextBox dl_url;
         private Label label28;
         private CheckBox dl_cache;
         private CheckBox downloadEnabled;
         private Label label29;
-        private TextBox textBox1;
+        private TextBox dl_path;
     }
 }
