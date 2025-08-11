@@ -23,6 +23,7 @@ namespace WinBox_Maker
         int currentDownloadItemIndex = -1;
         DownloadItem? currentDownloadItem;
         BuildItem? currentBuildItem;
+        bool guiEventsLock = false;
 
         public EditorForm(WinBoxProject winBoxProject)
         {
@@ -132,10 +133,12 @@ namespace WinBox_Maker
             else
             {
                 bl_panel.Visible = true;
+                guiEventsLock = true;
                 bl_title.Text = buildItem.name ?? "";
                 bl_path.Text = buildItem.msbuild_path ?? "";
                 bl_conf.Text = buildItem.msbuild_configuration ?? "";
                 bl_tabcontrol.SelectedIndex = (int)currentBuildItem.type;
+                guiEventsLock = false;
             }
         }
 
@@ -149,11 +152,13 @@ namespace WinBox_Maker
             else
             {
                 dl_panel.Visible = true;
+                guiEventsLock = true;
                 dl_name.Text = downloadItem.name ?? "";
                 dl_url.Text = downloadItem.url ?? "";
                 dl_path.Text = downloadItem.path ?? "";
                 dl_cache.CheckState = downloadItem.cache == true ? CheckState.Checked : CheckState.Unchecked;
                 dl_unpack.CheckState = downloadItem.unpack == true ? CheckState.Checked : CheckState.Unchecked;
+                guiEventsLock = false;
             }
         }
 
@@ -337,6 +342,8 @@ namespace WinBox_Maker
 
         private void WindowsVersionSelect_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             if (winBoxProject.winBoxConfig.BaseWindowsImage == null)
             {
                 WindowsVersionSelect.Text = null;
@@ -350,6 +357,8 @@ namespace WinBox_Maker
 
         private void ArchitectureSelect_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.Architecture = ArchitectureSelect.Text;
             winBoxProject.SaveConfig();
         }
@@ -362,6 +371,7 @@ namespace WinBox_Maker
 
         void UpdateGuiWithoutWindowsVersion()
         {
+            guiEventsLock = true;
             WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "not selected";
 
             WinboxName.Text = winBoxProject.winBoxConfig.WinboxName;
@@ -384,18 +394,22 @@ namespace WinBox_Maker
             ExportIsoInstaller.Enabled = canExport;
             ExportInstallWim.Enabled = canExport;
             ExportImg.Enabled = canExport;
+            guiEventsLock = false;
         }
 
         void UpdateCurrentPythonVersion()
         {
+            guiEventsLock = true;
             pythonVersion.Text = winBoxProject.winBoxConfig.pythonVersion ?? "none";
             if (pythonVersion.Text == "") pythonVersion.Text = "none";
+            guiEventsLock = false;
         }
 
         void UpdateGui()
         {
             UpdateCurrentPythonVersion();
 
+            guiEventsLock = true;
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
             ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
 
@@ -464,6 +478,7 @@ namespace WinBox_Maker
                     afterDesktop.Checked = true;
                     break;
             }
+            guiEventsLock = false;
 
             UpdateGuiWithoutWindowsVersion();
         }
@@ -549,30 +564,40 @@ namespace WinBox_Maker
 
         private void WinboxName_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.WinboxName = WinboxName.Text;
             winBoxProject.SaveConfig();
         }
 
         private void WinboxDescription_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.WinboxDescription = WinboxDescription.Text;
             winBoxProject.SaveConfig();
         }
 
         private void OemKey_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.OemKey = OemKey.Text;
             winBoxProject.SaveConfig();
         }
 
         private void UseOemKey_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.UseOemKey = UseOemKey.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
 
         private void ProgramArgs_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.ProgramArgs = ProgramArgs.Text;
             winBoxProject.SaveConfig();
         }
@@ -644,6 +669,8 @@ namespace WinBox_Maker
 
         private void ProgramType_ExecutableFile_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             if (ProgramType_ExecutableFile.Checked)
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.ExecutableFile;
@@ -654,6 +681,8 @@ namespace WinBox_Maker
 
         private void ProgramType_RawCommand_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             if (ProgramType_RawCommand.Checked)
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.RawCommand;
@@ -664,6 +693,8 @@ namespace WinBox_Maker
 
         private void ProgramType_WebSite_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             if (ProgramType_WebSite.Checked)
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.WebSite;
@@ -674,6 +705,8 @@ namespace WinBox_Maker
 
         private void ProgramType_None_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             if (ProgramType_None.Checked)
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.None;
@@ -684,6 +717,8 @@ namespace WinBox_Maker
 
         private void RawCommand_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.RawCommand = RawCommand.Text;
             winBoxProject.SaveConfig();
             UpdateGuiWithoutWindowsVersion();
@@ -702,6 +737,8 @@ namespace WinBox_Maker
 
         private void WebSite_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.WebSite = WebSite.Text;
             winBoxProject.SaveConfig();
             UpdateGuiWithoutWindowsVersion();
@@ -710,11 +747,15 @@ namespace WinBox_Maker
         private void ResetWebSessionTimeout(int value)
         {
             winBoxProject.winBoxConfig.WebSessionTimeout = value;
+            guiEventsLock = true;
             WebSessionTimeout.Text = winBoxProject.winBoxConfig.WebSessionTimeout.ToString();
+            guiEventsLock = false;
         }
 
         private void WebSessionTimeout_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             try
             {
                 winBoxProject.winBoxConfig.WebSessionTimeout = int.Parse(WebSessionTimeout.Text);
@@ -835,6 +876,8 @@ namespace WinBox_Maker
 
         private void ScreenTimeout_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             try
             {
                 winBoxProject.winBoxConfig.ScreenTimeout = int.Parse(ScreenTimeout.Text);
@@ -922,6 +965,8 @@ namespace WinBox_Maker
 
         private void AddVirtualDisplay_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.AddVirtualDisplay = AddVirtualDisplay.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
@@ -934,6 +979,8 @@ namespace WinBox_Maker
 
         private void VirtualDisplayWidth_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             try
             {
                 winBoxProject.winBoxConfig.VirtualDisplayWidth = int.Parse(VirtualDisplayWidth.Text);
@@ -966,6 +1013,8 @@ namespace WinBox_Maker
 
         private void VirtualDisplayHeight_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             try
             {
                 winBoxProject.winBoxConfig.VirtualDisplayHeight = int.Parse(VirtualDisplayHeight.Text);
@@ -1009,48 +1058,64 @@ namespace WinBox_Maker
 
         private void UseEmbeddedDisplay_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.UseEmbeddedDisplay = UseEmbeddedDisplay.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
 
         private void CustomBootLogo_centering_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.CustomBootLogo_centering = CustomBootLogo_centering.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
 
         private void prebuildEnabled_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.prebuildEnabled = prebuildEnabled.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
 
         private void prebuildEvent_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.prebuildEvent = prebuildEvent.Text;
             winBoxProject.SaveConfig();
         }
 
         private void postbuildEnabled_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.postbuildEnabled = postbuildEnabled.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
 
         private void postbuildEvent_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.postbuildEvent = postbuildEvent.Text;
             winBoxProject.SaveConfig();
         }
 
         private void winmountedEnabled_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.winmountedEnabled = winmountedEnabled.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
 
         private void winmountedEvent_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.winmountedEvent = winmountedEvent.Text;
             winBoxProject.SaveConfig();
         }
@@ -1063,12 +1128,16 @@ namespace WinBox_Maker
 
         private void pythonVersion_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.pythonVersion = pythonVersion.Text;
             winBoxProject.SaveConfig();
         }
 
         private void ProgramName_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.ProgramName = ProgramName.Text;
             winBoxProject.SaveConfig();
             UpdateGui();
@@ -1076,6 +1145,8 @@ namespace WinBox_Maker
 
         private void insteadDesktop_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             if (insteadDesktop.Checked)
             {
                 winBoxProject.winBoxConfig.LaunchMode = ProgramLaunchModeEnum.insteadDesktop;
@@ -1086,6 +1157,8 @@ namespace WinBox_Maker
 
         private void afterDesktop_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             if (afterDesktop.Checked)
             {
                 winBoxProject.winBoxConfig.LaunchMode = ProgramLaunchModeEnum.afterDesktop;
@@ -1096,6 +1169,8 @@ namespace WinBox_Maker
 
         private void downloadEnabled_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.downloadEnabled = downloadEnabled.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
@@ -1122,6 +1197,8 @@ namespace WinBox_Maker
 
         private void dl_name_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             currentDownloadItem.name = dl_name.Text;
             DownloadItems.Items[currentDownloadItemIndex] = dl_name.Text;
             winBoxProject.SaveConfig();
@@ -1129,24 +1206,32 @@ namespace WinBox_Maker
 
         private void dl_url_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             currentDownloadItem.url = dl_url.Text;
             winBoxProject.SaveConfig();
         }
 
         private void dl_path_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             currentDownloadItem.path = dl_path.Text;
             winBoxProject.SaveConfig();
         }
 
         private void dl_cache_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             currentDownloadItem.cache = dl_cache.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
 
         private void dl_unpack_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             currentDownloadItem.unpack = dl_unpack.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
@@ -1164,6 +1249,8 @@ namespace WinBox_Maker
 
         private void buildEnabled_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             winBoxProject.winBoxConfig.buildEnabled = buildEnabled.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
@@ -1199,7 +1286,9 @@ namespace WinBox_Maker
             if (name != null)
             {
                 currentBuildItem.msbuild_path = name;
+                guiEventsLock = true;
                 bl_path.Text = currentBuildItem.msbuild_path;
+                guiEventsLock = false;
                 winBoxProject.SaveConfig();
             }
             UnlockForm();
@@ -1208,7 +1297,9 @@ namespace WinBox_Maker
         private void bl_clear_Click(object sender, EventArgs e)
         {
             currentBuildItem.msbuild_path = "";
+            guiEventsLock = true;
             bl_path.Text = "";
+            guiEventsLock = false;
             winBoxProject.SaveConfig();
         }
 
@@ -1245,6 +1336,8 @@ namespace WinBox_Maker
 
         private void bl_title_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             currentBuildItem.name = bl_title.Text;
             BuildItems.Items[currentBuildItemIndex] = bl_title.Text;
             winBoxProject.SaveConfig();
@@ -1252,12 +1345,16 @@ namespace WinBox_Maker
 
         private void bl_conf_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             currentBuildItem.msbuild_configuration = bl_conf.Text;
             winBoxProject.SaveConfig();
         }
 
         private void bl_path_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
             currentBuildItem.msbuild_path = bl_path.Text;
             winBoxProject.SaveConfig();
         }

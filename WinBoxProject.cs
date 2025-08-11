@@ -147,6 +147,7 @@ namespace WinBox_Maker
 
         public void SaveConfig()
         {
+            MessageBox.Show("SAVED!");
             winBoxConfig.Save(wnbFilePath);
         }
 
