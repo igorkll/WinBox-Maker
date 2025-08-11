@@ -595,6 +595,11 @@ exit
             await Program.ExecuteAsync(Path.Combine(qemuPath, emuName), $"-hda \"{imgPath}\" -cdrom \"{isoPath}\" -boot d -m 2048");
         }
 
+        public async Task OverwriteSystemCursorEmpty(string cursorsPath)
+        {
+            string empty_cur = Program.ResourcePath(Path.Combine("resources", "empty.cur"));
+        }
+
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath)
         {
             if (winBoxConfig.prebuildEnabled == true)
@@ -915,6 +920,7 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 await CopyResource("empty.cur");
                 await CopyResource("hide_cursor.reg");
                 baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\hide_cursor.reg\"";
+                await OverwriteSystemCursorEmpty(Path.Combine(wimMountPath, "Windows", "Cursors"));
             }
             else if (customCursor)
             {
@@ -939,7 +945,7 @@ bcdedit /set {{default}} TESTSIGNING ON";
                     await Program.CopyFileAsync(configBootLogoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "config.txt"));
 
                     baseSetup += "\r\ncd C:\\WinboxResources\\HackBGRT-2.5.2";
-                    baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-overwrite";
+                    baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-bcdedit";
                 }
             }
 
