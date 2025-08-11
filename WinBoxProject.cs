@@ -375,6 +375,15 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             }
         }
 
+        public async Task CopyBlobFromArchWithRename(string name, string newName, string arch)
+        {
+            string? path = Program.getBlobPathFromArch(winBoxConfig, name, arch);
+            if (path != null)
+            {
+                await Program.CopyFileAsync(path, Path.Combine(wimMountPath, "WinboxResources", newName));
+            }
+        }
+
         public async Task UnpackBlob(string name)
         {
             string? path = Program.getBlobPath(winBoxConfig, name);
@@ -900,10 +909,46 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 updateSystemSettings += $"\r\nbcdedit /set {{globalsettings}} custom:16000068 true";
             }
 
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate vc redist"))
+            void regRedist(string name)
             {
-                await CopyBlob("vc_redist.exe");
-                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\vc_redist.exe /install /quiet /norestart";
+                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\{name} /install /quiet /norestart";
+            }
+
+            bool compatibleVcRedist = Program.isTweakEnabled(winBoxConfig, "Integrate vc redist (compatible architectures)");
+            if (compatibleVcRedist || Program.isTweakEnabled(winBoxConfig, "Integrate vc redist"))
+            {
+                if (compatibleVcRedist)
+                {
+                    List<string> archs = new List<string>();
+                    switch (winBoxConfig.Architecture)
+                    {
+                        case "x64":
+                            archs.Add("x64");
+                            archs.Add("x86");
+                            break;
+
+                        case "x86":
+                            archs.Add("x86");
+                            break;
+
+                        case "arm64":
+                            archs.Add("arm64");
+                            archs.Add("x64");
+                            archs.Add("x86");
+                            break;
+                    }
+                    foreach (string arch in archs)
+                    {
+                        string newName = arch + "_vc_redist.exe";
+                        await CopyBlobFromArchWithRename("vc_redist.exe", newName, arch);
+                        regRedist(newName);
+                    }
+                }
+                else
+                {
+                    await CopyBlob("vc_redist.exe");
+                    regRedist("vc_redist.exe");
+                }
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.8.1"))

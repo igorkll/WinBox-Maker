@@ -50,6 +50,7 @@ namespace WinBox_Maker
             TweakList.Items.Clear();
             AddTweakToList("Integrate microsoft edge");
             AddTweakToList("Integrate vc redist");
+            AddTweakToList("Integrate vc redist (compatible architectures)");
             AddTweakToList("Integrate net 9.0.6");
             AddTweakToList("Integrate net 8.0.17");
             AddTweakToList("Integrate net 4.8.1");
@@ -319,6 +320,8 @@ namespace WinBox_Maker
         {
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Windows image (*.iso)|*.iso", winBoxProject.imagesDirectoryPath, false);
+            UnlockForm();
+
             if (name != null)
             {
                 winBoxProject.UnloadWindowsImage();
@@ -327,7 +330,6 @@ namespace WinBox_Maker
                 UpdateGui();
                 LoadWindowsTask();
             }
-            UnlockForm();
         }
 
         private void WindowsClear_Click(object sender, EventArgs e)

@@ -548,9 +548,26 @@ namespace WinBox_Maker
             } 
         }
 
-        public static string? getBlobPath(WinBoxConfig winBoxConfig, String blobname)
+        public static string? getBlobPath(WinBoxConfig winBoxConfig, string blobname)
         {
             string blobPath = ResourcePath(Path.Combine("blobs", winBoxConfig.Architecture, blobname));
+            if (File.Exists(blobPath))
+            {
+                return blobPath;
+            }
+
+            blobPath = ResourcePath(Path.Combine("blobs", "def", blobname));
+            if (File.Exists(blobPath))
+            {
+                return blobPath;
+            }
+
+            return null;
+        }
+
+        public static string? getBlobPathFromArch(WinBoxConfig winBoxConfig, string blobname, string arch)
+        {
+            string blobPath = ResourcePath(Path.Combine("blobs", arch, blobname));
             if (File.Exists(blobPath))
             {
                 return blobPath;
