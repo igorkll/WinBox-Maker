@@ -1342,9 +1342,9 @@ if %errorlevel%==0 (
             await Task.Delay(2000);
         }
  
-        public async Task BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
+        public async Task<bool> BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete=true)
         {
-            if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
+            if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return false;
 
             string baseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
 
@@ -1352,8 +1352,11 @@ if %errorlevel%==0 (
             string[] unpackBlacklist = { "sources\\install.wim" };
             await Program.UnpackUdfIso(baseWindowsImageFullPath, unpackIsoPath, processValue, unpackBlacklist);
 
+            bool failed = false;
             if (!await MakeModWim(processName, processValue, newWindowsDescription, Path.Combine(unpackIsoPath, "sources\\install.wim"), null))
             {
+                showComplete = false;
+                failed = true;
                 goto end;
             }
 
@@ -1377,7 +1380,12 @@ if %errorlevel%==0 (
                 Directory.Delete(unpackIsoPath, true);
             });
 
-            await CompleteExport(processName, processValue, exportPath);
+            if (showComplete)
+            {
+                await CompleteExport(processName, processValue, exportPath);
+            }
+
+            return !failed;
         }
 
         public async Task BuildWimAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
@@ -1411,8 +1419,15 @@ if %errorlevel%==0 (
 
             string tempIsoPath = Path.Combine(tempDirectoryPath, "temp.iso");
 
-            await BuildIsoAsync(processName, processValue, tempIsoPath, newWindowsDescription);
-            await InstallToImg(tempIsoPath, exportPath);
+            bool showComplete = true;
+            if (await BuildIsoAsync(processName, processValue, tempIsoPath, newWindowsDescription, false))
+            {
+                await InstallToImg(tempIsoPath, exportPath);
+            }
+            else
+            {
+                showComplete = false;
+            }
 
             processName("Deleting temp temp.iso");
             processValue(90);
@@ -1421,7 +1436,10 @@ if %errorlevel%==0 (
                 File.Delete(tempIsoPath);
             });
 
-            await CompleteExport(processName, processValue, exportPath);
+            if (showComplete)
+            {
+                await CompleteExport(processName, processValue, exportPath);
+            }
         }
 
         public bool canExport()
