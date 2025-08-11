@@ -9,12 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace WinBox_Maker
 {
     public partial class ProgramSettings : Form
     {
         Action exitCallback;
+        bool guiUpdate = false;
 
         public ProgramSettings(Action _exitCallback)
         {
@@ -26,9 +28,13 @@ namespace WinBox_Maker
 
         public void UpdateGui()
         {
+            guiUpdate = true;
             msbuildPath.Text = Program.winboxSettings.path_msbuild;
             cmakePath.Text = Program.winboxSettings.path_cmake;
             pipPath.Text = Program.winboxSettings.path_pip;
+            cargoPath.Text = Program.winboxSettings.path_cargo;
+            qemuPath.Text = Program.winboxSettings.path_qemu_folder;
+            guiUpdate = false;
         }
 
         private void FormClosingCallback(object? sender, FormClosingEventArgs e)
@@ -42,24 +48,6 @@ namespace WinBox_Maker
             UpdateGui();
         }
 
-        private void msbuildPath_TextChanged(object sender, EventArgs e)
-        {
-            Program.winboxSettings.path_msbuild = msbuildPath.Text;
-            Program.winboxSettings.Save();
-        }
-
-        private void cmakePath_TextChanged(object sender, EventArgs e)
-        {
-            Program.winboxSettings.path_cmake = cmakePath.Text;
-            Program.winboxSettings.Save();
-        }
-
-        private void pipPath_TextChanged(object sender, EventArgs e)
-        {
-            Program.winboxSettings.path_pip = pipPath.Text;
-            Program.winboxSettings.Save();
-        }
-
         private void openProgramData_Click(object sender, EventArgs e)
         {
             try
@@ -68,6 +56,183 @@ namespace WinBox_Maker
             }
             catch (Exception ex)
             {
+            }
+        }
+
+        private void msbuildPath_TextChanged(object sender, EventArgs e)
+        {
+            if (guiUpdate) return;
+
+            Program.winboxSettings.path_msbuild = msbuildPath.Text;
+            Program.winboxSettings.Save();
+        }
+
+        private void cmakePath_TextChanged(object sender, EventArgs e)
+        {
+            if (guiUpdate) return;
+
+            Program.winboxSettings.path_cmake = cmakePath.Text;
+            Program.winboxSettings.Save();
+        }
+
+        private void pipPath_TextChanged(object sender, EventArgs e)
+        {
+            if (guiUpdate) return;
+
+            Program.winboxSettings.path_pip = pipPath.Text;
+            Program.winboxSettings.Save();
+        }
+
+        private void cargoPath_TextChanged(object sender, EventArgs e)
+        {
+            if (guiUpdate) return;
+
+            Program.winboxSettings.path_cargo = cargoPath.Text;
+            Program.winboxSettings.Save();
+        }
+
+        private void qemuPath_TextChanged(object sender, EventArgs e)
+        {
+            if (guiUpdate) return;
+
+            Program.winboxSettings.path_qemu_folder = qemuPath.Text;
+            Program.winboxSettings.Save();
+        }
+
+        void UnlockFormRecursion(Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                control.Enabled = true;
+
+                if (control.HasChildren)
+                {
+                    UnlockFormRecursion(control);
+                }
+            }
+            UpdateGui();
+        }
+
+        void LockFormRecursion(Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                if (control.Name != "openProgramData")
+                {
+                    control.Enabled = false;
+                }
+
+                if (control.HasChildren)
+                {
+                    LockFormRecursion(control);
+                }
+            }
+        }
+
+        void UnlockForm()
+        {
+            UnlockFormRecursion(this);
+        }
+
+        void LockForm()
+        {
+            LockFormRecursion(this);
+        }
+
+        string? selectFile(string name)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Executable files (*.exe)|*.exe|All files (*.*)|*.*",
+                Title = $"Select {name}"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                return openFileDialog.FileName;
+            }
+
+            return null;
+        }
+
+        string? selectFolder(string name)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
+            {
+                Description = $"Select {name}",
+                ShowNewFolderButton = true
+            };
+
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                return folderBrowserDialog.SelectedPath;
+            }
+
+            return null;
+        }
+
+        private void selectMsbuild_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? path = selectFile("msbuild");
+            UnlockForm();
+
+            if (path != null)
+            {
+                Program.winboxSettings.path_msbuild = selectMsbuild.Text;
+                Program.winboxSettings.Save();
+            }
+        }
+
+        private void selectCmake_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? path = selectFile("cmake");
+            UnlockForm();
+
+            if (path != null)
+            {
+                Program.winboxSettings.path_cmake = selectCmake.Text;
+                Program.winboxSettings.Save();
+            }
+        }
+
+        private void selectPip_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? path = selectFile("pip");
+            UnlockForm();
+
+            if (path != null)
+            {
+                Program.winboxSettings.path_pip = selectPip.Text;
+                Program.winboxSettings.Save();
+            }
+        }
+
+        private void selectCargo_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? path = selectFile("cargo");
+            UnlockForm();
+
+            if (path != null)
+            {
+                Program.winboxSettings.path_cargo = selectCargo.Text;
+                Program.winboxSettings.Save();
+            }
+        }
+
+        private void selectQemu_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? path = selectFolder("qemu");
+            UnlockForm();
+
+            if (path != null)
+            {
+                Program.winboxSettings.path_qemu_folder = selectQemu.Text;
+                Program.winboxSettings.Save();
             }
         }
     }

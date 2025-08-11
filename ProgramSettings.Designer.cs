@@ -30,6 +30,10 @@
         {
             msbuildPath = new TextBox();
             panel1 = new Panel();
+            selectQemu = new Button();
+            selectCargo = new Button();
+            qemuPath = new TextBox();
+            cargoPath = new TextBox();
             selectPip = new Button();
             selectCmake = new Button();
             pipPath = new TextBox();
@@ -38,10 +42,6 @@
             AutoDetect = new Button();
             label1 = new Label();
             openProgramData = new Button();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -60,10 +60,10 @@
             panel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             panel1.BackColor = Color.White;
             panel1.BorderStyle = BorderStyle.Fixed3D;
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
-            panel1.Controls.Add(textBox2);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(selectQemu);
+            panel1.Controls.Add(selectCargo);
+            panel1.Controls.Add(qemuPath);
+            panel1.Controls.Add(cargoPath);
             panel1.Controls.Add(selectPip);
             panel1.Controls.Add(selectCmake);
             panel1.Controls.Add(pipPath);
@@ -76,6 +76,46 @@
             panel1.Size = new Size(959, 258);
             panel1.TabIndex = 3;
             // 
+            // selectQemu
+            // 
+            selectQemu.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            selectQemu.Location = new Point(757, 154);
+            selectQemu.Name = "selectQemu";
+            selectQemu.Size = new Size(195, 31);
+            selectQemu.TabIndex = 13;
+            selectQemu.Text = "Select qemu folder";
+            selectQemu.UseVisualStyleBackColor = true;
+            selectQemu.Click += selectQemu_Click;
+            // 
+            // selectCargo
+            // 
+            selectCargo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            selectCargo.Location = new Point(757, 117);
+            selectCargo.Name = "selectCargo";
+            selectCargo.Size = new Size(195, 31);
+            selectCargo.TabIndex = 12;
+            selectCargo.Text = "Select cargo";
+            selectCargo.UseVisualStyleBackColor = true;
+            selectCargo.Click += selectCargo_Click;
+            // 
+            // qemuPath
+            // 
+            qemuPath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            qemuPath.Location = new Point(3, 154);
+            qemuPath.Name = "qemuPath";
+            qemuPath.Size = new Size(748, 31);
+            qemuPath.TabIndex = 11;
+            qemuPath.TextChanged += qemuPath_TextChanged;
+            // 
+            // cargoPath
+            // 
+            cargoPath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cargoPath.Location = new Point(3, 117);
+            cargoPath.Name = "cargoPath";
+            cargoPath.Size = new Size(748, 31);
+            cargoPath.TabIndex = 10;
+            cargoPath.TextChanged += cargoPath_TextChanged;
+            // 
             // selectPip
             // 
             selectPip.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -85,6 +125,7 @@
             selectPip.TabIndex = 9;
             selectPip.Text = "Select pip";
             selectPip.UseVisualStyleBackColor = true;
+            selectPip.Click += selectPip_Click;
             // 
             // selectCmake
             // 
@@ -95,6 +136,7 @@
             selectCmake.TabIndex = 8;
             selectCmake.Text = "Select cmake";
             selectCmake.UseVisualStyleBackColor = true;
+            selectCmake.Click += selectCmake_Click;
             // 
             // pipPath
             // 
@@ -123,6 +165,7 @@
             selectMsbuild.TabIndex = 5;
             selectMsbuild.Text = "Select msbuild";
             selectMsbuild.UseVisualStyleBackColor = true;
+            selectMsbuild.Click += selectMsbuild_Click;
             // 
             // AutoDetect
             // 
@@ -155,42 +198,6 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
-            // textBox1
-            // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Location = new Point(3, 117);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(748, 31);
-            textBox1.TabIndex = 10;
-            // 
-            // textBox2
-            // 
-            textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox2.Location = new Point(3, 154);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(748, 31);
-            textBox2.TabIndex = 11;
-            // 
-            // button1
-            // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.Location = new Point(757, 117);
-            button1.Name = "button1";
-            button1.Size = new Size(195, 31);
-            button1.TabIndex = 12;
-            button1.Text = "Select pip";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button2.Location = new Point(757, 154);
-            button2.Name = "button2";
-            button2.Size = new Size(195, 31);
-            button2.TabIndex = 13;
-            button2.Text = "Select pip";
-            button2.UseVisualStyleBackColor = true;
-            // 
             // ProgramSettings
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -221,9 +228,9 @@
         private Button selectPip;
         private Button selectCmake;
         private Button openProgramData;
-        private TextBox textBox2;
-        private TextBox textBox1;
-        private Button button2;
-        private Button button1;
+        private TextBox qemuPath;
+        private TextBox cargoPath;
+        private Button selectQemu;
+        private Button selectCargo;
     }
 }

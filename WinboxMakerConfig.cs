@@ -84,6 +84,14 @@ namespace WinBox_Maker
             return null;
         }
 
+        string? checkCargo(char disk)
+        {
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @".cargo\bin\cargo.exe");
+            if (File.Exists(path)) return path;
+
+            return null;
+        }
+
         string? findAny(Func<char, string?> check)
         {
             string? path = check('C');
@@ -121,7 +129,7 @@ namespace WinBox_Maker
             path_msbuild = path_msbuild ?? FindProgram("msbuild.exe") ?? findAny(checkMsbuild);
             path_cmake = path_cmake ?? FindProgram("cmake.exe") ?? findAny(checkCmake);
             path_pip = path_pip ?? FindProgram("pip.exe");
-            path_cargo = path_cargo ?? FindProgram("cargo.exe");
+            path_cargo = path_cargo ?? FindProgram("cargo.exe") ?? findAny(checkCargo);
             if (path_qemu_folder == null)
             {
                 string? qemuExe = FindProgram("qemu-img.exe");
