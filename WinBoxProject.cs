@@ -1422,6 +1422,8 @@ if %errorlevel%==0 (
             bool showComplete = true;
             if (await BuildIsoAsync(processName, processValue, tempIsoPath, newWindowsDescription, false))
             {
+                processName("Launching a virtual machine");
+                processValue(95);
                 await InstallToImg(tempIsoPath, exportPath);
             }
             else
@@ -1430,7 +1432,7 @@ if %errorlevel%==0 (
             }
 
             processName("Deleting temp temp.iso");
-            processValue(90);
+            processValue(97);
             await Task.Run(() =>
             {
                 File.Delete(tempIsoPath);
