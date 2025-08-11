@@ -32,6 +32,7 @@ winbox maker provides tools for embedding software into the final windows image.
 * after the first launch of the operating system created through winbox maker, let the computer run for about two minutes. do not turn it off at this time and do not touch it. otherwise, it may cause windows to crash and require a system reinstall
 * when you first boot up the system, you will probably see the windows logo even if you have disabled/changed it, just let the computer boot for the first time and work for a couple of minutes
 * when using the "downloading" function, do not forget to add the path where you will download anything in ".gitignore"
+* if the program freezes when opening the winbox maker project, most likely the old windows image was not unmounted from a temporary directory last time (for example, due to a failure in the build process), wait until winbox maker starts working, it may take some time.
 
 ## notes
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)

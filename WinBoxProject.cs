@@ -509,24 +509,19 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             if (!File.Exists(wimPath))
                 throw new FileNotFoundException("WIM file not found", wimPath);
 
-            string vhdxPath = Path.ChangeExtension(imgExportPath, ".vhdx");
-            long vhdxSizeGb = 15; // можно вынести в параметры или вычислять по размеру WIM
+            string vhdPath = Path.ChangeExtension(imgExportPath, ".vhd");
+            long vhdSizeMb = 15000; // 40 GB в мегабайтах
 
             string workDir = Path.Combine(Path.GetTempPath(), "WimConv_" + Guid.NewGuid());
             Directory.CreateDirectory(workDir);
 
             try
             {
-                // 1) Создаём VHDX
-                await Program.ExecuteAsync("powershell", $"New-VHD -Path '{vhdxPath}' -SizeBytes {vhdxSizeGb}GB -Dynamic");
-
-                // 2) Монтируем VHDX
-                await Program.ExecuteAsync("powershell", $"Mount-VHD -Path '{vhdxPath}'");
-
-                // 3) Создаём diskpart скрипт для разметки GPT+EFI
+                // 1) Создаём скрипт для diskpart, который создаст VHD и разметит его
                 string diskpartScript = Path.Combine(workDir, "diskpart.txt");
                 await File.WriteAllTextAsync(diskpartScript, $@"
-select vdisk file=""{vhdxPath}""
+create vdisk file=""{vhdPath}"" maximum={vhdSizeMb} type=expandable
+select vdisk file=""{vhdPath}""
 attach vdisk
 convert gpt
 create partition efi size=100
@@ -539,20 +534,27 @@ assign letter=W
 exit
 ");
 
-                // 4) Запускаем diskpart
+                // 2) Запускаем diskpart для создания VHD и разделов
                 await Program.ExecuteAsync("diskpart", $"/s \"{diskpartScript}\"");
 
-                // 5) Применяем WIM образ в раздел Windows
+                // 3) Применяем WIM образ в раздел Windows
                 await Program.ExecuteAsync("dism", $"/Apply-Image /ImageFile:\"{wimPath}\" /Index:1 /ApplyDir:W:\\");
 
-                // 6) Создаём EFI загрузчик
+                // 4) Создаём EFI загрузчик
                 await Program.ExecuteAsync("bcdboot", "W:\\Windows /s S: /f UEFI");
 
-                // 7) Отключаем VHDX
-                await Program.ExecuteAsync("powershell", $"Dismount-VHD -Path '{vhdxPath}'");
+                // 5) Отключаем диск (VHD)
+                // Отмонтировать диск можно через diskpart:
+                string detachScript = Path.Combine(workDir, "detach.txt");
+                await File.WriteAllTextAsync(detachScript, $@"
+select vdisk file=""{vhdPath}""
+detach vdisk
+exit
+");
+                await Program.ExecuteAsync("diskpart", $"/s \"{detachScript}\"");
 
-                // 8) Конвертируем VHDX в RAW IMG через qemu-img
-                await Program.ExecuteAsync("D:\\Program Files (x86)\\qemu\\qemu-img", $"convert -O raw \"{vhdxPath}\" \"{imgExportPath}\"");
+                // 6) Конвертируем VHD в RAW IMG через qemu-img
+                await Program.ExecuteAsync("D:\\Program Files (x86)\\qemu\\qemu-img.exe", $"convert -O raw \"{vhdPath}\" \"{imgExportPath}\"");
 
                 Console.WriteLine("Экспорт завершён успешно.");
             }
