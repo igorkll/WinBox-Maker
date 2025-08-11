@@ -517,6 +517,7 @@ namespace WinBox_Maker
                             if (item.name.EndsWith("enterprise", StringComparison.OrdinalIgnoreCase))
                             {
                                 winBoxProject.winBoxConfig.BaseWindowsVersion = item.name;
+                                winBoxProject.SaveConfig();
                                 findedTarget = true;
                                 break;
                             }
@@ -529,6 +530,7 @@ namespace WinBox_Maker
                                 if (item.name.EndsWith("pro", StringComparison.OrdinalIgnoreCase))
                                 {
                                     winBoxProject.winBoxConfig.BaseWindowsVersion = item.name;
+                                    winBoxProject.SaveConfig();
                                     findedTarget = true;
                                     break;
                                 }
@@ -538,15 +540,15 @@ namespace WinBox_Maker
                         if (!findedTarget)
                         {
                             winBoxProject.winBoxConfig.BaseWindowsVersion = windowsDescriptions[0].name;
+                            winBoxProject.SaveConfig();
                         }
                     }
                     else
                     {
                         winBoxProject.winBoxConfig.BaseWindowsVersion = null;
+                        winBoxProject.SaveConfig();
                     }
                 }
-
-                winBoxProject.SaveConfig();
             }
             catch (Exception ex)
             {
