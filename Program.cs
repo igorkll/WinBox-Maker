@@ -38,9 +38,6 @@ namespace WinBox_Maker
         public static string? appdataPath;
         public static string? downloadCachePath;
         public static string? appconfigPath;
-        public static bool allowHostCpu_x64 = false;
-        public static bool allowHostCpu_x86 = false;
-        public static bool allowHostCpu_arm64 = false;
 
         static string getAppdataSubdirectory(string subdirectory)
         {
@@ -55,22 +52,6 @@ namespace WinBox_Maker
             ApplicationConfiguration.Initialize();
             InitLibwim();
             InitOscdimg();
-
-            switch (RuntimeInformation.ProcessArchitecture)
-            {
-                case Architecture.X86:
-                    allowHostCpu_x86 = true;
-                    break;
-
-                case Architecture.X64:
-                    allowHostCpu_x64 = true;
-                    allowHostCpu_x86 = true;
-                    break;
-
-                case Architecture.Arm64:
-                    allowHostCpu_arm64 = true;
-                    break;
-            }
 
             z7Path = ResourcePath("7z.exe");
 

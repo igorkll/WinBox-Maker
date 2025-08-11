@@ -592,36 +592,26 @@ exit
         public async Task InstallToImg(string isoPath, string imgPath)
         {
             string emuName = null;
-            bool hostCpu = false;
             switch (winBoxConfig.Architecture)
             {
                 case "x64":
                     emuName = "qemu-system-x86_64.exe";
-                    hostCpu = Program.allowHostCpu_x64;
                     break;
 
                 case "x86":
                     emuName = "qemu-system-i386.exe";
-                    hostCpu = Program.allowHostCpu_x86;
                     break;
 
                 case "arm64":
                     emuName = "qemu-system-aarch64.exe";
-                    hostCpu = Program.allowHostCpu_arm64;
                     break;
 
                 default:
                     return;
             }
 
-            string parameters = $"-hda \"{imgPath}\" -cdrom \"{isoPath}\" -boot d -m 1024";
-            if (hostCpu)
-            {
-                parameters += " -cpu host";
-            }
-
             await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, "qemu-img.exe"), $"create -f raw \"{imgPath}\" 20G");
-            await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, emuName), parameters);
+            await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, emuName), $"-hda \"{imgPath}\" -cdrom \"{isoPath}\" -boot d -m 1024");
         }
 
         public async Task OverwriteSystemCursorEmpty(string cursorsPath)
