@@ -112,7 +112,7 @@ namespace WinBox_Maker
             return null;
         }
 
-        public void AutoDetect(bool forceSave=false)
+        public void AutoDetect(bool forceSave=false, bool forceUpdate=false)
         {
             string? old_path_msbuild = path_msbuild;
             string? old_path_cmake = path_cmake;
@@ -120,11 +120,11 @@ namespace WinBox_Maker
             string? old_path_cargo = path_cargo;
             string? old_path_qemu_folder = path_qemu_folder;
 
-            if (!File.Exists(path_msbuild)) path_msbuild = null;
-            if (!File.Exists(path_cmake)) path_cmake = null;
-            if (!File.Exists(path_pip)) path_pip = null;
-            if (!File.Exists(path_cargo)) path_cargo = null;
-            if (!File.Exists(path_qemu_folder)) path_qemu_folder = null;
+            if (forceUpdate || !File.Exists(path_msbuild)) path_msbuild = null;
+            if (forceUpdate || !File.Exists(path_cmake)) path_cmake = null;
+            if (forceUpdate || !File.Exists(path_pip)) path_pip = null;
+            if (forceUpdate || !File.Exists(path_cargo)) path_cargo = null;
+            if (forceUpdate || !Directory.Exists(path_qemu_folder)) path_qemu_folder = null;
 
             path_msbuild = path_msbuild ?? FindProgram("msbuild.exe") ?? findAny(checkMsbuild);
             path_cmake = path_cmake ?? FindProgram("cmake.exe") ?? findAny(checkCmake);

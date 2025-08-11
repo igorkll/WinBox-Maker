@@ -44,7 +44,7 @@ namespace WinBox_Maker
 
         private void AutoDetect_Click(object sender, EventArgs e)
         {
-            Program.winboxSettings.AutoDetect();
+            Program.winboxSettings.AutoDetect(false, true);
             UpdateGui();
         }
 
@@ -175,65 +175,60 @@ namespace WinBox_Maker
         {
             LockForm();
             string? path = selectFile("msbuild");
-            UnlockForm();
-
             if (path != null)
             {
-                Program.winboxSettings.path_msbuild = selectMsbuild.Text;
+                Program.winboxSettings.path_msbuild = path;
                 Program.winboxSettings.Save();
             }
+            UnlockForm();
         }
 
         private void selectCmake_Click(object sender, EventArgs e)
         {
             LockForm();
             string? path = selectFile("cmake");
-            UnlockForm();
-
             if (path != null)
             {
-                Program.winboxSettings.path_cmake = selectCmake.Text;
+                Program.winboxSettings.path_cmake = path;
                 Program.winboxSettings.Save();
             }
+            UnlockForm();
         }
 
         private void selectPip_Click(object sender, EventArgs e)
         {
             LockForm();
             string? path = selectFile("pip");
-            UnlockForm();
-
             if (path != null)
             {
-                Program.winboxSettings.path_pip = selectPip.Text;
+                Program.winboxSettings.path_pip = path;
                 Program.winboxSettings.Save();
             }
+            UnlockForm();
         }
 
         private void selectCargo_Click(object sender, EventArgs e)
         {
             LockForm();
             string? path = selectFile("cargo");
-            UnlockForm();
-
             if (path != null)
             {
-                Program.winboxSettings.path_cargo = selectCargo.Text;
+                Program.winboxSettings.path_cargo = path;
                 Program.winboxSettings.Save();
             }
+            UnlockForm();
         }
 
         private void selectQemu_Click(object sender, EventArgs e)
         {
             LockForm();
             string? path = selectFolder("qemu");
-            UnlockForm();
-
             if (path != null)
             {
-                Program.winboxSettings.path_qemu_folder = selectQemu.Text;
+                Program.winboxSettings.path_qemu_folder = path;
                 Program.winboxSettings.Save();
             }
+            UnlockForm();
         }
     }
 }
