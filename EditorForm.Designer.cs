@@ -147,6 +147,8 @@
             pythonVersionsUpdate = new Button();
             tabPage10 = new TabPage();
             bl_panel = new Panel();
+            bl_folder_enable = new CheckBox();
+            bl_folder = new TextBox();
             bl_delete = new Button();
             label31 = new Label();
             bl_title = new TextBox();
@@ -1453,6 +1455,8 @@
             // bl_panel
             // 
             bl_panel.BorderStyle = BorderStyle.Fixed3D;
+            bl_panel.Controls.Add(bl_folder_enable);
+            bl_panel.Controls.Add(bl_folder);
             bl_panel.Controls.Add(bl_delete);
             bl_panel.Controls.Add(label31);
             bl_panel.Controls.Add(bl_title);
@@ -1461,6 +1465,25 @@
             bl_panel.Name = "bl_panel";
             bl_panel.Size = new Size(611, 284);
             bl_panel.TabIndex = 3;
+            // 
+            // bl_folder_enable
+            // 
+            bl_folder_enable.AutoSize = true;
+            bl_folder_enable.Location = new Point(296, 243);
+            bl_folder_enable.Name = "bl_folder_enable";
+            bl_folder_enable.Size = new Size(185, 29);
+            bl_folder_enable.TabIndex = 44;
+            bl_folder_enable.Text = "result subdirectory";
+            bl_folder_enable.UseVisualStyleBackColor = true;
+            bl_folder_enable.CheckedChanged += bl_folder_enable_CheckedChanged;
+            // 
+            // bl_folder
+            // 
+            bl_folder.Location = new Point(7, 243);
+            bl_folder.Name = "bl_folder";
+            bl_folder.Size = new Size(283, 31);
+            bl_folder.TabIndex = 43;
+            bl_folder.TextChanged += bl_folder_TextChanged;
             // 
             // bl_delete
             // 
@@ -2044,5 +2067,7 @@
         private Button bl_clear;
         private Button bl_select;
         private Button bl_delete;
+        private TextBox bl_folder;
+        private CheckBox bl_folder_enable;
     }
 }

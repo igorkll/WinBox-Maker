@@ -9,7 +9,9 @@ namespace WinBox_Maker
     public enum BuildItemType
     {
         msbuild,
-        cmake
+        cmake,
+        cargo,
+        custom
     }
 
     public class BuildItem
@@ -18,5 +20,7 @@ namespace WinBox_Maker
         public BuildItemType? type { get; set; }
         public string? msbuild_path { get; set; }
         public string? msbuild_configuration { get; set; }
+        public string? subdirectory { get; set; }
+        public bool subdirectory_enabled { get; set; }
     }
 }

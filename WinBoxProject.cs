@@ -460,11 +460,22 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
         public async Task<bool> BuildUserProject(BuildItem buildItem)
         {
             string outputDir = Path.Combine(tempDirectoryPath, "program");
+            if (buildItem.subdirectory_enabled)
+            {
+                outputDir = Path.Combine(tempDirectoryPath, "program", buildItem.subdirectory ?? "");
+            }
+            else
+            {
+                outputDir = Path.Combine(tempDirectoryPath, "program");
+            }
+
+            Program.CreateDirectory(outputDir);
 
             switch (buildItem.type)
             {
                 case BuildItemType.msbuild:
-                    if (Program.winboxSettings.path_msbuild != null) {
+                    if (Program.winboxSettings.path_msbuild != null)
+                    {
                         string arch = winBoxConfig.Architecture;
                         if (arch == "arm64") arch = "ARM64";
                         await Program.ExecuteAsync(Program.winboxSettings.path_msbuild,
@@ -567,7 +578,7 @@ exit
                 await Program.ExecuteAsync("diskpart", $"/s \"{detachScript}\"");
 
                 // 6) Конвертируем VHD в RAW IMG через qemu-img
-                await Program.ExecuteAsync("D:\\Program Files (x86)\\qemu\\qemu-img.exe", $"convert -O raw \"{vhdPath}\" \"{imgExportPath}\"");
+                await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, "qemu-img.exe"), $"convert -O raw \"{vhdPath}\" \"{imgExportPath}\"");
 
                 Console.WriteLine("Экспорт завершён успешно.");
             }
@@ -580,7 +591,6 @@ exit
 
         public async Task InstallToImg(string isoPath, string imgPath)
         {
-            string qemuPath = "D:\\Program Files (x86)\\qemu";
             string emuName = null;
             switch (winBoxConfig.Architecture)
             {
@@ -600,8 +610,8 @@ exit
                     break;
             }
 
-            await Program.ExecuteAsync(Path.Combine(qemuPath, "qemu-img.exe"), $"create -f raw \"{imgPath}\" 20G");
-            await Program.ExecuteAsync(Path.Combine(qemuPath, emuName), $"-hda \"{imgPath}\" -cdrom \"{isoPath}\" -boot d -m 2048");
+            await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, "qemu-img.exe"), $"create -f raw \"{imgPath}\" 20G");
+            await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, emuName), $"-hda \"{imgPath}\" -cdrom \"{isoPath}\" -boot d -m 2048");
         }
 
         public async Task OverwriteSystemCursorEmpty(string cursorsPath)

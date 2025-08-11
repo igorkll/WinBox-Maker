@@ -139,6 +139,8 @@ namespace WinBox_Maker
                 bl_path.Text = buildItem.msbuild_path ?? "";
                 bl_conf.Text = buildItem.msbuild_configuration ?? "";
                 bl_tabcontrol.SelectedIndex = (int)currentBuildItem.type;
+                bl_folder.Text = buildItem.subdirectory ?? "";
+                bl_folder_enable.CheckState = buildItem.subdirectory_enabled == true ? CheckState.Checked : CheckState.Unchecked;
                 guiEventsLock = false;
             }
         }
@@ -1273,6 +1275,8 @@ namespace WinBox_Maker
             buildItem.type = BuildItemType.msbuild;
             buildItem.msbuild_path = "";
             buildItem.msbuild_configuration = "Release";
+            buildItem.subdirectory = "";
+            buildItem.subdirectory_enabled = false;
 
             winBoxProject.winBoxConfig.BuildItems.Add(buildItem);
             winBoxProject.SaveConfig();
@@ -1366,6 +1370,22 @@ namespace WinBox_Maker
         private void BuildItems_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void bl_folder_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            currentBuildItem.subdirectory = bl_folder.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void bl_folder_enable_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            currentBuildItem.subdirectory_enabled = bl_folder_enable.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
         }
     }
 }
