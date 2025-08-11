@@ -598,6 +598,33 @@ exit
         public async Task OverwriteSystemCursorEmpty(string cursorsPath)
         {
             string empty_cur = Program.ResourcePath(Path.Combine("resources", "empty.cur"));
+            string empty_ani = Program.ResourcePath(Path.Combine("resources", "empty.ani"));
+            string empty_svg = Program.ResourcePath(Path.Combine("resources", "empty.svg"));
+
+            if (Directory.Exists(cursorsPath))
+            {
+                string[] files = Directory.GetFiles(cursorsPath);
+
+                foreach (string file in files)
+                {
+                    string extension = Path.GetExtension(file).ToLower();
+
+                    switch (extension)
+                    {
+                        case ".cur":
+                            File.Copy(empty_cur, file, true);
+                            break;
+
+                        case ".ani":
+                            File.Copy(empty_ani, file, true);
+                            break;
+
+                        case ".svg":
+                            File.Copy(empty_svg, file, true);
+                            break;
+                    }
+                }
+            }
         }
 
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath)
@@ -792,6 +819,9 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Para
 reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideAutoLogonUI /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideFirstLogonAnimation /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v BrandingNeutral /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v NoLockScreen /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v AnimationDisabled /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v UIVerbosityLevel /t REG_DWORD /d 1 /f
 
 reg load HKLM\DEFAULT_USER ""C:\Users\Default\NTUSER.DAT""
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f

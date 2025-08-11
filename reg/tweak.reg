@@ -136,6 +136,9 @@ Windows Registry Editor Version 5.00
 "HideAutoLogonUI"=dword:00000001
 "HideFirstLogonAnimation"=dword:00000001
 "BrandingNeutral"=dword:00000001
+"NoLockScreen"=dword:00000001
+"AnimationDisabled"=dword:00000001
+"UIVerbosityLevel"=dword:00000001
 
 ; ---------------- disable sounds
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation]
