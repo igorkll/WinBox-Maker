@@ -565,6 +565,32 @@ exit
             }
         }
 
+        public async Task InstallToImg(string isoPath, string imgPath)
+        {
+            string qemuPath = "D:\\Program Files (x86)\\qemu";
+            string emuName = null;
+            switch (winBoxConfig.Architecture)
+            {
+                case "x64":
+                    emuName = "qemu-system-x86_64w.exe";
+                    break;
+
+                case "x86":
+                    emuName = "qemu-system-i386w.exe";
+                    break;
+
+                case "arm64":
+                    emuName = "qemu-system-aarch64w.exe";
+                    break;
+
+                default:
+                    break;
+            }
+
+            await Program.ExecuteAsync(Path.Combine(qemuPath, "qemu-img.exe"), $"create -f raw \"{imgPath}\" 20G");
+            await Program.ExecuteAsync(Path.Combine(qemuPath, emuName), $"-hda \"{imgPath}\" -cdrom \"{isoPath}\" -boot d -m 2048");
+        }
+
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath)
         {
             if (winBoxConfig.prebuildEnabled == true)
@@ -1240,7 +1266,7 @@ if %errorlevel%==0 (
             await CompleteExport(processName, processValue, exportPath);
         }
 
-        public async Task BuildImgAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
+        public async Task __BuildImgAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
         {
             if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
 
@@ -1251,6 +1277,25 @@ if %errorlevel%==0 (
             await Task.Run(() =>
             {
                 File.Delete(newWimFile);
+            });
+
+            await CompleteExport(processName, processValue, exportPath);
+        }
+
+        public async Task BuildImgAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
+        {
+            if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
+
+            string tempIsoPath = Path.Combine(tempDirectoryPath, "temp.iso");
+
+            await BuildIsoAsync(processName, processValue, tempIsoPath, newWindowsDescription);
+            await InstallToImg(tempIsoPath, exportPath);
+
+            processName("Deleting temp temp.iso");
+            processValue(90);
+            await Task.Run(() =>
+            {
+                File.Delete(tempIsoPath);
             });
 
             await CompleteExport(processName, processValue, exportPath);
