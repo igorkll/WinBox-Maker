@@ -610,8 +610,13 @@ exit
                     return;
             }
 
+            string qemuPath = Path.Combine(Program.winboxSettings.path_qemu_folder, emuName);
+            string qemuParameters = $"-drive file=\"{imgPath}\",format=raw -cdrom \"{isoPath}\" -boot d -m 1024 -smp 2";
+
+            await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_qemu.txt"), $"\"{qemuPath}\" {qemuParameters}");
+
             await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, "qemu-img.exe"), $"create -f raw \"{imgPath}\" 20G");
-            await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, emuName), $"-hda \"{imgPath}\" -cdrom \"{isoPath}\" -boot d -m 1024");
+            await Program.ExecuteAsync(qemuPath, qemuParameters);
         }
 
         public async Task OverwriteSystemCursorEmpty(string cursorsPath)
