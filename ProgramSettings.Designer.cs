@@ -190,6 +190,7 @@
             // 
             // openProgramData
             // 
+            openProgramData.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             openProgramData.Location = new Point(755, 468);
             openProgramData.Name = "openProgramData";
             openProgramData.Size = new Size(211, 64);
