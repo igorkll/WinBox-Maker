@@ -406,6 +406,10 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             processName("Cleaning temporary files");
             await RemoveTempFolder("drivers");
             await RemoveTempFolder("program");
+            await RemoveTempFolder("files");
+            await RemoveTempFolder("packages");
+            await RemoveTempFolder("nvidia_drivers");
+            await RemoveTempFolder("amd_drivers");
         }
 
         async Task RawDownloadFile(string url, string path, Action<int> processValue)
@@ -679,33 +683,39 @@ exit
             Directory.CreateDirectory(WindowsScriptsPath);
             Directory.CreateDirectory(WinboxResourcesPath);
 
-            string nvidiaDriversPath = Path.Combine(resourcesDirectoryPath, "nvidia_drivers");
-            if (Directory.Exists(nvidiaDriversPath))
+            async Task addGpuDrivers(string baseDir)
             {
-                string[] files = Directory.GetFiles(nvidiaDriversPath);
-                int number = 0;
-                foreach (string file in files)
+                string nvidiaDriversPath = Path.Combine(baseDir, "nvidia_drivers");
+                if (Directory.Exists(nvidiaDriversPath))
                 {
-                    string path = Path.Combine(tempDirectoryPath, "drivers", "nvidia" + number);
-                    Directory.CreateDirectory(path);
-                    await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
-                    number++;
+                    string[] files = Directory.GetFiles(nvidiaDriversPath);
+                    int number = 0;
+                    foreach (string file in files)
+                    {
+                        string path = Path.Combine(tempDirectoryPath, "drivers", "nvidia" + number);
+                        Directory.CreateDirectory(path);
+                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
+                        number++;
+                    }
+                }
+
+                string amdDriversPath = Path.Combine(baseDir, "amd_drivers");
+                if (Directory.Exists(amdDriversPath))
+                {
+                    string[] files = Directory.GetFiles(amdDriversPath);
+                    int number = 0;
+                    foreach (string file in files)
+                    {
+                        string path = Path.Combine(tempDirectoryPath, "drivers", "amd" + number);
+                        Directory.CreateDirectory(path);
+                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
+                        number++;
+                    }
                 }
             }
 
-            string amdDriversPath = Path.Combine(resourcesDirectoryPath, "amd_drivers");
-            if (Directory.Exists(amdDriversPath))
-            {
-                string[] files = Directory.GetFiles(amdDriversPath);
-                int number = 0;
-                foreach (string file in files)
-                {
-                    string path = Path.Combine(tempDirectoryPath, "drivers", "amd" + number);
-                    Directory.CreateDirectory(path);
-                    await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
-                    number++;
-                }
-            }
+            await addGpuDrivers(resourcesDirectoryPath);
+            await addGpuDrivers(tempDirectoryPath);
 
             await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"");
 
@@ -1031,6 +1041,12 @@ net localgroup Administrators winbox /add";
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
             }
 
+            filesPath = Path.Combine(tempDirectoryPath, "files");
+            if (Directory.Exists(filesPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
+            }
+
             await File.WriteAllTextAsync(Path.Combine(wimMountPath, "README.txt"), $"this image was created by the {Program.version} free software\r\nhttps://github.com/igorkll/WinBox-Maker");
 
             // ------------------------------------ setup application autorun
@@ -1153,28 +1169,32 @@ if %errorlevel%==0 (
             await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
 
-            string driversPath = Path.Combine(resourcesDirectoryPath, "drivers");
-            if (Program.IsDirectoryNotEmpty(driversPath)) {
-                processName("Installing user drivers");
-                processValue(55);
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-driver /driver:\"{driversPath}\" /recurse /forceunsigned");
+            async Task addUserDrivers(string baseDir)
+            {
+                string driversPath = Path.Combine(baseDir, "drivers");
+                if (Program.IsDirectoryNotEmpty(driversPath))
+                {
+                    processName("Installing user drivers");
+                    processValue(55);
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-driver /driver:\"{driversPath}\" /recurse /forceunsigned");
+                }
             }
 
-            string tempDriversPath = Path.Combine(tempDirectoryPath, "drivers");
-            if (Program.IsDirectoryNotEmpty(tempDriversPath))
+            async Task addCabMsu(string baseDir)
             {
-                processName("Installing user drivers");
-                processValue(55);
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-driver /driver:\"{tempDriversPath}\" /recurse /forceunsigned");
+                string packagesPath = Path.Combine(baseDir, "packages");
+                if (Program.IsDirectoryNotEmpty(packagesPath))
+                {
+                    processName("Installing .cab/.msu packages");
+                    processValue(58);
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-package /PackagePath:\"{packagesPath}\"");
+                }
             }
 
-            string packagesPath = Path.Combine(resourcesDirectoryPath, "packages");
-            if (Program.IsDirectoryNotEmpty(packagesPath))
-            {
-                processName("Installing .cab/.msu packages");
-                processValue(58);
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-package /PackagePath:\"{packagesPath}\"");
-            }
+            await addUserDrivers(resourcesDirectoryPath);
+            await addUserDrivers(tempDirectoryPath);
+            await addCabMsu(resourcesDirectoryPath);
+            await addCabMsu(tempDirectoryPath);
 
             processName("Enabling necessary windows components");
             processValue(60);

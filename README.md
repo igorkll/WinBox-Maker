@@ -31,7 +31,7 @@ winbox maker provides tools for embedding software into the final windows image.
 * the project may contain prebuild and postbuild events, and since the program runs on behalf of the administrator, it can be quite dangerous if you do not fully trust the project you are building. Before building an unknown winbox maker project, be sure to check the contents of the events tab
 * after the first launch of the operating system created through winbox maker, let the computer run for about two minutes. do not turn it off at this time and do not touch it. otherwise, it may cause windows to crash and require a system reinstall
 * when you first boot up the system, you will probably see the windows logo even if you have disabled/changed it, just let the computer boot for the first time and work for a couple of minutes
-* when using the "downloading" function, do not forget to add the path where you will download anything in ".gitignore"
+* if you are using the "downloading" function, it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore"
 * if the program freezes when opening the winbox maker project, most likely the old windows image was not unmounted from a temporary directory last time (for example, due to a failure in the build process), wait until winbox maker starts working, it may take some time.
 
 ## notes
@@ -55,7 +55,7 @@ winbox maker provides tools for embedding software into the final windows image.
 * events - execute cmd commands on the host machine during the build process. this can be used, for example, to copy files to the project directory or for anything else. to make this work, don't forget to activate the events you use in the checkmark!
 * interpreters - embed some interpreters into the Windows image immediately at the build stage
 * build - build your app together with Winbox. when using this, you can make the "winbox_resources/program" directory empty and specify a name *.exe file in "app" tab manually. in order for this to work, don't forget to activate the checkmark function near the "add" button!
-* downloading - allows you to download files during the build stage. It allows you to unpack archives automatically. please note that the download path is set relative to the project folder. don't forget to add download paths to ".gitignore". in order for this to work, don't forget to activate the checkmark function near the "add" button!
+* downloading - allows you to download files during the build stage. It allows you to unpack archives automatically. please note that the download path is set relative to the project folder. it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore"
 
 ## what was disabled
 * explorer.exe (the desktop is completely inaccessible)
@@ -144,8 +144,14 @@ winbox maker provides tools for embedding software into the final windows image.
 * winbox.wnb - the main project file. contains all settings and paths
 * .gitignore - it is created by default in the project if it is not present, so as not to commit unnecessary files if you create the project in the git repository. it won't be overwritten if you make changes there, but it will be created if you delete it
 * winbox_build - a folder for saving builds. You don't have to use it, but it's the path to save default images (added to by default .gitignore)
-* winbox_temp - it is used during the image build process (added to by default .gitignore)
 * winbox_images - directory for basic windows images (added to by default .gitignore)
+* winbox_temp - it is used during the image build process (added to by default .gitignore)
+* winbox_temp/files - temporary files that will be added to the project. it is relevant within a single build process. It is used to add downloadable files to the project
+* winbox_temp/program - temporary directory for the application. it can be used from "build" and from "downloading"
+* winbox_temp/drivers - a temporary directory for drivers, used for unpacking by nvidia and amd drivers, and can also be used to download drivers
+* winbox_temp/nvidia_drivers - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
+* winbox_temp/amd_drivers - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
+* winbox_temp/packages - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_resources - a folder for your resources that are needed to build the system. these files should end up in the git repository
 * winbox_resources/files - files from this directory will be moved to the root of the disk on the installed system with replacement
 * winbox_resources/program - the directory for your application that will be used in kiosk mode. make this directory empty if you are using automatic compilation of the project from the source code using winbox maker

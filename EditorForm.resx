@@ -3504,10 +3504,9 @@
 </value>
   </data>
   <data name="richTextBox1.Text" xml:space="preserve">
-    <value>the title only affects the display in the list
-the path is specified relative to the project folder
-it is recommended to add to .gitignore the paths where you will download files
-directories that are not in the path will be created automatically</value>
+    <value>the title only affects the display in the list.
+the path is specified relative to the project folder.
+it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore".</value>
   </data>
   <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
