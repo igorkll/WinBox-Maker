@@ -927,6 +927,7 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 await Program.CopyFilesRecursivelyAsync(cursorPath, Path.Combine(WinboxResourcesPath, "cursor"));
                 await CopyResource("custom_cursor.reg");
                 baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\custom_cursor.reg\"";
+                await OverwriteSystemCursorEmpty(Path.Combine(wimMountPath, "Windows", "Cursors"));
             }
 
             if (customBootLogo)
@@ -945,7 +946,7 @@ bcdedit /set {{default}} TESTSIGNING ON";
                     await Program.CopyFileAsync(configBootLogoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "config.txt"));
 
                     baseSetup += "\r\ncd C:\\WinboxResources\\HackBGRT-2.5.2";
-                    baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-bcdedit";
+                    baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-overwrite enable-bcdedit";
                 }
             }
 
