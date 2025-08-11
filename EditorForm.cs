@@ -57,6 +57,7 @@ namespace WinBox_Maker
             AddTweakToList("Hide Cursor");
             AddTweakToList("Disable boot circle");
             AddTweakToList("Disable boot logo");
+            AddTweakToList("Disable boot messages");
             AddTweakToList("Do not disable hotkeys by changing the layout");
             softwareCheck = false;
 

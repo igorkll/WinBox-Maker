@@ -860,6 +860,11 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 updateSystemSettings += $"\r\nbcdedit /set {{globalsettings}} custom:16000067 true";
             }
 
+            if (Program.isTweakEnabled(winBoxConfig, "Disable boot messages"))
+            {
+                updateSystemSettings += $"\r\nbcdedit /set {{globalsettings}} custom:16000068 true";
+            }
+
             if (Program.isTweakEnabled(winBoxConfig, "Integrate vc redist"))
             {
                 await CopyBlob("vc_redist.exe");
@@ -934,7 +939,7 @@ bcdedit /set {{default}} TESTSIGNING ON";
                     await Program.CopyFileAsync(configBootLogoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "config.txt"));
 
                     baseSetup += "\r\ncd C:\\WinboxResources\\HackBGRT-2.5.2";
-                    baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot enable-overwrite";
+                    baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-overwrite";
                 }
             }
 
