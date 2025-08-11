@@ -612,15 +612,15 @@ exit
                     switch (extension)
                     {
                         case ".cur":
-                            File.Copy(empty_cur, file, true);
+                            await Program.CopyFileAsync(empty_cur, file);
                             break;
 
                         case ".ani":
-                            File.Copy(empty_ani, file, true);
+                            await Program.CopyFileAsync(empty_ani, file);
                             break;
 
                         case ".svg":
-                            File.Copy(empty_svg, file, true);
+                            await Program.CopyFileAsync(empty_svg, file);
                             break;
                     }
                 }
@@ -975,12 +975,18 @@ bcdedit /set {{default}} TESTSIGNING ON";
                     string configBootLogoPath = Program.ResourcePath(Path.Combine("resources", winBoxConfig.CustomBootLogo_centering == true ? "hackBGRT_centering.txt" : "hackBGRT.txt"));
                     await Program.CopyFileAsync(configBootLogoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "config.txt"));
 
-                    baseSetup += "\r\ncd C:\\WinboxResources\\HackBGRT-2.5.2";
-                    baseSetup += "\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-overwrite enable-bcdedit";
+                    string hackBGRT = "\r\ncd C:\\WinboxResources\\HackBGRT-2.5.2\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-overwrite enable-bcdedit";
+                    baseSetup += hackBGRT;
+
+                    applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\hackBGRT.installed\" (";
+                    applicationScript += hackBGRT;
+                    applicationScript += $"\r\necho. > \"C:\\WinboxResources\\hackBGRT.installed\"";
+                    applicationScript += $"\r\n)";
                 }
             }
 
             baseSetup += "\r\ncd C:\\";
+            applicationScript += "\r\ncd C:\\";
 
             if (winBoxConfig.PostInstall_reg != null)
             {
