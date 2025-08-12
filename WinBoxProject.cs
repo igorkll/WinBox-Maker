@@ -169,11 +169,9 @@ namespace WinBox_Maker
                         {
                             return Path.GetRelativePath(defaultDirectory, filePath);
                         }
-                        else
-                        {
-                            MessageBox.Show($"you can select a file only from the directory: {defaultDirectory}", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return null;
-                        }
+
+                        MessageBox.Show($"you can select a file only from the directory: {defaultDirectory}", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return null;
                     }
 
                     if (Program.IsPathInsideDirectory(filePath, defaultDirectory))
@@ -230,9 +228,13 @@ namespace WinBox_Maker
                     return downloadPath;
                 }
             }
-            else if (File.Exists(winBoxConfig.BaseWindowsImage))
+            else
             {
-                return winBoxConfig.BaseWindowsImage;
+                string path = Path.Combine(baseDirectoryPath, winBoxConfig.BaseWindowsImage);
+                if (File.Exists(path))
+                {
+                    return path;
+                }
             }
 
             return null;
