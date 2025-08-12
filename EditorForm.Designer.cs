@@ -31,8 +31,6 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
             WindowsSelect = new Button();
-            WindowsName = new Label();
-            WindowsClear = new Button();
             WindowsVersionSelect = new ComboBox();
             ProcessName = new Label();
             WinboxDescription = new RichTextBox();
@@ -96,6 +94,8 @@
             label14 = new Label();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            label36 = new Label();
+            WindowsName = new TextBox();
             label26 = new Label();
             label16 = new Label();
             tabPage2 = new TabPage();
@@ -227,38 +227,19 @@
             // 
             // WindowsSelect
             // 
-            WindowsSelect.Location = new Point(6, 44);
+            WindowsSelect.Location = new Point(622, 44);
             WindowsSelect.Name = "WindowsSelect";
-            WindowsSelect.Size = new Size(318, 38);
+            WindowsSelect.Size = new Size(114, 31);
             WindowsSelect.TabIndex = 4;
-            WindowsSelect.Text = "Select base windows image";
+            WindowsSelect.Text = "From file";
             WindowsSelect.UseVisualStyleBackColor = true;
             WindowsSelect.Click += WindowsSelect_Click;
-            // 
-            // WindowsName
-            // 
-            WindowsName.AutoSize = true;
-            WindowsName.Location = new Point(453, 51);
-            WindowsName.Name = "WindowsName";
-            WindowsName.Size = new Size(178, 25);
-            WindowsName.TabIndex = 5;
-            WindowsName.Text = "base windows image";
-            // 
-            // WindowsClear
-            // 
-            WindowsClear.Location = new Point(330, 44);
-            WindowsClear.Name = "WindowsClear";
-            WindowsClear.Size = new Size(117, 38);
-            WindowsClear.TabIndex = 6;
-            WindowsClear.Text = "Clear";
-            WindowsClear.UseVisualStyleBackColor = true;
-            WindowsClear.Click += WindowsClear_Click;
             // 
             // WindowsVersionSelect
             // 
             WindowsVersionSelect.DropDownStyle = ComboBoxStyle.DropDownList;
             WindowsVersionSelect.FormattingEnabled = true;
-            WindowsVersionSelect.Location = new Point(6, 88);
+            WindowsVersionSelect.Location = new Point(6, 81);
             WindowsVersionSelect.Name = "WindowsVersionSelect";
             WindowsVersionSelect.Size = new Size(318, 33);
             WindowsVersionSelect.TabIndex = 7;
@@ -317,7 +298,7 @@
             // WindowsDescription
             // 
             WindowsDescription.BackColor = SystemColors.Window;
-            WindowsDescription.Location = new Point(6, 166);
+            WindowsDescription.Location = new Point(6, 159);
             WindowsDescription.Name = "WindowsDescription";
             WindowsDescription.ReadOnly = true;
             WindowsDescription.Size = new Size(318, 118);
@@ -873,7 +854,7 @@
             // 
             ArchitectureSelect.DropDownStyle = ComboBoxStyle.DropDownList;
             ArchitectureSelect.FormattingEnabled = true;
-            ArchitectureSelect.Location = new Point(6, 127);
+            ArchitectureSelect.Location = new Point(6, 120);
             ArchitectureSelect.Name = "ArchitectureSelect";
             ArchitectureSelect.Size = new Size(318, 33);
             ArchitectureSelect.TabIndex = 37;
@@ -882,7 +863,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(330, 130);
+            label14.Location = new Point(330, 123);
             label14.Name = "label14";
             label14.Size = new Size(551, 25);
             label14.TabIndex = 38;
@@ -904,11 +885,13 @@
             tabControl1.Location = new Point(12, 63);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(959, 385);
+            tabControl1.Size = new Size(1026, 385);
             tabControl1.TabIndex = 39;
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label36);
+            tabPage1.Controls.Add(WindowsName);
             tabPage1.Controls.Add(label26);
             tabPage1.Controls.Add(label16);
             tabPage1.Controls.Add(label1);
@@ -917,20 +900,36 @@
             tabPage1.Controls.Add(ArchitectureSelect);
             tabPage1.Controls.Add(WindowsSelect);
             tabPage1.Controls.Add(WindowsVersionSelect);
-            tabPage1.Controls.Add(WindowsClear);
-            tabPage1.Controls.Add(WindowsName);
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(951, 347);
+            tabPage1.Size = new Size(1018, 347);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "base";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label36
+            // 
+            label36.AutoSize = true;
+            label36.Location = new Point(742, 47);
+            label36.Name = "label36";
+            label36.Size = new Size(264, 25);
+            label36.TabIndex = 42;
+            label36.Text = "the path or URL to the base ISO";
+            // 
+            // WindowsName
+            // 
+            WindowsName.Location = new Point(6, 44);
+            WindowsName.Name = "WindowsName";
+            WindowsName.Size = new Size(610, 31);
+            WindowsName.TabIndex = 41;
+            WindowsName.TextChanged += WindowsName_TextChanged;
+            WindowsName.Leave += WindowsName_Leave;
+            // 
             // label26
             // 
             label26.AutoSize = true;
-            label26.Location = new Point(330, 91);
+            label26.Location = new Point(330, 84);
             label26.Name = "label26";
             label26.Size = new Size(438, 25);
             label26.TabIndex = 40;
@@ -953,7 +952,7 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(951, 347);
+            tabPage2.Size = new Size(1018, 347);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "description";
             tabPage2.UseVisualStyleBackColor = true;
@@ -967,7 +966,7 @@
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(951, 347);
+            tabPage3.Size = new Size(1018, 347);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "app";
             tabPage3.UseVisualStyleBackColor = true;
@@ -1024,7 +1023,7 @@
             tabPage4.Location = new Point(4, 34);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(951, 347);
+            tabPage4.Size = new Size(1018, 347);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "settings";
             tabPage4.UseVisualStyleBackColor = true;
@@ -1038,7 +1037,7 @@
             tabPage5.Location = new Point(4, 34);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
-            tabPage5.Size = new Size(951, 347);
+            tabPage5.Size = new Size(1018, 347);
             tabPage5.TabIndex = 4;
             tabPage5.Text = "post install";
             tabPage5.UseVisualStyleBackColor = true;
@@ -1152,7 +1151,7 @@
             tabPage6.Location = new Point(4, 34);
             tabPage6.Name = "tabPage6";
             tabPage6.Padding = new Padding(3);
-            tabPage6.Size = new Size(951, 347);
+            tabPage6.Size = new Size(1018, 347);
             tabPage6.TabIndex = 5;
             tabPage6.Text = "activation";
             tabPage6.UseVisualStyleBackColor = true;
@@ -1164,7 +1163,7 @@
             tabPage7.Location = new Point(4, 34);
             tabPage7.Name = "tabPage7";
             tabPage7.Padding = new Padding(3);
-            tabPage7.Size = new Size(951, 347);
+            tabPage7.Size = new Size(1018, 347);
             tabPage7.TabIndex = 6;
             tabPage7.Text = "winbox service";
             tabPage7.UseVisualStyleBackColor = true;
@@ -1265,7 +1264,7 @@
             tabPage8.Controls.Add(panel8);
             tabPage8.Location = new Point(4, 34);
             tabPage8.Name = "tabPage8";
-            tabPage8.Size = new Size(951, 347);
+            tabPage8.Size = new Size(1018, 347);
             tabPage8.TabIndex = 7;
             tabPage8.Text = "events";
             tabPage8.UseVisualStyleBackColor = true;
@@ -1402,7 +1401,7 @@
             tabPage9.Location = new Point(4, 34);
             tabPage9.Name = "tabPage9";
             tabPage9.Padding = new Padding(3);
-            tabPage9.Size = new Size(951, 347);
+            tabPage9.Size = new Size(1018, 347);
             tabPage9.TabIndex = 8;
             tabPage9.Text = "interpreters";
             tabPage9.UseVisualStyleBackColor = true;
@@ -1456,7 +1455,7 @@
             tabPage10.Controls.Add(BuildItems);
             tabPage10.Location = new Point(4, 34);
             tabPage10.Name = "tabPage10";
-            tabPage10.Size = new Size(951, 347);
+            tabPage10.Size = new Size(1018, 347);
             tabPage10.TabIndex = 9;
             tabPage10.Text = "build";
             tabPage10.UseVisualStyleBackColor = true;
@@ -1731,7 +1730,7 @@
             tabPage11.Location = new Point(4, 34);
             tabPage11.Name = "tabPage11";
             tabPage11.Padding = new Padding(3);
-            tabPage11.Size = new Size(951, 347);
+            tabPage11.Size = new Size(1018, 347);
             tabPage11.TabIndex = 10;
             tabPage11.Text = "downloading";
             tabPage11.UseVisualStyleBackColor = true;
@@ -2006,8 +2005,6 @@
 
         #endregion
         private Button WindowsSelect;
-        private Label WindowsName;
-        private Button WindowsClear;
         private ComboBox WindowsVersionSelect;
         private Label ProcessName;
         private RichTextBox WinboxDescription;
@@ -2167,5 +2164,7 @@
         private Label label35;
         private TabPage bl_cargo;
         private TabPage bl_custom;
+        private TextBox WindowsName;
+        private Label label36;
     }
 }

@@ -37,6 +37,7 @@ namespace WinBox_Maker
 
         public static string? appdataPath;
         public static string? downloadCachePath;
+        public static string? downloadImagesPath;
         public static string? appconfigPath;
 
         static string getAppdataSubdirectory(string subdirectory)
@@ -60,6 +61,7 @@ namespace WinBox_Maker
             if (!Directory.Exists(appdataPath)) Directory.CreateDirectory(appdataPath);
             appconfigPath = Path.Combine(appdataPath, "config.json");
             downloadCachePath = getAppdataSubdirectory("DownloadCache");
+            downloadImagesPath = getAppdataSubdirectory("DownloadImages");
 
             winboxSettings = WinboxMakerConfig.Load();
 
@@ -611,6 +613,45 @@ namespace WinBox_Maker
                 byte[] hashBytes = md5.ComputeHash(inputBytes);
                 return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
             }
+        }
+
+        static public async Task downloadFile(string url, string path, Action<int>? processValue = null)
+        {
+            var tcs = new TaskCompletionSource<bool>();
+
+            using (WebClient wc = new WebClient())
+            {
+                wc.DownloadProgressChanged += (sender, e) =>
+                {
+                    if (processValue != null)
+                    {
+                        processValue(e.ProgressPercentage);
+                    }
+                };
+
+                wc.DownloadFileCompleted += (sender, e) =>
+                {
+                    if (e.Error != null)
+                    {
+                        tcs.SetException(e.Error);
+                    }
+                    else
+                    {
+                        tcs.SetResult(true);
+                    }
+                };
+
+                try
+                {
+                    wc.DownloadFileAsync(new Uri(url), path);
+                }
+                catch (Exception ex)
+                {
+                    tcs.SetException(ex);
+                }
+            }
+
+            await tcs.Task;
         }
     }
 }

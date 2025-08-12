@@ -211,6 +211,32 @@ namespace WinBox_Maker
             }
         }
 
+        async Task<string?> getWindowsImagePath()
+        {
+            if (winBoxConfig.BaseWindowsImage == null) return null;
+
+            if (winBoxConfig.BaseWindowsImage.StartsWith("http://") || winBoxConfig.BaseWindowsImage.StartsWith("https://"))
+            {
+                string downloadPath = Path.Combine(Program.downloadImagesPath, Program.CalculateMD5(winBoxConfig.BaseWindowsImage) + ".iso");
+
+                if (!File.Exists(downloadPath))
+                {
+                    await Program.downloadFile(winBoxConfig.BaseWindowsImage, downloadPath);
+                }
+
+                if (File.Exists(downloadPath))
+                {
+                    return downloadPath;
+                }
+            }
+            else if (File.Exists(winBoxConfig.BaseWindowsImage))
+            {
+                return winBoxConfig.BaseWindowsImage;
+            }
+
+            return null;
+        }
+
         public bool NeedLoadWindows()
         {
             return winBoxConfig.BaseWindowsImage != null && !File.Exists(wimInfoFile);
@@ -218,8 +244,8 @@ namespace WinBox_Maker
 
         public async Task ExtractInstallWim(Action<string> processName, Action<int> processValue)
         {
-            if (winBoxConfig.BaseWindowsImage == null) return;
-            string baseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
+            string? baseWindowsImageFullPath = await getWindowsImagePath();
+            if (baseWindowsImageFullPath == null) return;
 
             processName("Extracting install.wim");
             using (FileStream isoStream = File.Open(baseWindowsImageFullPath, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -261,8 +287,6 @@ namespace WinBox_Maker
 
         public async Task LoadWindowsImageAsync(Action<string> processName, Action<int> processValue)
         {
-            if (winBoxConfig.BaseWindowsImage == null) return;
-
             await ExtractInstallWim(processName, processValue);
 
             if (File.Exists(unpackedWimFile))
@@ -421,42 +445,6 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await RemoveTempFolder("amd_drivers");
         }
 
-        async Task RawDownloadFile(string url, string path, Action<int> processValue)
-        {
-            var tcs = new TaskCompletionSource<bool>();
-
-            using (WebClient wc = new WebClient())
-            {
-                wc.DownloadProgressChanged += (sender, e) =>
-                {
-                    processValue(e.ProgressPercentage);
-                };
-
-                wc.DownloadFileCompleted += (sender, e) =>
-                {
-                    if (e.Error != null)
-                    {
-                        tcs.SetException(e.Error);
-                    }
-                    else
-                    {
-                        tcs.SetResult(true);
-                    }
-                };
-
-                try
-                {
-                    wc.DownloadFileAsync(new Uri(url), path);
-                }
-                catch (Exception ex)
-                {
-                    tcs.SetException(ex);
-                }
-            }
-
-            await tcs.Task;
-        }
-
         public async void BuildCMakeProject(BuildItem buildItem, string cmakeFolder, string output)
         {
             string configuration = buildItem.cmake_configuration;
@@ -529,14 +517,14 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 downloadPath = Path.Combine(Program.downloadCachePath, Program.CalculateMD5(downloadItem.url));
                 if (!File.Exists(downloadPath))
                 {
-                    await RawDownloadFile(downloadItem.url, downloadPath, processValue);
+                    await Program.downloadFile(downloadItem.url, downloadPath, processValue);
                 }
             }
             else
             {
                 needDelete = true;
                 downloadPath = Path.Combine(Program.appdataPath, "last_download");
-                await RawDownloadFile(downloadItem.url, downloadPath, processValue);
+                await Program.downloadFile(downloadItem.url, downloadPath, processValue);
             }
 
             string outputPath = Path.Combine(baseDirectoryPath, downloadItem.path);
@@ -1379,9 +1367,8 @@ if %errorlevel%==0 (
  
         public async Task<bool> BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete=true)
         {
-            if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return false;
-
-            string baseWindowsImageFullPath = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
+            string? baseWindowsImageFullPath = await getWindowsImagePath();
+            if (baseWindowsImageFullPath == null) return false;
 
             processName("Unpacking the iso");
             string[] unpackBlacklist = { "sources\\install.wim" };
@@ -1425,17 +1412,14 @@ if %errorlevel%==0 (
 
         public async Task BuildWimAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
         {
-            if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
-
-            await MakeModWim(processName, processValue, newWindowsDescription, exportPath, null);
-
-            await CompleteExport(processName, processValue, exportPath);
+            if (await MakeModWim(processName, processValue, newWindowsDescription, exportPath, null))
+            {
+                await CompleteExport(processName, processValue, exportPath);
+            }
         }
 
         public async Task __BuildImgAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
         {
-            if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
-
             await MakeModWim(processName, processValue, newWindowsDescription, newWimFile, exportPath);
 
             processName("Deleting temp install.wim");
@@ -1450,8 +1434,6 @@ if %errorlevel%==0 (
 
         public async Task BuildImgAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
         {
-            if (winBoxConfig.BaseWindowsImage == null || winBoxConfig.BaseWindowsVersion == null) return;
-
             string tempIsoPath = Path.Combine(tempDirectoryPath, "temp.iso");
 
             bool showComplete = true;

@@ -24,6 +24,7 @@ namespace WinBox_Maker
         DownloadItem? currentDownloadItem;
         BuildItem? currentBuildItem;
         bool guiEventsLock = false;
+        bool loadingWindowsTask = false;
 
         public EditorForm(WinBoxProject winBoxProject)
         {
@@ -238,11 +239,15 @@ namespace WinBox_Maker
 
         async void LoadWindowsTask()
         {
+            if (loadingWindowsTask) return;
+
+            loadingWindowsTask = true;
             LockForm();
             await winBoxProject.LoadWindowsImageAsync(UpdateProcessName, UpdateProcessValue);
             UnlockForm();
             UpdateWindowsVersionsList();
             UpdateGui();
+            loadingWindowsTask = false;
         }
 
         private async void ExportIsoInstaller_Click(object sender, EventArgs e)
@@ -336,6 +341,26 @@ namespace WinBox_Maker
             }
         }
 
+        private void WindowsName_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.UnloadWindowsImage();
+            WindowsVersionSelect.Items.Clear();
+            winBoxProject.winBoxConfig.BaseWindowsImage = WindowsName.Text;
+            winBoxProject.winBoxConfig.BaseWindowsVersion = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void WindowsName_Leave(object sender, EventArgs e)
+        {
+            if (guiEventsLock || loadingWindowsTask) return;
+
+            LoadWindowsTask();
+        }
+
+        /*
         private void WindowsClear_Click(object sender, EventArgs e)
         {
             winBoxProject.UnloadWindowsImage();
@@ -345,6 +370,7 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
             UpdateGui();
         }
+        */
 
         private void WindowsVersionSelect_TextChanged(object sender, EventArgs e)
         {
@@ -1124,7 +1150,7 @@ namespace WinBox_Maker
         private void pythonVersionsUpdate_Click(object sender, EventArgs e)
         {
             ClearPythonList();
-            
+
         }
 
         private void pythonVersion_TextChanged(object sender, EventArgs e)
