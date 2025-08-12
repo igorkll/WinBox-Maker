@@ -171,13 +171,12 @@ namespace WinBox_Maker
                             return Path.GetRelativePath(defaultDirectory, filePath);
                         }
 
-                        result = MessageBox.Show("the file is not in the project directory, it must be copied to the project in order to use it. do you want to copy the file?", "copy the file?", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                        result = MessageBox.Show("the file is not in the project directory, it must be copied to the project in order to use it. do you want to copy the file?", "copy the file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes)
                         {
                             processName("Copying a resource file");
-                            string projectFolderToCopy = Path.GetRelativePath(baseDirectoryPath, defaultDirectory);
-                            await Program.CopyFileAsync(filePath, Path.Combine(baseDirectoryPath, projectFolderToCopy, fileName), processValue);
-                            return Path.Combine(projectFolderToCopy, fileName);
+                            await Program.CopyFileAsync(filePath, Path.Combine(defaultDirectory, fileName), processValue);
+                            return fileName;
                         }
 
                         return null;
