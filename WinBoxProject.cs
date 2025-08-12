@@ -163,6 +163,7 @@ namespace WinBox_Maker
                     string filePath = openFileDialog.FileName;
                     string fileName = Path.GetFileName(filePath);
 
+                    DialogResult result;
                     if (onlyDefaultDirectory)
                     {
                         if (Program.IsPathInsideDirectory(filePath, defaultDirectory))
@@ -170,16 +171,24 @@ namespace WinBox_Maker
                             return Path.GetRelativePath(defaultDirectory, filePath);
                         }
 
-                        MessageBox.Show($"you can select a file only from the directory: {defaultDirectory}", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        result = MessageBox.Show("the file is not in the project directory, it must be copied to the project in order to use it. do you want to copy the file?", "copy the file?", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                        if (result == DialogResult.Yes)
+                        {
+                            processName("Copying a resource file");
+                            string projectFolderToCopy = Path.GetRelativePath(baseDirectoryPath, defaultDirectory);
+                            await Program.CopyFileAsync(filePath, Path.Combine(baseDirectoryPath, projectFolderToCopy, fileName), processValue);
+                            return Path.Combine(projectFolderToCopy, fileName);
+                        }
+
                         return null;
                     }
 
                     if (Program.IsPathInsideDirectory(filePath, defaultDirectory))
                     {
-                        return Path.Combine(defaultDirectory, fileName);
+                        return Path.GetRelativePath(baseDirectoryPath, filePath);
                     }
 
-                    DialogResult result = MessageBox.Show("the file is not located in the project's directory, if you use it like this, then the project config will have the absolute path to the file, which will make it impossible to build on another computer. do you want to copy the file so that you don't have to use an absolute path?", "copy the file?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    result = MessageBox.Show("the file is not located in the project directory, if you use it like this, then the project config will have the absolute path to the file, which will make it impossible to build on another computer. do you want to copy the file so that you don't have to use an absolute path?", "copy the file?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
                         processName("Copying a resource file");
