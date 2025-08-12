@@ -211,7 +211,7 @@ namespace WinBox_Maker
             }
         }
 
-        async Task<string?> getWindowsImagePath()
+        async Task<string?> getWindowsImagePath(Action<string>? processName = null, Action<int>? processValue=null)
         {
             if (winBoxConfig.BaseWindowsImage == null) return null;
 
@@ -221,7 +221,8 @@ namespace WinBox_Maker
 
                 if (!File.Exists(downloadPath))
                 {
-                    await Program.downloadFile(winBoxConfig.BaseWindowsImage, downloadPath);
+                    processName("Downloading a windows image by url");
+                    await Program.downloadFile(winBoxConfig.BaseWindowsImage, downloadPath, processValue);
                 }
 
                 if (File.Exists(downloadPath))
@@ -244,7 +245,7 @@ namespace WinBox_Maker
 
         public async Task ExtractInstallWim(Action<string> processName, Action<int> processValue)
         {
-            string? baseWindowsImageFullPath = await getWindowsImagePath();
+            string? baseWindowsImageFullPath = await getWindowsImagePath(processName, processValue);
             if (baseWindowsImageFullPath == null) return;
 
             processName("Extracting install.wim");
