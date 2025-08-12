@@ -138,6 +138,8 @@ namespace WinBox_Maker
                 bl_title.Text = buildItem.name ?? "";
                 bl_path.Text = buildItem.msbuild_path ?? "";
                 bl_conf.Text = buildItem.msbuild_configuration ?? "";
+                cmake_path.Text = buildItem.cmake_path ?? "";
+                cmake_configuration.Text = buildItem.cmake_configuration ?? "";
                 bl_tabcontrol.SelectedIndex = (int)currentBuildItem.type;
                 bl_folder.Text = buildItem.subdirectory ?? "";
                 bl_folder_enable.CheckState = buildItem.subdirectory_enabled == true ? CheckState.Checked : CheckState.Unchecked;
@@ -401,19 +403,12 @@ namespace WinBox_Maker
             guiEventsLock = false;
         }
 
-        void UpdateCurrentPythonVersion()
-        {
-            guiEventsLock = true;
-            pythonVersion.Text = winBoxProject.winBoxConfig.pythonVersion ?? "none";
-            if (pythonVersion.Text == "") pythonVersion.Text = "none";
-            guiEventsLock = false;
-        }
-
         void UpdateGui()
         {
-            UpdateCurrentPythonVersion();
-
             guiEventsLock = true;
+
+            pythonVersion.Text = winBoxProject.winBoxConfig.pythonVersion ?? "none";
+
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
             ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
 
@@ -1129,7 +1124,7 @@ namespace WinBox_Maker
         private void pythonVersionsUpdate_Click(object sender, EventArgs e)
         {
             ClearPythonList();
-            UpdateCurrentPythonVersion();
+            
         }
 
         private void pythonVersion_TextChanged(object sender, EventArgs e)
@@ -1387,6 +1382,42 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             currentBuildItem.subdirectory_enabled = bl_folder_enable.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void cmake_path_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            currentBuildItem.cmake_path = cmake_path.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private async void cmake_path_select_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue,
+                "CMake project (*.txt)|*.txt|All files (*.*)|*.*",
+                winBoxProject.sourcesDirectoryPath,
+                true
+            );
+            if (name != null)
+            {
+                currentBuildItem.cmake_path = name;
+                guiEventsLock = true;
+                cmake_path.Text = currentBuildItem.cmake_path;
+                guiEventsLock = false;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void cmake_path_clear_Click(object sender, EventArgs e)
+        {
+            currentBuildItem.cmake_path = "";
+            guiEventsLock = true;
+            cmake_path.Text = "";
+            guiEventsLock = false;
             winBoxProject.SaveConfig();
         }
     }

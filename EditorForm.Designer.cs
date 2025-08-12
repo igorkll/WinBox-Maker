@@ -161,6 +161,14 @@
             label32 = new Label();
             bl_conf = new TextBox();
             bl_cmake = new TabPage();
+            cmake_path_clear = new Button();
+            cmake_path = new TextBox();
+            cmake_path_select = new Button();
+            cmake_configuration = new TextBox();
+            label34 = new Label();
+            label35 = new Label();
+            bl_cargo = new TabPage();
+            bl_custom = new TabPage();
             buildEnabled = new CheckBox();
             addBuild = new Button();
             BuildItems = new CheckedListBox();
@@ -211,6 +219,7 @@
             bl_panel.SuspendLayout();
             bl_tabcontrol.SuspendLayout();
             bl_msbuild.SuspendLayout();
+            bl_cmake.SuspendLayout();
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -1516,6 +1525,8 @@
             // 
             bl_tabcontrol.Controls.Add(bl_msbuild);
             bl_tabcontrol.Controls.Add(bl_cmake);
+            bl_tabcontrol.Controls.Add(bl_cargo);
+            bl_tabcontrol.Controls.Add(bl_custom);
             bl_tabcontrol.Location = new Point(3, 42);
             bl_tabcontrol.Name = "bl_tabcontrol";
             bl_tabcontrol.SelectedIndex = 0;
@@ -1595,6 +1606,12 @@
             // 
             // bl_cmake
             // 
+            bl_cmake.Controls.Add(cmake_path_clear);
+            bl_cmake.Controls.Add(cmake_path);
+            bl_cmake.Controls.Add(cmake_path_select);
+            bl_cmake.Controls.Add(cmake_configuration);
+            bl_cmake.Controls.Add(label34);
+            bl_cmake.Controls.Add(label35);
             bl_cmake.Location = new Point(4, 34);
             bl_cmake.Name = "bl_cmake";
             bl_cmake.Padding = new Padding(3);
@@ -1602,6 +1619,77 @@
             bl_cmake.TabIndex = 1;
             bl_cmake.Text = "cmake";
             bl_cmake.UseVisualStyleBackColor = true;
+            // 
+            // cmake_path_clear
+            // 
+            cmake_path_clear.Location = new Point(435, 6);
+            cmake_path_clear.Name = "cmake_path_clear";
+            cmake_path_clear.Size = new Size(85, 31);
+            cmake_path_clear.TabIndex = 48;
+            cmake_path_clear.Text = "clear";
+            cmake_path_clear.UseVisualStyleBackColor = true;
+            cmake_path_clear.Click += cmake_path_clear_Click;
+            // 
+            // cmake_path
+            // 
+            cmake_path.Location = new Point(6, 6);
+            cmake_path.Name = "cmake_path";
+            cmake_path.Size = new Size(334, 31);
+            cmake_path.TabIndex = 45;
+            cmake_path.TextChanged += cmake_path_TextChanged;
+            // 
+            // cmake_path_select
+            // 
+            cmake_path_select.Location = new Point(346, 6);
+            cmake_path_select.Name = "cmake_path_select";
+            cmake_path_select.Size = new Size(85, 31);
+            cmake_path_select.TabIndex = 47;
+            cmake_path_select.Text = "select";
+            cmake_path_select.UseVisualStyleBackColor = true;
+            cmake_path_select.Click += cmake_path_select_Click;
+            // 
+            // cmake_configuration
+            // 
+            cmake_configuration.Location = new Point(6, 43);
+            cmake_configuration.Name = "cmake_configuration";
+            cmake_configuration.Size = new Size(150, 31);
+            cmake_configuration.TabIndex = 43;
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Location = new Point(526, 9);
+            label34.Name = "label34";
+            label34.Size = new Size(48, 25);
+            label34.TabIndex = 46;
+            label34.Text = "path";
+            // 
+            // label35
+            // 
+            label35.AutoSize = true;
+            label35.Location = new Point(162, 46);
+            label35.Name = "label35";
+            label35.Size = new Size(121, 25);
+            label35.TabIndex = 44;
+            label35.Text = "Configuration";
+            // 
+            // bl_cargo
+            // 
+            bl_cargo.Location = new Point(4, 34);
+            bl_cargo.Name = "bl_cargo";
+            bl_cargo.Size = new Size(593, 157);
+            bl_cargo.TabIndex = 2;
+            bl_cargo.Text = "cargo";
+            bl_cargo.UseVisualStyleBackColor = true;
+            // 
+            // bl_custom
+            // 
+            bl_custom.Location = new Point(4, 34);
+            bl_custom.Name = "bl_custom";
+            bl_custom.Size = new Size(593, 157);
+            bl_custom.TabIndex = 3;
+            bl_custom.Text = "custom";
+            bl_custom.UseVisualStyleBackColor = true;
             // 
             // buildEnabled
             // 
@@ -1905,6 +1993,8 @@
             bl_tabcontrol.ResumeLayout(false);
             bl_msbuild.ResumeLayout(false);
             bl_msbuild.PerformLayout();
+            bl_cmake.ResumeLayout(false);
+            bl_cmake.PerformLayout();
             tabPage11.ResumeLayout(false);
             tabPage11.PerformLayout();
             dl_panel.ResumeLayout(false);
@@ -2069,5 +2159,13 @@
         private Button bl_delete;
         private TextBox bl_folder;
         private CheckBox bl_folder_enable;
+        private Button cmake_path_clear;
+        private TextBox cmake_path;
+        private Button cmake_path_select;
+        private TextBox cmake_configuration;
+        private Label label34;
+        private Label label35;
+        private TabPage bl_cargo;
+        private TabPage bl_custom;
     }
 }

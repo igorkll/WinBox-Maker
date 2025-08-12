@@ -95,7 +95,7 @@ namespace WinBox_Maker
             if (postbuildEvent == null) postbuildEvent = "";
             if (winmountedEnabled == null) winmountedEnabled = false;
             if (winmountedEvent == null) winmountedEvent = "";
-            if (pythonVersion == null) pythonVersion = "";
+            if (pythonVersion == null) pythonVersion = null;
             if (downloadEnabled == null) downloadEnabled = false;
             if (buildEnabled == null) buildEnabled = false;
             if (DownloadItems == null) DownloadItems = new List<DownloadItem>();
