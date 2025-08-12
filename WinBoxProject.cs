@@ -221,7 +221,7 @@ namespace WinBox_Maker
 
                 if (!File.Exists(downloadPath))
                 {
-                    processName("Downloading a windows image by url");
+                    processName("Downloading a windows image by URL");
                     await Program.downloadFile(winBoxConfig.BaseWindowsImage, downloadPath, processValue);
                 }
 
