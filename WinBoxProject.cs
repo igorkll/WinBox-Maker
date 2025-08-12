@@ -457,8 +457,13 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await tcs.Task;
         }
 
-        public async void BuildCMakeProject(string configuration, string cmakeFolder, string output)
+        public async void BuildCMakeProject(BuildItem buildItem, string cmakeFolder, string output)
         {
+            string configuration = buildItem.cmake_configuration;
+            string architecture = winBoxConfig.Architecture;
+            if (architecture == "arm64") architecture = "ARM64";
+            if (architecture == "x86") architecture = "Win32";
+
             string buildDir = Path.Combine(tempDirectoryPath, "cmake_build");
             if (Directory.Exists(buildDir))
             {
@@ -466,7 +471,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             }
             Directory.CreateDirectory(buildDir);
 
-            await Program.ExecuteAsync(Program.winboxSettings.path_cmake, $"-DCMAKE_BUILD_TYPE=\"{configuration}\" \"{cmakeFolder}\"", buildDir);
+            await Program.ExecuteAsync(Program.winboxSettings.path_cmake, $"-A \"{architecture}\" -DCMAKE_BUILD_TYPE=\"{configuration}\" \"{cmakeFolder}\"", buildDir);
             await Program.ExecuteAsync(Program.winboxSettings.path_cmake, $"--build . --config \"{configuration}\"", buildDir);
             await Program.CopyFilesRecursivelyAsync(Path.Combine(buildDir, configuration), output);
 
@@ -493,10 +498,10 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 case BuildItemType.msbuild:
                     if (Program.winboxSettings.path_msbuild != null)
                     {
-                        string arch = winBoxConfig.Architecture;
-                        if (arch == "arm64") arch = "ARM64";
+                        string architecture = winBoxConfig.Architecture;
+                        if (architecture == "arm64") architecture = "ARM64";
                         await Program.ExecuteAsync(Program.winboxSettings.path_msbuild,
-                            $"\"{Path.Combine(sourcesDirectoryPath, buildItem.msbuild_path)}\" /p:Configuration=\"{buildItem.msbuild_configuration}\" /p:Platform=\"{arch}\" /p:OutputPath=\"{outputDir}\" /p:OutDir=\"{outputDir}\"");
+                            $"\"{Path.Combine(sourcesDirectoryPath, buildItem.msbuild_path)}\" /p:Configuration=\"{buildItem.msbuild_configuration}\" /p:Platform=\"{architecture}\" /p:OutputPath=\"{outputDir}\" /p:OutDir=\"{outputDir}\"");
                         return true;
                     }
                     break;
@@ -504,7 +509,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 case BuildItemType.cmake:
                     if (Program.winboxSettings.path_cmake != null)
                     {
-                        BuildCMakeProject(buildItem.cmake_configuration, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.cmake_path)), outputDir);
+                        BuildCMakeProject(buildItem, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.cmake_path)), outputDir);
                         return true;
                     }
                     break;
