@@ -457,11 +457,28 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await tcs.Task;
         }
 
+        public async void BuildCMakeProject(string configuration, string cmakeFolder, string output)
+        {
+            string buildDir = Path.Combine(tempDirectoryPath, "cmake_build");
+            if (Directory.Exists(buildDir))
+            {
+                Directory.Delete(buildDir, true);
+            }
+            Directory.CreateDirectory(buildDir);
+
+            await Program.ExecuteAsync(Program.winboxSettings.path_cmake, $"-DCMAKE_BUILD_TYPE=\"{configuration}\" \"{cmakeFolder}\"", buildDir);
+            await Program.ExecuteAsync(Program.winboxSettings.path_cmake, $"--build . --config \"{configuration}\"", buildDir);
+            await Program.CopyFilesRecursivelyAsync(Path.Combine(buildDir, configuration), output);
+
+            Directory.Delete(buildDir, true);
+        }
+
         public async Task<bool> BuildUserProject(BuildItem buildItem)
         {
             string outputDir = Path.Combine(tempDirectoryPath, "program");
             if (buildItem.subdirectory_enabled)
             {
+                if (buildItem.subdirectory.Contains("..")) return false;
                 outputDir = Path.Combine(tempDirectoryPath, "program", buildItem.subdirectory ?? "");
             }
             else
@@ -480,6 +497,14 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                         if (arch == "arm64") arch = "ARM64";
                         await Program.ExecuteAsync(Program.winboxSettings.path_msbuild,
                             $"\"{Path.Combine(sourcesDirectoryPath, buildItem.msbuild_path)}\" /p:Configuration=\"{buildItem.msbuild_configuration}\" /p:Platform=\"{arch}\" /p:OutputPath=\"{outputDir}\" /p:OutDir=\"{outputDir}\"");
+                        return true;
+                    }
+                    break;
+
+                case BuildItemType.cmake:
+                    if (Program.winboxSettings.path_cmake != null)
+                    {
+                        BuildCMakeProject(buildItem.cmake_configuration, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.cmake_path)), outputDir);
                         return true;
                     }
                     break;

@@ -345,7 +345,7 @@ namespace WinBox_Maker
             process.WaitForExit();
         }
 
-        public static async Task ExecuteAsync(string exec, string args)
+        public static async Task ExecuteAsync(string exec, string args, string? workingDirectory=null)
         {
             using (Process process = new Process())
             {
@@ -353,6 +353,8 @@ namespace WinBox_Maker
                 process.StartInfo.Arguments = args;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
+                if (workingDirectory != null)
+                    process.StartInfo.WorkingDirectory = workingDirectory;
                 process.Start();
                 await process.WaitForExitAsync();
             }

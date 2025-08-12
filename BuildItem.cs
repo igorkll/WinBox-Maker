@@ -18,9 +18,14 @@ namespace WinBox_Maker
     {
         public string? name { get; set; }
         public BuildItemType? type { get; set; }
-        public string? msbuild_path { get; set; }
-        public string? msbuild_configuration { get; set; }
         public string? subdirectory { get; set; }
         public bool subdirectory_enabled { get; set; }
+
+
+        public string? msbuild_path { get; set; }
+        public string? msbuild_configuration { get; set; }
+
+        public string? cmake_path { get; set; }
+        public string? cmake_configuration { get; set; }
     }
 }

@@ -1273,10 +1273,12 @@ namespace WinBox_Maker
             BuildItem buildItem = new BuildItem();
             buildItem.name = $"build item {winBoxProject.winBoxConfig.BuildItems.Count() + 1}";
             buildItem.type = BuildItemType.msbuild;
-            buildItem.msbuild_path = "";
-            buildItem.msbuild_configuration = "Release";
             buildItem.subdirectory = "";
             buildItem.subdirectory_enabled = false;
+            buildItem.msbuild_path = "";
+            buildItem.msbuild_configuration = "Release";
+            buildItem.cmake_path = "";
+            buildItem.cmake_configuration = "Release";
 
             winBoxProject.winBoxConfig.BuildItems.Add(buildItem);
             winBoxProject.SaveConfig();
