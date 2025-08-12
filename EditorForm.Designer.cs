@@ -925,6 +925,7 @@
             WindowsName.TabIndex = 41;
             WindowsName.TextChanged += WindowsName_TextChanged;
             WindowsName.Leave += WindowsName_Leave;
+            WindowsName.KeyDown += WindowsName_KeyDown;
             // 
             // label26
             // 

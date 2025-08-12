@@ -25,6 +25,7 @@ namespace WinBox_Maker
         BuildItem? currentBuildItem;
         bool guiEventsLock = false;
         bool loadingWindowsTask = false;
+        bool windowsImagePathChanged = false;
 
         public EditorForm(WinBoxProject winBoxProject)
         {
@@ -345,6 +346,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
+            windowsImagePathChanged = true;
             winBoxProject.UnloadWindowsImage();
             WindowsVersionSelect.Items.Clear();
             winBoxProject.winBoxConfig.BaseWindowsImage = WindowsName.Text;
@@ -353,11 +355,29 @@ namespace WinBox_Maker
             UpdateGui();
         }
 
-        private void WindowsName_Leave(object sender, EventArgs e)
+        void windowsReload()
         {
             if (guiEventsLock || loadingWindowsTask) return;
 
-            LoadWindowsTask();
+            if (windowsImagePathChanged)
+            {
+                LoadWindowsTask();
+                windowsImagePathChanged = false;
+            }
+        }
+
+        private void WindowsName_Leave(object sender, EventArgs e)
+        {
+            windowsReload();
+        }
+
+        private void WindowsName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                windowsReload();
+                e.SuppressKeyPress = true; // предотвращает звуковой сигнал при нажатии Enter
+            }
         }
 
         /*
