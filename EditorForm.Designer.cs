@@ -70,7 +70,6 @@
             label3 = new Label();
             label5 = new Label();
             OpenProjectFolder = new Button();
-            label7 = new Label();
             label10 = new Label();
             panel3 = new Panel();
             postinstall_reg = new Label();
@@ -85,7 +84,6 @@
             CustomBootLogo_clear = new Button();
             CustomBootLogo_select = new Button();
             label15 = new Label();
-            panel4 = new Panel();
             CustomBootLogo_centering = new CheckBox();
             label13 = new Label();
             ScreenTimeout = new TextBox();
@@ -116,7 +114,6 @@
             postinstall_user_reg_sel = new Button();
             postinstall_user_bat_clr = new Button();
             label17 = new Label();
-            tabPage6 = new TabPage();
             tabPage7 = new TabPage();
             panel7 = new Panel();
             EmbedDisplayReadme = new Button();
@@ -191,12 +188,16 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
+            tabControl2 = new TabControl();
+            tabPage12 = new TabPage();
+            tabPage13 = new TabPage();
+            tabPage14 = new TabPage();
+            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
-            panel4.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -205,7 +206,6 @@
             tabPage4.SuspendLayout();
             tabPage5.SuspendLayout();
             panel5.SuspendLayout();
-            tabPage6.SuspendLayout();
             tabPage7.SuspendLayout();
             panel7.SuspendLayout();
             panel6.SuspendLayout();
@@ -223,6 +223,10 @@
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabControl2.SuspendLayout();
+            tabPage12.SuspendLayout();
+            tabPage13.SuspendLayout();
+            tabPage14.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -408,25 +412,26 @@
             // 
             panel1.BackColor = SystemColors.Window;
             panel1.BorderStyle = BorderStyle.Fixed3D;
+            panel1.Controls.Add(label7);
             panel1.Controls.Add(OemKey);
             panel1.Controls.Add(UseOemKey);
-            panel1.Location = new Point(6, 44);
+            panel1.Location = new Point(6, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(455, 78);
+            panel1.Size = new Size(487, 108);
             panel1.TabIndex = 26;
             // 
             // OemKey
             // 
-            OemKey.Location = new Point(3, 3);
+            OemKey.Location = new Point(3, 36);
             OemKey.Name = "OemKey";
-            OemKey.Size = new Size(445, 31);
+            OemKey.Size = new Size(477, 31);
             OemKey.TabIndex = 1;
             OemKey.TextChanged += OemKey_TextChanged;
             // 
             // UseOemKey
             // 
             UseOemKey.AutoSize = true;
-            UseOemKey.Location = new Point(3, 40);
+            UseOemKey.Location = new Point(3, 73);
             UseOemKey.Name = "UseOemKey";
             UseOemKey.Size = new Size(347, 29);
             UseOemKey.TabIndex = 0;
@@ -644,17 +649,6 @@
             OpenProjectFolder.UseVisualStyleBackColor = true;
             OpenProjectFolder.Click += OpenProjectFolder_Click;
             // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 14F);
-            label7.Location = new Point(5, 3);
-            label7.Margin = new Padding(4, 0, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(139, 38);
-            label7.TabIndex = 32;
-            label7.Text = "Activation";
-            // 
             // label10
             // 
             label10.AutoSize = true;
@@ -761,7 +755,7 @@
             // CustomBootLogo
             // 
             CustomBootLogo.AutoSize = true;
-            CustomBootLogo.Location = new Point(176, 213);
+            CustomBootLogo.Location = new Point(176, 49);
             CustomBootLogo.Name = "CustomBootLogo";
             CustomBootLogo.Size = new Size(78, 25);
             CustomBootLogo.TabIndex = 11;
@@ -769,7 +763,7 @@
             // 
             // CustomBootLogo_clear
             // 
-            CustomBootLogo_clear.Location = new Point(88, 208);
+            CustomBootLogo_clear.Location = new Point(88, 44);
             CustomBootLogo_clear.Name = "CustomBootLogo_clear";
             CustomBootLogo_clear.Size = new Size(82, 34);
             CustomBootLogo_clear.TabIndex = 10;
@@ -779,7 +773,7 @@
             // 
             // CustomBootLogo_select
             // 
-            CustomBootLogo_select.Location = new Point(3, 208);
+            CustomBootLogo_select.Location = new Point(3, 44);
             CustomBootLogo_select.Name = "CustomBootLogo_select";
             CustomBootLogo_select.Size = new Size(82, 34);
             CustomBootLogo_select.TabIndex = 9;
@@ -790,32 +784,16 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(3, 180);
+            label15.Location = new Point(3, 13);
             label15.Name = "label15";
             label15.Size = new Size(214, 25);
             label15.TabIndex = 8;
             label15.Text = "Custom boot logo (BETA)";
             // 
-            // panel4
-            // 
-            panel4.BackColor = SystemColors.Window;
-            panel4.BorderStyle = BorderStyle.Fixed3D;
-            panel4.Controls.Add(CustomBootLogo_centering);
-            panel4.Controls.Add(CustomBootLogo);
-            panel4.Controls.Add(label15);
-            panel4.Controls.Add(label13);
-            panel4.Controls.Add(CustomBootLogo_clear);
-            panel4.Controls.Add(ScreenTimeout);
-            panel4.Controls.Add(CustomBootLogo_select);
-            panel4.Location = new Point(505, 44);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(314, 284);
-            panel4.TabIndex = 36;
-            // 
             // CustomBootLogo_centering
             // 
             CustomBootLogo_centering.AutoSize = true;
-            CustomBootLogo_centering.Location = new Point(3, 248);
+            CustomBootLogo_centering.Location = new Point(3, 84);
             CustomBootLogo_centering.Name = "CustomBootLogo_centering";
             CustomBootLogo_centering.Size = new Size(111, 29);
             CustomBootLogo_centering.TabIndex = 12;
@@ -826,7 +804,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(120, 6);
+            label13.Location = new Point(123, 10);
             label13.Name = "label13";
             label13.Size = new Size(134, 25);
             label13.TabIndex = 1;
@@ -834,7 +812,7 @@
             // 
             // ScreenTimeout
             // 
-            ScreenTimeout.Location = new Point(3, 3);
+            ScreenTimeout.Location = new Point(6, 7);
             ScreenTimeout.Name = "ScreenTimeout";
             ScreenTimeout.Size = new Size(111, 31);
             ScreenTimeout.TabIndex = 0;
@@ -876,7 +854,6 @@
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(tabPage4);
             tabControl1.Controls.Add(tabPage5);
-            tabControl1.Controls.Add(tabPage6);
             tabControl1.Controls.Add(tabPage7);
             tabControl1.Controls.Add(tabPage8);
             tabControl1.Controls.Add(tabPage9);
@@ -924,8 +901,8 @@
             WindowsName.Size = new Size(610, 31);
             WindowsName.TabIndex = 41;
             WindowsName.TextChanged += WindowsName_TextChanged;
-            WindowsName.Leave += WindowsName_Leave;
             WindowsName.KeyDown += WindowsName_KeyDown;
+            WindowsName.Leave += WindowsName_Leave;
             // 
             // label26
             // 
@@ -1018,9 +995,9 @@
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(tabControl2);
             tabPage4.Controls.Add(TweakList);
             tabPage4.Controls.Add(label5);
-            tabPage4.Controls.Add(panel4);
             tabPage4.Location = new Point(4, 34);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
@@ -1144,18 +1121,6 @@
             label17.Size = new Size(172, 38);
             label17.TabIndex = 36;
             label17.Text = "Winbox user";
-            // 
-            // tabPage6
-            // 
-            tabPage6.Controls.Add(label7);
-            tabPage6.Controls.Add(panel1);
-            tabPage6.Location = new Point(4, 34);
-            tabPage6.Name = "tabPage6";
-            tabPage6.Padding = new Padding(3);
-            tabPage6.Size = new Size(1018, 347);
-            tabPage6.TabIndex = 5;
-            tabPage6.Text = "activation";
-            tabPage6.UseVisualStyleBackColor = true;
             // 
             // tabPage7
             // 
@@ -1916,6 +1881,63 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
+            // tabControl2
+            // 
+            tabControl2.Controls.Add(tabPage14);
+            tabControl2.Controls.Add(tabPage12);
+            tabControl2.Controls.Add(tabPage13);
+            tabControl2.Location = new Point(505, 44);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new Size(507, 284);
+            tabControl2.TabIndex = 37;
+            // 
+            // tabPage12
+            // 
+            tabPage12.Controls.Add(ScreenTimeout);
+            tabPage12.Controls.Add(label13);
+            tabPage12.Location = new Point(4, 34);
+            tabPage12.Name = "tabPage12";
+            tabPage12.Padding = new Padding(3);
+            tabPage12.Size = new Size(499, 246);
+            tabPage12.TabIndex = 0;
+            tabPage12.Text = "power management";
+            tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // tabPage13
+            // 
+            tabPage13.Controls.Add(panel1);
+            tabPage13.Location = new Point(4, 34);
+            tabPage13.Name = "tabPage13";
+            tabPage13.Padding = new Padding(3);
+            tabPage13.Size = new Size(499, 246);
+            tabPage13.TabIndex = 1;
+            tabPage13.Text = "activation";
+            tabPage13.UseVisualStyleBackColor = true;
+            // 
+            // tabPage14
+            // 
+            tabPage14.Controls.Add(CustomBootLogo_centering);
+            tabPage14.Controls.Add(label15);
+            tabPage14.Controls.Add(CustomBootLogo);
+            tabPage14.Controls.Add(CustomBootLogo_select);
+            tabPage14.Controls.Add(CustomBootLogo_clear);
+            tabPage14.Location = new Point(4, 34);
+            tabPage14.Name = "tabPage14";
+            tabPage14.Size = new Size(499, 246);
+            tabPage14.TabIndex = 2;
+            tabPage14.Text = "boot";
+            tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(3, 5);
+            label7.Name = "label7";
+            label7.Size = new Size(219, 25);
+            label7.TabIndex = 2;
+            label7.Text = "activation by the OEM key";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -1952,8 +1974,6 @@
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
@@ -1969,8 +1989,6 @@
             tabPage5.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
-            tabPage6.ResumeLayout(false);
-            tabPage6.PerformLayout();
             tabPage7.ResumeLayout(false);
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
@@ -2000,6 +2018,12 @@
             dl_panel.ResumeLayout(false);
             dl_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabControl2.ResumeLayout(false);
+            tabPage12.ResumeLayout(false);
+            tabPage12.PerformLayout();
+            tabPage13.ResumeLayout(false);
+            tabPage14.ResumeLayout(false);
+            tabPage14.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2038,7 +2062,6 @@
         private Label label6;
         private Button OpenProjectFolder;
         private RadioButton ProgramType_WebSite;
-        private Label label7;
         private TextBox WebSite;
         private Label label8;
         private TextBox WebSessionTimeout;
@@ -2054,7 +2077,6 @@
         private Button postinstall_reg_clr;
         private Label postinstall_reg;
         private Label postinstall_bat;
-        private Panel panel4;
         private Label label13;
         private TextBox ScreenTimeout;
         private ComboBox ArchitectureSelect;
@@ -2070,7 +2092,6 @@
         private TabPage tabPage3;
         private TabPage tabPage4;
         private TabPage tabPage5;
-        private TabPage tabPage6;
         private Label label16;
         private Label label17;
         private Panel panel5;
@@ -2167,5 +2188,10 @@
         private TabPage bl_custom;
         private TextBox WindowsName;
         private Label label36;
+        private TabControl tabControl2;
+        private TabPage tabPage12;
+        private TabPage tabPage13;
+        private TabPage tabPage14;
+        private Label label7;
     }
 }
