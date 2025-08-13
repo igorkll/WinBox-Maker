@@ -141,6 +141,7 @@ namespace WinBox_Maker
                 bl_path.Text = buildItem.msbuild_path ?? "";
                 bl_conf.Text = buildItem.msbuild_configuration ?? "";
                 cmake_path.Text = buildItem.cmake_path ?? "";
+                cargo_path.Text = buildItem.cargo_path ?? "";
                 cmake_configuration.Text = buildItem.cmake_configuration ?? "";
                 bl_tabcontrol.SelectedIndex = (int)currentBuildItem.type;
                 bl_folder.Text = buildItem.subdirectory ?? "";
