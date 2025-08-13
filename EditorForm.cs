@@ -1466,5 +1466,41 @@ namespace WinBox_Maker
             guiEventsLock = false;
             winBoxProject.SaveConfig();
         }
+
+        private void cargo_path_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            currentBuildItem.cargo_path = cargo_path.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private async void cargo_path_select_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue,
+                "Cargo project (*.toml)|*.toml|All files (*.*)|*.*",
+                winBoxProject.sourcesDirectoryPath,
+                true
+            );
+            if (name != null)
+            {
+                currentBuildItem.cargo_path = name;
+                guiEventsLock = true;
+                cargo_path.Text = currentBuildItem.cargo_path;
+                guiEventsLock = false;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void cargo_path_clear_Click(object sender, EventArgs e)
+        {
+            currentBuildItem.cargo_path = "";
+            guiEventsLock = true;
+            cargo_path.Text = "";
+            guiEventsLock = false;
+            winBoxProject.SaveConfig();
+        }
     }
 }

@@ -27,5 +27,8 @@ namespace WinBox_Maker
 
         public string? cmake_path { get; set; }
         public string? cmake_configuration { get; set; }
+
+
+        public string? cargo_path { get; set; }
     }
 }

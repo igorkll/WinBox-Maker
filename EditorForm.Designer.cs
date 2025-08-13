@@ -48,6 +48,7 @@
             LICENSE = new Button();
             ExportImg = new Button();
             panel1 = new Panel();
+            label7 = new Label();
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
             panel2 = new Panel();
@@ -103,6 +104,10 @@
             afterDesktop = new RadioButton();
             insteadDesktop = new RadioButton();
             tabPage4 = new TabPage();
+            tabControl2 = new TabControl();
+            tabPage14 = new TabPage();
+            tabPage12 = new TabPage();
+            tabPage13 = new TabPage();
             tabPage5 = new TabPage();
             panel5 = new Panel();
             postinstall_user_reg = new Label();
@@ -165,6 +170,10 @@
             label34 = new Label();
             label35 = new Label();
             bl_cargo = new TabPage();
+            cargo_path_clear = new Button();
+            cargo_path = new TextBox();
+            label37 = new Label();
+            cargo_path_select = new Button();
             bl_custom = new TabPage();
             buildEnabled = new CheckBox();
             addBuild = new Button();
@@ -188,11 +197,6 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
-            tabControl2 = new TabControl();
-            tabPage12 = new TabPage();
-            tabPage13 = new TabPage();
-            tabPage14 = new TabPage();
-            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -204,6 +208,10 @@
             tabPage3.SuspendLayout();
             panel12.SuspendLayout();
             tabPage4.SuspendLayout();
+            tabControl2.SuspendLayout();
+            tabPage14.SuspendLayout();
+            tabPage12.SuspendLayout();
+            tabPage13.SuspendLayout();
             tabPage5.SuspendLayout();
             panel5.SuspendLayout();
             tabPage7.SuspendLayout();
@@ -220,13 +228,10 @@
             bl_tabcontrol.SuspendLayout();
             bl_msbuild.SuspendLayout();
             bl_cmake.SuspendLayout();
+            bl_cargo.SuspendLayout();
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabControl2.SuspendLayout();
-            tabPage12.SuspendLayout();
-            tabPage13.SuspendLayout();
-            tabPage14.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -419,6 +424,15 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(487, 108);
             panel1.TabIndex = 26;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(3, 5);
+            label7.Name = "label7";
+            label7.Size = new Size(219, 25);
+            label7.TabIndex = 2;
+            label7.Text = "activation by the OEM key";
             // 
             // OemKey
             // 
@@ -1005,6 +1019,54 @@
             tabPage4.TabIndex = 3;
             tabPage4.Text = "settings";
             tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabControl2
+            // 
+            tabControl2.Controls.Add(tabPage14);
+            tabControl2.Controls.Add(tabPage12);
+            tabControl2.Controls.Add(tabPage13);
+            tabControl2.Location = new Point(505, 44);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new Size(507, 284);
+            tabControl2.TabIndex = 37;
+            // 
+            // tabPage14
+            // 
+            tabPage14.Controls.Add(CustomBootLogo_centering);
+            tabPage14.Controls.Add(label15);
+            tabPage14.Controls.Add(CustomBootLogo);
+            tabPage14.Controls.Add(CustomBootLogo_select);
+            tabPage14.Controls.Add(CustomBootLogo_clear);
+            tabPage14.Location = new Point(4, 34);
+            tabPage14.Name = "tabPage14";
+            tabPage14.Size = new Size(499, 246);
+            tabPage14.TabIndex = 2;
+            tabPage14.Text = "boot";
+            tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // tabPage12
+            // 
+            tabPage12.Controls.Add(ScreenTimeout);
+            tabPage12.Controls.Add(label13);
+            tabPage12.Location = new Point(4, 34);
+            tabPage12.Name = "tabPage12";
+            tabPage12.Padding = new Padding(3);
+            tabPage12.Size = new Size(499, 246);
+            tabPage12.TabIndex = 0;
+            tabPage12.Text = "power management";
+            tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // tabPage13
+            // 
+            tabPage13.Controls.Add(panel1);
+            tabPage13.Location = new Point(4, 34);
+            tabPage13.Name = "tabPage13";
+            tabPage13.Padding = new Padding(3);
+            tabPage13.Size = new Size(499, 246);
+            tabPage13.TabIndex = 1;
+            tabPage13.Text = "activation";
+            tabPage13.UseVisualStyleBackColor = true;
             // 
             // tabPage5
             // 
@@ -1640,12 +1702,53 @@
             // 
             // bl_cargo
             // 
+            bl_cargo.Controls.Add(cargo_path_clear);
+            bl_cargo.Controls.Add(cargo_path);
+            bl_cargo.Controls.Add(label37);
+            bl_cargo.Controls.Add(cargo_path_select);
             bl_cargo.Location = new Point(4, 34);
             bl_cargo.Name = "bl_cargo";
             bl_cargo.Size = new Size(593, 157);
             bl_cargo.TabIndex = 2;
             bl_cargo.Text = "cargo";
             bl_cargo.UseVisualStyleBackColor = true;
+            // 
+            // cargo_path_clear
+            // 
+            cargo_path_clear.Location = new Point(435, 6);
+            cargo_path_clear.Name = "cargo_path_clear";
+            cargo_path_clear.Size = new Size(85, 31);
+            cargo_path_clear.TabIndex = 52;
+            cargo_path_clear.Text = "clear";
+            cargo_path_clear.UseVisualStyleBackColor = true;
+            cargo_path_clear.Click += cargo_path_clear_Click;
+            // 
+            // cargo_path
+            // 
+            cargo_path.Location = new Point(6, 6);
+            cargo_path.Name = "cargo_path";
+            cargo_path.Size = new Size(334, 31);
+            cargo_path.TabIndex = 49;
+            cargo_path.TextChanged += cargo_path_TextChanged;
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Location = new Point(526, 9);
+            label37.Name = "label37";
+            label37.Size = new Size(48, 25);
+            label37.TabIndex = 50;
+            label37.Text = "path";
+            // 
+            // cargo_path_select
+            // 
+            cargo_path_select.Location = new Point(346, 6);
+            cargo_path_select.Name = "cargo_path_select";
+            cargo_path_select.Size = new Size(85, 31);
+            cargo_path_select.TabIndex = 51;
+            cargo_path_select.Text = "select";
+            cargo_path_select.UseVisualStyleBackColor = true;
+            cargo_path_select.Click += cargo_path_select_Click;
             // 
             // bl_custom
             // 
@@ -1881,63 +1984,6 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
-            // tabControl2
-            // 
-            tabControl2.Controls.Add(tabPage14);
-            tabControl2.Controls.Add(tabPage12);
-            tabControl2.Controls.Add(tabPage13);
-            tabControl2.Location = new Point(505, 44);
-            tabControl2.Name = "tabControl2";
-            tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(507, 284);
-            tabControl2.TabIndex = 37;
-            // 
-            // tabPage12
-            // 
-            tabPage12.Controls.Add(ScreenTimeout);
-            tabPage12.Controls.Add(label13);
-            tabPage12.Location = new Point(4, 34);
-            tabPage12.Name = "tabPage12";
-            tabPage12.Padding = new Padding(3);
-            tabPage12.Size = new Size(499, 246);
-            tabPage12.TabIndex = 0;
-            tabPage12.Text = "power management";
-            tabPage12.UseVisualStyleBackColor = true;
-            // 
-            // tabPage13
-            // 
-            tabPage13.Controls.Add(panel1);
-            tabPage13.Location = new Point(4, 34);
-            tabPage13.Name = "tabPage13";
-            tabPage13.Padding = new Padding(3);
-            tabPage13.Size = new Size(499, 246);
-            tabPage13.TabIndex = 1;
-            tabPage13.Text = "activation";
-            tabPage13.UseVisualStyleBackColor = true;
-            // 
-            // tabPage14
-            // 
-            tabPage14.Controls.Add(CustomBootLogo_centering);
-            tabPage14.Controls.Add(label15);
-            tabPage14.Controls.Add(CustomBootLogo);
-            tabPage14.Controls.Add(CustomBootLogo_select);
-            tabPage14.Controls.Add(CustomBootLogo_clear);
-            tabPage14.Location = new Point(4, 34);
-            tabPage14.Name = "tabPage14";
-            tabPage14.Size = new Size(499, 246);
-            tabPage14.TabIndex = 2;
-            tabPage14.Text = "boot";
-            tabPage14.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(3, 5);
-            label7.Name = "label7";
-            label7.Size = new Size(219, 25);
-            label7.TabIndex = 2;
-            label7.Text = "activation by the OEM key";
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -1985,6 +2031,12 @@
             panel12.PerformLayout();
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
+            tabControl2.ResumeLayout(false);
+            tabPage14.ResumeLayout(false);
+            tabPage14.PerformLayout();
+            tabPage12.ResumeLayout(false);
+            tabPage12.PerformLayout();
+            tabPage13.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             panel5.ResumeLayout(false);
@@ -2013,17 +2065,13 @@
             bl_msbuild.PerformLayout();
             bl_cmake.ResumeLayout(false);
             bl_cmake.PerformLayout();
+            bl_cargo.ResumeLayout(false);
+            bl_cargo.PerformLayout();
             tabPage11.ResumeLayout(false);
             tabPage11.PerformLayout();
             dl_panel.ResumeLayout(false);
             dl_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabControl2.ResumeLayout(false);
-            tabPage12.ResumeLayout(false);
-            tabPage12.PerformLayout();
-            tabPage13.ResumeLayout(false);
-            tabPage14.ResumeLayout(false);
-            tabPage14.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2193,5 +2241,9 @@
         private TabPage tabPage13;
         private TabPage tabPage14;
         private Label label7;
+        private Button cargo_path_clear;
+        private TextBox cargo_path;
+        private Button cargo_path_select;
+        private Label label37;
     }
 }

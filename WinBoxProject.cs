@@ -7,6 +7,7 @@ using Shell32;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.IO;
@@ -477,6 +478,40 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             Directory.Delete(buildDir, true);
         }
 
+        public async void BuildCargoProject(BuildItem buildItem, string cargoFolder, string output)
+        {
+            string name = Path.GetFileName(cargoFolder);
+            string exeName = name + ".exe";
+
+            string? target = null;
+            switch (winBoxConfig.Architecture)
+            {
+                case "x64":
+                    target = "x86_64-pc-windows-msvc";
+                    break;
+
+                case "x86":
+                    target = "i686-pc-windows-msvc";
+                    break;
+
+                case "arm64":
+                    target = "aarch64-pc-windows-msvc";
+                    break;
+            }
+
+            string buildDir = Path.Combine(tempDirectoryPath, "cargo_build");
+            if (Directory.Exists(buildDir))
+            {
+                Directory.Delete(buildDir, true);
+            }
+            Directory.CreateDirectory(buildDir);
+
+            await Program.ExecuteAsync(Program.winboxSettings.path_cargo, $"build --release --target=\"{target}\" --target-dir=\"{buildDir}\"", cargoFolder);
+            await Program.CopyFileAsync(Path.Combine(buildDir, target, "release", exeName), Path.Combine(output, exeName));
+
+            Directory.Delete(buildDir, true);
+        }
+
         public async Task<bool> BuildUserProject(BuildItem buildItem)
         {
             string outputDir = Path.Combine(tempDirectoryPath, "program");
@@ -509,6 +544,14 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                     if (Program.winboxSettings.path_cmake != null)
                     {
                         BuildCMakeProject(buildItem, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.cmake_path)), outputDir);
+                        return true;
+                    }
+                    break;
+
+                case BuildItemType.cargo:
+                    if (Program.winboxSettings.path_cargo != null)
+                    {
+                        BuildCargoProject(buildItem, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.cargo_path)), outputDir);
                         return true;
                     }
                     break;
