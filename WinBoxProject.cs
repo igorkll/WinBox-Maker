@@ -206,6 +206,30 @@ namespace WinBox_Maker
             return null;
         }
 
+        public async Task<string?> SelectResourceFolderAsync(Action<string> processName, Action<int> processValue, string defaultDirectory)
+        {
+            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
+            {
+                folderBrowserDialog.InitialDirectory = defaultDirectory;
+                folderBrowserDialog.UseDescriptionForTitle = true;
+                folderBrowserDialog.Description = "Select Folder";
+                folderBrowserDialog.ShowNewFolderButton = true;
+
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (Program.IsPathInsideDirectory(folderBrowserDialog.SelectedPath, defaultDirectory))
+                    {
+                        return Path.GetRelativePath(defaultDirectory, folderBrowserDialog.SelectedPath);
+                    }
+
+                    MessageBox.Show("select folder from the default directory", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+            }
+
+            return null;
+        }
+
         public string GetAbsoluteResourcePath(string path)
         {
             if (Path.IsPathRooted(path))

@@ -1525,12 +1525,12 @@ namespace WinBox_Maker
         private async void custom_path_select_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = null;
+            string? name = await winBoxProject.SelectResourceFolderAsync(UpdateProcessName, UpdateProcessValue, winBoxProject.sourcesDirectoryPath);
             if (name != null)
             {
                 currentBuildItem.custom_path = name;
                 guiEventsLock = true;
-                custom_path.Text = currentBuildItem.cargo_path;
+                custom_path.Text = currentBuildItem.custom_path;
                 guiEventsLock = false;
                 winBoxProject.SaveConfig();
             }
