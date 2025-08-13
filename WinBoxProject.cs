@@ -536,11 +536,11 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             Directory.Delete(buildDir, true);
         }
 
-        public async Task RunCustomBuildSystem(BuildItem buildItem, string output)
+        public async Task RunCustomBuildSystem(BuildItem buildItem, string sourcesFolder, string output)
         {
             string tempBatFilePath = Path.Combine(tempDirectoryPath, "custom_build.bat");
             await File.WriteAllTextAsync(tempBatFilePath, buildItem.custom_command);
-            await Program.ExecuteAsync(tempBatFilePath, $"\"{buildItem.custom_path}\" \"{output}\" \"{winBoxConfig.Architecture}\"", buildItem.custom_path);
+            await Program.ExecuteAsync(tempBatFilePath, $"\"{sourcesFolder}\" \"{output}\" \"{winBoxConfig.Architecture}\"", sourcesFolder);
             File.Delete(tempBatFilePath);
         }
 
@@ -589,7 +589,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                     break;
 
                 case BuildItemType.custom:
-                    await RunCustomBuildSystem(buildItem, outputDir);
+                    await RunCustomBuildSystem(buildItem, Path.Combine(sourcesDirectoryPath, buildItem.custom_path), outputDir);
                     return true;
             }
 
