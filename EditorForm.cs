@@ -44,6 +44,7 @@ namespace WinBox_Maker
             OpenEmbeddedFolder.Visible = false;
             ExportImg.Visible = false;
             tabControl1.TabPages.Remove(tabPage7);
+            tabControl1.TabPages.Remove(tabPage9);
 
             UpdateDownloadItemsList();
             UpdateBuildItemsList();

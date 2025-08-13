@@ -248,7 +248,7 @@
             WindowsSelect.Name = "WindowsSelect";
             WindowsSelect.Size = new Size(114, 31);
             WindowsSelect.TabIndex = 4;
-            WindowsSelect.Text = "From file";
+            WindowsSelect.Text = "Select";
             WindowsSelect.UseVisualStyleBackColor = true;
             WindowsSelect.Click += WindowsSelect_Click;
             // 
