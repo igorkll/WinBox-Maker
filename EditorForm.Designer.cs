@@ -175,6 +175,13 @@
             label37 = new Label();
             cargo_path_select = new Button();
             bl_custom = new TabPage();
+            custom_path_clear = new Button();
+            richTextBox2 = new RichTextBox();
+            custom_path = new TextBox();
+            label39 = new Label();
+            label38 = new Label();
+            custom_command = new TextBox();
+            custom_path_select = new Button();
             buildEnabled = new CheckBox();
             addBuild = new Button();
             BuildItems = new CheckedListBox();
@@ -229,6 +236,7 @@
             bl_msbuild.SuspendLayout();
             bl_cmake.SuspendLayout();
             bl_cargo.SuspendLayout();
+            bl_custom.SuspendLayout();
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -1752,12 +1760,83 @@
             // 
             // bl_custom
             // 
+            bl_custom.Controls.Add(custom_path_clear);
+            bl_custom.Controls.Add(richTextBox2);
+            bl_custom.Controls.Add(custom_path);
+            bl_custom.Controls.Add(label39);
+            bl_custom.Controls.Add(label38);
+            bl_custom.Controls.Add(custom_command);
+            bl_custom.Controls.Add(custom_path_select);
             bl_custom.Location = new Point(4, 34);
             bl_custom.Name = "bl_custom";
             bl_custom.Size = new Size(593, 157);
             bl_custom.TabIndex = 3;
             bl_custom.Text = "custom";
             bl_custom.UseVisualStyleBackColor = true;
+            // 
+            // custom_path_clear
+            // 
+            custom_path_clear.Location = new Point(435, 6);
+            custom_path_clear.Name = "custom_path_clear";
+            custom_path_clear.Size = new Size(85, 31);
+            custom_path_clear.TabIndex = 56;
+            custom_path_clear.Text = "clear";
+            custom_path_clear.UseVisualStyleBackColor = true;
+            custom_path_clear.Click += custom_path_clear_Click;
+            // 
+            // richTextBox2
+            // 
+            richTextBox2.BackColor = SystemColors.Info;
+            richTextBox2.Location = new Point(6, 80);
+            richTextBox2.Name = "richTextBox2";
+            richTextBox2.ReadOnly = true;
+            richTextBox2.Size = new Size(584, 74);
+            richTextBox2.TabIndex = 8;
+            richTextBox2.Text = resources.GetString("richTextBox2.Text");
+            // 
+            // custom_path
+            // 
+            custom_path.Location = new Point(6, 6);
+            custom_path.Name = "custom_path";
+            custom_path.Size = new Size(334, 31);
+            custom_path.TabIndex = 53;
+            custom_path.TextChanged += custom_path_TextChanged;
+            // 
+            // label39
+            // 
+            label39.AutoSize = true;
+            label39.Location = new Point(526, 9);
+            label39.Name = "label39";
+            label39.Size = new Size(48, 25);
+            label39.TabIndex = 54;
+            label39.Text = "path";
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Location = new Point(497, 46);
+            label38.Name = "label38";
+            label38.Size = new Size(93, 25);
+            label38.TabIndex = 7;
+            label38.Text = "command";
+            // 
+            // custom_command
+            // 
+            custom_command.Location = new Point(6, 43);
+            custom_command.Name = "custom_command";
+            custom_command.Size = new Size(485, 31);
+            custom_command.TabIndex = 6;
+            custom_command.TextChanged += custom_command_TextChanged;
+            // 
+            // custom_path_select
+            // 
+            custom_path_select.Location = new Point(346, 6);
+            custom_path_select.Name = "custom_path_select";
+            custom_path_select.Size = new Size(85, 31);
+            custom_path_select.TabIndex = 55;
+            custom_path_select.Text = "select";
+            custom_path_select.UseVisualStyleBackColor = true;
+            custom_path_select.Click += custom_path_select_Click;
             // 
             // buildEnabled
             // 
@@ -2067,6 +2146,8 @@
             bl_cmake.PerformLayout();
             bl_cargo.ResumeLayout(false);
             bl_cargo.PerformLayout();
+            bl_custom.ResumeLayout(false);
+            bl_custom.PerformLayout();
             tabPage11.ResumeLayout(false);
             tabPage11.PerformLayout();
             dl_panel.ResumeLayout(false);
@@ -2245,5 +2326,12 @@
         private TextBox cargo_path;
         private Button cargo_path_select;
         private Label label37;
+        private Label label38;
+        private TextBox custom_command;
+        private RichTextBox richTextBox2;
+        private Button custom_path_clear;
+        private TextBox custom_path;
+        private Label label39;
+        private Button custom_path_select;
     }
 }

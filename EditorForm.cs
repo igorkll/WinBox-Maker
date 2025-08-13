@@ -143,6 +143,8 @@ namespace WinBox_Maker
                 cmake_path.Text = buildItem.cmake_path ?? "";
                 cargo_path.Text = buildItem.cargo_path ?? "";
                 cmake_configuration.Text = buildItem.cmake_configuration ?? "";
+                custom_path.Text = buildItem.custom_path ?? "";
+                custom_command.Text = buildItem.custom_command ?? "";
                 bl_tabcontrol.SelectedIndex = (int)currentBuildItem.type;
                 bl_folder.Text = buildItem.subdirectory ?? "";
                 bl_folder_enable.CheckState = buildItem.subdirectory_enabled == true ? CheckState.Checked : CheckState.Unchecked;
@@ -1506,6 +1508,46 @@ namespace WinBox_Maker
             guiEventsLock = true;
             cargo_path.Text = "";
             guiEventsLock = false;
+            winBoxProject.SaveConfig();
+        }
+
+        private void custom_path_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            currentBuildItem.custom_path = custom_path.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private async void custom_path_select_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = null;
+            if (name != null)
+            {
+                currentBuildItem.custom_path = name;
+                guiEventsLock = true;
+                custom_path.Text = currentBuildItem.cargo_path;
+                guiEventsLock = false;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void custom_path_clear_Click(object sender, EventArgs e)
+        {
+            currentBuildItem.custom_path = "";
+            guiEventsLock = true;
+            custom_path.Text = "";
+            guiEventsLock = false;
+            winBoxProject.SaveConfig();
+        }
+
+        private void custom_command_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            currentBuildItem.custom_command = custom_command.Text;
             winBoxProject.SaveConfig();
         }
     }

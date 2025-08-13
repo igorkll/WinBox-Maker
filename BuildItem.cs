@@ -30,5 +30,9 @@ namespace WinBox_Maker
 
 
         public string? cargo_path { get; set; }
+
+
+        public string? custom_path { get; set; }
+        public string? custom_command { get; set; }
     }
 }

@@ -555,6 +555,14 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                         return true;
                     }
                     break;
+
+                case BuildItemType.custom:
+                    if (Program.winboxSettings.path_cargo != null)
+                    {
+                        BuildCargoProject(buildItem, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.cargo_path)), outputDir);
+                        return true;
+                    }
+                    break;
             }
 
             return false;
