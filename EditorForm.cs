@@ -42,7 +42,7 @@ namespace WinBox_Maker
             ClearPythonList();
 
             OpenEmbeddedFolder.Visible = false;
-            //ExportImg.Visible = false;
+            ExportImg.Visible = false;
             tabControl1.TabPages.Remove(tabPage7);
 
             UpdateDownloadItemsList();
@@ -425,7 +425,7 @@ namespace WinBox_Maker
         void UpdateGuiWithoutWindowsVersion()
         {
             guiEventsLock = true;
-            WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "not selected";
+            WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "";
 
             WinboxName.Text = winBoxProject.winBoxConfig.WinboxName;
             WinboxDescription.Text = winBoxProject.winBoxConfig.WinboxDescription;
@@ -1231,9 +1231,12 @@ namespace WinBox_Maker
             downloadItem.path = "winbox_temp/files/DIRECTORIES ARE/CREATED AUTOMATICALLY/example.mp3";
             downloadItem.cache = true;
             downloadItem.unpack = false;
+
+            winBoxProject.winBoxConfig.downloadEnabled = true;
             winBoxProject.winBoxConfig.DownloadItems.Add(downloadItem);
             winBoxProject.SaveConfig();
             UpdateDownloadItemsList();
+            UpdateGui();
         }
 
         private void dl_delete_Click(object sender, EventArgs e)
@@ -1322,9 +1325,11 @@ namespace WinBox_Maker
             buildItem.cmake_path = "";
             buildItem.cmake_configuration = "Release";
 
+            winBoxProject.winBoxConfig.buildEnabled = true;
             winBoxProject.winBoxConfig.BuildItems.Add(buildItem);
             winBoxProject.SaveConfig();
             UpdateBuildItemsList();
+            UpdateGui();
         }
 
         private async void bl_select_Click(object sender, EventArgs e)

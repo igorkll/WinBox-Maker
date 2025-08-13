@@ -81,7 +81,7 @@ namespace WinBox_Maker
             if (WebSessionTimeout == null) WebSessionTimeout = 0;
             if (ScreenTimeout == null) ScreenTimeout = 0;
             if (Architecture == null) Architecture = "x64";
-            if (TweakList == null) TweakList = [];
+            if (TweakList == null) TweakList = ["Integrate vc redist", "Disable boot circle", "Disable boot messages"];
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
             if (LaunchMode == null) LaunchMode = ProgramLaunchModeEnum.insteadDesktop;
             if (AddVirtualDisplay == null) AddVirtualDisplay = false;
