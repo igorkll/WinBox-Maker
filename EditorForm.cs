@@ -1326,6 +1326,9 @@ namespace WinBox_Maker
             buildItem.msbuild_configuration = "Release";
             buildItem.cmake_path = "";
             buildItem.cmake_configuration = "Release";
+            buildItem.cargo_path = "";
+            buildItem.custom_path = "";
+            buildItem.custom_command = "";
 
             winBoxProject.winBoxConfig.buildEnabled = true;
             winBoxProject.winBoxConfig.BuildItems.Add(buildItem);

@@ -457,7 +457,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await RemoveTempFolder("amd_drivers");
         }
 
-        public async void BuildCMakeProject(BuildItem buildItem, string cmakeFolder, string output)
+        public async Task BuildCMakeProject(BuildItem buildItem, string cmakeFolder, string output)
         {
             string configuration = buildItem.cmake_configuration;
             string architecture = winBoxConfig.Architecture;
@@ -478,7 +478,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             Directory.Delete(buildDir, true);
         }
 
-        public async void BuildCargoProject(BuildItem buildItem, string cargoFolder, string output)
+        public async Task BuildCargoProject(BuildItem buildItem, string cargoFolder, string output)
         {
             string name = Path.GetFileName(cargoFolder);
             string exeName = name + ".exe";
@@ -512,6 +512,14 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             Directory.Delete(buildDir, true);
         }
 
+        public async Task RunCustomBuildSystem(BuildItem buildItem, string output)
+        {
+            string tempBatFilePath = Path.Combine(tempDirectoryPath, "custom_build.bat");
+            await File.WriteAllTextAsync(tempBatFilePath, buildItem.custom_command);
+            await Program.ExecuteAsync(tempBatFilePath, $"\"{buildItem.custom_path}\" \"{output}\" \"{winBoxConfig.Architecture}\"", buildItem.custom_path);
+            File.Delete(tempBatFilePath);
+        }
+
         public async Task<bool> BuildUserProject(BuildItem buildItem)
         {
             string outputDir = Path.Combine(tempDirectoryPath, "program");
@@ -543,7 +551,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 case BuildItemType.cmake:
                     if (Program.winboxSettings.path_cmake != null)
                     {
-                        BuildCMakeProject(buildItem, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.cmake_path)), outputDir);
+                        await BuildCMakeProject(buildItem, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.cmake_path)), outputDir);
                         return true;
                     }
                     break;
@@ -551,18 +559,14 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 case BuildItemType.cargo:
                     if (Program.winboxSettings.path_cargo != null)
                     {
-                        BuildCargoProject(buildItem, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.cargo_path)), outputDir);
+                        await BuildCargoProject(buildItem, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.cargo_path)), outputDir);
                         return true;
                     }
                     break;
 
                 case BuildItemType.custom:
-                    if (Program.winboxSettings.path_cargo != null)
-                    {
-                        BuildCargoProject(buildItem, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.cargo_path)), outputDir);
-                        return true;
-                    }
-                    break;
+                    await RunCustomBuildSystem(buildItem, outputDir);
+                    return true;
             }
 
             return false;
