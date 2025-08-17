@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
@@ -840,7 +841,6 @@ namespace WinBox_Maker
                 ResetWebSessionTimeout(winBoxProject.winBoxConfig.WebSessionTimeout ?? 0);
             }
             winBoxProject.SaveConfig();
-            UpdateGuiWithoutWindowsVersion();
         }
 
         private async void OpenLocalHtml_Click(object sender, EventArgs e)
@@ -931,38 +931,75 @@ namespace WinBox_Maker
             UpdateGui();
         }
 
-        private void ResetScreenTimeout(int value)
+        int checkPowercfgTimeoutNumber(int oldNumber, string text)
         {
-            winBoxProject.winBoxConfig.ScreenTimeout = value;
-            ScreenTimeout.Text = winBoxProject.winBoxConfig.ScreenTimeout.ToString();
+            try
+            {
+                return Math.Clamp(int.Parse(text), 0, 2147483647);
+            }
+            catch (FormatException) { }
+            catch (OverflowException) { }
+            return oldNumber;
         }
 
         private void ScreenTimeout_TextChanged(object sender, EventArgs e)
         {
             if (guiEventsLock) return;
 
-            try
-            {
-                winBoxProject.winBoxConfig.ScreenTimeout = int.Parse(ScreenTimeout.Text);
-                if (winBoxProject.winBoxConfig.ScreenTimeout < 0)
-                {
-                    ResetScreenTimeout(0);
-                }
-                else if (winBoxProject.winBoxConfig.WebSessionTimeout > 360)
-                {
-                    ResetScreenTimeout(360);
-                }
-            }
-            catch (FormatException)
-            {
-                ResetScreenTimeout(winBoxProject.winBoxConfig.ScreenTimeout ?? 0);
-            }
-            catch (OverflowException)
-            {
-                ResetScreenTimeout(winBoxProject.winBoxConfig.ScreenTimeout ?? 0);
-            }
+            winBoxProject.winBoxConfig.ScreenTimeout = checkPowercfgTimeoutNumber(winBoxProject.winBoxConfig.ScreenTimeout ?? 0, ScreenTimeout.Text);
+            if (winBoxProject.winBoxConfig.ScreenTimeout.ToString() != ScreenTimeout.Text)
+                ScreenTimeout.Text = winBoxProject.winBoxConfig.ScreenTimeout.ToString();
             winBoxProject.SaveConfig();
-            UpdateGuiWithoutWindowsVersion();
+        }
+
+        private void StandbyTimeout_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.StandbyTimeout = checkPowercfgTimeoutNumber(winBoxProject.winBoxConfig.StandbyTimeout ?? 0, StandbyTimeout.Text);
+            if (winBoxProject.winBoxConfig.StandbyTimeout.ToString() != StandbyTimeout.Text)
+                StandbyTimeout.Text = winBoxProject.winBoxConfig.StandbyTimeout.ToString();
+            winBoxProject.SaveConfig();
+        }
+
+        private void HibernateTimeout_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.HibernateTimeout = checkPowercfgTimeoutNumber(winBoxProject.winBoxConfig.HibernateTimeout ?? 0, HibernateTimeout.Text);
+            if (winBoxProject.winBoxConfig.HibernateTimeout.ToString() != HibernateTimeout.Text)
+                HibernateTimeout.Text = winBoxProject.winBoxConfig.HibernateTimeout.ToString();
+            winBoxProject.SaveConfig();
+        }
+
+        private void ScreenTimeout_dc_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.ScreenTimeout_dc = checkPowercfgTimeoutNumber(winBoxProject.winBoxConfig.ScreenTimeout_dc ?? 0, ScreenTimeout_dc.Text);
+            if (winBoxProject.winBoxConfig.ScreenTimeout_dc.ToString() != ScreenTimeout_dc.Text)
+                ScreenTimeout_dc.Text = winBoxProject.winBoxConfig.ScreenTimeout_dc.ToString();
+            winBoxProject.SaveConfig();
+        }
+
+        private void StandbyTimeout_dc_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.StandbyTimeout_dc = checkPowercfgTimeoutNumber(winBoxProject.winBoxConfig.StandbyTimeout_dc ?? 0, StandbyTimeout_dc.Text);
+            if (winBoxProject.winBoxConfig.StandbyTimeout_dc.ToString() != StandbyTimeout_dc.Text)
+                StandbyTimeout_dc.Text = winBoxProject.winBoxConfig.StandbyTimeout_dc.ToString();
+            winBoxProject.SaveConfig();
+        }
+
+        private void HibernateTimeout_dc_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.HibernateTimeout_dc = checkPowercfgTimeoutNumber(winBoxProject.winBoxConfig.HibernateTimeout_dc ?? 0, HibernateTimeout_dc.Text);
+            if (winBoxProject.winBoxConfig.HibernateTimeout_dc.ToString() != HibernateTimeout_dc.Text)
+                HibernateTimeout_dc.Text = winBoxProject.winBoxConfig.HibernateTimeout_dc.ToString();
+            winBoxProject.SaveConfig();
         }
 
         private void TweakList_ItemCheck(object sender, ItemCheckEventArgs e)

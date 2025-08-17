@@ -1182,6 +1182,7 @@
             HibernateTimeout_dc.Name = "HibernateTimeout_dc";
             HibernateTimeout_dc.Size = new Size(114, 31);
             HibernateTimeout_dc.TabIndex = 4;
+            HibernateTimeout_dc.TextChanged += HibernateTimeout_dc_TextChanged;
             // 
             // StandbyTimeout_dc
             // 
@@ -1189,6 +1190,7 @@
             StandbyTimeout_dc.Name = "StandbyTimeout_dc";
             StandbyTimeout_dc.Size = new Size(114, 31);
             StandbyTimeout_dc.TabIndex = 2;
+            StandbyTimeout_dc.TextChanged += StandbyTimeout_dc_TextChanged;
             // 
             // ScreenTimeout_dc
             // 
@@ -1196,6 +1198,7 @@
             ScreenTimeout_dc.Name = "ScreenTimeout_dc";
             ScreenTimeout_dc.Size = new Size(114, 31);
             ScreenTimeout_dc.TabIndex = 0;
+            ScreenTimeout_dc.TextChanged += ScreenTimeout_dc_TextChanged;
             // 
             // panel13
             // 
@@ -1215,6 +1218,7 @@
             HibernateTimeout.Name = "HibernateTimeout";
             HibernateTimeout.Size = new Size(114, 31);
             HibernateTimeout.TabIndex = 4;
+            HibernateTimeout.TextChanged += HibernateTimeout_TextChanged;
             // 
             // StandbyTimeout
             // 
@@ -1222,6 +1226,7 @@
             StandbyTimeout.Name = "StandbyTimeout";
             StandbyTimeout.Size = new Size(114, 31);
             StandbyTimeout.TabIndex = 2;
+            StandbyTimeout.TextChanged += StandbyTimeout_TextChanged;
             // 
             // label41
             // 
