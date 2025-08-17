@@ -251,8 +251,11 @@ namespace WinBox_Maker
             await winBoxProject.LoadWindowsImageAsync(UpdateProcessName, UpdateProcessValue);
             UnlockForm();
             UpdateWindowsVersionsList();
+            forceIot.CheckState = winBoxProject.winBoxConfig.BaseWindowsVersion.Contains("enterprise", StringComparison.OrdinalIgnoreCase) ? CheckState.Unchecked : CheckState.Checked;
             UpdateGui();
             loadingWindowsTask = false;
+
+            winBoxProject.SaveConfig();
         }
 
         private async void ExportIsoInstaller_Click(object sender, EventArgs e)

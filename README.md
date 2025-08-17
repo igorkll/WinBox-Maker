@@ -45,6 +45,8 @@ winbox maker provides tools for embedding software into the final windows image.
 * in the post-build event, you get the path to the output file as an argument to your script
 * the win-mounted event is triggered when the Windows image is mounted and all winbox maker patches have already been applied to it. this event can be used to apply additional patches to Windows through the winbox_temp/wim_mount directory
 * in the "build" tab, you can configure the automatic build of your application along with winbox. for this, its source code must be located in the "winbox_resources/sources" folder (subfolders are allowed) please note that the build system is selected by switching tabs in the submenu
+* if you are using a windows image other than "enterprise" and "IoT Enterprise", then use the "force make "IoT Enterprise" " function. this will force windows to "IoT Enterprise" and the logon window will not be visible. otherwise, the logon window will be visible
+* If you are using the "force make "IoT Enterprise" " function, then you must also use the product key from the "IoT Enterprise" editorial office
 
 ## menu description
 * base - select the base Windows image that will be used to create a custom Windows image

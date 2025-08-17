@@ -43,6 +43,9 @@ namespace WinBox_Maker
         public int? ScreenTimeout { get; set; }
         public int? StandbyTimeout { get; set; }
         public int? HibernateTimeout { get; set; }
+        public int? ScreenTimeout_dc { get; set; }
+        public int? StandbyTimeout_dc { get; set; }
+        public int? HibernateTimeout_dc { get; set; }
         public string? Architecture { get; set; }
         public ProgramTypeEnum? ProgramType { get; set; }
         public ProgramLaunchModeEnum? LaunchMode { get; set; }
@@ -85,6 +88,9 @@ namespace WinBox_Maker
             if (ScreenTimeout == null) ScreenTimeout = 0;
             if (StandbyTimeout == null) StandbyTimeout = 0;
             if (HibernateTimeout == null) HibernateTimeout = 0;
+            if (ScreenTimeout_dc == null) ScreenTimeout_dc = 0;
+            if (StandbyTimeout_dc == null) StandbyTimeout_dc = 0;
+            if (HibernateTimeout_dc == null) HibernateTimeout_dc = 0;
             if (Architecture == null) Architecture = "x64";
             if (TweakList == null) TweakList = ["Integrate vc redist", "Disable boot circle", "Disable boot messages"];
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
