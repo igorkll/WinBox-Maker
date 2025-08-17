@@ -893,15 +893,41 @@ exit
             */
 
             // ------------------------------------ system init
+            string[] stopServices = {
+                "edgeupdate",
+                "edgeupdatem",
+                "wbengine",
+                "wuauserv",
+                "RemoteRegistry",
+                "WSearch",
+                "SysMain",
+                "WerSvc",
+                "shellhwdetection",
+                "SSDPSRV",
+                "TermService",
+                "lanmanserver",
+                "napagent",
+                "WinDefend"
+            };
+
+            string stopServicesCmd = "";
+            foreach (string service in stopServices)
+            {
+                stopServicesCmd += $"sc stop {service}\r\n";
+                stopServicesCmd += $"sc config {service} start= disabled\r\n";
+                stopServicesCmd += $"net stop {service}\r\n";
+                stopServicesCmd += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services"" /v Start /t REG_DWORD /d 4 /f" + "\r\n";
+            }
+
             string baseSetup = $@"@echo off
 
 powercfg -h off
 powercfg -change -standby-timeout-ac {winBoxConfig.StandbyTimeout}
-powercfg -change -standby-timeout-dc {winBoxConfig.StandbyTimeout}
+powercfg -change -standby-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.StandbyTimeout_dc : winBoxConfig.StandbyTimeout)}
 powercfg -change -hibernate-timeout-ac {winBoxConfig.HibernateTimeout}
-powercfg -change -hibernate-timeout-dc {winBoxConfig.HibernateTimeout}
+powercfg -change -hibernate-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.HibernateTimeout_dc : winBoxConfig.HibernateTimeout)}
 powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
-powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}
+powercfg -change -monitor-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.ScreenTimeout_dc : winBoxConfig.ScreenTimeout)}
 powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
 powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
 powercfg -s SCHEME_CURRENT
@@ -910,30 +936,7 @@ dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
 dism /online /enable-feature /all /featurename:Client-DeviceLockdown
 dism /online /enable-feature /all /featurename:Client-KeyboardFilter
 
-sc config edgeupdate start= disabled
-sc config edgeupdatem start= disabled
-sc config wbengine start= disabled
-sc config wuauserv start= disabled
-sc config RemoteRegistry start= disabled
-sc config WSearch start= disabled
-sc config SysMain start= disabled
-sc config WerSvc start= disabled
-sc config shellhwdetection start= disabled
-sc config SSDPSRV start= disabled
-sc config TermService start= disabled
-sc config lanmanserver start= disabled
-sc config napagent start= disabled
-net stop wbengine
-net stop wuauserv
-net stop RemoteRegistry
-net stop WSearch
-net stop SysMain
-net stop WerSvc
-net stop shellhwdetection
-net stop SSDPSRV
-net stop TermService
-net stop lanmanserver
-net stop napagent
+{stopServicesCmd}
 
 call ""C:\WinboxResources\UpdateSystemSettings.bat""
 schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\UpdateSystemSettings.bat"" /sc onlogon /rl highest /ru ""SYSTEM""
