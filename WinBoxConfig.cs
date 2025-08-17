@@ -68,6 +68,7 @@ namespace WinBox_Maker
         public List<DownloadItem>? DownloadItems { get; set; }
         public List<BuildItem>? BuildItems { get; set; }
         public bool? forceIot { get; set; }
+        public bool? dc_use { get; set; }
 
 
         public WinBoxConfig() {
@@ -112,6 +113,7 @@ namespace WinBox_Maker
             if (DownloadItems == null) DownloadItems = new List<DownloadItem>();
             if (BuildItems == null) BuildItems = new List<BuildItem>();
             if (forceIot == null) forceIot = false;
+            if (dc_use == null) dc_use = false;
         }
 
         public void Save(string wnbFilePath)
