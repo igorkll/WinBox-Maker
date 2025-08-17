@@ -25,7 +25,7 @@ namespace WinBox_Maker
         const int SW_SHOW = 5;
 
 
-        public const string version = "WinBox-Maker 1.4.0";
+        public const string version = "WinBox-Maker 1.5.0";
         public const string buildEventsWarning = "WARNING!!! THIS PROJECT USES BUILD EVENTS, WHICH MEANS THAT COMMANDS FROM THE EVENTS TAB WILL BE EXECUTED DURING THE BUILD PROCESS!!!";
         public const string logichubUrl = "https://igorkll.github.io/logichub/index.html";
         public static string? oscdimgPath;

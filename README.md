@@ -1,4 +1,4 @@
-# WinBox-Maker 1.4.0
+# WinBox-Maker 1.5.0
 ![preview1](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview.png)  
 ![preview2](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview2.png)  
 ![preview3](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview3.png)  
