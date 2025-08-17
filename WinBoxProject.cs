@@ -941,8 +941,8 @@ powercfg -change -hibernate-timeout-ac {winBoxConfig.HibernateTimeout}
 powercfg -change -hibernate-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.HibernateTimeout_dc : winBoxConfig.HibernateTimeout)}
 powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
 powercfg -change -monitor-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.ScreenTimeout_dc : winBoxConfig.ScreenTimeout)}
-powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
-powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0
 powercfg -s SCHEME_CURRENT";
 
             string baseSetup = $@"@echo off
