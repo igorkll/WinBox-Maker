@@ -110,6 +110,18 @@
             tabControl2 = new TabControl();
             tabPage14 = new TabPage();
             tabPage12 = new TabPage();
+            dc_use = new CheckBox();
+            label43 = new Label();
+            label42 = new Label();
+            dc_panel = new Panel();
+            HibernateTimeout_dc = new TextBox();
+            StandbyTimeout_dc = new TextBox();
+            ScreenTimeout_dc = new TextBox();
+            panel13 = new Panel();
+            HibernateTimeout = new TextBox();
+            StandbyTimeout = new TextBox();
+            label41 = new Label();
+            label40 = new Label();
             tabPage13 = new TabPage();
             richTextBox4 = new RichTextBox();
             tabPage5 = new TabPage();
@@ -208,18 +220,6 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
-            StandbyTimeout = new TextBox();
-            label40 = new Label();
-            HibernateTimeout = new TextBox();
-            label41 = new Label();
-            panel13 = new Panel();
-            dc_panel = new Panel();
-            HibernateTimeout_dc = new TextBox();
-            StandbyTimeout_dc = new TextBox();
-            ScreenTimeout_dc = new TextBox();
-            label42 = new Label();
-            label43 = new Label();
-            dc_use = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -235,6 +235,8 @@
             tabControl2.SuspendLayout();
             tabPage14.SuspendLayout();
             tabPage12.SuspendLayout();
+            dc_panel.SuspendLayout();
+            panel13.SuspendLayout();
             tabPage13.SuspendLayout();
             tabPage5.SuspendLayout();
             panel5.SuspendLayout();
@@ -257,8 +259,6 @@
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            panel13.SuspendLayout();
-            dc_panel.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1121,6 +1121,111 @@
             tabPage12.TabIndex = 0;
             tabPage12.Text = "power management";
             tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // dc_use
+            // 
+            dc_use.AutoSize = true;
+            dc_use.Location = new Point(6, 211);
+            dc_use.Name = "dc_use";
+            dc_use.Size = new Size(291, 29);
+            dc_use.TabIndex = 10;
+            dc_use.Text = "separate settings for the battery";
+            dc_use.UseVisualStyleBackColor = true;
+            // 
+            // label43
+            // 
+            label43.AutoSize = true;
+            label43.Location = new Point(141, 3);
+            label43.Name = "label43";
+            label43.Size = new Size(107, 25);
+            label43.TabIndex = 9;
+            label43.Text = "DC (battery)";
+            // 
+            // label42
+            // 
+            label42.AutoSize = true;
+            label42.Location = new Point(6, 3);
+            label42.Name = "label42";
+            label42.Size = new Size(119, 25);
+            label42.TabIndex = 8;
+            label42.Text = "AC (charging)";
+            // 
+            // dc_panel
+            // 
+            dc_panel.BorderStyle = BorderStyle.Fixed3D;
+            dc_panel.Controls.Add(HibernateTimeout_dc);
+            dc_panel.Controls.Add(StandbyTimeout_dc);
+            dc_panel.Controls.Add(ScreenTimeout_dc);
+            dc_panel.Location = new Point(136, 31);
+            dc_panel.Name = "dc_panel";
+            dc_panel.Size = new Size(124, 115);
+            dc_panel.TabIndex = 7;
+            // 
+            // HibernateTimeout_dc
+            // 
+            HibernateTimeout_dc.BorderStyle = BorderStyle.FixedSingle;
+            HibernateTimeout_dc.Location = new Point(3, 75);
+            HibernateTimeout_dc.Name = "HibernateTimeout_dc";
+            HibernateTimeout_dc.Size = new Size(114, 31);
+            HibernateTimeout_dc.TabIndex = 4;
+            // 
+            // StandbyTimeout_dc
+            // 
+            StandbyTimeout_dc.Location = new Point(3, 40);
+            StandbyTimeout_dc.Name = "StandbyTimeout_dc";
+            StandbyTimeout_dc.Size = new Size(114, 31);
+            StandbyTimeout_dc.TabIndex = 2;
+            // 
+            // ScreenTimeout_dc
+            // 
+            ScreenTimeout_dc.Location = new Point(3, 3);
+            ScreenTimeout_dc.Name = "ScreenTimeout_dc";
+            ScreenTimeout_dc.Size = new Size(114, 31);
+            ScreenTimeout_dc.TabIndex = 0;
+            // 
+            // panel13
+            // 
+            panel13.BorderStyle = BorderStyle.Fixed3D;
+            panel13.Controls.Add(HibernateTimeout);
+            panel13.Controls.Add(StandbyTimeout);
+            panel13.Controls.Add(ScreenTimeout);
+            panel13.Location = new Point(6, 31);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(124, 115);
+            panel13.TabIndex = 6;
+            // 
+            // HibernateTimeout
+            // 
+            HibernateTimeout.BorderStyle = BorderStyle.FixedSingle;
+            HibernateTimeout.Location = new Point(3, 75);
+            HibernateTimeout.Name = "HibernateTimeout";
+            HibernateTimeout.Size = new Size(114, 31);
+            HibernateTimeout.TabIndex = 4;
+            // 
+            // StandbyTimeout
+            // 
+            StandbyTimeout.Location = new Point(3, 40);
+            StandbyTimeout.Name = "StandbyTimeout";
+            StandbyTimeout.Size = new Size(114, 31);
+            StandbyTimeout.TabIndex = 2;
+            // 
+            // label41
+            // 
+            label41.AutoSize = true;
+            label41.Location = new Point(261, 110);
+            label41.Name = "label41";
+            label41.Size = new Size(159, 25);
+            label41.TabIndex = 5;
+            label41.Text = "Hibernate Timeout";
+            // 
+            // label40
+            // 
+            label40.AutoSize = true;
+            label40.Location = new Point(261, 76);
+            label40.Name = "label40";
+            label40.Size = new Size(147, 25);
+            label40.TabIndex = 3;
+            label40.Text = "Standby Timeout";
             // 
             // tabPage13
             // 
@@ -2131,111 +2236,6 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
-            // StandbyTimeout
-            // 
-            StandbyTimeout.Location = new Point(3, 40);
-            StandbyTimeout.Name = "StandbyTimeout";
-            StandbyTimeout.Size = new Size(114, 31);
-            StandbyTimeout.TabIndex = 2;
-            // 
-            // label40
-            // 
-            label40.AutoSize = true;
-            label40.Location = new Point(261, 76);
-            label40.Name = "label40";
-            label40.Size = new Size(147, 25);
-            label40.TabIndex = 3;
-            label40.Text = "Standby Timeout";
-            // 
-            // HibernateTimeout
-            // 
-            HibernateTimeout.BorderStyle = BorderStyle.FixedSingle;
-            HibernateTimeout.Location = new Point(3, 75);
-            HibernateTimeout.Name = "HibernateTimeout";
-            HibernateTimeout.Size = new Size(114, 31);
-            HibernateTimeout.TabIndex = 4;
-            // 
-            // label41
-            // 
-            label41.AutoSize = true;
-            label41.Location = new Point(261, 110);
-            label41.Name = "label41";
-            label41.Size = new Size(159, 25);
-            label41.TabIndex = 5;
-            label41.Text = "Hibernate Timeout";
-            // 
-            // panel13
-            // 
-            panel13.BorderStyle = BorderStyle.Fixed3D;
-            panel13.Controls.Add(HibernateTimeout);
-            panel13.Controls.Add(StandbyTimeout);
-            panel13.Controls.Add(ScreenTimeout);
-            panel13.Location = new Point(6, 31);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(124, 115);
-            panel13.TabIndex = 6;
-            // 
-            // dc_panel
-            // 
-            dc_panel.BorderStyle = BorderStyle.Fixed3D;
-            dc_panel.Controls.Add(HibernateTimeout_dc);
-            dc_panel.Controls.Add(StandbyTimeout_dc);
-            dc_panel.Controls.Add(ScreenTimeout_dc);
-            dc_panel.Location = new Point(136, 31);
-            dc_panel.Name = "dc_panel";
-            dc_panel.Size = new Size(124, 115);
-            dc_panel.TabIndex = 7;
-            // 
-            // HibernateTimeout_dc
-            // 
-            HibernateTimeout_dc.BorderStyle = BorderStyle.FixedSingle;
-            HibernateTimeout_dc.Location = new Point(3, 75);
-            HibernateTimeout_dc.Name = "HibernateTimeout_dc";
-            HibernateTimeout_dc.Size = new Size(114, 31);
-            HibernateTimeout_dc.TabIndex = 4;
-            // 
-            // StandbyTimeout_dc
-            // 
-            StandbyTimeout_dc.Location = new Point(3, 40);
-            StandbyTimeout_dc.Name = "StandbyTimeout_dc";
-            StandbyTimeout_dc.Size = new Size(114, 31);
-            StandbyTimeout_dc.TabIndex = 2;
-            // 
-            // ScreenTimeout_dc
-            // 
-            ScreenTimeout_dc.Location = new Point(3, 3);
-            ScreenTimeout_dc.Name = "ScreenTimeout_dc";
-            ScreenTimeout_dc.Size = new Size(114, 31);
-            ScreenTimeout_dc.TabIndex = 0;
-            // 
-            // label42
-            // 
-            label42.AutoSize = true;
-            label42.Location = new Point(6, 3);
-            label42.Name = "label42";
-            label42.Size = new Size(119, 25);
-            label42.TabIndex = 8;
-            label42.Text = "AC (charging)";
-            // 
-            // label43
-            // 
-            label43.AutoSize = true;
-            label43.Location = new Point(141, 3);
-            label43.Name = "label43";
-            label43.Size = new Size(107, 25);
-            label43.TabIndex = 9;
-            label43.Text = "DC (battery)";
-            // 
-            // dc_use
-            // 
-            dc_use.AutoSize = true;
-            dc_use.Location = new Point(6, 211);
-            dc_use.Name = "dc_use";
-            dc_use.Size = new Size(291, 29);
-            dc_use.TabIndex = 10;
-            dc_use.Text = "separate settings for the battery";
-            dc_use.UseVisualStyleBackColor = true;
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -2290,6 +2290,10 @@
             tabPage14.PerformLayout();
             tabPage12.ResumeLayout(false);
             tabPage12.PerformLayout();
+            dc_panel.ResumeLayout(false);
+            dc_panel.PerformLayout();
+            panel13.ResumeLayout(false);
+            panel13.PerformLayout();
             tabPage13.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
@@ -2328,10 +2332,6 @@
             dl_panel.ResumeLayout(false);
             dl_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            panel13.ResumeLayout(false);
-            panel13.PerformLayout();
-            dc_panel.ResumeLayout(false);
-            dc_panel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
