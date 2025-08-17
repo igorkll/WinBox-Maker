@@ -511,6 +511,10 @@ namespace WinBox_Maker
             enable_hibernation.CheckState = winBoxProject.winBoxConfig.enable_hibernation == true ? CheckState.Checked : CheckState.Unchecked;
             dc_use.CheckState = winBoxProject.winBoxConfig.dc_use == true ? CheckState.Checked : CheckState.Unchecked;
 
+            dc_panel.Enabled = winBoxProject.winBoxConfig.dc_use == true;
+            HibernateTimeout.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
+            HibernateTimeout_dc.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
+
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -1618,6 +1622,7 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.enable_hibernation = enable_hibernation.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void dc_use_CheckedChanged(object sender, EventArgs e)
@@ -1626,6 +1631,7 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.dc_use = dc_use.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }
