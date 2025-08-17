@@ -1149,7 +1149,7 @@
             // label43
             // 
             label43.AutoSize = true;
-            label43.Location = new Point(141, 3);
+            label43.Location = new Point(136, 3);
             label43.Name = "label43";
             label43.Size = new Size(107, 25);
             label43.TabIndex = 9;
