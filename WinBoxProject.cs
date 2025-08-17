@@ -943,6 +943,8 @@ powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
 powercfg -change -monitor-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.ScreenTimeout_dc : winBoxConfig.ScreenTimeout)}
 powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0
 powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3
 powercfg -s SCHEME_CURRENT";
 
             string baseSetup = $@"@echo off
