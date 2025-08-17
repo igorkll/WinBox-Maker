@@ -921,7 +921,7 @@ exit
 
             string baseSetup = $@"@echo off
 
-powercfg -h off
+{(winBoxConfig.enable_hibernation == true ? "powercfg -h on" : "powercfg -h off")}
 powercfg -change -standby-timeout-ac {winBoxConfig.StandbyTimeout}
 powercfg -change -standby-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.StandbyTimeout_dc : winBoxConfig.StandbyTimeout)}
 powercfg -change -hibernate-timeout-ac {winBoxConfig.HibernateTimeout}

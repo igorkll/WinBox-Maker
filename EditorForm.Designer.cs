@@ -110,6 +110,7 @@
             tabControl2 = new TabControl();
             tabPage14 = new TabPage();
             tabPage12 = new TabPage();
+            enable_hibernation = new CheckBox();
             dc_use = new CheckBox();
             label43 = new Label();
             label42 = new Label();
@@ -1106,6 +1107,7 @@
             // 
             // tabPage12
             // 
+            tabPage12.Controls.Add(enable_hibernation);
             tabPage12.Controls.Add(dc_use);
             tabPage12.Controls.Add(label43);
             tabPage12.Controls.Add(label42);
@@ -1122,6 +1124,17 @@
             tabPage12.Text = "power management";
             tabPage12.UseVisualStyleBackColor = true;
             // 
+            // enable_hibernation
+            // 
+            enable_hibernation.AutoSize = true;
+            enable_hibernation.Location = new Point(6, 176);
+            enable_hibernation.Name = "enable_hibernation";
+            enable_hibernation.Size = new Size(185, 29);
+            enable_hibernation.TabIndex = 11;
+            enable_hibernation.Text = "enable hibernation";
+            enable_hibernation.UseVisualStyleBackColor = true;
+            enable_hibernation.CheckedChanged += enable_hibernation_CheckedChanged;
+            // 
             // dc_use
             // 
             dc_use.AutoSize = true;
@@ -1131,6 +1144,7 @@
             dc_use.TabIndex = 10;
             dc_use.Text = "separate settings for the battery";
             dc_use.UseVisualStyleBackColor = true;
+            dc_use.CheckedChanged += dc_use_CheckedChanged;
             // 
             // label43
             // 
@@ -2529,5 +2543,6 @@
         private TextBox ScreenTimeout_dc;
         private Label label43;
         private Label label42;
+        private CheckBox enable_hibernation;
     }
 }

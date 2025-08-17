@@ -69,6 +69,7 @@ namespace WinBox_Maker
         public List<BuildItem>? BuildItems { get; set; }
         public bool? forceIot { get; set; }
         public bool? dc_use { get; set; }
+        public bool? enable_hibernation { get; set; }
 
 
         public WinBoxConfig() {
@@ -114,6 +115,7 @@ namespace WinBox_Maker
             if (BuildItems == null) BuildItems = new List<BuildItem>();
             if (forceIot == null) forceIot = false;
             if (dc_use == null) dc_use = false;
+            if (enable_hibernation == null) enable_hibernation = false;
         }
 
         public void Save(string wnbFilePath)

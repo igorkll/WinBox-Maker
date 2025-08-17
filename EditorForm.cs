@@ -488,6 +488,11 @@ namespace WinBox_Maker
             VirtualDisplayHeight.Text = winBoxProject.winBoxConfig.VirtualDisplayHeight.ToString();
 
             ScreenTimeout.Text = winBoxProject.winBoxConfig.ScreenTimeout.ToString();
+            StandbyTimeout.Text = winBoxProject.winBoxConfig.StandbyTimeout.ToString();
+            HibernateTimeout.Text = winBoxProject.winBoxConfig.HibernateTimeout.ToString();
+            ScreenTimeout_dc.Text = winBoxProject.winBoxConfig.ScreenTimeout_dc.ToString();
+            StandbyTimeout_dc.Text = winBoxProject.winBoxConfig.StandbyTimeout_dc.ToString();
+            HibernateTimeout_dc.Text = winBoxProject.winBoxConfig.HibernateTimeout_dc.ToString();
 
             prebuildEnabled.CheckState = winBoxProject.winBoxConfig.prebuildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             prebuildEvent.Text = winBoxProject.winBoxConfig.prebuildEvent ?? "";
@@ -502,6 +507,8 @@ namespace WinBox_Maker
             downloadEnabled.CheckState = winBoxProject.winBoxConfig.downloadEnabled == true ? CheckState.Checked : CheckState.Unchecked;
 
             forceIot.CheckState = winBoxProject.winBoxConfig.forceIot == true ? CheckState.Checked : CheckState.Unchecked;
+            enable_hibernation.CheckState = winBoxProject.winBoxConfig.enable_hibernation == true ? CheckState.Checked : CheckState.Unchecked;
+            dc_use.CheckState = winBoxProject.winBoxConfig.dc_use == true ? CheckState.Checked : CheckState.Unchecked;
 
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
@@ -1565,6 +1572,22 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.forceIot = forceIot.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void enable_hibernation_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.enable_hibernation = enable_hibernation.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void dc_use_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.dc_use = dc_use.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
     }
