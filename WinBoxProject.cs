@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using WinBox_Maker.Properties;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using IWshShortcut = IWshRuntimeLibrary.IWshShortcut;
 using WshShell = IWshRuntimeLibrary.WshShell;
@@ -1412,8 +1413,20 @@ if %errorlevel%==0 (
             await addCabMsu(resourcesDirectoryPath);
             await addCabMsu(tempDirectoryPath);
 
+            processName("OEM key applying");
+            processValue(59);
+            if (winBoxConfig.UseOemKey == true)
+            {
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-ProductKey:\"{winBoxConfig.OemKey}\"");
+            }
+
             processName("Enabling necessary windows components");
             processValue(60);
+            if (winBoxConfig.forceIot == true)
+            {
+                await RegMod("SOFTWARE", "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "EditionID", "IoTEnterprise");
+                await RegMod("SOFTWARE", "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ProductName", "Windows 10 IoT Enterprise");
+            }
             await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedLogon");
             await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-DeviceLockdown");
             await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-KeyboardFilter");

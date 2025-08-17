@@ -93,6 +93,8 @@
             label14 = new Label();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            panel4 = new Panel();
+            forceIot = new CheckBox();
             label36 = new Label();
             WindowsName = new TextBox();
             label26 = new Label();
@@ -211,6 +213,7 @@
             panel3.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            panel4.SuspendLayout();
             tabPage2.SuspendLayout();
             tabPage3.SuspendLayout();
             panel12.SuspendLayout();
@@ -889,6 +892,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(panel4);
             tabPage1.Controls.Add(label36);
             tabPage1.Controls.Add(WindowsName);
             tabPage1.Controls.Add(label26);
@@ -906,6 +910,26 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "base";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            panel4.BorderStyle = BorderStyle.Fixed3D;
+            panel4.Controls.Add(forceIot);
+            panel4.Location = new Point(330, 159);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(676, 118);
+            panel4.TabIndex = 43;
+            // 
+            // forceIot
+            // 
+            forceIot.AutoSize = true;
+            forceIot.Location = new Point(3, 3);
+            forceIot.Name = "forceIot";
+            forceIot.Size = new Size(253, 29);
+            forceIot.TabIndex = 0;
+            forceIot.Text = "force make \"IoT Enterprise\"";
+            forceIot.UseVisualStyleBackColor = true;
+            forceIot.CheckedChanged += forceIot_CheckedChanged;
             // 
             // label36
             // 
@@ -2102,6 +2126,8 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             tabPage3.ResumeLayout(false);
@@ -2333,5 +2359,9 @@
         private TextBox custom_path;
         private Label label39;
         private Button custom_path_select;
+        private Panel panel4;
+        private CheckBox checkBox1;
+        private CheckBox forceIOT;
+        private CheckBox forceIot;
     }
 }

@@ -498,6 +498,8 @@ namespace WinBox_Maker
             buildEnabled.CheckState = winBoxProject.winBoxConfig.buildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             downloadEnabled.CheckState = winBoxProject.winBoxConfig.downloadEnabled == true ? CheckState.Checked : CheckState.Unchecked;
 
+            forceIot.CheckState = winBoxProject.winBoxConfig.forceIot == true ? CheckState.Checked : CheckState.Unchecked;
+
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -1552,6 +1554,14 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             currentBuildItem.custom_command = custom_command.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void forceIot_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.forceIot = forceIot.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
     }
