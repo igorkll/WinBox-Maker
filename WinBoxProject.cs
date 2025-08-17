@@ -1165,13 +1165,13 @@ bcdedit /set {{default}} TESTSIGNING ON";
 
                     string splashBootLogoPath = Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "splash.bmp");
                     ImageConverter.ConvertToBmp_54_24(logoPath, splashBootLogoPath);
-                    await copyToDebugFile("logo", splashBootLogoPath);
+                    await copyToDebugFile("logo.bmp", splashBootLogoPath);
 
                     string configBootLogoPath = Program.ResourcePath(Path.Combine("resources", winBoxConfig.CustomBootLogo_centering == true ? "hackBGRT_centering.txt" : "hackBGRT.txt"));
                     await Program.CopyFileAsync(configBootLogoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "config.txt"));
 
-                    string hackBGRT = "\r\ncd C:\\WinboxResources\\HackBGRT-2.5.2\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-overwrite enable-bcdedit";
-                    baseSetup += hackBGRT;
+                    string hackBGRT = "cd C:\\WinboxResources\\HackBGRT-2.5.2\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-overwrite enable-bcdedit";
+                    baseSetup += "\r\n" + hackBGRT;
 
                     regAppScriptFirstInitCmd("hackBGRT", hackBGRT);
                 }
