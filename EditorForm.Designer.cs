@@ -1293,7 +1293,7 @@
             panel5.Controls.Add(label20);
             panel5.Controls.Add(postinstall_user_reg_sel);
             panel5.Controls.Add(postinstall_user_bat_clr);
-            panel5.Location = new Point(502, 44);
+            panel5.Location = new Point(566, 44);
             panel5.Name = "panel5";
             panel5.Size = new Size(446, 142);
             panel5.TabIndex = 37;
@@ -1378,7 +1378,7 @@
             // 
             label17.AutoSize = true;
             label17.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label17.Location = new Point(773, 3);
+            label17.Location = new Point(840, 3);
             label17.Name = "label17";
             label17.Size = new Size(172, 38);
             label17.TabIndex = 36;
@@ -1503,16 +1503,16 @@
             panel10.Controls.Add(winmountedEnabled);
             panel10.Controls.Add(winmountedEvent);
             panel10.Controls.Add(label24);
-            panel10.Location = new Point(491, 3);
+            panel10.Location = new Point(515, 5);
             panel10.Name = "panel10";
-            panel10.Size = new Size(457, 163);
+            panel10.Size = new Size(500, 163);
             panel10.TabIndex = 3;
             // 
             // winmountedEnabled
             // 
             winmountedEnabled.AutoSize = true;
             winmountedEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            winmountedEnabled.Location = new Point(349, 6);
+            winmountedEnabled.Location = new Point(392, 6);
             winmountedEnabled.Name = "winmountedEnabled";
             winmountedEnabled.Size = new Size(101, 29);
             winmountedEnabled.TabIndex = 2;
@@ -1524,7 +1524,7 @@
             // 
             winmountedEvent.Location = new Point(3, 41);
             winmountedEvent.Name = "winmountedEvent";
-            winmountedEvent.Size = new Size(447, 115);
+            winmountedEvent.Size = new Size(490, 115);
             winmountedEvent.TabIndex = 1;
             winmountedEvent.Text = "";
             winmountedEvent.TextChanged += winmountedEvent_TextChanged;
@@ -1547,14 +1547,14 @@
             panel9.Controls.Add(label23);
             panel9.Location = new Point(3, 172);
             panel9.Name = "panel9";
-            panel9.Size = new Size(457, 163);
+            panel9.Size = new Size(500, 163);
             panel9.TabIndex = 1;
             // 
             // postbuildEnabled
             // 
             postbuildEnabled.AutoSize = true;
             postbuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            postbuildEnabled.Location = new Point(349, 3);
+            postbuildEnabled.Location = new Point(392, 6);
             postbuildEnabled.Name = "postbuildEnabled";
             postbuildEnabled.Size = new Size(101, 29);
             postbuildEnabled.TabIndex = 2;
@@ -1566,7 +1566,7 @@
             // 
             postbuildEvent.Location = new Point(3, 41);
             postbuildEvent.Name = "postbuildEvent";
-            postbuildEvent.Size = new Size(447, 115);
+            postbuildEvent.Size = new Size(490, 115);
             postbuildEvent.TabIndex = 1;
             postbuildEvent.Text = "";
             postbuildEvent.TextChanged += postbuildEvent_TextChanged;
@@ -1589,14 +1589,14 @@
             panel8.Controls.Add(label22);
             panel8.Location = new Point(3, 3);
             panel8.Name = "panel8";
-            panel8.Size = new Size(457, 163);
+            panel8.Size = new Size(500, 163);
             panel8.TabIndex = 0;
             // 
             // prebuildEnabled
             // 
             prebuildEnabled.AutoSize = true;
             prebuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            prebuildEnabled.Location = new Point(349, 6);
+            prebuildEnabled.Location = new Point(392, 6);
             prebuildEnabled.Name = "prebuildEnabled";
             prebuildEnabled.Size = new Size(101, 29);
             prebuildEnabled.TabIndex = 2;
@@ -1608,7 +1608,7 @@
             // 
             prebuildEvent.Location = new Point(3, 41);
             prebuildEvent.Name = "prebuildEvent";
-            prebuildEvent.Size = new Size(447, 115);
+            prebuildEvent.Size = new Size(490, 115);
             prebuildEvent.TabIndex = 1;
             prebuildEvent.Text = "";
             prebuildEvent.TextChanged += prebuildEvent_TextChanged;
@@ -1699,13 +1699,13 @@
             bl_panel.Controls.Add(bl_tabcontrol);
             bl_panel.Location = new Point(334, 6);
             bl_panel.Name = "bl_panel";
-            bl_panel.Size = new Size(611, 284);
+            bl_panel.Size = new Size(681, 284);
             bl_panel.TabIndex = 3;
             // 
             // bl_folder_enable
             // 
             bl_folder_enable.AutoSize = true;
-            bl_folder_enable.Location = new Point(296, 243);
+            bl_folder_enable.Location = new Point(371, 245);
             bl_folder_enable.Name = "bl_folder_enable";
             bl_folder_enable.Size = new Size(185, 29);
             bl_folder_enable.TabIndex = 44;
@@ -1717,13 +1717,13 @@
             // 
             bl_folder.Location = new Point(7, 243);
             bl_folder.Name = "bl_folder";
-            bl_folder.Size = new Size(283, 31);
+            bl_folder.Size = new Size(358, 31);
             bl_folder.TabIndex = 43;
             bl_folder.TextChanged += bl_folder_TextChanged;
             // 
             // bl_delete
             // 
-            bl_delete.Location = new Point(492, 243);
+            bl_delete.Location = new Point(562, 243);
             bl_delete.Name = "bl_delete";
             bl_delete.Size = new Size(112, 34);
             bl_delete.TabIndex = 3;
@@ -1734,7 +1734,7 @@
             // label31
             // 
             label31.AutoSize = true;
-            label31.Location = new Point(533, 6);
+            label31.Location = new Point(629, 8);
             label31.Name = "label31";
             label31.Size = new Size(41, 25);
             label31.TabIndex = 2;
@@ -1744,7 +1744,7 @@
             // 
             bl_title.Location = new Point(3, 5);
             bl_title.Name = "bl_title";
-            bl_title.Size = new Size(524, 31);
+            bl_title.Size = new Size(620, 31);
             bl_title.TabIndex = 1;
             bl_title.TextChanged += bl_title_TextChanged;
             // 
@@ -1757,7 +1757,7 @@
             bl_tabcontrol.Location = new Point(3, 42);
             bl_tabcontrol.Name = "bl_tabcontrol";
             bl_tabcontrol.SelectedIndex = 0;
-            bl_tabcontrol.Size = new Size(601, 195);
+            bl_tabcontrol.Size = new Size(671, 195);
             bl_tabcontrol.TabIndex = 0;
             bl_tabcontrol.SelectedIndexChanged += bl_tabcontrol_SelectedIndexChanged;
             // 
@@ -1772,14 +1772,14 @@
             bl_msbuild.Location = new Point(4, 34);
             bl_msbuild.Name = "bl_msbuild";
             bl_msbuild.Padding = new Padding(3);
-            bl_msbuild.Size = new Size(593, 157);
+            bl_msbuild.Size = new Size(663, 157);
             bl_msbuild.TabIndex = 0;
             bl_msbuild.Text = "msbuild";
             bl_msbuild.UseVisualStyleBackColor = true;
             // 
             // bl_clear
             // 
-            bl_clear.Location = new Point(435, 6);
+            bl_clear.Location = new Point(519, 6);
             bl_clear.Name = "bl_clear";
             bl_clear.Size = new Size(85, 31);
             bl_clear.TabIndex = 5;
@@ -1789,7 +1789,7 @@
             // 
             // bl_select
             // 
-            bl_select.Location = new Point(346, 6);
+            bl_select.Location = new Point(430, 6);
             bl_select.Name = "bl_select";
             bl_select.Size = new Size(85, 31);
             bl_select.TabIndex = 4;
@@ -1800,7 +1800,7 @@
             // label33
             // 
             label33.AutoSize = true;
-            label33.Location = new Point(526, 9);
+            label33.Location = new Point(609, 9);
             label33.Name = "label33";
             label33.Size = new Size(48, 25);
             label33.TabIndex = 3;
@@ -1810,14 +1810,14 @@
             // 
             bl_path.Location = new Point(6, 6);
             bl_path.Name = "bl_path";
-            bl_path.Size = new Size(334, 31);
+            bl_path.Size = new Size(418, 31);
             bl_path.TabIndex = 2;
             bl_path.TextChanged += bl_path_TextChanged;
             // 
             // label32
             // 
             label32.AutoSize = true;
-            label32.Location = new Point(162, 46);
+            label32.Location = new Point(200, 46);
             label32.Name = "label32";
             label32.Size = new Size(121, 25);
             label32.TabIndex = 1;
@@ -1827,7 +1827,7 @@
             // 
             bl_conf.Location = new Point(6, 43);
             bl_conf.Name = "bl_conf";
-            bl_conf.Size = new Size(150, 31);
+            bl_conf.Size = new Size(188, 31);
             bl_conf.TabIndex = 0;
             bl_conf.TextChanged += bl_conf_TextChanged;
             // 
@@ -1842,14 +1842,14 @@
             bl_cmake.Location = new Point(4, 34);
             bl_cmake.Name = "bl_cmake";
             bl_cmake.Padding = new Padding(3);
-            bl_cmake.Size = new Size(593, 157);
+            bl_cmake.Size = new Size(663, 157);
             bl_cmake.TabIndex = 1;
             bl_cmake.Text = "cmake";
             bl_cmake.UseVisualStyleBackColor = true;
             // 
             // cmake_path_clear
             // 
-            cmake_path_clear.Location = new Point(435, 6);
+            cmake_path_clear.Location = new Point(519, 6);
             cmake_path_clear.Name = "cmake_path_clear";
             cmake_path_clear.Size = new Size(85, 31);
             cmake_path_clear.TabIndex = 48;
@@ -1861,13 +1861,13 @@
             // 
             cmake_path.Location = new Point(6, 6);
             cmake_path.Name = "cmake_path";
-            cmake_path.Size = new Size(334, 31);
+            cmake_path.Size = new Size(418, 31);
             cmake_path.TabIndex = 45;
             cmake_path.TextChanged += cmake_path_TextChanged;
             // 
             // cmake_path_select
             // 
-            cmake_path_select.Location = new Point(346, 6);
+            cmake_path_select.Location = new Point(430, 6);
             cmake_path_select.Name = "cmake_path_select";
             cmake_path_select.Size = new Size(85, 31);
             cmake_path_select.TabIndex = 47;
@@ -1879,13 +1879,13 @@
             // 
             cmake_configuration.Location = new Point(6, 43);
             cmake_configuration.Name = "cmake_configuration";
-            cmake_configuration.Size = new Size(150, 31);
+            cmake_configuration.Size = new Size(188, 31);
             cmake_configuration.TabIndex = 43;
             // 
             // label34
             // 
             label34.AutoSize = true;
-            label34.Location = new Point(526, 9);
+            label34.Location = new Point(609, 9);
             label34.Name = "label34";
             label34.Size = new Size(48, 25);
             label34.TabIndex = 46;
@@ -1894,7 +1894,7 @@
             // label35
             // 
             label35.AutoSize = true;
-            label35.Location = new Point(162, 46);
+            label35.Location = new Point(200, 46);
             label35.Name = "label35";
             label35.Size = new Size(121, 25);
             label35.TabIndex = 44;
@@ -1908,14 +1908,14 @@
             bl_cargo.Controls.Add(cargo_path_select);
             bl_cargo.Location = new Point(4, 34);
             bl_cargo.Name = "bl_cargo";
-            bl_cargo.Size = new Size(593, 157);
+            bl_cargo.Size = new Size(663, 157);
             bl_cargo.TabIndex = 2;
             bl_cargo.Text = "cargo";
             bl_cargo.UseVisualStyleBackColor = true;
             // 
             // cargo_path_clear
             // 
-            cargo_path_clear.Location = new Point(435, 6);
+            cargo_path_clear.Location = new Point(519, 6);
             cargo_path_clear.Name = "cargo_path_clear";
             cargo_path_clear.Size = new Size(85, 31);
             cargo_path_clear.TabIndex = 52;
@@ -1927,14 +1927,14 @@
             // 
             cargo_path.Location = new Point(6, 6);
             cargo_path.Name = "cargo_path";
-            cargo_path.Size = new Size(334, 31);
+            cargo_path.Size = new Size(418, 31);
             cargo_path.TabIndex = 49;
             cargo_path.TextChanged += cargo_path_TextChanged;
             // 
             // label37
             // 
             label37.AutoSize = true;
-            label37.Location = new Point(526, 9);
+            label37.Location = new Point(609, 9);
             label37.Name = "label37";
             label37.Size = new Size(48, 25);
             label37.TabIndex = 50;
@@ -1942,7 +1942,7 @@
             // 
             // cargo_path_select
             // 
-            cargo_path_select.Location = new Point(346, 6);
+            cargo_path_select.Location = new Point(430, 6);
             cargo_path_select.Name = "cargo_path_select";
             cargo_path_select.Size = new Size(85, 31);
             cargo_path_select.TabIndex = 51;
@@ -1961,14 +1961,14 @@
             bl_custom.Controls.Add(custom_path_select);
             bl_custom.Location = new Point(4, 34);
             bl_custom.Name = "bl_custom";
-            bl_custom.Size = new Size(593, 157);
+            bl_custom.Size = new Size(663, 157);
             bl_custom.TabIndex = 3;
             bl_custom.Text = "custom";
             bl_custom.UseVisualStyleBackColor = true;
             // 
             // custom_path_clear
             // 
-            custom_path_clear.Location = new Point(435, 6);
+            custom_path_clear.Location = new Point(519, 6);
             custom_path_clear.Name = "custom_path_clear";
             custom_path_clear.Size = new Size(85, 31);
             custom_path_clear.TabIndex = 56;
@@ -1982,7 +1982,7 @@
             richTextBox2.Location = new Point(6, 80);
             richTextBox2.Name = "richTextBox2";
             richTextBox2.ReadOnly = true;
-            richTextBox2.Size = new Size(584, 74);
+            richTextBox2.Size = new Size(654, 74);
             richTextBox2.TabIndex = 8;
             richTextBox2.Text = resources.GetString("richTextBox2.Text");
             // 
@@ -1990,14 +1990,14 @@
             // 
             custom_path.Location = new Point(6, 6);
             custom_path.Name = "custom_path";
-            custom_path.Size = new Size(334, 31);
+            custom_path.Size = new Size(418, 31);
             custom_path.TabIndex = 53;
             custom_path.TextChanged += custom_path_TextChanged;
             // 
             // label39
             // 
             label39.AutoSize = true;
-            label39.Location = new Point(526, 9);
+            label39.Location = new Point(609, 9);
             label39.Name = "label39";
             label39.Size = new Size(48, 25);
             label39.TabIndex = 54;
@@ -2006,7 +2006,7 @@
             // label38
             // 
             label38.AutoSize = true;
-            label38.Location = new Point(497, 46);
+            label38.Location = new Point(567, 46);
             label38.Name = "label38";
             label38.Size = new Size(93, 25);
             label38.TabIndex = 7;
@@ -2016,13 +2016,13 @@
             // 
             custom_command.Location = new Point(6, 43);
             custom_command.Name = "custom_command";
-            custom_command.Size = new Size(485, 31);
+            custom_command.Size = new Size(555, 31);
             custom_command.TabIndex = 6;
             custom_command.TextChanged += custom_command_TextChanged;
             // 
             // custom_path_select
             // 
-            custom_path_select.Location = new Point(346, 6);
+            custom_path_select.Location = new Point(430, 6);
             custom_path_select.Name = "custom_path_select";
             custom_path_select.Size = new Size(85, 31);
             custom_path_select.TabIndex = 55;
@@ -2101,7 +2101,7 @@
             dl_panel.Controls.Add(dl_url);
             dl_panel.Location = new Point(334, 6);
             dl_panel.Name = "dl_panel";
-            dl_panel.Size = new Size(611, 284);
+            dl_panel.Size = new Size(681, 284);
             dl_panel.TabIndex = 2;
             // 
             // richTextBox1
@@ -2110,13 +2110,13 @@
             richTextBox1.Location = new Point(3, 181);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(483, 96);
+            richTextBox1.Size = new Size(553, 96);
             richTextBox1.TabIndex = 11;
             richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
             // dl_delete
             // 
-            dl_delete.Location = new Point(492, 243);
+            dl_delete.Location = new Point(562, 243);
             dl_delete.Name = "dl_delete";
             dl_delete.Size = new Size(112, 34);
             dl_delete.TabIndex = 8;
@@ -2127,7 +2127,7 @@
             // label30
             // 
             label30.AutoSize = true;
-            label30.Location = new Point(533, 6);
+            label30.Location = new Point(623, 6);
             label30.Name = "label30";
             label30.Size = new Size(41, 25);
             label30.TabIndex = 7;
@@ -2137,14 +2137,14 @@
             // 
             dl_name.Location = new Point(3, 3);
             dl_name.Name = "dl_name";
-            dl_name.Size = new Size(524, 31);
+            dl_name.Size = new Size(614, 31);
             dl_name.TabIndex = 6;
             dl_name.TextChanged += dl_name_TextChanged;
             // 
             // label29
             // 
             label29.AutoSize = true;
-            label29.Location = new Point(533, 77);
+            label29.Location = new Point(623, 77);
             label29.Name = "label29";
             label29.Size = new Size(48, 25);
             label29.TabIndex = 5;
@@ -2154,7 +2154,7 @@
             // 
             dl_path.Location = new Point(3, 74);
             dl_path.Name = "dl_path";
-            dl_path.Size = new Size(524, 31);
+            dl_path.Size = new Size(614, 31);
             dl_path.TabIndex = 4;
             dl_path.TextChanged += dl_path_TextChanged;
             // 
@@ -2183,7 +2183,7 @@
             // label28
             // 
             label28.AutoSize = true;
-            label28.Location = new Point(533, 40);
+            label28.Location = new Point(623, 40);
             label28.Name = "label28";
             label28.Size = new Size(43, 25);
             label28.TabIndex = 1;
@@ -2193,7 +2193,7 @@
             // 
             dl_url.Location = new Point(3, 37);
             dl_url.Name = "dl_url";
-            dl_url.Size = new Size(524, 31);
+            dl_url.Size = new Size(614, 31);
             dl_url.TabIndex = 0;
             dl_url.TextChanged += dl_url_TextChanged;
             // 
