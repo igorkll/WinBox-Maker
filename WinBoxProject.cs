@@ -896,10 +896,10 @@ exit
             string baseSetup = $@"@echo off
 
 powercfg -h off
-powercfg -change -standby-timeout-ac 0
-powercfg -change -standby-timeout-dc 0
-powercfg -change -hibernate-timeout-ac 0
-powercfg -change -hibernate-timeout-dc 0
+powercfg -change -standby-timeout-ac {winBoxConfig.StandbyTimeout}
+powercfg -change -standby-timeout-dc {winBoxConfig.StandbyTimeout}
+powercfg -change -hibernate-timeout-ac {winBoxConfig.HibernateTimeout}
+powercfg -change -hibernate-timeout-dc {winBoxConfig.HibernateTimeout}
 powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
 powercfg -change -monitor-timeout-dc {winBoxConfig.ScreenTimeout}
 powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
@@ -1424,8 +1424,7 @@ if %errorlevel%==0 (
             processValue(60);
             if (winBoxConfig.forceIot == true)
             {
-                await RegMod("SOFTWARE", "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "EditionID", "IoTEnterprise");
-                await RegMod("SOFTWARE", "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ProductName", "Windows 10 IoT Enterprise");
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-Edition:IoTEnterprise /accepteula");
             }
             await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedLogon");
             await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-DeviceLockdown");

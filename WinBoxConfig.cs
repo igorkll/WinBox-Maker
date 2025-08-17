@@ -41,6 +41,8 @@ namespace WinBox_Maker
         public string? PostInstall_user_reg { get; set; }
         public int? WebSessionTimeout { get; set; }
         public int? ScreenTimeout { get; set; }
+        public int? StandbyTimeout { get; set; }
+        public int? HibernateTimeout { get; set; }
         public string? Architecture { get; set; }
         public ProgramTypeEnum? ProgramType { get; set; }
         public ProgramLaunchModeEnum? LaunchMode { get; set; }
@@ -81,6 +83,8 @@ namespace WinBox_Maker
             if (WebSite == null) WebSite = "";
             if (WebSessionTimeout == null) WebSessionTimeout = 0;
             if (ScreenTimeout == null) ScreenTimeout = 0;
+            if (StandbyTimeout == null) StandbyTimeout = 0;
+            if (HibernateTimeout == null) HibernateTimeout = 0;
             if (Architecture == null) Architecture = "x64";
             if (TweakList == null) TweakList = ["Integrate vc redist", "Disable boot circle", "Disable boot messages"];
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
