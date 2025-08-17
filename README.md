@@ -85,11 +85,27 @@ winbox maker provides tools for embedding software into the final windows image.
 * system logging
 * system sounds
 * smart screen
-* the following services are disabled: wbengine, wuauserv, RemoteRegistry, WSearch, SysMain, WerSvc, shellhwdetection, SSDPSRV, TermService, lanmanserver, napagent
 * checking the digital signature of drivers (it may not work on new versions of Windows)
 * lock screen
 * logon animation (it only works normally in the enterprise version)
 * animation of opening and closing windows
+
+## services that have been disabled
+* edgeupdate
+* edgeupdatem
+* wbengine
+* wuauserv
+* RemoteRegistry
+* WSearch
+* SysMain
+* WerSvc
+* shellhwdetection
+* SSDPSRV
+* TermService
+* lanmanserver
+* napagent
+* WinDefend
+* wlidsvc
 
 ### these keys were disabled by changing the keyboard layout
 * calculator key

@@ -137,6 +137,20 @@ namespace WinBox_Maker
             }
         }
 
+        async Task writeDebugFile(string name, string content)
+        {
+            string folder = Path.Combine(tempDirectoryPath, "debug");
+            Program.CreateDirectory(folder);
+            await File.WriteAllTextAsync(Path.Combine(folder, name + ".txt"), content);
+        }
+
+        async Task copyToDebugFile(string name, string sourcePath)
+        {
+            string folder = Path.Combine(tempDirectoryPath, "debug");
+            Program.CreateDirectory(folder);
+            await Program.CopyFileAsync(sourcePath, Path.Combine(folder, name));
+        }
+
         public string? GetName()
         {
             return name;
@@ -722,7 +736,7 @@ exit
             string qemuPath = Path.Combine(Program.winboxSettings.path_qemu_folder, emuName);
             string qemuParameters = $"-drive file=\"{imgPath}\",format=raw -cdrom \"{isoPath}\" -boot d -m 1024 -smp 2";
 
-            await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_qemu.txt"), $"\"{qemuPath}\" {qemuParameters}");
+            await writeDebugFile("qemu", $"\"{qemuPath}\" {qemuParameters}");
 
             await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, "qemu-img.exe"), $"create -f raw \"{imgPath}\" 20G");
             await Program.ExecuteAsync(qemuPath, qemuParameters);
@@ -907,7 +921,8 @@ exit
                 "TermService",
                 "lanmanserver",
                 "napagent",
-                "WinDefend"
+                "WinDefend",
+                "wlidsvc"
             };
 
             string stopServicesCmd = "";
@@ -919,9 +934,7 @@ exit
                 stopServicesCmd += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services"" /v Start /t REG_DWORD /d 4 /f" + "\r\n";
             }
 
-            string baseSetup = $@"@echo off
-
-{(winBoxConfig.enable_hibernation == true ? "powercfg -h on" : "powercfg -h off")}
+            string powercfgSetup = $@"{(winBoxConfig.enable_hibernation == true ? "powercfg -h on" : "powercfg -h off")}
 powercfg -change -standby-timeout-ac {winBoxConfig.StandbyTimeout}
 powercfg -change -standby-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.StandbyTimeout_dc : winBoxConfig.StandbyTimeout)}
 powercfg -change -hibernate-timeout-ac {winBoxConfig.HibernateTimeout}
@@ -930,7 +943,11 @@ powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
 powercfg -change -monitor-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.ScreenTimeout_dc : winBoxConfig.ScreenTimeout)}
 powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
 powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDSWITCH 0
-powercfg -s SCHEME_CURRENT
+powercfg -s SCHEME_CURRENT";
+
+            string baseSetup = $@"@echo off
+
+{(powercfgSetup)}
 
 dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
 dism /online /enable-feature /all /featurename:Client-DeviceLockdown
@@ -1004,6 +1021,16 @@ bcdedit /set {{default}} NOINTEGRITYCHECKS ON
 bcdedit /set {{default}} TESTSIGNING ON";
 
             string applicationScript = $@"@echo off";
+
+            void regAppScriptFirstInitCmd(string name, string cmd)
+            {
+                applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\{name}.installed\" (";
+                applicationScript += $"\r\n{cmd}";
+                applicationScript += $"\r\necho. > \"C:\\WinboxResources\\{name}.installed\"";
+                applicationScript += $"\r\n)";
+            }
+
+            regAppScriptFirstInitCmd("powercfg", powercfgSetup);
 
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
             string cursorPath = Path.Combine(resourcesDirectoryPath, "cursor");
@@ -1105,10 +1132,7 @@ bcdedit /set {{default}} TESTSIGNING ON";
             if (Program.isTweakEnabled(winBoxConfig, "Integrate app runtime 1.7.3"))
             {
                 await CopyBlob("appruntime173.exe");
-                applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\appruntime173.installed\" (";
-                applicationScript += $"\r\nC:\\WinboxResources\\appruntime173.exe";
-                applicationScript += $"\r\necho. > \"C:\\WinboxResources\\appruntime173.installed\"";
-                applicationScript += $"\r\n)";
+                regAppScriptFirstInitCmd("appruntime173", "C:\\WinboxResources\\appruntime173.exe");
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
@@ -1139,10 +1163,9 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 {
                     await UnpackBlob("HackBGRT.zip");
 
-                    string debugBootLogoPath = Path.Combine(tempDirectoryPath, "debug_logo.bmp");
                     string splashBootLogoPath = Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "splash.bmp");
-                    ImageConverter.ConvertToBmp_54_24(logoPath, debugBootLogoPath);
-                    await Program.CopyFileAsync(debugBootLogoPath, splashBootLogoPath);
+                    ImageConverter.ConvertToBmp_54_24(logoPath, splashBootLogoPath);
+                    await copyToDebugFile("logo", splashBootLogoPath);
 
                     string configBootLogoPath = Program.ResourcePath(Path.Combine("resources", winBoxConfig.CustomBootLogo_centering == true ? "hackBGRT_centering.txt" : "hackBGRT.txt"));
                     await Program.CopyFileAsync(configBootLogoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "config.txt"));
@@ -1150,10 +1173,7 @@ bcdedit /set {{default}} TESTSIGNING ON";
                     string hackBGRT = "\r\ncd C:\\WinboxResources\\HackBGRT-2.5.2\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-overwrite enable-bcdedit";
                     baseSetup += hackBGRT;
 
-                    applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\hackBGRT.installed\" (";
-                    applicationScript += hackBGRT;
-                    applicationScript += $"\r\necho. > \"C:\\WinboxResources\\hackBGRT.installed\"";
-                    applicationScript += $"\r\n)";
+                    regAppScriptFirstInitCmd("hackBGRT", hackBGRT);
                 }
             }
 
@@ -1186,10 +1206,7 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 if (File.Exists(regPath))
                 {
                     await Program.CopyFileAsync(regPath, Path.Combine(WinboxResourcesPath, "postinstall_user.reg"));
-                    applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\postinstall_reg.installed\" (";
-                    applicationScript += $"\r\nregedit /s \"C:\\WinboxResources\\postinstall_user.reg\"";
-                    applicationScript += $"\r\necho. > \"C:\\WinboxResources\\postinstall_reg.installed\"";
-                    applicationScript += $"\r\n)";
+                    regAppScriptFirstInitCmd("postinstall_reg", $"regedit /s \"C:\\WinboxResources\\postinstall_user.reg\"");
                 }
             }
 
@@ -1199,10 +1216,7 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 if (File.Exists(batPath))
                 {
                     await Program.CopyFileAsync(batPath, Path.Combine(WinboxResourcesPath, "postinstall_user.bat"));
-                    applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\postinstall_bat.installed\" (";
-                    applicationScript += $"\r\ncall \"C:\\WinboxResources\\postinstall_user.bat\"";
-                    applicationScript += $"\r\necho. > \"C:\\WinboxResources\\postinstall_bat.installed\"";
-                    applicationScript += $"\r\n)";
+                    regAppScriptFirstInitCmd("postinstall_bat", $"call \"C:\\WinboxResources\\postinstall_user.bat\"");
                 }
             }
 
@@ -1236,8 +1250,8 @@ bcdedit /set {{default}} TESTSIGNING ON";
 net user winbox /add
 net localgroup Administrators winbox /add";
 
-            await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_UpdateSystemSettings.txt"), updateSystemSettings);
-            await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_SetupComplete.txt"), baseSetup);
+            await writeDebugFile("UpdateSystemSettings", updateSystemSettings);
+            await writeDebugFile("SetupComplete", baseSetup);
 
             await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "UpdateSystemSettings.bat"), updateSystemSettings);
             await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);
@@ -1366,7 +1380,7 @@ if %errorlevel%==0 (
                 applicationScript += "\r\n" + command;
             }
 
-            await File.WriteAllTextAsync(Path.Combine(tempDirectoryPath, "debug_AppScript.txt"), applicationScript);
+            await writeDebugFile("AppScript", applicationScript);
             await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "app_script.bat"), applicationScript);
             if (winBoxConfig.LaunchMode == ProgramLaunchModeEnum.afterDesktop)
             {
