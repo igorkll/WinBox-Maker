@@ -848,9 +848,9 @@
             label13.AutoSize = true;
             label13.Location = new Point(261, 39);
             label13.Name = "label13";
-            label13.Size = new Size(134, 25);
+            label13.Size = new Size(212, 25);
             label13.TabIndex = 1;
-            label13.Text = "Screen Timeout";
+            label13.Text = "Screen Timeout (minutes)";
             // 
             // ScreenTimeout
             // 
@@ -1233,18 +1233,18 @@
             label41.AutoSize = true;
             label41.Location = new Point(261, 110);
             label41.Name = "label41";
-            label41.Size = new Size(159, 25);
+            label41.Size = new Size(237, 25);
             label41.TabIndex = 5;
-            label41.Text = "Hibernate Timeout";
+            label41.Text = "Hibernate Timeout (minutes)";
             // 
             // label40
             // 
             label40.AutoSize = true;
             label40.Location = new Point(261, 76);
             label40.Name = "label40";
-            label40.Size = new Size(147, 25);
+            label40.Size = new Size(225, 25);
             label40.TabIndex = 3;
-            label40.Text = "Standby Timeout";
+            label40.Text = "Standby Timeout (minutes)";
             // 
             // tabPage13
             // 
