@@ -590,6 +590,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             {
                 releaseDirectory = file;
                 successfully = true;
+                break;
             }
 
             if (successfully)
