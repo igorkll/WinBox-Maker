@@ -21,6 +21,7 @@ winbox Maker is aimed at creating a windows image with access to one application
 winbox maker also disables key combinations to exclude the possibility of closing the application or switching to any system menu  
 however, by changing the configuration of winbox maker, you can achieve some other behavior  
 winbox maker provides tools for embedding software into the final windows image. such as the net framework and visual C++ redist and others  
+in this program, many settings/tweaks are actually made several times in different ways. this was done because windows has different versions where one of the solutions may not work. if you look at the source code and see that some solution (for example, disabling the lock screen) was made in an unreliable way, then know that the program uses several solutions to the same problem and you can find them in the source code and make sure that everything is reliable  
 
 ## warnings
 * if you are going to build the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)

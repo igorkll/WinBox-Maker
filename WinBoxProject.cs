@@ -947,15 +947,62 @@ powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3
 powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3
 powercfg -s SCHEME_CURRENT";
 
+            string bcdeditSetup = $@"bcdedit /set {{bootmgr}} displaybootmenu no
+bcdedit /set {{bootmgr}} timeout 0
+bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
+bcdedit /set {{current}} recoveryenabled no
+bcdedit /set {{current}} loadoptions DISABLE_INTEGRITY_CHECKS
+bcdedit /set {{current}} NOINTEGRITYCHECKS ON
+bcdedit /set {{current}} TESTSIGNING ON
+
+bcdedit /set {{bootmgr}} bootstatuspolicy ignoreallfailures
+bcdedit /set {{bootmgr}} recoveryenabled no
+bcdedit /set {{bootmgr}} loadoptions DISABLE_INTEGRITY_CHECKS
+bcdedit /set {{bootmgr}} NOINTEGRITYCHECKS ON
+bcdedit /set {{bootmgr}} TESTSIGNING ON
+
+bcdedit /set {{current}} displaybootmenu no
+bcdedit /set {{current}} timeout 0
+
+bcdedit /set {{default}} displaybootmenu no
+bcdedit /set {{default}} timeout 0
+bcdedit /set {{default}} bootstatuspolicy ignoreallfailures
+bcdedit /set {{default}} recoveryenabled no
+bcdedit /set {{default}} loadoptions DISABLE_INTEGRITY_CHECKS
+bcdedit /set {{default}} NOINTEGRITYCHECKS ON
+bcdedit /set {{default}} TESTSIGNING ON";
+
+            if (Program.isTweakEnabled(winBoxConfig, "Disable boot circle"))
+            {
+                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000069 true";
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Disable boot logo"))
+            {
+                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000067 true";
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Disable boot messages"))
+            {
+                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000068 true";
+            }
+
+            string setupCompleteAndFirstInit = $@"{bcdeditSetup}
+
+{powercfgSetup}
+
+{stopServicesCmd}";
+
+            string updateSystemSettingsAndFirstInit = $@"reagentc.exe /disable
+netsh advfirewall set allprofiles state off";
+
             string baseSetup = $@"@echo off
 
-{(powercfgSetup)}
+{setupCompleteAndFirstInit}
 
 dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
 dism /online /enable-feature /all /featurename:Client-DeviceLockdown
 dism /online /enable-feature /all /featurename:Client-KeyboardFilter
-
-{stopServicesCmd}
 
 call ""C:\WinboxResources\UpdateSystemSettings.bat""
 schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\UpdateSystemSettings.bat"" /sc onlogon /rl highest /ru ""SYSTEM""
@@ -994,33 +1041,7 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVT
 
 reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
 
-reagentc.exe /disable
-netsh advfirewall set allprofiles state off
-
-bcdedit /set {{bootmgr}} displaybootmenu no
-bcdedit /set {{bootmgr}} timeout 0
-bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
-bcdedit /set {{current}} recoveryenabled no
-bcdedit /set {{current}} loadoptions DISABLE_INTEGRITY_CHECKS
-bcdedit /set {{current}} NOINTEGRITYCHECKS ON
-bcdedit /set {{current}} TESTSIGNING ON
-
-bcdedit /set {{bootmgr}} bootstatuspolicy ignoreallfailures
-bcdedit /set {{bootmgr}} recoveryenabled no
-bcdedit /set {{bootmgr}} loadoptions DISABLE_INTEGRITY_CHECKS
-bcdedit /set {{bootmgr}} NOINTEGRITYCHECKS ON
-bcdedit /set {{bootmgr}} TESTSIGNING ON
-
-bcdedit /set {{current}} displaybootmenu no
-bcdedit /set {{current}} timeout 0
-
-bcdedit /set {{default}} displaybootmenu no
-bcdedit /set {{default}} timeout 0
-bcdedit /set {{default}} bootstatuspolicy ignoreallfailures
-bcdedit /set {{default}} recoveryenabled no
-bcdedit /set {{default}} loadoptions DISABLE_INTEGRITY_CHECKS
-bcdedit /set {{default}} NOINTEGRITYCHECKS ON
-bcdedit /set {{default}} TESTSIGNING ON";
+{updateSystemSettingsAndFirstInit}";
 
             string applicationScript = $@"@echo off";
 
@@ -1032,7 +1053,8 @@ bcdedit /set {{default}} TESTSIGNING ON";
                 applicationScript += $"\r\n)";
             }
 
-            regAppScriptFirstInitCmd("powercfg", powercfgSetup);
+            regAppScriptFirstInitCmd("firstInit1", setupCompleteAndFirstInit);
+            regAppScriptFirstInitCmd("firstInit2", updateSystemSettingsAndFirstInit);
 
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
             string cursorPath = Path.Combine(resourcesDirectoryPath, "cursor");
@@ -1048,21 +1070,6 @@ bcdedit /set {{default}} TESTSIGNING ON";
             if (winBoxConfig.UseOemKey == true && winBoxConfig.OemKey != null && !winBoxConfig.OemKey.Contains("\""))
             {
                 baseSetup += $"\r\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Disable boot circle"))
-            {
-                updateSystemSettings += $"\r\nbcdedit /set {{globalsettings}} custom:16000069 true";
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Disable boot logo"))
-            {
-                updateSystemSettings += $"\r\nbcdedit /set {{globalsettings}} custom:16000067 true";
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Disable boot messages"))
-            {
-                updateSystemSettings += $"\r\nbcdedit /set {{globalsettings}} custom:16000068 true";
             }
 
             void regRedist(string name)
