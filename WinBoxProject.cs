@@ -1065,7 +1065,14 @@ powercfg -s SCHEME_CURRENT";
 {servicesSetup}";
 
             string updateSystemSettingsAndFirstInit = $@"reagentc.exe /disable
-netsh advfirewall set allprofiles state off";
+netsh advfirewall set allprofiles state off
+
+{bcdeditSetup}";
+            //why do I change the bcd every time I start?
+            //because in some versions of windows (old enterprise),
+            //bcd changes may otherwise remain unchanged if done in setup complete,
+            //which will create a vulnerability so that the system restore window can open.
+            //This is one of those cases where it is better to solve a problem in several ways at once.
 
             string baseSetup = $@"@echo off
 
