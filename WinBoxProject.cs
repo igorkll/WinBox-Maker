@@ -583,10 +583,10 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             }
             Directory.CreateDirectory(buildDir);
 
-            await Program.ExecuteAsync("npx", $"electron-packager . \"{buildItem.electron_packager_name}\" --platform=win32 --arch=\"{architecture}\" --out=\"{output}\"", electronFolder, getDebugFilePath($"build_electron_{index}"));
+            await Program.ExecuteAsync("cmd.exe", $"/c npx electron-packager . \"{buildItem.electron_packager_name}\" --platform=win32 --arch=\"{architecture}\" --out=\"{buildDir}\"", electronFolder, getDebugFilePath($"build_electron_{index}"));
 
             string? releaseDirectory = null;
-            foreach (string file in Directory.GetFiles(buildDir))
+            foreach (string file in Directory.GetDirectories(buildDir))
             {
                 releaseDirectory = file;
                 successfully = true;
@@ -653,8 +653,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                     return true;
 
                 case BuildItemType.electron_packager:
-                    await RunElectronBuildSystem(index, buildItem, Path.Combine(sourcesDirectoryPath, buildItem.electron_packager_path), outputDir);
-                    return true;
+                    return await RunElectronBuildSystem(index, buildItem, Path.GetDirectoryName(Path.Combine(sourcesDirectoryPath, buildItem.electron_packager_path)), outputDir);
             }
 
             return false;

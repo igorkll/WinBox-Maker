@@ -365,32 +365,28 @@ namespace WinBox_Maker
                     process.StartInfo.RedirectStandardError = true;
 
                     Program.CreateDirectory(Path.GetDirectoryName(outputPath));
-                    using (StreamWriter? logWriter = new StreamWriter(outputPath, append: true, Encoding.UTF8))
+
+                    var outputLines = new List<string>();
+
+                    process.OutputDataReceived += (s, e) => { if (e.Data != null) outputLines.Add("[OUT] " + e.Data); };
+                    process.ErrorDataReceived += (s, e) => { if (e.Data != null) outputLines.Add("[ERR] " + e.Data); };
+
+                    process.Start();
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
+
+                    await process.WaitForExitAsync();
+
+                    using FileStream fs = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                    using StreamWriter writer = new StreamWriter(fs, Encoding.UTF8);
+                    writer.WriteLine("[EXEC] " + exec);
+                    writer.WriteLine("[ARGS] " + args);
+                    writer.WriteLine("[DIR ] " + workingDirectory);
+                    foreach (string line in outputLines)
                     {
-                        process.OutputDataReceived += async (s, e) =>
-                        {
-                            if (e.Data != null && logWriter != null)
-                            {
-                                await logWriter.WriteLineAsync($"[OUT] {e.Data}");
-                                await logWriter.FlushAsync();
-                            }
-                        };
-
-                        process.ErrorDataReceived += async (s, e) =>
-                        {
-                            if (e.Data != null && logWriter != null)
-                            {
-                                await logWriter.WriteLineAsync($"[ERR] {e.Data}");
-                                await logWriter.FlushAsync();
-                            }
-                        };
-
-                        process.Start();
-                        process.BeginOutputReadLine();
-                        process.BeginErrorReadLine();
-
-                        await process.WaitForExitAsync();
+                        writer.WriteLine(line);
                     }
+                    writer.Flush();
                 }
                 else
                 {
