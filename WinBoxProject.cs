@@ -135,6 +135,11 @@ namespace WinBox_Maker
             if (!File.Exists(gitignorePath)) {
                 File.WriteAllText(gitignorePath, $"## WinBox-Maker\n\nwinbox_build\nwinbox_temp\nwinbox_images\n");
             }
+
+            foreach (BuildItem buildItem in winBoxConfig.BuildItems)
+            {
+                buildItem.initDefaults();
+            }
         }
 
         string getDebugFilePath(string name)
@@ -564,6 +569,39 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             File.Delete(tempBatFilePath);
         }
 
+        public async Task<bool> RunElectronBuildSystem(int index, BuildItem buildItem, string electronFolder, string output)
+        {
+            bool successfully = false;
+
+            string architecture = winBoxConfig.Architecture;
+            if (architecture == "x86") architecture = "ia32";
+
+            string buildDir = Path.Combine(tempDirectoryPath, "electron_build");
+            if (Directory.Exists(buildDir))
+            {
+                Directory.Delete(buildDir, true);
+            }
+            Directory.CreateDirectory(buildDir);
+
+            await Program.ExecuteAsync("npx", $"electron-packager . \"{buildItem.electron_packager_name}\" --platform=win32 --arch=\"{architecture}\" --out=\"{output}\"", electronFolder, getDebugFilePath($"build_electron_{index}"));
+
+            string? releaseDirectory = null;
+            foreach (string file in Directory.GetFiles(buildDir))
+            {
+                releaseDirectory = file;
+                successfully = true;
+            }
+
+            if (successfully)
+            {
+                await Program.CopyFilesRecursivelyAsync(releaseDirectory, output);
+            }
+
+            Directory.Delete(buildDir, true);
+
+            return successfully;
+        }
+
         public async Task<bool> BuildUserProject(int index, BuildItem buildItem)
         {
             string outputDir = Path.Combine(tempDirectoryPath, "program");
@@ -612,6 +650,10 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
 
                 case BuildItemType.custom:
                     await RunCustomBuildSystem(index, buildItem, Path.Combine(sourcesDirectoryPath, buildItem.custom_path), outputDir);
+                    return true;
+
+                case BuildItemType.electron_packager:
+                    await RunElectronBuildSystem(index, buildItem, Path.Combine(sourcesDirectoryPath, buildItem.electron_packager_path), outputDir);
                     return true;
             }
 

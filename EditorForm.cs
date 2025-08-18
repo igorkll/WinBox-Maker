@@ -144,6 +144,8 @@ namespace WinBox_Maker
                 bl_conf.Text = buildItem.msbuild_configuration ?? "";
                 cmake_path.Text = buildItem.cmake_path ?? "";
                 cargo_path.Text = buildItem.cargo_path ?? "";
+                electron_packager_path.Text = buildItem.electron_packager_path ?? "";
+                electron_packager_name.Text = buildItem.electron_packager_name ?? "";
                 cmake_configuration.Text = buildItem.cmake_configuration ?? "";
                 custom_path.Text = buildItem.custom_path ?? "";
                 custom_command.Text = buildItem.custom_command ?? "";
@@ -1372,17 +1374,8 @@ namespace WinBox_Maker
         private void addBuild_Click(object sender, EventArgs e)
         {
             BuildItem buildItem = new BuildItem();
+            buildItem.initDefaults();
             buildItem.name = $"build item {winBoxProject.winBoxConfig.BuildItems.Count() + 1}";
-            buildItem.type = BuildItemType.msbuild;
-            buildItem.subdirectory = "";
-            buildItem.subdirectory_enabled = false;
-            buildItem.msbuild_path = "";
-            buildItem.msbuild_configuration = "Release";
-            buildItem.cmake_path = "";
-            buildItem.cmake_configuration = "Release";
-            buildItem.cargo_path = "";
-            buildItem.custom_path = "";
-            buildItem.custom_command = "";
 
             winBoxProject.winBoxConfig.buildEnabled = true;
             winBoxProject.winBoxConfig.BuildItems.Add(buildItem);
@@ -1632,6 +1625,50 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.dc_use = dc_use.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void electron_packager_path_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            currentBuildItem.electron_packager_path = electron_packager_path.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private async void electron_packager_path_select_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue,
+                "Electron project (package.json) (*.json)|*.json|All files (*.*)|*.*",
+                winBoxProject.sourcesDirectoryPath,
+                true
+            );
+            if (name != null)
+            {
+                currentBuildItem.electron_packager_path = name;
+                guiEventsLock = true;
+                electron_packager_path.Text = currentBuildItem.electron_packager_path;
+                guiEventsLock = false;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void electron_packager_path_clear_Click(object sender, EventArgs e)
+        {
+            currentBuildItem.electron_packager_path = "";
+            guiEventsLock = true;
+            electron_packager_path.Text = "";
+            guiEventsLock = false;
+            winBoxProject.SaveConfig();
+        }
+
+        private void electron_packager_name_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            currentBuildItem.electron_packager_name = electron_packager_name.Text;
+            winBoxProject.SaveConfig();
         }
     }
 }

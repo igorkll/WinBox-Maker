@@ -199,6 +199,11 @@
             label38 = new Label();
             custom_command = new TextBox();
             custom_path_select = new Button();
+            bl_electron_packager = new TabPage();
+            electron_packager_path = new TextBox();
+            electron_packager_path_clear = new Button();
+            label44 = new Label();
+            electron_packager_path_select = new Button();
             buildEnabled = new CheckBox();
             addBuild = new Button();
             BuildItems = new CheckedListBox();
@@ -221,6 +226,8 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
+            electron_packager_name = new TextBox();
+            label45 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -257,6 +264,7 @@
             bl_cmake.SuspendLayout();
             bl_cargo.SuspendLayout();
             bl_custom.SuspendLayout();
+            bl_electron_packager.SuspendLayout();
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -1754,6 +1762,7 @@
             bl_tabcontrol.Controls.Add(bl_cmake);
             bl_tabcontrol.Controls.Add(bl_cargo);
             bl_tabcontrol.Controls.Add(bl_custom);
+            bl_tabcontrol.Controls.Add(bl_electron_packager);
             bl_tabcontrol.Location = new Point(3, 42);
             bl_tabcontrol.Name = "bl_tabcontrol";
             bl_tabcontrol.SelectedIndex = 0;
@@ -2030,6 +2039,58 @@
             custom_path_select.UseVisualStyleBackColor = true;
             custom_path_select.Click += custom_path_select_Click;
             // 
+            // bl_electron_packager
+            // 
+            bl_electron_packager.Controls.Add(electron_packager_name);
+            bl_electron_packager.Controls.Add(label45);
+            bl_electron_packager.Controls.Add(electron_packager_path);
+            bl_electron_packager.Controls.Add(electron_packager_path_clear);
+            bl_electron_packager.Controls.Add(label44);
+            bl_electron_packager.Controls.Add(electron_packager_path_select);
+            bl_electron_packager.Location = new Point(4, 34);
+            bl_electron_packager.Name = "bl_electron_packager";
+            bl_electron_packager.Size = new Size(663, 157);
+            bl_electron_packager.TabIndex = 4;
+            bl_electron_packager.Text = "electron-packager";
+            bl_electron_packager.UseVisualStyleBackColor = true;
+            // 
+            // electron_packager_path
+            // 
+            electron_packager_path.Location = new Point(6, 6);
+            electron_packager_path.Name = "electron_packager_path";
+            electron_packager_path.Size = new Size(418, 31);
+            electron_packager_path.TabIndex = 6;
+            electron_packager_path.TextChanged += electron_packager_path_TextChanged;
+            // 
+            // electron_packager_path_clear
+            // 
+            electron_packager_path_clear.Location = new Point(519, 6);
+            electron_packager_path_clear.Name = "electron_packager_path_clear";
+            electron_packager_path_clear.Size = new Size(85, 31);
+            electron_packager_path_clear.TabIndex = 9;
+            electron_packager_path_clear.Text = "clear";
+            electron_packager_path_clear.UseVisualStyleBackColor = true;
+            electron_packager_path_clear.Click += electron_packager_path_clear_Click;
+            // 
+            // label44
+            // 
+            label44.AutoSize = true;
+            label44.Location = new Point(609, 9);
+            label44.Name = "label44";
+            label44.Size = new Size(48, 25);
+            label44.TabIndex = 7;
+            label44.Text = "path";
+            // 
+            // electron_packager_path_select
+            // 
+            electron_packager_path_select.Location = new Point(430, 6);
+            electron_packager_path_select.Name = "electron_packager_path_select";
+            electron_packager_path_select.Size = new Size(85, 31);
+            electron_packager_path_select.TabIndex = 8;
+            electron_packager_path_select.Text = "select";
+            electron_packager_path_select.UseVisualStyleBackColor = true;
+            electron_packager_path_select.Click += electron_packager_path_select_Click;
+            // 
             // buildEnabled
             // 
             buildEnabled.AutoSize = true;
@@ -2255,6 +2316,23 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
+            // electron_packager_name
+            // 
+            electron_packager_name.Location = new Point(6, 43);
+            electron_packager_name.Name = "electron_packager_name";
+            electron_packager_name.Size = new Size(188, 31);
+            electron_packager_name.TabIndex = 49;
+            electron_packager_name.TextChanged += electron_packager_name_TextChanged;
+            // 
+            // label45
+            // 
+            label45.AutoSize = true;
+            label45.Location = new Point(200, 46);
+            label45.Name = "label45";
+            label45.Size = new Size(154, 25);
+            label45.TabIndex = 50;
+            label45.Text = "Application Name";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -2346,6 +2424,8 @@
             bl_cargo.PerformLayout();
             bl_custom.ResumeLayout(false);
             bl_custom.PerformLayout();
+            bl_electron_packager.ResumeLayout(false);
+            bl_electron_packager.PerformLayout();
             tabPage11.ResumeLayout(false);
             tabPage11.PerformLayout();
             dl_panel.ResumeLayout(false);
@@ -2549,5 +2629,12 @@
         private Label label43;
         private Label label42;
         private CheckBox enable_hibernation;
+        private TabPage bl_electron_packager;
+        private Button electron_packager_path_clear;
+        private TextBox electron_packager_path;
+        private Button electron_packager_path_select;
+        private Label label44;
+        private TextBox electron_packager_name;
+        private Label label45;
     }
 }
