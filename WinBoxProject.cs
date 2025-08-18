@@ -774,6 +774,101 @@ exit
             }
         }
 
+        string _getBcdeditSetup()
+        {
+            string bcdeditSetup = $@"bcdedit /set {{bootmgr}} displaybootmenu no
+bcdedit /set {{bootmgr}} timeout 0
+bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
+bcdedit /set {{current}} recoveryenabled no
+bcdedit /set {{current}} loadoptions DISABLE_INTEGRITY_CHECKS
+bcdedit /set {{current}} NOINTEGRITYCHECKS ON
+bcdedit /set {{current}} TESTSIGNING ON
+
+bcdedit /set {{bootmgr}} bootstatuspolicy ignoreallfailures
+bcdedit /set {{bootmgr}} recoveryenabled no
+bcdedit /set {{bootmgr}} loadoptions DISABLE_INTEGRITY_CHECKS
+bcdedit /set {{bootmgr}} NOINTEGRITYCHECKS ON
+bcdedit /set {{bootmgr}} TESTSIGNING ON
+
+bcdedit /set {{current}} displaybootmenu no
+bcdedit /set {{current}} timeout 0
+
+bcdedit /set {{default}} displaybootmenu no
+bcdedit /set {{default}} timeout 0
+bcdedit /set {{default}} bootstatuspolicy ignoreallfailures
+bcdedit /set {{default}} recoveryenabled no
+bcdedit /set {{default}} loadoptions DISABLE_INTEGRITY_CHECKS
+bcdedit /set {{default}} NOINTEGRITYCHECKS ON
+bcdedit /set {{default}} TESTSIGNING ON" + "\r\n";
+
+            if (Program.isTweakEnabled(winBoxConfig, "Disable boot circle"))
+            {
+                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000069 true";
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Disable boot logo"))
+            {
+                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000067 true";
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Disable boot messages"))
+            {
+                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000068 true";
+            }
+
+            return bcdeditSetup;
+        }
+
+        string _getPowercfgSetup()
+        {
+            string powercfgSetup = $@"{(winBoxConfig.enable_hibernation == true ? "powercfg -h on" : "powercfg -h off")}
+powercfg -change -standby-timeout-ac {winBoxConfig.StandbyTimeout}
+powercfg -change -standby-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.StandbyTimeout_dc : winBoxConfig.StandbyTimeout)}
+powercfg -change -hibernate-timeout-ac {winBoxConfig.HibernateTimeout}
+powercfg -change -hibernate-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.HibernateTimeout_dc : winBoxConfig.HibernateTimeout)}
+powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
+powercfg -change -monitor-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.ScreenTimeout_dc : winBoxConfig.ScreenTimeout)}
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3
+powercfg -s SCHEME_CURRENT";
+
+            return powercfgSetup;
+        }
+
+        string _getServicesSetup()
+        {
+            string[] stopServices = {
+                "edgeupdate",
+                "edgeupdatem",
+                "wbengine",
+                "wuauserv",
+                "RemoteRegistry",
+                "WSearch",
+                "SysMain",
+                "WerSvc",
+                "shellhwdetection",
+                "SSDPSRV",
+                "TermService",
+                "lanmanserver",
+                "napagent",
+                "WinDefend",
+                "wlidsvc"
+            };
+
+            string servicesSetup = "";
+            foreach (string service in stopServices)
+            {
+                servicesSetup += $"sc stop {service}\r\n";
+                servicesSetup += $"sc config {service} start= disabled\r\n";
+                servicesSetup += $"net stop {service}\r\n";
+                servicesSetup += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\{service}"" /v Start /t REG_DWORD /d 4 /f" + "\r\n";
+            }
+
+            return servicesSetup;
+        }
+
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath)
         {
             if (winBoxConfig.prebuildEnabled == true)
@@ -907,91 +1002,16 @@ exit
             */
 
             // ------------------------------------ system init
-            string[] stopServices = {
-                "edgeupdate",
-                "edgeupdatem",
-                "wbengine",
-                "wuauserv",
-                "RemoteRegistry",
-                "WSearch",
-                "SysMain",
-                "WerSvc",
-                "shellhwdetection",
-                "SSDPSRV",
-                "TermService",
-                "lanmanserver",
-                "napagent",
-                "WinDefend",
-                "wlidsvc"
-            };
 
-            string stopServicesCmd = "";
-            foreach (string service in stopServices)
-            {
-                stopServicesCmd += $"sc stop {service}\r\n";
-                stopServicesCmd += $"sc config {service} start= disabled\r\n";
-                stopServicesCmd += $"net stop {service}\r\n";
-                stopServicesCmd += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services"" /v Start /t REG_DWORD /d 4 /f" + "\r\n";
-            }
-
-            string powercfgSetup = $@"{(winBoxConfig.enable_hibernation == true ? "powercfg -h on" : "powercfg -h off")}
-powercfg -change -standby-timeout-ac {winBoxConfig.StandbyTimeout}
-powercfg -change -standby-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.StandbyTimeout_dc : winBoxConfig.StandbyTimeout)}
-powercfg -change -hibernate-timeout-ac {winBoxConfig.HibernateTimeout}
-powercfg -change -hibernate-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.HibernateTimeout_dc : winBoxConfig.HibernateTimeout)}
-powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
-powercfg -change -monitor-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.ScreenTimeout_dc : winBoxConfig.ScreenTimeout)}
-powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0
-powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0
-powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3
-powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3
-powercfg -s SCHEME_CURRENT";
-
-            string bcdeditSetup = $@"bcdedit /set {{bootmgr}} displaybootmenu no
-bcdedit /set {{bootmgr}} timeout 0
-bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
-bcdedit /set {{current}} recoveryenabled no
-bcdedit /set {{current}} loadoptions DISABLE_INTEGRITY_CHECKS
-bcdedit /set {{current}} NOINTEGRITYCHECKS ON
-bcdedit /set {{current}} TESTSIGNING ON
-
-bcdedit /set {{bootmgr}} bootstatuspolicy ignoreallfailures
-bcdedit /set {{bootmgr}} recoveryenabled no
-bcdedit /set {{bootmgr}} loadoptions DISABLE_INTEGRITY_CHECKS
-bcdedit /set {{bootmgr}} NOINTEGRITYCHECKS ON
-bcdedit /set {{bootmgr}} TESTSIGNING ON
-
-bcdedit /set {{current}} displaybootmenu no
-bcdedit /set {{current}} timeout 0
-
-bcdedit /set {{default}} displaybootmenu no
-bcdedit /set {{default}} timeout 0
-bcdedit /set {{default}} bootstatuspolicy ignoreallfailures
-bcdedit /set {{default}} recoveryenabled no
-bcdedit /set {{default}} loadoptions DISABLE_INTEGRITY_CHECKS
-bcdedit /set {{default}} NOINTEGRITYCHECKS ON
-bcdedit /set {{default}} TESTSIGNING ON";
-
-            if (Program.isTweakEnabled(winBoxConfig, "Disable boot circle"))
-            {
-                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000069 true";
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Disable boot logo"))
-            {
-                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000067 true";
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Disable boot messages"))
-            {
-                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000068 true";
-            }
+            string bcdeditSetup = _getBcdeditSetup();
+            string powercfgSetup = _getPowercfgSetup();
+            string servicesSetup = _getServicesSetup();
 
             string setupCompleteAndFirstInit = $@"{bcdeditSetup}
 
 {powercfgSetup}
 
-{stopServicesCmd}";
+{servicesSetup}";
 
             string updateSystemSettingsAndFirstInit = $@"reagentc.exe /disable
 netsh advfirewall set allprofiles state off";
@@ -1043,14 +1063,14 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
 {updateSystemSettingsAndFirstInit}";
 
-            string applicationScript = $@"@echo off";
+            string applicationScript = $@"@echo off" + "\r\n";
 
             void regAppScriptFirstInitCmd(string name, string cmd)
             {
                 applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\{name}.installed\" (";
                 applicationScript += $"\r\n{cmd}";
                 applicationScript += $"\r\necho. > \"C:\\WinboxResources\\{name}.installed\"";
-                applicationScript += $"\r\n)";
+                applicationScript += $"\r\n)\r\n";
             }
 
             regAppScriptFirstInitCmd("firstInit1", setupCompleteAndFirstInit);
