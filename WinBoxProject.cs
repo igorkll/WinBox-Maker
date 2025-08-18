@@ -18,6 +18,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Policy;
+using System.Security.Principal;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -1044,6 +1045,8 @@ powercfg -s SCHEME_CURRENT";
 
             await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"");
 
+            // ------------------------------------ removing excess
+
             /*
             string lockScreenAppPath = Path.Combine(wimMountPath, "Windows\\SystemApps\\Microsoft.LockApp_cw5n1h2txyewy");
             if (Directory.Exists(lockScreenAppPath))
@@ -1052,15 +1055,44 @@ powercfg -s SCHEME_CURRENT";
             }
             */
 
+            async Task removeSystemObject(string path)
+            {
+                path = Path.Combine(wimMountPath, path);
+
+                await Task.Run(() => {
+                    if (Directory.Exists(path))
+                    {
+                        Program.SetAttributesRecursive(path, FileAttributes.Normal);
+                        Directory.Delete(path, true);
+                    }
+
+                    if (File.Exists(path))
+                    {
+                        File.SetAttributes(path, FileAttributes.Normal);
+                        File.Delete(path);
+                    }
+                });
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "completely remove explorer.exe")) await removeSystemObject("Windows\\explorer.exe");
+            if (Program.isTweakEnabled(winBoxConfig, "completely remove system audio/images"))
+            {
+                await removeSystemObject("Windows\\Web");
+                await removeSystemObject("Windows\\Media");
+            }
+            if (Program.isTweakEnabled(winBoxConfig, "removal of the subsystem SysWOW64"))
+            {
+                await removeSystemObject("Windows\\SysWOW64");
+                Directory.CreateDirectory("Windows\\SysWOW64");
+            }
+
             // ------------------------------------ system init
 
             string bcdeditSetup = _getBcdeditSetup();
             string powercfgSetup = _getPowercfgSetup();
             string servicesSetup = _getServicesSetup();
 
-            string setupCompleteAndFirstInit = $@"{bcdeditSetup}
-
-{powercfgSetup}
+            string setupCompleteAndFirstInit = $@"{powercfgSetup}
 
 {servicesSetup}";
 

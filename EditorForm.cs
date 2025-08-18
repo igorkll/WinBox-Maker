@@ -1,11 +1,13 @@
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties;
 using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
@@ -65,6 +67,9 @@ namespace WinBox_Maker
             AddTweakToList("Disable boot logo");
             AddTweakToList("Disable boot messages");
             AddTweakToList("Do not disable hotkeys by changing the layout");
+            AddTweakToList("completely remove explorer.exe");
+            AddTweakToList("completely remove system audio/images");
+            AddTweakToList("removal of the subsystem SysWOW64");
             softwareCheck = false;
 
             UnlockForm();

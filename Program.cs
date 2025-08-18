@@ -473,6 +473,29 @@ namespace WinBox_Maker
             }
         }
 
+        public static void SetAttributesRecursive(string path, FileAttributes attributes)
+        {
+            if (!Directory.Exists(path))
+                throw new DirectoryNotFoundException(path);
+
+            // Изменяем атрибуты самой папки
+            DirectoryInfo dirInfo = new DirectoryInfo(path);
+            dirInfo.Attributes = attributes;
+
+            // Изменяем атрибуты всех файлов внутри
+            foreach (var file in Directory.GetFiles(path, "*", SearchOption.AllDirectories))
+            {
+                File.SetAttributes(file, attributes);
+            }
+
+            // Изменяем атрибуты всех вложенных папок
+            foreach (var dir in Directory.GetDirectories(path, "*", SearchOption.AllDirectories))
+            {
+                DirectoryInfo subDirInfo = new DirectoryInfo(dir);
+                subDirInfo.Attributes = attributes;
+            }
+        }
+
         private static async Task<long> RecursiveGetUsedSpace(UdfReader cd, DiscDirectoryInfo currentDir, string[] blacklist)
         {
             long usedSpace = 0;
