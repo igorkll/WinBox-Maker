@@ -1369,6 +1369,7 @@ net localgroup Administrators winbox /add";
             }
 
             await File.WriteAllTextAsync(Path.Combine(wimMountPath, "README.txt"), $"this image was created by the {Program.version} free software\r\nhttps://github.com/igorkll/WinBox-Maker");
+            await File.WriteAllTextAsync(Path.Combine(wimMountPath, "INFO.txt"), $"name: {newWindowsDescription.name}\r\ndescription: {newWindowsDescription.description}");
 
             // ------------------------------------ setup application autorun
             string? command = null;
