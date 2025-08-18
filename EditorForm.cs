@@ -69,6 +69,7 @@ namespace WinBox_Maker
             AddTweakToList("Do not disable hotkeys by changing the layout");
             AddTweakToList("completely remove explorer.exe");
             AddTweakToList("completely remove system audio/images");
+            AddTweakToList("removing UWP apps");
             AddTweakToList("removal of the subsystem SysWOW64");
             softwareCheck = false;
 

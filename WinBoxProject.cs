@@ -1085,6 +1085,11 @@ powercfg -s SCHEME_CURRENT";
                 await removeSystemObject("Windows\\SysWOW64");
                 Directory.CreateDirectory("Windows\\SysWOW64");
             }
+            if (Program.isTweakEnabled(winBoxConfig, "removing UWP apps"))
+            {
+                await removeSystemObject("Windows\\SystemApps");
+                await removeSystemObject("Program Files\\WindowsApps");
+            }
 
             // ------------------------------------ system init
 
