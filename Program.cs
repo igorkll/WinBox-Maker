@@ -347,7 +347,7 @@ namespace WinBox_Maker
             process.WaitForExit();
         }
 
-        public static async Task ExecuteAsync(string exec, string args, string? workingDirectory=null)
+        public static async Task ExecuteAsync(string exec, string args, string? workingDirectory = null, string? outputPath = null)
         {
             using (Process process = new Process())
             {
@@ -355,10 +355,48 @@ namespace WinBox_Maker
                 process.StartInfo.Arguments = args;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
+
                 if (workingDirectory != null)
                     process.StartInfo.WorkingDirectory = workingDirectory;
-                process.Start();
-                await process.WaitForExitAsync();
+
+                if (outputPath != null)
+                {
+                    process.StartInfo.RedirectStandardOutput = true;
+                    process.StartInfo.RedirectStandardError = true;
+
+                    Program.CreateDirectory(Path.GetDirectoryName(outputPath));
+                    using (StreamWriter? logWriter = new StreamWriter(outputPath, append: true, Encoding.UTF8))
+                    {
+                        process.OutputDataReceived += async (s, e) =>
+                        {
+                            if (e.Data != null && logWriter != null)
+                            {
+                                await logWriter.WriteLineAsync($"[OUT] {e.Data}");
+                                await logWriter.FlushAsync();
+                            }
+                        };
+
+                        process.ErrorDataReceived += async (s, e) =>
+                        {
+                            if (e.Data != null && logWriter != null)
+                            {
+                                await logWriter.WriteLineAsync($"[ERR] {e.Data}");
+                                await logWriter.FlushAsync();
+                            }
+                        };
+
+                        process.Start();
+                        process.BeginOutputReadLine();
+                        process.BeginErrorReadLine();
+
+                        await process.WaitForExitAsync();
+                    }
+                }
+                else
+                {
+                    process.Start();
+                    await process.WaitForExitAsync();
+                }
             }
         }
 
