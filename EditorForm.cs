@@ -1676,5 +1676,19 @@ namespace WinBox_Maker
             currentBuildItem.electron_packager_name = electron_packager_name.Text;
             winBoxProject.SaveConfig();
         }
+
+        private async void debugBuild_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            await winBoxProject.debugBuildProgramsAsync(UpdateProcessName, UpdateProcessValue);
+            try
+            {
+                Process.Start("explorer.exe", winBoxProject.debugBuildProgramsPath);
+            }
+            catch (Exception ex)
+            {
+            }
+            UnlockForm();
+        }
     }
 }

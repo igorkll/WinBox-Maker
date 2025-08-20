@@ -44,6 +44,7 @@ namespace WinBox_Maker
         public string resourcesDirectoryPath;
         public string imagesDirectoryPath;
         public string sourcesDirectoryPath;
+        public string debugBuildProgramsPath;
         string tempDirectoryPath;
         string unpackedWimFile;
         string wimInfoFile;
@@ -68,6 +69,7 @@ namespace WinBox_Maker
             wimMountPath = Path.Combine(tempDirectoryPath, "wim_mount");
             unpackIsoPath = Path.Combine(tempDirectoryPath, "iso_unpack");
             sourcesDirectoryPath = Path.Combine(resourcesDirectoryPath, "sources");
+            debugBuildProgramsPath = Path.Combine(tempDirectoryPath, "debug", "program");
             name = Path.GetFileName(baseDirectoryPath);
 
             if (File.Exists(wnbFilePath))
@@ -604,17 +606,18 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             return successfully;
         }
 
-        public async Task<bool> BuildUserProject(int index, BuildItem buildItem)
+        public async Task<bool> BuildUserProject(int index, BuildItem buildItem, bool debug = false)
         {
-            string outputDir = Path.Combine(tempDirectoryPath, "program");
+            string outputDir = debugBuildProgramsPath;
+            if (!debug)
+            {
+                outputDir = Path.Combine(tempDirectoryPath, "program");
+            }
+
             if (buildItem.subdirectory_enabled)
             {
                 if (buildItem.subdirectory.Contains("..")) return false;
-                outputDir = Path.Combine(tempDirectoryPath, "program", buildItem.subdirectory ?? "");
-            }
-            else
-            {
-                outputDir = Path.Combine(tempDirectoryPath, "program");
+                outputDir = Path.Combine(outputDir, buildItem.subdirectory ?? "");
             }
 
             Program.CreateDirectory(outputDir);
@@ -1762,6 +1765,28 @@ if %errorlevel%==0 (
             }
 
             return canExport;
+        }
+
+        public async Task<bool> debugBuildProgramsAsync(Action<string> processName, Action<int> processValue)
+        {
+            if (Directory.Exists(debugBuildProgramsPath))
+            {
+                Directory.Delete(debugBuildProgramsPath, true);
+            }
+
+            processValue(50);
+            processName("Compiling a user project");
+            int index = 1;
+            foreach (BuildItem buildItem in winBoxConfig.BuildItems)
+            {
+                if (!await BuildUserProject(index, buildItem, true))
+                {
+                    Program.Error("couldn't build a custom project. the paths to the required build system may not be configured in the winbox maker settings");
+                    return false;
+                }
+                index++;
+            }
+            return true;
         }
     }
 }

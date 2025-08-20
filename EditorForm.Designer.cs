@@ -200,6 +200,8 @@
             custom_command = new TextBox();
             custom_path_select = new Button();
             bl_electron_packager = new TabPage();
+            electron_packager_name = new TextBox();
+            label45 = new Label();
             electron_packager_path = new TextBox();
             electron_packager_path_clear = new Button();
             label44 = new Label();
@@ -226,8 +228,7 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
-            electron_packager_name = new TextBox();
-            label45 = new Label();
+            debugBuild = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1685,6 +1686,7 @@
             // 
             // tabPage10
             // 
+            tabPage10.Controls.Add(debugBuild);
             tabPage10.Controls.Add(bl_panel);
             tabPage10.Controls.Add(buildEnabled);
             tabPage10.Controls.Add(addBuild);
@@ -2054,6 +2056,23 @@
             bl_electron_packager.Text = "electron-packager";
             bl_electron_packager.UseVisualStyleBackColor = true;
             // 
+            // electron_packager_name
+            // 
+            electron_packager_name.Location = new Point(6, 43);
+            electron_packager_name.Name = "electron_packager_name";
+            electron_packager_name.Size = new Size(188, 31);
+            electron_packager_name.TabIndex = 49;
+            electron_packager_name.TextChanged += electron_packager_name_TextChanged;
+            // 
+            // label45
+            // 
+            label45.AutoSize = true;
+            label45.Location = new Point(200, 46);
+            label45.Name = "label45";
+            label45.Size = new Size(154, 25);
+            label45.TabIndex = 50;
+            label45.Text = "Application Name";
+            // 
             // electron_packager_path
             // 
             electron_packager_path.Location = new Point(6, 6);
@@ -2316,22 +2335,15 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
-            // electron_packager_name
+            // debugBuild
             // 
-            electron_packager_name.Location = new Point(6, 43);
-            electron_packager_name.Name = "electron_packager_name";
-            electron_packager_name.Size = new Size(188, 31);
-            electron_packager_name.TabIndex = 49;
-            electron_packager_name.TextChanged += electron_packager_name_TextChanged;
-            // 
-            // label45
-            // 
-            label45.AutoSize = true;
-            label45.Location = new Point(200, 46);
-            label45.Name = "label45";
-            label45.Size = new Size(154, 25);
-            label45.TabIndex = 50;
-            label45.Text = "Application Name";
+            debugBuild.Location = new Point(741, 306);
+            debugBuild.Name = "debugBuild";
+            debugBuild.Size = new Size(269, 34);
+            debugBuild.TabIndex = 4;
+            debugBuild.Text = "build all to temp (for debug)";
+            debugBuild.UseVisualStyleBackColor = true;
+            debugBuild.Click += debugBuild_Click;
             // 
             // EditorForm
             // 
@@ -2636,5 +2648,6 @@
         private Label label44;
         private TextBox electron_packager_name;
         private Label label45;
+        private Button debugBuild;
     }
 }
