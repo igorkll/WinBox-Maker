@@ -1196,11 +1196,13 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
             string applicationScript = $@"@echo off" + "\r\n";
 
-            void regAppScriptFirstInitCmd(string name, string cmd)
+            void regAppScriptFirstInitCmd(string name, string cmd, bool writeFirst = false)
             {
+                string writeFileCmd = $"\r\necho. > \"C:\\WinboxResources\\{name}.installed\"";
                 applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\{name}.installed\" (";
+                if (writeFirst) applicationScript += writeFileCmd;
                 applicationScript += $"\r\n{cmd}";
-                applicationScript += $"\r\necho. > \"C:\\WinboxResources\\{name}.installed\"";
+                if (!writeFirst) applicationScript += writeFileCmd;
                 applicationScript += $"\r\n)\r\n";
             }
 
@@ -1417,6 +1419,17 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
             if (winBoxConfig.UseEmbeddedDisplay == true)
             {
                 //applicationScript += $"\r\nstart /B \"\" C:\\WinboxResources\\winbox_maker\\WinBox-Maker.exe";
+            }
+
+            switch (winBoxConfig.firstBootAction)
+            {
+                case 1:
+                    regAppScriptFirstInitCmd("firstBootAction", "shutdown /r /t 0\r\npause", true);
+                    break;
+
+                case 2:
+                    regAppScriptFirstInitCmd("firstBootAction", "shutdown /s /t 0\r\npause", true);
+                    break;
             }
 
             baseSetup += $"\r\n";

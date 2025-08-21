@@ -77,6 +77,7 @@ namespace WinBox_Maker
         public int? cds_refreshRate { get; set; }
         public int? cds_scaling { get; set; }
         public int? cds_orientation { get; set; }
+        public int? firstBootAction { get; set; }
 
 
         public WinBoxConfig() {
@@ -130,6 +131,7 @@ namespace WinBox_Maker
             if (cds_refreshRate == null) cds_refreshRate = 60;
             if (cds_scaling == null) cds_scaling = 100;
             if (cds_orientation == null) cds_orientation = 0;
+            if (firstBootAction == null) firstBootAction = 0;
         }
 
         public void Save(string wnbFilePath)

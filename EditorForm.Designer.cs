@@ -244,6 +244,8 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
+            firstBootAction = new ComboBox();
+            label51 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1120,6 +1122,8 @@
             // 
             // tabPage14
             // 
+            tabPage14.Controls.Add(label51);
+            tabPage14.Controls.Add(firstBootAction);
             tabPage14.Controls.Add(CustomBootLogo_centering);
             tabPage14.Controls.Add(label15);
             tabPage14.Controls.Add(CustomBootLogo);
@@ -2511,6 +2515,25 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
+            // firstBootAction
+            // 
+            firstBootAction.FormattingEnabled = true;
+            firstBootAction.Items.AddRange(new object[] { "none", "reboot", "shutdown" });
+            firstBootAction.Location = new Point(3, 144);
+            firstBootAction.Name = "firstBootAction";
+            firstBootAction.Size = new Size(182, 33);
+            firstBootAction.TabIndex = 13;
+            firstBootAction.SelectedIndexChanged += firstBootAction_SelectedIndexChanged;
+            // 
+            // label51
+            // 
+            label51.AutoSize = true;
+            label51.Location = new Point(3, 116);
+            label51.Name = "label51";
+            label51.Size = new Size(219, 25);
+            label51.TabIndex = 14;
+            label51.Text = "the action at the first boot";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -2834,5 +2857,7 @@
         private Label label49;
         private Label label48;
         private ComboBox cds_orientation;
+        private Label label51;
+        private ComboBox firstBootAction;
     }
 }
