@@ -1383,11 +1383,11 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                 string regStr = $"\r\nreg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\WUDF\\Services\\usbmmIdd\\Parameters\\Monitors\" /v 0 /t REG_SZ /d \"{winBoxConfig.VirtualDisplayWidth},{winBoxConfig.VirtualDisplayHeight}\" /f";
                 string installDriver = $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\install_driver.bat";
                 string addDisplay = $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\add_display.bat";
-                baseSetup += $"\r\ntimeout /t 2";
-                baseSetup += regStr;
-                baseSetup += installDriver;
-                baseSetup += regStr;
-                baseSetup += addDisplay;
+                applicationScript += $"\r\ntimeout /t 2";
+                applicationScript += regStr;
+                applicationScript += installDriver;
+                applicationScript += regStr;
+                applicationScript += addDisplay;
             }
 
             if (useWinboxService)

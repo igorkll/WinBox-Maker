@@ -124,6 +124,9 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "EnableFirstLogonAnimation"=dword:00000000
 "HideFastUserSwitching"=dword:00000001
+"DisableLockWorkstation"=dword:00000001
+"DontDisplayLastUserName"=dword:00000001
+"DontDisplayNetworkSelectionUI"=dword:00000001
 "shutdownwithoutlogon"=dword:00000000
 "undockwithoutlogon"=dword:00000000
 "DisableCAD"=dword:00000001

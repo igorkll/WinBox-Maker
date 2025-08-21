@@ -1293,7 +1293,7 @@
             richTextBox5.ReadOnly = true;
             richTextBox5.Size = new Size(493, 75);
             richTextBox5.TabIndex = 2;
-            richTextBox5.Text = "please note that if you make a mistake with any one parameter here (for example, specify an unsupported color depth) then all other parameters will also not be applied!";
+            richTextBox5.Text = resources.GetString("richTextBox5.Text");
             // 
             // CustomDisplaySettings_panel
             // 

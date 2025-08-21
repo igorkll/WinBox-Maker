@@ -266,7 +266,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="reg\tweak.reg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="resources\ChangeResolution.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
