@@ -183,6 +183,11 @@ in this program, many settings/tweaks are actually made several times in differe
 * winbox_resources/cursor - the directory where you can upload custom cursor files (.cur for different states)
 * winbox_resources/sources - the source code of your application for building using winbox maker
 
+## API
+winbox maker images have a local API that can be used by an application loaded in winbox maker.
+this can be used to control some aspects of the system from your user application.
+* C:\WinboxApi\reboot_to_desktop.bat - call this file from your application to reboot to the windows desktop. after reboot, your application will start again. this can be used for debugging or configuration. DO NOT USE this feature in the release build. since this allows you to get into the system interface, which may be unsafe for public kiosks
+
 ## custom cursor files (winbox_resources/cursor)
 * AppStarting.ani
 * Arrow.cur
