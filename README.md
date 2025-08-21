@@ -35,6 +35,7 @@ in this program, many settings/tweaks are actually made several times in differe
 * when you first boot up the system, you will probably see the windows logo even if you have disabled/changed it, just let the computer boot for the first time and work for a couple of minutes
 * if you are using the "downloading" function, it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore"
 * if the program freezes when opening the winbox maker project, most likely the old windows image was not unmounted from a temporary directory last time (for example, due to a failure in the build process), wait until winbox maker starts working, it may take some time.
+* DO NOT USE the launch of the application "after the desktop" except for debugging. Not only is it not safe and will allow you to access the system, but it also currently does not work well and may not be compatible with other settings
 
 ## notes
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
