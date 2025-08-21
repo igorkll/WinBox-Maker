@@ -1556,8 +1556,21 @@ if %errorlevel%==0 (
             {
                 await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, "reboot_to_desktop.bat"), "reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell /t REG_SZ /d \"explorer.exe\" /f\r\nshutdown /r /t 0\r\npause");
 
+                string customShell = Program.EscapeForRegFile("wscript \"C:\\WinboxResources\\run_app_script_hidden.vbs\"");
+
+                await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "return_the_shell.bat"), $"reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell /t REG_SZ /d \"{customShell}\" /f");
+
+                await WriteHiddenBatExecuter(
+                    Path.Combine(
+                        wimMountPath,
+                        "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\run_return_the_shell_hidden.vbs"
+                    ),
+                    @"C:\WinboxResources\return_the_shell.bat",
+                    null
+                );
+
                 await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_app_script_hidden.vbs"), @"C:\WinboxResources\app_script.bat", null);
-                await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile("wscript \"C:\\WinboxResources\\run_app_script_hidden.vbs\""));
+                await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", customShell);
             }
 
             // ------------------------------------ save & export
