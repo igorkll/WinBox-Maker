@@ -109,6 +109,8 @@
             tabPage4 = new TabPage();
             tabControl2 = new TabControl();
             tabPage14 = new TabPage();
+            label51 = new Label();
+            firstBootAction = new ComboBox();
             tabPage12 = new TabPage();
             enable_hibernation = new CheckBox();
             dc_use = new CheckBox();
@@ -244,8 +246,6 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
-            firstBootAction = new ComboBox();
-            label51 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1135,6 +1135,25 @@
             tabPage14.TabIndex = 2;
             tabPage14.Text = "boot";
             tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // label51
+            // 
+            label51.AutoSize = true;
+            label51.Location = new Point(3, 116);
+            label51.Name = "label51";
+            label51.Size = new Size(219, 25);
+            label51.TabIndex = 14;
+            label51.Text = "the action at the first boot";
+            // 
+            // firstBootAction
+            // 
+            firstBootAction.FormattingEnabled = true;
+            firstBootAction.Items.AddRange(new object[] { "none", "reboot", "shutdown" });
+            firstBootAction.Location = new Point(3, 144);
+            firstBootAction.Name = "firstBootAction";
+            firstBootAction.Size = new Size(182, 33);
+            firstBootAction.TabIndex = 13;
+            firstBootAction.SelectedIndexChanged += firstBootAction_SelectedIndexChanged;
             // 
             // tabPage12
             // 
@@ -2514,25 +2533,6 @@
             openProgramData.Text = "Open Program Data";
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
-            // 
-            // firstBootAction
-            // 
-            firstBootAction.FormattingEnabled = true;
-            firstBootAction.Items.AddRange(new object[] { "none", "reboot", "shutdown" });
-            firstBootAction.Location = new Point(3, 144);
-            firstBootAction.Name = "firstBootAction";
-            firstBootAction.Size = new Size(182, 33);
-            firstBootAction.TabIndex = 13;
-            firstBootAction.SelectedIndexChanged += firstBootAction_SelectedIndexChanged;
-            // 
-            // label51
-            // 
-            label51.AutoSize = true;
-            label51.Location = new Point(3, 116);
-            label51.Name = "label51";
-            label51.Size = new Size(219, 25);
-            label51.TabIndex = 14;
-            label51.Text = "the action at the first boot";
             // 
             // EditorForm
             // 
