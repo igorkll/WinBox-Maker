@@ -1020,8 +1020,10 @@ powercfg -s SCHEME_CURRENT";
 
             string WindowsScriptsPath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts");
             string WinboxResourcesPath = Path.Combine(wimMountPath, "WinboxResources");
+            string WinboxApiPath = Path.Combine(wimMountPath, "WinboxApi");
             Directory.CreateDirectory(WindowsScriptsPath);
             Directory.CreateDirectory(WinboxResourcesPath);
+            Directory.CreateDirectory(WinboxApiPath);
 
             async Task addGpuDrivers(string baseDir)
             {
@@ -1552,6 +1554,8 @@ if %errorlevel%==0 (
             }
             else
             {
+                await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, "reboot_to_desktop.bat"), "reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell /t REG_SZ /d \"explorer.exe\" /f\r\nshutdown /r /t 0\r\npause");
+
                 await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_app_script_hidden.vbs"), @"C:\WinboxResources\app_script.bat", null);
                 await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile("wscript \"C:\\WinboxResources\\run_app_script_hidden.vbs\""));
             }
