@@ -1192,7 +1192,7 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
             if (winBoxConfig.UseCustomDisplaySettings == true)
             {
                 await CopyResource("ChangeResolution.ps1");
-                regAppScriptFirstInitCmd("ChangeResolution", $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeResolution.ps1"" -Width ""{winBoxConfig.cds_width}"" -Height ""{winBoxConfig.cds_height}"" -BitDepth ""{winBoxConfig.cds_bitDepth}"" -Refresh ""{winBoxConfig.cds_refreshRate}"" -Scaling ""{winBoxConfig.cds_scaling}""");
+                regAppScriptFirstInitCmd("ChangeResolution", $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeResolution.ps1"" -Width ""{winBoxConfig.cds_width}"" -Height ""{winBoxConfig.cds_height}"" -BitDepth ""{winBoxConfig.cds_bitDepth}"" -Refresh ""{winBoxConfig.cds_refreshRate}"" -Scaling ""{winBoxConfig.cds_scaling}"" -Orientation ""{winBoxConfig.cds_orientation}""");
             }
 
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");

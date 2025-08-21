@@ -126,6 +126,7 @@
             tabPage6 = new TabPage();
             richTextBox5 = new RichTextBox();
             CustomDisplaySettings_panel = new Panel();
+            cds_orientation = new ComboBox();
             label50 = new Label();
             label49 = new Label();
             label48 = new Label();
@@ -1297,6 +1298,7 @@
             // CustomDisplaySettings_panel
             // 
             CustomDisplaySettings_panel.BorderStyle = BorderStyle.Fixed3D;
+            CustomDisplaySettings_panel.Controls.Add(cds_orientation);
             CustomDisplaySettings_panel.Controls.Add(label50);
             CustomDisplaySettings_panel.Controls.Add(label49);
             CustomDisplaySettings_panel.Controls.Add(label48);
@@ -1312,10 +1314,21 @@
             CustomDisplaySettings_panel.Size = new Size(493, 124);
             CustomDisplaySettings_panel.TabIndex = 1;
             // 
+            // cds_orientation
+            // 
+            cds_orientation.DropDownStyle = ComboBoxStyle.DropDownList;
+            cds_orientation.FormattingEnabled = true;
+            cds_orientation.Items.AddRange(new object[] { "Landscape", "Portrait", "LandscapeFlipped", "PortraitFlipped" });
+            cds_orientation.Location = new Point(3, 76);
+            cds_orientation.Name = "cds_orientation";
+            cds_orientation.Size = new Size(150, 33);
+            cds_orientation.TabIndex = 10;
+            cds_orientation.SelectedIndexChanged += cds_orientation_SelectedIndexChanged;
+            // 
             // label50
             // 
             label50.AutoSize = true;
-            label50.Location = new Point(383, 84);
+            label50.Location = new Point(383, 79);
             label50.Name = "label50";
             label50.Size = new Size(66, 25);
             label50.TabIndex = 9;
@@ -1324,7 +1337,7 @@
             // label49
             // 
             label49.AutoSize = true;
-            label49.Location = new Point(383, 47);
+            label49.Location = new Point(383, 44);
             label49.Name = "label49";
             label49.Size = new Size(101, 25);
             label49.TabIndex = 8;
@@ -1333,7 +1346,7 @@
             // label48
             // 
             label48.AutoSize = true;
-            label48.Location = new Point(383, 10);
+            label48.Location = new Point(383, 7);
             label48.Name = "label48";
             label48.Size = new Size(85, 25);
             label48.TabIndex = 7;
@@ -1341,7 +1354,7 @@
             // 
             // cds_scaling
             // 
-            cds_scaling.Location = new Point(227, 81);
+            cds_scaling.Location = new Point(227, 76);
             cds_scaling.Name = "cds_scaling";
             cds_scaling.Size = new Size(150, 31);
             cds_scaling.TabIndex = 6;
@@ -1349,7 +1362,7 @@
             // 
             // cds_refreshRate
             // 
-            cds_refreshRate.Location = new Point(227, 44);
+            cds_refreshRate.Location = new Point(227, 41);
             cds_refreshRate.Name = "cds_refreshRate";
             cds_refreshRate.Size = new Size(150, 31);
             cds_refreshRate.TabIndex = 5;
@@ -1357,7 +1370,7 @@
             // 
             // cds_bitDepth
             // 
-            cds_bitDepth.Location = new Point(227, 7);
+            cds_bitDepth.Location = new Point(227, 4);
             cds_bitDepth.Name = "cds_bitDepth";
             cds_bitDepth.Size = new Size(150, 31);
             cds_bitDepth.TabIndex = 4;
@@ -2820,5 +2833,6 @@
         private Label label50;
         private Label label49;
         private Label label48;
+        private ComboBox cds_orientation;
     }
 }

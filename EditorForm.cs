@@ -527,6 +527,8 @@ namespace WinBox_Maker
             dc_use.CheckState = winBoxProject.winBoxConfig.dc_use == true ? CheckState.Checked : CheckState.Unchecked;
             UseCustomDisplaySettings.CheckState = winBoxProject.winBoxConfig.UseCustomDisplaySettings == true ? CheckState.Checked : CheckState.Unchecked;
 
+            cds_orientation.SelectedIndex = winBoxProject.winBoxConfig.cds_orientation ?? 0;
+
             dc_panel.Enabled = winBoxProject.winBoxConfig.dc_use == true;
             HibernateTimeout.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
             HibernateTimeout_dc.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
@@ -1725,6 +1727,14 @@ namespace WinBox_Maker
                 cds_scaling.Text = winBoxProject.winBoxConfig.cds_scaling.ToString();
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void cds_orientation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.cds_orientation = cds_orientation.SelectedIndex;
+            winBoxProject.SaveConfig();
         }
     }
 }
