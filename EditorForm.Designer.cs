@@ -165,6 +165,7 @@
             pythonVersion = new ComboBox();
             pythonVersionsUpdate = new Button();
             tabPage10 = new TabPage();
+            debugBuild = new Button();
             bl_panel = new Panel();
             bl_folder_enable = new CheckBox();
             bl_folder = new TextBox();
@@ -228,7 +229,10 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
-            debugBuild = new Button();
+            tabPage6 = new TabPage();
+            UseCustomDisplaySettings = new CheckBox();
+            CustomDisplaySettings_panel = new Panel();
+            richTextBox5 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -269,6 +273,7 @@
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage6.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1093,6 +1098,7 @@
             // 
             tabControl2.Controls.Add(tabPage14);
             tabControl2.Controls.Add(tabPage12);
+            tabControl2.Controls.Add(tabPage6);
             tabControl2.Controls.Add(tabPage13);
             tabControl2.Location = new Point(505, 44);
             tabControl2.Name = "tabControl2";
@@ -1697,6 +1703,16 @@
             tabPage10.TabIndex = 9;
             tabPage10.Text = "build";
             tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // debugBuild
+            // 
+            debugBuild.Location = new Point(741, 306);
+            debugBuild.Name = "debugBuild";
+            debugBuild.Size = new Size(269, 34);
+            debugBuild.TabIndex = 4;
+            debugBuild.Text = "build all to temp (for debug)";
+            debugBuild.UseVisualStyleBackColor = true;
+            debugBuild.Click += debugBuild_Click;
             // 
             // bl_panel
             // 
@@ -2335,15 +2351,45 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
-            // debugBuild
+            // tabPage6
             // 
-            debugBuild.Location = new Point(741, 306);
-            debugBuild.Name = "debugBuild";
-            debugBuild.Size = new Size(269, 34);
-            debugBuild.TabIndex = 4;
-            debugBuild.Text = "build all to temp (for debug)";
-            debugBuild.UseVisualStyleBackColor = true;
-            debugBuild.Click += debugBuild_Click;
+            tabPage6.Controls.Add(richTextBox5);
+            tabPage6.Controls.Add(CustomDisplaySettings_panel);
+            tabPage6.Controls.Add(UseCustomDisplaySettings);
+            tabPage6.Location = new Point(4, 34);
+            tabPage6.Name = "tabPage6";
+            tabPage6.Size = new Size(499, 246);
+            tabPage6.TabIndex = 3;
+            tabPage6.Text = "display";
+            tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // UseCustomDisplaySettings
+            // 
+            UseCustomDisplaySettings.AutoSize = true;
+            UseCustomDisplaySettings.Location = new Point(3, 3);
+            UseCustomDisplaySettings.Name = "UseCustomDisplaySettings";
+            UseCustomDisplaySettings.Size = new Size(257, 29);
+            UseCustomDisplaySettings.TabIndex = 0;
+            UseCustomDisplaySettings.Text = "use custom display settings";
+            UseCustomDisplaySettings.UseVisualStyleBackColor = true;
+            // 
+            // CustomDisplaySettings_panel
+            // 
+            CustomDisplaySettings_panel.BorderStyle = BorderStyle.Fixed3D;
+            CustomDisplaySettings_panel.Location = new Point(3, 38);
+            CustomDisplaySettings_panel.Name = "CustomDisplaySettings_panel";
+            CustomDisplaySettings_panel.Size = new Size(493, 102);
+            CustomDisplaySettings_panel.TabIndex = 1;
+            // 
+            // richTextBox5
+            // 
+            richTextBox5.BackColor = SystemColors.Info;
+            richTextBox5.Location = new Point(3, 146);
+            richTextBox5.Name = "richTextBox5";
+            richTextBox5.ReadOnly = true;
+            richTextBox5.Size = new Size(493, 97);
+            richTextBox5.TabIndex = 2;
+            richTextBox5.Text = "please note that if you make a mistake with any one parameter here (for example, specify an unsupported color depth) then all other parameters will also not be applied!";
             // 
             // EditorForm
             // 
@@ -2443,6 +2489,8 @@
             dl_panel.ResumeLayout(false);
             dl_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage6.ResumeLayout(false);
+            tabPage6.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2649,5 +2697,9 @@
         private TextBox electron_packager_name;
         private Label label45;
         private Button debugBuild;
+        private TabPage tabPage6;
+        private CheckBox UseCustomDisplaySettings;
+        private Panel CustomDisplaySettings_panel;
+        private RichTextBox richTextBox5;
     }
 }
