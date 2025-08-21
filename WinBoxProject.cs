@@ -454,12 +454,23 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await Program.CopyFileAsync(Program.ResourcePath(Path.Combine("resources", name)), Path.Combine(wimMountPath, "WinboxResources", name));
         }
 
-        public async Task CopyBlob(string name)
+        public async Task CopyBlob(string name, string? subfolder = null)
         {
             string? path = Program.getBlobPath(winBoxConfig, name);
             if (path != null)
             {
-                await Program.CopyFileAsync(path, Path.Combine(wimMountPath, "WinboxResources", name));
+                string pathToCopy;
+                if (subfolder != null)
+                {
+                    pathToCopy = Path.Combine(wimMountPath, "WinboxResources", subfolder);
+                    Program.CreateDirectory(pathToCopy);
+                    pathToCopy = Path.Combine(pathToCopy, subfolder);
+                }
+                else
+                {
+                    pathToCopy = Path.Combine(wimMountPath, "WinboxResources", name);
+                }
+                await Program.CopyFileAsync(path, pathToCopy);
             }
         }
 
@@ -1001,12 +1012,12 @@ powercfg -s SCHEME_CURRENT";
             processValue(30);
             await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{newWimPath}\" /index:1 /MountDir:\"{wimMountPath}\"");
 
+            // ------------------------------------ tweaks
             processName("Modification of the system files");
             processValue(50);
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
             //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
 
-            // ------------------------------------ tweaks
             string WindowsScriptsPath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts");
             string WinboxResourcesPath = Path.Combine(wimMountPath, "WinboxResources");
             Directory.CreateDirectory(WindowsScriptsPath);
@@ -1047,6 +1058,9 @@ powercfg -s SCHEME_CURRENT";
             await addGpuDrivers(tempDirectoryPath);
 
             await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"");
+
+            string executablePath = Path.Combine(WinboxResourcesPath, "executable");
+            Directory.CreateDirectory(executablePath);
 
             // ------------------------------------ removing excess
 
@@ -1117,6 +1131,8 @@ netsh advfirewall set allprofiles state off
             string baseSetup = $@"@echo off
 
 {setupCompleteAndFirstInit}
+
+setx PATH ""%PATH%;C:\WinboxResources\executable"" /M
 
 dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
 dism /online /enable-feature /all /featurename:Client-DeviceLockdown
@@ -1230,6 +1246,12 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                     await CopyBlob("vc_redist.exe");
                     regRedist("vc_redist.exe");
                 }
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate nircmd"))
+            {
+                await CopyBlob("nircmd.exe", "executable");
+                await CopyBlob("nircmdc.exe", "executable");
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.8.1"))
@@ -1774,8 +1796,16 @@ if %errorlevel%==0 (
                 Directory.Delete(debugBuildProgramsPath, true);
             }
 
-            processValue(50);
-            processName("Compiling a user project");
+            processValue(30);
+            processName("copying user program files (for debugging)");
+            string programPath = Path.Combine(resourcesDirectoryPath, "program");
+            if (Directory.Exists(programPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(programPath, debugBuildProgramsPath);
+            }
+
+            processValue(70);
+            processName("Compiling a user project (for debugging)");
             int index = 1;
             foreach (BuildItem buildItem in winBoxConfig.BuildItems)
             {
@@ -1786,6 +1816,7 @@ if %errorlevel%==0 (
                 }
                 index++;
             }
+
             return true;
         }
     }
