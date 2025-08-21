@@ -130,6 +130,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "nvidia_drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "amd_drivers"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "intel_drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "packages"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "cursor"));
             Program.CreateDirectory(sourcesDirectoryPath);
@@ -1054,6 +1055,20 @@ powercfg -s SCHEME_CURRENT";
                         number++;
                     }
                 }
+
+                string intelDriversPath = Path.Combine(baseDir, "intel_drivers");
+                if (Directory.Exists(intelDriversPath))
+                {
+                    string[] files = Directory.GetFiles(intelDriversPath);
+                    int number = 0;
+                    foreach (string file in files)
+                    {
+                        string path = Path.Combine(tempDirectoryPath, "drivers", "intel" + number);
+                        Directory.CreateDirectory(path);
+                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
+                        number++;
+                    }
+                }
             }
 
             await addGpuDrivers(resourcesDirectoryPath);
@@ -1194,7 +1209,9 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
             if (winBoxConfig.UseCustomDisplaySettings == true)
             {
                 await CopyResource("ChangeResolution.ps1");
-                regAppScriptFirstInitCmd("ChangeResolution", $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeResolution.ps1"" -Width ""{winBoxConfig.cds_width}"" -Height ""{winBoxConfig.cds_height}"" -BitDepth ""{winBoxConfig.cds_bitDepth}"" -Refresh ""{winBoxConfig.cds_refreshRate}"" -Scaling ""{winBoxConfig.cds_scaling}"" -Orientation ""{winBoxConfig.cds_orientation}""");
+                string customDisplaySettingsCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeResolution.ps1"" -Width ""{winBoxConfig.cds_width}"" -Height ""{winBoxConfig.cds_height}"" -BitDepth ""{winBoxConfig.cds_bitDepth}"" -Refresh ""{winBoxConfig.cds_refreshRate}"" -Scaling ""{winBoxConfig.cds_scaling}"" -Orientation ""{winBoxConfig.cds_orientation}""";
+                applicationScript += $"\r\n" + customDisplaySettingsCmd;
+                baseSetup += $"\r\n" + customDisplaySettingsCmd;
             }
 
             bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");

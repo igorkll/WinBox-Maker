@@ -172,6 +172,7 @@ in this program, many settings/tweaks are actually made several times in differe
 * winbox_temp/drivers - a temporary directory for drivers, used for unpacking by nvidia and amd drivers, and can also be used to download drivers
 * winbox_temp/nvidia_drivers - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/amd_drivers - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
+* winbox_temp/intel_drivers - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/packages - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_resources - a folder for your resources that are needed to build the system. these files should end up in the git repository
 * winbox_resources/files - files from this directory will be moved to the root of the disk on the installed system with replacement
@@ -179,6 +180,7 @@ in this program, many settings/tweaks are actually made several times in differe
 * winbox_resources/drivers - the directory with the drivers with which the image should be built
 * winbox_resources/nvidia_drivers - put the driver installers for your nvidia graphics cards here
 * winbox_resources/amd_drivers - put the driver installers for your AMD graphics cards here
+* winbox_resources/intel_drivers - put the driver installers for your intel graphics cards here (for example, for any hd graphics)
 * winbox_resources/packages - you can add the .cab or .msu packages to this directory
 * winbox_resources/cursor - the directory where you can upload custom cursor files (.cur for different states)
 * winbox_resources/sources - the source code of your application for building using winbox maker
