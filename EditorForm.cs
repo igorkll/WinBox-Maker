@@ -504,6 +504,12 @@ namespace WinBox_Maker
             StandbyTimeout_dc.Text = winBoxProject.winBoxConfig.StandbyTimeout_dc.ToString();
             HibernateTimeout_dc.Text = winBoxProject.winBoxConfig.HibernateTimeout_dc.ToString();
 
+            cds_width.Text = winBoxProject.winBoxConfig.cds_width.ToString();
+            cds_height.Text = winBoxProject.winBoxConfig.cds_height.ToString();
+            cds_bitDepth.Text = winBoxProject.winBoxConfig.cds_bitDepth.ToString();
+            cds_refreshRate.Text = winBoxProject.winBoxConfig.cds_refreshRate.ToString();
+            cds_scaling.Text = winBoxProject.winBoxConfig.cds_scaling.ToString();
+
             prebuildEnabled.CheckState = winBoxProject.winBoxConfig.prebuildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             prebuildEvent.Text = winBoxProject.winBoxConfig.prebuildEvent ?? "";
 
@@ -519,10 +525,12 @@ namespace WinBox_Maker
             forceIot.CheckState = winBoxProject.winBoxConfig.forceIot == true ? CheckState.Checked : CheckState.Unchecked;
             enable_hibernation.CheckState = winBoxProject.winBoxConfig.enable_hibernation == true ? CheckState.Checked : CheckState.Unchecked;
             dc_use.CheckState = winBoxProject.winBoxConfig.dc_use == true ? CheckState.Checked : CheckState.Unchecked;
+            UseCustomDisplaySettings.CheckState = winBoxProject.winBoxConfig.UseCustomDisplaySettings == true ? CheckState.Checked : CheckState.Unchecked;
 
             dc_panel.Enabled = winBoxProject.winBoxConfig.dc_use == true;
             HibernateTimeout.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
             HibernateTimeout_dc.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
+            CustomDisplaySettings_panel.Enabled = winBoxProject.winBoxConfig.UseCustomDisplaySettings == true;
 
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
@@ -1084,72 +1092,35 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
         }
 
-        private void ResetVirtualDisplayWidth(int value)
+        int checkResolutionNumber(int oldNumber, string text)
         {
-            winBoxProject.winBoxConfig.VirtualDisplayWidth = value;
-            VirtualDisplayWidth.Text = winBoxProject.winBoxConfig.VirtualDisplayWidth.ToString();
+            try
+            {
+                return Math.Clamp(int.Parse(text), 0, 65535);
+            }
+            catch (FormatException) { }
+            catch (OverflowException) { }
+            return oldNumber;
         }
 
         private void VirtualDisplayWidth_TextChanged(object sender, EventArgs e)
         {
             if (guiEventsLock) return;
 
-            try
-            {
-                winBoxProject.winBoxConfig.VirtualDisplayWidth = int.Parse(VirtualDisplayWidth.Text);
-                if (winBoxProject.winBoxConfig.VirtualDisplayWidth < 0)
-                {
-                    ResetVirtualDisplayWidth(0);
-                }
-                else if (winBoxProject.winBoxConfig.VirtualDisplayWidth > 4096)
-                {
-                    ResetVirtualDisplayWidth(4096);
-                }
-            }
-            catch (FormatException)
-            {
-                ResetVirtualDisplayWidth(winBoxProject.winBoxConfig.VirtualDisplayWidth ?? 0);
-            }
-            catch (OverflowException)
-            {
-                ResetVirtualDisplayWidth(winBoxProject.winBoxConfig.VirtualDisplayWidth ?? 0);
-            }
+            winBoxProject.winBoxConfig.VirtualDisplayWidth = checkResolutionNumber(winBoxProject.winBoxConfig.VirtualDisplayWidth ?? 0, VirtualDisplayWidth.Text);
+            if (winBoxProject.winBoxConfig.VirtualDisplayWidth.ToString() != VirtualDisplayWidth.Text)
+                VirtualDisplayWidth.Text = winBoxProject.winBoxConfig.VirtualDisplayWidth.ToString();
             winBoxProject.SaveConfig();
-            UpdateGuiWithoutWindowsVersion();
-        }
-
-        private void ResetVirtualDisplayHeight(int value)
-        {
-            winBoxProject.winBoxConfig.VirtualDisplayHeight = value;
-            VirtualDisplayHeight.Text = winBoxProject.winBoxConfig.VirtualDisplayHeight.ToString();
         }
 
         private void VirtualDisplayHeight_TextChanged(object sender, EventArgs e)
         {
             if (guiEventsLock) return;
 
-            try
-            {
-                winBoxProject.winBoxConfig.VirtualDisplayHeight = int.Parse(VirtualDisplayHeight.Text);
-                if (winBoxProject.winBoxConfig.VirtualDisplayHeight < 0)
-                {
-                    ResetVirtualDisplayHeight(0);
-                }
-                else if (winBoxProject.winBoxConfig.VirtualDisplayHeight > 4096)
-                {
-                    ResetVirtualDisplayHeight(4096);
-                }
-            }
-            catch (FormatException)
-            {
-                ResetVirtualDisplayHeight(winBoxProject.winBoxConfig.VirtualDisplayHeight ?? 0);
-            }
-            catch (OverflowException)
-            {
-                ResetVirtualDisplayHeight(winBoxProject.winBoxConfig.VirtualDisplayHeight ?? 0);
-            }
+            winBoxProject.winBoxConfig.VirtualDisplayHeight = checkResolutionNumber(winBoxProject.winBoxConfig.VirtualDisplayHeight ?? 0, VirtualDisplayHeight.Text);
+            if (winBoxProject.winBoxConfig.VirtualDisplayHeight.ToString() != VirtualDisplayHeight.Text)
+                VirtualDisplayHeight.Text = winBoxProject.winBoxConfig.VirtualDisplayHeight.ToString();
             winBoxProject.SaveConfig();
-            UpdateGuiWithoutWindowsVersion();
         }
 
         private void OpenEmbeddedFolder_Click(object sender, EventArgs e)
@@ -1690,6 +1661,70 @@ namespace WinBox_Maker
             {
             }
             UnlockForm();
+        }
+
+        private void UseCustomDisplaySettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.UseCustomDisplaySettings = UseCustomDisplaySettings.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void cds_width_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.cds_width = checkResolutionNumber(winBoxProject.winBoxConfig.cds_width ?? 0, cds_width.Text);
+            if (winBoxProject.winBoxConfig.cds_width.ToString() != cds_width.Text)
+                cds_width.Text = winBoxProject.winBoxConfig.cds_width.ToString();
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void cds_height_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.cds_height = checkResolutionNumber(winBoxProject.winBoxConfig.cds_height ?? 0, cds_height.Text);
+            if (winBoxProject.winBoxConfig.cds_height.ToString() != cds_height.Text)
+                cds_height.Text = winBoxProject.winBoxConfig.cds_height.ToString();
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void cds_bitDepth_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.cds_bitDepth = checkResolutionNumber(winBoxProject.winBoxConfig.cds_bitDepth ?? 0, cds_bitDepth.Text);
+            if (winBoxProject.winBoxConfig.cds_bitDepth.ToString() != cds_bitDepth.Text)
+                cds_bitDepth.Text = winBoxProject.winBoxConfig.cds_bitDepth.ToString();
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void cds_refreshRate_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.cds_refreshRate = checkResolutionNumber(winBoxProject.winBoxConfig.cds_refreshRate ?? 0, cds_refreshRate.Text);
+            if (winBoxProject.winBoxConfig.cds_refreshRate.ToString() != cds_refreshRate.Text)
+                cds_refreshRate.Text = winBoxProject.winBoxConfig.cds_refreshRate.ToString();
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void cds_scaling_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.cds_scaling = checkResolutionNumber(winBoxProject.winBoxConfig.cds_scaling ?? 0, cds_scaling.Text);
+            if (winBoxProject.winBoxConfig.cds_scaling.ToString() != cds_scaling.Text)
+                cds_scaling.Text = winBoxProject.winBoxConfig.cds_scaling.ToString();
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }

@@ -123,6 +123,20 @@
             StandbyTimeout = new TextBox();
             label41 = new Label();
             label40 = new Label();
+            tabPage6 = new TabPage();
+            richTextBox5 = new RichTextBox();
+            CustomDisplaySettings_panel = new Panel();
+            label50 = new Label();
+            label49 = new Label();
+            label48 = new Label();
+            cds_scaling = new TextBox();
+            cds_refreshRate = new TextBox();
+            cds_bitDepth = new TextBox();
+            label47 = new Label();
+            label46 = new Label();
+            cds_height = new TextBox();
+            cds_width = new TextBox();
+            UseCustomDisplaySettings = new CheckBox();
             tabPage13 = new TabPage();
             richTextBox4 = new RichTextBox();
             tabPage5 = new TabPage();
@@ -229,10 +243,6 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
-            tabPage6 = new TabPage();
-            UseCustomDisplaySettings = new CheckBox();
-            CustomDisplaySettings_panel = new Panel();
-            richTextBox5 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -250,6 +260,8 @@
             tabPage12.SuspendLayout();
             dc_panel.SuspendLayout();
             panel13.SuspendLayout();
+            tabPage6.SuspendLayout();
+            CustomDisplaySettings_panel.SuspendLayout();
             tabPage13.SuspendLayout();
             tabPage5.SuspendLayout();
             panel5.SuspendLayout();
@@ -273,7 +285,6 @@
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage6.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1260,6 +1271,142 @@
             label40.Size = new Size(225, 25);
             label40.TabIndex = 3;
             label40.Text = "Standby Timeout (minutes)";
+            // 
+            // tabPage6
+            // 
+            tabPage6.Controls.Add(richTextBox5);
+            tabPage6.Controls.Add(CustomDisplaySettings_panel);
+            tabPage6.Controls.Add(UseCustomDisplaySettings);
+            tabPage6.Location = new Point(4, 34);
+            tabPage6.Name = "tabPage6";
+            tabPage6.Size = new Size(499, 246);
+            tabPage6.TabIndex = 3;
+            tabPage6.Text = "display";
+            tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox5
+            // 
+            richTextBox5.BackColor = SystemColors.Info;
+            richTextBox5.Location = new Point(3, 168);
+            richTextBox5.Name = "richTextBox5";
+            richTextBox5.ReadOnly = true;
+            richTextBox5.Size = new Size(493, 75);
+            richTextBox5.TabIndex = 2;
+            richTextBox5.Text = "please note that if you make a mistake with any one parameter here (for example, specify an unsupported color depth) then all other parameters will also not be applied!";
+            // 
+            // CustomDisplaySettings_panel
+            // 
+            CustomDisplaySettings_panel.BorderStyle = BorderStyle.Fixed3D;
+            CustomDisplaySettings_panel.Controls.Add(label50);
+            CustomDisplaySettings_panel.Controls.Add(label49);
+            CustomDisplaySettings_panel.Controls.Add(label48);
+            CustomDisplaySettings_panel.Controls.Add(cds_scaling);
+            CustomDisplaySettings_panel.Controls.Add(cds_refreshRate);
+            CustomDisplaySettings_panel.Controls.Add(cds_bitDepth);
+            CustomDisplaySettings_panel.Controls.Add(label47);
+            CustomDisplaySettings_panel.Controls.Add(label46);
+            CustomDisplaySettings_panel.Controls.Add(cds_height);
+            CustomDisplaySettings_panel.Controls.Add(cds_width);
+            CustomDisplaySettings_panel.Location = new Point(3, 38);
+            CustomDisplaySettings_panel.Name = "CustomDisplaySettings_panel";
+            CustomDisplaySettings_panel.Size = new Size(493, 124);
+            CustomDisplaySettings_panel.TabIndex = 1;
+            // 
+            // label50
+            // 
+            label50.AutoSize = true;
+            label50.Location = new Point(383, 84);
+            label50.Name = "label50";
+            label50.Size = new Size(66, 25);
+            label50.TabIndex = 9;
+            label50.Text = "scaling";
+            // 
+            // label49
+            // 
+            label49.AutoSize = true;
+            label49.Location = new Point(383, 47);
+            label49.Name = "label49";
+            label49.Size = new Size(101, 25);
+            label49.TabIndex = 8;
+            label49.Text = "refresh rate";
+            // 
+            // label48
+            // 
+            label48.AutoSize = true;
+            label48.Location = new Point(383, 10);
+            label48.Name = "label48";
+            label48.Size = new Size(85, 25);
+            label48.TabIndex = 7;
+            label48.Text = "bit depth";
+            // 
+            // cds_scaling
+            // 
+            cds_scaling.Location = new Point(227, 81);
+            cds_scaling.Name = "cds_scaling";
+            cds_scaling.Size = new Size(150, 31);
+            cds_scaling.TabIndex = 6;
+            cds_scaling.TextChanged += cds_scaling_TextChanged;
+            // 
+            // cds_refreshRate
+            // 
+            cds_refreshRate.Location = new Point(227, 44);
+            cds_refreshRate.Name = "cds_refreshRate";
+            cds_refreshRate.Size = new Size(150, 31);
+            cds_refreshRate.TabIndex = 5;
+            cds_refreshRate.TextChanged += cds_refreshRate_TextChanged;
+            // 
+            // cds_bitDepth
+            // 
+            cds_bitDepth.Location = new Point(227, 7);
+            cds_bitDepth.Name = "cds_bitDepth";
+            cds_bitDepth.Size = new Size(150, 31);
+            cds_bitDepth.TabIndex = 4;
+            cds_bitDepth.TextChanged += cds_bitDepth_TextChanged;
+            // 
+            // label47
+            // 
+            label47.AutoSize = true;
+            label47.Location = new Point(159, 44);
+            label47.Name = "label47";
+            label47.Size = new Size(62, 25);
+            label47.TabIndex = 3;
+            label47.Text = "height";
+            // 
+            // label46
+            // 
+            label46.AutoSize = true;
+            label46.Location = new Point(159, 7);
+            label46.Name = "label46";
+            label46.Size = new Size(56, 25);
+            label46.TabIndex = 2;
+            label46.Text = "width";
+            // 
+            // cds_height
+            // 
+            cds_height.Location = new Point(3, 41);
+            cds_height.Name = "cds_height";
+            cds_height.Size = new Size(150, 31);
+            cds_height.TabIndex = 1;
+            cds_height.TextChanged += cds_height_TextChanged;
+            // 
+            // cds_width
+            // 
+            cds_width.Location = new Point(3, 4);
+            cds_width.Name = "cds_width";
+            cds_width.Size = new Size(150, 31);
+            cds_width.TabIndex = 0;
+            cds_width.TextChanged += cds_width_TextChanged;
+            // 
+            // UseCustomDisplaySettings
+            // 
+            UseCustomDisplaySettings.AutoSize = true;
+            UseCustomDisplaySettings.Location = new Point(3, 3);
+            UseCustomDisplaySettings.Name = "UseCustomDisplaySettings";
+            UseCustomDisplaySettings.Size = new Size(257, 29);
+            UseCustomDisplaySettings.TabIndex = 0;
+            UseCustomDisplaySettings.Text = "use custom display settings";
+            UseCustomDisplaySettings.UseVisualStyleBackColor = true;
+            UseCustomDisplaySettings.CheckedChanged += UseCustomDisplaySettings_CheckedChanged;
             // 
             // tabPage13
             // 
@@ -2351,46 +2498,6 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
-            // tabPage6
-            // 
-            tabPage6.Controls.Add(richTextBox5);
-            tabPage6.Controls.Add(CustomDisplaySettings_panel);
-            tabPage6.Controls.Add(UseCustomDisplaySettings);
-            tabPage6.Location = new Point(4, 34);
-            tabPage6.Name = "tabPage6";
-            tabPage6.Size = new Size(499, 246);
-            tabPage6.TabIndex = 3;
-            tabPage6.Text = "display";
-            tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // UseCustomDisplaySettings
-            // 
-            UseCustomDisplaySettings.AutoSize = true;
-            UseCustomDisplaySettings.Location = new Point(3, 3);
-            UseCustomDisplaySettings.Name = "UseCustomDisplaySettings";
-            UseCustomDisplaySettings.Size = new Size(257, 29);
-            UseCustomDisplaySettings.TabIndex = 0;
-            UseCustomDisplaySettings.Text = "use custom display settings";
-            UseCustomDisplaySettings.UseVisualStyleBackColor = true;
-            // 
-            // CustomDisplaySettings_panel
-            // 
-            CustomDisplaySettings_panel.BorderStyle = BorderStyle.Fixed3D;
-            CustomDisplaySettings_panel.Location = new Point(3, 38);
-            CustomDisplaySettings_panel.Name = "CustomDisplaySettings_panel";
-            CustomDisplaySettings_panel.Size = new Size(493, 102);
-            CustomDisplaySettings_panel.TabIndex = 1;
-            // 
-            // richTextBox5
-            // 
-            richTextBox5.BackColor = SystemColors.Info;
-            richTextBox5.Location = new Point(3, 146);
-            richTextBox5.Name = "richTextBox5";
-            richTextBox5.ReadOnly = true;
-            richTextBox5.Size = new Size(493, 97);
-            richTextBox5.TabIndex = 2;
-            richTextBox5.Text = "please note that if you make a mistake with any one parameter here (for example, specify an unsupported color depth) then all other parameters will also not be applied!";
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -2449,6 +2556,10 @@
             dc_panel.PerformLayout();
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
+            tabPage6.ResumeLayout(false);
+            tabPage6.PerformLayout();
+            CustomDisplaySettings_panel.ResumeLayout(false);
+            CustomDisplaySettings_panel.PerformLayout();
             tabPage13.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
@@ -2489,8 +2600,6 @@
             dl_panel.ResumeLayout(false);
             dl_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage6.ResumeLayout(false);
-            tabPage6.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2701,5 +2810,15 @@
         private CheckBox UseCustomDisplaySettings;
         private Panel CustomDisplaySettings_panel;
         private RichTextBox richTextBox5;
+        private TextBox cds_height;
+        private TextBox cds_width;
+        private Label label47;
+        private Label label46;
+        private TextBox cds_refreshRate;
+        private TextBox cds_bitDepth;
+        private TextBox cds_scaling;
+        private Label label50;
+        private Label label49;
+        private Label label48;
     }
 }
