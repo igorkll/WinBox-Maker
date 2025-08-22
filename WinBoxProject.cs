@@ -893,10 +893,12 @@ powercfg -change -hibernate-timeout-ac {winBoxConfig.HibernateTimeout}
 powercfg -change -hibernate-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.HibernateTimeout_dc : winBoxConfig.HibernateTimeout)}
 powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
 powercfg -change -monitor-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.ScreenTimeout_dc : winBoxConfig.ScreenTimeout)}
-powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0
-powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0
-powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3
-powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION {winBoxConfig.action_closingLaptop}
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION {(winBoxConfig.dc_use == true ? winBoxConfig.action_closingLaptop_dc : winBoxConfig.action_closingLaptop)}
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION {winBoxConfig.action_powerButton}
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION {(winBoxConfig.dc_use == true ? winBoxConfig.action_powerButton_dc : winBoxConfig.action_powerButton)}
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION {winBoxConfig.action_sleepButton}
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION {(winBoxConfig.dc_use == true ? winBoxConfig.action_sleepButton_dc : winBoxConfig.action_sleepButton)}
 powercfg -s SCHEME_CURRENT";
 
             return powercfgSetup;
@@ -1423,12 +1425,16 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
             switch (winBoxConfig.firstBootAction)
             {
-                case 1:
+                case FirstBootActionEnum.reboot:
                     regAppScriptFirstInitCmd("firstBootAction", "shutdown /r /t 0\r\npause", true);
                     break;
 
-                case 2:
+                case FirstBootActionEnum.shutdown:
                     regAppScriptFirstInitCmd("firstBootAction", "shutdown /s /t 0\r\npause", true);
+                    break;
+
+                case FirstBootActionEnum.hibernate:
+                    regAppScriptFirstInitCmd("firstBootAction", "shutdown /h /t 0\r\npause", true);
                     break;
             }
 

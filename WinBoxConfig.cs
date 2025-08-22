@@ -22,6 +22,24 @@ namespace WinBox_Maker
         afterDesktop
     }
 
+    public enum FirstBootActionEnum
+    {
+        none,
+        reboot,
+        shutdown,
+        hibernate
+    }
+
+    public enum ButtonAction
+    {
+        none,
+        sleep,
+        hibernation,
+        shutdown,
+        turn_off_display
+
+    }
+
     public class WinBoxConfig
     {
         //public List<string>? Resources { get; set; }
@@ -43,9 +61,15 @@ namespace WinBox_Maker
         public int? ScreenTimeout { get; set; }
         public int? StandbyTimeout { get; set; }
         public int? HibernateTimeout { get; set; }
+        public ButtonAction? action_powerButton { get; set; }
+        public ButtonAction? action_sleepButton { get; set; }
+        public ButtonAction? action_closingLaptop { get; set; }
         public int? ScreenTimeout_dc { get; set; }
         public int? StandbyTimeout_dc { get; set; }
         public int? HibernateTimeout_dc { get; set; }
+        public ButtonAction? action_powerButton_dc { get; set; }
+        public ButtonAction? action_sleepButton_dc { get; set; }
+        public ButtonAction? action_closingLaptop_dc { get; set; }
         public string? Architecture { get; set; }
         public ProgramTypeEnum? ProgramType { get; set; }
         public ProgramLaunchModeEnum? LaunchMode { get; set; }
@@ -77,7 +101,7 @@ namespace WinBox_Maker
         public int? cds_refreshRate { get; set; }
         public int? cds_scaling { get; set; }
         public int? cds_orientation { get; set; }
-        public int? firstBootAction { get; set; }
+        public FirstBootActionEnum? firstBootAction { get; set; }
 
 
         public WinBoxConfig() {
@@ -131,7 +155,15 @@ namespace WinBox_Maker
             if (cds_refreshRate == null) cds_refreshRate = 60;
             if (cds_scaling == null) cds_scaling = 100;
             if (cds_orientation == null) cds_orientation = 0;
-            if (firstBootAction == null) firstBootAction = 0;
+            if (firstBootAction == null) firstBootAction = FirstBootActionEnum.none;
+
+            if (action_powerButton == null) action_powerButton = ButtonAction.shutdown;
+            if (action_sleepButton == null) action_sleepButton = ButtonAction.sleep;
+            if (action_closingLaptop == null) action_closingLaptop = ButtonAction.turn_off_display;
+
+            if (action_powerButton_dc == null) action_powerButton_dc = ButtonAction.shutdown;
+            if (action_sleepButton_dc == null) action_sleepButton_dc = ButtonAction.sleep;
+            if (action_closingLaptop_dc == null) action_closingLaptop_dc = ButtonAction.turn_off_display;
         }
 
         public void Save(string wnbFilePath)

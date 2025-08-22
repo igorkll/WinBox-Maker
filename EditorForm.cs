@@ -528,7 +528,7 @@ namespace WinBox_Maker
             UseCustomDisplaySettings.CheckState = winBoxProject.winBoxConfig.UseCustomDisplaySettings == true ? CheckState.Checked : CheckState.Unchecked;
 
             cds_orientation.SelectedIndex = winBoxProject.winBoxConfig.cds_orientation ?? 0;
-            firstBootAction.SelectedIndex = winBoxProject.winBoxConfig.firstBootAction ?? 0;
+            firstBootAction.SelectedIndex = (int)(winBoxProject.winBoxConfig.firstBootAction ?? 0);
 
             dc_panel.Enabled = winBoxProject.winBoxConfig.dc_use == true;
             HibernateTimeout.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
@@ -1742,7 +1742,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.firstBootAction = firstBootAction.SelectedIndex;
+            winBoxProject.winBoxConfig.firstBootAction = (FirstBootActionEnum)firstBootAction.SelectedIndex;
             winBoxProject.SaveConfig();
         }
     }

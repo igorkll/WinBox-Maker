@@ -109,6 +109,8 @@
             tabPage4 = new TabPage();
             tabControl2 = new TabControl();
             tabPage14 = new TabPage();
+            panel15 = new Panel();
+            panel14 = new Panel();
             label51 = new Label();
             firstBootAction = new ComboBox();
             tabPage12 = new TabPage();
@@ -260,6 +262,8 @@
             tabPage4.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPage14.SuspendLayout();
+            panel15.SuspendLayout();
+            panel14.SuspendLayout();
             tabPage12.SuspendLayout();
             dc_panel.SuspendLayout();
             panel13.SuspendLayout();
@@ -825,7 +829,7 @@
             // CustomBootLogo
             // 
             CustomBootLogo.AutoSize = true;
-            CustomBootLogo.Location = new Point(176, 49);
+            CustomBootLogo.Location = new Point(176, 36);
             CustomBootLogo.Name = "CustomBootLogo";
             CustomBootLogo.Size = new Size(78, 25);
             CustomBootLogo.TabIndex = 11;
@@ -833,7 +837,7 @@
             // 
             // CustomBootLogo_clear
             // 
-            CustomBootLogo_clear.Location = new Point(88, 44);
+            CustomBootLogo_clear.Location = new Point(88, 31);
             CustomBootLogo_clear.Name = "CustomBootLogo_clear";
             CustomBootLogo_clear.Size = new Size(82, 34);
             CustomBootLogo_clear.TabIndex = 10;
@@ -843,7 +847,7 @@
             // 
             // CustomBootLogo_select
             // 
-            CustomBootLogo_select.Location = new Point(3, 44);
+            CustomBootLogo_select.Location = new Point(3, 31);
             CustomBootLogo_select.Name = "CustomBootLogo_select";
             CustomBootLogo_select.Size = new Size(82, 34);
             CustomBootLogo_select.TabIndex = 9;
@@ -854,7 +858,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(3, 13);
+            label15.Location = new Point(3, 3);
             label15.Name = "label15";
             label15.Size = new Size(214, 25);
             label15.TabIndex = 8;
@@ -863,7 +867,7 @@
             // CustomBootLogo_centering
             // 
             CustomBootLogo_centering.AutoSize = true;
-            CustomBootLogo_centering.Location = new Point(3, 84);
+            CustomBootLogo_centering.Location = new Point(3, 71);
             CustomBootLogo_centering.Name = "CustomBootLogo_centering";
             CustomBootLogo_centering.Size = new Size(111, 29);
             CustomBootLogo_centering.TabIndex = 12;
@@ -1122,13 +1126,8 @@
             // 
             // tabPage14
             // 
-            tabPage14.Controls.Add(label51);
-            tabPage14.Controls.Add(firstBootAction);
-            tabPage14.Controls.Add(CustomBootLogo_centering);
-            tabPage14.Controls.Add(label15);
-            tabPage14.Controls.Add(CustomBootLogo);
-            tabPage14.Controls.Add(CustomBootLogo_select);
-            tabPage14.Controls.Add(CustomBootLogo_clear);
+            tabPage14.Controls.Add(panel15);
+            tabPage14.Controls.Add(panel14);
             tabPage14.Location = new Point(4, 34);
             tabPage14.Name = "tabPage14";
             tabPage14.Size = new Size(499, 246);
@@ -1136,20 +1135,43 @@
             tabPage14.Text = "boot";
             tabPage14.UseVisualStyleBackColor = true;
             // 
+            // panel15
+            // 
+            panel15.BorderStyle = BorderStyle.Fixed3D;
+            panel15.Controls.Add(label15);
+            panel15.Controls.Add(CustomBootLogo_clear);
+            panel15.Controls.Add(CustomBootLogo_centering);
+            panel15.Controls.Add(CustomBootLogo_select);
+            panel15.Controls.Add(CustomBootLogo);
+            panel15.Location = new Point(3, 3);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(325, 108);
+            panel15.TabIndex = 16;
+            // 
+            // panel14
+            // 
+            panel14.BorderStyle = BorderStyle.Fixed3D;
+            panel14.Controls.Add(label51);
+            panel14.Controls.Add(firstBootAction);
+            panel14.Location = new Point(3, 117);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(228, 76);
+            panel14.TabIndex = 15;
+            // 
             // label51
             // 
             label51.AutoSize = true;
-            label51.Location = new Point(3, 116);
+            label51.Location = new Point(2, 2);
             label51.Name = "label51";
-            label51.Size = new Size(219, 25);
+            label51.Size = new Size(192, 25);
             label51.TabIndex = 14;
-            label51.Text = "the action at the first boot";
+            label51.Text = "Action at the first boot";
             // 
             // firstBootAction
             // 
             firstBootAction.FormattingEnabled = true;
-            firstBootAction.Items.AddRange(new object[] { "none", "reboot", "shutdown" });
-            firstBootAction.Location = new Point(3, 144);
+            firstBootAction.Items.AddRange(new object[] { "none", "reboot", "shutdown", "hibernate" });
+            firstBootAction.Location = new Point(3, 30);
             firstBootAction.Name = "firstBootAction";
             firstBootAction.Size = new Size(182, 33);
             firstBootAction.TabIndex = 13;
@@ -2585,7 +2607,10 @@
             tabPage4.PerformLayout();
             tabControl2.ResumeLayout(false);
             tabPage14.ResumeLayout(false);
-            tabPage14.PerformLayout();
+            panel15.ResumeLayout(false);
+            panel15.PerformLayout();
+            panel14.ResumeLayout(false);
+            panel14.PerformLayout();
             tabPage12.ResumeLayout(false);
             tabPage12.PerformLayout();
             dc_panel.ResumeLayout(false);
@@ -2859,5 +2884,7 @@
         private ComboBox cds_orientation;
         private Label label51;
         private ComboBox firstBootAction;
+        private Panel panel14;
+        private Panel panel15;
     }
 }
