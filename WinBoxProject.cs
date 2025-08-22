@@ -899,10 +899,10 @@ powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
 powercfg -change -monitor-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.ScreenTimeout_dc : winBoxConfig.ScreenTimeout)}
 powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION {winBoxConfig.action_closingLaptop}
 powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION {(winBoxConfig.dc_use == true ? winBoxConfig.action_closingLaptop_dc : winBoxConfig.action_closingLaptop)}
-powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION {winBoxConfig.action_powerButton}
-powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION {(winBoxConfig.dc_use == true ? winBoxConfig.action_powerButton_dc : winBoxConfig.action_powerButton)}
 powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION {winBoxConfig.action_sleepButton}
 powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION {(winBoxConfig.dc_use == true ? winBoxConfig.action_sleepButton_dc : winBoxConfig.action_sleepButton)}
+powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION {winBoxConfig.action_powerButton}
+powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION {(winBoxConfig.dc_use == true ? winBoxConfig.action_powerButton_dc : winBoxConfig.action_powerButton)}
 powercfg -s SCHEME_CURRENT";
 
             return powercfgSetup;
