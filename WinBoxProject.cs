@@ -133,6 +133,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "intel_drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "packages"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "cursor"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "iso_files"));
             Program.CreateDirectory(sourcesDirectoryPath);
 
             string gitignorePath = Path.Combine(baseDirectoryPath, ".gitignore");
@@ -279,13 +280,13 @@ namespace WinBox_Maker
             {
                 string downloadPath = Path.Combine(Program.downloadImagesPath, Program.CalculateMD5(winBoxConfig.BaseWindowsImage) + ".iso");
 
-                if (!File.Exists(downloadPath))
+                if (!Program.isFileDownloaded(downloadPath))
                 {
                     processName("Downloading a windows image by URL");
                     await Program.downloadFile(winBoxConfig.BaseWindowsImage, downloadPath, processValue);
                 }
 
-                if (File.Exists(downloadPath))
+                if (Program.isFileDownloaded(downloadPath))
                 {
                     return downloadPath;
                 }
@@ -687,7 +688,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             if (downloadItem.cache == true)
             {
                 downloadPath = Path.Combine(Program.downloadCachePath, Program.CalculateMD5(downloadItem.url));
-                if (!File.Exists(downloadPath))
+                if (!Program.isFileDownloaded(downloadPath))
                 {
                     await Program.downloadFile(downloadItem.url, downloadPath, processValue);
                 }
@@ -938,6 +939,12 @@ powercfg -s SCHEME_CURRENT";
             }
 
             return servicesSetup;
+        }
+
+        async Task addAdFiles(string path, WindowsDescription newWindowsDescription)
+        {
+            await File.WriteAllTextAsync(Path.Combine(path, "README.txt"), $"this image was created by the {Program.version} free software\r\nhttps://github.com/igorkll/WinBox-Maker");
+            await File.WriteAllTextAsync(Path.Combine(path, "INFO.txt"), $"name: {newWindowsDescription.name}\r\ndescription: {newWindowsDescription.description}");
         }
 
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath)
@@ -1488,8 +1495,7 @@ net localgroup Administrators winbox /add";
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
             }
 
-            await File.WriteAllTextAsync(Path.Combine(wimMountPath, "README.txt"), $"this image was created by the {Program.version} free software\r\nhttps://github.com/igorkll/WinBox-Maker");
-            await File.WriteAllTextAsync(Path.Combine(wimMountPath, "INFO.txt"), $"name: {newWindowsDescription.name}\r\ndescription: {newWindowsDescription.description}");
+            await addAdFiles(wimMountPath, newWindowsDescription);
 
             // ------------------------------------ setup application autorun
             string? command = null;
@@ -1730,6 +1736,20 @@ if %errorlevel%==0 (
             {
                 await File.WriteAllTextAsync(Path.Combine(unpackIsoPath, "Sources\\PID.txt"), $"[PID]\nValue={winBoxConfig.OemKey}");
             }
+
+            string isoFilesPath = Path.Combine(resourcesDirectoryPath, "iso_files");
+            if (Directory.Exists(isoFilesPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(isoFilesPath, unpackIsoPath);
+            }
+
+            isoFilesPath = Path.Combine(tempDirectoryPath, "iso_files");
+            if (Directory.Exists(isoFilesPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(isoFilesPath, unpackIsoPath);
+            }
+
+            await addAdFiles(unpackIsoPath, newWindowsDescription);
 
             processName("Building an ISO image");
             processValue(85);

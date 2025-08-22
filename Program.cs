@@ -233,7 +233,8 @@ namespace WinBox_Maker
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 libPath = Path.Combine(libBaseDir, libDir, "libwim-15.dll");
-                if (!File.Exists(libPath)) {
+                if (!File.Exists(libPath))
+                {
                     libPath = Path.Combine(libBaseDir, "libwim-15.dll");
                 }
             }
@@ -257,7 +258,7 @@ namespace WinBox_Maker
         public static void SwitchForm(Form self, Form form)
         {
             form.Show();
-            
+
             if (form != openProjectForm)
             {
                 form.FormClosed += (s, args) =>
@@ -460,7 +461,8 @@ namespace WinBox_Maker
                 File.Delete(destFile);
             }
 
-            using (FileStream sourceStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read, FileShare.None)) {
+            using (FileStream sourceStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read, FileShare.None))
+            {
                 using (FileStream destinationStream = new FileStream(destFile, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     await sourceStream.CopyToAsync(destinationStream);
@@ -520,7 +522,8 @@ namespace WinBox_Maker
         {
             foreach (DiscFileInfo file in currentDir.GetFiles())
             {
-                if (!blacklist.Contains(file.FullName)) {
+                if (!blacklist.Contains(file.FullName))
+                {
                     string outputPath = Path.Combine(outputDirectory, file.FullName);
                     Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
 
@@ -606,7 +609,7 @@ namespace WinBox_Maker
             else
             {
                 winBoxConfig.TweakList.RemoveAll(s => s == setTweak);
-            } 
+            }
         }
 
         public static string? getBlobPath(WinBoxConfig winBoxConfig, string blobname)
@@ -675,6 +678,7 @@ namespace WinBox_Maker
         static public async Task downloadFile(string url, string path, Action<int>? processValue = null)
         {
             var tcs = new TaskCompletionSource<bool>();
+            bool successfully = false;
 
             using (WebClient wc = new WebClient())
             {
@@ -694,6 +698,7 @@ namespace WinBox_Maker
                     }
                     else
                     {
+                        successfully = true;
                         tcs.SetResult(true);
                     }
                 };
@@ -709,6 +714,18 @@ namespace WinBox_Maker
             }
 
             await tcs.Task;
+
+            if (successfully) File.WriteAllText(getDownloadTriggerFilePath(path), "");
+        }
+
+        static public bool isFileDownloaded(string path)
+        {
+            return File.Exists(path) && File.Exists(getDownloadTriggerFilePath(path));
+        }
+
+        static public string getDownloadTriggerFilePath(string path)
+        {
+            return Path.Combine(Path.GetDirectoryName(path), Path.GetFileName(path) + ".downloaded");
         }
     }
 }
