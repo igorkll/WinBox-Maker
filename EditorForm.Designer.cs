@@ -141,6 +141,7 @@
             cds_width = new TextBox();
             UseCustomDisplaySettings = new CheckBox();
             tabPage15 = new TabPage();
+            richTextBox6 = new RichTextBox();
             UseCustomDisplaySettings_scale_panel = new Panel();
             label50 = new Label();
             cds_scaling = new TextBox();
@@ -251,7 +252,6 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
-            richTextBox6 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1200,7 +1200,7 @@
             tabPage12.Padding = new Padding(3);
             tabPage12.Size = new Size(499, 246);
             tabPage12.TabIndex = 0;
-            tabPage12.Text = "power management";
+            tabPage12.Text = "power";
             tabPage12.UseVisualStyleBackColor = true;
             // 
             // enable_hibernation
@@ -1465,6 +1465,16 @@
             tabPage15.TabIndex = 4;
             tabPage15.Text = "scale";
             tabPage15.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox6
+            // 
+            richTextBox6.BackColor = SystemColors.Info;
+            richTextBox6.Location = new Point(3, 168);
+            richTextBox6.Name = "richTextBox6";
+            richTextBox6.ReadOnly = true;
+            richTextBox6.Size = new Size(493, 75);
+            richTextBox6.TabIndex = 3;
+            richTextBox6.Text = "the settings may not be applied at the first boot. for this reason, you can use the \"first boot action\" function on the \"boot\" tab";
             // 
             // UseCustomDisplaySettings_scale_panel
             // 
@@ -2593,16 +2603,6 @@
             openProgramData.Text = "Open Program Data";
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
-            // 
-            // richTextBox6
-            // 
-            richTextBox6.BackColor = SystemColors.Info;
-            richTextBox6.Location = new Point(3, 168);
-            richTextBox6.Name = "richTextBox6";
-            richTextBox6.ReadOnly = true;
-            richTextBox6.Size = new Size(493, 75);
-            richTextBox6.TabIndex = 3;
-            richTextBox6.Text = "the settings may not be applied at the first boot. for this reason, you can use the \"first boot action\" function on the \"boot\" tab";
             // 
             // EditorForm
             // 
