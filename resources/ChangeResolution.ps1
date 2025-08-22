@@ -3,7 +3,6 @@ param (
     [int]$Height,
     [int]$BitDepth = 32,
     [int]$Refresh = 60,
-    [int]$Scaling = 100,
     [ValidateSet(0,1,2,3)]
     [int]$Orientation = 0
 )
@@ -92,12 +91,3 @@ if (-not [Display]::SetDisplay($Width, $Height, $BitDepth, $Refresh, $Orientatio
 } else {
     Write-Host "Resolution: ${Width}x${Height}, Bit depth: ${BitDepth}, Refresh: ${Refresh}Hz, Orientation: ${Orientation}"
 }
-
-# --- Apply scaling (DPI) ---
-$regPath = "HKCU:\Control Panel\Desktop"
-
-Set-ItemProperty -Path $regPath -Name "LogPixels" -Type DWord -Value ([int](96 * $Scaling / 100)) -Force
-Set-ItemProperty -Path $regPath -Name "Win8DpiScaling" -Type DWord -Value 1 -Force
-Set-ItemProperty -Path $regPath -Name "DpiScalingVer" -Type DWord -Value 0x00001000 -Force
-
-Write-Host "Scaling set to ${Scaling}% (requires logoff/login or explorer.exe restart)"

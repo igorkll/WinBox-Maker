@@ -95,6 +95,7 @@ namespace WinBox_Maker
         public bool? dc_use { get; set; }
         public bool? enable_hibernation { get; set; }
         public bool? UseCustomDisplaySettings { get; set; }
+        public bool? UseCustomDisplaySettings_scale { get; set; }
         public int? cds_width { get; set; }
         public int? cds_height { get; set; }
         public int? cds_bitDepth { get; set; }
@@ -149,6 +150,7 @@ namespace WinBox_Maker
             if (dc_use == null) dc_use = false;
             if (enable_hibernation == null) enable_hibernation = false;
             if (UseCustomDisplaySettings == null) UseCustomDisplaySettings = false;
+            if (UseCustomDisplaySettings_scale == null) UseCustomDisplaySettings_scale = false;
             if (cds_width == null) cds_width = 800;
             if (cds_height == null) cds_height = 600;
             if (cds_bitDepth == null) cds_bitDepth = 32;

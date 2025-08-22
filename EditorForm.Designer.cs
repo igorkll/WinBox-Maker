@@ -248,6 +248,9 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
+            UseCustomDisplaySettings_scale = new CheckBox();
+            tabPage15 = new TabPage();
+            UseCustomDisplaySettings_scale_panel = new Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -292,6 +295,8 @@
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage15.SuspendLayout();
+            UseCustomDisplaySettings_scale_panel.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1117,6 +1122,7 @@
             tabControl2.Controls.Add(tabPage14);
             tabControl2.Controls.Add(tabPage12);
             tabControl2.Controls.Add(tabPage6);
+            tabControl2.Controls.Add(tabPage15);
             tabControl2.Controls.Add(tabPage13);
             tabControl2.Location = new Point(505, 44);
             tabControl2.Name = "tabControl2";
@@ -1344,10 +1350,8 @@
             // 
             CustomDisplaySettings_panel.BorderStyle = BorderStyle.Fixed3D;
             CustomDisplaySettings_panel.Controls.Add(cds_orientation);
-            CustomDisplaySettings_panel.Controls.Add(label50);
             CustomDisplaySettings_panel.Controls.Add(label49);
             CustomDisplaySettings_panel.Controls.Add(label48);
-            CustomDisplaySettings_panel.Controls.Add(cds_scaling);
             CustomDisplaySettings_panel.Controls.Add(cds_refreshRate);
             CustomDisplaySettings_panel.Controls.Add(cds_bitDepth);
             CustomDisplaySettings_panel.Controls.Add(label47);
@@ -1373,7 +1377,7 @@
             // label50
             // 
             label50.AutoSize = true;
-            label50.Location = new Point(383, 79);
+            label50.Location = new Point(159, 7);
             label50.Name = "label50";
             label50.Size = new Size(66, 25);
             label50.TabIndex = 9;
@@ -1399,7 +1403,7 @@
             // 
             // cds_scaling
             // 
-            cds_scaling.Location = new Point(227, 76);
+            cds_scaling.Location = new Point(3, 4);
             cds_scaling.Name = "cds_scaling";
             cds_scaling.Size = new Size(150, 31);
             cds_scaling.TabIndex = 6;
@@ -2556,6 +2560,38 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
+            // UseCustomDisplaySettings_scale
+            // 
+            UseCustomDisplaySettings_scale.AutoSize = true;
+            UseCustomDisplaySettings_scale.Location = new Point(3, 3);
+            UseCustomDisplaySettings_scale.Name = "UseCustomDisplaySettings_scale";
+            UseCustomDisplaySettings_scale.Size = new Size(239, 29);
+            UseCustomDisplaySettings_scale.TabIndex = 43;
+            UseCustomDisplaySettings_scale.Text = "use custom scale settings";
+            UseCustomDisplaySettings_scale.UseVisualStyleBackColor = true;
+            UseCustomDisplaySettings_scale.CheckedChanged += UseCustomDisplaySettings_scale_CheckedChanged;
+            // 
+            // tabPage15
+            // 
+            tabPage15.Controls.Add(UseCustomDisplaySettings_scale_panel);
+            tabPage15.Controls.Add(UseCustomDisplaySettings_scale);
+            tabPage15.Location = new Point(4, 34);
+            tabPage15.Name = "tabPage15";
+            tabPage15.Size = new Size(499, 246);
+            tabPage15.TabIndex = 4;
+            tabPage15.Text = "scale";
+            tabPage15.UseVisualStyleBackColor = true;
+            // 
+            // UseCustomDisplaySettings_scale_panel
+            // 
+            UseCustomDisplaySettings_scale_panel.BorderStyle = BorderStyle.Fixed3D;
+            UseCustomDisplaySettings_scale_panel.Controls.Add(label50);
+            UseCustomDisplaySettings_scale_panel.Controls.Add(cds_scaling);
+            UseCustomDisplaySettings_scale_panel.Location = new Point(3, 38);
+            UseCustomDisplaySettings_scale_panel.Name = "UseCustomDisplaySettings_scale_panel";
+            UseCustomDisplaySettings_scale_panel.Size = new Size(493, 124);
+            UseCustomDisplaySettings_scale_panel.TabIndex = 44;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -2661,6 +2697,10 @@
             dl_panel.ResumeLayout(false);
             dl_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage15.ResumeLayout(false);
+            tabPage15.PerformLayout();
+            UseCustomDisplaySettings_scale_panel.ResumeLayout(false);
+            UseCustomDisplaySettings_scale_panel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2886,5 +2926,8 @@
         private ComboBox firstBootAction;
         private Panel panel14;
         private Panel panel15;
+        private TabPage tabPage15;
+        private CheckBox UseCustomDisplaySettings_scale;
+        private Panel UseCustomDisplaySettings_scale_panel;
     }
 }

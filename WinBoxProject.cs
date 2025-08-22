@@ -1210,10 +1210,19 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
             regAppScriptFirstInitCmd("firstInit1", setupCompleteAndFirstInit);
             regAppScriptFirstInitCmd("firstInit2", updateSystemSettingsAndFirstInit);
+
             if (winBoxConfig.UseCustomDisplaySettings == true)
             {
                 await CopyResource("ChangeResolution.ps1");
-                string customDisplaySettingsCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeResolution.ps1"" -Width ""{winBoxConfig.cds_width}"" -Height ""{winBoxConfig.cds_height}"" -BitDepth ""{winBoxConfig.cds_bitDepth}"" -Refresh ""{winBoxConfig.cds_refreshRate}"" -Scaling ""{winBoxConfig.cds_scaling}"" -Orientation ""{winBoxConfig.cds_orientation}""";
+                string customDisplaySettingsCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeResolution.ps1"" -Width ""{winBoxConfig.cds_width}"" -Height ""{winBoxConfig.cds_height}"" -BitDepth ""{winBoxConfig.cds_bitDepth}"" -Refresh ""{winBoxConfig.cds_refreshRate}"" -Orientation ""{winBoxConfig.cds_orientation}""";
+                applicationScript += $"\r\n" + customDisplaySettingsCmd;
+                baseSetup += $"\r\n" + customDisplaySettingsCmd;
+            }
+
+            if (winBoxConfig.UseCustomDisplaySettings_scale == true)
+            {
+                await CopyResource("ChangeScale.ps1");
+                string customDisplaySettingsCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeScale.ps1"" -Scaling ""{winBoxConfig.cds_scaling}""";
                 applicationScript += $"\r\n" + customDisplaySettingsCmd;
                 baseSetup += $"\r\n" + customDisplaySettingsCmd;
             }

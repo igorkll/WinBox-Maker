@@ -3505,7 +3505,6 @@
   </data>
   <data name="richTextBox5.Text" xml:space="preserve">
     <value>please note that if you make a mistake with any one parameter here (for example, specify an unsupported color depth) then all other parameters will also not be applied!
-however, scale is likely to be applied in any case.
 also, the settings may not be applied at the first boot. for this reason, you can use the "first boot action" function on the "boot" tab</value>
   </data>
   <data name="richTextBox2.Text" xml:space="preserve">

@@ -534,6 +534,7 @@ namespace WinBox_Maker
             HibernateTimeout.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
             HibernateTimeout_dc.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
             CustomDisplaySettings_panel.Enabled = winBoxProject.winBoxConfig.UseCustomDisplaySettings == true;
+            UseCustomDisplaySettings_scale_panel.Enabled = winBoxProject.winBoxConfig.UseCustomDisplaySettings_scale == true;
 
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
@@ -1744,6 +1745,15 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.firstBootAction = (FirstBootActionEnum)firstBootAction.SelectedIndex;
             winBoxProject.SaveConfig();
+        }
+
+        private void UseCustomDisplaySettings_scale_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.UseCustomDisplaySettings_scale = UseCustomDisplaySettings_scale.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }
