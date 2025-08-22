@@ -680,6 +680,8 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
         {
             if (downloadItem.path.Contains("..")) return;
 
+            // -------------------------------- download
+
             bool needDelete = false;
             string downloadPath;
             if (downloadItem.cache == true)
@@ -696,6 +698,8 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 downloadPath = Path.Combine(Program.appdataPath, "last_download");
                 await Program.downloadFile(downloadItem.url, downloadPath, processValue);
             }
+
+            // -------------------------------- copy
 
             string outputPath = Path.Combine(baseDirectoryPath, downloadItem.path);
 
