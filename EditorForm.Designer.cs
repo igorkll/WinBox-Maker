@@ -131,10 +131,8 @@
             richTextBox5 = new RichTextBox();
             CustomDisplaySettings_panel = new Panel();
             cds_orientation = new ComboBox();
-            label50 = new Label();
             label49 = new Label();
             label48 = new Label();
-            cds_scaling = new TextBox();
             cds_refreshRate = new TextBox();
             cds_bitDepth = new TextBox();
             label47 = new Label();
@@ -142,6 +140,11 @@
             cds_height = new TextBox();
             cds_width = new TextBox();
             UseCustomDisplaySettings = new CheckBox();
+            tabPage15 = new TabPage();
+            UseCustomDisplaySettings_scale_panel = new Panel();
+            label50 = new Label();
+            cds_scaling = new TextBox();
+            UseCustomDisplaySettings_scale = new CheckBox();
             tabPage13 = new TabPage();
             richTextBox4 = new RichTextBox();
             tabPage5 = new TabPage();
@@ -248,9 +251,7 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
-            UseCustomDisplaySettings_scale = new CheckBox();
-            tabPage15 = new TabPage();
-            UseCustomDisplaySettings_scale_panel = new Panel();
+            richTextBox6 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -272,6 +273,8 @@
             panel13.SuspendLayout();
             tabPage6.SuspendLayout();
             CustomDisplaySettings_panel.SuspendLayout();
+            tabPage15.SuspendLayout();
+            UseCustomDisplaySettings_scale_panel.SuspendLayout();
             tabPage13.SuspendLayout();
             tabPage5.SuspendLayout();
             panel5.SuspendLayout();
@@ -295,8 +298,6 @@
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage15.SuspendLayout();
-            UseCustomDisplaySettings_scale_panel.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1374,15 +1375,6 @@
             cds_orientation.TabIndex = 10;
             cds_orientation.SelectedIndexChanged += cds_orientation_SelectedIndexChanged;
             // 
-            // label50
-            // 
-            label50.AutoSize = true;
-            label50.Location = new Point(159, 7);
-            label50.Name = "label50";
-            label50.Size = new Size(66, 25);
-            label50.TabIndex = 9;
-            label50.Text = "scaling";
-            // 
             // label49
             // 
             label49.AutoSize = true;
@@ -1400,14 +1392,6 @@
             label48.Size = new Size(85, 25);
             label48.TabIndex = 7;
             label48.Text = "bit depth";
-            // 
-            // cds_scaling
-            // 
-            cds_scaling.Location = new Point(3, 4);
-            cds_scaling.Name = "cds_scaling";
-            cds_scaling.Size = new Size(150, 31);
-            cds_scaling.TabIndex = 6;
-            cds_scaling.TextChanged += cds_scaling_TextChanged;
             // 
             // cds_refreshRate
             // 
@@ -1469,6 +1453,56 @@
             UseCustomDisplaySettings.Text = "use custom display settings";
             UseCustomDisplaySettings.UseVisualStyleBackColor = true;
             UseCustomDisplaySettings.CheckedChanged += UseCustomDisplaySettings_CheckedChanged;
+            // 
+            // tabPage15
+            // 
+            tabPage15.Controls.Add(richTextBox6);
+            tabPage15.Controls.Add(UseCustomDisplaySettings_scale_panel);
+            tabPage15.Controls.Add(UseCustomDisplaySettings_scale);
+            tabPage15.Location = new Point(4, 34);
+            tabPage15.Name = "tabPage15";
+            tabPage15.Size = new Size(499, 246);
+            tabPage15.TabIndex = 4;
+            tabPage15.Text = "scale";
+            tabPage15.UseVisualStyleBackColor = true;
+            // 
+            // UseCustomDisplaySettings_scale_panel
+            // 
+            UseCustomDisplaySettings_scale_panel.BorderStyle = BorderStyle.Fixed3D;
+            UseCustomDisplaySettings_scale_panel.Controls.Add(label50);
+            UseCustomDisplaySettings_scale_panel.Controls.Add(cds_scaling);
+            UseCustomDisplaySettings_scale_panel.Location = new Point(3, 38);
+            UseCustomDisplaySettings_scale_panel.Name = "UseCustomDisplaySettings_scale_panel";
+            UseCustomDisplaySettings_scale_panel.Size = new Size(493, 124);
+            UseCustomDisplaySettings_scale_panel.TabIndex = 44;
+            // 
+            // label50
+            // 
+            label50.AutoSize = true;
+            label50.Location = new Point(159, 7);
+            label50.Name = "label50";
+            label50.Size = new Size(66, 25);
+            label50.TabIndex = 9;
+            label50.Text = "scaling";
+            // 
+            // cds_scaling
+            // 
+            cds_scaling.Location = new Point(3, 4);
+            cds_scaling.Name = "cds_scaling";
+            cds_scaling.Size = new Size(150, 31);
+            cds_scaling.TabIndex = 6;
+            cds_scaling.TextChanged += cds_scaling_TextChanged;
+            // 
+            // UseCustomDisplaySettings_scale
+            // 
+            UseCustomDisplaySettings_scale.AutoSize = true;
+            UseCustomDisplaySettings_scale.Location = new Point(3, 3);
+            UseCustomDisplaySettings_scale.Name = "UseCustomDisplaySettings_scale";
+            UseCustomDisplaySettings_scale.Size = new Size(239, 29);
+            UseCustomDisplaySettings_scale.TabIndex = 43;
+            UseCustomDisplaySettings_scale.Text = "use custom scale settings";
+            UseCustomDisplaySettings_scale.UseVisualStyleBackColor = true;
+            UseCustomDisplaySettings_scale.CheckedChanged += UseCustomDisplaySettings_scale_CheckedChanged;
             // 
             // tabPage13
             // 
@@ -2560,37 +2594,15 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
-            // UseCustomDisplaySettings_scale
+            // richTextBox6
             // 
-            UseCustomDisplaySettings_scale.AutoSize = true;
-            UseCustomDisplaySettings_scale.Location = new Point(3, 3);
-            UseCustomDisplaySettings_scale.Name = "UseCustomDisplaySettings_scale";
-            UseCustomDisplaySettings_scale.Size = new Size(239, 29);
-            UseCustomDisplaySettings_scale.TabIndex = 43;
-            UseCustomDisplaySettings_scale.Text = "use custom scale settings";
-            UseCustomDisplaySettings_scale.UseVisualStyleBackColor = true;
-            UseCustomDisplaySettings_scale.CheckedChanged += UseCustomDisplaySettings_scale_CheckedChanged;
-            // 
-            // tabPage15
-            // 
-            tabPage15.Controls.Add(UseCustomDisplaySettings_scale_panel);
-            tabPage15.Controls.Add(UseCustomDisplaySettings_scale);
-            tabPage15.Location = new Point(4, 34);
-            tabPage15.Name = "tabPage15";
-            tabPage15.Size = new Size(499, 246);
-            tabPage15.TabIndex = 4;
-            tabPage15.Text = "scale";
-            tabPage15.UseVisualStyleBackColor = true;
-            // 
-            // UseCustomDisplaySettings_scale_panel
-            // 
-            UseCustomDisplaySettings_scale_panel.BorderStyle = BorderStyle.Fixed3D;
-            UseCustomDisplaySettings_scale_panel.Controls.Add(label50);
-            UseCustomDisplaySettings_scale_panel.Controls.Add(cds_scaling);
-            UseCustomDisplaySettings_scale_panel.Location = new Point(3, 38);
-            UseCustomDisplaySettings_scale_panel.Name = "UseCustomDisplaySettings_scale_panel";
-            UseCustomDisplaySettings_scale_panel.Size = new Size(493, 124);
-            UseCustomDisplaySettings_scale_panel.TabIndex = 44;
+            richTextBox6.BackColor = SystemColors.Info;
+            richTextBox6.Location = new Point(3, 168);
+            richTextBox6.Name = "richTextBox6";
+            richTextBox6.ReadOnly = true;
+            richTextBox6.Size = new Size(493, 75);
+            richTextBox6.TabIndex = 3;
+            richTextBox6.Text = "the settings may not be applied at the first boot. for this reason, you can use the \"first boot action\" function on the \"boot\" tab";
             // 
             // EditorForm
             // 
@@ -2657,6 +2669,10 @@
             tabPage6.PerformLayout();
             CustomDisplaySettings_panel.ResumeLayout(false);
             CustomDisplaySettings_panel.PerformLayout();
+            tabPage15.ResumeLayout(false);
+            tabPage15.PerformLayout();
+            UseCustomDisplaySettings_scale_panel.ResumeLayout(false);
+            UseCustomDisplaySettings_scale_panel.PerformLayout();
             tabPage13.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
@@ -2697,10 +2713,6 @@
             dl_panel.ResumeLayout(false);
             dl_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage15.ResumeLayout(false);
-            tabPage15.PerformLayout();
-            UseCustomDisplaySettings_scale_panel.ResumeLayout(false);
-            UseCustomDisplaySettings_scale_panel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2929,5 +2941,6 @@
         private TabPage tabPage15;
         private CheckBox UseCustomDisplaySettings_scale;
         private Panel UseCustomDisplaySettings_scale_panel;
+        private RichTextBox richTextBox6;
     }
 }
