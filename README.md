@@ -4,7 +4,7 @@
 ![preview3](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview3.png)  
 program examples: https://github.com/igorkll/WinBox-Maker-programs  
 download "blobs" folder: https://drive.google.com/file/d/1xH0g-R7ckmCbhAJV-ED4NHXPXl_dOrfH/view?usp=sharing (it is only needed for self-build of the program)  
-a tool for creating minimal embed versions of windows  
+a tool for creating minimal embed versions of windows (this is usually Windows with access to only one application without the ability to open any system menu or shell, but this is not the only scenario)  
 takes on the task of modifying the windows image to remove excess and embed software there  
 the program is perfect for windows builds designed for ATM terminals and other devices that unauthorized people have access to and should not be allowed to leave the specified sandbox  
 the program needs to be run with administrator rights because it mounts images  
@@ -22,6 +22,7 @@ winbox maker also disables key combinations to exclude the possibility of closin
 however, by changing the configuration of winbox maker, you can achieve some other behavior  
 winbox maker provides tools for embedding software into the final windows image. such as the net framework and visual C++ redist and others  
 in this program, many settings/tweaks are actually made several times in different ways. this was done because windows has different versions where one of the solutions may not work. if you look at the source code and see that some solution (for example, disabling the lock screen) was made in an unreliable way, then know that the program uses several solutions to the same problem and you can find them in the source code and make sure that everything is reliable  
+please note that if you use the windows component removal functions (for example, you delete SysWOW64), then you may have problems with things like the net framework and other windows features. it is better not to delete anything, but simply block access to unused functions if your device does not have serious restrictions on the amount of memory  
 
 ## warnings
 * if you are going to build the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)
