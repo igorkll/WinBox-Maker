@@ -531,12 +531,12 @@ namespace WinBox_Maker
             cds_orientation.SelectedIndex = winBoxProject.winBoxConfig.cds_orientation ?? 0;
             firstBootAction.SelectedIndex = (int)(winBoxProject.winBoxConfig.firstBootAction ?? 0);
 
-            action_closingLaptop.SelectedIndex = (int)winBoxProject.winBoxConfig.action_closingLaptop;
-            action_powerButton.SelectedIndex = (int)winBoxProject.winBoxConfig.action_powerButton;
-            action_sleepButton.SelectedIndex = (int)winBoxProject.winBoxConfig.action_sleepButton;
-            action_closingLaptop_dc.SelectedIndex = (int)winBoxProject.winBoxConfig.action_closingLaptop_dc;
-            action_powerButton_dc.SelectedIndex = (int)winBoxProject.winBoxConfig.action_powerButton_dc;
-            action_sleepButton_dc.SelectedIndex = (int)winBoxProject.winBoxConfig.action_sleepButton_dc;
+            action_closingLaptop.SelectedIndex = (int)(winBoxProject.winBoxConfig.action_closingLaptop ?? 0);
+            action_powerButton.SelectedIndex = (int)(winBoxProject.winBoxConfig.action_powerButton ?? 0);
+            action_sleepButton.SelectedIndex = (int)(winBoxProject.winBoxConfig.action_sleepButton ?? 0);
+            action_closingLaptop_dc.SelectedIndex = (int)(winBoxProject.winBoxConfig.action_closingLaptop_dc ?? 0);
+            action_powerButton_dc.SelectedIndex = (int)(winBoxProject.winBoxConfig.action_powerButton_dc ?? 0);
+            action_sleepButton_dc.SelectedIndex = (int)(winBoxProject.winBoxConfig.action_sleepButton_dc ?? 0);
 
             dc_panel.Enabled = winBoxProject.winBoxConfig.dc_use == true;
             HibernateTimeout.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
