@@ -531,6 +531,13 @@ namespace WinBox_Maker
             cds_orientation.SelectedIndex = winBoxProject.winBoxConfig.cds_orientation ?? 0;
             firstBootAction.SelectedIndex = (int)(winBoxProject.winBoxConfig.firstBootAction ?? 0);
 
+            action_closingLaptop.SelectedIndex = (int)winBoxProject.winBoxConfig.action_closingLaptop;
+            action_powerButton.SelectedIndex = (int)winBoxProject.winBoxConfig.action_powerButton;
+            action_sleepButton.SelectedIndex = (int)winBoxProject.winBoxConfig.action_sleepButton;
+            action_closingLaptop_dc.SelectedIndex = (int)winBoxProject.winBoxConfig.action_closingLaptop_dc;
+            action_powerButton_dc.SelectedIndex = (int)winBoxProject.winBoxConfig.action_powerButton_dc;
+            action_sleepButton_dc.SelectedIndex = (int)winBoxProject.winBoxConfig.action_sleepButton_dc;
+
             dc_panel.Enabled = winBoxProject.winBoxConfig.dc_use == true;
             HibernateTimeout.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
             HibernateTimeout_dc.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
@@ -1755,6 +1762,54 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.UseCustomDisplaySettings_scale = UseCustomDisplaySettings_scale.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void action_closingLaptop_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.action_closingLaptop = (ButtonAction)action_closingLaptop.SelectedIndex;
+            winBoxProject.SaveConfig();
+        }
+
+        private void action_powerButton_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.action_powerButton = (ButtonAction)action_powerButton.SelectedIndex;
+            winBoxProject.SaveConfig();
+        }
+
+        private void action_sleepButton_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.action_sleepButton = (ButtonAction)action_sleepButton.SelectedIndex;
+            winBoxProject.SaveConfig();
+        }
+
+        private void action_closingLaptop_dc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.action_closingLaptop_dc = (ButtonAction)action_closingLaptop_dc.SelectedIndex;
+            winBoxProject.SaveConfig();
+        }
+
+        private void action_powerButton_dc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.action_powerButton_dc = (ButtonAction)action_powerButton_dc.SelectedIndex;
+            winBoxProject.SaveConfig();
+        }
+
+        private void action_sleepButton_dc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.action_sleepButton_dc = (ButtonAction)action_sleepButton_dc.SelectedIndex;
+            winBoxProject.SaveConfig();
         }
     }
 }
