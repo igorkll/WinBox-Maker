@@ -1220,27 +1220,27 @@
             label54.AutoSize = true;
             label54.Location = new Point(261, 226);
             label54.Name = "label54";
-            label54.Size = new Size(112, 25);
+            label54.Size = new Size(114, 25);
             label54.TabIndex = 14;
-            label54.Text = "sleep button";
+            label54.Text = "Sleep button";
             // 
             // label53
             // 
             label53.AutoSize = true;
             label53.Location = new Point(261, 187);
             label53.Name = "label53";
-            label53.Size = new Size(121, 25);
+            label53.Size = new Size(119, 25);
             label53.TabIndex = 13;
-            label53.Text = "power button";
+            label53.Text = "Power button";
             // 
             // label52
             // 
             label52.AutoSize = true;
             label52.Location = new Point(261, 148);
             label52.Name = "label52";
-            label52.Size = new Size(155, 25);
+            label52.Size = new Size(158, 25);
             label52.TabIndex = 12;
-            label52.Text = "closing the laptop";
+            label52.Text = "Сlosing the laptop";
             // 
             // enable_hibernation
             // 
