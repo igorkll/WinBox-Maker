@@ -1369,7 +1369,7 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                     foreach (string file in files)
                     {
                         string installerName = $"vc_redist_{index++}.exe";
-                        copyCustomInstaller(file, installerName);
+                        await copyCustomInstaller(file, installerName);
                         regRedist("CustomInstallers\\" + installerName);
                     }
                 }
@@ -1382,7 +1382,7 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                     foreach (string file in files)
                     {
                         string installerName = $"net_framework_{index++}.exe";
-                        copyCustomInstaller(file, installerName);
+                        await copyCustomInstaller(file, installerName);
                         regNetFramework("CustomInstallers\\" + installerName);
                     }
                 }
@@ -1395,7 +1395,7 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                     foreach (string file in files)
                     {
                         string installerName = $"net_{index++}.exe";
-                        copyCustomInstaller(file, installerName);
+                        await copyCustomInstaller(file, installerName);
                         regNet("CustomInstallers\\" + installerName);
                     }
                 }
@@ -1408,7 +1408,7 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                     foreach (string file in files)
                     {
                         string installerName = $"app_runtime_{index}.exe";
-                        copyCustomInstaller(file, installerName);
+                        await copyCustomInstaller(file, installerName);
                         regAppScriptFirstInitCmd($"custom_app_runtime_{index++}", $"C:\\WinboxResources\\CustomInstallers\\{installerName}");
                     }
                 }
