@@ -176,6 +176,10 @@ please note that if you use the windows component removal functions (for example
 * winbox_temp/intel_drivers - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/packages - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/iso_files - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
+* winbox_temp/vc_redist - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
+* winbox_temp/net - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
+* winbox_temp/net_framework - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
+* winbox_temp/app_runtime - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_resources - a folder for your resources that are needed to build the system. these files should end up in the git repository
 * winbox_resources/files - files from this directory will be moved to the root of the disk on the installed system with replacement
 * winbox_resources/program - the directory for your application that will be used in kiosk mode. make this directory empty if you are using automatic compilation of the project from the source code using winbox maker
@@ -187,6 +191,10 @@ please note that if you use the windows component removal functions (for example
 * winbox_resources/cursor - the directory where you can upload custom cursor files (.cur for different states)
 * winbox_resources/sources - the source code of your application for building using winbox maker
 * winbox_resources/iso_files - iso image modification files. they are copied and replaced into the iso image (NOT THE ROOT OF THE SYSTEM, BUT THE ISO. use "files" to modify the system files)
+* winbox_resources/vc_redist - you can put installers of additional visual C++ redist packages here to embed them in the image
+* winbox_resources/net - you can put the installers of additional .net packages here to embed them in the image
+* winbox_resources/net_framework - you can put the installers of additional net framework packages here to embed them in the image
+* winbox_resources/app_runtime - you can put the installers of additional app runtime packages here to embed them in the image
 
 ## API
 winbox maker images have a local API that can be used by an application loaded in winbox maker.

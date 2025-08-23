@@ -134,6 +134,10 @@ namespace WinBox_Maker
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "packages"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "cursor"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "iso_files"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "vc_redist"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "net"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "net_framework"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "app_runtime"));
             Program.CreateDirectory(sourcesDirectoryPath);
 
             string gitignorePath = Path.Combine(baseDirectoryPath, ".gitignore");
@@ -514,12 +518,18 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
 
         private async Task RemoveTemp(Action<string> processName) {
             processName("Cleaning temporary files");
-            await RemoveTempFolder("drivers");
-            await RemoveTempFolder("program");
             await RemoveTempFolder("files");
-            await RemoveTempFolder("packages");
+            await RemoveTempFolder("program");
+            await RemoveTempFolder("drivers");
             await RemoveTempFolder("nvidia_drivers");
             await RemoveTempFolder("amd_drivers");
+            await RemoveTempFolder("intel_drivers");
+            await RemoveTempFolder("packages");
+            await RemoveTempFolder("iso_files");
+            await RemoveTempFolder("vc_redist");
+            await RemoveTempFolder("net");
+            await RemoveTempFolder("net_framework");
+            await RemoveTempFolder("app_runtime");
         }
 
         public async Task BuildCMakeProject(int index, BuildItem buildItem, string cmakeFolder, string output)
@@ -1302,28 +1312,38 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                 await CopyBlob("nircmdc.exe", "executable");
             }
 
+            void regNetFramework(string name)
+            {
+                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\{name} /q";
+            }
+
             if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.8.1"))
             {
                 await CopyBlob("net481.exe");
-                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net481.exe /q";
+                regNetFramework("net481.exe");
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.7.2") || customBootLogo)
             {
                 await CopyBlob("net472.exe");
-                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net472.exe /q";
+                regNetFramework("net472.exe");
+            }
+
+            void regNet(string name)
+            {
+                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\{name} /quiet /norestart";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate net 8.0.17") || useWinboxService)
             {
                 await CopyBlob("net8017.exe");
-                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net8017.exe /quiet /norestart";
+                regNet("net8017.exe");
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate net 9.0.6"))
             {
                 await CopyBlob("net906.exe");
-                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\net906.exe /quiet /norestart";
+                regNet("net906.exe");
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate app runtime 1.7.3"))
@@ -1331,6 +1351,71 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                 await CopyBlob("appruntime173.exe");
                 regAppScriptFirstInitCmd("appruntime173", "C:\\WinboxResources\\appruntime173.exe");
             }
+
+            async Task addCustomInstallers(string baseDir)
+            {
+                async Task copyCustomInstaller(string path, string name)
+                {
+                    string dir = Path.Combine(WinboxResourcesPath, "CustomInstallers");
+                    Program.CreateDirectory(dir);
+                    await Program.CopyFileAsync(path, Path.Combine(dir, name));
+                }
+
+                string installersDir = Path.Combine(baseDir, "vc_redist");
+                if (Directory.Exists(installersDir))
+                {
+                    string[] files = Directory.GetFiles(installersDir);
+                    int index = 1;
+                    foreach (string file in files)
+                    {
+                        string installerName = $"vc_redist_{index++}.exe";
+                        copyCustomInstaller(file, installerName);
+                        regRedist("CustomInstallers\\" + installerName);
+                    }
+                }
+
+                installersDir = Path.Combine(baseDir, "net_framework");
+                if (Directory.Exists(installersDir))
+                {
+                    string[] files = Directory.GetFiles(installersDir);
+                    int index = 1;
+                    foreach (string file in files)
+                    {
+                        string installerName = $"net_framework_{index++}.exe";
+                        copyCustomInstaller(file, installerName);
+                        regNetFramework("CustomInstallers\\" + installerName);
+                    }
+                }
+
+                installersDir = Path.Combine(baseDir, "net");
+                if (Directory.Exists(installersDir))
+                {
+                    string[] files = Directory.GetFiles(installersDir);
+                    int index = 1;
+                    foreach (string file in files)
+                    {
+                        string installerName = $"net_{index++}.exe";
+                        copyCustomInstaller(file, installerName);
+                        regNet("CustomInstallers\\" + installerName);
+                    }
+                }
+
+                installersDir = Path.Combine(baseDir, "app_runtime");
+                if (Directory.Exists(installersDir))
+                {
+                    string[] files = Directory.GetFiles(installersDir);
+                    int index = 1;
+                    foreach (string file in files)
+                    {
+                        string installerName = $"app_runtime_{index}.exe";
+                        copyCustomInstaller(file, installerName);
+                        regAppScriptFirstInitCmd($"custom_app_runtime_{index++}", $"C:\\WinboxResources\\CustomInstallers\\{installerName}");
+                    }
+                }
+            }
+
+            await addCustomInstallers(resourcesDirectoryPath);
+            await addCustomInstallers(tempDirectoryPath);
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
             {
