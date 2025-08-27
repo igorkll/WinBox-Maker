@@ -1434,7 +1434,9 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
             {
                 await Program.CopyFilesRecursivelyAsync(cursorPath, Path.Combine(WinboxResourcesPath, "cursor"));
                 await CopyResource("custom_cursor.reg");
-                baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\custom_cursor.reg\"";
+                string regCmd = "regedit /s \"C:\\WinboxResources\\custom_cursor.reg\"";
+                baseSetup += $"\r\n" + regCmd;
+                regAppScriptFirstInitCmd("custom_cursor", regCmd);
                 await OverwriteSystemCursorEmpty(Path.Combine(wimMountPath, "Windows", "Cursors"));
             }
 
