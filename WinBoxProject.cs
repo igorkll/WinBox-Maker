@@ -1681,6 +1681,11 @@ if %errorlevel%==0 (
                 applicationScript += "\r\n" + command;
             }
 
+            Program.CreateDirectory(Path.Combine(
+                wimMountPath,
+                "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp"
+            ));
+
             await writeDebugFile("AppScript", applicationScript);
             await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "app_script.bat"), applicationScript);
             if (winBoxConfig.LaunchMode == ProgramLaunchModeEnum.afterDesktop)
