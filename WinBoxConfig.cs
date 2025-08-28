@@ -43,6 +43,9 @@ namespace WinBox_Maker
     public class WinBoxConfig
     {
         //public List<string>? Resources { get; set; }
+        public int? winboxMakerVersion { get; set; }
+        public string? winboxMakerVersionStr { get; set; }
+
         public string? BaseWindowsImage { get; set; }
         public string? BaseWindowsVersion { get; set; }
         public string? WinboxName { get; set; }
@@ -117,6 +120,9 @@ namespace WinBox_Maker
         void InitDefaults()
         {
             //if (Resources == null) Resources = new List<string>();
+            if (winboxMakerVersion == null) winboxMakerVersion = Program.version_num;
+            if (winboxMakerVersionStr == null) winboxMakerVersionStr = Program.version_str;
+
             if (WinboxName == null) WinboxName = "Winbox Name";
             if (WinboxDescription == null) WinboxDescription = "Winbox Description";
             if (OemKey == null) OemKey = "";
@@ -181,6 +187,9 @@ namespace WinBox_Maker
 
         public void Save(string wnbFilePath)
         {
+            winboxMakerVersion = Program.version_num;
+            winboxMakerVersionStr = Program.version_str;
+
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true

@@ -87,6 +87,12 @@ namespace WinBox_Maker
                 winBoxConfig.Save(wnbFilePath);
             }
 
+            if (winBoxConfig.winboxMakerVersion > Program.version_num)
+            {
+                err = $"this project was saved in winbox make {winBoxConfig.winboxMakerVersionStr} and you have {Program.version_str} installed. update winbox maker to open this project";
+                return;
+            }
+
             Program.Execute("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
 
             for (int i = 0; i < 2; i++) {
