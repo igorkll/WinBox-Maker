@@ -89,26 +89,38 @@ namespace WinBox_Maker
 
             Program.Execute("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
 
+            for (int i = 0; i < 2; i++) {
+                if (Directory.Exists(wimMountPath))
+                {
+                    Process process = new Process();
+                    process.StartInfo.FileName = "dism.exe";
+                    process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /discard";
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.CreateNoWindow = true;
+
+                    try
+                    {
+                        process.Start();
+                        process.WaitForExit();
+                    }
+                    catch (Exception ex) { }
+
+                    try
+                    {
+                        Directory.Delete(wimMountPath, true);
+                    }
+                    catch (Exception ex) { }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
             if (Directory.Exists(wimMountPath))
             {
-                Process process = new Process();
-                process.StartInfo.FileName = "dism.exe";
-                process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /discard";
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.CreateNoWindow = true;
-
-                try
-                {
-                    process.Start();
-                    process.WaitForExit();
-                }
-                catch (Exception ex) {}
-
-                try
-                {
-                    Directory.Delete(wimMountPath, true);
-                }
-                catch (Exception ex) {}
+                err = "the old Windows image could not be completely unmounted. restart your computer and try again. if this does not help, then delete the winbox_temp directory from the project";
+                return;
             }
 
             if (Directory.Exists(unpackIsoPath))
