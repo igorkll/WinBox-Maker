@@ -1,10 +1,9 @@
 param (
-    [int]$Width,
-    [int]$Height,
-    [int]$BitDepth = 32,
-    [int]$Refresh = 60,
-    [ValidateSet(0,1,2,3)]
-    [int]$Orientation = 0
+    [int]$Width = -1,
+    [int]$Height = -1,
+    [int]$BitDepth = -1,
+    [int]$Refresh = -1,
+    [int]$Orientation = -1
 )
 
 Add-Type -TypeDefinition @"
@@ -67,19 +66,56 @@ public class Display {
     public const int DISP_CHANGE_SUCCESSFUL = 0;
     public const int DISP_CHANGE_RESTART = 1;
 
-    public static bool SetDisplay(int width, int height, int bits, int freq, int orientation) {
+    public static bool SetDisplay(int width, int height, int bits, int freq, int orientation)
+    {
         DEVMODE dm = new DEVMODE();
         dm.dmSize = (short)System.Runtime.InteropServices.Marshal.SizeOf(typeof(DEVMODE));
-        if (0 != EnumDisplaySettings(null, ENUM_CURRENT_SETTINGS, ref dm)) {
-            dm.dmPelsWidth = width;
-            dm.dmPelsHeight = height;
-            dm.dmBitsPerPel = bits;
-            dm.dmDisplayFrequency = freq;
-            dm.dmDisplayOrientation = orientation;
-            dm.dmFields = 0x180000 | 0x40000 | 0x400000 | 0x80; // Width + Height + BitDepth + Refresh + Orientation
+
+        if (0 != EnumDisplaySettings(null, ENUM_CURRENT_SETTINGS, ref dm))
+        {
+            // Флаги для полей
+            const int DM_PELSWIDTH        = 0x80000;
+            const int DM_PELSHEIGHT       = 0x100000;
+            const int DM_BITSPERPEL       = 0x40000;
+            const int DM_DISPLAYFREQUENCY = 0x400000;
+            const int DM_DISPLAYORIENTATION = 0x80;
+
+            dm.dmFields = 0; // обнуляем и будем выставлять только то, что нужно
+
+            if (width >= 0)
+            {
+                dm.dmPelsWidth = width;
+                dm.dmFields |= DM_PELSWIDTH;
+            }
+
+            if (height >= 0)
+            {
+                dm.dmPelsHeight = height;
+                dm.dmFields |= DM_PELSHEIGHT;
+            }
+
+            if (bits >= 0)
+            {
+                dm.dmBitsPerPel = bits;
+                dm.dmFields |= DM_BITSPERPEL;
+            }
+
+            if (freq >= 0)
+            {
+                dm.dmDisplayFrequency = freq;
+                dm.dmFields |= DM_DISPLAYFREQUENCY;
+            }
+
+            if (orientation >= 0)
+            {
+                dm.dmDisplayOrientation = orientation;
+                dm.dmFields |= DM_DISPLAYORIENTATION;
+            }
+
             int iRet = ChangeDisplaySettings(ref dm, CDS_UPDATEREGISTRY);
             return iRet == DISP_CHANGE_SUCCESSFUL;
         }
+
         return false;
     }
 }

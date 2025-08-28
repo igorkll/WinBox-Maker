@@ -139,6 +139,11 @@
             tabPage6 = new TabPage();
             richTextBox5 = new RichTextBox();
             CustomDisplaySettings_panel = new Panel();
+            cds_refreshRate_use = new CheckBox();
+            cds_bitDepth_use = new CheckBox();
+            cds_orientation_use = new CheckBox();
+            cds_height_use = new CheckBox();
+            cds_width_use = new CheckBox();
             cds_orientation = new ComboBox();
             label49 = new Label();
             label48 = new Label();
@@ -1462,6 +1467,11 @@
             // CustomDisplaySettings_panel
             // 
             CustomDisplaySettings_panel.BorderStyle = BorderStyle.Fixed3D;
+            CustomDisplaySettings_panel.Controls.Add(cds_refreshRate_use);
+            CustomDisplaySettings_panel.Controls.Add(cds_bitDepth_use);
+            CustomDisplaySettings_panel.Controls.Add(cds_orientation_use);
+            CustomDisplaySettings_panel.Controls.Add(cds_height_use);
+            CustomDisplaySettings_panel.Controls.Add(cds_width_use);
             CustomDisplaySettings_panel.Controls.Add(cds_orientation);
             CustomDisplaySettings_panel.Controls.Add(label49);
             CustomDisplaySettings_panel.Controls.Add(label48);
@@ -1476,14 +1486,64 @@
             CustomDisplaySettings_panel.Size = new Size(493, 124);
             CustomDisplaySettings_panel.TabIndex = 1;
             // 
+            // cds_refreshRate_use
+            // 
+            cds_refreshRate_use.AutoSize = true;
+            cds_refreshRate_use.Location = new Point(227, 47);
+            cds_refreshRate_use.Name = "cds_refreshRate_use";
+            cds_refreshRate_use.Size = new Size(22, 21);
+            cds_refreshRate_use.TabIndex = 15;
+            cds_refreshRate_use.UseVisualStyleBackColor = true;
+            cds_refreshRate_use.CheckedChanged += cds_refreshRate_use_CheckedChanged;
+            // 
+            // cds_bitDepth_use
+            // 
+            cds_bitDepth_use.AutoSize = true;
+            cds_bitDepth_use.Location = new Point(227, 10);
+            cds_bitDepth_use.Name = "cds_bitDepth_use";
+            cds_bitDepth_use.Size = new Size(22, 21);
+            cds_bitDepth_use.TabIndex = 14;
+            cds_bitDepth_use.UseVisualStyleBackColor = true;
+            cds_bitDepth_use.CheckedChanged += cds_bitDepth_use_CheckedChanged;
+            // 
+            // cds_orientation_use
+            // 
+            cds_orientation_use.AutoSize = true;
+            cds_orientation_use.Location = new Point(4, 82);
+            cds_orientation_use.Name = "cds_orientation_use";
+            cds_orientation_use.Size = new Size(22, 21);
+            cds_orientation_use.TabIndex = 13;
+            cds_orientation_use.UseVisualStyleBackColor = true;
+            cds_orientation_use.CheckedChanged += cds_orientation_use_CheckedChanged;
+            // 
+            // cds_height_use
+            // 
+            cds_height_use.AutoSize = true;
+            cds_height_use.Location = new Point(4, 47);
+            cds_height_use.Name = "cds_height_use";
+            cds_height_use.Size = new Size(22, 21);
+            cds_height_use.TabIndex = 12;
+            cds_height_use.UseVisualStyleBackColor = true;
+            cds_height_use.CheckedChanged += cds_height_use_CheckedChanged;
+            // 
+            // cds_width_use
+            // 
+            cds_width_use.AutoSize = true;
+            cds_width_use.Location = new Point(4, 11);
+            cds_width_use.Name = "cds_width_use";
+            cds_width_use.Size = new Size(22, 21);
+            cds_width_use.TabIndex = 11;
+            cds_width_use.UseVisualStyleBackColor = true;
+            cds_width_use.CheckedChanged += cds_width_use_CheckedChanged;
+            // 
             // cds_orientation
             // 
             cds_orientation.DropDownStyle = ComboBoxStyle.DropDownList;
             cds_orientation.FormattingEnabled = true;
             cds_orientation.Items.AddRange(new object[] { "Landscape", "Portrait", "LandscapeFlipped", "PortraitFlipped" });
-            cds_orientation.Location = new Point(3, 76);
+            cds_orientation.Location = new Point(32, 76);
             cds_orientation.Name = "cds_orientation";
-            cds_orientation.Size = new Size(150, 33);
+            cds_orientation.Size = new Size(189, 33);
             cds_orientation.TabIndex = 10;
             cds_orientation.SelectedIndexChanged += cds_orientation_SelectedIndexChanged;
             // 
@@ -1507,17 +1567,17 @@
             // 
             // cds_refreshRate
             // 
-            cds_refreshRate.Location = new Point(227, 41);
+            cds_refreshRate.Location = new Point(255, 41);
             cds_refreshRate.Name = "cds_refreshRate";
-            cds_refreshRate.Size = new Size(150, 31);
+            cds_refreshRate.Size = new Size(122, 31);
             cds_refreshRate.TabIndex = 5;
             cds_refreshRate.TextChanged += cds_refreshRate_TextChanged;
             // 
             // cds_bitDepth
             // 
-            cds_bitDepth.Location = new Point(227, 4);
+            cds_bitDepth.Location = new Point(255, 4);
             cds_bitDepth.Name = "cds_bitDepth";
-            cds_bitDepth.Size = new Size(150, 31);
+            cds_bitDepth.Size = new Size(122, 31);
             cds_bitDepth.TabIndex = 4;
             cds_bitDepth.TextChanged += cds_bitDepth_TextChanged;
             // 
@@ -1541,17 +1601,17 @@
             // 
             // cds_height
             // 
-            cds_height.Location = new Point(3, 41);
+            cds_height.Location = new Point(32, 41);
             cds_height.Name = "cds_height";
-            cds_height.Size = new Size(150, 31);
+            cds_height.Size = new Size(121, 31);
             cds_height.TabIndex = 1;
             cds_height.TextChanged += cds_height_TextChanged;
             // 
             // cds_width
             // 
-            cds_width.Location = new Point(3, 4);
+            cds_width.Location = new Point(32, 4);
             cds_width.Name = "cds_width";
-            cds_width.Size = new Size(150, 31);
+            cds_width.Size = new Size(121, 31);
             cds_width.TabIndex = 0;
             cds_width.TextChanged += cds_width_TextChanged;
             // 
@@ -3063,5 +3123,10 @@
         private Label label52;
         private Label label53;
         private Label label54;
+        private CheckBox cds_orientation_use;
+        private CheckBox cds_height_use;
+        private CheckBox cds_width_use;
+        private CheckBox cds_refreshRate_use;
+        private CheckBox cds_bitDepth_use;
     }
 }

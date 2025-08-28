@@ -102,6 +102,11 @@ namespace WinBox_Maker
         public int? cds_refreshRate { get; set; }
         public int? cds_scaling { get; set; }
         public int? cds_orientation { get; set; }
+        public bool? cds_width_use { get; set; }
+        public bool? cds_height_use { get; set; }
+        public bool? cds_bitDepth_use { get; set; }
+        public bool? cds_refreshRate_use { get; set; }
+        public bool? cds_orientation_use { get; set; }
         public FirstBootActionEnum? firstBootAction { get; set; }
 
 
@@ -166,6 +171,12 @@ namespace WinBox_Maker
             if (action_powerButton_dc == null) action_powerButton_dc = ButtonAction.shutdown;
             if (action_sleepButton_dc == null) action_sleepButton_dc = ButtonAction.sleep;
             if (action_closingLaptop_dc == null) action_closingLaptop_dc = ButtonAction.turn_off_display;
+
+            if (cds_width_use == null) cds_width_use = false;
+            if (cds_height_use == null) cds_height_use = false;
+            if (cds_bitDepth_use == null) cds_bitDepth_use = false;
+            if (cds_refreshRate_use == null) cds_refreshRate_use = false;
+            if (cds_orientation_use == null) cds_orientation_use = false;
         }
 
         public void Save(string wnbFilePath)

@@ -3505,6 +3505,7 @@
   </data>
   <data name="richTextBox5.Text" xml:space="preserve">
     <value>please note that if you make a mistake with any one parameter here (for example, specify an unsupported color depth) then all other parameters will also not be applied!
+if you change the orientation of the screen to portrait, then you need to specify the same portrait resolution (that is, swap width and height). if you do not do this or simply do not specify width and height, then the settings probably will not be applied.
 also, the settings may not be applied at the first boot. for this reason, you can use the "first boot action" function on the "boot" tab</value>
   </data>
   <data name="richTextBox2.Text" xml:space="preserve">

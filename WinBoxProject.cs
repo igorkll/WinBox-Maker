@@ -1247,7 +1247,13 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
             if (winBoxConfig.UseCustomDisplaySettings == true)
             {
                 await CopyResource("ChangeResolution.ps1");
-                string customDisplaySettingsCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeResolution.ps1"" -Width ""{winBoxConfig.cds_width}"" -Height ""{winBoxConfig.cds_height}"" -BitDepth ""{winBoxConfig.cds_bitDepth}"" -Refresh ""{winBoxConfig.cds_refreshRate}"" -Orientation ""{winBoxConfig.cds_orientation}""";
+                string args = "";
+                if (winBoxConfig.cds_width_use == true) args += $@"-Width ""{winBoxConfig.cds_width}"" ";
+                if (winBoxConfig.cds_height_use == true) args += $@"-Height ""{winBoxConfig.cds_height}"" ";
+                if (winBoxConfig.cds_bitDepth_use == true) args += $@"-BitDepth ""{winBoxConfig.cds_bitDepth}"" ";
+                if (winBoxConfig.cds_refreshRate_use == true) args += $@"-Refresh ""{winBoxConfig.cds_refreshRate}"" ";
+                if (winBoxConfig.cds_orientation_use == true) args += $@"-Orientation ""{winBoxConfig.cds_orientation}"" ";
+                string customDisplaySettingsCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeResolution.ps1"" {args}";
                 applicationScript += $"\r\n" + customDisplaySettingsCmd;
                 baseSetup += $"\r\n" + customDisplaySettingsCmd;
             }

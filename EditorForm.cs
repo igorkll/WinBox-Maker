@@ -528,6 +528,12 @@ namespace WinBox_Maker
             UseCustomDisplaySettings.CheckState = winBoxProject.winBoxConfig.UseCustomDisplaySettings == true ? CheckState.Checked : CheckState.Unchecked;
             UseCustomDisplaySettings_scale.CheckState = winBoxProject.winBoxConfig.UseCustomDisplaySettings_scale == true ? CheckState.Checked : CheckState.Unchecked;
 
+            cds_width_use.CheckState = winBoxProject.winBoxConfig.cds_width_use == true ? CheckState.Checked : CheckState.Unchecked;
+            cds_height_use.CheckState = winBoxProject.winBoxConfig.cds_height_use == true ? CheckState.Checked : CheckState.Unchecked;
+            cds_orientation_use.CheckState = winBoxProject.winBoxConfig.cds_orientation_use == true ? CheckState.Checked : CheckState.Unchecked;
+            cds_bitDepth_use.CheckState = winBoxProject.winBoxConfig.cds_bitDepth_use == true ? CheckState.Checked : CheckState.Unchecked;
+            cds_refreshRate_use.CheckState = winBoxProject.winBoxConfig.cds_refreshRate_use == true ? CheckState.Checked : CheckState.Unchecked;
+
             cds_orientation.SelectedIndex = winBoxProject.winBoxConfig.cds_orientation ?? 0;
             firstBootAction.SelectedIndex = (int)(winBoxProject.winBoxConfig.firstBootAction ?? 0);
 
@@ -543,6 +549,12 @@ namespace WinBox_Maker
             HibernateTimeout_dc.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
             CustomDisplaySettings_panel.Enabled = winBoxProject.winBoxConfig.UseCustomDisplaySettings == true;
             UseCustomDisplaySettings_scale_panel.Enabled = winBoxProject.winBoxConfig.UseCustomDisplaySettings_scale == true;
+
+            cds_width.Enabled = winBoxProject.winBoxConfig.cds_width_use == true;
+            cds_height.Enabled = winBoxProject.winBoxConfig.cds_height_use == true;
+            cds_orientation.Enabled = winBoxProject.winBoxConfig.cds_orientation_use == true;
+            cds_bitDepth.Enabled = winBoxProject.winBoxConfig.cds_bitDepth_use == true;
+            cds_refreshRate.Enabled = winBoxProject.winBoxConfig.cds_refreshRate_use == true;
 
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
@@ -1810,6 +1822,51 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.action_sleepButton_dc = (ButtonAction)action_sleepButton_dc.SelectedIndex;
             winBoxProject.SaveConfig();
+        }
+
+        private void cds_width_use_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.cds_width_use = cds_width_use.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void cds_height_use_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.cds_height_use = cds_height_use.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void cds_orientation_use_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.cds_orientation_use = cds_orientation_use.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void cds_bitDepth_use_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.cds_bitDepth_use = cds_bitDepth_use.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void cds_refreshRate_use_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.cds_refreshRate_use = cds_refreshRate_use.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }
