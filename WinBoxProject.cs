@@ -1464,6 +1464,14 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                 await OverwriteSystemCursorEmpty(Path.Combine(wimMountPath, "Windows", "Cursors"));
             }
 
+            if (Program.isTweakEnabled(winBoxConfig, "Hide Touchscreen Visualization"))
+            {
+                await CopyResource("hide_touch.reg");
+                string regCmd = "regedit /s \"C:\\WinboxResources\\hide_touch.reg\"";
+                baseSetup += $"\r\n" + regCmd;
+                regAppScriptFirstInitCmd("hide_touch", regCmd);
+            }
+
             if (customBootLogo)
             {
                 string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);

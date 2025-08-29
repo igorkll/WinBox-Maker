@@ -64,6 +64,7 @@ namespace WinBox_Maker
             AddTweakToList("Integrate net 4.7.2");
             AddTweakToList("Integrate app runtime 1.7.3");
             AddTweakToList("Hide Cursor");
+            AddTweakToList("Hide Touchscreen Visualization");
             AddTweakToList("Disable boot circle");
             AddTweakToList("Disable boot logo");
             AddTweakToList("Disable boot messages");
