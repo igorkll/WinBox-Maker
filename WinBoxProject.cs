@@ -1585,7 +1585,19 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
             if (initViaVmMode)
             {
-                regAppScriptFirstInitCmd("firstBootShutdown", "shutdown /r /t 0\r\npause", true);
+                string[] deleteAfterVm =
+                {
+                    "C:\\WinboxResources\\firstInit1.installed",
+                    "C:\\WinboxResources\\firstInit2.installed",
+                    "C:\\WinboxResources\\hackBGRT.installed"
+                };
+
+                string firstBootShutdown = "shutdown /r /t 0\r\npause";
+                foreach (string path in deleteAfterVm)
+                {
+                    firstBootShutdown = $"del /F /Q \"{path}\"\r\n" + firstBootShutdown;
+                }
+                regAppScriptFirstInitCmd("firstBootShutdown", firstBootShutdown, true);
             }
 
             string reboot_to_desktop_cmd = "reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell /t REG_SZ /d \"explorer.exe\" /f\r\nshutdown /r /t 0\r\npause";
