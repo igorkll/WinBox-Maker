@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties;
-using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
@@ -313,31 +312,6 @@ namespace WinBox_Maker
                         description = winBoxProject.winBoxConfig.WinboxDescription
                     };
                     await winBoxProject.BuildWimAsync(UpdateProcessName, UpdateProcessValue, saveFileDialog.FileName, windowsDescription);
-                }
-            }
-            UnlockForm();
-        }
-
-        private async void ExportImg_Click(object sender, EventArgs e)
-        {
-            LockForm();
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-            {
-                saveFileDialog.InitialDirectory = winBoxProject.buildDirectoryPath;
-                saveFileDialog.Filter = "WinBox installed (*.img)|*.img";
-                saveFileDialog.Title = $"Save you WinBox installed .img ({winBoxProject.winBoxConfig.WinboxName})";
-                saveFileDialog.DefaultExt = "img";
-                saveFileDialog.FileName = winBoxProject.winBoxConfig.WinboxName;
-                saveFileDialog.AddExtension = true;
-
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    WindowsDescription windowsDescription = new WindowsDescription
-                    {
-                        name = winBoxProject.winBoxConfig.WinboxName,
-                        description = winBoxProject.winBoxConfig.WinboxDescription
-                    };
-                    await winBoxProject.BuildImgAsync(UpdateProcessName, UpdateProcessValue, saveFileDialog.FileName, windowsDescription);
                 }
             }
             UnlockForm();
@@ -1867,6 +1841,41 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.cds_refreshRate_use = cds_refreshRate_use.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        async Task exportImgWindow(bool useUefi)
+        {
+            LockForm();
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.InitialDirectory = winBoxProject.buildDirectoryPath;
+                saveFileDialog.Filter = "WinBox installed (*.img)|*.img";
+                saveFileDialog.Title = $"Save you WinBox installed .img ({(useUefi ? "UEFI" : "BIOS")}) ({winBoxProject.winBoxConfig.WinboxName})";
+                saveFileDialog.DefaultExt = "img";
+                saveFileDialog.FileName = winBoxProject.winBoxConfig.WinboxName;
+                saveFileDialog.AddExtension = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    WindowsDescription windowsDescription = new WindowsDescription
+                    {
+                        name = winBoxProject.winBoxConfig.WinboxName,
+                        description = winBoxProject.winBoxConfig.WinboxDescription
+                    };
+                    await winBoxProject.BuildImgAsync(UpdateProcessName, UpdateProcessValue, saveFileDialog.FileName, windowsDescription, useUefi);
+                }
+            }
+            UnlockForm();
+        }
+
+        private async void ExportImg_Click(object sender, EventArgs e)
+        {
+            await exportImgWindow(false);
+        }
+
+        private async void ExportImgUefi_Click(object sender, EventArgs e)
+        {
+            await exportImgWindow(true);
         }
     }
 }

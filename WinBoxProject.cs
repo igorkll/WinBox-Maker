@@ -834,7 +834,7 @@ exit
             }
 
             string qemuPath = Path.Combine(Program.winboxSettings.path_qemu_folder, emuName);
-            string qemuParameters = $"-drive file=\"{imgPath}\",format=raw -cdrom \"{isoPath}\" -boot d -m 1024 -smp 2 -D \"{getDebugFilePath("qemu-log")}\"";
+            string qemuParameters = $"-drive file=\"{imgPath}\",format=raw -cdrom \"{isoPath}\" -boot d -m {winBoxConfig.img_install_ram} -smp 2 -D \"{getDebugFilePath("qemu-log")}\"";
 
             if (useUefi)
             {
@@ -843,7 +843,7 @@ exit
 
             await writeDebugFile("qemu-launch", $"\"{qemuPath}\" {qemuParameters}");
 
-            await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, "qemu-img.exe"), $"create -f raw \"{imgPath}\" 20G");
+            await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, "qemu-img.exe"), $"create -f raw \"{imgPath}\" {winBoxConfig.img_size}M");
             await Program.ExecuteAsync(qemuPath, qemuParameters);
         }
 
@@ -1583,19 +1583,24 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                 //applicationScript += $"\r\nstart /B \"\" C:\\WinboxResources\\winbox_maker\\WinBox-Maker.exe";
             }
 
-            if (initViaVmMode)
+            if (initViaVmMode && winBoxConfig.img_shutdownAfterInstall == true)
             {
-                string[] deleteAfterVm =
+                string firstBootShutdown = "shutdown /s /t 0\r\npause";
+                if (winBoxConfig.img_runningPostinstallOnFirstRealStartup == true)
                 {
-                    "C:\\WinboxResources\\firstInit1.installed",
-                    "C:\\WinboxResources\\firstInit2.installed",
-                    "C:\\WinboxResources\\hackBGRT.installed"
-                };
+                    string[] deleteAfterVm =
+                    {
+                        "C:\\WinboxResources\\firstInit1.installed",
+                        "C:\\WinboxResources\\firstInit2.installed",
+                        "C:\\WinboxResources\\hackBGRT.installed",
+                        "C:\\WinboxResources\\postinstall_reg.installed",
+                        "C:\\WinboxResources\\postinstall_bat.installed"
+                    };
 
-                string firstBootShutdown = "shutdown /r /t 0\r\npause";
-                foreach (string path in deleteAfterVm)
-                {
-                    firstBootShutdown = $"del /F /Q \"{path}\"\r\n" + firstBootShutdown;
+                    foreach (string path in deleteAfterVm)
+                    {
+                        firstBootShutdown = $"del /F /Q \"{path}\"\r\n" + firstBootShutdown;
+                    }
                 }
                 regAppScriptFirstInitCmd("firstBootShutdown", firstBootShutdown, true);
             }

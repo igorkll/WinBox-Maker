@@ -262,10 +262,20 @@
             dl_url = new TextBox();
             addDownload = new Button();
             DownloadItems = new CheckedListBox();
+            tabPage16 = new TabPage();
             OpenEmbeddedFolder = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
+            ExportImgUefi = new Button();
+            img_size = new TextBox();
+            img_install_ram = new TextBox();
+            label55 = new Label();
+            label56 = new Label();
+            img_shutdownAfterInstall = new CheckBox();
+            img_runningPostinstallOnFirstRealStartup = new CheckBox();
+            panel16 = new Panel();
+            label57 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -311,7 +321,9 @@
             bl_electron_packager.SuspendLayout();
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
+            tabPage16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            panel16.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -485,11 +497,11 @@
             // ExportImg
             // 
             ExportImg.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ExportImg.Location = new Point(940, 479);
+            ExportImg.Location = new Point(628, 567);
             ExportImg.Name = "ExportImg";
-            ExportImg.Size = new Size(222, 38);
+            ExportImg.Size = new Size(306, 38);
             ExportImg.TabIndex = 25;
-            ExportImg.Text = "export installed .img";
+            ExportImg.Text = "export installed .img (for BIOS)";
             ExportImg.UseVisualStyleBackColor = true;
             ExportImg.Click += ExportImg_Click;
             // 
@@ -953,6 +965,7 @@
             tabControl1.Controls.Add(tabPage9);
             tabControl1.Controls.Add(tabPage10);
             tabControl1.Controls.Add(tabPage11);
+            tabControl1.Controls.Add(tabPage16);
             tabControl1.Location = new Point(12, 63);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -1191,7 +1204,7 @@
             // firstBootAction
             // 
             firstBootAction.FormattingEnabled = true;
-            firstBootAction.Items.AddRange(new object[] { "none", "reboot", "shutdown", "hibernate" });
+            firstBootAction.Items.AddRange(new object[] { "none", "reboot", "shutdown", "hibernate", "reboot to desktop" });
             firstBootAction.Location = new Point(3, 30);
             firstBootAction.Name = "firstBootAction";
             firstBootAction.Size = new Size(182, 33);
@@ -2737,6 +2750,17 @@
             DownloadItems.TabIndex = 0;
             DownloadItems.ItemCheck += DownloadItems_ItemCheck;
             // 
+            // tabPage16
+            // 
+            tabPage16.Controls.Add(label57);
+            tabPage16.Controls.Add(panel16);
+            tabPage16.Location = new Point(4, 34);
+            tabPage16.Name = "tabPage16";
+            tabPage16.Size = new Size(1018, 347);
+            tabPage16.TabIndex = 11;
+            tabPage16.Text = "export img settings";
+            tabPage16.UseVisualStyleBackColor = true;
+            // 
             // OpenEmbeddedFolder
             // 
             OpenEmbeddedFolder.Location = new Point(799, 12);
@@ -2776,6 +2800,93 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
+            // ExportImgUefi
+            // 
+            ExportImgUefi.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ExportImgUefi.Location = new Point(628, 523);
+            ExportImgUefi.Name = "ExportImgUefi";
+            ExportImgUefi.Size = new Size(306, 38);
+            ExportImgUefi.TabIndex = 43;
+            ExportImgUefi.Text = "export installed .img (for UEFI)";
+            ExportImgUefi.UseVisualStyleBackColor = true;
+            ExportImgUefi.Click += ExportImgUefi_Click;
+            // 
+            // img_size
+            // 
+            img_size.Location = new Point(3, 3);
+            img_size.Name = "img_size";
+            img_size.Size = new Size(150, 31);
+            img_size.TabIndex = 0;
+            // 
+            // img_install_ram
+            // 
+            img_install_ram.Location = new Point(3, 40);
+            img_install_ram.Name = "img_install_ram";
+            img_install_ram.Size = new Size(150, 31);
+            img_install_ram.TabIndex = 1;
+            // 
+            // label55
+            // 
+            label55.AutoSize = true;
+            label55.Location = new Point(159, 6);
+            label55.Name = "label55";
+            label55.Size = new Size(199, 25);
+            label55.TabIndex = 2;
+            label55.Text = "img size (in megabytes)";
+            // 
+            // label56
+            // 
+            label56.AutoSize = true;
+            label56.Location = new Point(159, 43);
+            label56.Name = "label56";
+            label56.Size = new Size(439, 25);
+            label56.TabIndex = 3;
+            label56.Text = "the amount of RAM during installation (in megabytes)";
+            // 
+            // img_shutdownAfterInstall
+            // 
+            img_shutdownAfterInstall.AutoSize = true;
+            img_shutdownAfterInstall.Location = new Point(3, 77);
+            img_shutdownAfterInstall.Name = "img_shutdownAfterInstall";
+            img_shutdownAfterInstall.Size = new Size(291, 29);
+            img_shutdownAfterInstall.TabIndex = 4;
+            img_shutdownAfterInstall.Text = "turn off the VM after installation";
+            img_shutdownAfterInstall.UseVisualStyleBackColor = true;
+            // 
+            // img_runningPostinstallOnFirstRealStartup
+            // 
+            img_runningPostinstallOnFirstRealStartup.AutoSize = true;
+            img_runningPostinstallOnFirstRealStartup.Location = new Point(3, 112);
+            img_runningPostinstallOnFirstRealStartup.Name = "img_runningPostinstallOnFirstRealStartup";
+            img_runningPostinstallOnFirstRealStartup.Size = new Size(501, 29);
+            img_runningPostinstallOnFirstRealStartup.TabIndex = 5;
+            img_runningPostinstallOnFirstRealStartup.Text = "repeat the postinstall steps on the first run on a real device";
+            img_runningPostinstallOnFirstRealStartup.UseVisualStyleBackColor = true;
+            // 
+            // panel16
+            // 
+            panel16.BorderStyle = BorderStyle.Fixed3D;
+            panel16.Controls.Add(img_size);
+            panel16.Controls.Add(img_runningPostinstallOnFirstRealStartup);
+            panel16.Controls.Add(img_install_ram);
+            panel16.Controls.Add(img_shutdownAfterInstall);
+            panel16.Controls.Add(label55);
+            panel16.Controls.Add(label56);
+            panel16.Location = new Point(3, 52);
+            panel16.Name = "panel16";
+            panel16.Size = new Size(631, 150);
+            panel16.TabIndex = 6;
+            // 
+            // label57
+            // 
+            label57.AutoSize = true;
+            label57.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label57.Location = new Point(3, 11);
+            label57.Name = "label57";
+            label57.Size = new Size(374, 38);
+            label57.TabIndex = 7;
+            label57.Text = "installation settings on qemu";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -2784,6 +2895,7 @@
             AutoScrollMargin = new Size(10, 30);
             BackColor = Color.DimGray;
             ClientSize = new Size(1178, 644);
+            Controls.Add(ExportImgUefi);
             Controls.Add(openProgramData);
             Controls.Add(pictureBox3);
             Controls.Add(OpenEmbeddedFolder);
@@ -2884,7 +2996,11 @@
             tabPage11.PerformLayout();
             dl_panel.ResumeLayout(false);
             dl_panel.PerformLayout();
+            tabPage16.ResumeLayout(false);
+            tabPage16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            panel16.ResumeLayout(false);
+            panel16.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3128,5 +3244,15 @@
         private CheckBox cds_width_use;
         private CheckBox cds_refreshRate_use;
         private CheckBox cds_bitDepth_use;
+        private TabPage tabPage16;
+        private Button ExportImgUefi;
+        private Label label56;
+        private Label label55;
+        private TextBox img_install_ram;
+        private TextBox img_size;
+        private CheckBox img_shutdownAfterInstall;
+        private Panel panel16;
+        private CheckBox img_runningPostinstallOnFirstRealStartup;
+        private Label label57;
     }
 }

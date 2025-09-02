@@ -112,6 +112,10 @@ namespace WinBox_Maker
         public bool? cds_refreshRate_use { get; set; }
         public bool? cds_orientation_use { get; set; }
         public FirstBootActionEnum? firstBootAction { get; set; }
+        public int? img_size { get; set; }
+        public int? img_install_ram { get; set; }
+        public bool? img_shutdownAfterInstall { get; set; }
+        public bool? img_runningPostinstallOnFirstRealStartup { get; set; }
 
 
         public WinBoxConfig() {
@@ -184,6 +188,11 @@ namespace WinBox_Maker
             if (cds_bitDepth_use == null) cds_bitDepth_use = false;
             if (cds_refreshRate_use == null) cds_refreshRate_use = false;
             if (cds_orientation_use == null) cds_orientation_use = false;
+
+            if (img_size == null) img_size = 1024 * 20;
+            if (img_install_ram == null) img_install_ram = 1024 * 2;
+            if (img_shutdownAfterInstall == null) img_shutdownAfterInstall = true;
+            if (img_runningPostinstallOnFirstRealStartup == null) img_runningPostinstallOnFirstRealStartup = true;
         }
 
         public void Save(string wnbFilePath)
