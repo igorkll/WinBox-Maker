@@ -982,7 +982,7 @@ powercfg -s SCHEME_CURRENT";
             await File.WriteAllTextAsync(Path.Combine(path, "INFO.txt"), $"name: {newWindowsDescription.name}\r\ndescription: {newWindowsDescription.description}");
         }
 
-        public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath)
+        public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath, bool initViaVmMode=false)
         {
             if (winBoxConfig.prebuildEnabled == true)
             {
@@ -1583,6 +1583,13 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                 //applicationScript += $"\r\nstart /B \"\" C:\\WinboxResources\\winbox_maker\\WinBox-Maker.exe";
             }
 
+            if (initViaVmMode)
+            {
+                regAppScriptFirstInitCmd("firstBootShutdown", "shutdown /r /t 0\r\npause", true);
+            }
+
+            string reboot_to_desktop_cmd = "reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell /t REG_SZ /d \"explorer.exe\" /f\r\nshutdown /r /t 0\r\npause";
+
             switch (winBoxConfig.firstBootAction)
             {
                 case FirstBootActionEnum.reboot:
@@ -1595,6 +1602,10 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
                 case FirstBootActionEnum.hibernate:
                     regAppScriptFirstInitCmd("firstBootAction", "shutdown /h /t 0\r\npause", true);
+                    break;
+
+                case FirstBootActionEnum.reboot_to_desktop:
+                    regAppScriptFirstInitCmd("firstBootAction", reboot_to_desktop_cmd, true);
                     break;
             }
 
@@ -1754,7 +1765,7 @@ if %errorlevel%==0 (
             }
             else
             {
-                await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, "reboot_to_desktop.bat"), "reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell /t REG_SZ /d \"explorer.exe\" /f\r\nshutdown /r /t 0\r\npause");
+                await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, "reboot_to_desktop.bat"), reboot_to_desktop_cmd);
 
                 string customShell = "wscript \"C:\\WinboxResources\\run_app_script_hidden.vbs\"";
 
@@ -1858,7 +1869,7 @@ if %errorlevel%==0 (
             await Task.Delay(2000);
         }
  
-        public async Task<bool> BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete=true)
+        public async Task<bool> BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete=true, bool initViaVmMode=false)
         {
             string? baseWindowsImageFullPath = await getWindowsImagePath();
             if (baseWindowsImageFullPath == null) return false;
@@ -1868,7 +1879,7 @@ if %errorlevel%==0 (
             await Program.UnpackUdfIso(baseWindowsImageFullPath, unpackIsoPath, processValue, unpackBlacklist);
 
             bool failed = false;
-            if (!await MakeModWim(processName, processValue, newWindowsDescription, Path.Combine(unpackIsoPath, "sources\\install.wim"), null))
+            if (!await MakeModWim(processName, processValue, newWindowsDescription, Path.Combine(unpackIsoPath, "sources\\install.wim"), null, initViaVmMode))
             {
                 showComplete = false;
                 failed = true;
@@ -1944,7 +1955,7 @@ if %errorlevel%==0 (
             string tempIsoPath = Path.Combine(tempDirectoryPath, "temp.iso");
 
             bool showComplete = true;
-            if (await BuildIsoAsync(processName, processValue, tempIsoPath, newWindowsDescription, false))
+            if (await BuildIsoAsync(processName, processValue, tempIsoPath, newWindowsDescription, false, true))
             {
                 processName("Launching a virtual machine");
                 processValue(95);

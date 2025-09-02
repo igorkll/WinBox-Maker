@@ -27,7 +27,8 @@ namespace WinBox_Maker
         none,
         reboot,
         shutdown,
-        hibernate
+        hibernate,
+        reboot_to_desktop
     }
 
     public enum ButtonAction
