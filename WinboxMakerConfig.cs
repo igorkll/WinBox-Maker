@@ -64,10 +64,10 @@ namespace WinBox_Maker
                 return Directory.Exists(path) && File.Exists(Path.Combine(path, "qemu-img.exe"));
             }
 
-            string path = $"{disk}:\\Program Files (x86)\\qemu";
+            string path = $"{disk}:\\Program Files\\qemu";
             if (checkQemuPath(path)) return path;
 
-            path = $"{disk}:\\Program Files\\qemu";
+            path = $"{disk}:\\Program Files (x86)\\qemu";
             if (checkQemuPath(path)) return path;
 
             return null;

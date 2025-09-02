@@ -27,7 +27,6 @@ please note that if you use the windows component removal functions (for example
 ## warnings
 * if you are going to build the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)
 * it is recommended that the winbox maker project and the source and output iso paths be on a fast SSD! otherwise, it may cause severe computer freezes during the assembly process. if it is not possible to use an SSD, it is recommended not to use computer during the build process of the winbox maker project
-* img export is not working at the moment
 * when you burn the installation ISO to a USB stick via rufus or a similar program, DO NOT USE the windows installation customization feature, as this will cause conflicts with those tweaks that already exist in winbox and it may work incorrectly
 * if you enable "Do not disable hotkeys by changing the layout", then probably many keyboard shortcuts can continue to work! It can be VERY UNSAFE for kiosks in public places. the reason for this: windows
 * if your application uses file picker from windows, then this is a backdoor! since if you write "cmd" in the path bar, the command line will open, which is unacceptable for devices in kiosk mode
@@ -37,6 +36,7 @@ please note that if you use the windows component removal functions (for example
 * if you are using the "downloading" function, it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore"
 * if the program freezes when opening the winbox maker project, most likely the old windows image was not unmounted from a temporary directory last time (for example, due to a failure in the build process), wait until winbox maker starts working, it may take some time.
 * DO NOT USE the launch of the application "after the desktop" except for debugging. Not only is it not safe and will allow you to access the system, but it also currently does not work well and may not be compatible with other settings
+* when exporting img, make sure that you have the 64-bit version of qemu installed and that it is selected in the winbox maker settings. otherwise, it will most likely "crash"
 
 ## notes
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
@@ -50,6 +50,8 @@ please note that if you use the windows component removal functions (for example
 * in the "build" tab, you can configure the automatic build of your application along with winbox. for this, its source code must be located in the "winbox_resources/sources" folder (subfolders are allowed) please note that the build system is selected by switching tabs in the submenu
 * if you are using a windows image other than "enterprise" and "IoT Enterprise", then use the "force make "IoT Enterprise" " function. this will force windows to "IoT Enterprise" and the logon window will not be visible. otherwise, the logon window will be visible
 * If you are using the "force make "IoT Enterprise" " function, then you must also use the product key from the "IoT Enterprise" editorial office
+* if you are using the export of already installed windows via qemu, then you will need to manually go through all the steps of the installer before starting the installation, and then only wait until the virtual machine closes itself. when it closes by itself, you will receive a ready-made .img file with the windows system already installed
+* please note that the shutdown during installation on qemu is triggered BEFORE the event when the system is first turned on, which is set in winbox maker > settings > boot. that is, if you set the flag yourself that you need to turn off the computer when you first start the system, then the first time it turns off on qemu and the second time it turns off when you first start the system on a real machine. since these two events are completely independent
 
 ## menu description
 * base - select the base Windows image that will be used to create a custom Windows image
@@ -225,3 +227,5 @@ this can be used to control some aspects of the system from your user applicatio
 ## command line flags
 * /i - exports the .iso installer
 * /w - exports the .wim file
+* /r - exports the .img file with Windows already installed for BIOS-based systems (installation via qemu)
+* /e - exports the .img file with Windows already installed for UEFI-based systems (installation via qemu)

@@ -45,7 +45,6 @@ namespace WinBox_Maker
             ClearPythonList();
 
             OpenEmbeddedFolder.Visible = false;
-            ExportImg.Visible = false;
             tabControl1.TabPages.Remove(tabPage7);
             tabControl1.TabPages.Remove(tabPage9);
 

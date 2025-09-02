@@ -178,6 +178,11 @@ namespace WinBox_Maker
                 WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
                 winboxConsoleExporter.ExportImg(output);
             }
+            else if (flags.Contains("e"))
+            {
+                WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
+                winboxConsoleExporter.ExportImg(output, true);
+            }
             else
             {
                 Console.Error.WriteLine("specify one of the keys to set the output format");

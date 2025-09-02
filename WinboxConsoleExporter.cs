@@ -106,7 +106,7 @@ namespace WinBox_Maker
             NewLine();
         }
 
-        public void ExportImg(string? path)
+        public void ExportImg(string? path, bool useUefi=false)
         {
             eventWarningDelay();
             path = getExportPath(path, "img", null);
@@ -116,7 +116,7 @@ namespace WinBox_Maker
                 name = winBoxProject.winBoxConfig.WinboxName,
                 description = winBoxProject.winBoxConfig.WinboxDescription
             };
-            winBoxProject.BuildImgAsync(UpdateProcessName, UpdateProcessValue, path, windowsDescription).Wait();
+            winBoxProject.BuildImgAsync(UpdateProcessName, UpdateProcessValue, path, windowsDescription, useUefi).Wait();
             NewLine();
         }
     }

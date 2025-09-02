@@ -810,9 +810,9 @@ exit
             }
         }
 
-        public async Task InstallToImg(string isoPath, string imgPath)
+        public async Task InstallToImg(string isoPath, string imgPath, bool useUefi=false)
         {
-            string emuName = null;
+            string? emuName = null;
             switch (winBoxConfig.Architecture)
             {
                 case "x64":
@@ -833,6 +833,11 @@ exit
 
             string qemuPath = Path.Combine(Program.winboxSettings.path_qemu_folder, emuName);
             string qemuParameters = $"-drive file=\"{imgPath}\",format=raw -cdrom \"{isoPath}\" -boot d -m 1024 -smp 2";
+
+            if (useUefi)
+            {
+                qemuParameters += $" -bios \"{Program.getBlobPath(winBoxConfig, Path.Combine("OVMF", winBoxConfig.Architecture))}\"";
+            }
 
             await writeDebugFile("qemu", $"\"{qemuPath}\" {qemuParameters}");
 
@@ -1918,7 +1923,7 @@ if %errorlevel%==0 (
             await CompleteExport(processName, processValue, exportPath);
         }
 
-        public async Task BuildImgAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription)
+        public async Task BuildImgAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool useUefi=false)
         {
             string tempIsoPath = Path.Combine(tempDirectoryPath, "temp.iso");
 
@@ -1927,7 +1932,7 @@ if %errorlevel%==0 (
             {
                 processName("Launching a virtual machine");
                 processValue(95);
-                await InstallToImg(tempIsoPath, exportPath);
+                await InstallToImg(tempIsoPath, exportPath, useUefi);
             }
             else
             {
