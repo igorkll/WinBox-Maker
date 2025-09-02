@@ -263,21 +263,21 @@
             addDownload = new Button();
             DownloadItems = new CheckedListBox();
             tabPage16 = new TabPage();
+            label57 = new Label();
+            panel16 = new Panel();
+            label58 = new Label();
+            img_install_cpu = new TextBox();
+            img_size = new TextBox();
+            img_runningPostinstallOnFirstRealStartup = new CheckBox();
+            img_install_ram = new TextBox();
+            img_shutdownAfterInstall = new CheckBox();
+            label55 = new Label();
+            label56 = new Label();
             OpenEmbeddedFolder = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
-            img_size = new TextBox();
-            img_install_ram = new TextBox();
-            label55 = new Label();
-            label56 = new Label();
-            img_shutdownAfterInstall = new CheckBox();
-            img_runningPostinstallOnFirstRealStartup = new CheckBox();
-            panel16 = new Panel();
-            label57 = new Label();
-            img_install_cpu = new TextBox();
-            label58 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -324,8 +324,8 @@
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             tabPage16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -2763,6 +2763,105 @@
             tabPage16.Text = "export img settings";
             tabPage16.UseVisualStyleBackColor = true;
             // 
+            // label57
+            // 
+            label57.AutoSize = true;
+            label57.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label57.Location = new Point(3, 11);
+            label57.Name = "label57";
+            label57.Size = new Size(374, 38);
+            label57.TabIndex = 7;
+            label57.Text = "installation settings on qemu";
+            // 
+            // panel16
+            // 
+            panel16.BorderStyle = BorderStyle.Fixed3D;
+            panel16.Controls.Add(label58);
+            panel16.Controls.Add(img_install_cpu);
+            panel16.Controls.Add(img_size);
+            panel16.Controls.Add(img_runningPostinstallOnFirstRealStartup);
+            panel16.Controls.Add(img_install_ram);
+            panel16.Controls.Add(img_shutdownAfterInstall);
+            panel16.Controls.Add(label55);
+            panel16.Controls.Add(label56);
+            panel16.Location = new Point(3, 52);
+            panel16.Name = "panel16";
+            panel16.Size = new Size(631, 190);
+            panel16.TabIndex = 6;
+            // 
+            // label58
+            // 
+            label58.AutoSize = true;
+            label58.Location = new Point(159, 80);
+            label58.Name = "label58";
+            label58.Size = new Size(373, 25);
+            label58.TabIndex = 9;
+            label58.Text = "number of processor cores during installation";
+            // 
+            // img_install_cpu
+            // 
+            img_install_cpu.Location = new Point(3, 77);
+            img_install_cpu.Name = "img_install_cpu";
+            img_install_cpu.Size = new Size(150, 31);
+            img_install_cpu.TabIndex = 8;
+            img_install_cpu.TextChanged += img_install_cpu_TextChanged;
+            // 
+            // img_size
+            // 
+            img_size.Location = new Point(3, 3);
+            img_size.Name = "img_size";
+            img_size.Size = new Size(150, 31);
+            img_size.TabIndex = 0;
+            img_size.TextChanged += img_size_TextChanged;
+            // 
+            // img_runningPostinstallOnFirstRealStartup
+            // 
+            img_runningPostinstallOnFirstRealStartup.AutoSize = true;
+            img_runningPostinstallOnFirstRealStartup.Location = new Point(3, 149);
+            img_runningPostinstallOnFirstRealStartup.Name = "img_runningPostinstallOnFirstRealStartup";
+            img_runningPostinstallOnFirstRealStartup.Size = new Size(501, 29);
+            img_runningPostinstallOnFirstRealStartup.TabIndex = 5;
+            img_runningPostinstallOnFirstRealStartup.Text = "repeat the postinstall steps on the first run on a real device";
+            img_runningPostinstallOnFirstRealStartup.UseVisualStyleBackColor = true;
+            img_runningPostinstallOnFirstRealStartup.CheckedChanged += img_runningPostinstallOnFirstRealStartup_CheckedChanged;
+            // 
+            // img_install_ram
+            // 
+            img_install_ram.Location = new Point(3, 40);
+            img_install_ram.Name = "img_install_ram";
+            img_install_ram.Size = new Size(150, 31);
+            img_install_ram.TabIndex = 1;
+            img_install_ram.TextChanged += img_install_ram_TextChanged;
+            // 
+            // img_shutdownAfterInstall
+            // 
+            img_shutdownAfterInstall.AutoSize = true;
+            img_shutdownAfterInstall.Location = new Point(3, 114);
+            img_shutdownAfterInstall.Name = "img_shutdownAfterInstall";
+            img_shutdownAfterInstall.Size = new Size(291, 29);
+            img_shutdownAfterInstall.TabIndex = 4;
+            img_shutdownAfterInstall.Text = "turn off the VM after installation";
+            img_shutdownAfterInstall.UseVisualStyleBackColor = true;
+            img_shutdownAfterInstall.CheckedChanged += img_shutdownAfterInstall_CheckedChanged;
+            // 
+            // label55
+            // 
+            label55.AutoSize = true;
+            label55.Location = new Point(159, 6);
+            label55.Name = "label55";
+            label55.Size = new Size(199, 25);
+            label55.TabIndex = 2;
+            label55.Text = "img size (in megabytes)";
+            // 
+            // label56
+            // 
+            label56.AutoSize = true;
+            label56.Location = new Point(159, 43);
+            label56.Name = "label56";
+            label56.Size = new Size(439, 25);
+            label56.TabIndex = 3;
+            label56.Text = "the amount of RAM during installation (in megabytes)";
+            // 
             // OpenEmbeddedFolder
             // 
             OpenEmbeddedFolder.Location = new Point(799, 12);
@@ -2812,105 +2911,6 @@
             ExportImgUefi.Text = "export installed .img (for UEFI)";
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
-            // 
-            // img_size
-            // 
-            img_size.Location = new Point(3, 3);
-            img_size.Name = "img_size";
-            img_size.Size = new Size(150, 31);
-            img_size.TabIndex = 0;
-            img_size.TextChanged += img_size_TextChanged;
-            // 
-            // img_install_ram
-            // 
-            img_install_ram.Location = new Point(3, 40);
-            img_install_ram.Name = "img_install_ram";
-            img_install_ram.Size = new Size(150, 31);
-            img_install_ram.TabIndex = 1;
-            img_install_ram.TextChanged += img_install_ram_TextChanged;
-            // 
-            // label55
-            // 
-            label55.AutoSize = true;
-            label55.Location = new Point(159, 6);
-            label55.Name = "label55";
-            label55.Size = new Size(199, 25);
-            label55.TabIndex = 2;
-            label55.Text = "img size (in megabytes)";
-            // 
-            // label56
-            // 
-            label56.AutoSize = true;
-            label56.Location = new Point(159, 43);
-            label56.Name = "label56";
-            label56.Size = new Size(439, 25);
-            label56.TabIndex = 3;
-            label56.Text = "the amount of RAM during installation (in megabytes)";
-            // 
-            // img_shutdownAfterInstall
-            // 
-            img_shutdownAfterInstall.AutoSize = true;
-            img_shutdownAfterInstall.Location = new Point(3, 114);
-            img_shutdownAfterInstall.Name = "img_shutdownAfterInstall";
-            img_shutdownAfterInstall.Size = new Size(291, 29);
-            img_shutdownAfterInstall.TabIndex = 4;
-            img_shutdownAfterInstall.Text = "turn off the VM after installation";
-            img_shutdownAfterInstall.UseVisualStyleBackColor = true;
-            img_shutdownAfterInstall.CheckedChanged += img_shutdownAfterInstall_CheckedChanged;
-            // 
-            // img_runningPostinstallOnFirstRealStartup
-            // 
-            img_runningPostinstallOnFirstRealStartup.AutoSize = true;
-            img_runningPostinstallOnFirstRealStartup.Location = new Point(3, 149);
-            img_runningPostinstallOnFirstRealStartup.Name = "img_runningPostinstallOnFirstRealStartup";
-            img_runningPostinstallOnFirstRealStartup.Size = new Size(501, 29);
-            img_runningPostinstallOnFirstRealStartup.TabIndex = 5;
-            img_runningPostinstallOnFirstRealStartup.Text = "repeat the postinstall steps on the first run on a real device";
-            img_runningPostinstallOnFirstRealStartup.UseVisualStyleBackColor = true;
-            img_runningPostinstallOnFirstRealStartup.CheckedChanged += img_runningPostinstallOnFirstRealStartup_CheckedChanged;
-            // 
-            // panel16
-            // 
-            panel16.BorderStyle = BorderStyle.Fixed3D;
-            panel16.Controls.Add(label58);
-            panel16.Controls.Add(img_install_cpu);
-            panel16.Controls.Add(img_size);
-            panel16.Controls.Add(img_runningPostinstallOnFirstRealStartup);
-            panel16.Controls.Add(img_install_ram);
-            panel16.Controls.Add(img_shutdownAfterInstall);
-            panel16.Controls.Add(label55);
-            panel16.Controls.Add(label56);
-            panel16.Location = new Point(3, 52);
-            panel16.Name = "panel16";
-            panel16.Size = new Size(631, 190);
-            panel16.TabIndex = 6;
-            // 
-            // label57
-            // 
-            label57.AutoSize = true;
-            label57.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label57.Location = new Point(3, 11);
-            label57.Name = "label57";
-            label57.Size = new Size(374, 38);
-            label57.TabIndex = 7;
-            label57.Text = "installation settings on qemu";
-            // 
-            // img_install_cpu
-            // 
-            img_install_cpu.Location = new Point(3, 77);
-            img_install_cpu.Name = "img_install_cpu";
-            img_install_cpu.Size = new Size(150, 31);
-            img_install_cpu.TabIndex = 8;
-            img_install_cpu.TextChanged += img_install_cpu_TextChanged;
-            // 
-            // label58
-            // 
-            label58.AutoSize = true;
-            label58.Location = new Point(162, 80);
-            label58.Name = "label58";
-            label58.Size = new Size(373, 25);
-            label58.TabIndex = 9;
-            label58.Text = "number of processor cores during installation";
             // 
             // EditorForm
             // 
@@ -3023,9 +3023,9 @@
             dl_panel.PerformLayout();
             tabPage16.ResumeLayout(false);
             tabPage16.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel16.ResumeLayout(false);
             panel16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
