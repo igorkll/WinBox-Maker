@@ -838,7 +838,7 @@ exit
 
             if (useUefi)
             {
-                qemuParameters += $" -bios \"{Program.getBlobPath(winBoxConfig, Path.Combine("OVMF", winBoxConfig.Architecture))}\"";
+                qemuParameters += $" -bios \"{Program.getBlobPath(winBoxConfig, Path.Combine("OVMF", winBoxConfig.Architecture + ".fd"))}\"";
             }
 
             await writeDebugFile("qemu-launch", $"\"{qemuPath}\" {qemuParameters}");
@@ -1151,7 +1151,7 @@ powercfg -s SCHEME_CURRENT";
             }
             */
 
-            async Task removeSystemObject(string path)
+            async Task removeSystemObject(string path, bool createFolder=false)
             {
                 path = Path.Combine(wimMountPath, path);
 
@@ -1167,6 +1167,8 @@ powercfg -s SCHEME_CURRENT";
                         File.SetAttributes(path, FileAttributes.Normal);
                         File.Delete(path);
                     }
+
+                    Program.CreateDirectory(path);
                 });
             }
 
@@ -1178,8 +1180,7 @@ powercfg -s SCHEME_CURRENT";
             }
             if (Program.isTweakEnabled(winBoxConfig, "removal of the subsystem SysWOW64"))
             {
-                await removeSystemObject("Windows\\SysWOW64");
-                Directory.CreateDirectory("Windows\\SysWOW64");
+                await removeSystemObject("Windows\\SysWOW64", true);
             }
             if (Program.isTweakEnabled(winBoxConfig, "removing UWP apps"))
             {
