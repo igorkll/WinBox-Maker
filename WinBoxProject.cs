@@ -149,6 +149,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "nvidia_drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "amd_drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "intel_drivers"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "driver_installers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "packages"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "cursor"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "iso_files"));
@@ -542,6 +543,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await RemoveTempFolder("nvidia_drivers");
             await RemoveTempFolder("amd_drivers");
             await RemoveTempFolder("intel_drivers");
+            await RemoveTempFolder("driver_installers");
             await RemoveTempFolder("packages");
             await RemoveTempFolder("iso_files");
             await RemoveTempFolder("vc_redist");
@@ -832,14 +834,14 @@ exit
             }
 
             string qemuPath = Path.Combine(Program.winboxSettings.path_qemu_folder, emuName);
-            string qemuParameters = $"-drive file=\"{imgPath}\",format=raw -cdrom \"{isoPath}\" -boot d -m 1024 -smp 2";
+            string qemuParameters = $"-drive file=\"{imgPath}\",format=raw -cdrom \"{isoPath}\" -boot d -m 1024 -smp 2 -D \"{getDebugFilePath("qemu-log")}\"";
 
             if (useUefi)
             {
                 qemuParameters += $" -bios \"{Program.getBlobPath(winBoxConfig, Path.Combine("OVMF", winBoxConfig.Architecture))}\"";
             }
 
-            await writeDebugFile("qemu", $"\"{qemuPath}\" {qemuParameters}");
+            await writeDebugFile("qemu-launch", $"\"{qemuPath}\" {qemuParameters}");
 
             await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, "qemu-img.exe"), $"create -f raw \"{imgPath}\" 20G");
             await Program.ExecuteAsync(qemuPath, qemuParameters);
@@ -1072,7 +1074,7 @@ powercfg -s SCHEME_CURRENT";
             Directory.CreateDirectory(WinboxResourcesPath);
             Directory.CreateDirectory(WinboxApiPath);
 
-            async Task addGpuDrivers(string baseDir)
+            async Task addOtherDrivers(string baseDir)
             {
                 string nvidiaDriversPath = Path.Combine(baseDir, "nvidia_drivers");
                 if (Directory.Exists(nvidiaDriversPath))
@@ -1115,10 +1117,24 @@ powercfg -s SCHEME_CURRENT";
                         number++;
                     }
                 }
+
+                string anyDriversPath = Path.Combine(baseDir, "driver_installers");
+                if (Directory.Exists(anyDriversPath))
+                {
+                    string[] files = Directory.GetFiles(anyDriversPath);
+                    int number = 0;
+                    foreach (string file in files)
+                    {
+                        string path = Path.Combine(tempDirectoryPath, "drivers", "any" + number);
+                        Directory.CreateDirectory(path);
+                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
+                        number++;
+                    }
+                }
             }
 
-            await addGpuDrivers(resourcesDirectoryPath);
-            await addGpuDrivers(tempDirectoryPath);
+            await addOtherDrivers(resourcesDirectoryPath);
+            await addOtherDrivers(tempDirectoryPath);
 
             await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"");
 

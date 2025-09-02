@@ -176,6 +176,7 @@ please note that if you use the windows component removal functions (for example
 * winbox_temp/nvidia_drivers - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/amd_drivers - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/intel_drivers - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
+* winbox_temp/driver_installers - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/packages - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/iso_files - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/vc_redist - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
@@ -189,6 +190,7 @@ please note that if you use the windows component removal functions (for example
 * winbox_resources/nvidia_drivers - put the driver installers for your nvidia graphics cards here
 * winbox_resources/amd_drivers - put the driver installers for your AMD graphics cards here
 * winbox_resources/intel_drivers - put the driver installers for your intel graphics cards here (for example, for any hd graphics)
+* winbox_resources/driver_installers - you can put the driver installers for some hardware here, and maybe winbox maker will be able to extract the driver to embed it in the image, or maybe not. depends on the installer format. if this doesn't help, try installing the driver yourself, or add the installer to post install and use the script to quiet install when you first turn it on. for installers with a known type (nvidia, amd, etc.), it is better to use the appropriate directories (although this is no different at the moment, more correct algorithms for installing such drivers may be added in the future)
 * winbox_resources/packages - you can add the .cab or .msu packages to this directory
 * winbox_resources/cursor - the directory where you can upload custom cursor files (.cur for different states)
 * winbox_resources/sources - the source code of your application for building using winbox maker
