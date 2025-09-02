@@ -114,6 +114,7 @@ namespace WinBox_Maker
         public FirstBootActionEnum? firstBootAction { get; set; }
         public int? img_size { get; set; }
         public int? img_install_ram { get; set; }
+        public int? img_install_cpu { get; set; }
         public bool? img_shutdownAfterInstall { get; set; }
         public bool? img_runningPostinstallOnFirstRealStartup { get; set; }
 
@@ -191,6 +192,7 @@ namespace WinBox_Maker
 
             if (img_size == null) img_size = 1024 * 20;
             if (img_install_ram == null) img_install_ram = 1024 * 2;
+            if (img_install_cpu == null) img_install_cpu = 2;
             if (img_shutdownAfterInstall == null) img_shutdownAfterInstall = true;
             if (img_runningPostinstallOnFirstRealStartup == null) img_runningPostinstallOnFirstRealStartup = true;
         }

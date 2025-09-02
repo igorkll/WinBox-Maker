@@ -834,7 +834,7 @@ exit
             }
 
             string qemuPath = Path.Combine(Program.winboxSettings.path_qemu_folder, emuName);
-            string qemuParameters = $"-drive file=\"{imgPath}\",format=raw -cdrom \"{isoPath}\" -boot d -m {winBoxConfig.img_install_ram} -smp 2 -D \"{getDebugFilePath("qemu-log")}\"";
+            string qemuParameters = $"-drive file=\"{imgPath}\",format=raw -cdrom \"{isoPath}\" -boot d -m {winBoxConfig.img_install_ram} -smp {winBoxConfig.img_install_cpu} -D \"{getDebugFilePath("qemu-log")}\"";
 
             if (useUefi)
             {

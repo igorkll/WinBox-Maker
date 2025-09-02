@@ -276,6 +276,8 @@
             img_runningPostinstallOnFirstRealStartup = new CheckBox();
             panel16 = new Panel();
             label57 = new Label();
+            img_install_cpu = new TextBox();
+            label58 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -2817,6 +2819,7 @@
             img_size.Name = "img_size";
             img_size.Size = new Size(150, 31);
             img_size.TabIndex = 0;
+            img_size.TextChanged += img_size_TextChanged;
             // 
             // img_install_ram
             // 
@@ -2824,6 +2827,7 @@
             img_install_ram.Name = "img_install_ram";
             img_install_ram.Size = new Size(150, 31);
             img_install_ram.TabIndex = 1;
+            img_install_ram.TextChanged += img_install_ram_TextChanged;
             // 
             // label55
             // 
@@ -2846,26 +2850,30 @@
             // img_shutdownAfterInstall
             // 
             img_shutdownAfterInstall.AutoSize = true;
-            img_shutdownAfterInstall.Location = new Point(3, 77);
+            img_shutdownAfterInstall.Location = new Point(3, 114);
             img_shutdownAfterInstall.Name = "img_shutdownAfterInstall";
             img_shutdownAfterInstall.Size = new Size(291, 29);
             img_shutdownAfterInstall.TabIndex = 4;
             img_shutdownAfterInstall.Text = "turn off the VM after installation";
             img_shutdownAfterInstall.UseVisualStyleBackColor = true;
+            img_shutdownAfterInstall.CheckedChanged += img_shutdownAfterInstall_CheckedChanged;
             // 
             // img_runningPostinstallOnFirstRealStartup
             // 
             img_runningPostinstallOnFirstRealStartup.AutoSize = true;
-            img_runningPostinstallOnFirstRealStartup.Location = new Point(3, 112);
+            img_runningPostinstallOnFirstRealStartup.Location = new Point(3, 149);
             img_runningPostinstallOnFirstRealStartup.Name = "img_runningPostinstallOnFirstRealStartup";
             img_runningPostinstallOnFirstRealStartup.Size = new Size(501, 29);
             img_runningPostinstallOnFirstRealStartup.TabIndex = 5;
             img_runningPostinstallOnFirstRealStartup.Text = "repeat the postinstall steps on the first run on a real device";
             img_runningPostinstallOnFirstRealStartup.UseVisualStyleBackColor = true;
+            img_runningPostinstallOnFirstRealStartup.CheckedChanged += img_runningPostinstallOnFirstRealStartup_CheckedChanged;
             // 
             // panel16
             // 
             panel16.BorderStyle = BorderStyle.Fixed3D;
+            panel16.Controls.Add(label58);
+            panel16.Controls.Add(img_install_cpu);
             panel16.Controls.Add(img_size);
             panel16.Controls.Add(img_runningPostinstallOnFirstRealStartup);
             panel16.Controls.Add(img_install_ram);
@@ -2874,7 +2882,7 @@
             panel16.Controls.Add(label56);
             panel16.Location = new Point(3, 52);
             panel16.Name = "panel16";
-            panel16.Size = new Size(631, 150);
+            panel16.Size = new Size(631, 190);
             panel16.TabIndex = 6;
             // 
             // label57
@@ -2886,6 +2894,23 @@
             label57.Size = new Size(374, 38);
             label57.TabIndex = 7;
             label57.Text = "installation settings on qemu";
+            // 
+            // img_install_cpu
+            // 
+            img_install_cpu.Location = new Point(3, 77);
+            img_install_cpu.Name = "img_install_cpu";
+            img_install_cpu.Size = new Size(150, 31);
+            img_install_cpu.TabIndex = 8;
+            img_install_cpu.TextChanged += img_install_cpu_TextChanged;
+            // 
+            // label58
+            // 
+            label58.AutoSize = true;
+            label58.Location = new Point(162, 80);
+            label58.Name = "label58";
+            label58.Size = new Size(373, 25);
+            label58.TabIndex = 9;
+            label58.Text = "number of processor cores during installation";
             // 
             // EditorForm
             // 
@@ -3254,5 +3279,7 @@
         private Panel panel16;
         private CheckBox img_runningPostinstallOnFirstRealStartup;
         private Label label57;
+        private TextBox img_install_cpu;
+        private Label label58;
     }
 }

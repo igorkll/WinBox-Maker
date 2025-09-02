@@ -518,6 +518,13 @@ namespace WinBox_Maker
             action_powerButton_dc.SelectedIndex = (int)(winBoxProject.winBoxConfig.action_powerButton_dc ?? 0);
             action_sleepButton_dc.SelectedIndex = (int)(winBoxProject.winBoxConfig.action_sleepButton_dc ?? 0);
 
+            img_size.Text = winBoxProject.winBoxConfig.img_size.ToString();
+            img_install_ram.Text = winBoxProject.winBoxConfig.img_install_ram.ToString();
+            img_install_cpu.Text = winBoxProject.winBoxConfig.img_install_cpu.ToString();
+            img_shutdownAfterInstall.CheckState = winBoxProject.winBoxConfig.img_shutdownAfterInstall == true ? CheckState.Checked : CheckState.Unchecked;
+            img_runningPostinstallOnFirstRealStartup.CheckState = winBoxProject.winBoxConfig.img_runningPostinstallOnFirstRealStartup == true ? CheckState.Checked : CheckState.Unchecked;
+            img_runningPostinstallOnFirstRealStartup.Enabled = winBoxProject.winBoxConfig.img_shutdownAfterInstall == true;
+
             dc_panel.Enabled = winBoxProject.winBoxConfig.dc_use == true;
             HibernateTimeout.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
             HibernateTimeout_dc.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
@@ -1095,6 +1102,17 @@ namespace WinBox_Maker
             try
             {
                 return Math.Clamp(int.Parse(text), 0, 65535);
+            }
+            catch (FormatException) { }
+            catch (OverflowException) { }
+            return oldNumber;
+        }
+
+        int checkSizeNumber(int oldNumber, string text)
+        {
+            try
+            {
+                return Math.Clamp(int.Parse(text), 0, 1024 * 1024 * 1024);
             }
             catch (FormatException) { }
             catch (OverflowException) { }
@@ -1876,6 +1894,53 @@ namespace WinBox_Maker
         private async void ExportImgUefi_Click(object sender, EventArgs e)
         {
             await exportImgWindow(true);
+        }
+
+        private void img_size_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.img_size = checkSizeNumber(winBoxProject.winBoxConfig.img_size ?? 0, img_size.Text);
+            if (winBoxProject.winBoxConfig.img_size.ToString() != img_size.Text)
+                img_size.Text = winBoxProject.winBoxConfig.img_size.ToString();
+            winBoxProject.SaveConfig();
+        }
+
+        private void img_install_ram_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.img_install_ram = checkSizeNumber(winBoxProject.winBoxConfig.img_install_ram ?? 0, img_install_ram.Text);
+            if (winBoxProject.winBoxConfig.img_install_ram.ToString() != img_install_ram.Text)
+                img_install_ram.Text = winBoxProject.winBoxConfig.img_install_ram.ToString();
+            winBoxProject.SaveConfig();
+        }
+
+        private void img_install_cpu_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.img_install_cpu = checkSizeNumber(winBoxProject.winBoxConfig.img_install_cpu ?? 0, img_install_cpu.Text);
+            if (winBoxProject.winBoxConfig.img_install_cpu.ToString() != img_install_cpu.Text)
+                img_install_cpu.Text = winBoxProject.winBoxConfig.img_install_cpu.ToString();
+            winBoxProject.SaveConfig();
+        }
+
+        private void img_shutdownAfterInstall_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.img_shutdownAfterInstall = img_shutdownAfterInstall.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void img_runningPostinstallOnFirstRealStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.img_runningPostinstallOnFirstRealStartup = img_runningPostinstallOnFirstRealStartup.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
         }
     }
 }
