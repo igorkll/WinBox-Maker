@@ -1205,6 +1205,7 @@
             // 
             // firstBootAction
             // 
+            firstBootAction.DropDownStyle = ComboBoxStyle.DropDownList;
             firstBootAction.FormattingEnabled = true;
             firstBootAction.Items.AddRange(new object[] { "none", "reboot", "shutdown", "hibernate", "reboot to desktop" });
             firstBootAction.Location = new Point(3, 30);
