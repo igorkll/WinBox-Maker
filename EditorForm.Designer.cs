@@ -1722,7 +1722,7 @@
             richTextBox4.ReadOnly = true;
             richTextBox4.Size = new Size(487, 171);
             richTextBox4.TabIndex = 27;
-            richTextBox4.Text = "if you are doing a debugging build and have not yet started mass production of devices, then you do not need to enter the product key at the moment.";
+            richTextBox4.Text = resources.GetString("richTextBox4.Text");
             // 
             // tabPage5
             // 

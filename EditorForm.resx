@@ -3503,6 +3503,11 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="richTextBox4.Text" xml:space="preserve">
+    <value>if you are doing a debugging build and have not yet started mass production of devices, then you do not need to enter the product key at the moment.
+if the product key is not entered, the windows activation label will still not appear if the "instead of the desktop" mode is used, as it outputs explorer.exe which is not running in this mode.
+If you are using the "force make "IoT Enterprise" " function, then you must also use the product key from the "IoT Enterprise" editorial office</value>
+  </data>
   <data name="richTextBox5.Text" xml:space="preserve">
     <value>please note that if you make a mistake with any one parameter here (for example, specify an unsupported color depth) then all other parameters will also not be applied!
 if you change the orientation of the screen to portrait, then you need to specify the same portrait resolution (that is, swap width and height). if you do not do this or simply do not specify width and height, then the settings probably will not be applied.

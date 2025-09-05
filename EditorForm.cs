@@ -673,7 +673,9 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.OemKey = OemKey.Text;
+            winBoxProject.winBoxConfig.UseOemKey = OemKey.Text.Length > 0;
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void UseOemKey_CheckedChanged(object sender, EventArgs e)
