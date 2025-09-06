@@ -56,6 +56,7 @@ namespace WinBox_Maker
             AddTweakToList("Integrate vc redist");
             AddTweakToList("Integrate vc redist (compatible architectures)");
             AddTweakToList("Integrate nircmd");
+            AddTweakToList("Integrate PSTools");
             AddTweakToList("Integrate net 9.0.6");
             AddTweakToList("Integrate net 8.0.17");
             AddTweakToList("Integrate net 4.8.1");

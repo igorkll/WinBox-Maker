@@ -508,7 +508,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             }
         }
 
-        public async Task UnpackBlob(string name)
+        public async Task UnpackBlob(string name, string? subfolder = null)
         {
             string? path = Program.getBlobPath(winBoxConfig, name);
             if (path != null)
@@ -517,7 +517,17 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 {
                     try
                     {
-                        ZipFile.ExtractToDirectory(path, Path.Combine(wimMountPath, "WinboxResources"));
+                        string? path;
+                        if (subfolder != null)
+                        {
+                            path = Path.Combine(wimMountPath, "WinboxResources", subfolder);
+                        }
+                        else
+                        {
+                            path = Path.Combine(wimMountPath, "WinboxResources");
+                        }
+                        Program.CreateDirectory(path);
+                        ZipFile.ExtractToDirectory(path, path);
                     }
                     catch (Exception ex)
                     {
@@ -1513,6 +1523,11 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
                     regAppScriptFirstInitCmd("hackBGRT", hackBGRT);
                 }
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Integrate PSTools"))
+            {
+                await UnpackBlob("PSTools.zip", "executable");
             }
 
             baseSetup += "\r\ncd C:\\";
