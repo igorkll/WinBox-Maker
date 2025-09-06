@@ -1534,7 +1534,7 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
             if (Program.isTweakEnabled(winBoxConfig, "Integrate PSTools"))
             {
-                await UnpackBlob("PSTools.zip", "executable");
+                await UnpackBlob("PSTools.zip", "executable"); //WTF
             }
 
             baseSetup += "\r\ncd C:\\";
