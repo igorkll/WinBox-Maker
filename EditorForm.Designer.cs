@@ -278,6 +278,7 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
+            richTextBox7 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1065,6 +1066,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(richTextBox7);
             tabPage2.Controls.Add(label2);
             tabPage2.Controls.Add(WinboxName);
             tabPage2.Controls.Add(WinboxDescription);
@@ -2913,6 +2915,16 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
+            // richTextBox7
+            // 
+            richTextBox7.BackColor = SystemColors.Info;
+            richTextBox7.Location = new Point(330, 44);
+            richTextBox7.Name = "richTextBox7";
+            richTextBox7.ReadOnly = true;
+            richTextBox7.Size = new Size(329, 285);
+            richTextBox7.TabIndex = 2;
+            richTextBox7.Text = resources.GetString("richTextBox7.Text");
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -3282,5 +3294,6 @@
         private Label label57;
         private TextBox img_install_cpu;
         private Label label58;
+        private RichTextBox richTextBox7;
     }
 }
