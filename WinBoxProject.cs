@@ -1282,6 +1282,11 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
             regAppScriptFirstInitCmd("firstInit1", setupCompleteAndFirstInit);
             regAppScriptFirstInitCmd("firstInit2", updateSystemSettingsAndFirstInit);
 
+            if (winBoxConfig.computername_use == true)
+            {
+                baseSetup += $"\r\nPowerShell -Command \"Rename-Computer -NewName '{winBoxConfig.computername}'\"";
+            }
+
             if (winBoxConfig.UseCustomDisplaySettings == true)
             {
                 await CopyResource("ChangeResolution.ps1");
@@ -1483,7 +1488,9 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
             {
                 await CopyResource("empty.cur");
                 await CopyResource("hide_cursor.reg");
-                baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\hide_cursor.reg\"";
+                string regCmd = "regedit /s \"C:\\WinboxResources\\hide_cursor.reg\"";
+                baseSetup += $"\r\n" + regCmd;
+                regAppScriptFirstInitCmd("hide_cursor", regCmd);
                 await OverwriteSystemCursorEmpty(Path.Combine(wimMountPath, "Windows", "Cursors"));
             }
             else if (customCursor)

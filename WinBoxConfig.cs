@@ -117,6 +117,8 @@ namespace WinBox_Maker
         public int? img_install_cpu { get; set; }
         public bool? img_shutdownAfterInstall { get; set; }
         public bool? img_runningPostinstallOnFirstRealStartup { get; set; }
+        public bool? computername_use { get; set; }
+        public string? computername { get; set; }
 
 
         public WinBoxConfig() {
@@ -195,6 +197,9 @@ namespace WinBox_Maker
             if (img_install_cpu == null) img_install_cpu = 2;
             if (img_shutdownAfterInstall == null) img_shutdownAfterInstall = true;
             if (img_runningPostinstallOnFirstRealStartup == null) img_runningPostinstallOnFirstRealStartup = true;
+
+            if (computername_use == null) computername_use = false;
+            if (computername == null) computername = "winbox-maker";
         }
 
         public void Save(string wnbFilePath)

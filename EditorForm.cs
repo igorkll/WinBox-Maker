@@ -538,6 +538,10 @@ namespace WinBox_Maker
             cds_bitDepth.Enabled = winBoxProject.winBoxConfig.cds_bitDepth_use == true;
             cds_refreshRate.Enabled = winBoxProject.winBoxConfig.cds_refreshRate_use == true;
 
+            computername.Text = winBoxProject.winBoxConfig.computername;
+            computername_use.CheckState = winBoxProject.winBoxConfig.computername_use == true ? CheckState.Checked : CheckState.Unchecked;
+            computername.Enabled = winBoxProject.winBoxConfig.computername_use == true;
+
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -1943,6 +1947,23 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.img_runningPostinstallOnFirstRealStartup = img_runningPostinstallOnFirstRealStartup.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void computername_use_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.computername_use = computername_use.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void computername_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.computername = computername.Text;
             winBoxProject.SaveConfig();
         }
     }
