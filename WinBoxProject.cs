@@ -517,17 +517,17 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
                 {
                     try
                     {
-                        string? path;
+                        string? outputPath;
                         if (subfolder != null)
                         {
-                            path = Path.Combine(wimMountPath, "WinboxResources", subfolder);
+                            outputPath = Path.Combine(wimMountPath, "WinboxResources", subfolder);
                         }
                         else
                         {
-                            path = Path.Combine(wimMountPath, "WinboxResources");
+                            outputPath = Path.Combine(wimMountPath, "WinboxResources");
                         }
-                        Program.CreateDirectory(path);
-                        ZipFile.ExtractToDirectory(path, path);
+                        Program.CreateDirectory(outputPath);
+                        ZipFile.ExtractToDirectory(path, outputPath);
                     }
                     catch (Exception ex)
                     {
