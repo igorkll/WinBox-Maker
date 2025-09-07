@@ -7,6 +7,7 @@ Windows Registry Editor Version 5.00
 ; ---------------- disable hotkeys
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter]
 "EnableKeyboardFilter"=dword:00000001
+"ForceOffAccessibility"=dword:00000001
 "DisableKeyboardFilterForAdministrators"=dword:00000000
 "Alt+F4"="Blocked"
 "Alt+Space"="Blocked"
@@ -36,3 +37,8 @@ Windows Registry Editor Version 5.00
 "Shift+Ctrl+Esc"="Blocked"
 "Shift+Win"="Blocked"
 "Windows"="Blocked"
+
+; ---------------- disable hotkeys
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\Lockdown]
+"AltTab"="1"
+"CtrlAltDel"="1"

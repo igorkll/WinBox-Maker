@@ -98,6 +98,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\System]
 "DisableLockScreen"=dword:00000001
 "DisableLogonBackgroundImage"=dword:00000001
+"DontDisplayNetworkSelectionUI"=dword:00000001
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon]
 "HideAutoLogonUI"=dword:00000001
@@ -123,6 +124,12 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE]
 "SkipMachineOOBE"=dword:00000001
 "SkipUserOOBE"=dword:00000001
+
+; ---------------- disable ctrl+alt+del functionality
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"DisableLogoff"=dword:00000001
+"DisableTaskMgr"=dword:00000001
+"DontDisplayNetworkSelectionUI"=dword:00000001
 
 ; ---------------- disable sfc
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]

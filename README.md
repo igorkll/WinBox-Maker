@@ -2,9 +2,9 @@
 ![preview1](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview.png)  
 ![preview2](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview2.png)  
 ![preview3](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview3.png)  
+a tool for creating minimal embed versions of windows (this is usually Windows with access to only one application without the ability to open any system menu or shell, but this is not the only scenario)  
 program examples: https://github.com/igorkll/WinBox-Maker-programs  
 download "blobs" folder: https://drive.google.com/file/d/1xH0g-R7ckmCbhAJV-ED4NHXPXl_dOrfH/view?usp=sharing (it is only needed for self-build of the program)  
-a tool for creating minimal embed versions of windows (this is usually Windows with access to only one application without the ability to open any system menu or shell, but this is not the only scenario)  
 takes on the task of modifying the windows image to remove excess and embed software there  
 the program is perfect for windows builds designed for ATM terminals and other devices that unauthorized people have access to and should not be allowed to leave the specified sandbox  
 the program needs to be run with administrator rights because it mounts images  
