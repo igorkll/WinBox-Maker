@@ -981,7 +981,15 @@ powercfg -s SCHEME_CURRENT";
                 "WinDefend",
                 "wlidsvc",
                 "DiagTrack",
-                "dmwappushservice"
+                "dmwappushservice",
+                "Dosvc",
+                "XboxGipSvc",
+                "XblAuthManager",
+                "XblGameSave",
+                "XboxNetApiSvc",
+                "WaaSMedicSvc",
+                "WdNisSvc",
+                "wscsvc"
             };
 
             List<string> startServices = new List<string>();
@@ -1259,6 +1267,8 @@ schtasks /Change /TN ""\Microsoft\Windows\Autochk\Proxy"" /Disable
 schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"" /Disable
 schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask"" /Disable
 schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"" /Disable
+
+powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
 
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f

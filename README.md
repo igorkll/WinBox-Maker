@@ -117,6 +117,14 @@ please note that if you use the windows component removal functions (for example
 * wlidsvc
 * DiagTrack
 * dmwappushservice
+* Dosvc
+* XboxGipSvc
+* XblAuthManager
+* XblGameSave
+* XboxNetApiSvc
+* WaaSMedicSvc
+* WdNisSvc
+* wscsvc
 
 ### these keys were disabled by changing the keyboard layout
 * calculator key
