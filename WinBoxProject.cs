@@ -891,7 +891,10 @@ exit
 
         string _getBcdeditSetup()
         {
-            string bcdeditSetup = $@"bcdedit /set {{bootmgr}} displaybootmenu no
+            string bcdeditSetup = $@"bcdedit /set {{globalsettings}} advancedoptions false
+bcdedit /set {{globalsettings}} optionsedit false
+
+bcdedit /set {{bootmgr}} displaybootmenu no
 bcdedit /set {{bootmgr}} timeout 0
 bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
 bcdedit /set {{current}} recoveryenabled no
@@ -929,6 +932,11 @@ bcdedit /set {{default}} TESTSIGNING ON" + "\r\n";
             if (Program.isTweakEnabled(winBoxConfig, "Disable boot messages"))
             {
                 bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000068 true";
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Disable all boot UI"))
+            {
+                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} bootuxdisabled on";
             }
 
             return bcdeditSetup;
@@ -1157,6 +1165,10 @@ powercfg -s SCHEME_CURRENT";
             await addOtherDrivers(tempDirectoryPath);
 
             await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"");
+            if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry"))
+            {
+                await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "disable_hotkeys.reg"))}\"");
+            }
 
             string executablePath = Path.Combine(WinboxResourcesPath, "executable");
             Directory.CreateDirectory(executablePath);

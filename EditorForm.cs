@@ -67,7 +67,9 @@ namespace WinBox_Maker
             AddTweakToList("Disable boot circle");
             AddTweakToList("Disable boot logo");
             AddTweakToList("Disable boot messages");
+            AddTweakToList("Disable all boot UI");
             AddTweakToList("Do not disable hotkeys by changing the layout");
+            AddTweakToList("Do not disable hotkeys by changing the registry");
             AddTweakToList("completely remove explorer.exe");
             AddTweakToList("completely remove system audio/images");
             AddTweakToList("removing UWP apps");

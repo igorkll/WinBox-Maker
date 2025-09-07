@@ -49,48 +49,12 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableTaskMgr"=dword:00000001
 
-; ---------------- disable winkeys
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
-"NoWinKeys"=dword:00000001
-
 ; ----------------
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\Activation]
 "ActivationInterval"=dword:000dbba0
 "Manual"=dword:00000001
 "NotificationDisabled"=dword:00000001
 "DownlevelActivation"=dword:00000002
-
-; ---------------- disable hotkeys
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter]
-"DisableKeyboardFilterForAdministrators"=dword:00000000
-"Alt+F4"="Blocked"
-"Alt+Space"="Blocked"
-"Alt+Tab"="Blocked"
-"Alt+Win"="Blocked"
-"Application"="Blocked"
-"BrowserBack"="Blocked"
-"BrowserFavorites"="Blocked"
-"BrowserForward"="Blocked"
-"BrowserHome"="Blocked"
-"BrowserRefresh"="Blocked"
-"BrowserSearch"="Blocked"
-"BrowserStop"="Blocked"
-"Ctrl+Alt+Del"="Blocked"
-"Ctrl+Esc"="Blocked"
-"Ctrl+F4"="Blocked"
-"Ctrl+Tab"="Blocked"
-"Ctrl+Win"="Blocked"
-"Ctrl+Win+F"="Blocked"
-"F21"="Blocked"
-"LaunchApp1"="Blocked"
-"LaunchApp2"="Blocked"
-"LaunchMail"="Blocked"
-"LaunchMediaSelect"="Blocked"
-"LShift+LAlt+NumLock"="Blocked"
-"LShift+LAlt+PrintScrn"="Blocked"
-"Shift+Ctrl+Esc"="Blocked"
-"Shift+Win"="Blocked"
-"Windows"="Blocked"
 
 ; ---------------- disable screenshot
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
