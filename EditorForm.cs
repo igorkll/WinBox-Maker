@@ -524,9 +524,13 @@ namespace WinBox_Maker
             img_size.Text = winBoxProject.winBoxConfig.img_size.ToString();
             img_install_ram.Text = winBoxProject.winBoxConfig.img_install_ram.ToString();
             img_install_cpu.Text = winBoxProject.winBoxConfig.img_install_cpu.ToString();
+
             img_shutdownAfterInstall.CheckState = winBoxProject.winBoxConfig.img_shutdownAfterInstall == true ? CheckState.Checked : CheckState.Unchecked;
             img_runningPostinstallOnFirstRealStartup.CheckState = winBoxProject.winBoxConfig.img_runningPostinstallOnFirstRealStartup == true ? CheckState.Checked : CheckState.Unchecked;
+            img_generalizeAfterInstall.CheckState = winBoxProject.winBoxConfig.img_generalizeAfterInstall == true ? CheckState.Checked : CheckState.Unchecked;
+
             img_runningPostinstallOnFirstRealStartup.Enabled = winBoxProject.winBoxConfig.img_shutdownAfterInstall == true;
+            img_generalizeAfterInstall.Enabled = winBoxProject.winBoxConfig.img_shutdownAfterInstall == true;
 
             dc_panel.Enabled = winBoxProject.winBoxConfig.dc_use == true;
             HibernateTimeout.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
@@ -1966,6 +1970,14 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.computername = computername.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void img_generalizeAfterInstall_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.img_generalizeAfterInstall = img_generalizeAfterInstall.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
     }

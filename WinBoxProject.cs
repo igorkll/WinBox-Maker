@@ -1641,7 +1641,17 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
             if (initViaVmMode && winBoxConfig.img_shutdownAfterInstall == true)
             {
-                string firstBootShutdown = "shutdown /s /t 0\r\npause";
+                string firstBootShutdown = "\r\npause";
+
+                if (winBoxConfig.img_generalizeAfterInstall == true)
+                {
+                    firstBootShutdown = "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown" + firstBootShutdown;
+                }
+                else
+                {
+                    firstBootShutdown = "shutdown /s /t 0" + firstBootShutdown;
+                }
+
                 if (winBoxConfig.img_runningPostinstallOnFirstRealStartup == true)
                 {
                     string[] deleteAfterVm =
@@ -1658,6 +1668,7 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                         firstBootShutdown = $"del /F /Q \"{path}\"\r\n" + firstBootShutdown;
                     }
                 }
+
                 regAppScriptFirstInitCmd("firstBootShutdown", firstBootShutdown, true);
             }
 

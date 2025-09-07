@@ -163,6 +163,11 @@
             UseCustomDisplaySettings_scale = new CheckBox();
             tabPage13 = new TabPage();
             richTextBox4 = new RichTextBox();
+            tabPage17 = new TabPage();
+            panel17 = new Panel();
+            richTextBox8 = new RichTextBox();
+            computername = new TextBox();
+            computername_use = new CheckBox();
             tabPage5 = new TabPage();
             panel5 = new Panel();
             postinstall_user_reg = new Label();
@@ -279,11 +284,7 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
-            tabPage17 = new TabPage();
-            panel17 = new Panel();
-            computername_use = new CheckBox();
-            computername = new TextBox();
-            richTextBox8 = new RichTextBox();
+            img_generalizeAfterInstall = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -308,6 +309,8 @@
             tabPage15.SuspendLayout();
             UseCustomDisplaySettings_scale_panel.SuspendLayout();
             tabPage13.SuspendLayout();
+            tabPage17.SuspendLayout();
+            panel17.SuspendLayout();
             tabPage5.SuspendLayout();
             panel5.SuspendLayout();
             tabPage7.SuspendLayout();
@@ -332,8 +335,6 @@
             tabPage16.SuspendLayout();
             panel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage17.SuspendLayout();
-            panel17.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1744,6 +1745,56 @@
             richTextBox4.TabIndex = 27;
             richTextBox4.Text = resources.GetString("richTextBox4.Text");
             // 
+            // tabPage17
+            // 
+            tabPage17.Controls.Add(panel17);
+            tabPage17.Location = new Point(4, 34);
+            tabPage17.Name = "tabPage17";
+            tabPage17.Size = new Size(499, 297);
+            tabPage17.TabIndex = 5;
+            tabPage17.Text = "misc";
+            tabPage17.UseVisualStyleBackColor = true;
+            // 
+            // panel17
+            // 
+            panel17.BorderStyle = BorderStyle.Fixed3D;
+            panel17.Controls.Add(richTextBox8);
+            panel17.Controls.Add(computername);
+            panel17.Controls.Add(computername_use);
+            panel17.Location = new Point(3, 4);
+            panel17.Name = "panel17";
+            panel17.Size = new Size(493, 155);
+            panel17.TabIndex = 0;
+            // 
+            // richTextBox8
+            // 
+            richTextBox8.BackColor = SystemColors.Info;
+            richTextBox8.Location = new Point(3, 76);
+            richTextBox8.Name = "richTextBox8";
+            richTextBox8.ReadOnly = true;
+            richTextBox8.Size = new Size(483, 72);
+            richTextBox8.TabIndex = 2;
+            richTextBox8.Text = "if you specify an unsupported computer name, it will not be applied.\n";
+            // 
+            // computername
+            // 
+            computername.Location = new Point(3, 38);
+            computername.Name = "computername";
+            computername.Size = new Size(483, 31);
+            computername.TabIndex = 1;
+            computername.TextChanged += computername_TextChanged;
+            // 
+            // computername_use
+            // 
+            computername_use.AutoSize = true;
+            computername_use.Location = new Point(3, 3);
+            computername_use.Name = "computername_use";
+            computername_use.Size = new Size(231, 29);
+            computername_use.TabIndex = 0;
+            computername_use.Text = "Custom computer name";
+            computername_use.UseVisualStyleBackColor = true;
+            computername_use.CheckedChanged += computername_use_CheckedChanged;
+            // 
             // tabPage5
             // 
             tabPage5.Controls.Add(panel5);
@@ -2797,6 +2848,7 @@
             // panel16
             // 
             panel16.BorderStyle = BorderStyle.Fixed3D;
+            panel16.Controls.Add(img_generalizeAfterInstall);
             panel16.Controls.Add(label58);
             panel16.Controls.Add(img_install_cpu);
             panel16.Controls.Add(img_size);
@@ -2807,7 +2859,7 @@
             panel16.Controls.Add(label56);
             panel16.Location = new Point(3, 52);
             panel16.Name = "panel16";
-            panel16.Size = new Size(631, 190);
+            panel16.Size = new Size(631, 223);
             panel16.TabIndex = 6;
             // 
             // label58
@@ -2933,55 +2985,16 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
-            // tabPage17
+            // img_generalizeAfterInstall
             // 
-            tabPage17.Controls.Add(panel17);
-            tabPage17.Location = new Point(4, 34);
-            tabPage17.Name = "tabPage17";
-            tabPage17.Size = new Size(499, 297);
-            tabPage17.TabIndex = 5;
-            tabPage17.Text = "misc";
-            tabPage17.UseVisualStyleBackColor = true;
-            // 
-            // panel17
-            // 
-            panel17.BorderStyle = BorderStyle.Fixed3D;
-            panel17.Controls.Add(richTextBox8);
-            panel17.Controls.Add(computername);
-            panel17.Controls.Add(computername_use);
-            panel17.Location = new Point(3, 4);
-            panel17.Name = "panel17";
-            panel17.Size = new Size(493, 155);
-            panel17.TabIndex = 0;
-            // 
-            // computername_use
-            // 
-            computername_use.AutoSize = true;
-            computername_use.Location = new Point(3, 3);
-            computername_use.Name = "computername_use";
-            computername_use.Size = new Size(231, 29);
-            computername_use.TabIndex = 0;
-            computername_use.Text = "Custom computer name";
-            computername_use.UseVisualStyleBackColor = true;
-            computername_use.CheckedChanged += computername_use_CheckedChanged;
-            // 
-            // computername
-            // 
-            computername.Location = new Point(3, 38);
-            computername.Name = "computername";
-            computername.Size = new Size(483, 31);
-            computername.TabIndex = 1;
-            computername.TextChanged += computername_TextChanged;
-            // 
-            // richTextBox8
-            // 
-            richTextBox8.BackColor = SystemColors.Info;
-            richTextBox8.Location = new Point(3, 76);
-            richTextBox8.Name = "richTextBox8";
-            richTextBox8.ReadOnly = true;
-            richTextBox8.Size = new Size(483, 72);
-            richTextBox8.TabIndex = 2;
-            richTextBox8.Text = "if you specify an unsupported computer name, it will not be applied.\n";
+            img_generalizeAfterInstall.AutoSize = true;
+            img_generalizeAfterInstall.Location = new Point(3, 184);
+            img_generalizeAfterInstall.Name = "img_generalizeAfterInstall";
+            img_generalizeAfterInstall.Size = new Size(285, 29);
+            img_generalizeAfterInstall.TabIndex = 10;
+            img_generalizeAfterInstall.Text = "generalize after install (sysprep)";
+            img_generalizeAfterInstall.UseVisualStyleBackColor = true;
+            img_generalizeAfterInstall.CheckedChanged += img_generalizeAfterInstall_CheckedChanged;
             // 
             // EditorForm
             // 
@@ -3054,6 +3067,9 @@
             UseCustomDisplaySettings_scale_panel.ResumeLayout(false);
             UseCustomDisplaySettings_scale_panel.PerformLayout();
             tabPage13.ResumeLayout(false);
+            tabPage17.ResumeLayout(false);
+            panel17.ResumeLayout(false);
+            panel17.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             panel5.ResumeLayout(false);
@@ -3097,9 +3113,6 @@
             panel16.ResumeLayout(false);
             panel16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage17.ResumeLayout(false);
-            panel17.ResumeLayout(false);
-            panel17.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3361,5 +3374,6 @@
         private CheckBox computername_use;
         private TextBox computername;
         private RichTextBox richTextBox8;
+        private CheckBox img_generalizeAfterInstall;
     }
 }
