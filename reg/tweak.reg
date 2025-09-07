@@ -129,6 +129,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableLogoff"=dword:00000001
 "DisableTaskMgr"=dword:00000001
+"DisableChangePassword"=dword:00000001
 "DontDisplayNetworkSelectionUI"=dword:00000001
 
 ; ---------------- disable sfc
