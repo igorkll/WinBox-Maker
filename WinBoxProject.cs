@@ -971,8 +971,12 @@ powercfg -s SCHEME_CURRENT";
                 "lanmanserver",
                 "napagent",
                 "WinDefend",
-                "wlidsvc"
+                "wlidsvc",
+                "DiagTrack",
+                "dmwappushservice"
             };
+
+            List<string> startServices = new List<string>();
 
             string servicesSetup = "";
             foreach (string service in stopServices)
@@ -981,6 +985,12 @@ powercfg -s SCHEME_CURRENT";
                 servicesSetup += $"sc config {service} start= disabled\r\n";
                 servicesSetup += $"net stop {service}\r\n";
                 servicesSetup += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\{service}"" /v Start /t REG_DWORD /d 4 /f" + "\r\n";
+            }
+
+            foreach (string service in startServices)
+            {
+                servicesSetup += $"sc config {service} start= auto\r\n";
+                servicesSetup += $"sc start {service}\r\n";
             }
 
             return servicesSetup;
@@ -1231,6 +1241,13 @@ dism /online /enable-feature /all /featurename:Client-KeyboardFilter
 call ""C:\WinboxResources\UpdateSystemSettings.bat""
 schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\UpdateSystemSettings.bat"" /sc onlogon /rl highest /ru ""SYSTEM""
 
+schtasks /Change /TN ""\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"" /Disable
+schtasks /Change /TN ""\Microsoft\Windows\Application Experience\ProgramDataUpdater"" /Disable
+schtasks /Change /TN ""\Microsoft\Windows\Autochk\Proxy"" /Disable
+schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"" /Disable
+schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask"" /Disable
+schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"" /Disable
+
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\HardwareEvents"" /v MaxSize /t REG_DWORD /d 0 /f
@@ -1241,6 +1258,9 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"" 
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power"" /v HibernateEnabledDefault /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
+
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control"" /v ProcessTerminationOnMemoryExhaustion /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v DisableAutomaticTermination /t REG_DWORD /d 1 /f
 
 reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideAutoLogonUI /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideFirstLogonAnimation /t REG_DWORD /d 1 /f

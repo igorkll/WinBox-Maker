@@ -223,3 +223,7 @@ Windows Registry Editor Version 5.00
 ; ---------------- disable smart screen
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer]
 "SmartScreenEnabled"="Off"
+
+; ---------------- disable auto task kill
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\RADAR\HeapLeakDetection]
+"DisableHLT"=dword:00000001

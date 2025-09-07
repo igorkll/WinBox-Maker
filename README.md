@@ -114,6 +114,8 @@ please note that if you use the windows component removal functions (for example
 * napagent
 * WinDefend
 * wlidsvc
+* DiagTrack
+* dmwappushservice
 
 ### these keys were disabled by changing the keyboard layout
 * calculator key
