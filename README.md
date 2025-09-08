@@ -28,7 +28,6 @@ please note that if you use the windows component removal functions (for example
 * if you are going to build the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)
 * it is recommended that the winbox maker project and the source and output iso paths be on a fast SSD! otherwise, it may cause severe computer freezes during the assembly process. if it is not possible to use an SSD, it is recommended not to use computer during the build process of the winbox maker project
 * when you burn the installation ISO to a USB stick via rufus or a similar program, DO NOT USE the windows installation customization feature, as this will cause conflicts with those tweaks that already exist in winbox and it may work incorrectly
-* if you enable "Do not disable hotkeys by changing the layout", then probably many keyboard shortcuts can continue to work (keyboard filter may not work)! It can be VERY UNSAFE for kiosks in public places. the reason for this: windows
 * if your application uses file picker from windows, then this is a backdoor! since if you write "cmd" in the path bar, the command line will open, which is unacceptable for devices in kiosk mode
 * the project may contain prebuild and postbuild events, and since the program runs on behalf of the administrator, it can be quite dangerous if you do not fully trust the project you are building. Before building an unknown winbox maker project, be sure to check the contents of the events tab
 * after the first launch of the operating system created through winbox maker, let the computer run for about two minutes. do not turn it off at this time and do not touch it. otherwise, it may cause windows to crash and require a system reinstall
@@ -42,10 +41,11 @@ please note that if you use the windows component removal functions (for example
 * after creating the image and deploying it for the first time on real hardware, I STRONGLY recommend making sure that windows hotkeys really don't work (unless you purposefully decide to keep them working using the "Do not disable hotkeys by changing the *" options), at least check combinations such as alt+f4 and ctrl+alt+del to make sure that they are ignored by the system
 * at the moment, the custom boot logo installation only works on UEFI systems (you also need to turn off secure boot) (it may also not work at all for reasons unknown to me)
 * it is better not to use the function of replacing the boot logo in winbox maker, the right solution would be to make your own UEFI with your own boot logo (BGRT) or change an existing one. windows will automatically use the UEFI logo. also, if the computer is in a public place, it is better not to make a UEFI menu
+* if you used the "Do not disable hotkeys by changing the layout" option on a non-enterprise version of windows, it is likely that the keyboard shortcuts will still work because keyboard filter will not work
 
 ## notes
+* it is recommended to use "Windows 10 Enterprise" or "Windows 10 IoT Enterprise" specifically, otherwise some things probably won't work, such as disabling the login animation and disabling keyboard shortcuts in the system itself (keyboard filter) (winbox maker disables combinations in two ways. by changing the keyboard layout, it will still work)
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
-* it is recommended to use "Windows 10 Enterprise" or "Windows 10 IoT Enterprise" specifically, otherwise some things probably won't work, such as disabling the login animation and disabling keyboard shortcuts in the system itself (winbox maker disables combinations in the same way by changing the layout - it will still work)
 * your program from the winbox_resources/program folder on the target system is located in C:\WinboxProgram
 * all build events work from the project folder
 * in the post-build event, you get the path to the output file as an argument to your script
