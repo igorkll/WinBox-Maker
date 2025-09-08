@@ -9,6 +9,7 @@ Windows Registry Editor Version 5.00
 "EnableKeyboardFilter"=dword:00000001
 "ForceOffAccessibility"=dword:00000001
 "DisableKeyboardFilterForAdministrators"=dword:00000000
+"BreakoutKeyScanCode"=dword:00000000
 "Alt+F4"="Blocked"
 "Alt+Space"="Blocked"
 "Alt+Tab"="Blocked"

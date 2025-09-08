@@ -993,6 +993,10 @@ powercfg -s SCHEME_CURRENT";
             };
 
             List<string> startServices = new List<string>();
+            if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry"))
+            {
+                startServices.Add("MsKeyboardFilter");
+            }
 
             string servicesSetup = "";
             foreach (string service in stopServices)
@@ -1007,6 +1011,7 @@ powercfg -s SCHEME_CURRENT";
             {
                 servicesSetup += $"sc config {service} start= auto\r\n";
                 servicesSetup += $"sc start {service}\r\n";
+                servicesSetup += $"net start {service}\r\n";
             }
 
             return servicesSetup;
@@ -1234,7 +1239,11 @@ powercfg -s SCHEME_CURRENT";
             string powercfgSetup = _getPowercfgSetup();
             string servicesSetup = _getServicesSetup();
 
-            string setupCompleteAndFirstInit = $@"{powercfgSetup}
+            string setupCompleteAndFirstInit = $@"dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
+dism /online /enable-feature /all /featurename:Client-DeviceLockdown
+dism /online /enable-feature /all /featurename:Client-KeyboardFilter
+
+{powercfgSetup}
 
 {servicesSetup}";
 
@@ -1253,10 +1262,6 @@ netsh advfirewall set allprofiles state off
 {setupCompleteAndFirstInit}
 
 setx PATH ""%PATH%;C:\WinboxResources\executable"" /M
-
-dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
-dism /online /enable-feature /all /featurename:Client-DeviceLockdown
-dism /online /enable-feature /all /featurename:Client-KeyboardFilter
 
 call ""C:\WinboxResources\UpdateSystemSettings.bat""
 schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\UpdateSystemSettings.bat"" /sc onlogon /rl highest /ru ""SYSTEM""
