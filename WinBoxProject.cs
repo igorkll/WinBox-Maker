@@ -1334,6 +1334,12 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                 baseSetup += $"\r\nPowerShell -Command \"Rename-Computer -NewName '{winBoxConfig.computername}'\"";
             }
 
+            if (Program.isTweakEnabled(winBoxConfig, "Enable CrashOnCtrlScroll (BSOD)"))
+            {
+                baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\kbdhid\Parameters"" /v CrashOnCtrlScroll /t REG_DWORD /d 1 /f";
+                baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\i8042prt\Parameters"" /v CrashOnCtrlScroll /t REG_DWORD /d 1 /f";
+            }
+
             if (winBoxConfig.UseCustomDisplaySettings == true)
             {
                 await CopyResource("ChangeResolution.ps1");
