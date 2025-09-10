@@ -441,6 +441,7 @@ namespace WinBox_Maker
             ExportIsoInstaller.Enabled = canExport;
             ExportInstallWim.Enabled = canExport;
             ExportImg.Enabled = canExport;
+            ExportImgUefi.Enabled = canExport;
             guiEventsLock = false;
         }
 
