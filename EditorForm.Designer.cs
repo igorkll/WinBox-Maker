@@ -103,6 +103,14 @@
             tabPage2 = new TabPage();
             richTextBox7 = new RichTextBox();
             tabPage3 = new TabPage();
+            label59 = new Label();
+            panel18 = new Panel();
+            actionAtEndOfApplication_command = new TextBox();
+            ActionAtEndOfApplication_execute_command = new RadioButton();
+            ActionAtEndOfApplication_shutdown_computer = new RadioButton();
+            ActionAtEndOfApplication_reboot_computer = new RadioButton();
+            ActionAtEndOfApplication_restart_app = new RadioButton();
+            ActionAtEndOfApplication_none = new RadioButton();
             label27 = new Label();
             panel12 = new Panel();
             afterDesktop = new RadioButton();
@@ -271,6 +279,7 @@
             tabPage16 = new TabPage();
             label57 = new Label();
             panel16 = new Panel();
+            img_generalizeAfterInstall = new CheckBox();
             label58 = new Label();
             img_install_cpu = new TextBox();
             img_size = new TextBox();
@@ -284,7 +293,6 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
-            img_generalizeAfterInstall = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -295,6 +303,7 @@
             panel4.SuspendLayout();
             tabPage2.SuspendLayout();
             tabPage3.SuspendLayout();
+            panel18.SuspendLayout();
             panel12.SuspendLayout();
             tabPage4.SuspendLayout();
             tabControl2.SuspendLayout();
@@ -1098,6 +1107,8 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(label59);
+            tabPage3.Controls.Add(panel18);
             tabPage3.Controls.Add(label27);
             tabPage3.Controls.Add(panel12);
             tabPage3.Controls.Add(panel2);
@@ -1109,6 +1120,98 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "app";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label59
+            // 
+            label59.AutoSize = true;
+            label59.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label59.Location = new Point(451, 119);
+            label59.Name = "label59";
+            label59.Size = new Size(349, 38);
+            label59.TabIndex = 32;
+            label59.Text = "Action in case of app crash";
+            // 
+            // panel18
+            // 
+            panel18.BorderStyle = BorderStyle.Fixed3D;
+            panel18.Controls.Add(actionAtEndOfApplication_command);
+            panel18.Controls.Add(ActionAtEndOfApplication_execute_command);
+            panel18.Controls.Add(ActionAtEndOfApplication_shutdown_computer);
+            panel18.Controls.Add(ActionAtEndOfApplication_reboot_computer);
+            panel18.Controls.Add(ActionAtEndOfApplication_restart_app);
+            panel18.Controls.Add(ActionAtEndOfApplication_none);
+            panel18.Location = new Point(451, 160);
+            panel18.Name = "panel18";
+            panel18.Size = new Size(494, 111);
+            panel18.TabIndex = 31;
+            // 
+            // actionAtEndOfApplication_command
+            // 
+            actionAtEndOfApplication_command.Location = new Point(196, 73);
+            actionAtEndOfApplication_command.Name = "actionAtEndOfApplication_command";
+            actionAtEndOfApplication_command.Size = new Size(291, 31);
+            actionAtEndOfApplication_command.TabIndex = 5;
+            actionAtEndOfApplication_command.TextChanged += actionAtEndOfApplication_command_TextChanged;
+            // 
+            // ActionAtEndOfApplication_execute_command
+            // 
+            ActionAtEndOfApplication_execute_command.AutoSize = true;
+            ActionAtEndOfApplication_execute_command.Location = new Point(5, 73);
+            ActionAtEndOfApplication_execute_command.Name = "ActionAtEndOfApplication_execute_command";
+            ActionAtEndOfApplication_execute_command.Size = new Size(185, 29);
+            ActionAtEndOfApplication_execute_command.TabIndex = 4;
+            ActionAtEndOfApplication_execute_command.TabStop = true;
+            ActionAtEndOfApplication_execute_command.Text = "Execute Command";
+            ActionAtEndOfApplication_execute_command.UseVisualStyleBackColor = true;
+            ActionAtEndOfApplication_execute_command.CheckedChanged += ActionAtEndOfApplication_execute_command_CheckedChanged;
+            // 
+            // ActionAtEndOfApplication_shutdown_computer
+            // 
+            ActionAtEndOfApplication_shutdown_computer.AutoSize = true;
+            ActionAtEndOfApplication_shutdown_computer.Location = new Point(161, 38);
+            ActionAtEndOfApplication_shutdown_computer.Name = "ActionAtEndOfApplication_shutdown_computer";
+            ActionAtEndOfApplication_shutdown_computer.Size = new Size(203, 29);
+            ActionAtEndOfApplication_shutdown_computer.TabIndex = 3;
+            ActionAtEndOfApplication_shutdown_computer.TabStop = true;
+            ActionAtEndOfApplication_shutdown_computer.Text = "Shutdown Computer";
+            ActionAtEndOfApplication_shutdown_computer.UseVisualStyleBackColor = true;
+            ActionAtEndOfApplication_shutdown_computer.CheckedChanged += ActionAtEndOfApplication_shutdown_computer_CheckedChanged;
+            // 
+            // ActionAtEndOfApplication_reboot_computer
+            // 
+            ActionAtEndOfApplication_reboot_computer.AutoSize = true;
+            ActionAtEndOfApplication_reboot_computer.Location = new Point(161, 3);
+            ActionAtEndOfApplication_reboot_computer.Name = "ActionAtEndOfApplication_reboot_computer";
+            ActionAtEndOfApplication_reboot_computer.Size = new Size(180, 29);
+            ActionAtEndOfApplication_reboot_computer.TabIndex = 2;
+            ActionAtEndOfApplication_reboot_computer.TabStop = true;
+            ActionAtEndOfApplication_reboot_computer.Text = "Reboot Computer";
+            ActionAtEndOfApplication_reboot_computer.UseVisualStyleBackColor = true;
+            ActionAtEndOfApplication_reboot_computer.CheckedChanged += ActionAtEndOfApplication_reboot_computer_CheckedChanged;
+            // 
+            // ActionAtEndOfApplication_restart_app
+            // 
+            ActionAtEndOfApplication_restart_app.AutoSize = true;
+            ActionAtEndOfApplication_restart_app.Location = new Point(5, 38);
+            ActionAtEndOfApplication_restart_app.Name = "ActionAtEndOfApplication_restart_app";
+            ActionAtEndOfApplication_restart_app.Size = new Size(130, 29);
+            ActionAtEndOfApplication_restart_app.TabIndex = 1;
+            ActionAtEndOfApplication_restart_app.TabStop = true;
+            ActionAtEndOfApplication_restart_app.Text = "Restart App";
+            ActionAtEndOfApplication_restart_app.UseVisualStyleBackColor = true;
+            ActionAtEndOfApplication_restart_app.CheckedChanged += ActionAtEndOfApplication_restart_app_CheckedChanged;
+            // 
+            // ActionAtEndOfApplication_none
+            // 
+            ActionAtEndOfApplication_none.AutoSize = true;
+            ActionAtEndOfApplication_none.Location = new Point(5, 3);
+            ActionAtEndOfApplication_none.Name = "ActionAtEndOfApplication_none";
+            ActionAtEndOfApplication_none.Size = new Size(80, 29);
+            ActionAtEndOfApplication_none.TabIndex = 0;
+            ActionAtEndOfApplication_none.TabStop = true;
+            ActionAtEndOfApplication_none.Text = "None";
+            ActionAtEndOfApplication_none.UseVisualStyleBackColor = true;
+            ActionAtEndOfApplication_none.CheckedChanged += ActionAtEndOfApplication_none_CheckedChanged;
             // 
             // label27
             // 
@@ -2862,6 +2965,17 @@
             panel16.Size = new Size(631, 223);
             panel16.TabIndex = 6;
             // 
+            // img_generalizeAfterInstall
+            // 
+            img_generalizeAfterInstall.AutoSize = true;
+            img_generalizeAfterInstall.Location = new Point(3, 184);
+            img_generalizeAfterInstall.Name = "img_generalizeAfterInstall";
+            img_generalizeAfterInstall.Size = new Size(285, 29);
+            img_generalizeAfterInstall.TabIndex = 10;
+            img_generalizeAfterInstall.Text = "generalize after install (sysprep)";
+            img_generalizeAfterInstall.UseVisualStyleBackColor = true;
+            img_generalizeAfterInstall.CheckedChanged += img_generalizeAfterInstall_CheckedChanged;
+            // 
             // label58
             // 
             label58.AutoSize = true;
@@ -2985,17 +3099,6 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
-            // img_generalizeAfterInstall
-            // 
-            img_generalizeAfterInstall.AutoSize = true;
-            img_generalizeAfterInstall.Location = new Point(3, 184);
-            img_generalizeAfterInstall.Name = "img_generalizeAfterInstall";
-            img_generalizeAfterInstall.Size = new Size(285, 29);
-            img_generalizeAfterInstall.TabIndex = 10;
-            img_generalizeAfterInstall.Text = "generalize after install (sysprep)";
-            img_generalizeAfterInstall.UseVisualStyleBackColor = true;
-            img_generalizeAfterInstall.CheckedChanged += img_generalizeAfterInstall_CheckedChanged;
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -3042,6 +3145,8 @@
             tabPage2.PerformLayout();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
+            panel18.ResumeLayout(false);
+            panel18.PerformLayout();
             panel12.ResumeLayout(false);
             panel12.PerformLayout();
             tabPage4.ResumeLayout(false);
@@ -3375,5 +3480,13 @@
         private TextBox computername;
         private RichTextBox richTextBox8;
         private CheckBox img_generalizeAfterInstall;
+        private Label label59;
+        private Panel panel18;
+        private RadioButton ActionAtEndOfApplication_shutdown_computer;
+        private RadioButton ActionAtEndOfApplication_reboot_computer;
+        private RadioButton ActionAtEndOfApplication_restart_app;
+        private RadioButton ActionAtEndOfApplication_none;
+        private RadioButton ActionAtEndOfApplication_execute_command;
+        private TextBox actionAtEndOfApplication_command;
     }
 }

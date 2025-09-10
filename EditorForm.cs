@@ -546,8 +546,10 @@ namespace WinBox_Maker
             cds_refreshRate.Enabled = winBoxProject.winBoxConfig.cds_refreshRate_use == true;
 
             computername.Text = winBoxProject.winBoxConfig.computername;
+            actionAtEndOfApplication_command.Text = winBoxProject.winBoxConfig.actionAtEndOfApplication_command;
             computername_use.CheckState = winBoxProject.winBoxConfig.computername_use == true ? CheckState.Checked : CheckState.Unchecked;
             computername.Enabled = winBoxProject.winBoxConfig.computername_use == true;
+            actionAtEndOfApplication_command.Enabled = winBoxProject.winBoxConfig.actionAtEndOfApplication == ActionAtEndOfApplication.execute_command;
 
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
@@ -1980,6 +1982,55 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.img_generalizeAfterInstall = img_generalizeAfterInstall.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
+        }
+
+        private void actionAtEndOfApplication_command_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.actionAtEndOfApplication_command = actionAtEndOfApplication_command.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void ActionAtEndOfApplication_none_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            RadioButton checkBox = (RadioButton)sender;
+            if (checkBox.Checked)
+            {
+                winBoxProject.winBoxConfig.actionAtEndOfApplication = ActionAtEndOfApplication.none;
+                winBoxProject.SaveConfig();
+                UpdateGui();
+            }
+        }
+
+        private void ActionAtEndOfApplication_restart_app_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            RadioButton checkBox = (RadioButton)sender;
+            if (checkBox.Checked)
+            {
+                winBoxProject.winBoxConfig.actionAtEndOfApplication = ActionAtEndOfApplication.restart_app;
+                winBoxProject.SaveConfig();
+                UpdateGui();
+            }
+        }
+
+        private void ActionAtEndOfApplication_execute_command_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ActionAtEndOfApplication_reboot_computer_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ActionAtEndOfApplication_shutdown_computer_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
