@@ -1859,6 +1859,18 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
                 case ActionAtEndOfApplication.restart_app:
                     applicationScript += "\r\ngoto restart_app";
                     break;
+
+                case ActionAtEndOfApplication.reboot_computer:
+                    applicationScript += "\r\nshutdown /r /t 0";
+                    break;
+
+                case ActionAtEndOfApplication.shutdown_computer:
+                    applicationScript += "\r\nshutdown /s /t 0";
+                    break;
+
+                case ActionAtEndOfApplication.execute_command:
+                    applicationScript += winBoxConfig.actionAtEndOfApplication_command;
+                    break;
             }
 
             Program.CreateDirectory(Path.Combine(
