@@ -103,6 +103,8 @@
             tabPage2 = new TabPage();
             richTextBox7 = new RichTextBox();
             tabPage3 = new TabPage();
+            tabControl3 = new TabControl();
+            tabPage19 = new TabPage();
             label59 = new Label();
             panel18 = new Panel();
             actionAtEndOfApplication_command = new TextBox();
@@ -111,6 +113,8 @@
             ActionAtEndOfApplication_reboot_computer = new RadioButton();
             ActionAtEndOfApplication_restart_app = new RadioButton();
             ActionAtEndOfApplication_none = new RadioButton();
+            tabPage20 = new TabPage();
+            tabPage18 = new TabPage();
             label27 = new Label();
             panel12 = new Panel();
             afterDesktop = new RadioButton();
@@ -303,7 +307,10 @@
             panel4.SuspendLayout();
             tabPage2.SuspendLayout();
             tabPage3.SuspendLayout();
+            tabControl3.SuspendLayout();
+            tabPage19.SuspendLayout();
             panel18.SuspendLayout();
+            tabPage18.SuspendLayout();
             panel12.SuspendLayout();
             tabPage4.SuspendLayout();
             tabControl2.SuspendLayout();
@@ -1107,10 +1114,7 @@
             // 
             // tabPage3
             // 
-            tabPage3.Controls.Add(label59);
-            tabPage3.Controls.Add(panel18);
-            tabPage3.Controls.Add(label27);
-            tabPage3.Controls.Add(panel12);
+            tabPage3.Controls.Add(tabControl3);
             tabPage3.Controls.Add(panel2);
             tabPage3.Controls.Add(label3);
             tabPage3.Location = new Point(4, 34);
@@ -1121,11 +1125,34 @@
             tabPage3.Text = "app";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // tabControl3
+            // 
+            tabControl3.Controls.Add(tabPage19);
+            tabControl3.Controls.Add(tabPage20);
+            tabControl3.Controls.Add(tabPage18);
+            tabControl3.Location = new Point(451, 6);
+            tabControl3.Name = "tabControl3";
+            tabControl3.SelectedIndex = 0;
+            tabControl3.Size = new Size(561, 335);
+            tabControl3.TabIndex = 33;
+            // 
+            // tabPage19
+            // 
+            tabPage19.Controls.Add(label59);
+            tabPage19.Controls.Add(panel18);
+            tabPage19.Location = new Point(4, 34);
+            tabPage19.Name = "tabPage19";
+            tabPage19.Padding = new Padding(3);
+            tabPage19.Size = new Size(553, 297);
+            tabPage19.TabIndex = 1;
+            tabPage19.Text = "on crash";
+            tabPage19.UseVisualStyleBackColor = true;
+            // 
             // label59
             // 
             label59.AutoSize = true;
             label59.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label59.Location = new Point(451, 119);
+            label59.Location = new Point(6, 8);
             label59.Name = "label59";
             label59.Size = new Size(349, 38);
             label59.TabIndex = 32;
@@ -1140,7 +1167,7 @@
             panel18.Controls.Add(ActionAtEndOfApplication_reboot_computer);
             panel18.Controls.Add(ActionAtEndOfApplication_restart_app);
             panel18.Controls.Add(ActionAtEndOfApplication_none);
-            panel18.Location = new Point(451, 160);
+            panel18.Location = new Point(6, 49);
             panel18.Name = "panel18";
             panel18.Size = new Size(494, 111);
             panel18.TabIndex = 31;
@@ -1156,7 +1183,7 @@
             // ActionAtEndOfApplication_execute_command
             // 
             ActionAtEndOfApplication_execute_command.AutoSize = true;
-            ActionAtEndOfApplication_execute_command.Location = new Point(5, 73);
+            ActionAtEndOfApplication_execute_command.Location = new Point(3, 73);
             ActionAtEndOfApplication_execute_command.Name = "ActionAtEndOfApplication_execute_command";
             ActionAtEndOfApplication_execute_command.Size = new Size(185, 29);
             ActionAtEndOfApplication_execute_command.TabIndex = 4;
@@ -1192,7 +1219,7 @@
             // ActionAtEndOfApplication_restart_app
             // 
             ActionAtEndOfApplication_restart_app.AutoSize = true;
-            ActionAtEndOfApplication_restart_app.Location = new Point(5, 38);
+            ActionAtEndOfApplication_restart_app.Location = new Point(3, 38);
             ActionAtEndOfApplication_restart_app.Name = "ActionAtEndOfApplication_restart_app";
             ActionAtEndOfApplication_restart_app.Size = new Size(130, 29);
             ActionAtEndOfApplication_restart_app.TabIndex = 1;
@@ -1204,7 +1231,7 @@
             // ActionAtEndOfApplication_none
             // 
             ActionAtEndOfApplication_none.AutoSize = true;
-            ActionAtEndOfApplication_none.Location = new Point(5, 3);
+            ActionAtEndOfApplication_none.Location = new Point(3, 3);
             ActionAtEndOfApplication_none.Name = "ActionAtEndOfApplication_none";
             ActionAtEndOfApplication_none.Size = new Size(80, 29);
             ActionAtEndOfApplication_none.TabIndex = 0;
@@ -1213,11 +1240,32 @@
             ActionAtEndOfApplication_none.UseVisualStyleBackColor = true;
             ActionAtEndOfApplication_none.CheckedChanged += ActionAtEndOfApplication_none_CheckedChanged;
             // 
+            // tabPage20
+            // 
+            tabPage20.Location = new Point(4, 34);
+            tabPage20.Name = "tabPage20";
+            tabPage20.Size = new Size(553, 297);
+            tabPage20.TabIndex = 2;
+            tabPage20.Text = "delay";
+            tabPage20.UseVisualStyleBackColor = true;
+            // 
+            // tabPage18
+            // 
+            tabPage18.Controls.Add(label27);
+            tabPage18.Controls.Add(panel12);
+            tabPage18.Location = new Point(4, 34);
+            tabPage18.Name = "tabPage18";
+            tabPage18.Padding = new Padding(3);
+            tabPage18.Size = new Size(553, 297);
+            tabPage18.TabIndex = 0;
+            tabPage18.Text = "launch";
+            tabPage18.UseVisualStyleBackColor = true;
+            // 
             // label27
             // 
             label27.AutoSize = true;
             label27.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label27.Location = new Point(451, 3);
+            label27.Location = new Point(6, 8);
             label27.Name = "label27";
             label27.Size = new Size(184, 38);
             label27.TabIndex = 30;
@@ -1228,15 +1276,15 @@
             panel12.BorderStyle = BorderStyle.Fixed3D;
             panel12.Controls.Add(afterDesktop);
             panel12.Controls.Add(insteadDesktop);
-            panel12.Location = new Point(451, 44);
+            panel12.Location = new Point(6, 49);
             panel12.Name = "panel12";
-            panel12.Size = new Size(494, 72);
+            panel12.Size = new Size(494, 77);
             panel12.TabIndex = 29;
             // 
             // afterDesktop
             // 
             afterDesktop.AutoSize = true;
-            afterDesktop.Location = new Point(3, 35);
+            afterDesktop.Location = new Point(3, 39);
             afterDesktop.Name = "afterDesktop";
             afterDesktop.Size = new Size(422, 29);
             afterDesktop.TabIndex = 1;
@@ -3145,8 +3193,13 @@
             tabPage2.PerformLayout();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
+            tabControl3.ResumeLayout(false);
+            tabPage19.ResumeLayout(false);
+            tabPage19.PerformLayout();
             panel18.ResumeLayout(false);
             panel18.PerformLayout();
+            tabPage18.ResumeLayout(false);
+            tabPage18.PerformLayout();
             panel12.ResumeLayout(false);
             panel12.PerformLayout();
             tabPage4.ResumeLayout(false);
@@ -3488,5 +3541,9 @@
         private RadioButton ActionAtEndOfApplication_none;
         private RadioButton ActionAtEndOfApplication_execute_command;
         private TextBox actionAtEndOfApplication_command;
+        private TabControl tabControl3;
+        private TabPage tabPage18;
+        private TabPage tabPage19;
+        private TabPage tabPage20;
     }
 }
