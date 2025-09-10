@@ -114,6 +114,15 @@
             ActionAtEndOfApplication_restart_app = new RadioButton();
             ActionAtEndOfApplication_none = new RadioButton();
             tabPage20 = new TabPage();
+            panel20 = new Panel();
+            label62 = new Label();
+            appdelay_internet_checkurl = new TextBox();
+            appdelay_internet = new CheckBox();
+            panel19 = new Panel();
+            label61 = new Label();
+            appdelay_time_value = new TextBox();
+            appdelay_time = new CheckBox();
+            label60 = new Label();
             tabPage18 = new TabPage();
             label27 = new Label();
             panel12 = new Panel();
@@ -310,6 +319,9 @@
             tabControl3.SuspendLayout();
             tabPage19.SuspendLayout();
             panel18.SuspendLayout();
+            tabPage20.SuspendLayout();
+            panel20.SuspendLayout();
+            panel19.SuspendLayout();
             tabPage18.SuspendLayout();
             panel12.SuspendLayout();
             tabPage4.SuspendLayout();
@@ -1169,14 +1181,14 @@
             panel18.Controls.Add(ActionAtEndOfApplication_none);
             panel18.Location = new Point(6, 49);
             panel18.Name = "panel18";
-            panel18.Size = new Size(494, 111);
+            panel18.Size = new Size(541, 111);
             panel18.TabIndex = 31;
             // 
             // actionAtEndOfApplication_command
             // 
             actionAtEndOfApplication_command.Location = new Point(196, 73);
             actionAtEndOfApplication_command.Name = "actionAtEndOfApplication_command";
-            actionAtEndOfApplication_command.Size = new Size(291, 31);
+            actionAtEndOfApplication_command.Size = new Size(338, 31);
             actionAtEndOfApplication_command.TabIndex = 5;
             actionAtEndOfApplication_command.TextChanged += actionAtEndOfApplication_command_TextChanged;
             // 
@@ -1242,12 +1254,103 @@
             // 
             // tabPage20
             // 
+            tabPage20.Controls.Add(panel20);
+            tabPage20.Controls.Add(panel19);
+            tabPage20.Controls.Add(label60);
             tabPage20.Location = new Point(4, 34);
             tabPage20.Name = "tabPage20";
             tabPage20.Size = new Size(553, 297);
             tabPage20.TabIndex = 2;
             tabPage20.Text = "delay";
             tabPage20.UseVisualStyleBackColor = true;
+            // 
+            // panel20
+            // 
+            panel20.BorderStyle = BorderStyle.Fixed3D;
+            panel20.Controls.Add(label62);
+            panel20.Controls.Add(appdelay_internet_checkurl);
+            panel20.Controls.Add(appdelay_internet);
+            panel20.Location = new Point(6, 132);
+            panel20.Name = "panel20";
+            panel20.Size = new Size(329, 75);
+            panel20.TabIndex = 47;
+            // 
+            // label62
+            // 
+            label62.AutoSize = true;
+            label62.Location = new Point(159, 40);
+            label62.Name = "label62";
+            label62.Size = new Size(109, 25);
+            label62.TabIndex = 49;
+            label62.Text = "url for check";
+            // 
+            // appdelay_internet_checkurl
+            // 
+            appdelay_internet_checkurl.Location = new Point(3, 37);
+            appdelay_internet_checkurl.Name = "appdelay_internet_checkurl";
+            appdelay_internet_checkurl.Size = new Size(150, 31);
+            appdelay_internet_checkurl.TabIndex = 48;
+            appdelay_internet_checkurl.TextChanged += appdelay_internet_checkurl_TextChanged;
+            // 
+            // appdelay_internet
+            // 
+            appdelay_internet.AutoSize = true;
+            appdelay_internet.Location = new Point(3, 6);
+            appdelay_internet.Name = "appdelay_internet";
+            appdelay_internet.Size = new Size(304, 29);
+            appdelay_internet.TabIndex = 47;
+            appdelay_internet.Text = "waiting for an internet connection";
+            appdelay_internet.UseVisualStyleBackColor = true;
+            appdelay_internet.CheckedChanged += appdelay_internet_CheckedChanged;
+            // 
+            // panel19
+            // 
+            panel19.BorderStyle = BorderStyle.Fixed3D;
+            panel19.Controls.Add(label61);
+            panel19.Controls.Add(appdelay_time_value);
+            panel19.Controls.Add(appdelay_time);
+            panel19.Location = new Point(6, 51);
+            panel19.Name = "panel19";
+            panel19.Size = new Size(329, 75);
+            panel19.TabIndex = 46;
+            // 
+            // label61
+            // 
+            label61.AutoSize = true;
+            label61.Location = new Point(159, 39);
+            label61.Name = "label61";
+            label61.Size = new Size(134, 25);
+            label61.TabIndex = 46;
+            label61.Text = "delay (seconds)";
+            // 
+            // appdelay_time_value
+            // 
+            appdelay_time_value.Location = new Point(3, 36);
+            appdelay_time_value.Name = "appdelay_time_value";
+            appdelay_time_value.Size = new Size(150, 31);
+            appdelay_time_value.TabIndex = 45;
+            appdelay_time_value.TextChanged += appdelay_time_value_TextChanged;
+            // 
+            // appdelay_time
+            // 
+            appdelay_time.AutoSize = true;
+            appdelay_time.Location = new Point(3, 3);
+            appdelay_time.Name = "appdelay_time";
+            appdelay_time.Size = new Size(248, 29);
+            appdelay_time.TabIndex = 44;
+            appdelay_time.Text = "delayed application launch";
+            appdelay_time.UseVisualStyleBackColor = true;
+            appdelay_time.CheckedChanged += appdelay_time_CheckedChanged;
+            // 
+            // label60
+            // 
+            label60.AutoSize = true;
+            label60.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label60.Location = new Point(3, 10);
+            label60.Name = "label60";
+            label60.Size = new Size(291, 38);
+            label60.TabIndex = 45;
+            label60.Text = "Application Run Delay";
             // 
             // tabPage18
             // 
@@ -1278,7 +1381,7 @@
             panel12.Controls.Add(insteadDesktop);
             panel12.Location = new Point(6, 49);
             panel12.Name = "panel12";
-            panel12.Size = new Size(494, 77);
+            panel12.Size = new Size(541, 77);
             panel12.TabIndex = 29;
             // 
             // afterDesktop
@@ -3198,6 +3301,12 @@
             tabPage19.PerformLayout();
             panel18.ResumeLayout(false);
             panel18.PerformLayout();
+            tabPage20.ResumeLayout(false);
+            tabPage20.PerformLayout();
+            panel20.ResumeLayout(false);
+            panel20.PerformLayout();
+            panel19.ResumeLayout(false);
+            panel19.PerformLayout();
             tabPage18.ResumeLayout(false);
             tabPage18.PerformLayout();
             panel12.ResumeLayout(false);
@@ -3545,5 +3654,14 @@
         private TabPage tabPage18;
         private TabPage tabPage19;
         private TabPage tabPage20;
+        private Label label60;
+        private CheckBox appdelay_time;
+        private Panel panel19;
+        private Label label61;
+        private TextBox appdelay_time_value;
+        private Panel panel20;
+        private CheckBox appdelay_internet;
+        private TextBox appdelay_internet_checkurl;
+        private Label label62;
     }
 }

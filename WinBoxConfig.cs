@@ -132,6 +132,10 @@ namespace WinBox_Maker
         public string? computername { get; set; }
         public ActionAtEndOfApplication? actionAtEndOfApplication { get; set; }
         public string? actionAtEndOfApplication_command { get; set; }
+        public bool? appdelay_time { get; set; }
+        public int? appdelay_time_value { get; set; }
+        public bool? appdelay_internet { get; set; }
+        public string? appdelay_internet_checkurl { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -216,6 +220,12 @@ namespace WinBox_Maker
 
             if (actionAtEndOfApplication == null) actionAtEndOfApplication = ActionAtEndOfApplication.invalid;
             if (actionAtEndOfApplication_command == null) actionAtEndOfApplication_command = "";
+
+            if (appdelay_time == null) appdelay_time = false;
+            if (appdelay_time_value == null) appdelay_time_value = 0;
+
+            if (appdelay_internet == null) appdelay_internet = false;
+            if (appdelay_internet_checkurl == null) appdelay_internet_checkurl = "google.com";
         }
 
         public void Save(string wnbFilePath)

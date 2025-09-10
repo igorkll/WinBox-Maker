@@ -552,6 +552,15 @@ namespace WinBox_Maker
             computername.Enabled = winBoxProject.winBoxConfig.computername_use == true;
             actionAtEndOfApplication_command.Enabled = winBoxProject.winBoxConfig.actionAtEndOfApplication == ActionAtEndOfApplication.execute_command;
 
+            appdelay_time.CheckState = winBoxProject.winBoxConfig.appdelay_time == true ? CheckState.Checked : CheckState.Unchecked;
+            appdelay_internet.CheckState = winBoxProject.winBoxConfig.appdelay_internet == true ? CheckState.Checked : CheckState.Unchecked;
+
+            appdelay_time_value.Text = winBoxProject.winBoxConfig.appdelay_time_value.ToString();
+            appdelay_internet_checkurl.Text = winBoxProject.winBoxConfig.appdelay_internet_checkurl;
+
+            appdelay_time_value.Enabled = winBoxProject.winBoxConfig.appdelay_time == true;
+            appdelay_internet_checkurl.Enabled = winBoxProject.winBoxConfig.appdelay_internet == true;
+
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -1154,11 +1163,11 @@ namespace WinBox_Maker
             return oldNumber;
         }
 
-        int checkSizeNumber(int oldNumber, string text)
+        int checkSizeNumber(int oldNumber, string text, int maxVal=1024*1024*1024)
         {
             try
             {
-                return Math.Clamp(int.Parse(text), 0, 1024 * 1024 * 1024);
+                return Math.Clamp(int.Parse(text), 0, maxVal);
             }
             catch (FormatException) { }
             catch (OverflowException) { }
@@ -2085,6 +2094,42 @@ namespace WinBox_Maker
                 winBoxProject.SaveConfig();
                 UpdateGui();
             }
+        }
+
+        private void appdelay_time_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.appdelay_time = appdelay_time.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void appdelay_internet_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.appdelay_internet = appdelay_internet.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void appdelay_time_value_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.appdelay_time_value = checkSizeNumber(winBoxProject.winBoxConfig.appdelay_time_value ?? 0, appdelay_time_value.Text, 99999);
+            if (winBoxProject.winBoxConfig.appdelay_time_value.ToString() != appdelay_time_value.Text)
+                appdelay_time_value.Text = winBoxProject.winBoxConfig.appdelay_time_value.ToString();
+            winBoxProject.SaveConfig();
+        }
+
+        private void appdelay_internet_checkurl_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.appdelay_internet_checkurl = appdelay_internet_checkurl.Text;
+            winBoxProject.SaveConfig();
         }
     }
 }
