@@ -41,6 +41,15 @@ namespace WinBox_Maker
 
     }
 
+    public enum ActionAtEndOfApplication
+    {
+        none,
+        restart_app,
+        reboot_computer,
+        shutdown_computer,
+        execute_command
+    }
+
     public class WinBoxConfig
     {
         //public List<string>? Resources { get; set; }
@@ -120,7 +129,8 @@ namespace WinBox_Maker
         public bool? img_generalizeAfterInstall { get; set; }
         public bool? computername_use { get; set; }
         public string? computername { get; set; }
-
+        public ActionAtEndOfApplication? actionAtEndOfApplication { get; set; }
+        public string? actionAtEndOfApplication_command { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -202,6 +212,9 @@ namespace WinBox_Maker
 
             if (computername_use == null) computername_use = false;
             if (computername == null) computername = "winbox-maker";
+
+            if (actionAtEndOfApplication == null) actionAtEndOfApplication = ActionAtEndOfApplication.restart_app;
+            if (actionAtEndOfApplication_command == null) actionAtEndOfApplication_command = "";
         }
 
         public void Save(string wnbFilePath)

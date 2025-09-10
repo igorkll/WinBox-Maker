@@ -1769,16 +1769,18 @@ net localgroup Administrators winbox /add";
                         if (extension != null && (extension.Equals(".bat", StringComparison.OrdinalIgnoreCase) ||
                             extension.Equals(".cmd", StringComparison.OrdinalIgnoreCase)))
                         {
-                            await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), execFilePath, winBoxConfig.ProgramArgs);
-                            command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
+                            //await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), execFilePath, winBoxConfig.ProgramArgs);
+                            //command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
+                            command = "call \"" + execFilePath + "\"";
                         }
                         else
                         {
-                            command = "\"" + execFilePath + "\"";
-                            if (winBoxConfig.ProgramArgs != null && winBoxConfig.ProgramArgs.Length > 0)
-                            {
-                                command += " " + winBoxConfig.ProgramArgs;
-                            }
+                            command = "start \"\" /wait \"" + execFilePath + "\"";
+                        }
+
+                        if (winBoxConfig.ProgramArgs != null && winBoxConfig.ProgramArgs.Length > 0)
+                        {
+                            command += " " + winBoxConfig.ProgramArgs;
                         }
                     }
                     break;
@@ -1828,20 +1830,14 @@ if ""%msedgePath%""=="""" (
     exit /b
 )
 
-:restart
-start """" ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-type=fullscreen --kiosk-idle-timeout-minutes={winBoxConfig.WebSessionTimeout} --no-first-run
+start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-type=fullscreen --kiosk-idle-timeout-minutes={winBoxConfig.WebSessionTimeout} --no-first-run";
 
-:loop
-timeout /t 1
-tasklist | find /i ""msedge.exe"" >nul
-if %errorlevel%==0 (
-    goto loop
-) else (
-    goto restart
-)";
+                        await writeDebugFile("RunEdge", applicationScript);
                         await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "run_edge.bat"), batFile);
-                        await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_edge_script_hidden.vbs"), execFilePath, null);
-                        command = "wscript \"C:\\WinboxResources\\run_edge_script_hidden.vbs\"";
+
+                        //await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_edge_script_hidden.vbs"), execFilePath, null);
+                        //command = "wscript \"C:\\WinboxResources\\run_edge_script_hidden.vbs\"";
+                        command = "call \"" + execFilePath + "\"";
                     }
                     break;
 
@@ -1849,9 +1845,20 @@ if %errorlevel%==0 (
                     break;
             }
 
+            applicationScript += "\r\n:restart_app";
             if (command != null)
             {
                 applicationScript += "\r\n" + command;
+            }
+
+            switch (winBoxConfig.actionAtEndOfApplication)
+            {
+                case ActionAtEndOfApplication.none:
+                    break;
+
+                case ActionAtEndOfApplication.restart_app:
+                    applicationScript += "\r\ngoto restart_app";
+                    break;
             }
 
             Program.CreateDirectory(Path.Combine(
@@ -1861,6 +1868,7 @@ if %errorlevel%==0 (
 
             await writeDebugFile("AppScript", applicationScript);
             await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "app_script.bat"), applicationScript);
+
             if (winBoxConfig.LaunchMode == ProgramLaunchModeEnum.afterDesktop)
             {
                 await WriteHiddenBatExecuter(
