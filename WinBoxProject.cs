@@ -168,6 +168,33 @@ namespace WinBox_Maker
             {
                 buildItem.initDefaults();
             }
+
+            if (winBoxConfig.actionAtEndOfApplication == ActionAtEndOfApplication.invalid)
+            {
+                updateActionAtEndOfApplication();
+            }
+        }
+
+        public void updateActionAtEndOfApplication()
+        {
+            switch (winBoxConfig.ProgramType)
+            {
+                case ProgramTypeEnum.ExecutableFile:
+                    winBoxConfig.actionAtEndOfApplication = ActionAtEndOfApplication.restart_app;
+                    break;
+
+                case ProgramTypeEnum.RawCommand:
+                    winBoxConfig.actionAtEndOfApplication = ActionAtEndOfApplication.none;
+                    break;
+
+                case ProgramTypeEnum.WebSite:
+                    winBoxConfig.actionAtEndOfApplication = ActionAtEndOfApplication.restart_app;
+                    break;
+
+                default:
+                    winBoxConfig.actionAtEndOfApplication = ActionAtEndOfApplication.none;
+                    break;
+            }
         }
 
         string getDebugFilePath(string name)

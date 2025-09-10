@@ -580,6 +580,31 @@ namespace WinBox_Maker
                     afterDesktop.Checked = true;
                     break;
             }
+
+            switch (winBoxProject.winBoxConfig.actionAtEndOfApplication)
+            {
+                case ActionAtEndOfApplication.none:
+                    ActionAtEndOfApplication_none.Checked = true;
+                    break;
+
+                case ActionAtEndOfApplication.restart_app:
+                    ActionAtEndOfApplication_restart_app.Checked = true;
+                    break;
+
+                case ActionAtEndOfApplication.execute_command:
+                    ActionAtEndOfApplication_execute_command.Checked = true;
+                    break;
+
+                case ActionAtEndOfApplication.shutdown_computer:
+                    ActionAtEndOfApplication_shutdown_computer.Checked = true;
+                    break;
+
+                case ActionAtEndOfApplication.reboot_computer:
+                    ActionAtEndOfApplication_reboot_computer.Checked = true;
+                    break;
+
+            }
+
             guiEventsLock = false;
 
             UpdateGuiWithoutWindowsVersion();
@@ -780,8 +805,9 @@ namespace WinBox_Maker
             if (ProgramType_ExecutableFile.Checked)
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.ExecutableFile;
+                winBoxProject.updateActionAtEndOfApplication();
                 winBoxProject.SaveConfig();
-                UpdateGuiWithoutWindowsVersion();
+                UpdateGui();
             }
         }
 
@@ -792,8 +818,9 @@ namespace WinBox_Maker
             if (ProgramType_RawCommand.Checked)
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.RawCommand;
+                winBoxProject.updateActionAtEndOfApplication();
                 winBoxProject.SaveConfig();
-                UpdateGuiWithoutWindowsVersion();
+                UpdateGui();
             }
         }
 
@@ -804,8 +831,9 @@ namespace WinBox_Maker
             if (ProgramType_WebSite.Checked)
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.WebSite;
+                winBoxProject.updateActionAtEndOfApplication();
                 winBoxProject.SaveConfig();
-                UpdateGuiWithoutWindowsVersion();
+                UpdateGui();
             }
         }
 
@@ -816,8 +844,9 @@ namespace WinBox_Maker
             if (ProgramType_None.Checked)
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.None;
+                winBoxProject.updateActionAtEndOfApplication();
                 winBoxProject.SaveConfig();
-                UpdateGuiWithoutWindowsVersion();
+                UpdateGui();
             }
         }
 
@@ -2020,17 +2049,41 @@ namespace WinBox_Maker
 
         private void ActionAtEndOfApplication_execute_command_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            RadioButton checkBox = (RadioButton)sender;
+            if (checkBox.Checked)
+            {
+                winBoxProject.winBoxConfig.actionAtEndOfApplication = ActionAtEndOfApplication.execute_command;
+                winBoxProject.SaveConfig();
+                UpdateGui();
+            }
         }
 
         private void ActionAtEndOfApplication_reboot_computer_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            RadioButton checkBox = (RadioButton)sender;
+            if (checkBox.Checked)
+            {
+                winBoxProject.winBoxConfig.actionAtEndOfApplication = ActionAtEndOfApplication.reboot_computer;
+                winBoxProject.SaveConfig();
+                UpdateGui();
+            }
         }
 
         private void ActionAtEndOfApplication_shutdown_computer_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            RadioButton checkBox = (RadioButton)sender;
+            if (checkBox.Checked)
+            {
+                winBoxProject.winBoxConfig.actionAtEndOfApplication = ActionAtEndOfApplication.shutdown_computer;
+                winBoxProject.SaveConfig();
+                UpdateGui();
+            }
         }
     }
 }

@@ -43,6 +43,7 @@ namespace WinBox_Maker
 
     public enum ActionAtEndOfApplication
     {
+        invalid,
         none,
         restart_app,
         reboot_computer,
@@ -213,7 +214,7 @@ namespace WinBox_Maker
             if (computername_use == null) computername_use = false;
             if (computername == null) computername = "winbox-maker";
 
-            if (actionAtEndOfApplication == null) actionAtEndOfApplication = ActionAtEndOfApplication.restart_app;
+            if (actionAtEndOfApplication == null) actionAtEndOfApplication = ActionAtEndOfApplication.invalid;
             if (actionAtEndOfApplication_command == null) actionAtEndOfApplication_command = "";
         }
 
