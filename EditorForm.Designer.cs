@@ -317,6 +317,7 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
+            tabPage21 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -375,6 +376,7 @@
             tabPage16.SuspendLayout();
             panel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage21.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1465,6 +1467,7 @@
             // tabControl2
             // 
             tabControl2.Controls.Add(tabPage14);
+            tabControl2.Controls.Add(tabPage21);
             tabControl2.Controls.Add(tabPage12);
             tabControl2.Controls.Add(tabPage6);
             tabControl2.Controls.Add(tabPage15);
@@ -1479,7 +1482,6 @@
             // tabPage14
             // 
             tabPage14.Controls.Add(panel15);
-            tabPage14.Controls.Add(logoBeforeApp_panel);
             tabPage14.Controls.Add(panel14);
             tabPage14.Location = new Point(4, 34);
             tabPage14.Name = "tabPage14";
@@ -1522,9 +1524,9 @@
             logoBeforeApp_panel.Controls.Add(logoBeforeApp_clear);
             logoBeforeApp_panel.Controls.Add(logoBeforeApp);
             logoBeforeApp_panel.Controls.Add(logoBeforeApp_select);
-            logoBeforeApp_panel.Location = new Point(3, 111);
+            logoBeforeApp_panel.Location = new Point(3, 4);
             logoBeforeApp_panel.Name = "logoBeforeApp_panel";
-            logoBeforeApp_panel.Size = new Size(493, 108);
+            logoBeforeApp_panel.Size = new Size(493, 246);
             logoBeforeApp_panel.TabIndex = 17;
             // 
             // logoBeforeApp_stretch
@@ -1541,9 +1543,9 @@
             // richTextBox9
             // 
             richTextBox9.BackColor = SystemColors.Info;
-            richTextBox9.Location = new Point(311, 4);
+            richTextBox9.Location = new Point(3, 141);
             richTextBox9.Name = "richTextBox9";
-            richTextBox9.Size = new Size(175, 95);
+            richTextBox9.Size = new Size(483, 98);
             richTextBox9.TabIndex = 18;
             richTextBox9.Text = resources.GetString("richTextBox9.Text");
             // 
@@ -1590,7 +1592,7 @@
             panel14.BorderStyle = BorderStyle.Fixed3D;
             panel14.Controls.Add(label51);
             panel14.Controls.Add(firstBootAction);
-            panel14.Location = new Point(3, 218);
+            panel14.Location = new Point(3, 117);
             panel14.Name = "panel14";
             panel14.Size = new Size(493, 76);
             panel14.TabIndex = 15;
@@ -3376,6 +3378,16 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
+            // tabPage21
+            // 
+            tabPage21.Controls.Add(logoBeforeApp_panel);
+            tabPage21.Location = new Point(4, 34);
+            tabPage21.Name = "tabPage21";
+            tabPage21.Size = new Size(499, 297);
+            tabPage21.TabIndex = 6;
+            tabPage21.Text = "before run app";
+            tabPage21.UseVisualStyleBackColor = true;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -3508,6 +3520,7 @@
             panel16.ResumeLayout(false);
             panel16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage21.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3802,5 +3815,6 @@
         private RichTextBox richTextBox10;
         private Label label64;
         private TextBox appdelay_internet_requestdelay;
+        private TabPage tabPage21;
     }
 }

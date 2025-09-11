@@ -1,6 +1,6 @@
 param(
-    [string]$path,              # путь к картинке
-    [string]$stretch,  # строка, потом конвертим в bool
+    [string]$path,
+    [string]$stretch,
     [int]$offsetX = 0,
     [int]$offsetY = 0
 )
@@ -34,7 +34,6 @@ public class Win32 {
 }
 "@
 
-# Создаём окно WPF
 $w = New-Object System.Windows.Window
 $w.WindowStyle = 'None'
 $w.ResizeMode = 'NoResize'
@@ -43,6 +42,7 @@ $w.Topmost = $false
 $w.ShowInTaskbar = $false
 $w.SizeToContent = 'Manual'
 $w.Background = [System.Windows.Media.Brushes]::Black
+$w.Cursor = [System.Windows.Input.Cursors]::None
 
 # Картинка
 $img = New-Object System.Windows.Controls.Image
