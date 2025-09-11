@@ -1873,7 +1873,7 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
             }
 
             {
-                string baseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
+                string before_app_logo = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
                 if (winBoxConfig.CustomBootLogo_UseLogoBeforeApp != null)
                 {
                     string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
@@ -1884,7 +1884,7 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
                         ImageConverter.ConvertToBmp_54_24(logoPath, beforeAppLogoPath);
                         await copyToDebugFile("before_app.bmp", beforeAppLogoPath);
                     }
-                    applicationScript += "\r\n" + baseCmd + $@"-path ""C:\WinboxResources\before_app.bmp"" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
+                    before_app_logo = before_app_logo + $@"-path ""C:\WinboxResources\before_app.bmp"" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
                 }
                 else if (winBoxConfig.logoBeforeApp != null)
                 {
@@ -1893,8 +1893,12 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
                     string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, filename);
                     File.Copy(winBoxConfig.logoBeforeApp, beforeAppLogoPath, true);
                     await copyToDebugFile(filename, beforeAppLogoPath);
-                    applicationScript += "\r\n" + baseCmd + $@"-path ""C:\WinboxResources\{filename}"" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
+                    before_app_logo = before_app_logo + $@"-path ""C:\WinboxResources\{filename}"" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
                 }
+
+                await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "before_app_logo.bat"), before_app_logo);
+                await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_before_app_logo_hidden.vbs"), @"C:\WinboxResources\before_app_logo.bat", null);
+                applicationScript += "\r\nwscript \"C:\\WinboxResources\\run_before_app_logo_hidden.vbs\"";
             }
 
             applicationScript += "\r\n:restart_app";
