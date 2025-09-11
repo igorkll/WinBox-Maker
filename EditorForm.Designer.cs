@@ -115,7 +115,9 @@
             ActionAtEndOfApplication_none = new RadioButton();
             tabPage20 = new TabPage();
             panel20 = new Panel();
+            label64 = new Label();
             label62 = new Label();
+            appdelay_internet_requestdelay = new TextBox();
             appdelay_internet_checkurl = new TextBox();
             appdelay_internet = new CheckBox();
             panel19 = new Panel();
@@ -124,6 +126,7 @@
             appdelay_time = new CheckBox();
             label60 = new Label();
             tabPage18 = new TabPage();
+            richTextBox10 = new RichTextBox();
             label27 = new Label();
             panel12 = new Panel();
             afterDesktop = new RadioButton();
@@ -314,9 +317,6 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
-            richTextBox10 = new RichTextBox();
-            label64 = new Label();
-            appdelay_internet_requestdelay = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1289,6 +1289,15 @@
             panel20.Size = new Size(385, 116);
             panel20.TabIndex = 47;
             // 
+            // label64
+            // 
+            label64.AutoSize = true;
+            label64.Location = new Point(159, 77);
+            label64.Name = "label64";
+            label64.Size = new Size(198, 25);
+            label64.TabIndex = 48;
+            label64.Text = "request delay (seconds)";
+            // 
             // label62
             // 
             label62.AutoSize = true;
@@ -1297,6 +1306,14 @@
             label62.Size = new Size(160, 25);
             label62.TabIndex = 49;
             label62.Text = "url for check (ping)";
+            // 
+            // appdelay_internet_requestdelay
+            // 
+            appdelay_internet_requestdelay.Location = new Point(3, 74);
+            appdelay_internet_requestdelay.Name = "appdelay_internet_requestdelay";
+            appdelay_internet_requestdelay.Size = new Size(150, 31);
+            appdelay_internet_requestdelay.TabIndex = 47;
+            appdelay_internet_requestdelay.TextChanged += appdelay_internet_requestdelay_TextChanged;
             // 
             // appdelay_internet_checkurl
             // 
@@ -1378,6 +1395,15 @@
             tabPage18.TabIndex = 0;
             tabPage18.Text = "launch";
             tabPage18.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox10
+            // 
+            richTextBox10.BackColor = SystemColors.Info;
+            richTextBox10.Location = new Point(6, 132);
+            richTextBox10.Name = "richTextBox10";
+            richTextBox10.Size = new Size(541, 159);
+            richTextBox10.TabIndex = 31;
+            richTextBox10.Text = resources.GetString("richTextBox10.Text");
             // 
             // label27
             // 
@@ -3349,32 +3375,6 @@
             ExportImgUefi.Text = "export installed .img (for UEFI)";
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
-            // 
-            // richTextBox10
-            // 
-            richTextBox10.BackColor = SystemColors.Info;
-            richTextBox10.Location = new Point(6, 132);
-            richTextBox10.Name = "richTextBox10";
-            richTextBox10.Size = new Size(541, 159);
-            richTextBox10.TabIndex = 31;
-            richTextBox10.Text = resources.GetString("richTextBox10.Text");
-            // 
-            // label64
-            // 
-            label64.AutoSize = true;
-            label64.Location = new Point(159, 77);
-            label64.Name = "label64";
-            label64.Size = new Size(198, 25);
-            label64.TabIndex = 48;
-            label64.Text = "request delay (seconds)";
-            // 
-            // appdelay_internet_requestdelay
-            // 
-            appdelay_internet_requestdelay.Location = new Point(3, 74);
-            appdelay_internet_requestdelay.Name = "appdelay_internet_requestdelay";
-            appdelay_internet_requestdelay.Size = new Size(150, 31);
-            appdelay_internet_requestdelay.TabIndex = 47;
-            appdelay_internet_requestdelay.TextChanged += appdelay_internet_requestdelay_TextChanged;
             // 
             // EditorForm
             // 

@@ -3509,6 +3509,9 @@ the name and description are also included in the file INFO.txt in the iso image
 the same name and description will become the new name and description of the windows image in the wim file (not working yet)
 </value>
   </data>
+  <data name="richTextBox10.Text" xml:space="preserve">
+    <value>I can't imagine a situation at all where using the "after the desktop" mode would be justified. since system dialog boxes and system sounds may appear in this mode and it may be necessary to suppress them, and the desktop may be visible for a short time before launching the application, however, the tasks are different, so there is also such a mode</value>
+  </data>
   <data name="richTextBox9.Text" xml:space="preserve">
     <value>this picture will be displayed after booting the system before launching your application. it is especially useful if you have delay installed before the Internet appeared, you can write something like "wait for an Internet connection" here</value>
   </data>
@@ -3613,9 +3616,6 @@ it is better to download files to the "winbox_temp/files" directory, refer to th
         sFcZFAT6bh30GMWC1o2CTv/vWPENVaEg0KPjp65z5rGEei9ipmAGBlxz6SFrGBAF4goXkny4yoptqBoF
         g4GFvNjfil2JWW21/wOsMlr/Whm3FwAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="richTextBox10.Text" xml:space="preserve">
-    <value>I can't imagine a situation at all where using the "after the desktop" mode would be justified. since system dialog boxes and system sounds may appear in this mode and it may be necessary to suppress them, and the desktop may be visible for a short time before launching the application, however, the tasks are different, so there is also such a mode</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

@@ -1361,6 +1361,13 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
             regAppScriptFirstInitCmd("firstInit1", setupCompleteAndFirstInit);
             regAppScriptFirstInitCmd("firstInit2", updateSystemSettingsAndFirstInit);
 
+            {
+                await CopyResource("setup_user.reg");
+                string regCmd = "regedit /s \"C:\\WinboxResources\\setup_user.reg\"";
+                baseSetup += $"\r\n" + regCmd;
+                regAppScriptFirstInitCmd("setup_user", regCmd);
+            }
+
             if (winBoxConfig.computername_use == true)
             {
                 baseSetup += $"\r\nPowerShell -Command \"Rename-Computer -NewName '{winBoxConfig.computername}'\"";
