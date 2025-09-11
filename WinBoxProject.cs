@@ -1879,6 +1879,7 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
                     string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
                     if (File.Exists(logoPath))
                     {
+                        await CopyResource("show_image.ps1");
                         string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, "before_app.bmp");
                         ImageConverter.ConvertToBmp_54_24(logoPath, beforeAppLogoPath);
                         await copyToDebugFile("before_app.bmp", beforeAppLogoPath);
@@ -1887,6 +1888,7 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
                 }
                 else if (winBoxConfig.logoBeforeApp != null)
                 {
+                    await CopyResource("show_image.ps1");
                     string filename = "before_app" + Path.GetExtension(winBoxConfig.logoBeforeApp);
                     string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, filename);
                     File.Copy(winBoxConfig.logoBeforeApp, beforeAppLogoPath, true);
