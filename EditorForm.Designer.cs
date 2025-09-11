@@ -314,6 +314,7 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
+            richTextBox10 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1289,9 +1290,9 @@
             label62.AutoSize = true;
             label62.Location = new Point(159, 40);
             label62.Name = "label62";
-            label62.Size = new Size(109, 25);
+            label62.Size = new Size(160, 25);
             label62.TabIndex = 49;
-            label62.Text = "url for check";
+            label62.Text = "url for check (ping)";
             // 
             // appdelay_internet_checkurl
             // 
@@ -1363,6 +1364,7 @@
             // 
             // tabPage18
             // 
+            tabPage18.Controls.Add(richTextBox10);
             tabPage18.Controls.Add(label27);
             tabPage18.Controls.Add(panel12);
             tabPage18.Location = new Point(4, 34);
@@ -3344,6 +3346,15 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
+            // richTextBox10
+            // 
+            richTextBox10.BackColor = SystemColors.Info;
+            richTextBox10.Location = new Point(6, 132);
+            richTextBox10.Name = "richTextBox10";
+            richTextBox10.Size = new Size(541, 159);
+            richTextBox10.TabIndex = 31;
+            richTextBox10.Text = resources.GetString("richTextBox10.Text");
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -3767,5 +3778,6 @@
         private Button logoBeforeApp_select;
         private RichTextBox richTextBox9;
         private ComboBox logoBeforeApp_stretch;
+        private RichTextBox richTextBox10;
     }
 }
