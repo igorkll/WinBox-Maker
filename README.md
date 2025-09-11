@@ -71,6 +71,7 @@ please note that if you use the windows component removal functions (for example
 
 ## what was disabled
 * explorer.exe (the desktop is completely inaccessible)
+* BSOD display (if the device goes into a BSOD, it will just reboot without displaying a BSOD)
 * alt+f4
 * ctrl+alt+del
 * all keyboard shortcuts with Windows button
