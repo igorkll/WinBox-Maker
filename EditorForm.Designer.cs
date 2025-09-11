@@ -306,6 +306,8 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
+            CustomBootLogo_UseLogoBeforeApp = new CheckBox();
+            logoBeforeApp_panel = new Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1437,6 +1439,7 @@
             // 
             // tabPage14
             // 
+            tabPage14.Controls.Add(logoBeforeApp_panel);
             tabPage14.Controls.Add(panel15);
             tabPage14.Controls.Add(panel14);
             tabPage14.Location = new Point(4, 34);
@@ -1449,6 +1452,7 @@
             // panel15
             // 
             panel15.BorderStyle = BorderStyle.Fixed3D;
+            panel15.Controls.Add(CustomBootLogo_UseLogoBeforeApp);
             panel15.Controls.Add(label15);
             panel15.Controls.Add(CustomBootLogo_clear);
             panel15.Controls.Add(CustomBootLogo_centering);
@@ -1464,7 +1468,7 @@
             panel14.BorderStyle = BorderStyle.Fixed3D;
             panel14.Controls.Add(label51);
             panel14.Controls.Add(firstBootAction);
-            panel14.Location = new Point(3, 117);
+            panel14.Location = new Point(3, 218);
             panel14.Name = "panel14";
             panel14.Size = new Size(493, 76);
             panel14.TabIndex = 15;
@@ -3250,6 +3254,24 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
+            // CustomBootLogo_UseLogoBeforeApp
+            // 
+            CustomBootLogo_UseLogoBeforeApp.AutoSize = true;
+            CustomBootLogo_UseLogoBeforeApp.Location = new Point(120, 71);
+            CustomBootLogo_UseLogoBeforeApp.Name = "CustomBootLogo_UseLogoBeforeApp";
+            CustomBootLogo_UseLogoBeforeApp.Size = new Size(341, 29);
+            CustomBootLogo_UseLogoBeforeApp.TabIndex = 13;
+            CustomBootLogo_UseLogoBeforeApp.Text = "use the logo before launching the app";
+            CustomBootLogo_UseLogoBeforeApp.UseVisualStyleBackColor = true;
+            // 
+            // logoBeforeApp_panel
+            // 
+            logoBeforeApp_panel.BorderStyle = BorderStyle.Fixed3D;
+            logoBeforeApp_panel.Location = new Point(3, 117);
+            logoBeforeApp_panel.Name = "logoBeforeApp_panel";
+            logoBeforeApp_panel.Size = new Size(493, 95);
+            logoBeforeApp_panel.TabIndex = 17;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -3663,5 +3685,7 @@
         private CheckBox appdelay_internet;
         private TextBox appdelay_internet_checkurl;
         private Label label62;
+        private CheckBox CustomBootLogo_UseLogoBeforeApp;
+        private Panel logoBeforeApp_panel;
     }
 }

@@ -94,6 +94,7 @@ namespace WinBox_Maker
         public int? VirtualDisplayHeight { get; set; }
         public bool? UseEmbeddedDisplay { get; set; }
         public bool? CustomBootLogo_centering { get; set; }
+        public bool? CustomBootLogo_UseLogoBeforeApp { get; set; }
         public bool? prebuildEnabled { get; set; }
         public string? prebuildEvent { get; set; }
         public bool? postbuildEnabled { get; set; }
@@ -170,6 +171,7 @@ namespace WinBox_Maker
             if (VirtualDisplayHeight == null) VirtualDisplayHeight = 640;
             if (UseEmbeddedDisplay == null) UseEmbeddedDisplay = false;
             if (CustomBootLogo_centering == null) CustomBootLogo_centering = false;
+            if (CustomBootLogo_UseLogoBeforeApp == null) CustomBootLogo_UseLogoBeforeApp = false;
             if (prebuildEnabled == null) prebuildEnabled = false;
             if (prebuildEvent == null) prebuildEvent = "";
             if (postbuildEnabled == null) postbuildEnabled = false;
