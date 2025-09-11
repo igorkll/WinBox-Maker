@@ -1872,6 +1872,15 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
                     break;
             }
 
+            if (winBoxConfig.CustomBootLogo_UseLogoBeforeApp != null)
+            {
+                applicationScript += "\r\n" + $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
+            }
+            else if (winBoxConfig.logoBeforeApp != null)
+            {
+                applicationScript += "\r\n" + $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
+            }
+
             applicationScript += "\r\n:restart_app";
             
             if (winBoxConfig.appdelay_time == true)
