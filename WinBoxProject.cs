@@ -1872,20 +1872,27 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
                     break;
             }
 
-            if (winBoxConfig.CustomBootLogo_UseLogoBeforeApp != null)
             {
-                string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
-                if (File.Exists(logoPath))
+                string baseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
+                if (winBoxConfig.CustomBootLogo_UseLogoBeforeApp != null)
                 {
-                    string splashBootLogoPath = Path.Combine(WinboxResourcesPath, "splash.bmp");
-                    ImageConverter.ConvertToBmp_54_24(logoPath, splashBootLogoPath);
-                    await copyToDebugFile("logo.bmp", splashBootLogoPath);
+                    string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
+                    if (File.Exists(logoPath))
+                    {
+                        string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, "before_app.bmp");
+                        ImageConverter.ConvertToBmp_54_24(logoPath, beforeAppLogoPath);
+                        await copyToDebugFile("before_app.bmp", beforeAppLogoPath);
+                    }
+                    applicationScript += "\r\n" + baseCmd + $@"-path ""C:\WinboxResources\before_app.bmp"" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
                 }
-                applicationScript += "\r\n" + $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" -path """" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
-            }
-            else if (winBoxConfig.logoBeforeApp != null)
-            {
-                applicationScript += "\r\n" + $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" -path """" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
+                else if (winBoxConfig.logoBeforeApp != null)
+                {
+                    string filename = "before_app" + Path.GetExtension(winBoxConfig.logoBeforeApp);
+                    string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, filename);
+                    File.Copy(winBoxConfig.logoBeforeApp, beforeAppLogoPath, true);
+                    await copyToDebugFile(filename, beforeAppLogoPath);
+                    applicationScript += "\r\n" + baseCmd + $@"-path ""C:\WinboxResources\{filename}"" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
+                }
             }
 
             applicationScript += "\r\n:restart_app";
