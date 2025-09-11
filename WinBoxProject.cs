@@ -1874,11 +1874,18 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
 
             if (winBoxConfig.CustomBootLogo_UseLogoBeforeApp != null)
             {
-                applicationScript += "\r\n" + $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
+                string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
+                if (File.Exists(logoPath))
+                {
+                    string splashBootLogoPath = Path.Combine(WinboxResourcesPath, "splash.bmp");
+                    ImageConverter.ConvertToBmp_54_24(logoPath, splashBootLogoPath);
+                    await copyToDebugFile("logo.bmp", splashBootLogoPath);
+                }
+                applicationScript += "\r\n" + $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" -path """" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
             }
             else if (winBoxConfig.logoBeforeApp != null)
             {
-                applicationScript += "\r\n" + $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
+                applicationScript += "\r\n" + $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" -path """" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
             }
 
             applicationScript += "\r\n:restart_app";
