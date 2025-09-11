@@ -948,22 +948,27 @@ bcdedit /set {{default}} TESTSIGNING ON" + "\r\n";
 
             if (Program.isTweakEnabled(winBoxConfig, "Disable boot circle"))
             {
-                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000069 true";
+                bcdeditSetup += "\r\nbcdedit /set {globalsettings} custom:16000069 true";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Disable boot logo"))
             {
-                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000067 true";
+                bcdeditSetup += "\r\nbcdedit /set {globalsettings} custom:16000067 true";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Disable boot messages"))
             {
-                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} custom:16000068 true";
+                bcdeditSetup += "\r\nbcdedit /set {globalsettings} custom:16000068 true";
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Disable all boot UI"))
             {
-                bcdeditSetup += $"\r\nbcdedit /set {{globalsettings}} bootuxdisabled on";
+                bcdeditSetup += "\r\nbcdedit /set {globalsettings} bootuxdisabled on";
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "Hide bootmgr errors"))
+            {
+                bcdeditSetup += "\r\nbcdedit /set {bootmgr} noerrordisplay on";
             }
 
             return bcdeditSetup;
@@ -1266,9 +1271,10 @@ powercfg -s SCHEME_CURRENT";
             string powercfgSetup = _getPowercfgSetup();
             string servicesSetup = _getServicesSetup();
 
-            string setupCompleteAndFirstInit = $@"dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
-dism /online /enable-feature /all /featurename:Client-DeviceLockdown
+            string setupCompleteAndFirstInit = $@"dism /online /enable-feature /all /featurename:Client-DeviceLockdown
+dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
 dism /online /enable-feature /all /featurename:Client-KeyboardFilter
+dism /online /enable-feature /all /featurename:Client-EmbeddedBootExp
 
 {powercfgSetup}
 
@@ -2040,9 +2046,11 @@ if errorlevel 1 (
             {
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-Edition:IoTEnterprise /accepteula");
             }
-            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedLogon");
+
             await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-DeviceLockdown");
+            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedLogon");
             await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-KeyboardFilter");
+            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedBootExp");
 
             if (winBoxConfig.winmountedEnabled == true)
             {
