@@ -51,6 +51,14 @@ namespace WinBox_Maker
         execute_command
     }
 
+    public enum StretchMode
+    {
+        None,
+        Fill,
+        Uniform,
+        UniformToFill
+    }
+
     public class WinBoxConfig
     {
         //public List<string>? Resources { get; set; }
@@ -137,6 +145,8 @@ namespace WinBox_Maker
         public int? appdelay_time_value { get; set; }
         public bool? appdelay_internet { get; set; }
         public string? appdelay_internet_checkurl { get; set; }
+        public string? logoBeforeApp { get; set; }
+        public StretchMode? logoBeforeApp_stretch { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -228,6 +238,8 @@ namespace WinBox_Maker
 
             if (appdelay_internet == null) appdelay_internet = false;
             if (appdelay_internet_checkurl == null) appdelay_internet_checkurl = "google.com";
+
+            if (logoBeforeApp_stretch == null) logoBeforeApp_stretch = StretchMode.None;
         }
 
         public void Save(string wnbFilePath)

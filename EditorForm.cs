@@ -564,6 +564,9 @@ namespace WinBox_Maker
             CustomBootLogo_UseLogoBeforeApp.CheckState = winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp == true ? CheckState.Checked : CheckState.Unchecked;
             logoBeforeApp_panel.Enabled = winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp != true;
 
+            logoBeforeApp.Text = winBoxProject.winBoxConfig.logoBeforeApp ?? "not selected";
+            logoBeforeApp_stretch.SelectedIndex = (int)(winBoxProject.winBoxConfig.logoBeforeApp_stretch ?? 0);
+
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -1124,8 +1127,7 @@ namespace WinBox_Maker
         private async void CustomBootLogo_select_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Image Files (*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff)|*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff"
-, winBoxProject.resourcesDirectoryPath, true);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.imageFilter, winBoxProject.resourcesDirectoryPath, true);
             if (name != null)
             {
                 winBoxProject.winBoxConfig.CustomBootLogo = name;
@@ -1166,7 +1168,7 @@ namespace WinBox_Maker
             return oldNumber;
         }
 
-        int checkSizeNumber(int oldNumber, string text, int maxVal=1024*1024*1024)
+        int checkSizeNumber(int oldNumber, string text, int maxVal = 1024 * 1024 * 1024)
         {
             try
             {
@@ -2133,6 +2135,42 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.appdelay_internet_checkurl = appdelay_internet_checkurl.Text;
             winBoxProject.SaveConfig();
+        }
+
+        private async void logoBeforeApp_select_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.imageFilter, winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.logoBeforeApp = name;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void logoBeforeApp_clear_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.logoBeforeApp = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void logoBeforeApp_stretch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.logoBeforeApp_stretch = (StretchMode)logoBeforeApp_stretch.SelectedIndex;
+            winBoxProject.SaveConfig();
+        }
+
+        private void CustomBootLogo_UseLogoBeforeApp_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp = CustomBootLogo_UseLogoBeforeApp.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }

@@ -45,6 +45,8 @@ namespace WinBox_Maker
         public static string? downloadImagesPath;
         public static string? appconfigPath;
 
+        public static string imageFilter = "Image Files (*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff)|*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff";
+
         static string getAppdataSubdirectory(string subdirectory)
         {
             string path = Path.Combine(appdataPath, subdirectory);

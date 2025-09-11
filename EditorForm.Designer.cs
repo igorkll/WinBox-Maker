@@ -131,9 +131,15 @@
             tabPage4 = new TabPage();
             tabControl2 = new TabControl();
             tabPage14 = new TabPage();
-            logoBeforeApp_panel = new Panel();
             panel15 = new Panel();
             CustomBootLogo_UseLogoBeforeApp = new CheckBox();
+            logoBeforeApp_panel = new Panel();
+            logoBeforeApp_stretch = new ComboBox();
+            richTextBox9 = new RichTextBox();
+            label63 = new Label();
+            logoBeforeApp_clear = new Button();
+            logoBeforeApp = new Label();
+            logoBeforeApp_select = new Button();
             panel14 = new Panel();
             label51 = new Label();
             firstBootAction = new ComboBox();
@@ -308,12 +314,6 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
-            label63 = new Label();
-            logoBeforeApp_clear = new Button();
-            logoBeforeApp_select = new Button();
-            logoBeforeApp = new Label();
-            richTextBox9 = new RichTextBox();
-            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -335,8 +335,8 @@
             tabPage4.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPage14.SuspendLayout();
-            logoBeforeApp_panel.SuspendLayout();
             panel15.SuspendLayout();
+            logoBeforeApp_panel.SuspendLayout();
             panel14.SuspendLayout();
             tabPage12.SuspendLayout();
             dc_panel.SuspendLayout();
@@ -1456,20 +1456,6 @@
             tabPage14.Text = "boot";
             tabPage14.UseVisualStyleBackColor = true;
             // 
-            // logoBeforeApp_panel
-            // 
-            logoBeforeApp_panel.BorderStyle = BorderStyle.Fixed3D;
-            logoBeforeApp_panel.Controls.Add(comboBox1);
-            logoBeforeApp_panel.Controls.Add(richTextBox9);
-            logoBeforeApp_panel.Controls.Add(label63);
-            logoBeforeApp_panel.Controls.Add(logoBeforeApp_clear);
-            logoBeforeApp_panel.Controls.Add(logoBeforeApp);
-            logoBeforeApp_panel.Controls.Add(logoBeforeApp_select);
-            logoBeforeApp_panel.Location = new Point(3, 111);
-            logoBeforeApp_panel.Name = "logoBeforeApp_panel";
-            logoBeforeApp_panel.Size = new Size(493, 108);
-            logoBeforeApp_panel.TabIndex = 17;
-            // 
             // panel15
             // 
             panel15.BorderStyle = BorderStyle.Fixed3D;
@@ -1493,6 +1479,79 @@
             CustomBootLogo_UseLogoBeforeApp.TabIndex = 13;
             CustomBootLogo_UseLogoBeforeApp.Text = "use the logo before launching the app";
             CustomBootLogo_UseLogoBeforeApp.UseVisualStyleBackColor = true;
+            CustomBootLogo_UseLogoBeforeApp.CheckedChanged += CustomBootLogo_UseLogoBeforeApp_CheckedChanged;
+            // 
+            // logoBeforeApp_panel
+            // 
+            logoBeforeApp_panel.BorderStyle = BorderStyle.Fixed3D;
+            logoBeforeApp_panel.Controls.Add(logoBeforeApp_stretch);
+            logoBeforeApp_panel.Controls.Add(richTextBox9);
+            logoBeforeApp_panel.Controls.Add(label63);
+            logoBeforeApp_panel.Controls.Add(logoBeforeApp_clear);
+            logoBeforeApp_panel.Controls.Add(logoBeforeApp);
+            logoBeforeApp_panel.Controls.Add(logoBeforeApp_select);
+            logoBeforeApp_panel.Location = new Point(3, 111);
+            logoBeforeApp_panel.Name = "logoBeforeApp_panel";
+            logoBeforeApp_panel.Size = new Size(493, 108);
+            logoBeforeApp_panel.TabIndex = 17;
+            // 
+            // logoBeforeApp_stretch
+            // 
+            logoBeforeApp_stretch.DropDownStyle = ComboBoxStyle.DropDownList;
+            logoBeforeApp_stretch.FormattingEnabled = true;
+            logoBeforeApp_stretch.Items.AddRange(new object[] { "native size", "stretch with distortion", "stretch without distortion", "stretch without distortion (cutting)" });
+            logoBeforeApp_stretch.Location = new Point(3, 66);
+            logoBeforeApp_stretch.Name = "logoBeforeApp_stretch";
+            logoBeforeApp_stretch.Size = new Size(302, 33);
+            logoBeforeApp_stretch.TabIndex = 15;
+            logoBeforeApp_stretch.SelectedIndexChanged += logoBeforeApp_stretch_SelectedIndexChanged;
+            // 
+            // richTextBox9
+            // 
+            richTextBox9.BackColor = SystemColors.Info;
+            richTextBox9.Location = new Point(311, 4);
+            richTextBox9.Name = "richTextBox9";
+            richTextBox9.Size = new Size(175, 95);
+            richTextBox9.TabIndex = 18;
+            richTextBox9.Text = resources.GetString("richTextBox9.Text");
+            // 
+            // label63
+            // 
+            label63.AutoSize = true;
+            label63.Location = new Point(3, 0);
+            label63.Name = "label63";
+            label63.Size = new Size(257, 25);
+            label63.TabIndex = 14;
+            label63.Text = "Logo before launching the app";
+            // 
+            // logoBeforeApp_clear
+            // 
+            logoBeforeApp_clear.Location = new Point(88, 28);
+            logoBeforeApp_clear.Name = "logoBeforeApp_clear";
+            logoBeforeApp_clear.Size = new Size(82, 34);
+            logoBeforeApp_clear.TabIndex = 16;
+            logoBeforeApp_clear.Text = "clear";
+            logoBeforeApp_clear.UseVisualStyleBackColor = true;
+            logoBeforeApp_clear.Click += logoBeforeApp_clear_Click;
+            // 
+            // logoBeforeApp
+            // 
+            logoBeforeApp.AutoSize = true;
+            logoBeforeApp.Location = new Point(176, 33);
+            logoBeforeApp.Name = "logoBeforeApp";
+            logoBeforeApp.Size = new Size(78, 25);
+            logoBeforeApp.TabIndex = 17;
+            logoBeforeApp.Text = "bmp file";
+            // 
+            // logoBeforeApp_select
+            // 
+            logoBeforeApp_select.Location = new Point(3, 28);
+            logoBeforeApp_select.Name = "logoBeforeApp_select";
+            logoBeforeApp_select.Size = new Size(82, 34);
+            logoBeforeApp_select.TabIndex = 15;
+            logoBeforeApp_select.Text = "select";
+            logoBeforeApp_select.UseVisualStyleBackColor = true;
+            logoBeforeApp_select.Click += logoBeforeApp_select_Click;
             // 
             // panel14
             // 
@@ -3285,61 +3344,6 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
-            // label63
-            // 
-            label63.AutoSize = true;
-            label63.Location = new Point(3, 0);
-            label63.Name = "label63";
-            label63.Size = new Size(257, 25);
-            label63.TabIndex = 14;
-            label63.Text = "Logo before launching the app";
-            // 
-            // logoBeforeApp_clear
-            // 
-            logoBeforeApp_clear.Location = new Point(88, 28);
-            logoBeforeApp_clear.Name = "logoBeforeApp_clear";
-            logoBeforeApp_clear.Size = new Size(82, 34);
-            logoBeforeApp_clear.TabIndex = 16;
-            logoBeforeApp_clear.Text = "clear";
-            logoBeforeApp_clear.UseVisualStyleBackColor = true;
-            // 
-            // logoBeforeApp_select
-            // 
-            logoBeforeApp_select.Location = new Point(3, 28);
-            logoBeforeApp_select.Name = "logoBeforeApp_select";
-            logoBeforeApp_select.Size = new Size(82, 34);
-            logoBeforeApp_select.TabIndex = 15;
-            logoBeforeApp_select.Text = "select";
-            logoBeforeApp_select.UseVisualStyleBackColor = true;
-            // 
-            // logoBeforeApp
-            // 
-            logoBeforeApp.AutoSize = true;
-            logoBeforeApp.Location = new Point(176, 33);
-            logoBeforeApp.Name = "logoBeforeApp";
-            logoBeforeApp.Size = new Size(78, 25);
-            logoBeforeApp.TabIndex = 17;
-            logoBeforeApp.Text = "bmp file";
-            // 
-            // richTextBox9
-            // 
-            richTextBox9.BackColor = SystemColors.Info;
-            richTextBox9.Location = new Point(311, 4);
-            richTextBox9.Name = "richTextBox9";
-            richTextBox9.Size = new Size(175, 95);
-            richTextBox9.TabIndex = 18;
-            richTextBox9.Text = resources.GetString("richTextBox9.Text");
-            // 
-            // comboBox1
-            // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "native size", "", "", "stretch with distortion", "" });
-            comboBox1.Location = new Point(3, 66);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(302, 33);
-            comboBox1.TabIndex = 15;
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -3405,10 +3409,10 @@
             tabPage4.PerformLayout();
             tabControl2.ResumeLayout(false);
             tabPage14.ResumeLayout(false);
-            logoBeforeApp_panel.ResumeLayout(false);
-            logoBeforeApp_panel.PerformLayout();
             panel15.ResumeLayout(false);
             panel15.PerformLayout();
+            logoBeforeApp_panel.ResumeLayout(false);
+            logoBeforeApp_panel.PerformLayout();
             panel14.ResumeLayout(false);
             panel14.PerformLayout();
             tabPage12.ResumeLayout(false);
@@ -3762,6 +3766,6 @@
         private Label logoBeforeApp;
         private Button logoBeforeApp_select;
         private RichTextBox richTextBox9;
-        private ComboBox comboBox1;
+        private ComboBox logoBeforeApp_stretch;
     }
 }

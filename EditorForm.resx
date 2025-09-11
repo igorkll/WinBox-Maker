@@ -3503,14 +3503,14 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="richTextBox9.Text" xml:space="preserve">
-    <value>this picture will be displayed after booting the system before launching your application. it is especially useful if you have delay installed before the Internet appeared, you can write something like "wait for an Internet connection" here</value>
-  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
 the same name and description will become the new name and description of the windows image in the wim file (not working yet)
 </value>
+  </data>
+  <data name="richTextBox9.Text" xml:space="preserve">
+    <value>this picture will be displayed after booting the system before launching your application. it is especially useful if you have delay installed before the Internet appeared, you can write something like "wait for an Internet connection" here</value>
   </data>
   <data name="richTextBox5.Text" xml:space="preserve">
     <value>please note that if you make a mistake with any one parameter here (for example, specify an unsupported color depth) then all other parameters will also not be applied!
