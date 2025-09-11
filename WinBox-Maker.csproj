@@ -311,6 +311,9 @@
     <None Update="resources\hackBGRT_centering.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="resources\setup_user.reg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="resources\hide_cursor.reg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
