@@ -89,7 +89,7 @@ namespace WinBox_Maker
 
             if (winBoxConfig.winboxMakerVersion > Program.version_num)
             {
-                err = $"this project was saved in winbox make {winBoxConfig.winboxMakerVersionStr} and you have {Program.version_str} installed. update winbox maker to open this project";
+                err = $"this project was saved in winbox maker {winBoxConfig.winboxMakerVersionStr} and you have {Program.version_str} installed. update winbox maker to open this project";
                 return;
             }
 
