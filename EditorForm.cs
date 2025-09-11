@@ -556,6 +556,7 @@ namespace WinBox_Maker
             appdelay_internet.CheckState = winBoxProject.winBoxConfig.appdelay_internet == true ? CheckState.Checked : CheckState.Unchecked;
 
             appdelay_time_value.Text = winBoxProject.winBoxConfig.appdelay_time_value.ToString();
+            appdelay_internet_requestdelay.Text = winBoxProject.winBoxConfig.appdelay_internet_requestdelay.ToString();
             appdelay_internet_checkurl.Text = winBoxProject.winBoxConfig.appdelay_internet_checkurl;
 
             appdelay_time_value.Enabled = winBoxProject.winBoxConfig.appdelay_time == true;
@@ -2171,6 +2172,16 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp = CustomBootLogo_UseLogoBeforeApp.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void appdelay_internet_requestdelay_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.appdelay_internet_requestdelay = checkSizeNumber(winBoxProject.winBoxConfig.appdelay_internet_requestdelay ?? 0, appdelay_internet_requestdelay.Text, 99999);
+            if (winBoxProject.winBoxConfig.appdelay_internet_requestdelay.ToString() != appdelay_internet_requestdelay.Text)
+                appdelay_internet_requestdelay.Text = winBoxProject.winBoxConfig.appdelay_internet_requestdelay.ToString();
+            winBoxProject.SaveConfig();
         }
     }
 }

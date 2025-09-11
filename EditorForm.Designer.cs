@@ -315,6 +315,8 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             richTextBox10 = new RichTextBox();
+            label64 = new Label();
+            appdelay_internet_requestdelay = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1277,12 +1279,14 @@
             // panel20
             // 
             panel20.BorderStyle = BorderStyle.Fixed3D;
+            panel20.Controls.Add(label64);
             panel20.Controls.Add(label62);
+            panel20.Controls.Add(appdelay_internet_requestdelay);
             panel20.Controls.Add(appdelay_internet_checkurl);
             panel20.Controls.Add(appdelay_internet);
             panel20.Location = new Point(6, 132);
             panel20.Name = "panel20";
-            panel20.Size = new Size(329, 75);
+            panel20.Size = new Size(385, 116);
             panel20.TabIndex = 47;
             // 
             // label62
@@ -1321,7 +1325,7 @@
             panel19.Controls.Add(appdelay_time);
             panel19.Location = new Point(6, 51);
             panel19.Name = "panel19";
-            panel19.Size = new Size(329, 75);
+            panel19.Size = new Size(385, 75);
             panel19.TabIndex = 46;
             // 
             // label61
@@ -3355,6 +3359,23 @@
             richTextBox10.TabIndex = 31;
             richTextBox10.Text = resources.GetString("richTextBox10.Text");
             // 
+            // label64
+            // 
+            label64.AutoSize = true;
+            label64.Location = new Point(159, 77);
+            label64.Name = "label64";
+            label64.Size = new Size(198, 25);
+            label64.TabIndex = 48;
+            label64.Text = "request delay (seconds)";
+            // 
+            // appdelay_internet_requestdelay
+            // 
+            appdelay_internet_requestdelay.Location = new Point(3, 74);
+            appdelay_internet_requestdelay.Name = "appdelay_internet_requestdelay";
+            appdelay_internet_requestdelay.Size = new Size(150, 31);
+            appdelay_internet_requestdelay.TabIndex = 47;
+            appdelay_internet_requestdelay.TextChanged += appdelay_internet_requestdelay_TextChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -3779,5 +3800,7 @@
         private RichTextBox richTextBox9;
         private ComboBox logoBeforeApp_stretch;
         private RichTextBox richTextBox10;
+        private Label label64;
+        private TextBox appdelay_internet_requestdelay;
     }
 }

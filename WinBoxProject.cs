@@ -1909,7 +1909,7 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
                 applicationScript += $"\r\n" + $@":wait_internet
 ping -n 1 ""{winBoxConfig.appdelay_internet_checkurl}"" >nul 2>&1
 if errorlevel 1 (
-    timeout /t 1 >nul
+    timeout /t {winBoxConfig.appdelay_internet_requestdelay} >nul
     goto wait_internet
 )" + $"\r\n";
             }
