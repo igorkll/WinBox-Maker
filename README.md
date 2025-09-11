@@ -56,6 +56,7 @@ please note that if you use the windows component removal functions (for example
 * if you are using the export of already installed windows via qemu, then you will need to manually go through all the steps of the installer before starting the installation, and then only wait until the virtual machine closes itself. when it closes by itself, you will receive a ready-made .img file with the windows system already installed
 * please note that the shutdown during installation on qemu is triggered BEFORE the event when the system is first turned on, which is set in winbox maker > settings > boot. that is, if you set the flag yourself that you need to turn off the computer when you first start the system, then the first time it turns off on qemu and the second time it turns off when you first start the system on a real machine. since these two events are completely independent
 * shutdown during .img export is triggered BEFORE the first boot action. The first boot action will be triggered the first time it is turned on on the target machine
+* if you use the "Disable all boot UI" option instead of separate "Disable boot logos", etc, then the boot circle and status will not be displayed at any time, but the boot logo will be displayed only if the BGRT table transmitted from UEFI or modified by the custom logo function is available. if the "Hide boot logo" is used, the boot logo will be hidden even if the BGRT table with a custom logo is available
 
 ## menu description
 * base - select the base Windows image that will be used to create a custom Windows image
