@@ -561,6 +561,9 @@ namespace WinBox_Maker
             appdelay_time_value.Enabled = winBoxProject.winBoxConfig.appdelay_time == true;
             appdelay_internet_checkurl.Enabled = winBoxProject.winBoxConfig.appdelay_internet == true;
 
+            CustomBootLogo_UseLogoBeforeApp.CheckState = winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp == true ? CheckState.Checked : CheckState.Unchecked;
+            logoBeforeApp_panel.Enabled = winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp != true;
+
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
