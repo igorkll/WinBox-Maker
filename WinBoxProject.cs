@@ -1759,7 +1759,7 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                     break;
 
                 case FirstBootActionEnum.generalize:
-                    regAppScriptFirstInitCmd("firstBootAction", "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown\r\npause");
+                    regAppScriptFirstInitCmd("firstBootAction", "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown\r\npause", true);
                     break;
             }
 
