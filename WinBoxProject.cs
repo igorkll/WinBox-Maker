@@ -1380,6 +1380,12 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                 baseSetup += $"\r\nPowerShell -Command \"Rename-Computer -NewName '{winBoxConfig.computername}'\"";
             }
 
+            if (Program.isTweakEnabled(winBoxConfig, "Disable protection from Spectre and Meltdown"))
+            {
+                baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v FeatureSettingsOverride /t REG_DWORD /d 3 /f";
+                baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v FeatureSettingsOverrideMask /t REG_DWORD /d 3 /f";
+            }
+
             if (Program.isTweakEnabled(winBoxConfig, "Enable CrashOnCtrlScroll (BSOD)"))
             {
                 baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\kbdhid\Parameters"" /v CrashOnCtrlScroll /t REG_DWORD /d 1 /f";
