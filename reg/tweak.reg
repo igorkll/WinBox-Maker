@@ -61,10 +61,6 @@ Windows Registry Editor Version 5.00
 "ConsentPromptBehaviorUser"=dword:00000000
 "PromptOnSecureDesktop"=dword:00000000
 
-; ---------------- disable taskmgr
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
-"DisableTaskMgr"=dword:00000001
-
 ; ----------------
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\Activation]
 "ActivationInterval"=dword:000dbba0
