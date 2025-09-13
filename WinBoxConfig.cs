@@ -28,7 +28,8 @@ namespace WinBox_Maker
         reboot,
         shutdown,
         hibernate,
-        reboot_to_desktop
+        reboot_to_desktop,
+        generalize
     }
 
     public enum ButtonAction
@@ -38,7 +39,6 @@ namespace WinBox_Maker
         hibernation,
         shutdown,
         turn_off_display
-
     }
 
     public enum ActionAtEndOfApplication

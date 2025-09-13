@@ -136,6 +136,10 @@
             tabPage14 = new TabPage();
             panel15 = new Panel();
             CustomBootLogo_UseLogoBeforeApp = new CheckBox();
+            panel14 = new Panel();
+            label51 = new Label();
+            firstBootAction = new ComboBox();
+            tabPage21 = new TabPage();
             logoBeforeApp_panel = new Panel();
             logoBeforeApp_stretch = new ComboBox();
             richTextBox9 = new RichTextBox();
@@ -143,9 +147,6 @@
             logoBeforeApp_clear = new Button();
             logoBeforeApp = new Label();
             logoBeforeApp_select = new Button();
-            panel14 = new Panel();
-            label51 = new Label();
-            firstBootAction = new ComboBox();
             tabPage12 = new TabPage();
             label54 = new Label();
             label53 = new Label();
@@ -317,7 +318,6 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
-            tabPage21 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -340,8 +340,9 @@
             tabControl2.SuspendLayout();
             tabPage14.SuspendLayout();
             panel15.SuspendLayout();
-            logoBeforeApp_panel.SuspendLayout();
             panel14.SuspendLayout();
+            tabPage21.SuspendLayout();
+            logoBeforeApp_panel.SuspendLayout();
             tabPage12.SuspendLayout();
             dc_panel.SuspendLayout();
             panel13.SuspendLayout();
@@ -376,7 +377,6 @@
             tabPage16.SuspendLayout();
             panel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage21.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1515,6 +1515,46 @@
             CustomBootLogo_UseLogoBeforeApp.UseVisualStyleBackColor = true;
             CustomBootLogo_UseLogoBeforeApp.CheckedChanged += CustomBootLogo_UseLogoBeforeApp_CheckedChanged;
             // 
+            // panel14
+            // 
+            panel14.BorderStyle = BorderStyle.Fixed3D;
+            panel14.Controls.Add(label51);
+            panel14.Controls.Add(firstBootAction);
+            panel14.Location = new Point(3, 117);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(493, 76);
+            panel14.TabIndex = 15;
+            // 
+            // label51
+            // 
+            label51.AutoSize = true;
+            label51.Location = new Point(2, 2);
+            label51.Name = "label51";
+            label51.Size = new Size(192, 25);
+            label51.TabIndex = 14;
+            label51.Text = "Action at the first boot";
+            // 
+            // firstBootAction
+            // 
+            firstBootAction.DropDownStyle = ComboBoxStyle.DropDownList;
+            firstBootAction.FormattingEnabled = true;
+            firstBootAction.Items.AddRange(new object[] { "none", "reboot", "shutdown", "hibernate", "reboot to desktop", "generalize" });
+            firstBootAction.Location = new Point(3, 30);
+            firstBootAction.Name = "firstBootAction";
+            firstBootAction.Size = new Size(483, 33);
+            firstBootAction.TabIndex = 13;
+            firstBootAction.SelectedIndexChanged += firstBootAction_SelectedIndexChanged;
+            // 
+            // tabPage21
+            // 
+            tabPage21.Controls.Add(logoBeforeApp_panel);
+            tabPage21.Location = new Point(4, 34);
+            tabPage21.Name = "tabPage21";
+            tabPage21.Size = new Size(499, 297);
+            tabPage21.TabIndex = 6;
+            tabPage21.Text = "before run app";
+            tabPage21.UseVisualStyleBackColor = true;
+            // 
             // logoBeforeApp_panel
             // 
             logoBeforeApp_panel.BorderStyle = BorderStyle.Fixed3D;
@@ -1586,36 +1626,6 @@
             logoBeforeApp_select.Text = "select";
             logoBeforeApp_select.UseVisualStyleBackColor = true;
             logoBeforeApp_select.Click += logoBeforeApp_select_Click;
-            // 
-            // panel14
-            // 
-            panel14.BorderStyle = BorderStyle.Fixed3D;
-            panel14.Controls.Add(label51);
-            panel14.Controls.Add(firstBootAction);
-            panel14.Location = new Point(3, 117);
-            panel14.Name = "panel14";
-            panel14.Size = new Size(493, 76);
-            panel14.TabIndex = 15;
-            // 
-            // label51
-            // 
-            label51.AutoSize = true;
-            label51.Location = new Point(2, 2);
-            label51.Name = "label51";
-            label51.Size = new Size(192, 25);
-            label51.TabIndex = 14;
-            label51.Text = "Action at the first boot";
-            // 
-            // firstBootAction
-            // 
-            firstBootAction.DropDownStyle = ComboBoxStyle.DropDownList;
-            firstBootAction.FormattingEnabled = true;
-            firstBootAction.Items.AddRange(new object[] { "none", "reboot", "shutdown", "hibernate", "reboot to desktop" });
-            firstBootAction.Location = new Point(3, 30);
-            firstBootAction.Name = "firstBootAction";
-            firstBootAction.Size = new Size(483, 33);
-            firstBootAction.TabIndex = 13;
-            firstBootAction.SelectedIndexChanged += firstBootAction_SelectedIndexChanged;
             // 
             // tabPage12
             // 
@@ -3378,16 +3388,6 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
-            // tabPage21
-            // 
-            tabPage21.Controls.Add(logoBeforeApp_panel);
-            tabPage21.Location = new Point(4, 34);
-            tabPage21.Name = "tabPage21";
-            tabPage21.Size = new Size(499, 297);
-            tabPage21.TabIndex = 6;
-            tabPage21.Text = "before run app";
-            tabPage21.UseVisualStyleBackColor = true;
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -3455,10 +3455,11 @@
             tabPage14.ResumeLayout(false);
             panel15.ResumeLayout(false);
             panel15.PerformLayout();
-            logoBeforeApp_panel.ResumeLayout(false);
-            logoBeforeApp_panel.PerformLayout();
             panel14.ResumeLayout(false);
             panel14.PerformLayout();
+            tabPage21.ResumeLayout(false);
+            logoBeforeApp_panel.ResumeLayout(false);
+            logoBeforeApp_panel.PerformLayout();
             tabPage12.ResumeLayout(false);
             tabPage12.PerformLayout();
             dc_panel.ResumeLayout(false);
@@ -3520,7 +3521,6 @@
             panel16.ResumeLayout(false);
             panel16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage21.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }

@@ -1757,6 +1757,10 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                 case FirstBootActionEnum.reboot_to_desktop:
                     regAppScriptFirstInitCmd("firstBootAction", reboot_to_desktop_cmd, true);
                     break;
+
+                case FirstBootActionEnum.generalize:
+                    regAppScriptFirstInitCmd("firstBootAction", "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown\r\npause");
+                    break;
             }
 
             baseSetup += $"\r\n";
