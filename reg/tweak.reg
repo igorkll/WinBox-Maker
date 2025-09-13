@@ -209,3 +209,8 @@ Windows Registry Editor Version 5.00
 ; ---------------- disable auto task kill
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\RADAR\HeapLeakDetection]
 "DisableHLT"=dword:00000001
+
+; ---------------- disabling the damn notifications
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+"NoSecuritySettingsCheck"=dword:00000001
+"DisableNotifications"=dword:00000001
