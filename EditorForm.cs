@@ -68,7 +68,7 @@ namespace WinBox_Maker
             AddTweakToList("Disable boot logo");
             AddTweakToList("Disable boot messages");
             AddTweakToList("Disable all boot UI");
-            AddTweakToList("Disable protection from Spectre and Meltdown");
+            AddTweakToList("Disable security mitigations (performance boost)");
             AddTweakToList("Hide bootmgr errors");
             AddTweakToList("Enable CrashOnCtrlScroll (BSOD)");
             AddTweakToList("Do not disable hotkeys by changing the layout");
