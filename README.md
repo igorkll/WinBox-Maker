@@ -84,7 +84,7 @@ please note that if you use the windows component removal functions (for example
 * creating screenshots
 * sticky keys
 * check disk
-* hibernation and fast loading
+* hibernation and fast loading (can be customized)
 * oobe
 * firewall
 * system recovery menu
@@ -99,7 +99,6 @@ please note that if you use the windows component removal functions (for example
 * checking the digital signature of drivers (it may not work on new versions of Windows)
 * lock screen
 * logon animation (it only works normally in the enterprise version)
-* animation of opening and closing windows
 
 ## services that have been disabled
 * edgeupdate
