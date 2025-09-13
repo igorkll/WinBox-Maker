@@ -1899,17 +1899,20 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
             {
                 string? before_app_logo = null;
                 string baseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
-                if (winBoxConfig.CustomBootLogo_UseLogoBeforeApp != null)
+                if (winBoxConfig.CustomBootLogo_UseLogoBeforeApp == true)
                 {
-                    string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
-                    if (File.Exists(logoPath))
+                    if (winBoxConfig.CustomBootLogo != null)
                     {
-                        await CopyResource("show_image.ps1");
-                        string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, "before_app.bmp");
-                        ImageConverter.ConvertToBmp_54_24(logoPath, beforeAppLogoPath);
-                        await copyToDebugFile("before_app.bmp", beforeAppLogoPath);
+                        string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
+                        if (File.Exists(logoPath))
+                        {
+                            await CopyResource("show_image.ps1");
+                            string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, "before_app.bmp");
+                            ImageConverter.ConvertToBmp_54_24(logoPath, beforeAppLogoPath);
+                            await copyToDebugFile("before_app.bmp", beforeAppLogoPath);
+                        }
+                        before_app_logo = baseCmd + $@"-path ""C:\WinboxResources\before_app.bmp"" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
                     }
-                    before_app_logo = baseCmd + $@"-path ""C:\WinboxResources\before_app.bmp"" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
                 }
                 else if (winBoxConfig.logoBeforeApp != null)
                 {
