@@ -43,3 +43,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\Lockdown]
 "AltTab"="1"
 "CtrlAltDel"="1"
+
+; ---------------- disable hotkeys
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"DisableTaskMgr"=dword:00000001

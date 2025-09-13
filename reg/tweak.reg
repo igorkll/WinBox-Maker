@@ -140,7 +140,6 @@ Windows Registry Editor Version 5.00
 ; ---------------- disable ctrl+alt+del functionality
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableLogoff"=dword:00000001
-"DisableTaskMgr"=dword:00000001
 "DisableChangePassword"=dword:00000001
 "DontDisplayNetworkSelectionUI"=dword:00000001
 
@@ -215,9 +214,14 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\RADAR\HeapLeakDetection]
 "DisableHLT"=dword:00000001
 
-; ---------------- disabling the damn notifications
+; ---------------- disabling the damn safety notifications (when working with the enabled explorer.exe)
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
 "NoSecuritySettingsCheck"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender Security Center\Notifications]
+"DisableNotifications"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications]
 "DisableNotifications"=dword:00000001
 
 ; ---------------- a fix for UWP apps
