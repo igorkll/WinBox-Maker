@@ -134,12 +134,15 @@
             tabPage4 = new TabPage();
             tabControl2 = new TabControl();
             tabPage14 = new TabPage();
+            tabControl4 = new TabControl();
+            tabPage21 = new TabPage();
             panel15 = new Panel();
             CustomBootLogo_UseLogoBeforeApp = new CheckBox();
+            tabPage22 = new TabPage();
             panel14 = new Panel();
             label51 = new Label();
             firstBootAction = new ComboBox();
-            tabPage21 = new TabPage();
+            tabPage23 = new TabPage();
             logoBeforeApp_panel = new Panel();
             logoBeforeApp_stretch = new ComboBox();
             richTextBox9 = new RichTextBox();
@@ -339,9 +342,12 @@
             tabPage4.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPage14.SuspendLayout();
-            panel15.SuspendLayout();
-            panel14.SuspendLayout();
+            tabControl4.SuspendLayout();
             tabPage21.SuspendLayout();
+            panel15.SuspendLayout();
+            tabPage22.SuspendLayout();
+            panel14.SuspendLayout();
+            tabPage23.SuspendLayout();
             logoBeforeApp_panel.SuspendLayout();
             tabPage12.SuspendLayout();
             dc_panel.SuspendLayout();
@@ -1467,7 +1473,6 @@
             // tabControl2
             // 
             tabControl2.Controls.Add(tabPage14);
-            tabControl2.Controls.Add(tabPage21);
             tabControl2.Controls.Add(tabPage12);
             tabControl2.Controls.Add(tabPage6);
             tabControl2.Controls.Add(tabPage15);
@@ -1481,14 +1486,35 @@
             // 
             // tabPage14
             // 
-            tabPage14.Controls.Add(panel15);
-            tabPage14.Controls.Add(panel14);
+            tabPage14.Controls.Add(tabControl4);
             tabPage14.Location = new Point(4, 34);
             tabPage14.Name = "tabPage14";
             tabPage14.Size = new Size(499, 297);
             tabPage14.TabIndex = 2;
             tabPage14.Text = "boot";
             tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // tabControl4
+            // 
+            tabControl4.Controls.Add(tabPage21);
+            tabControl4.Controls.Add(tabPage22);
+            tabControl4.Controls.Add(tabPage23);
+            tabControl4.Location = new Point(3, 4);
+            tabControl4.Name = "tabControl4";
+            tabControl4.SelectedIndex = 0;
+            tabControl4.Size = new Size(493, 284);
+            tabControl4.TabIndex = 17;
+            // 
+            // tabPage21
+            // 
+            tabPage21.Controls.Add(panel15);
+            tabPage21.Location = new Point(4, 34);
+            tabPage21.Name = "tabPage21";
+            tabPage21.Padding = new Padding(3);
+            tabPage21.Size = new Size(485, 246);
+            tabPage21.TabIndex = 0;
+            tabPage21.Text = "boot logo";
+            tabPage21.UseVisualStyleBackColor = true;
             // 
             // panel15
             // 
@@ -1499,9 +1525,9 @@
             panel15.Controls.Add(CustomBootLogo_centering);
             panel15.Controls.Add(CustomBootLogo_select);
             panel15.Controls.Add(CustomBootLogo);
-            panel15.Location = new Point(3, 3);
+            panel15.Location = new Point(6, 6);
             panel15.Name = "panel15";
-            panel15.Size = new Size(493, 108);
+            panel15.Size = new Size(473, 107);
             panel15.TabIndex = 16;
             // 
             // CustomBootLogo_UseLogoBeforeApp
@@ -1515,14 +1541,25 @@
             CustomBootLogo_UseLogoBeforeApp.UseVisualStyleBackColor = true;
             CustomBootLogo_UseLogoBeforeApp.CheckedChanged += CustomBootLogo_UseLogoBeforeApp_CheckedChanged;
             // 
+            // tabPage22
+            // 
+            tabPage22.Controls.Add(panel14);
+            tabPage22.Location = new Point(4, 34);
+            tabPage22.Name = "tabPage22";
+            tabPage22.Padding = new Padding(3);
+            tabPage22.Size = new Size(485, 246);
+            tabPage22.TabIndex = 1;
+            tabPage22.Text = "action";
+            tabPage22.UseVisualStyleBackColor = true;
+            // 
             // panel14
             // 
             panel14.BorderStyle = BorderStyle.Fixed3D;
             panel14.Controls.Add(label51);
             panel14.Controls.Add(firstBootAction);
-            panel14.Location = new Point(3, 117);
+            panel14.Location = new Point(6, 6);
             panel14.Name = "panel14";
-            panel14.Size = new Size(493, 76);
+            panel14.Size = new Size(473, 76);
             panel14.TabIndex = 15;
             // 
             // label51
@@ -1541,19 +1578,19 @@
             firstBootAction.Items.AddRange(new object[] { "none", "reboot", "shutdown", "hibernate", "reboot to desktop", "generalize" });
             firstBootAction.Location = new Point(3, 30);
             firstBootAction.Name = "firstBootAction";
-            firstBootAction.Size = new Size(483, 33);
+            firstBootAction.Size = new Size(463, 33);
             firstBootAction.TabIndex = 13;
             firstBootAction.SelectedIndexChanged += firstBootAction_SelectedIndexChanged;
             // 
-            // tabPage21
+            // tabPage23
             // 
-            tabPage21.Controls.Add(logoBeforeApp_panel);
-            tabPage21.Location = new Point(4, 34);
-            tabPage21.Name = "tabPage21";
-            tabPage21.Size = new Size(499, 297);
-            tabPage21.TabIndex = 6;
-            tabPage21.Text = "before run app";
-            tabPage21.UseVisualStyleBackColor = true;
+            tabPage23.Controls.Add(logoBeforeApp_panel);
+            tabPage23.Location = new Point(4, 34);
+            tabPage23.Name = "tabPage23";
+            tabPage23.Size = new Size(485, 246);
+            tabPage23.TabIndex = 2;
+            tabPage23.Text = "app logo";
+            tabPage23.UseVisualStyleBackColor = true;
             // 
             // logoBeforeApp_panel
             // 
@@ -1564,9 +1601,9 @@
             logoBeforeApp_panel.Controls.Add(logoBeforeApp_clear);
             logoBeforeApp_panel.Controls.Add(logoBeforeApp);
             logoBeforeApp_panel.Controls.Add(logoBeforeApp_select);
-            logoBeforeApp_panel.Location = new Point(3, 4);
+            logoBeforeApp_panel.Location = new Point(6, 7);
             logoBeforeApp_panel.Name = "logoBeforeApp_panel";
-            logoBeforeApp_panel.Size = new Size(493, 246);
+            logoBeforeApp_panel.Size = new Size(476, 236);
             logoBeforeApp_panel.TabIndex = 17;
             // 
             // logoBeforeApp_stretch
@@ -1583,9 +1620,9 @@
             // richTextBox9
             // 
             richTextBox9.BackColor = SystemColors.Info;
-            richTextBox9.Location = new Point(3, 141);
+            richTextBox9.Location = new Point(3, 124);
             richTextBox9.Name = "richTextBox9";
-            richTextBox9.Size = new Size(483, 98);
+            richTextBox9.Size = new Size(466, 105);
             richTextBox9.TabIndex = 18;
             richTextBox9.Text = resources.GetString("richTextBox9.Text");
             // 
@@ -3453,11 +3490,14 @@
             tabPage4.PerformLayout();
             tabControl2.ResumeLayout(false);
             tabPage14.ResumeLayout(false);
+            tabControl4.ResumeLayout(false);
+            tabPage21.ResumeLayout(false);
             panel15.ResumeLayout(false);
             panel15.PerformLayout();
+            tabPage22.ResumeLayout(false);
             panel14.ResumeLayout(false);
             panel14.PerformLayout();
-            tabPage21.ResumeLayout(false);
+            tabPage23.ResumeLayout(false);
             logoBeforeApp_panel.ResumeLayout(false);
             logoBeforeApp_panel.PerformLayout();
             tabPage12.ResumeLayout(false);
@@ -3815,6 +3855,9 @@
         private RichTextBox richTextBox10;
         private Label label64;
         private TextBox appdelay_internet_requestdelay;
+        private TabControl tabControl4;
         private TabPage tabPage21;
+        private TabPage tabPage22;
+        private TabPage tabPage23;
     }
 }

@@ -223,3 +223,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
 "NoSecuritySettingsCheck"=dword:00000001
 "DisableNotifications"=dword:00000001
+
+; ---------------- a fix for UWP apps
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"FilterAdministratorToken"=1
