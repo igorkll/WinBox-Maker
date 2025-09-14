@@ -3513,7 +3513,8 @@ the same name and description will become the new name and description of the wi
     <value>I can't imagine a situation at all where using the "after the desktop" mode would be justified. since system dialog boxes and system sounds may appear in this mode and it may be necessary to suppress them, and the desktop may be visible for a short time before launching the application, however, the tasks are different, so there is also such a mode</value>
   </data>
   <data name="richTextBox9.Text" xml:space="preserve">
-    <value>this picture will be displayed after booting the system before launching your application. it is especially useful if you have delay installed before the Internet appeared, you can write something like "wait for an Internet connection" here</value>
+    <value>this picture will be displayed after booting the system before launching your application. it is especially useful if you have delay installed before the Internet appeared, you can write something like "wait for an Internet connection" here
+please note that in fact this picture will always be located under your application and can be visible when logging out, in case the application crashes while it is restarting and if the window of your application has a blur</value>
   </data>
   <data name="richTextBox5.Text" xml:space="preserve">
     <value>please note that if you make a mistake with any one parameter here (for example, specify an unsupported color depth) then all other parameters will also not be applied!
