@@ -358,10 +358,10 @@ namespace WinBox_Maker
             return winBoxConfig.BaseWindowsImage != null && !File.Exists(wimInfoFile);
         }
 
-        public async Task ExtractInstallWim(Action<string> processName, Action<int> processValue)
+        public async Task<bool> ExtractInstallWim(Action<string> processName, Action<int> processValue)
         {
             string? baseWindowsImageFullPath = await getWindowsImagePath(processName, processValue);
-            if (baseWindowsImageFullPath == null) return;
+            if (baseWindowsImageFullPath == null) return false;
 
             processName("Extracting install.wim");
             using (FileStream isoStream = File.Open(baseWindowsImageFullPath, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -387,6 +387,8 @@ namespace WinBox_Maker
                     }
                 }
             }
+
+            return true;
         }
 
         public async Task DeleteInstallWim(Action<string> processName)
@@ -1104,7 +1106,11 @@ powercfg -s SCHEME_CURRENT";
 
             // ------------------------------------ creating a new install.wim file for subsequent modification
 
-            await ExtractInstallWim(processName, processValue);
+            if (!await ExtractInstallWim(processName, processValue))
+            {
+                Program.Error("couldn't extract install.wim, make sure the path to the iso file is correct");
+                return false;
+            }
 
             processName("Preparing of install.wim");
             processValue(20);
@@ -2106,7 +2112,11 @@ if errorlevel 1 (
         public async Task<bool> BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete=true, bool initViaVmMode=false)
         {
             string? baseWindowsImageFullPath = await getWindowsImagePath();
-            if (baseWindowsImageFullPath == null) return false;
+            if (baseWindowsImageFullPath == null)
+            {
+                Program.Error(Program.isoError);
+                return false;
+            }
 
             processName("Unpacking the iso");
             string[] unpackBlacklist = { "sources\\install.wim" };
