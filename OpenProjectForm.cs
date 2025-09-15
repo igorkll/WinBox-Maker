@@ -15,7 +15,7 @@ namespace WinBox_Maker
 {
     public partial class OpenProjectForm : Form
     {
-        public EditorForm editorForm;
+        public EditorForm? editorForm = null;
 
         public OpenProjectForm()
         {
