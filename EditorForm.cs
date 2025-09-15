@@ -20,7 +20,7 @@ namespace WinBox_Maker
         WinBoxProject winBoxProject;
         WindowsDescription[]? windowsDescriptions;
         bool softwareCheck = true;
-        TaskbarManager taskbarManager;
+        public TaskbarManager taskbarManager;
         int currentBuildItemIndex = -1;
         int currentDownloadItemIndex = -1;
         DownloadItem? currentDownloadItem;

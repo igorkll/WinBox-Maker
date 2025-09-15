@@ -15,6 +15,8 @@ namespace WinBox_Maker
 {
     public partial class OpenProjectForm : Form
     {
+        public EditorForm editorForm;
+
         public OpenProjectForm()
         {
             InitializeComponent();
@@ -31,7 +33,8 @@ namespace WinBox_Maker
                 return;
             }
 
-            Program.SwitchForm(this, new EditorForm(winBoxProject));
+            editorForm = new EditorForm(winBoxProject);
+            Program.SwitchForm(this, editorForm);
         }
 
         private void OpenProject_Click(object sender, EventArgs e)

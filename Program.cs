@@ -2,6 +2,7 @@ using DiscUtils;
 using DiscUtils.Udf;
 using ManagedWimLib;
 using Microsoft.VisualBasic;
+using Microsoft.WindowsAPICodePack.Taskbar;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -36,7 +37,7 @@ namespace WinBox_Maker
         public const string logichubUrl = "https://igorkll.github.io/logichub/index.html";
         public static string? oscdimgPath;
         public static string? z7Path;
-        public static Form openProjectForm;
+        public static OpenProjectForm openProjectForm;
         static bool isClosingProgrammatically = false;
         public static WinboxMakerConfig winboxSettings;
         static bool consoleExporter = false;
@@ -144,6 +145,8 @@ namespace WinBox_Maker
             }
             else
             {
+                openProjectForm.editorForm.taskbarManager.SetProgressState(TaskbarProgressBarState.Error, openProjectForm.editorForm.Handle);
+                openProjectForm.editorForm.taskbarManager.SetProgressValue(100, 100, openProjectForm.editorForm.Handle);
                 MessageBox.Show(err, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
