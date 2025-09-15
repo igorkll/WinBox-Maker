@@ -201,8 +201,6 @@ namespace WinBox_Maker
 
         void UnlockFormRecursion(Control parent)
         {
-            ProcessName.Text = defaultProcessName;
-            ProcessValue.Value = 0;
             foreach (Control control in parent.Controls)
             {
                 control.Enabled = true;
@@ -249,6 +247,8 @@ namespace WinBox_Maker
 
         void UnlockForm()
         {
+            UpdateProcessName(defaultProcessName);
+            UpdateProcessValue(0);
             UnlockFormRecursion(this);
         }
 
@@ -777,9 +777,9 @@ namespace WinBox_Maker
         private void UpdateProcessValue(int Value)
         {
             ProcessValue.Value = Value;
-            //taskbarManager.SetProgressState(Value == 0 ? TaskbarProgressBarState.NoProgress : TaskbarProgressBarState.Normal);
-            taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
-            taskbarManager.SetProgressValue(Value, 100);
+            taskbarManager.SetProgressState(Value == 0 ? TaskbarProgressBarState.NoProgress : TaskbarProgressBarState.Normal, this.Handle);
+            //taskbarManager.SetProgressState(TaskbarProgressBarState.Normal);
+            taskbarManager.SetProgressValue(Value, 100, this.Handle);
         }
 
         private void back_Click(object sender, EventArgs e)

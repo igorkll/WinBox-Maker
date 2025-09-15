@@ -9,7 +9,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>winbox.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <UseWPF>False</UseWPF>
+    <UseWPF>True</UseWPF>
     <IncludeSymbols>False</IncludeSymbols>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
