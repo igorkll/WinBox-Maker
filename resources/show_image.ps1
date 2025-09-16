@@ -35,6 +35,11 @@ public class Win32 {
 "@
 
 $w = New-Object System.Windows.Window
+
+$w.add_ContentRendered({
+    Set-Content "C:\WinboxResources\show_image.flag" ""
+})
+
 $w.WindowStyle = 'None'
 $w.ResizeMode = 'NoResize'
 $w.WindowState = 'Maximized'

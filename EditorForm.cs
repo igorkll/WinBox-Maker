@@ -567,6 +567,7 @@ namespace WinBox_Maker
             appdelay_internet_requestdelay.Enabled = winBoxProject.winBoxConfig.appdelay_internet == true;
 
             CustomBootLogo_UseLogoBeforeApp.CheckState = winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp == true ? CheckState.Checked : CheckState.Unchecked;
+            wait_before_app_logo.CheckState = winBoxProject.winBoxConfig.wait_before_app_logo == true ? CheckState.Checked : CheckState.Unchecked;
             logoBeforeApp_panel.Enabled = winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp != true;
 
             logoBeforeApp.Text = winBoxProject.winBoxConfig.logoBeforeApp ?? "not selected";
@@ -2185,6 +2186,14 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.appdelay_internet_requestdelay = checkSizeNumber(winBoxProject.winBoxConfig.appdelay_internet_requestdelay ?? 0, appdelay_internet_requestdelay.Text, 99999);
             if (winBoxProject.winBoxConfig.appdelay_internet_requestdelay.ToString() != appdelay_internet_requestdelay.Text)
                 appdelay_internet_requestdelay.Text = winBoxProject.winBoxConfig.appdelay_internet_requestdelay.ToString();
+            winBoxProject.SaveConfig();
+        }
+
+        private void wait_before_app_logo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.wait_before_app_logo = wait_before_app_logo.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
     }

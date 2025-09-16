@@ -149,6 +149,7 @@ namespace WinBox_Maker
         public int? appdelay_internet_requestdelay { get; set; }
         public string? logoBeforeApp { get; set; }
         public StretchMode? logoBeforeApp_stretch { get; set; }
+        public bool? wait_before_app_logo { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -243,6 +244,8 @@ namespace WinBox_Maker
             if (appdelay_internet_requestdelay == null) appdelay_internet_requestdelay = 1;
 
             if (logoBeforeApp_stretch == null) logoBeforeApp_stretch = StretchMode.None;
+
+            if (wait_before_app_logo == null) wait_before_app_logo = true;
         }
 
         public void Save(string wnbFilePath)

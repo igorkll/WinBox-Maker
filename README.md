@@ -23,6 +23,7 @@ however, by changing the configuration of winbox maker, you can achieve some oth
 winbox maker provides tools for embedding software into the final windows image. such as the net framework and visual C++ redist and others  
 in this program, many settings/tweaks are actually made several times in different ways. this was done because windows has different versions where one of the solutions may not work. if you look at the source code and see that some solution (for example, disabling the lock screen) was made in an unreliable way, then know that the program uses several solutions to the same problem and you can find them in the source code and make sure that everything is reliable  
 please note that if you use the windows component removal functions (for example, you delete SysWOW64), then you may have problems with things like the net framework and other windows features. it is better not to delete anything, but simply block access to unused functions if your device does not have serious restrictions on the amount of memory  
+the program is an alternative: Edge Device Image Builder / Windows Configuration Designer  
 
 ## warnings
 * if you are going to build the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)

@@ -321,6 +321,7 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
+            wait_before_app_logo = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1274,6 +1275,7 @@
             // 
             // tabPage20
             // 
+            tabPage20.Controls.Add(wait_before_app_logo);
             tabPage20.Controls.Add(panel20);
             tabPage20.Controls.Add(panel19);
             tabPage20.Controls.Add(label60);
@@ -3425,6 +3427,17 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
+            // wait_before_app_logo
+            // 
+            wait_before_app_logo.AutoSize = true;
+            wait_before_app_logo.Location = new Point(6, 254);
+            wait_before_app_logo.Name = "wait_before_app_logo";
+            wait_before_app_logo.Size = new Size(526, 29);
+            wait_before_app_logo.TabIndex = 48;
+            wait_before_app_logo.Text = "wait for the \"app logo\" (if enabled) (settings>boot>app logo)";
+            wait_before_app_logo.UseVisualStyleBackColor = true;
+            wait_before_app_logo.CheckedChanged += wait_before_app_logo_CheckedChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -3859,5 +3872,6 @@
         private TabPage tabPage21;
         private TabPage tabPage22;
         private TabPage tabPage23;
+        private CheckBox wait_before_app_logo;
     }
 }
