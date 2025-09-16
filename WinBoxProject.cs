@@ -363,32 +363,61 @@ namespace WinBox_Maker
             string? baseWindowsImageFullPath = await getWindowsImagePath(processName, processValue);
             if (baseWindowsImageFullPath == null) return false;
 
-            processName("Extracting install.wim");
             using (FileStream isoStream = File.Open(baseWindowsImageFullPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
+                string wimPath = @"sources\install.wim";
+                string esdPath = @"sources\install.esd";
+
                 UdfReader cd = new UdfReader(isoStream);
-                using (var wimFile = cd.OpenFile(@"sources\install.wim", FileMode.Open, FileAccess.Read))
+
+                async Task unpackFile(string input, string output)
                 {
-                    long totalBytes = wimFile.Length;
-                    long bytesCopied = 0;
-
-                    using (FileStream outputStream = new FileStream(unpackedWimFile, FileMode.Create, FileAccess.Write))
+                    using (var wimFile = cd.OpenFile(input, FileMode.Open, FileAccess.Read))
                     {
-                        byte[] buffer = new byte[81920];
-                        int bytesRead;
+                        long totalBytes = wimFile.Length;
+                        long bytesCopied = 0;
 
-                        while ((bytesRead = await wimFile.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        using (FileStream outputStream = new FileStream(output, FileMode.Create, FileAccess.Write))
                         {
-                            await outputStream.WriteAsync(buffer, 0, bytesRead);
-                            bytesCopied += bytesRead;
+                            byte[] buffer = new byte[81920];
+                            int bytesRead;
 
-                            processValue((int)((bytesCopied * 100) / totalBytes));
+                            while ((bytesRead = await wimFile.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                            {
+                                await outputStream.WriteAsync(buffer, 0, bytesRead);
+                                bytesCopied += bytesRead;
+
+                                processValue((int)((bytesCopied * 100) / totalBytes));
+                            }
                         }
+                    }
+                }
+
+                if (cd.Exists(wimPath))
+                {
+                    processName("Extracting install.wim");
+                    await unpackFile(wimPath, unpackedWimFile);
+                } else if (cd.Exists(esdPath))
+                {
+                    processName("Extracting install.esd");
+                    string unpackEsdFile = Path.Combine(tempDirectoryPath, "base_install.esd");
+                    await unpackFile(esdPath, unpackEsdFile);
+                    processName("Converting install.esd to install.wim");
+                    processValue(20);
+                    await Program.ExecuteAsync("dism.exe", @$"/Export-Image /SourceImageFile:""{unpackEsdFile}"" /All /DestinationImageFile:""{unpackedWimFile}"" /Compress:max /CheckIntegrity");
+                    if (File.Exists(unpackEsdFile))
+                    {
+                        processName("Deleting install.esd");
+                        processValue(80);
+                        await Task.Run(() =>
+                        {
+                            File.Delete(unpackEsdFile);
+                        });
                     }
                 }
             }
 
-            return true;
+            return File.Exists(unpackedWimFile);
         }
 
         public async Task DeleteInstallWim(Action<string> processName)
