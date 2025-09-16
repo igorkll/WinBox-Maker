@@ -949,57 +949,51 @@ exit
 
         string _getBcdeditSetup()
         {
-            string bcdeditSetup = $@"bcdedit /set {{globalsettings}} advancedoptions false
-bcdedit /set {{globalsettings}} optionsedit false
+            string bcdeditSetup = "";
 
-bcdedit /set {{bootmgr}} displaybootmenu no
-bcdedit /set {{bootmgr}} timeout 0
-bcdedit /set {{current}} bootstatuspolicy ignoreallfailures
-bcdedit /set {{current}} recoveryenabled no
-bcdedit /set {{current}} loadoptions DISABLE_INTEGRITY_CHECKS
-bcdedit /set {{current}} NOINTEGRITYCHECKS ON
-bcdedit /set {{current}} TESTSIGNING ON
+            void regBcdChange(string change)
+            {
+                bcdeditSetup += "bcdedit /set {globalsettings} " + change + "\r\n";
+                bcdeditSetup += "bcdedit /set {bootmgr} " + change + "\r\n";
+                bcdeditSetup += "bcdedit /set {current} " + change + "\r\n";
+                bcdeditSetup += "bcdedit /set {default} " + change + "\r\n";
+            }
 
-bcdedit /set {{bootmgr}} bootstatuspolicy ignoreallfailures
-bcdedit /set {{bootmgr}} recoveryenabled no
-bcdedit /set {{bootmgr}} loadoptions DISABLE_INTEGRITY_CHECKS
-bcdedit /set {{bootmgr}} NOINTEGRITYCHECKS ON
-bcdedit /set {{bootmgr}} TESTSIGNING ON
+            regBcdChange("advancedoptions false");
+            regBcdChange("optionsedit false");
 
-bcdedit /set {{current}} displaybootmenu no
-bcdedit /set {{current}} timeout 0
+            regBcdChange("displaybootmenu no");
+            regBcdChange("timeout 0");
 
-bcdedit /set {{default}} displaybootmenu no
-bcdedit /set {{default}} timeout 0
-bcdedit /set {{default}} bootstatuspolicy ignoreallfailures
-bcdedit /set {{default}} recoveryenabled no
-bcdedit /set {{default}} loadoptions DISABLE_INTEGRITY_CHECKS
-bcdedit /set {{default}} NOINTEGRITYCHECKS ON
-bcdedit /set {{default}} TESTSIGNING ON" + "\r\n";
+            regBcdChange("bootstatuspolicy ignoreallfailures");
+            regBcdChange("recoveryenabled no");
+            regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS");
+            regBcdChange("NOINTEGRITYCHECKS ON");
+            regBcdChange("TESTSIGNING ON");
 
             if (Program.isTweakEnabled(winBoxConfig, "Disable boot circle"))
             {
-                bcdeditSetup += "\r\nbcdedit /set {globalsettings} custom:16000069 true";
+                regBcdChange("custom:16000069 true");
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Disable boot logo"))
             {
-                bcdeditSetup += "\r\nbcdedit /set {globalsettings} custom:16000067 true";
+                regBcdChange("custom:16000067 true");
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Disable boot messages"))
             {
-                bcdeditSetup += "\r\nbcdedit /set {globalsettings} custom:16000068 true";
+                regBcdChange("custom:16000068 true");
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Disable all boot UI"))
             {
-                bcdeditSetup += "\r\nbcdedit /set {globalsettings} bootuxdisabled on";
+                regBcdChange("bootuxdisabled on");
             }
 
             if (Program.isTweakEnabled(winBoxConfig, "Hide bootmgr errors"))
             {
-                bcdeditSetup += "\r\nbcdedit /set {bootmgr} noerrordisplay on";
+                regBcdChange("noerrordisplay on");
             }
 
             return bcdeditSetup;
