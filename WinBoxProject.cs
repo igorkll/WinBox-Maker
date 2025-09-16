@@ -1931,7 +1931,7 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
 
             {
                 string? before_app_logo = null;
-                string baseCmd = @"del /f ""C:\WinboxResources\show_image.flag""" + "\r\n" + $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
+                string baseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
                 if (winBoxConfig.CustomBootLogo_UseLogoBeforeApp == true)
                 {
                     if (winBoxConfig.CustomBootLogo != null)
@@ -1959,10 +1959,17 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
 
                 if (before_app_logo != null)
                 {
-                    before_app_logo += @"set SHOW_IMAGE_FLAG_FILE=C:\WinboxResources\show_image.flag" + "\r\n";
+                    await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "before_app_logo.bat"), before_app_logo);
+                    await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_before_app_logo_hidden.vbs"), @"C:\WinboxResources\before_app_logo.bat", null);
+
+                    applicationScript += "\r\n";
+                    applicationScript += @"set SHOW_IMAGE_FLAG_FILE=C:\WinboxResources\show_image.flag" + "\r\n";
+                    applicationScript += @"del /f ""%SHOW_IMAGE_FLAG_FILE%""" + "\r\n";
+                    applicationScript += "wscript \"C:\\WinboxResources\\run_before_app_logo_hidden.vbs\"" + "\r\n";
+
                     if (winBoxConfig.wait_before_app_logo == true)
                     {
-                        before_app_logo += @":wait_show_image
+                        applicationScript += @":wait_show_image
 if exist ""%SHOW_IMAGE_FLAG_FILE%"" goto continue_show_image
 timeout /t 0 /nobreak >nul
 goto wait_show_image
@@ -1970,14 +1977,6 @@ goto wait_show_image
 :continue_show_image
 del /f ""%SHOW_IMAGE_FLAG_FILE%""";
                     }
-                    else
-                    {
-                        before_app_logo += @"del /f ""%SHOW_IMAGE_FLAG_FILE%""";
-                    }
-
-                    await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "before_app_logo.bat"), before_app_logo);
-                    await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_before_app_logo_hidden.vbs"), @"C:\WinboxResources\before_app_logo.bat", null);
-                    applicationScript += "\r\nwscript \"C:\\WinboxResources\\run_before_app_logo_hidden.vbs\"";
                 }
             }
 
