@@ -1977,6 +1977,8 @@ goto wait_show_image
 :continue_show_image
 del /f ""%SHOW_IMAGE_FLAG_FILE%""";
                     }
+
+                    applicationScript += "\r\n";
                 }
             }
 
