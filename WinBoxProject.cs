@@ -2156,11 +2156,35 @@ if errorlevel 1 (
             await Program.UnpackUdfIso(baseWindowsImageFullPath, unpackIsoPath, processValue, unpackBlacklist);
 
             bool failed = false;
-            if (!await MakeModWim(processName, processValue, newWindowsDescription, Path.Combine(unpackIsoPath, "sources\\install.wim"), null, initViaVmMode))
+            if (true)
             {
-                showComplete = false;
-                failed = true;
-                goto end;
+                string new_install_wim = Path.Combine(tempDirectoryPath, "new_install.wim");
+                if (!await MakeModWim(processName, processValue, newWindowsDescription, new_install_wim, null, initViaVmMode))
+                {
+                    showComplete = false;
+                    failed = true;
+                    goto end;
+                }
+
+                processName("Converting install.wim to install.esd");
+                processValue(77);
+                await Program.ExecuteAsync("dism.exe", @$"/Export-Image /SourceImageFile:""{new_install_wim}"" /All /DestinationImageFile:""{Path.Combine(unpackIsoPath, "sources\\install.esd")}"" /Compress:recovery /CheckIntegrity");
+
+                processName("Deleting install.wim");
+                processValue(79);
+                await Task.Run(() =>
+                {
+                    File.Delete(new_install_wim);
+                });
+            }
+            else
+            {
+                if (!await MakeModWim(processName, processValue, newWindowsDescription, Path.Combine(unpackIsoPath, "sources\\install.wim"), null, initViaVmMode))
+                {
+                    showComplete = false;
+                    failed = true;
+                    goto end;
+                }
             }
 
             processName("ISO modification");
