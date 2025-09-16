@@ -956,7 +956,7 @@ exit
                 bcdeditSetup += "bcdedit /set {globalsettings} " + change + "\r\n";
                 bcdeditSetup += "bcdedit /set {bootmgr} " + change + "\r\n";
                 bcdeditSetup += "bcdedit /set {current} " + change + "\r\n";
-                bcdeditSetup += "bcdedit /set {default} " + change + "\r\n";
+                bcdeditSetup += "bcdedit /set {default} " + change + "\r\n\r\n";
             }
 
             regBcdChange("advancedoptions false");
