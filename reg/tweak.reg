@@ -226,4 +226,4 @@ Windows Registry Editor Version 5.00
 
 ; ---------------- a fix for UWP apps
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
-"FilterAdministratorToken"=1
+"FilterAdministratorToken"=dword:00000001

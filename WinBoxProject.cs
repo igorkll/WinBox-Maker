@@ -1008,6 +1008,8 @@ powercfg -change -hibernate-timeout-ac {winBoxConfig.HibernateTimeout}
 powercfg -change -hibernate-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.HibernateTimeout_dc : winBoxConfig.HibernateTimeout)}
 powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
 powercfg -change -monitor-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.ScreenTimeout_dc : winBoxConfig.ScreenTimeout)}
+powercfg -change -disk-timeout-ac {winBoxConfig.DiskTimeout}
+powercfg -change -disk-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.DiskTimeout_dc : winBoxConfig.DiskTimeout)}
 powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION {(int)winBoxConfig.action_closingLaptop}
 powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION {(int)(winBoxConfig.dc_use == true ? winBoxConfig.action_closingLaptop_dc : winBoxConfig.action_closingLaptop)}
 powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION {(int)winBoxConfig.action_sleepButton}
@@ -1806,6 +1808,7 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
             baseSetup += @$"reg unload HKLM\DEFAULT_USER
 
 net user winbox /add
+wmic useraccount where ""Name='winbox'"" set PasswordExpires=False
 net localgroup Administrators winbox /add";
 
             await writeDebugFile("UpdateSystemSettings", updateSystemSettings);

@@ -84,12 +84,14 @@ namespace WinBox_Maker
         public int? ScreenTimeout { get; set; }
         public int? StandbyTimeout { get; set; }
         public int? HibernateTimeout { get; set; }
+        public int? DiskTimeout { get; set; }
         public ButtonAction? action_powerButton { get; set; }
         public ButtonAction? action_sleepButton { get; set; }
         public ButtonAction? action_closingLaptop { get; set; }
         public int? ScreenTimeout_dc { get; set; }
         public int? StandbyTimeout_dc { get; set; }
         public int? HibernateTimeout_dc { get; set; }
+        public int? DiskTimeout_dc { get; set; }
         public ButtonAction? action_powerButton_dc { get; set; }
         public ButtonAction? action_sleepButton_dc { get; set; }
         public ButtonAction? action_closingLaptop_dc { get; set; }
@@ -169,12 +171,17 @@ namespace WinBox_Maker
             if (RawCommand == null) RawCommand = "";
             if (WebSite == null) WebSite = "";
             if (WebSessionTimeout == null) WebSessionTimeout = 0;
+            
             if (ScreenTimeout == null) ScreenTimeout = 0;
             if (StandbyTimeout == null) StandbyTimeout = 0;
             if (HibernateTimeout == null) HibernateTimeout = 0;
+            if (DiskTimeout == null) DiskTimeout = 0;
+
             if (ScreenTimeout_dc == null) ScreenTimeout_dc = 0;
             if (StandbyTimeout_dc == null) StandbyTimeout_dc = 0;
             if (HibernateTimeout_dc == null) HibernateTimeout_dc = 0;
+            if (DiskTimeout_dc == null) DiskTimeout_dc = 0;
+
             if (Architecture == null) Architecture = "x64";
             if (TweakList == null) TweakList = ["Integrate vc redist", "Disable all boot UI", "Hide bootmgr errors"];
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
