@@ -2153,10 +2153,9 @@ if errorlevel 1 (
 
             processName("Unpacking the iso");
             string[] unpackBlacklist = { "sources\\install.wim", "sources\\install.esd" };
-            await Program.UnpackUdfIso(baseWindowsImageFullPath, unpackIsoPath, processValue, unpackBlacklist);
 
             bool failed = false;
-            if (true)
+            if (await Program.UnpackUdfIso(baseWindowsImageFullPath, unpackIsoPath, processValue, unpackBlacklist))
             {
                 string new_install_wim = Path.Combine(tempDirectoryPath, "new_install.wim");
                 if (!await MakeModWim(processName, processValue, newWindowsDescription, new_install_wim, null, initViaVmMode))

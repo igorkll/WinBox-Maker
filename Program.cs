@@ -568,12 +568,13 @@ namespace WinBox_Maker
             }
         }
 
-        public static async Task UnpackUdfIso(string isoPath, string outputDirectory, Action<int> processValue, string[] blacklist)
+        public static async Task<bool> UnpackUdfIso(string isoPath, string outputDirectory, Action<int> processValue, string[] blacklist)
         {
             using (FileStream isoStream = File.Open(isoPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 UdfReader cd = new UdfReader(isoStream);
                 await RecursiveUnpack(cd, cd.Root, outputDirectory, processValue, await RecursiveGetUsedSpace(cd, cd.Root, blacklist), 0, blacklist);
+                return cd.Exists(@"sources\install.esd");
             }
         }
 
