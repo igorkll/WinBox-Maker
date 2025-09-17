@@ -1656,7 +1656,8 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                 string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
                 if (File.Exists(logoPath))
                 {
-                    BootresPatcher.PatchBootres(Path.Combine(wimMountPath, "Windows\\Boot\\Resources\\bootres.dll"), logoPath);
+                    BootresPatcher bootresPatcher = new BootresPatcher();
+                    bootresPatcher.PatchBootres(Path.Combine(wimMountPath, "Windows\\Boot\\Resources\\bootres.dll"), logoPath);
 
                     await UnpackBlob("HackBGRT.zip");
 
