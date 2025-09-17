@@ -697,6 +697,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             }
             Directory.CreateDirectory(buildDir);
 
+            await Program.ExecuteAsync("cmd.exe", "/c npm install", electronFolder, getDebugFilePath($"npm_install_{index}"));
             await Program.ExecuteAsync("cmd.exe", $"/c npx electron-packager . \"{buildItem.electron_packager_name}\" --platform=win32 --arch=\"{architecture}\" --out=\"{buildDir}\"", electronFolder, getDebugFilePath($"build_electron_{index}"));
 
             string? releaseDirectory = null;
