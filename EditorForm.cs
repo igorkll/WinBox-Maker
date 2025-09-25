@@ -77,6 +77,7 @@ namespace WinBox_Maker
             AddTweakToList("completely remove system audio/images");
             AddTweakToList("removing UWP apps");
             AddTweakToList("removal of the subsystem SysWOW64");
+            AddTweakToList("remove windows defender files");
             AddTweakToList("Allow check-disk");
             softwareCheck = false;
 

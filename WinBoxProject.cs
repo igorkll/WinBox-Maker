@@ -1281,20 +1281,33 @@ powercfg -s SCHEME_CURRENT";
                 });
             }
 
-            if (Program.isTweakEnabled(winBoxConfig, "completely remove explorer.exe")) await removeSystemObject("Windows\\explorer.exe");
+            if (Program.isTweakEnabled(winBoxConfig, "completely remove explorer.exe"))
+            {
+                await removeSystemObject("Windows\\explorer.exe");
+            }
+
             if (Program.isTweakEnabled(winBoxConfig, "completely remove system audio/images"))
             {
                 await removeSystemObject("Windows\\Web");
                 await removeSystemObject("Windows\\Media");
             }
+
             if (Program.isTweakEnabled(winBoxConfig, "removal of the subsystem SysWOW64"))
             {
                 await removeSystemObject("Windows\\SysWOW64", true);
             }
+
             if (Program.isTweakEnabled(winBoxConfig, "removing UWP apps"))
             {
                 await removeSystemObject("Windows\\SystemApps");
                 await removeSystemObject("Program Files\\WindowsApps");
+            }
+
+            if (Program.isTweakEnabled(winBoxConfig, "remove windows defender files"))
+            {
+                await removeSystemObject("Program Files (x86)\\Windows Defender");
+                await removeSystemObject("Program Files\\Windows Defender");
+                await removeSystemObject("Program Files\\Windows Defender Advanced Threat Protection");
             }
 
             // ------------------------------------ system init
