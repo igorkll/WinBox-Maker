@@ -27,6 +27,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 
 ## warnings
 * if you use the "Evaluation" version of windows as the basis, then the system, being inactive, will shut down every hour
+* if instead of a working system you get a blue login screen with the inscription "other user", then try using another iso image as a base (for example, an image that is not originally iot) and simply check the box force make iot enterprise
 * if you are going to build the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)
 * it is recommended that the winbox maker project and the source and output iso paths be on a fast SSD! otherwise, it may cause severe computer freezes during the assembly process. if it is not possible to use an SSD, it is recommended not to use computer during the build process of the winbox maker project
 * when you burn the installation ISO to a USB stick via rufus or a similar program, DO NOT USE the windows installation customization feature, as this will cause conflicts with those tweaks that already exist in winbox and it may work incorrectly
