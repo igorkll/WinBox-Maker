@@ -26,6 +26,7 @@ please note that if you use the windows component removal functions (for example
 the program is an alternative: Edge Device Image Builder / Windows Configuration Designer  
 
 ## warnings
+* if you use the "Evaluation" version of windows as the basis, then the system, being inactive, will shut down every hour
 * if you are going to build the program thoroughly, you will also need to download the blobs folder separately from google drive (due to the file size limit on github)
 * it is recommended that the winbox maker project and the source and output iso paths be on a fast SSD! otherwise, it may cause severe computer freezes during the assembly process. if it is not possible to use an SSD, it is recommended not to use computer during the build process of the winbox maker project
 * when you burn the installation ISO to a USB stick via rufus or a similar program, DO NOT USE the windows installation customization feature, as this will cause conflicts with those tweaks that already exist in winbox and it may work incorrectly
@@ -45,7 +46,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * if you used the "Do not disable hotkeys by changing the layout" option on a non-enterprise version of windows, it is likely that the keyboard shortcuts will still work because keyboard filter will not work
 
 ## notes
-* it is recommended to use "Windows 10 Enterprise" or "Windows 10 IoT Enterprise" specifically, otherwise some things probably won't work, such as disabling the login animation and disabling keyboard shortcuts in the system itself (keyboard filter) (winbox maker disables combinations in two ways. by changing the keyboard layout, it will still work)
+* it is recommended to use "Windows 10 Enterprise" or "Windows 10 IoT Enterprise" (not Evaluation) specifically, otherwise some things probably won't work, such as disabling the login animation and disabling keyboard shortcuts in the system itself (keyboard filter) (winbox maker disables combinations in two ways. by changing the keyboard layout, it will still work)
 * if you install a script as your application .bat or .cmd then it will run in hidden mode (without console)
 * your program from the winbox_resources/program folder on the target system is located in C:\WinboxProgram
 * all build events work from the project folder
@@ -67,7 +68,6 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * post install - install the scripts and registry files that will be applied to the system when it is first turned on. This can be used to change the system configuration or install software
 * activation - enter the windows activation key that will be embedded in the image. the system will work without this, however, it will be inactive and despite the fact that there will be no activation sign, such a system will not be considered legal and is suitable only for testing. You can include the activation key immediately in the image or activate the system during installation using standard installer tools
 * events - execute cmd commands on the host machine during the build process. this can be used, for example, to copy files to the project directory or for anything else. to make this work, don't forget to activate the events you use in the checkmark!
-* interpreters - embed some interpreters into the Windows image immediately at the build stage
 * build - build your app together with Winbox. when using this, you can make the "winbox_resources/program" directory empty and specify a name *.exe file in "app" tab manually. in order for this to work, don't forget to activate the checkmark function near the "add" button!
 * downloading - allows you to download files during the build stage. It allows you to unpack archives automatically. please note that the download path is set relative to the project folder. it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore"
 
