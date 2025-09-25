@@ -114,6 +114,7 @@
             ActionAtEndOfApplication_restart_app = new RadioButton();
             ActionAtEndOfApplication_none = new RadioButton();
             tabPage20 = new TabPage();
+            wait_before_app_logo = new CheckBox();
             panel20 = new Panel();
             label64 = new Label();
             label62 = new Label();
@@ -156,16 +157,12 @@
             label52 = new Label();
             enable_hibernation = new CheckBox();
             dc_use = new CheckBox();
-            label43 = new Label();
-            label42 = new Label();
-            dc_panel = new Panel();
             action_sleepButton_dc = new ComboBox();
             action_powerButton_dc = new ComboBox();
             action_closingLaptop_dc = new ComboBox();
             HibernateTimeout_dc = new TextBox();
             StandbyTimeout_dc = new TextBox();
             ScreenTimeout_dc = new TextBox();
-            panel13 = new Panel();
             action_sleepButton = new ComboBox();
             action_powerButton = new ComboBox();
             action_closingLaptop = new ComboBox();
@@ -321,7 +318,16 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
-            wait_before_app_logo = new CheckBox();
+            tabControl5 = new TabControl();
+            tabPage24 = new TabPage();
+            tabPage25 = new TabPage();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            label42 = new Label();
+            label43 = new Label();
+            label65 = new Label();
+            label66 = new Label();
+            label67 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -351,8 +357,6 @@
             tabPage23.SuspendLayout();
             logoBeforeApp_panel.SuspendLayout();
             tabPage12.SuspendLayout();
-            dc_panel.SuspendLayout();
-            panel13.SuspendLayout();
             tabPage6.SuspendLayout();
             CustomDisplaySettings_panel.SuspendLayout();
             tabPage15.SuspendLayout();
@@ -384,6 +388,9 @@
             tabPage16.SuspendLayout();
             panel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabControl5.SuspendLayout();
+            tabPage24.SuspendLayout();
+            tabPage25.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -970,15 +977,15 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(261, 39);
+            label13.Location = new Point(126, 9);
             label13.Name = "label13";
-            label13.Size = new Size(212, 25);
+            label13.Size = new Size(231, 25);
             label13.TabIndex = 1;
-            label13.Text = "Screen Timeout (minutes)";
+            label13.Text = "Screen Timeout (in minutes)";
             // 
             // ScreenTimeout
             // 
-            ScreenTimeout.Location = new Point(3, 3);
+            ScreenTimeout.Location = new Point(6, 6);
             ScreenTimeout.Name = "ScreenTimeout";
             ScreenTimeout.Size = new Size(114, 31);
             ScreenTimeout.TabIndex = 0;
@@ -1285,6 +1292,17 @@
             tabPage20.TabIndex = 2;
             tabPage20.Text = "delay";
             tabPage20.UseVisualStyleBackColor = true;
+            // 
+            // wait_before_app_logo
+            // 
+            wait_before_app_logo.AutoSize = true;
+            wait_before_app_logo.Location = new Point(6, 254);
+            wait_before_app_logo.Name = "wait_before_app_logo";
+            wait_before_app_logo.Size = new Size(526, 29);
+            wait_before_app_logo.TabIndex = 48;
+            wait_before_app_logo.Text = "wait for the \"app logo\" (if enabled) (settings>boot>app logo)";
+            wait_before_app_logo.UseVisualStyleBackColor = true;
+            wait_before_app_logo.CheckedChanged += wait_before_app_logo_CheckedChanged;
             // 
             // panel20
             // 
@@ -1668,18 +1686,9 @@
             // 
             // tabPage12
             // 
-            tabPage12.Controls.Add(label54);
-            tabPage12.Controls.Add(label53);
-            tabPage12.Controls.Add(label52);
+            tabPage12.Controls.Add(tabControl5);
             tabPage12.Controls.Add(enable_hibernation);
             tabPage12.Controls.Add(dc_use);
-            tabPage12.Controls.Add(label43);
-            tabPage12.Controls.Add(label42);
-            tabPage12.Controls.Add(dc_panel);
-            tabPage12.Controls.Add(panel13);
-            tabPage12.Controls.Add(label41);
-            tabPage12.Controls.Add(label40);
-            tabPage12.Controls.Add(label13);
             tabPage12.Location = new Point(4, 34);
             tabPage12.Name = "tabPage12";
             tabPage12.Padding = new Padding(3);
@@ -1691,7 +1700,7 @@
             // label54
             // 
             label54.AutoSize = true;
-            label54.Location = new Point(261, 226);
+            label54.Location = new Point(127, 235);
             label54.Name = "label54";
             label54.Size = new Size(114, 25);
             label54.TabIndex = 14;
@@ -1700,7 +1709,7 @@
             // label53
             // 
             label53.AutoSize = true;
-            label53.Location = new Point(261, 187);
+            label53.Location = new Point(127, 196);
             label53.Name = "label53";
             label53.Size = new Size(119, 25);
             label53.TabIndex = 13;
@@ -1709,7 +1718,7 @@
             // label52
             // 
             label52.AutoSize = true;
-            label52.Location = new Point(261, 148);
+            label52.Location = new Point(127, 157);
             label52.Name = "label52";
             label52.Size = new Size(158, 25);
             label52.TabIndex = 12;
@@ -1738,44 +1747,12 @@
             dc_use.UseVisualStyleBackColor = true;
             dc_use.CheckedChanged += dc_use_CheckedChanged;
             // 
-            // label43
-            // 
-            label43.AutoSize = true;
-            label43.Location = new Point(136, 3);
-            label43.Name = "label43";
-            label43.Size = new Size(107, 25);
-            label43.TabIndex = 9;
-            label43.Text = "DC (battery)";
-            // 
-            // label42
-            // 
-            label42.AutoSize = true;
-            label42.Location = new Point(6, 3);
-            label42.Name = "label42";
-            label42.Size = new Size(119, 25);
-            label42.TabIndex = 8;
-            label42.Text = "AC (charging)";
-            // 
-            // dc_panel
-            // 
-            dc_panel.BorderStyle = BorderStyle.Fixed3D;
-            dc_panel.Controls.Add(action_sleepButton_dc);
-            dc_panel.Controls.Add(action_powerButton_dc);
-            dc_panel.Controls.Add(action_closingLaptop_dc);
-            dc_panel.Controls.Add(HibernateTimeout_dc);
-            dc_panel.Controls.Add(StandbyTimeout_dc);
-            dc_panel.Controls.Add(ScreenTimeout_dc);
-            dc_panel.Location = new Point(136, 31);
-            dc_panel.Name = "dc_panel";
-            dc_panel.Size = new Size(124, 232);
-            dc_panel.TabIndex = 7;
-            // 
             // action_sleepButton_dc
             // 
             action_sleepButton_dc.DropDownStyle = ComboBoxStyle.DropDownList;
             action_sleepButton_dc.FormattingEnabled = true;
             action_sleepButton_dc.Items.AddRange(new object[] { "none", "sleep", "hibernation", "shutdown", "turn off display" });
-            action_sleepButton_dc.Location = new Point(3, 190);
+            action_sleepButton_dc.Location = new Point(6, 230);
             action_sleepButton_dc.Name = "action_sleepButton_dc";
             action_sleepButton_dc.Size = new Size(114, 33);
             action_sleepButton_dc.TabIndex = 7;
@@ -1786,7 +1763,7 @@
             action_powerButton_dc.DropDownStyle = ComboBoxStyle.DropDownList;
             action_powerButton_dc.FormattingEnabled = true;
             action_powerButton_dc.Items.AddRange(new object[] { "none", "sleep", "hibernation", "shutdown", "turn off display" });
-            action_powerButton_dc.Location = new Point(3, 151);
+            action_powerButton_dc.Location = new Point(6, 191);
             action_powerButton_dc.Name = "action_powerButton_dc";
             action_powerButton_dc.Size = new Size(114, 33);
             action_powerButton_dc.TabIndex = 6;
@@ -1797,7 +1774,7 @@
             action_closingLaptop_dc.DropDownStyle = ComboBoxStyle.DropDownList;
             action_closingLaptop_dc.FormattingEnabled = true;
             action_closingLaptop_dc.Items.AddRange(new object[] { "none", "sleep", "hibernation", "shutdown", "turn off display" });
-            action_closingLaptop_dc.Location = new Point(3, 112);
+            action_closingLaptop_dc.Location = new Point(6, 152);
             action_closingLaptop_dc.Name = "action_closingLaptop_dc";
             action_closingLaptop_dc.Size = new Size(114, 33);
             action_closingLaptop_dc.TabIndex = 5;
@@ -1806,7 +1783,7 @@
             // HibernateTimeout_dc
             // 
             HibernateTimeout_dc.BorderStyle = BorderStyle.FixedSingle;
-            HibernateTimeout_dc.Location = new Point(3, 75);
+            HibernateTimeout_dc.Location = new Point(6, 78);
             HibernateTimeout_dc.Name = "HibernateTimeout_dc";
             HibernateTimeout_dc.Size = new Size(114, 31);
             HibernateTimeout_dc.TabIndex = 4;
@@ -1814,7 +1791,7 @@
             // 
             // StandbyTimeout_dc
             // 
-            StandbyTimeout_dc.Location = new Point(3, 40);
+            StandbyTimeout_dc.Location = new Point(6, 43);
             StandbyTimeout_dc.Name = "StandbyTimeout_dc";
             StandbyTimeout_dc.Size = new Size(114, 31);
             StandbyTimeout_dc.TabIndex = 2;
@@ -1822,32 +1799,18 @@
             // 
             // ScreenTimeout_dc
             // 
-            ScreenTimeout_dc.Location = new Point(3, 3);
+            ScreenTimeout_dc.Location = new Point(6, 6);
             ScreenTimeout_dc.Name = "ScreenTimeout_dc";
             ScreenTimeout_dc.Size = new Size(114, 31);
             ScreenTimeout_dc.TabIndex = 0;
             ScreenTimeout_dc.TextChanged += ScreenTimeout_dc_TextChanged;
-            // 
-            // panel13
-            // 
-            panel13.BorderStyle = BorderStyle.Fixed3D;
-            panel13.Controls.Add(action_sleepButton);
-            panel13.Controls.Add(action_powerButton);
-            panel13.Controls.Add(action_closingLaptop);
-            panel13.Controls.Add(HibernateTimeout);
-            panel13.Controls.Add(StandbyTimeout);
-            panel13.Controls.Add(ScreenTimeout);
-            panel13.Location = new Point(6, 31);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(124, 232);
-            panel13.TabIndex = 6;
             // 
             // action_sleepButton
             // 
             action_sleepButton.DropDownStyle = ComboBoxStyle.DropDownList;
             action_sleepButton.FormattingEnabled = true;
             action_sleepButton.Items.AddRange(new object[] { "none", "sleep", "hibernation", "shutdown", "turn off display" });
-            action_sleepButton.Location = new Point(3, 190);
+            action_sleepButton.Location = new Point(6, 232);
             action_sleepButton.Name = "action_sleepButton";
             action_sleepButton.Size = new Size(114, 33);
             action_sleepButton.TabIndex = 7;
@@ -1858,7 +1821,7 @@
             action_powerButton.DropDownStyle = ComboBoxStyle.DropDownList;
             action_powerButton.FormattingEnabled = true;
             action_powerButton.Items.AddRange(new object[] { "none", "sleep", "hibernation", "shutdown", "turn off display" });
-            action_powerButton.Location = new Point(3, 151);
+            action_powerButton.Location = new Point(6, 193);
             action_powerButton.Name = "action_powerButton";
             action_powerButton.Size = new Size(114, 33);
             action_powerButton.TabIndex = 6;
@@ -1869,7 +1832,7 @@
             action_closingLaptop.DropDownStyle = ComboBoxStyle.DropDownList;
             action_closingLaptop.FormattingEnabled = true;
             action_closingLaptop.Items.AddRange(new object[] { "none", "sleep", "hibernation", "shutdown", "turn off display" });
-            action_closingLaptop.Location = new Point(4, 112);
+            action_closingLaptop.Location = new Point(6, 154);
             action_closingLaptop.Name = "action_closingLaptop";
             action_closingLaptop.Size = new Size(114, 33);
             action_closingLaptop.TabIndex = 5;
@@ -1878,7 +1841,7 @@
             // HibernateTimeout
             // 
             HibernateTimeout.BorderStyle = BorderStyle.FixedSingle;
-            HibernateTimeout.Location = new Point(3, 75);
+            HibernateTimeout.Location = new Point(6, 80);
             HibernateTimeout.Name = "HibernateTimeout";
             HibernateTimeout.Size = new Size(114, 31);
             HibernateTimeout.TabIndex = 4;
@@ -1886,7 +1849,7 @@
             // 
             // StandbyTimeout
             // 
-            StandbyTimeout.Location = new Point(3, 40);
+            StandbyTimeout.Location = new Point(6, 43);
             StandbyTimeout.Name = "StandbyTimeout";
             StandbyTimeout.Size = new Size(114, 31);
             StandbyTimeout.TabIndex = 2;
@@ -1895,20 +1858,20 @@
             // label41
             // 
             label41.AutoSize = true;
-            label41.Location = new Point(261, 110);
+            label41.Location = new Point(126, 82);
             label41.Name = "label41";
-            label41.Size = new Size(237, 25);
+            label41.Size = new Size(261, 25);
             label41.TabIndex = 5;
-            label41.Text = "Hibernate Timeout (minutes)";
+            label41.Text = "Hibernate Timeout  (in minutes)";
             // 
             // label40
             // 
             label40.AutoSize = true;
-            label40.Location = new Point(261, 76);
+            label40.Location = new Point(126, 46);
             label40.Name = "label40";
-            label40.Size = new Size(225, 25);
+            label40.Size = new Size(249, 25);
             label40.TabIndex = 3;
-            label40.Text = "Standby Timeout (minutes)";
+            label40.Text = "Standby Timeout  (in minutes)";
             // 
             // tabPage6
             // 
@@ -3427,16 +3390,124 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
-            // wait_before_app_logo
+            // tabControl5
             // 
-            wait_before_app_logo.AutoSize = true;
-            wait_before_app_logo.Location = new Point(6, 254);
-            wait_before_app_logo.Name = "wait_before_app_logo";
-            wait_before_app_logo.Size = new Size(526, 29);
-            wait_before_app_logo.TabIndex = 48;
-            wait_before_app_logo.Text = "wait for the \"app logo\" (if enabled) (settings>boot>app logo)";
-            wait_before_app_logo.UseVisualStyleBackColor = true;
-            wait_before_app_logo.CheckedChanged += wait_before_app_logo_CheckedChanged;
+            tabControl5.Controls.Add(tabPage24);
+            tabControl5.Controls.Add(tabPage25);
+            tabControl5.Location = new Point(6, 6);
+            tabControl5.Name = "tabControl5";
+            tabControl5.SelectedIndex = 0;
+            tabControl5.Size = new Size(487, 253);
+            tabControl5.TabIndex = 12;
+            // 
+            // tabPage24
+            // 
+            tabPage24.AutoScroll = true;
+            tabPage24.AutoScrollMargin = new Size(0, 7);
+            tabPage24.Controls.Add(textBox1);
+            tabPage24.Controls.Add(label42);
+            tabPage24.Controls.Add(action_sleepButton);
+            tabPage24.Controls.Add(label54);
+            tabPage24.Controls.Add(action_powerButton);
+            tabPage24.Controls.Add(label53);
+            tabPage24.Controls.Add(ScreenTimeout);
+            tabPage24.Controls.Add(action_closingLaptop);
+            tabPage24.Controls.Add(label52);
+            tabPage24.Controls.Add(label13);
+            tabPage24.Controls.Add(StandbyTimeout);
+            tabPage24.Controls.Add(HibernateTimeout);
+            tabPage24.Controls.Add(label40);
+            tabPage24.Controls.Add(label41);
+            tabPage24.Location = new Point(4, 34);
+            tabPage24.Name = "tabPage24";
+            tabPage24.Padding = new Padding(3);
+            tabPage24.Size = new Size(479, 215);
+            tabPage24.TabIndex = 0;
+            tabPage24.Text = "AC (charging)";
+            tabPage24.UseVisualStyleBackColor = true;
+            // 
+            // tabPage25
+            // 
+            tabPage25.AutoScroll = true;
+            tabPage25.AutoScrollMargin = new Size(0, 7);
+            tabPage25.Controls.Add(label43);
+            tabPage25.Controls.Add(textBox2);
+            tabPage25.Controls.Add(label65);
+            tabPage25.Controls.Add(label66);
+            tabPage25.Controls.Add(action_sleepButton_dc);
+            tabPage25.Controls.Add(ScreenTimeout_dc);
+            tabPage25.Controls.Add(action_powerButton_dc);
+            tabPage25.Controls.Add(label67);
+            tabPage25.Controls.Add(StandbyTimeout_dc);
+            tabPage25.Controls.Add(action_closingLaptop_dc);
+            tabPage25.Controls.Add(HibernateTimeout_dc);
+            tabPage25.Location = new Point(4, 34);
+            tabPage25.Name = "tabPage25";
+            tabPage25.Padding = new Padding(3);
+            tabPage25.Size = new Size(479, 215);
+            tabPage25.TabIndex = 1;
+            tabPage25.Text = "DC (battery)";
+            tabPage25.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(6, 117);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(114, 31);
+            textBox1.TabIndex = 15;
+            // 
+            // textBox2
+            // 
+            textBox2.BorderStyle = BorderStyle.FixedSingle;
+            textBox2.Location = new Point(6, 115);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(114, 31);
+            textBox2.TabIndex = 8;
+            // 
+            // label42
+            // 
+            label42.AutoSize = true;
+            label42.Location = new Point(126, 120);
+            label42.Name = "label42";
+            label42.Size = new Size(218, 25);
+            label42.TabIndex = 16;
+            label42.Text = "Disk Timeout  (in minutes)";
+            // 
+            // label43
+            // 
+            label43.AutoSize = true;
+            label43.Location = new Point(126, 120);
+            label43.Name = "label43";
+            label43.Size = new Size(218, 25);
+            label43.TabIndex = 20;
+            label43.Text = "Disk Timeout  (in minutes)";
+            // 
+            // label65
+            // 
+            label65.AutoSize = true;
+            label65.Location = new Point(126, 9);
+            label65.Name = "label65";
+            label65.Size = new Size(231, 25);
+            label65.TabIndex = 17;
+            label65.Text = "Screen Timeout (in minutes)";
+            // 
+            // label66
+            // 
+            label66.AutoSize = true;
+            label66.Location = new Point(126, 46);
+            label66.Name = "label66";
+            label66.Size = new Size(249, 25);
+            label66.TabIndex = 18;
+            label66.Text = "Standby Timeout  (in minutes)";
+            // 
+            // label67
+            // 
+            label67.AutoSize = true;
+            label67.Location = new Point(126, 82);
+            label67.Name = "label67";
+            label67.Size = new Size(261, 25);
+            label67.TabIndex = 19;
+            label67.Text = "Hibernate Timeout  (in minutes)";
             // 
             // EditorForm
             // 
@@ -3515,10 +3586,6 @@
             logoBeforeApp_panel.PerformLayout();
             tabPage12.ResumeLayout(false);
             tabPage12.PerformLayout();
-            dc_panel.ResumeLayout(false);
-            dc_panel.PerformLayout();
-            panel13.ResumeLayout(false);
-            panel13.PerformLayout();
             tabPage6.ResumeLayout(false);
             tabPage6.PerformLayout();
             CustomDisplaySettings_panel.ResumeLayout(false);
@@ -3574,6 +3641,11 @@
             panel16.ResumeLayout(false);
             panel16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabControl5.ResumeLayout(false);
+            tabPage24.ResumeLayout(false);
+            tabPage24.PerformLayout();
+            tabPage25.ResumeLayout(false);
+            tabPage25.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3764,13 +3836,9 @@
         private Label label41;
         private TextBox StandbyTimeout;
         private Label label40;
-        private Panel panel13;
-        private Panel dc_panel;
         private TextBox HibernateTimeout_dc;
         private TextBox StandbyTimeout_dc;
         private TextBox ScreenTimeout_dc;
-        private Label label43;
-        private Label label42;
         private CheckBox enable_hibernation;
         private TabPage bl_electron_packager;
         private Button electron_packager_path_clear;
@@ -3873,5 +3941,15 @@
         private TabPage tabPage22;
         private TabPage tabPage23;
         private CheckBox wait_before_app_logo;
+        private TabControl tabControl5;
+        private TabPage tabPage24;
+        private TabPage tabPage25;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private Label label42;
+        private Label label43;
+        private Label label65;
+        private Label label66;
+        private Label label67;
     }
 }
