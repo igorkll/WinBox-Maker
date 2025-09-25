@@ -482,9 +482,11 @@ namespace WinBox_Maker
             ScreenTimeout.Text = winBoxProject.winBoxConfig.ScreenTimeout.ToString();
             StandbyTimeout.Text = winBoxProject.winBoxConfig.StandbyTimeout.ToString();
             HibernateTimeout.Text = winBoxProject.winBoxConfig.HibernateTimeout.ToString();
+            DiskTimeout.Text = winBoxProject.winBoxConfig.DiskTimeout.ToString();
             ScreenTimeout_dc.Text = winBoxProject.winBoxConfig.ScreenTimeout_dc.ToString();
             StandbyTimeout_dc.Text = winBoxProject.winBoxConfig.StandbyTimeout_dc.ToString();
             HibernateTimeout_dc.Text = winBoxProject.winBoxConfig.HibernateTimeout_dc.ToString();
+            DiskTimeout_dc.Text = winBoxProject.winBoxConfig.DiskTimeout_dc.ToString();
 
             cds_width.Text = winBoxProject.winBoxConfig.cds_width.ToString();
             cds_height.Text = winBoxProject.winBoxConfig.cds_height.ToString();
@@ -2194,6 +2196,26 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.wait_before_app_logo = wait_before_app_logo.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void DiskTimeout_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.DiskTimeout = checkPowercfgTimeoutNumber(winBoxProject.winBoxConfig.DiskTimeout ?? 0, DiskTimeout.Text);
+            if (winBoxProject.winBoxConfig.DiskTimeout.ToString() != DiskTimeout.Text)
+                DiskTimeout.Text = winBoxProject.winBoxConfig.DiskTimeout.ToString();
+            winBoxProject.SaveConfig();
+        }
+
+        private void DiskTimeout_dc_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.DiskTimeout_dc = checkPowercfgTimeoutNumber(winBoxProject.winBoxConfig.DiskTimeout_dc ?? 0, DiskTimeout_dc.Text);
+            if (winBoxProject.winBoxConfig.DiskTimeout_dc.ToString() != DiskTimeout_dc.Text)
+                DiskTimeout_dc.Text = winBoxProject.winBoxConfig.DiskTimeout_dc.ToString();
             winBoxProject.SaveConfig();
         }
     }
