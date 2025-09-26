@@ -2271,12 +2271,13 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             // add WinboxMaker_winPE_setup.bat
             string winPEsetupName = "WinboxMaker_winPE_setup.bat";
             await File.WriteAllTextAsync(Path.Combine(wimWinPeMountPath, winPEsetupName), winPEsetup);
-            string winPEsetupExec = @$"call ""X:\{winPEsetupName}""";
+            await File.WriteAllTextAsync(Path.Combine(unpackIsoPath, winPEsetupName), winPEsetup);
 
             // winPE setup autoexec
             string winPEcmdPath = Path.Combine(wimWinPeMountPath, "Windows\\System32\\startnet.cmd");
             if (File.Exists(winPEcmdPath))
             {
+                string winPEsetupExec = @$"call ""X:\{winPEsetupName}""";
                 await File.WriteAllTextAsync(winPEcmdPath, winPEsetupExec + "\r\n" + File.ReadAllText(winPEcmdPath) + "\r\n" + winPEsetupExec);
             }
 
