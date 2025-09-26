@@ -2294,7 +2294,7 @@ if errorlevel 1 (
                 await modifyBCD(1, bcdPath);
             }
 
-            bcdPath = Path.Combine(unpackIsoPath, "\\EFI\\Microsoft\\Boot\\BCD");
+            bcdPath = Path.Combine(unpackIsoPath, "EFI\\Microsoft\\Boot\\BCD");
             if (File.Exists(bcdPath))
             {
                 await modifyBCD(2, bcdPath);
@@ -2304,6 +2304,15 @@ if errorlevel 1 (
             {
                 await File.WriteAllTextAsync(Path.Combine(unpackIsoPath, "Sources\\PID.txt"), $"[PID]\nValue={winBoxConfig.OemKey}");
             }
+
+            string winPEcmdAppend = @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassTPMCheck /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassSecureBootCheck /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassRAMCheck /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassStorageCheck /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassCPUCheck /t REG_DWORD /d 1 /f";
+
+            string winPEcmdPath = Path.Combine(unpackIsoPath, "Windows\\System32\\startnet.cmd");
+            await File.WriteAllTextAsync(winPEcmdPath, winPEcmdAppend + "\r\n" + File.ReadAllText(winPEcmdPath));
 
             string isoFilesPath = Path.Combine(resourcesDirectoryPath, "iso_files");
             if (Directory.Exists(isoFilesPath))
