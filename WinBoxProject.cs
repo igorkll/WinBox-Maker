@@ -948,16 +948,22 @@ exit
             }
         }
 
-        string _getBcdeditSetup()
+        string _getBcdeditSetup(string? store = null)
         {
+            string? storeCmd = "";
+            if (store != null)
+            {
+                storeCmd = @$" /store ""{store}""";
+            }
+
             string bcdeditSetup = "";
 
             void regBcdChange(string change)
             {
-                bcdeditSetup += "bcdedit /set {globalsettings} " + change + "\r\n";
-                bcdeditSetup += "bcdedit /set {bootmgr} " + change + "\r\n";
-                bcdeditSetup += "bcdedit /set {current} " + change + "\r\n";
-                bcdeditSetup += "bcdedit /set {default} " + change + "\r\n\r\n";
+                bcdeditSetup += $"bcdedit{storeCmd} /set {{globalsettings}} " + change + "\r\n";
+                bcdeditSetup += $"bcdedit{storeCmd} /set {{bootmgr}} " + change + "\r\n";
+                bcdeditSetup += $"bcdedit{storeCmd} /set {{current}} " + change + "\r\n";
+                bcdeditSetup += $"bcdedit{storeCmd} /set {{default}} " + change + "\r\n\r\n";
             }
 
             regBcdChange("advancedoptions false");
@@ -2264,6 +2270,18 @@ if errorlevel 1 (
 
             processName("ISO modification");
             processValue(80);
+
+            string bcdPath = Path.Combine(unpackIsoPath, "boot\\bcd");
+            if (File.Exists(bcdPath)) {
+                string bcdscriptPath = Path.Combine(tempDirectoryPath, "bcdedit.bat");
+                string bcdeditCommand = _getBcdeditSetup(bcdPath);
+
+                await File.WriteAllTextAsync(bcdscriptPath, bcdeditCommand);
+                await writeDebugFile("bcdedit", bcdeditCommand);
+                await Program.ExecuteAsync("cmd.exe", $"/c \"{bcdscriptPath}\"");
+                File.Delete(bcdscriptPath);
+            }
+
             if (winBoxConfig.UseOemKey == true)
             {
                 await File.WriteAllTextAsync(Path.Combine(unpackIsoPath, "Sources\\PID.txt"), $"[PID]\nValue={winBoxConfig.OemKey}");
