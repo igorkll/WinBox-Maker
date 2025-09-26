@@ -2273,11 +2273,11 @@ if errorlevel 1 (
 
             string bcdPath = Path.Combine(unpackIsoPath, "boot\\bcd");
             if (File.Exists(bcdPath)) {
-                string bcdscriptPath = Path.Combine(tempDirectoryPath, "bcdedit.bat");
+                string bcdscriptPath = Path.Combine(tempDirectoryPath, "modifyBCD.bat");
                 string bcdeditCommand = _getBcdeditSetup(bcdPath);
 
                 await File.WriteAllTextAsync(bcdscriptPath, bcdeditCommand);
-                await writeDebugFile("bcdedit", bcdeditCommand);
+                await writeDebugFile("modifyBCD", bcdeditCommand);
                 await Program.ExecuteAsync("cmd.exe", $"/c \"{bcdscriptPath}\"");
                 File.Delete(bcdscriptPath);
             }
