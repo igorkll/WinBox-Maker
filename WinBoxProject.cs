@@ -50,6 +50,7 @@ namespace WinBox_Maker
         string wimInfoFile;
         string newWimFile;
         string wimMountPath;
+        string wimWimPeMountPath;
         string unpackIsoPath;
         string name;
         string? err;
@@ -67,6 +68,7 @@ namespace WinBox_Maker
             wimInfoFile = Path.Combine(tempDirectoryPath, "installWimInfo.json");
             newWimFile = Path.Combine(tempDirectoryPath, "new_install.wim");
             wimMountPath = Path.Combine(tempDirectoryPath, "wim_mount");
+            wimWimPeMountPath = Path.Combine(tempDirectoryPath, "wim_boot_mount");
             unpackIsoPath = Path.Combine(tempDirectoryPath, "iso_unpack");
             sourcesDirectoryPath = Path.Combine(resourcesDirectoryPath, "sources");
             debugBuildProgramsPath = Path.Combine(tempDirectoryPath, "debug", "program");
@@ -95,39 +97,48 @@ namespace WinBox_Maker
 
             Program.Execute("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
 
-            for (int i = 0; i < 2; i++) {
-                if (Directory.Exists(wimMountPath))
-                {
-                    Process process = new Process();
-                    process.StartInfo.FileName = "dism.exe";
-                    process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /discard";
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.CreateNoWindow = true;
-
-                    try
-                    {
-                        process.Start();
-                        process.WaitForExit();
-                    }
-                    catch (Exception ex) { }
-
-                    try
-                    {
-                        Directory.Delete(wimMountPath, true);
-                    }
-                    catch (Exception ex) { }
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            if (Directory.Exists(wimMountPath))
+            bool umount(string path)
             {
-                err = "the old Windows image could not be completely unmounted. restart your computer and try again. if this does not help, then delete the winbox_temp directory from the project";
-                return;
+                for (int i = 0; i < 2; i++)
+                {
+                    if (Directory.Exists(path))
+                    {
+                        Process process = new Process();
+                        process.StartInfo.FileName = "dism.exe";
+                        process.StartInfo.Arguments = $"/Unmount-Wim /MountDir:\"{path}\" /discard";
+                        process.StartInfo.UseShellExecute = false;
+                        process.StartInfo.CreateNoWindow = true;
+
+                        try
+                        {
+                            process.Start();
+                            process.WaitForExit();
+                        }
+                        catch (Exception ex) { }
+
+                        try
+                        {
+                            Directory.Delete(path, true);
+                        }
+                        catch (Exception ex) { }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if (Directory.Exists(path))
+                {
+                    err = "the old Windows image could not be completely unmounted. restart your computer and try again. if this does not help, then delete the winbox_temp directory from the project";
+                    return true;
+                }
+
+                return false;
             }
+
+            if (umount(wimMountPath)) return;
+            if (umount(wimWimPeMountPath)) return;
 
             if (Directory.Exists(unpackIsoPath))
             {
@@ -143,6 +154,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(imagesDirectoryPath);
             Program.CreateDirectory(tempDirectoryPath);
             Program.CreateDirectory(wimMountPath);
+            Program.CreateDirectory(wimWimPeMountPath);
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "files"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "program"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "drivers"));
@@ -2241,6 +2253,24 @@ if errorlevel 1 (
             processValue(100);
             await Task.Delay(2000);
         }
+
+        async Task modUnpackedIso(string unpackIsoPath)
+        {
+            string winPEcmdAppend = @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassTPMCheck /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassSecureBootCheck /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassRAMCheck /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassStorageCheck /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassCPUCheck /t REG_DWORD /d 1 /f";
+
+            string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
+
+            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{bootWimPath}\" /index:1 /MountDir:\"{wimWimPeMountPath}\"");
+
+            string winPEcmdPath = Path.Combine(wimWimPeMountPath, "Windows\\System32\\startnet.cmd");
+            await File.WriteAllTextAsync(winPEcmdPath, winPEcmdAppend + "\r\n" + File.ReadAllText(winPEcmdPath));
+
+            await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{wimWimPeMountPath}\" /commit");
+        }
  
         public async Task<bool> BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete=true, bool initViaVmMode=false)
         {
@@ -2305,14 +2335,7 @@ if errorlevel 1 (
                 await File.WriteAllTextAsync(Path.Combine(unpackIsoPath, "Sources\\PID.txt"), $"[PID]\nValue={winBoxConfig.OemKey}");
             }
 
-            string winPEcmdAppend = @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassTPMCheck /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassSecureBootCheck /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassRAMCheck /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassStorageCheck /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassCPUCheck /t REG_DWORD /d 1 /f";
-
-            string winPEcmdPath = Path.Combine(unpackIsoPath, "Windows\\System32\\startnet.cmd");
-            await File.WriteAllTextAsync(winPEcmdPath, winPEcmdAppend + "\r\n" + File.ReadAllText(winPEcmdPath));
+            await modUnpackedIso(unpackIsoPath);
 
             string isoFilesPath = Path.Combine(resourcesDirectoryPath, "iso_files");
             if (Directory.Exists(isoFilesPath))
