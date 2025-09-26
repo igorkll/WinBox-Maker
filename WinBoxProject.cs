@@ -1089,6 +1089,19 @@ powercfg -s SCHEME_CURRENT";
             await File.WriteAllTextAsync(Path.Combine(path, "INFO.txt"), $"name: {newWindowsDescription.name}\r\ndescription: {newWindowsDescription.description}");
         }
 
+        async Task modifyBCD(int index, string bcdPath)
+        {
+            string bcdscriptName = $"modifyBCD_{index}";
+            string bcdscriptPath = Path.Combine(tempDirectoryPath, $"{bcdscriptName}.bat");
+            string bcdeditCommand = _getBcdeditSetup(bcdPath);
+
+            await File.WriteAllTextAsync(bcdscriptPath, bcdeditCommand);
+            await writeDebugFile(bcdscriptName, bcdeditCommand);
+            await Program.ExecuteAsync("cmd.exe", $"/c \"{bcdscriptPath}\"", null, getDebugFilePath($"{bcdscriptName}_output"));
+            File.Delete(bcdscriptPath);
+        }
+
+
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath, bool initViaVmMode=false)
         {
             if (winBoxConfig.prebuildEnabled == true)
@@ -1173,6 +1186,11 @@ powercfg -s SCHEME_CURRENT";
             await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{newWimPath}\" /index:1 /MountDir:\"{wimMountPath}\"");
 
             // ------------------------------------ tweaks
+
+            processName("modification of BCD");
+            processValue(45);
+            await modifyBCD(0, Path.Combine(wimMountPath, "Windows\\System32\\Config\\BCD-Template"));
+
             processName("Modification of the system files");
             processValue(50);
             await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
@@ -2273,13 +2291,13 @@ if errorlevel 1 (
 
             string bcdPath = Path.Combine(unpackIsoPath, "boot\\bcd");
             if (File.Exists(bcdPath)) {
-                string bcdscriptPath = Path.Combine(tempDirectoryPath, "modifyBCD.bat");
-                string bcdeditCommand = _getBcdeditSetup(bcdPath);
+                await modifyBCD(1, bcdPath);
+            }
 
-                await File.WriteAllTextAsync(bcdscriptPath, bcdeditCommand);
-                await writeDebugFile("modifyBCD", bcdeditCommand);
-                await Program.ExecuteAsync("cmd.exe", $"/c \"{bcdscriptPath}\"");
-                File.Delete(bcdscriptPath);
+            bcdPath = Path.Combine(unpackIsoPath, "\\EFI\\Microsoft\\Boot\\BCD");
+            if (File.Exists(bcdPath))
+            {
+                await modifyBCD(2, bcdPath);
             }
 
             if (winBoxConfig.UseOemKey == true)
