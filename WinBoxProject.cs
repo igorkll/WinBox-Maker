@@ -2263,11 +2263,13 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassStorageCheck /t R
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassCPUCheck /t REG_DWORD /d 1 /f";
 
             string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
-
             await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{bootWimPath}\" /index:1 /MountDir:\"{wimWimPeMountPath}\"");
 
             string winPEcmdPath = Path.Combine(wimWimPeMountPath, "Windows\\System32\\startnet.cmd");
-            await File.WriteAllTextAsync(winPEcmdPath, winPEcmdAppend + "\r\n" + File.ReadAllText(winPEcmdPath));
+            if (File.Exists(winPEcmdPath))
+            {
+                await File.WriteAllTextAsync(winPEcmdPath, winPEcmdAppend + "\r\n" + File.ReadAllText(winPEcmdPath));
+            }
 
             await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{wimWimPeMountPath}\" /commit");
         }
