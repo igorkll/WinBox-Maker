@@ -1452,25 +1452,25 @@ powercfg -s SCHEME_CURRENT";
 
                 string setupCompleteAndFirstInit = $@"echo SetupComplete and FirstInit - start >> C:\WinboxResources\setup.log
 
-    echo SetupComplete and FirstInit - setup dism >> C:\WinboxResources\setup.log
-    dism /online /enable-feature /all /featurename:Client-DeviceLockdown
-    dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
-    dism /online /enable-feature /all /featurename:Client-KeyboardFilter
-    dism /online /enable-feature /all /featurename:Client-EmbeddedBootExp
+echo SetupComplete and FirstInit - setup dism >> C:\WinboxResources\setup.log
+dism /online /enable-feature /all /featurename:Client-DeviceLockdown
+dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
+dism /online /enable-feature /all /featurename:Client-KeyboardFilter
+dism /online /enable-feature /all /featurename:Client-EmbeddedBootExp
 
-    echo SetupComplete and FirstInit - setup powercfg >> C:\WinboxResources\setup.log
-    {powercfgSetup}
+echo SetupComplete and FirstInit - setup powercfg >> C:\WinboxResources\setup.log
+{powercfgSetup}
 
-    echo SetupComplete and FirstInit - setup services >> C:\WinboxResources\setup.log
-    {servicesSetup}
+echo SetupComplete and FirstInit - setup services >> C:\WinboxResources\setup.log
+{servicesSetup}
 
-    echo SetupComplete and FirstInit - end >> C:\WinboxResources\setup.log";
+echo SetupComplete and FirstInit - end >> C:\WinboxResources\setup.log";
 
                 string updateSystemSettingsAndFirstInit = $@"reagentc.exe /disable
-    netsh advfirewall set allprofiles state off
-    powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
+netsh advfirewall set allprofiles state off
+powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
 
-    {bcdeditSetup}";
+{bcdeditSetup}";
                 //why do I change the bcd every time I start?
                 //because in some versions of windows (old enterprise),
                 //bcd changes may otherwise remain unchanged if done in setup complete,
@@ -1479,77 +1479,77 @@ powercfg -s SCHEME_CURRENT";
 
                 string baseSetup = $@"echo SetupComplete - start >> C:\WinboxResources\setup.log
 
-    echo SetupComplete - call SetupComplete and FirstInit >> C:\WinboxResources\setup.log
-    {setupCompleteAndFirstInit}
+echo SetupComplete - call SetupComplete and FirstInit >> C:\WinboxResources\setup.log
+{setupCompleteAndFirstInit}
 
-    echo SetupComplete - add executable to PATH >> C:\WinboxResources\setup.log
-    setx PATH ""%PATH%;C:\WinboxResources\executable"" /M
+echo SetupComplete - add executable to PATH >> C:\WinboxResources\setup.log
+setx PATH ""%PATH%;C:\WinboxResources\executable"" /M
 
-    echo SetupComplete - call UpdateSystemSettings >> C:\WinboxResources\setup.log
-    call ""C:\WinboxResources\UpdateSystemSettings.bat""
+echo SetupComplete - call UpdateSystemSettings >> C:\WinboxResources\setup.log
+call ""C:\WinboxResources\UpdateSystemSettings.bat""
 
-    echo SetupComplete - add UpdateSystemSettings to schtasks >> C:\WinboxResources\setup.log
-    schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\UpdateSystemSettings.bat"" /sc onlogon /rl highest /ru ""SYSTEM""
+echo SetupComplete - add UpdateSystemSettings to schtasks >> C:\WinboxResources\setup.log
+schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\UpdateSystemSettings.bat"" /sc onlogon /rl highest /ru ""SYSTEM""
 
-    echo SetupComplete - setup schtasks >> C:\WinboxResources\setup.log
-    schtasks /Change /TN ""\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"" /Disable
-    schtasks /Change /TN ""\Microsoft\Windows\Application Experience\ProgramDataUpdater"" /Disable
-    schtasks /Change /TN ""\Microsoft\Windows\Autochk\Proxy"" /Disable
-    schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"" /Disable
-    schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask"" /Disable
-    schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"" /Disable
+echo SetupComplete - setup schtasks >> C:\WinboxResources\setup.log
+schtasks /Change /TN ""\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"" /Disable
+schtasks /Change /TN ""\Microsoft\Windows\Application Experience\ProgramDataUpdater"" /Disable
+schtasks /Change /TN ""\Microsoft\Windows\Autochk\Proxy"" /Disable
+schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"" /Disable
+schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask"" /Disable
+schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"" /Disable
 
-    echo SetupComplete - DisableTamperProtection >> C:\WinboxResources\setup.log
-    powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
+echo SetupComplete - DisableTamperProtection >> C:\WinboxResources\setup.log
+powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
 
-    echo SetupComplete - setup SYSTEM >> C:\WinboxResources\setup.log
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v LogEvent /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v Overwrite /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v EnableLogFile /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayError /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayDisabled /t REG_DWORD /d 1 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\HardwareEvents"" /v MaxSize /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Application"" /v MaxSize /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security"" /v MaxSize /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
+echo SetupComplete - setup SYSTEM >> C:\WinboxResources\setup.log
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v LogEvent /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v Overwrite /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v EnableLogFile /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayError /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayDisabled /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\HardwareEvents"" /v MaxSize /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Application"" /v MaxSize /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security"" /v MaxSize /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
 
-    echo SetupComplete - setup Memory Management >> C:\WinboxResources\setup.log
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control"" /v ProcessTerminationOnMemoryExhaustion /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v DisableAutomaticTermination /t REG_DWORD /d 1 /f
+echo SetupComplete - setup Memory Management >> C:\WinboxResources\setup.log
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control"" /v ProcessTerminationOnMemoryExhaustion /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v DisableAutomaticTermination /t REG_DWORD /d 1 /f
 
-    echo SetupComplete - setup EmbeddedLogon >> C:\WinboxResources\setup.log
-    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideAutoLogonUI /t REG_DWORD /d 1 /f
-    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideFirstLogonAnimation /t REG_DWORD /d 1 /f
-    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v BrandingNeutral /t REG_DWORD /d 1 /f
-    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v NoLockScreen /t REG_DWORD /d 1 /f
-    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v AnimationDisabled /t REG_DWORD /d 1 /f
-    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v UIVerbosityLevel /t REG_DWORD /d 1 /f
+echo SetupComplete - setup EmbeddedLogon >> C:\WinboxResources\setup.log
+reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideAutoLogonUI /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideFirstLogonAnimation /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v BrandingNeutral /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v NoLockScreen /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v AnimationDisabled /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v UIVerbosityLevel /t REG_DWORD /d 1 /f
 
-    echo SetupComplete - load DEFAULT_USER >> C:\WinboxResources\setup.log
-    reg load HKLM\DEFAULT_USER ""C:\Users\Default\NTUSER.DAT""
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v Beep /t REG_SZ /d no /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v ExtendedSounds /t REG_SZ /d no /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v AccentColor /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v ColorizationColor /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v DontShowUI /t REG_DWORD /d 1 /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v Disabled /t REG_DWORD /d 1 /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v UserPreferencesMask /t REG_BINARY /d 9012038010000000 /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" /v MinAnimate /t REG_SZ /d ""0"" /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVTweak"" /v OverlayHook /t REG_DWORD /d 0 /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v HungAppTimeout /t REG_SZ /d ""2147483647"" /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v WaitToKillAppTimeout /t REG_SZ /d ""5000"" /f
-    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f";
+echo SetupComplete - load DEFAULT_USER >> C:\WinboxResources\setup.log
+reg load HKLM\DEFAULT_USER ""C:\Users\Default\NTUSER.DAT""
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v Beep /t REG_SZ /d no /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v ExtendedSounds /t REG_SZ /d no /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v AccentColor /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v ColorizationColor /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v DontShowUI /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v Disabled /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v UserPreferencesMask /t REG_BINARY /d 9012038010000000 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" /v MinAnimate /t REG_SZ /d ""0"" /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVTweak"" /v OverlayHook /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v HungAppTimeout /t REG_SZ /d ""2147483647"" /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v WaitToKillAppTimeout /t REG_SZ /d ""5000"" /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f";
 
                 string updateSystemSettings = $@"@echo off
 
-    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
 
-    {updateSystemSettingsAndFirstInit}";
+{updateSystemSettingsAndFirstInit}";
 
                 void regAppScriptFirstInitCmd(string name, string cmd, bool writeFirst = false)
                 {
