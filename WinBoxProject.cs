@@ -1951,7 +1951,7 @@ powercfg -s SCHEME_CURRENT";
     </settings>
 </unattend>";
 
-                    await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "sysprep_unattend.xml"), baseSetup);
+                    await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "sysprep_unattend.xml"), sysprep_unattend);
                     await writeDebugFile("sysprep_unattend.xml", sysprep_unattend, false);
                 }
 
