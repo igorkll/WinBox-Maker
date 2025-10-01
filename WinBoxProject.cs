@@ -1124,8 +1124,10 @@ powercfg -s SCHEME_CURRENT";
             return text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath, bool initViaVmMode=false)
+        public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath, bool initViaVmMode = false)
         {
+            bool manual = winBoxConfig.manual_setup == true;
+
             if (winBoxConfig.prebuildEnabled == true)
             {
                 processValue(2);
@@ -1209,21 +1211,26 @@ powercfg -s SCHEME_CURRENT";
 
             // ------------------------------------ tweaks
 
-            processName("modification of BCD");
-            processValue(45);
-            await modifyBCD(0, Path.Combine(wimMountPath, "Windows\\System32\\Config\\BCD-Template"));
+            if (!manual) {
+                processName("modification of BCD");
+                processValue(45);
+                await modifyBCD(0, Path.Combine(wimMountPath, "Windows\\System32\\Config\\BCD-Template"));
 
-            processName("Modification of the system files");
-            processValue(50);
-            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
-            //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
+                processName("Modification of the system files");
+                processValue(50);
+                await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
+                //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
+            }
 
             string WindowsScriptsPath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts");
             string WinboxResourcesPath = Path.Combine(wimMountPath, "WinboxResources");
             string WinboxApiPath = Path.Combine(wimMountPath, "WinboxApi");
-            Directory.CreateDirectory(WindowsScriptsPath);
-            Directory.CreateDirectory(WinboxResourcesPath);
-            Directory.CreateDirectory(WinboxApiPath);
+            if (!manual)
+            {
+                Directory.CreateDirectory(WindowsScriptsPath);
+                Directory.CreateDirectory(WinboxResourcesPath);
+                Directory.CreateDirectory(WinboxApiPath);
+            }
 
             async Task addOtherDrivers(string baseDir)
             {
@@ -1287,14 +1294,17 @@ powercfg -s SCHEME_CURRENT";
             await addOtherDrivers(resourcesDirectoryPath);
             await addOtherDrivers(tempDirectoryPath);
 
-            await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"");
-            if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry"))
+            if (!manual)
             {
-                await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "disable_hotkeys.reg"))}\"");
-            }
+                await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"");
+                if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry"))
+                {
+                    await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "disable_hotkeys.reg"))}\"");
+                }
 
-            string executablePath = Path.Combine(WinboxResourcesPath, "executable");
-            Directory.CreateDirectory(executablePath);
+                string executablePath = Path.Combine(WinboxResourcesPath, "executable");
+                Directory.CreateDirectory(executablePath);
+            }
 
             // ------------------------------------ removing excess
 
@@ -1306,7 +1316,7 @@ powercfg -s SCHEME_CURRENT";
             }
             */
 
-            async Task removeSystemObject(string path, bool createFolder=false)
+            async Task removeSystemObject(string path, bool createFolder = false)
             {
                 path = path.Replace("/", "\\");
                 path = path.TrimStart('\\', '/');
@@ -1341,33 +1351,35 @@ powercfg -s SCHEME_CURRENT";
                 });
             }
 
-            if (Program.isTweakEnabled(winBoxConfig, "completely remove explorer.exe"))
-            {
-                await removeSystemObject("Windows\\explorer.exe");
-            }
+            if (!manual) {
+                if (Program.isTweakEnabled(winBoxConfig, "completely remove explorer.exe"))
+                {
+                    await removeSystemObject("Windows\\explorer.exe");
+                }
 
-            if (Program.isTweakEnabled(winBoxConfig, "completely remove system audio/images"))
-            {
-                await removeSystemObject("Windows\\Web");
-                await removeSystemObject("Windows\\Media");
-            }
+                if (Program.isTweakEnabled(winBoxConfig, "completely remove system audio/images"))
+                {
+                    await removeSystemObject("Windows\\Web");
+                    await removeSystemObject("Windows\\Media");
+                }
 
-            if (Program.isTweakEnabled(winBoxConfig, "removal of the subsystem SysWOW64"))
-            {
-                await removeSystemObject("Windows\\SysWOW64", true);
-            }
+                if (Program.isTweakEnabled(winBoxConfig, "removal of the subsystem SysWOW64"))
+                {
+                    await removeSystemObject("Windows\\SysWOW64", true);
+                }
 
-            if (Program.isTweakEnabled(winBoxConfig, "removing UWP apps"))
-            {
-                await removeSystemObject("Windows\\SystemApps");
-                await removeSystemObject("Program Files\\WindowsApps");
-            }
+                if (Program.isTweakEnabled(winBoxConfig, "removing UWP apps"))
+                {
+                    await removeSystemObject("Windows\\SystemApps");
+                    await removeSystemObject("Program Files\\WindowsApps");
+                }
 
-            if (Program.isTweakEnabled(winBoxConfig, "remove windows defender files"))
-            {
-                await removeSystemObject("Program Files (x86)\\Windows Defender");
-                await removeSystemObject("Program Files\\Windows Defender");
-                await removeSystemObject("Program Files\\Windows Defender Advanced Threat Protection");
+                if (Program.isTweakEnabled(winBoxConfig, "remove windows defender files"))
+                {
+                    await removeSystemObject("Program Files (x86)\\Windows Defender");
+                    await removeSystemObject("Program Files\\Windows Defender");
+                    await removeSystemObject("Program Files\\Windows Defender Advanced Threat Protection");
+                }
             }
 
             foreach (string path in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_paths ?? ""))
@@ -2249,8 +2261,11 @@ if errorlevel 1 (
             }
 
             // ------------------------------------ save & export
-            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
-            //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
+            if (!manual)
+            {
+                await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
+                //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
+            }
 
             async Task addUserDrivers(string baseDir)
             {
@@ -2279,7 +2294,7 @@ if errorlevel 1 (
             await addCabMsu(resourcesDirectoryPath);
             await addCabMsu(tempDirectoryPath);
 
-            if (winBoxConfig.manual_setup != true)
+            if (!manual)
             {
                 processName("OEM key applying");
                 processValue(59);
