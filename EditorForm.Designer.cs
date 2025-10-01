@@ -3885,9 +3885,9 @@
             manual_setup.AutoSize = true;
             manual_setup.Location = new Point(3, 3);
             manual_setup.Name = "manual_setup";
-            manual_setup.Size = new Size(271, 29);
+            manual_setup.Size = new Size(261, 29);
             manual_setup.TabIndex = 0;
-            manual_setup.Text = "Use the manual setting mode";
+            manual_setup.Text = "Use the manual setup mode";
             manual_setup.UseVisualStyleBackColor = true;
             manual_setup.CheckedChanged += manual_setup_CheckedChanged;
             // 

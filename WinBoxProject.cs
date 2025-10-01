@@ -156,6 +156,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(wimMountPath);
             Program.CreateDirectory(wimWinPeMountPath);
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "files"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "boot_files"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "program"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "nvidia_drivers"));
@@ -2336,7 +2337,13 @@ if errorlevel 1 (
 
         async Task modUnpackedIso(string unpackIsoPath)
         {
-            string winPEsetup = @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassTPMCheck /t REG_DWORD /d 1 /f
+            // unpack winPE
+            string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
+            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{bootWimPath}\" /index:1 /MountDir:\"{wimWinPeMountPath}\"");
+
+            if (winBoxConfig.manual_setup != true)
+            {
+                string winPEsetup = @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassTPMCheck /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassSecureBootCheck /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassSecureBoot /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassRAMCheck /t REG_DWORD /d 1 /f
@@ -2344,22 +2351,35 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassStorageCheck /t R
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassCPUCheck /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsupportedTPMOrCPU /t REG_DWORD /d 1 /f";
 
-            // unpack winPE
-            string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
-            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{bootWimPath}\" /index:1 /MountDir:\"{wimWinPeMountPath}\"");
+                // add WinboxMaker_winPE_setup.bat
+                string winPEsetupName = "WinboxMaker_winPE_setup.bat";
+                await File.WriteAllTextAsync(Path.Combine(wimWinPeMountPath, winPEsetupName), winPEsetup);
+                await File.WriteAllTextAsync(Path.Combine(unpackIsoPath, winPEsetupName), winPEsetup);
 
-            // add WinboxMaker_winPE_setup.bat
-            string winPEsetupName = "WinboxMaker_winPE_setup.bat";
-            await File.WriteAllTextAsync(Path.Combine(wimWinPeMountPath, winPEsetupName), winPEsetup);
-            await File.WriteAllTextAsync(Path.Combine(unpackIsoPath, winPEsetupName), winPEsetup);
-
-            // winPE setup autoexec
-            string winPEcmdPath = Path.Combine(wimWinPeMountPath, "Windows\\System32\\startnet.cmd");
-            if (File.Exists(winPEcmdPath))
-            {
-                string winPEsetupExec = @$"call ""X:\{winPEsetupName}""";
-                await File.WriteAllTextAsync(winPEcmdPath, winPEsetupExec + "\r\n" + File.ReadAllText(winPEcmdPath) + "\r\n" + winPEsetupExec);
+                // winPE setup autoexec
+                string winPEcmdPath = Path.Combine(wimWinPeMountPath, "Windows\\System32\\startnet.cmd");
+                if (File.Exists(winPEcmdPath))
+                {
+                    string winPEsetupExec = @$"call ""X:\{winPEsetupName}""";
+                    await File.WriteAllTextAsync(winPEcmdPath, winPEsetupExec + "\r\n" + File.ReadAllText(winPEcmdPath) + "\r\n" + winPEsetupExec);
+                }
             }
+
+            // apply the boot.wim modification
+            string filesPath = Path.Combine(resourcesDirectoryPath, "boot_files");
+            if (Directory.Exists(filesPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(filesPath, wimWinPeMountPath);
+            }
+
+            filesPath = Path.Combine(tempDirectoryPath, "boot_files");
+            if (Directory.Exists(filesPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(filesPath, wimWinPeMountPath);
+            }
+
+            // remove temp
+            await RemoveTempFolder("boot_files");
 
             // save
             await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{wimWinPeMountPath}\" /commit");

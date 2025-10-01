@@ -2328,7 +2328,7 @@ namespace WinBox_Maker
         private async void manual_setup_autounattend_select_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.batFilter, winBoxProject.resourcesDirectoryPath, true);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.xmlFilter, winBoxProject.resourcesDirectoryPath, true);
             if (name != null)
             {
                 winBoxProject.winBoxConfig.manual_setup_autounattend = name;

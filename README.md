@@ -210,6 +210,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * cursor - not working
 * sources - it works, but the build result will not be automatically placed in the system image
 * iso_files - working
+* boot_files - working
 * vc_redist - not working
 * net - not working
 * net_framework - not working
@@ -230,6 +231,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * winbox_temp/driver_installers - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/packages - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/iso_files - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
+* winbox_temp/boot_files - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/vc_redist - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/net - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/net_framework - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
@@ -246,6 +248,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * winbox_resources/cursor - the directory where you can upload custom cursor files (.cur for different states)
 * winbox_resources/sources - the source code of your application for building using winbox maker
 * winbox_resources/iso_files - iso image modification files. they are copied and replaced into the iso image (NOT THE ROOT OF THE SYSTEM, BUT THE ISO. use "files" to modify the system files)
+* winbox_resources/boot_files - copies the replacement files to the mounted boot.wim in the windows installer
 * winbox_resources/vc_redist - you can put installers of additional visual C++ redist packages here to embed them in the image
 * winbox_resources/net - you can put the installers of additional .net packages here to embed them in the image
 * winbox_resources/net_framework - you can put the installers of additional net framework packages here to embed them in the image
