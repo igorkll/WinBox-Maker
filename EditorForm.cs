@@ -578,6 +578,7 @@ namespace WinBox_Maker
 
             delete_paths.Text = winBoxProject.winBoxConfig.delete_paths ?? "";
             delete_dism.Text = winBoxProject.winBoxConfig.delete_dism ?? "";
+            delete_dism_universal.Text = winBoxProject.winBoxConfig.delete_dism_universal ?? "";
             delete_dism_remove_package.Text = winBoxProject.winBoxConfig.delete_dism_remove_package ?? "";
             delete_dism_remove_appx_package.Text = winBoxProject.winBoxConfig.delete_dism_remove_appx_package ?? "";
 
@@ -2254,6 +2255,14 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.delete_dism_remove_appx_package = delete_dism_remove_appx_package.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void delete_dism_universal_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.delete_dism_universal = delete_dism_universal.Text;
             winBoxProject.SaveConfig();
         }
     }

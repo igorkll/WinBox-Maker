@@ -346,6 +346,9 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
+            tabPage31 = new TabPage();
+            delete_dism_universal = new RichTextBox();
+            richTextBox14 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -415,6 +418,7 @@
             tabPage29.SuspendLayout();
             tabPage30.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage31.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -3530,6 +3534,7 @@
             // tabControl6
             // 
             tabControl6.Controls.Add(tabPage27);
+            tabControl6.Controls.Add(tabPage31);
             tabControl6.Controls.Add(tabPage28);
             tabControl6.Controls.Add(tabPage29);
             tabControl6.Controls.Add(tabPage30);
@@ -3720,6 +3725,36 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
+            // tabPage31
+            // 
+            tabPage31.Controls.Add(richTextBox14);
+            tabPage31.Controls.Add(delete_dism_universal);
+            tabPage31.Location = new Point(4, 34);
+            tabPage31.Name = "tabPage31";
+            tabPage31.Size = new Size(1004, 303);
+            tabPage31.TabIndex = 4;
+            tabPage31.Text = "Dism (universal)";
+            tabPage31.UseVisualStyleBackColor = true;
+            // 
+            // delete_dism_universal
+            // 
+            delete_dism_universal.Location = new Point(6, 6);
+            delete_dism_universal.Name = "delete_dism_universal";
+            delete_dism_universal.Size = new Size(629, 291);
+            delete_dism_universal.TabIndex = 3;
+            delete_dism_universal.Text = "";
+            delete_dism_universal.TextChanged += delete_dism_universal_TextChanged;
+            // 
+            // richTextBox14
+            // 
+            richTextBox14.BackColor = SystemColors.Info;
+            richTextBox14.Location = new Point(641, 6);
+            richTextBox14.Name = "richTextBox14";
+            richTextBox14.ReadOnly = true;
+            richTextBox14.Size = new Size(357, 291);
+            richTextBox14.TabIndex = 3;
+            richTextBox14.Text = resources.GetString("richTextBox14.Text");
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -3863,6 +3898,7 @@
             tabPage29.ResumeLayout(false);
             tabPage30.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage31.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -4186,5 +4222,8 @@
         private RichTextBox delete_dism_remove_appx_package;
         private RichTextBox richTextBox15;
         private RichTextBox richTextBox16;
+        private TabPage tabPage31;
+        private RichTextBox delete_dism_universal;
+        private RichTextBox richTextBox14;
     }
 }
