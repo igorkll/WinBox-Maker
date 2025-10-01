@@ -1403,7 +1403,7 @@ powercfg -s SCHEME_CURRENT";
                         await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-ProvisionedAppxPackage /PackageName:\"{name}\"");
                         break;
                 }
-                
+
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_universal ?? ""))
@@ -2009,15 +2009,18 @@ net localgroup Administrators winbox /add";
             await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);
 
             // ------------------------------------ copy program files
-            string programPath = Path.Combine(resourcesDirectoryPath, "program");
-            if (Directory.Exists(programPath))
+            if (!manual)
             {
-                await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
-            }
+                string programPath = Path.Combine(resourcesDirectoryPath, "program");
+                if (Directory.Exists(programPath))
+                {
+                    await Program.CopyFilesRecursivelyAsync(programPath, Path.Combine(wimMountPath, "WinboxProgram"));
+                }
 
-            if (Directory.Exists(tempProgramPath))
-            {
-                await Program.CopyFilesRecursivelyAsync(tempProgramPath, Path.Combine(wimMountPath, "WinboxProgram"));
+                if (Directory.Exists(tempProgramPath))
+                {
+                    await Program.CopyFilesRecursivelyAsync(tempProgramPath, Path.Combine(wimMountPath, "WinboxProgram"));
+                }
             }
 
             // ------------------------------------ copy files
@@ -2036,45 +2039,46 @@ net localgroup Administrators winbox /add";
             await addAdFiles(wimMountPath, newWindowsDescription);
 
             // ------------------------------------ setup application autorun
-            string? command = null;
-            switch (winBoxConfig.ProgramType)
-            {
-                case ProgramTypeEnum.ExecutableFile:
-                    {
-                        applicationScript += "\r\ncd C:\\WinboxProgram";
-                        string execFilePath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
-                        string extension = Path.GetExtension(winBoxConfig.ProgramName);
-                        if (extension != null && (extension.Equals(".bat", StringComparison.OrdinalIgnoreCase) ||
-                            extension.Equals(".cmd", StringComparison.OrdinalIgnoreCase)))
+            if (!manual) {
+                string? command = null;
+                switch (winBoxConfig.ProgramType)
+                {
+                    case ProgramTypeEnum.ExecutableFile:
                         {
-                            //await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), execFilePath, winBoxConfig.ProgramArgs);
-                            //command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
-                            command = "call \"" + execFilePath + "\"";
+                            applicationScript += "\r\ncd C:\\WinboxProgram";
+                            string execFilePath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
+                            string extension = Path.GetExtension(winBoxConfig.ProgramName);
+                            if (extension != null && (extension.Equals(".bat", StringComparison.OrdinalIgnoreCase) ||
+                                extension.Equals(".cmd", StringComparison.OrdinalIgnoreCase)))
+                            {
+                                //await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), execFilePath, winBoxConfig.ProgramArgs);
+                                //command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
+                                command = "call \"" + execFilePath + "\"";
+                            }
+                            else
+                            {
+                                command = "start \"\" /wait \"" + execFilePath + "\"";
+                            }
+
+                            if (winBoxConfig.ProgramArgs != null && winBoxConfig.ProgramArgs.Length > 0)
+                            {
+                                command += " " + winBoxConfig.ProgramArgs;
+                            }
                         }
-                        else
+                        break;
+
+                    case ProgramTypeEnum.RawCommand:
+                        if (winBoxConfig.RawCommand != null) {
+                            applicationScript += "\r\ncd C:\\WinboxProgram";
+                            command = winBoxConfig.RawCommand;
+                        }
+                        break;
+
+                    case ProgramTypeEnum.WebSite:
+                        if (winBoxConfig.WebSite != null && !winBoxConfig.WebSite.Contains("\""))
                         {
-                            command = "start \"\" /wait \"" + execFilePath + "\"";
-                        }
-
-                        if (winBoxConfig.ProgramArgs != null && winBoxConfig.ProgramArgs.Length > 0)
-                        {
-                            command += " " + winBoxConfig.ProgramArgs;
-                        }
-                    }
-                    break;
-
-                case ProgramTypeEnum.RawCommand:
-                    if (winBoxConfig.RawCommand != null) {
-                        applicationScript += "\r\ncd C:\\WinboxProgram";
-                        command = winBoxConfig.RawCommand;
-                    }
-                    break;
-
-                case ProgramTypeEnum.WebSite:
-                    if (winBoxConfig.WebSite != null && !winBoxConfig.WebSite.Contains("\""))
-                    {
-                        string execFilePath = @"C:\WinboxResources\run_edge.bat";
-                        string batFile = $@"@echo off
+                            string execFilePath = @"C:\WinboxResources\run_edge.bat";
+                            string batFile = $@"@echo off
 
 set ""edgePath1=C:\WinboxResources\edge\msedge.exe""
 set ""edgePath2=C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe""
@@ -2110,154 +2114,155 @@ if ""%msedgePath%""=="""" (
 
 start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-type=fullscreen --kiosk-idle-timeout-minutes={winBoxConfig.WebSessionTimeout} --no-first-run";
 
-                        await writeDebugFile("RunEdge", applicationScript);
-                        await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "run_edge.bat"), batFile);
+                            await writeDebugFile("RunEdge", applicationScript);
+                            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "run_edge.bat"), batFile);
 
-                        //await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_edge_script_hidden.vbs"), execFilePath, null);
-                        //command = "wscript \"C:\\WinboxResources\\run_edge_script_hidden.vbs\"";
-                        command = "call \"" + execFilePath + "\"";
-                    }
-                    break;
-
-                case ProgramTypeEnum.None:
-                    break;
-            }
-
-            {
-                string? before_app_logo = null;
-                string baseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
-                if (winBoxConfig.CustomBootLogo_UseLogoBeforeApp == true)
-                {
-                    if (winBoxConfig.CustomBootLogo != null)
-                    {
-                        string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
-                        if (File.Exists(logoPath))
-                        {
-                            await CopyResource("show_image.ps1");
-                            string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, "before_app.bmp");
-                            ImageConverter.ConvertToBmp_54_24(logoPath, beforeAppLogoPath);
-                            await copyToDebugFile("before_app.bmp", beforeAppLogoPath);
+                            //await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_edge_script_hidden.vbs"), execFilePath, null);
+                            //command = "wscript \"C:\\WinboxResources\\run_edge_script_hidden.vbs\"";
+                            command = "call \"" + execFilePath + "\"";
                         }
-                        before_app_logo = baseCmd + $@"-path ""C:\WinboxResources\before_app.bmp"" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
-                    }
-                }
-                else if (winBoxConfig.logoBeforeApp != null)
-                {
-                    await CopyResource("show_image.ps1");
-                    string filename = "before_app" + Path.GetExtension(winBoxConfig.logoBeforeApp);
-                    string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, filename);
-                    File.Copy(winBoxConfig.logoBeforeApp, beforeAppLogoPath, true);
-                    await copyToDebugFile(filename, beforeAppLogoPath);
-                    before_app_logo = baseCmd + $@"-path ""C:\WinboxResources\{filename}"" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
+                        break;
+
+                    case ProgramTypeEnum.None:
+                        break;
                 }
 
-                if (before_app_logo != null)
                 {
-                    await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "before_app_logo.bat"), before_app_logo);
-                    await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_before_app_logo_hidden.vbs"), @"C:\WinboxResources\before_app_logo.bat", null);
-
-                    applicationScript += "\r\n";
-                    applicationScript += @"set SHOW_IMAGE_FLAG_FILE=C:\WinboxResources\show_image.flag" + "\r\n";
-                    applicationScript += @"del /f ""%SHOW_IMAGE_FLAG_FILE%""" + "\r\n";
-                    applicationScript += "wscript \"C:\\WinboxResources\\run_before_app_logo_hidden.vbs\"" + "\r\n";
-
-                    if (winBoxConfig.wait_before_app_logo == true)
+                    string? before_app_logo = null;
+                    string baseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
+                    if (winBoxConfig.CustomBootLogo_UseLogoBeforeApp == true)
                     {
-                        applicationScript += @":wait_show_image
+                        if (winBoxConfig.CustomBootLogo != null)
+                        {
+                            string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
+                            if (File.Exists(logoPath))
+                            {
+                                await CopyResource("show_image.ps1");
+                                string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, "before_app.bmp");
+                                ImageConverter.ConvertToBmp_54_24(logoPath, beforeAppLogoPath);
+                                await copyToDebugFile("before_app.bmp", beforeAppLogoPath);
+                            }
+                            before_app_logo = baseCmd + $@"-path ""C:\WinboxResources\before_app.bmp"" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
+                        }
+                    }
+                    else if (winBoxConfig.logoBeforeApp != null)
+                    {
+                        await CopyResource("show_image.ps1");
+                        string filename = "before_app" + Path.GetExtension(winBoxConfig.logoBeforeApp);
+                        string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, filename);
+                        File.Copy(winBoxConfig.logoBeforeApp, beforeAppLogoPath, true);
+                        await copyToDebugFile(filename, beforeAppLogoPath);
+                        before_app_logo = baseCmd + $@"-path ""C:\WinboxResources\{filename}"" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
+                    }
+
+                    if (before_app_logo != null)
+                    {
+                        await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "before_app_logo.bat"), before_app_logo);
+                        await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_before_app_logo_hidden.vbs"), @"C:\WinboxResources\before_app_logo.bat", null);
+
+                        applicationScript += "\r\n";
+                        applicationScript += @"set SHOW_IMAGE_FLAG_FILE=C:\WinboxResources\show_image.flag" + "\r\n";
+                        applicationScript += @"del /f ""%SHOW_IMAGE_FLAG_FILE%""" + "\r\n";
+                        applicationScript += "wscript \"C:\\WinboxResources\\run_before_app_logo_hidden.vbs\"" + "\r\n";
+
+                        if (winBoxConfig.wait_before_app_logo == true)
+                        {
+                            applicationScript += @":wait_show_image
 if exist ""%SHOW_IMAGE_FLAG_FILE%"" goto continue_show_image
 timeout /t 0 /nobreak >nul
 goto wait_show_image
 
 :continue_show_image
 del /f ""%SHOW_IMAGE_FLAG_FILE%""";
+                        }
+
+                        applicationScript += "\r\n";
                     }
-
-                    applicationScript += "\r\n";
                 }
-            }
 
-            applicationScript += "\r\n:restart_app";
-            
-            if (winBoxConfig.appdelay_time == true)
-            {
-                applicationScript += $"\r\ntimeout /t {winBoxConfig.appdelay_time_value} /nobreak";
-            }
+                applicationScript += "\r\n:restart_app";
 
-            if (winBoxConfig.appdelay_internet == true)
-            {
-                applicationScript += $"\r\n" + $@":wait_internet
+                if (winBoxConfig.appdelay_time == true)
+                {
+                    applicationScript += $"\r\ntimeout /t {winBoxConfig.appdelay_time_value} /nobreak";
+                }
+
+                if (winBoxConfig.appdelay_internet == true)
+                {
+                    applicationScript += $"\r\n" + $@":wait_internet
 ping -n 1 ""{winBoxConfig.appdelay_internet_checkurl}"" >nul 2>&1
 if errorlevel 1 (
     timeout /t {winBoxConfig.appdelay_internet_requestdelay} >nul
     goto wait_internet
 )" + $"\r\n";
-            }
+                }
 
-            if (command != null)
-            {
-                applicationScript += "\r\n" + command;
-            }
+                if (command != null)
+                {
+                    applicationScript += "\r\n" + command;
+                }
 
-            switch (winBoxConfig.actionAtEndOfApplication)
-            {
-                case ActionAtEndOfApplication.none:
-                    break;
+                switch (winBoxConfig.actionAtEndOfApplication)
+                {
+                    case ActionAtEndOfApplication.none:
+                        break;
 
-                case ActionAtEndOfApplication.restart_app:
-                    applicationScript += "\r\ngoto restart_app";
-                    break;
+                    case ActionAtEndOfApplication.restart_app:
+                        applicationScript += "\r\ngoto restart_app";
+                        break;
 
-                case ActionAtEndOfApplication.reboot_computer:
-                    applicationScript += "\r\nshutdown /r /t 0";
-                    break;
+                    case ActionAtEndOfApplication.reboot_computer:
+                        applicationScript += "\r\nshutdown /r /t 0";
+                        break;
 
-                case ActionAtEndOfApplication.shutdown_computer:
-                    applicationScript += "\r\nshutdown /s /t 0";
-                    break;
+                    case ActionAtEndOfApplication.shutdown_computer:
+                        applicationScript += "\r\nshutdown /s /t 0";
+                        break;
 
-                case ActionAtEndOfApplication.execute_command:
-                    applicationScript += winBoxConfig.actionAtEndOfApplication_command;
-                    break;
-            }
+                    case ActionAtEndOfApplication.execute_command:
+                        applicationScript += winBoxConfig.actionAtEndOfApplication_command;
+                        break;
+                }
 
-            Program.CreateDirectory(Path.Combine(
-                wimMountPath,
-                "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp"
-            ));
+                Program.CreateDirectory(Path.Combine(
+                    wimMountPath,
+                    "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp"
+                ));
 
-            await writeDebugFile("AppScript", applicationScript);
-            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "app_script.bat"), applicationScript);
+                await writeDebugFile("AppScript", applicationScript);
+                await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "app_script.bat"), applicationScript);
 
-            if (winBoxConfig.LaunchMode == ProgramLaunchModeEnum.afterDesktop)
-            {
-                await WriteHiddenBatExecuter(
-                    Path.Combine(
-                        wimMountPath,
-                        "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\run_app_script_hidden.vbs"
-                    ),
-                    @"C:\WinboxResources\app_script.bat",
-                    null
-                );
-            }
-            else
-            {
-                await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, "reboot_to_desktop.bat"), reboot_to_desktop_cmd);
+                if (winBoxConfig.LaunchMode == ProgramLaunchModeEnum.afterDesktop)
+                {
+                    await WriteHiddenBatExecuter(
+                        Path.Combine(
+                            wimMountPath,
+                            "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\run_app_script_hidden.vbs"
+                        ),
+                        @"C:\WinboxResources\app_script.bat",
+                        null
+                    );
+                }
+                else
+                {
+                    await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, "reboot_to_desktop.bat"), reboot_to_desktop_cmd);
 
-                string customShell = "wscript \"C:\\WinboxResources\\run_app_script_hidden.vbs\"";
+                    string customShell = "wscript \"C:\\WinboxResources\\run_app_script_hidden.vbs\"";
 
-                await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "return_the_shell.bat"), $"reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell /t REG_SZ /d \"{customShell.Replace("\"", "\\\"")}\" /f");
+                    await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "return_the_shell.bat"), $"reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell /t REG_SZ /d \"{customShell.Replace("\"", "\\\"")}\" /f");
 
-                await WriteHiddenBatExecuter(
-                    Path.Combine(
-                        wimMountPath,
-                        "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\run_return_the_shell_hidden.vbs"
-                    ),
-                    @"C:\WinboxResources\return_the_shell.bat",
-                    null
-                );
+                    await WriteHiddenBatExecuter(
+                        Path.Combine(
+                            wimMountPath,
+                            "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\run_return_the_shell_hidden.vbs"
+                        ),
+                        @"C:\WinboxResources\return_the_shell.bat",
+                        null
+                    );
 
-                await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_app_script_hidden.vbs"), @"C:\WinboxResources\app_script.bat", null);
-                await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(customShell));
+                    await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_app_script_hidden.vbs"), @"C:\WinboxResources\app_script.bat", null);
+                    await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(customShell));
+                }
             }
 
             // ------------------------------------ save & export
