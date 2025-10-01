@@ -3537,6 +3537,10 @@ the third argument is architecture (x64, x86, arm64)</value>
 the path is specified relative to the project folder.
 it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore".</value>
   </data>
+  <data name="richTextBox11.Text" xml:space="preserve">
+    <value>deletes files or directories by specified paths inside the mounted Windows.
+if the path refers to a directory, then an empty directory will be created in its place, this is done because in Windows, when deleting many system directories, the system can continue to work normally if the directory itself exists, even if it is empty, but the system refuses to work if the directory itself has been deleted.</value>
+  </data>
   <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -3617,10 +3621,6 @@ it is better to download files to the "winbox_temp/files" directory, refer to th
         sFcZFAT6bh30GMWC1o2CTv/vWPENVaEg0KPjp65z5rGEei9ipmAGBlxz6SFrGBAF4goXkny4yoptqBoF
         g4GFvNjfil2JWW21/wOsMlr/Whm3FwAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="richTextBox11.Text" xml:space="preserve">
-    <value>deletes files or directories by specified paths inside the mounted Windows.
-if the path refers to a directory, then an empty directory will be created in its place, this is done because in Windows, when deleting many system directories, the system can continue to work normally if the directory itself exists, even if it is empty, but the system refuses to work if the directory itself has been deleted.</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
