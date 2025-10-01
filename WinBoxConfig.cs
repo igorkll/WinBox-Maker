@@ -250,7 +250,7 @@ namespace WinBox_Maker
             if (img_install_cpu == null) img_install_cpu = 2;
             if (img_shutdownAfterInstall == null) img_shutdownAfterInstall = true;
             if (img_runningPostinstallOnFirstRealStartup == null) img_runningPostinstallOnFirstRealStartup = true;
-            if (img_generalizeAfterInstall == null) img_generalizeAfterInstall = false;
+            if (img_generalizeAfterInstall == null) img_generalizeAfterInstall = true;
 
             if (computername_use == null) computername_use = false;
             if (computername == null) computername = "winbox-maker";
