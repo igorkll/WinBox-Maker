@@ -3550,7 +3550,7 @@
             tabPage16.Name = "tabPage16";
             tabPage16.Size = new Size(1018, 347);
             tabPage16.TabIndex = 11;
-            tabPage16.Text = "export img settings";
+            tabPage16.Text = "export img";
             tabPage16.UseVisualStyleBackColor = true;
             // 
             // label57

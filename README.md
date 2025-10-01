@@ -71,7 +71,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * events - execute cmd commands on the host machine during the build process. this can be used, for example, to copy files to the project directory or for anything else. to make this work, don't forget to activate the events you use in the checkmark!
 * build - build your app together with Winbox. when using this, you can make the "winbox_resources/program" directory empty and specify a name *.exe file in "app" tab manually. in order for this to work, don't forget to activate the checkmark function near the "add" button!
 * downloading - allows you to download files during the build stage. It allows you to unpack archives automatically. please note that the download path is set relative to the project folder. it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore"
-* export img settings - export settings in img format
+* export img - export settings in img format
 * delete - allows you to delete files and windows components
 * manual setup - it allows you to use winbox maker in manual configuration mode, in which case the settings from winbox maker will be unavailable and you will set the system configuration yourself
 
