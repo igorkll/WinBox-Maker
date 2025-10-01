@@ -215,11 +215,11 @@ namespace WinBox_Maker
             return Path.Combine(tempDirectoryPath, "debug", name + ".txt");
         }
 
-        async Task writeDebugFile(string name, string content)
+        async Task writeDebugFile(string name, string content, bool addTxt=true)
         {
             string folder = Path.Combine(tempDirectoryPath, "debug");
             Program.CreateDirectory(folder);
-            await File.WriteAllTextAsync(Path.Combine(folder, name + ".txt"), content);
+            await File.WriteAllTextAsync(Path.Combine(folder, name + (addTxt ? ".txt" : "")), content);
         }
 
         async Task copyToDebugFile(string name, string sourcePath)
@@ -1939,19 +1939,19 @@ powercfg -s SCHEME_CURRENT";
 
                     string sysprep_unattend = $@"<?xml version=""1.0"" encoding=""utf-8""?>
 <unattend xmlns=""urn:schemas-microsoft-com:unattend"">
-  <settings pass=""oobeSystem"">
-    <component name=""Microsoft-Windows-Shell-Setup"" processorArchitecture=""{architecture}""
-               publicKeyToken=""31bf3856ad364e35"" language=""neutral"" versionScope=""nonSxS"">
-      <OOBE>
-        <HideEULAPage>true</HideEULAPage>
-        <SkipMachineOOBE>true</SkipMachineOOBE>
-        <SkipUserOOBE>true</SkipUserOOBE>
-      </OOBE>
-    </component>
-  </settings>
+    <settings pass=""oobeSystem"">
+        <component name=""Microsoft-Windows-Shell-Setup"" processorArchitecture=""{architecture}"" publicKeyToken=""31bf3856ad364e35"" language=""neutral"" versionScope=""nonSxS"" xmlns:wcm=""http://schemas.microsoft.com/WMIConfig/2002/State"">
+            <OOBE>
+                <HideEULAPage>true</HideEULAPage>
+                <SkipMachineOOBE>true</SkipMachineOOBE>
+                <SkipUserOOBE>true</SkipUserOOBE>
+            </OOBE>
+        </component>
+    </settings>
 </unattend>";
 
                     await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "sysprep_unattend.xml"), baseSetup);
+                    await writeDebugFile("sysprep_unattend.xml", sysprep_unattend, false);
                 }
 
                 if (initViaVmMode && winBoxConfig.img_shutdownAfterInstall == true)
