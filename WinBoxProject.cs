@@ -1441,572 +1441,574 @@ powercfg -s SCHEME_CURRENT";
 
             // ------------------------------------ system init
 
-            string bcdeditSetup = _getBcdeditSetup();
-            string powercfgSetup = _getPowercfgSetup();
-            string servicesSetup = _getServicesSetup();
-
-            string setupCompleteAndFirstInit = $@"echo SetupComplete and FirstInit - start >> C:\WinboxResources\setup.log
-
-echo SetupComplete and FirstInit - setup dism >> C:\WinboxResources\setup.log
-dism /online /enable-feature /all /featurename:Client-DeviceLockdown
-dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
-dism /online /enable-feature /all /featurename:Client-KeyboardFilter
-dism /online /enable-feature /all /featurename:Client-EmbeddedBootExp
-
-echo SetupComplete and FirstInit - setup powercfg >> C:\WinboxResources\setup.log
-{powercfgSetup}
-
-echo SetupComplete and FirstInit - setup services >> C:\WinboxResources\setup.log
-{servicesSetup}
-
-echo SetupComplete and FirstInit - end >> C:\WinboxResources\setup.log";
-
-            string updateSystemSettingsAndFirstInit = $@"reagentc.exe /disable
-netsh advfirewall set allprofiles state off
-powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
-
-{bcdeditSetup}";
-            //why do I change the bcd every time I start?
-            //because in some versions of windows (old enterprise),
-            //bcd changes may otherwise remain unchanged if done in setup complete,
-            //which will create a vulnerability so that the system restore window can open.
-            //This is one of those cases where it is better to solve a problem in several ways at once.
-
-            string baseSetup = $@"echo SetupComplete - start >> C:\WinboxResources\setup.log
-
-echo SetupComplete - call SetupComplete and FirstInit >> C:\WinboxResources\setup.log
-{setupCompleteAndFirstInit}
-
-echo SetupComplete - add executable to PATH >> C:\WinboxResources\setup.log
-setx PATH ""%PATH%;C:\WinboxResources\executable"" /M
-
-echo SetupComplete - call UpdateSystemSettings >> C:\WinboxResources\setup.log
-call ""C:\WinboxResources\UpdateSystemSettings.bat""
-
-echo SetupComplete - add UpdateSystemSettings to schtasks >> C:\WinboxResources\setup.log
-schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\UpdateSystemSettings.bat"" /sc onlogon /rl highest /ru ""SYSTEM""
-
-echo SetupComplete - setup schtasks >> C:\WinboxResources\setup.log
-schtasks /Change /TN ""\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"" /Disable
-schtasks /Change /TN ""\Microsoft\Windows\Application Experience\ProgramDataUpdater"" /Disable
-schtasks /Change /TN ""\Microsoft\Windows\Autochk\Proxy"" /Disable
-schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"" /Disable
-schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask"" /Disable
-schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"" /Disable
-
-echo SetupComplete - DisableTamperProtection >> C:\WinboxResources\setup.log
-powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
-
-echo SetupComplete - setup SYSTEM >> C:\WinboxResources\setup.log
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v LogEvent /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v Overwrite /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v EnableLogFile /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayError /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayDisabled /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\HardwareEvents"" /v MaxSize /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Application"" /v MaxSize /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security"" /v MaxSize /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
-
-echo SetupComplete - setup Memory Management >> C:\WinboxResources\setup.log
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control"" /v ProcessTerminationOnMemoryExhaustion /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v DisableAutomaticTermination /t REG_DWORD /d 1 /f
-
-echo SetupComplete - setup EmbeddedLogon >> C:\WinboxResources\setup.log
-reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideAutoLogonUI /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideFirstLogonAnimation /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v BrandingNeutral /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v NoLockScreen /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v AnimationDisabled /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v UIVerbosityLevel /t REG_DWORD /d 1 /f
-
-echo SetupComplete - load DEFAULT_USER >> C:\WinboxResources\setup.log
-reg load HKLM\DEFAULT_USER ""C:\Users\Default\NTUSER.DAT""
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v Beep /t REG_SZ /d no /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v ExtendedSounds /t REG_SZ /d no /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v AccentColor /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v ColorizationColor /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v DontShowUI /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v Disabled /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v UserPreferencesMask /t REG_BINARY /d 9012038010000000 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" /v MinAnimate /t REG_SZ /d ""0"" /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVTweak"" /v OverlayHook /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v HungAppTimeout /t REG_SZ /d ""2147483647"" /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v WaitToKillAppTimeout /t REG_SZ /d ""5000"" /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f";
-
-            string updateSystemSettings = $@"@echo off
-
-reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
-
-{updateSystemSettingsAndFirstInit}";
-
             string applicationScript = $@"@echo off" + "\r\n";
-
-            void regAppScriptFirstInitCmd(string name, string cmd, bool writeFirst = false)
-            {
-                string writeFileCmd = $"\r\necho. > \"C:\\WinboxResources\\{name}.installed\"";
-                applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\{name}.installed\" (";
-                if (writeFirst) applicationScript += writeFileCmd;
-                applicationScript += $"\r\n{cmd}";
-                if (!writeFirst) applicationScript += writeFileCmd;
-                applicationScript += $"\r\n)\r\n";
-            }
-
-            void baseSetupLog(string log)
-            {
-                baseSetup += "\r\n" + $@"echo SetupComplete - {log} >> C:\WinboxResources\setup.log" + "\r\n";
-            }
-
-            regAppScriptFirstInitCmd("firstInit1", setupCompleteAndFirstInit);
-            regAppScriptFirstInitCmd("firstInit2", updateSystemSettingsAndFirstInit);
-
-            if (winBoxConfig.computername_use == true)
-            {
-                baseSetupLog("rename computer");
-                baseSetup += $"\r\nPowerShell -Command \"Rename-Computer -NewName '{winBoxConfig.computername}'\"";
-            }
-
-            if (!Program.isTweakEnabled(winBoxConfig, "Allow check-disk"))
-            {
-                baseSetupLog("disable checkdisk");
-                baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"" /v AutoChkTimeout /t REG_DWORD /d 0 /f";
-                baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"" /v BootExecute /t REG_MULTI_SZ /d ""autocheck autochk /k:*"" /f";
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Disable security mitigations (performance boost)"))
-            {
-                baseSetupLog("disable security mitigations");
-                baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v FeatureSettingsOverride /t REG_DWORD /d 0xFFFFFFFF /f";
-                baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v FeatureSettingsOverrideMask /t REG_DWORD /d 0xFFFFFFFF /f";
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Enable CrashOnCtrlScroll (BSOD)"))
-            {
-                baseSetupLog("Enable CrashOnCtrlScroll");
-                baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\kbdhid\Parameters"" /v CrashOnCtrlScroll /t REG_DWORD /d 1 /f";
-                baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\i8042prt\Parameters"" /v CrashOnCtrlScroll /t REG_DWORD /d 1 /f";
-            }
-
-            if (winBoxConfig.UseCustomDisplaySettings == true)
-            {
-                await CopyResource("ChangeResolution.ps1");
-                string args = "";
-                if (winBoxConfig.cds_width_use == true) args += $@"-Width ""{winBoxConfig.cds_width}"" ";
-                if (winBoxConfig.cds_height_use == true) args += $@"-Height ""{winBoxConfig.cds_height}"" ";
-                if (winBoxConfig.cds_bitDepth_use == true) args += $@"-BitDepth ""{winBoxConfig.cds_bitDepth}"" ";
-                if (winBoxConfig.cds_refreshRate_use == true) args += $@"-Refresh ""{winBoxConfig.cds_refreshRate}"" ";
-                if (winBoxConfig.cds_orientation_use == true) args += $@"-Orientation ""{winBoxConfig.cds_orientation}"" ";
-                string customDisplaySettingsCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeResolution.ps1"" {args}";
-                applicationScript += $"\r\n" + customDisplaySettingsCmd;
-                baseSetupLog("Change Display Settings");
-                baseSetup += $"\r\n" + customDisplaySettingsCmd;
-            }
-
-            if (winBoxConfig.UseCustomDisplaySettings_scale == true)
-            {
-                await CopyResource("ChangeScale.ps1");
-                string customDisplaySettingsCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeScale.ps1"" -Scaling ""{winBoxConfig.cds_scaling}""";
-                applicationScript += $"\r\n" + customDisplaySettingsCmd;
-                baseSetupLog("Change Display Scale");
-                baseSetup += $"\r\n" + customDisplaySettingsCmd;
-            }
-
-            bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
-            string cursorPath = Path.Combine(resourcesDirectoryPath, "cursor");
-            bool customCursor = Directory.Exists(cursorPath) && !Program.IsDirectoryEmpty(cursorPath);
-            bool useWinboxService = winBoxConfig.UseEmbeddedDisplay == true;
-
-            if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the layout"))
-            {
-                baseSetupLog("Disable hotkey by change keyboard layout");
-                baseSetup += "\r\n";
-                baseSetup += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout"" /v ""Scancode Map"" /t REG_BINARY /d 000000000000000030000000000021e000006ce000006de0000011e000006be000003b0000004400000057000000580000006400000065000000660000006700000068000000690000006a0000003c0000006b0000006c0000006d0000006e0000006f0000003d0000003e0000003f0000004000000041000000420000004300000013e0000014e0000012e00000380000005be000005ee0000037e0000038e000005ce000005fe0000063e000006ae0000066e0000069e0000032e0000067e0000065e0000068e000000000 /f";
-            }
-
-            if (winBoxConfig.UseOemKey == true && winBoxConfig.OemKey != null && !winBoxConfig.OemKey.Contains("\""))
-            {
-                baseSetupLog("Apply OEM key");
-                baseSetup += $"\r\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
-            }
-
-            void regRedist(string name)
-            {
-                baseSetupLog($"install vc redist {name}");
-                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\{name} /install /quiet /norestart";
-            }
-
-            bool compatibleVcRedist = Program.isTweakEnabled(winBoxConfig, "Integrate vc redist (compatible architectures)");
-            if (compatibleVcRedist || Program.isTweakEnabled(winBoxConfig, "Integrate vc redist"))
-            {
-                if (compatibleVcRedist)
-                {
-                    List<string> archs = new List<string>();
-                    switch (winBoxConfig.Architecture)
-                    {
-                        case "x64":
-                            archs.Add("x64");
-                            archs.Add("x86");
-                            break;
-
-                        case "x86":
-                            archs.Add("x86");
-                            break;
-
-                        case "arm64":
-                            archs.Add("arm64");
-                            archs.Add("x64");
-                            archs.Add("x86");
-                            break;
-                    }
-                    foreach (string arch in archs)
-                    {
-                        string newName = arch + "_vc_redist.exe";
-                        await CopyBlobFromArchWithRename("vc_redist.exe", newName, arch);
-                        regRedist(newName);
-                    }
-                }
-                else
-                {
-                    await CopyBlob("vc_redist.exe");
-                    regRedist("vc_redist.exe");
-                }
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate nircmd"))
-            {
-                await CopyBlob("nircmd.exe", "executable");
-                await CopyBlob("nircmdc.exe", "executable");
-            }
-
-            void regNetFramework(string name)
-            {
-                baseSetupLog($"install net framework {name}");
-                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\{name} /q";
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.8.1"))
-            {
-                await CopyBlob("net481.exe");
-                regNetFramework("net481.exe");
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.7.2") || customBootLogo)
-            {
-                await CopyBlob("net472.exe");
-                regNetFramework("net472.exe");
-            }
-
-            void regNet(string name)
-            {
-                baseSetupLog($"install net {name}");
-                baseSetup += $"\r\nstart /wait C:\\WinboxResources\\{name} /quiet /norestart";
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate net 8.0.17") || useWinboxService)
-            {
-                await CopyBlob("net8017.exe");
-                regNet("net8017.exe");
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate net 9.0.6"))
-            {
-                await CopyBlob("net906.exe");
-                regNet("net906.exe");
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate app runtime 1.7.3"))
-            {
-                await CopyBlob("appruntime173.exe");
-                regAppScriptFirstInitCmd("appruntime173", "C:\\WinboxResources\\appruntime173.exe");
-            }
-
-            async Task addCustomInstallers(string baseDir)
-            {
-                async Task copyCustomInstaller(string path, string name)
-                {
-                    string dir = Path.Combine(WinboxResourcesPath, "CustomInstallers");
-                    Program.CreateDirectory(dir);
-                    await Program.CopyFileAsync(path, Path.Combine(dir, name));
-                }
-
-                string installersDir = Path.Combine(baseDir, "vc_redist");
-                if (Directory.Exists(installersDir))
-                {
-                    string[] files = Directory.GetFiles(installersDir);
-                    int index = 1;
-                    foreach (string file in files)
-                    {
-                        string installerName = $"vc_redist_{index++}.exe";
-                        await copyCustomInstaller(file, installerName);
-                        regRedist("CustomInstallers\\" + installerName);
-                    }
-                }
-
-                installersDir = Path.Combine(baseDir, "net_framework");
-                if (Directory.Exists(installersDir))
-                {
-                    string[] files = Directory.GetFiles(installersDir);
-                    int index = 1;
-                    foreach (string file in files)
-                    {
-                        string installerName = $"net_framework_{index++}.exe";
-                        await copyCustomInstaller(file, installerName);
-                        regNetFramework("CustomInstallers\\" + installerName);
-                    }
-                }
-
-                installersDir = Path.Combine(baseDir, "net");
-                if (Directory.Exists(installersDir))
-                {
-                    string[] files = Directory.GetFiles(installersDir);
-                    int index = 1;
-                    foreach (string file in files)
-                    {
-                        string installerName = $"net_{index++}.exe";
-                        await copyCustomInstaller(file, installerName);
-                        regNet("CustomInstallers\\" + installerName);
-                    }
-                }
-
-                installersDir = Path.Combine(baseDir, "app_runtime");
-                if (Directory.Exists(installersDir))
-                {
-                    string[] files = Directory.GetFiles(installersDir);
-                    int index = 1;
-                    foreach (string file in files)
-                    {
-                        string installerName = $"app_runtime_{index}.exe";
-                        await copyCustomInstaller(file, installerName);
-                        regAppScriptFirstInitCmd($"custom_app_runtime_{index++}", $"C:\\WinboxResources\\CustomInstallers\\{installerName}");
-                    }
-                }
-            }
-
-            await addCustomInstallers(resourcesDirectoryPath);
-            await addCustomInstallers(tempDirectoryPath);
-
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
-            {
-                await CopyBlob("MicrosoftEdge.msi");
-                baseSetupLog($"install Microsoft edge");
-                baseSetup += $"\r\nstart /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart";
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
-            {
-                await CopyResource("empty.cur");
-                await CopyResource("hide_cursor.reg");
-                string regCmd = "regedit /s \"C:\\WinboxResources\\hide_cursor.reg\"";
-                baseSetupLog($"hide cursor");
-                baseSetup += $"\r\n" + regCmd;
-                regAppScriptFirstInitCmd("hide_cursor", regCmd);
-                await OverwriteSystemCursorEmpty(Path.Combine(wimMountPath, "Windows", "Cursors"));
-            }
-            else if (customCursor)
-            {
-                await Program.CopyFilesRecursivelyAsync(cursorPath, Path.Combine(WinboxResourcesPath, "cursor"));
-                await CopyResource("custom_cursor.reg");
-                string regCmd = "regedit /s \"C:\\WinboxResources\\custom_cursor.reg\"";
-                baseSetupLog($"custom cursor");
-                baseSetup += $"\r\n" + regCmd;
-                regAppScriptFirstInitCmd("custom_cursor", regCmd);
-                await OverwriteSystemCursorEmpty(Path.Combine(wimMountPath, "Windows", "Cursors"));
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Hide Touchscreen Visualization"))
-            {
-                await CopyResource("hide_touch.reg");
-                string regCmd = "regedit /s \"C:\\WinboxResources\\hide_touch.reg\"";
-                baseSetupLog($"hide touchscreen visualization");
-                baseSetup += $"\r\n" + regCmd;
-                regAppScriptFirstInitCmd("hide_touch", regCmd);
-            }
-
-            if (customBootLogo)
-            {
-                string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
-                if (File.Exists(logoPath))
-                {
-                    BootresPatcher.PatchBootres(Path.Combine(wimMountPath, "Windows\\Boot\\Resources\\bootres.dll"), logoPath);
-
-                    await UnpackBlob("HackBGRT.zip");
-
-                    string splashBootLogoPath = Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "splash.bmp");
-                    ImageConverter.ConvertToBmp_54_24(logoPath, splashBootLogoPath);
-                    await copyToDebugFile("logo.bmp", splashBootLogoPath);
-
-                    string configBootLogoPath = Program.ResourcePath(Path.Combine("resources", winBoxConfig.CustomBootLogo_centering == true ? "hackBGRT_centering.txt" : "hackBGRT.txt"));
-                    await Program.CopyFileAsync(configBootLogoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "config.txt"));
-
-                    string hackBGRT = "cd C:\\WinboxResources\\HackBGRT-2.5.2\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-overwrite enable-bcdedit";
-                    baseSetupLog($"apply HackBGRT");
-                    baseSetup += "\r\n" + hackBGRT;
-
-                    regAppScriptFirstInitCmd("hackBGRT", hackBGRT);
-                }
-            }
-
-            if (Program.isTweakEnabled(winBoxConfig, "Integrate PSTools"))
-            {
-                await UnpackBlob("PSTools.zip", "executable");
-            }
-
-            baseSetup += "\r\ncd C:\\";
-            applicationScript += "\r\ncd C:\\";
-
-            if (winBoxConfig.PostInstall_reg != null)
-            {
-                string regPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_reg);
-                if (File.Exists(regPath))
-                {
-                    await Program.CopyFileAsync(regPath, Path.Combine(WinboxResourcesPath, "postinstall.reg"));
-                    baseSetupLog($"run postinstall.reg");
-                    baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\postinstall.reg\"";
-                }
-            }
-
-            if (winBoxConfig.PostInstall_bat != null)
-            {
-                string batPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_bat);
-                if (File.Exists(batPath))
-                {
-                    await Program.CopyFileAsync(batPath, Path.Combine(WinboxResourcesPath, "postinstall.bat"));
-                    baseSetupLog($"run postinstall.bat");
-                    baseSetup += $"\r\ncall \"C:\\WinboxResources\\postinstall.bat\"";
-                }
-            }
-
-            if (winBoxConfig.PostInstall_user_reg != null)
-            {
-                string regPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_user_reg);
-                if (File.Exists(regPath))
-                {
-                    await Program.CopyFileAsync(regPath, Path.Combine(WinboxResourcesPath, "postinstall_user.reg"));
-                    regAppScriptFirstInitCmd("postinstall_reg", $"regedit /s \"C:\\WinboxResources\\postinstall_user.reg\"");
-                }
-            }
-
-            if (winBoxConfig.PostInstall_user_bat != null)
-            {
-                string batPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_user_bat);
-                if (File.Exists(batPath))
-                {
-                    await Program.CopyFileAsync(batPath, Path.Combine(WinboxResourcesPath, "postinstall_user.bat"));
-                    regAppScriptFirstInitCmd("postinstall_bat", $"call \"C:\\WinboxResources\\postinstall_user.bat\"");
-                }
-            }
-
-            if (winBoxConfig.AddVirtualDisplay == true)
-            {
-                await UnpackBlob("usbmmidd_v2.zip");
-                await CopyResource("usbmmidd_v2\\install_driver.bat");
-                await CopyResource("usbmmidd_v2\\add_display.bat");
-                await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_add_display_hidden.vbs"), "C:\\WinboxResources\\usbmmidd_v2\\add_display.bat", null);
-                string regStr = $"\r\nreg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\WUDF\\Services\\usbmmIdd\\Parameters\\Monitors\" /v 0 /t REG_SZ /d \"{winBoxConfig.VirtualDisplayWidth},{winBoxConfig.VirtualDisplayHeight}\" /f";
-                string installDriver = $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\install_driver.bat";
-                string addDisplay = $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\add_display.bat";
-                applicationScript += $"\r\ntimeout /t 2";
-                applicationScript += regStr;
-                applicationScript += installDriver;
-                applicationScript += regStr;
-                applicationScript += addDisplay;
-            }
-
-            if (useWinboxService)
-            {
-                //await Program.CopyFilesRecursivelyAsync(AppDomain.CurrentDomain.BaseDirectory, Path.Combine(WinboxResourcesPath, "winbox_maker"));
-            }
-
-            if (winBoxConfig.UseEmbeddedDisplay == true)
-            {
-                //applicationScript += $"\r\nstart /B \"\" C:\\WinboxResources\\winbox_maker\\WinBox-Maker.exe";
-            }
-
-            if (initViaVmMode && winBoxConfig.img_shutdownAfterInstall == true)
-            {
-                string firstBootShutdown = "\r\npause";
-
-                if (winBoxConfig.img_generalizeAfterInstall == true)
-                {
-                    firstBootShutdown = "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown" + firstBootShutdown;
-                }
-                else
-                {
-                    firstBootShutdown = "shutdown /s /t 0" + firstBootShutdown;
-                }
-
-                if (winBoxConfig.img_runningPostinstallOnFirstRealStartup == true)
-                {
-                    string[] deleteAfterVm =
-                    {
-                        "C:\\WinboxResources\\firstInit1.installed",
-                        "C:\\WinboxResources\\firstInit2.installed",
-                        "C:\\WinboxResources\\hackBGRT.installed",
-                        "C:\\WinboxResources\\postinstall_reg.installed",
-                        "C:\\WinboxResources\\postinstall_bat.installed"
-                    };
-
-                    foreach (string path in deleteAfterVm)
-                    {
-                        firstBootShutdown = $"del /F /Q \"{path}\"\r\n" + firstBootShutdown;
-                    }
-                }
-
-                regAppScriptFirstInitCmd("firstBootShutdown", firstBootShutdown, true);
-            }
-
             string reboot_to_desktop_cmd = "reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell /t REG_SZ /d \"explorer.exe\" /f\r\nshutdown /r /t 0\r\npause";
 
-            switch (winBoxConfig.firstBootAction)
+            if (!manual)
             {
-                case FirstBootActionEnum.reboot:
-                    regAppScriptFirstInitCmd("firstBootAction", "shutdown /r /t 0\r\npause", true);
-                    break;
+                string bcdeditSetup = _getBcdeditSetup();
+                string powercfgSetup = _getPowercfgSetup();
+                string servicesSetup = _getServicesSetup();
 
-                case FirstBootActionEnum.shutdown:
-                    regAppScriptFirstInitCmd("firstBootAction", "shutdown /s /t 0\r\npause", true);
-                    break;
+                string setupCompleteAndFirstInit = $@"echo SetupComplete and FirstInit - start >> C:\WinboxResources\setup.log
 
-                case FirstBootActionEnum.hibernate:
-                    regAppScriptFirstInitCmd("firstBootAction", "shutdown /h /t 0\r\npause", true);
-                    break;
+    echo SetupComplete and FirstInit - setup dism >> C:\WinboxResources\setup.log
+    dism /online /enable-feature /all /featurename:Client-DeviceLockdown
+    dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
+    dism /online /enable-feature /all /featurename:Client-KeyboardFilter
+    dism /online /enable-feature /all /featurename:Client-EmbeddedBootExp
 
-                case FirstBootActionEnum.reboot_to_desktop:
-                    regAppScriptFirstInitCmd("firstBootAction", reboot_to_desktop_cmd, true);
-                    break;
+    echo SetupComplete and FirstInit - setup powercfg >> C:\WinboxResources\setup.log
+    {powercfgSetup}
 
-                case FirstBootActionEnum.generalize:
-                    regAppScriptFirstInitCmd("firstBootAction", "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown\r\npause", true);
-                    break;
+    echo SetupComplete and FirstInit - setup services >> C:\WinboxResources\setup.log
+    {servicesSetup}
+
+    echo SetupComplete and FirstInit - end >> C:\WinboxResources\setup.log";
+
+                string updateSystemSettingsAndFirstInit = $@"reagentc.exe /disable
+    netsh advfirewall set allprofiles state off
+    powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
+
+    {bcdeditSetup}";
+                //why do I change the bcd every time I start?
+                //because in some versions of windows (old enterprise),
+                //bcd changes may otherwise remain unchanged if done in setup complete,
+                //which will create a vulnerability so that the system restore window can open.
+                //This is one of those cases where it is better to solve a problem in several ways at once.
+
+                string baseSetup = $@"echo SetupComplete - start >> C:\WinboxResources\setup.log
+
+    echo SetupComplete - call SetupComplete and FirstInit >> C:\WinboxResources\setup.log
+    {setupCompleteAndFirstInit}
+
+    echo SetupComplete - add executable to PATH >> C:\WinboxResources\setup.log
+    setx PATH ""%PATH%;C:\WinboxResources\executable"" /M
+
+    echo SetupComplete - call UpdateSystemSettings >> C:\WinboxResources\setup.log
+    call ""C:\WinboxResources\UpdateSystemSettings.bat""
+
+    echo SetupComplete - add UpdateSystemSettings to schtasks >> C:\WinboxResources\setup.log
+    schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\UpdateSystemSettings.bat"" /sc onlogon /rl highest /ru ""SYSTEM""
+
+    echo SetupComplete - setup schtasks >> C:\WinboxResources\setup.log
+    schtasks /Change /TN ""\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"" /Disable
+    schtasks /Change /TN ""\Microsoft\Windows\Application Experience\ProgramDataUpdater"" /Disable
+    schtasks /Change /TN ""\Microsoft\Windows\Autochk\Proxy"" /Disable
+    schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"" /Disable
+    schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask"" /Disable
+    schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"" /Disable
+
+    echo SetupComplete - DisableTamperProtection >> C:\WinboxResources\setup.log
+    powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
+
+    echo SetupComplete - setup SYSTEM >> C:\WinboxResources\setup.log
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v LogEvent /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v Overwrite /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v EnableLogFile /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayError /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayDisabled /t REG_DWORD /d 1 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\HardwareEvents"" /v MaxSize /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Application"" /v MaxSize /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security"" /v MaxSize /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
+
+    echo SetupComplete - setup Memory Management >> C:\WinboxResources\setup.log
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control"" /v ProcessTerminationOnMemoryExhaustion /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v DisableAutomaticTermination /t REG_DWORD /d 1 /f
+
+    echo SetupComplete - setup EmbeddedLogon >> C:\WinboxResources\setup.log
+    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideAutoLogonUI /t REG_DWORD /d 1 /f
+    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideFirstLogonAnimation /t REG_DWORD /d 1 /f
+    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v BrandingNeutral /t REG_DWORD /d 1 /f
+    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v NoLockScreen /t REG_DWORD /d 1 /f
+    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v AnimationDisabled /t REG_DWORD /d 1 /f
+    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v UIVerbosityLevel /t REG_DWORD /d 1 /f
+
+    echo SetupComplete - load DEFAULT_USER >> C:\WinboxResources\setup.log
+    reg load HKLM\DEFAULT_USER ""C:\Users\Default\NTUSER.DAT""
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v Beep /t REG_SZ /d no /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v ExtendedSounds /t REG_SZ /d no /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v AccentColor /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v ColorizationColor /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v DontShowUI /t REG_DWORD /d 1 /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v Disabled /t REG_DWORD /d 1 /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v UserPreferencesMask /t REG_BINARY /d 9012038010000000 /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" /v MinAnimate /t REG_SZ /d ""0"" /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVTweak"" /v OverlayHook /t REG_DWORD /d 0 /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v HungAppTimeout /t REG_SZ /d ""2147483647"" /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v WaitToKillAppTimeout /t REG_SZ /d ""5000"" /f
+    reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f";
+
+                string updateSystemSettings = $@"@echo off
+
+    reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
+
+    {updateSystemSettingsAndFirstInit}";
+
+                void regAppScriptFirstInitCmd(string name, string cmd, bool writeFirst = false)
+                {
+                    string writeFileCmd = $"\r\necho. > \"C:\\WinboxResources\\{name}.installed\"";
+                    applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\{name}.installed\" (";
+                    if (writeFirst) applicationScript += writeFileCmd;
+                    applicationScript += $"\r\n{cmd}";
+                    if (!writeFirst) applicationScript += writeFileCmd;
+                    applicationScript += $"\r\n)\r\n";
+                }
+
+                void baseSetupLog(string log)
+                {
+                    baseSetup += "\r\n" + $@"echo SetupComplete - {log} >> C:\WinboxResources\setup.log" + "\r\n";
+                }
+
+                regAppScriptFirstInitCmd("firstInit1", setupCompleteAndFirstInit);
+                regAppScriptFirstInitCmd("firstInit2", updateSystemSettingsAndFirstInit);
+
+                if (winBoxConfig.computername_use == true)
+                {
+                    baseSetupLog("rename computer");
+                    baseSetup += $"\r\nPowerShell -Command \"Rename-Computer -NewName '{winBoxConfig.computername}'\"";
+                }
+
+                if (!Program.isTweakEnabled(winBoxConfig, "Allow check-disk"))
+                {
+                    baseSetupLog("disable checkdisk");
+                    baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"" /v AutoChkTimeout /t REG_DWORD /d 0 /f";
+                    baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"" /v BootExecute /t REG_MULTI_SZ /d ""autocheck autochk /k:*"" /f";
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Disable security mitigations (performance boost)"))
+                {
+                    baseSetupLog("disable security mitigations");
+                    baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v FeatureSettingsOverride /t REG_DWORD /d 0xFFFFFFFF /f";
+                    baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v FeatureSettingsOverrideMask /t REG_DWORD /d 0xFFFFFFFF /f";
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Enable CrashOnCtrlScroll (BSOD)"))
+                {
+                    baseSetupLog("Enable CrashOnCtrlScroll");
+                    baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\kbdhid\Parameters"" /v CrashOnCtrlScroll /t REG_DWORD /d 1 /f";
+                    baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\i8042prt\Parameters"" /v CrashOnCtrlScroll /t REG_DWORD /d 1 /f";
+                }
+
+                if (winBoxConfig.UseCustomDisplaySettings == true)
+                {
+                    await CopyResource("ChangeResolution.ps1");
+                    string args = "";
+                    if (winBoxConfig.cds_width_use == true) args += $@"-Width ""{winBoxConfig.cds_width}"" ";
+                    if (winBoxConfig.cds_height_use == true) args += $@"-Height ""{winBoxConfig.cds_height}"" ";
+                    if (winBoxConfig.cds_bitDepth_use == true) args += $@"-BitDepth ""{winBoxConfig.cds_bitDepth}"" ";
+                    if (winBoxConfig.cds_refreshRate_use == true) args += $@"-Refresh ""{winBoxConfig.cds_refreshRate}"" ";
+                    if (winBoxConfig.cds_orientation_use == true) args += $@"-Orientation ""{winBoxConfig.cds_orientation}"" ";
+                    string customDisplaySettingsCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeResolution.ps1"" {args}";
+                    applicationScript += $"\r\n" + customDisplaySettingsCmd;
+                    baseSetupLog("Change Display Settings");
+                    baseSetup += $"\r\n" + customDisplaySettingsCmd;
+                }
+
+                if (winBoxConfig.UseCustomDisplaySettings_scale == true)
+                {
+                    await CopyResource("ChangeScale.ps1");
+                    string customDisplaySettingsCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\ChangeScale.ps1"" -Scaling ""{winBoxConfig.cds_scaling}""";
+                    applicationScript += $"\r\n" + customDisplaySettingsCmd;
+                    baseSetupLog("Change Display Scale");
+                    baseSetup += $"\r\n" + customDisplaySettingsCmd;
+                }
+
+                bool customBootLogo = winBoxConfig.CustomBootLogo != null && !winBoxConfig.CustomBootLogo.Contains("\"");
+                string cursorPath = Path.Combine(resourcesDirectoryPath, "cursor");
+                bool customCursor = Directory.Exists(cursorPath) && !Program.IsDirectoryEmpty(cursorPath);
+                bool useWinboxService = winBoxConfig.UseEmbeddedDisplay == true;
+
+                if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the layout"))
+                {
+                    baseSetupLog("Disable hotkey by change keyboard layout");
+                    baseSetup += "\r\n";
+                    baseSetup += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout"" /v ""Scancode Map"" /t REG_BINARY /d 000000000000000030000000000021e000006ce000006de0000011e000006be000003b0000004400000057000000580000006400000065000000660000006700000068000000690000006a0000003c0000006b0000006c0000006d0000006e0000006f0000003d0000003e0000003f0000004000000041000000420000004300000013e0000014e0000012e00000380000005be000005ee0000037e0000038e000005ce000005fe0000063e000006ae0000066e0000069e0000032e0000067e0000065e0000068e000000000 /f";
+                }
+
+                if (winBoxConfig.UseOemKey == true && winBoxConfig.OemKey != null && !winBoxConfig.OemKey.Contains("\""))
+                {
+                    baseSetupLog("Apply OEM key");
+                    baseSetup += $"\r\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ipk \"{winBoxConfig.OemKey}\"\ncscript /B \"%windir%\\system32\\slmgr.vbs\" /ato";
+                }
+
+                void regRedist(string name)
+                {
+                    baseSetupLog($"install vc redist {name}");
+                    baseSetup += $"\r\nstart /wait C:\\WinboxResources\\{name} /install /quiet /norestart";
+                }
+
+                bool compatibleVcRedist = Program.isTweakEnabled(winBoxConfig, "Integrate vc redist (compatible architectures)");
+                if (compatibleVcRedist || Program.isTweakEnabled(winBoxConfig, "Integrate vc redist"))
+                {
+                    if (compatibleVcRedist)
+                    {
+                        List<string> archs = new List<string>();
+                        switch (winBoxConfig.Architecture)
+                        {
+                            case "x64":
+                                archs.Add("x64");
+                                archs.Add("x86");
+                                break;
+
+                            case "x86":
+                                archs.Add("x86");
+                                break;
+
+                            case "arm64":
+                                archs.Add("arm64");
+                                archs.Add("x64");
+                                archs.Add("x86");
+                                break;
+                        }
+                        foreach (string arch in archs)
+                        {
+                            string newName = arch + "_vc_redist.exe";
+                            await CopyBlobFromArchWithRename("vc_redist.exe", newName, arch);
+                            regRedist(newName);
+                        }
+                    }
+                    else
+                    {
+                        await CopyBlob("vc_redist.exe");
+                        regRedist("vc_redist.exe");
+                    }
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Integrate nircmd"))
+                {
+                    await CopyBlob("nircmd.exe", "executable");
+                    await CopyBlob("nircmdc.exe", "executable");
+                }
+
+                void regNetFramework(string name)
+                {
+                    baseSetupLog($"install net framework {name}");
+                    baseSetup += $"\r\nstart /wait C:\\WinboxResources\\{name} /q";
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.8.1"))
+                {
+                    await CopyBlob("net481.exe");
+                    regNetFramework("net481.exe");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.7.2") || customBootLogo)
+                {
+                    await CopyBlob("net472.exe");
+                    regNetFramework("net472.exe");
+                }
+
+                void regNet(string name)
+                {
+                    baseSetupLog($"install net {name}");
+                    baseSetup += $"\r\nstart /wait C:\\WinboxResources\\{name} /quiet /norestart";
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Integrate net 8.0.17") || useWinboxService)
+                {
+                    await CopyBlob("net8017.exe");
+                    regNet("net8017.exe");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Integrate net 9.0.6"))
+                {
+                    await CopyBlob("net906.exe");
+                    regNet("net906.exe");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Integrate app runtime 1.7.3"))
+                {
+                    await CopyBlob("appruntime173.exe");
+                    regAppScriptFirstInitCmd("appruntime173", "C:\\WinboxResources\\appruntime173.exe");
+                }
+
+                async Task addCustomInstallers(string baseDir)
+                {
+                    async Task copyCustomInstaller(string path, string name)
+                    {
+                        string dir = Path.Combine(WinboxResourcesPath, "CustomInstallers");
+                        Program.CreateDirectory(dir);
+                        await Program.CopyFileAsync(path, Path.Combine(dir, name));
+                    }
+
+                    string installersDir = Path.Combine(baseDir, "vc_redist");
+                    if (Directory.Exists(installersDir))
+                    {
+                        string[] files = Directory.GetFiles(installersDir);
+                        int index = 1;
+                        foreach (string file in files)
+                        {
+                            string installerName = $"vc_redist_{index++}.exe";
+                            await copyCustomInstaller(file, installerName);
+                            regRedist("CustomInstallers\\" + installerName);
+                        }
+                    }
+
+                    installersDir = Path.Combine(baseDir, "net_framework");
+                    if (Directory.Exists(installersDir))
+                    {
+                        string[] files = Directory.GetFiles(installersDir);
+                        int index = 1;
+                        foreach (string file in files)
+                        {
+                            string installerName = $"net_framework_{index++}.exe";
+                            await copyCustomInstaller(file, installerName);
+                            regNetFramework("CustomInstallers\\" + installerName);
+                        }
+                    }
+
+                    installersDir = Path.Combine(baseDir, "net");
+                    if (Directory.Exists(installersDir))
+                    {
+                        string[] files = Directory.GetFiles(installersDir);
+                        int index = 1;
+                        foreach (string file in files)
+                        {
+                            string installerName = $"net_{index++}.exe";
+                            await copyCustomInstaller(file, installerName);
+                            regNet("CustomInstallers\\" + installerName);
+                        }
+                    }
+
+                    installersDir = Path.Combine(baseDir, "app_runtime");
+                    if (Directory.Exists(installersDir))
+                    {
+                        string[] files = Directory.GetFiles(installersDir);
+                        int index = 1;
+                        foreach (string file in files)
+                        {
+                            string installerName = $"app_runtime_{index}.exe";
+                            await copyCustomInstaller(file, installerName);
+                            regAppScriptFirstInitCmd($"custom_app_runtime_{index++}", $"C:\\WinboxResources\\CustomInstallers\\{installerName}");
+                        }
+                    }
+                }
+
+                await addCustomInstallers(resourcesDirectoryPath);
+                await addCustomInstallers(tempDirectoryPath);
+
+                if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
+                {
+                    await CopyBlob("MicrosoftEdge.msi");
+                    baseSetupLog($"install Microsoft edge");
+                    baseSetup += $"\r\nstart /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart";
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
+                {
+                    await CopyResource("empty.cur");
+                    await CopyResource("hide_cursor.reg");
+                    string regCmd = "regedit /s \"C:\\WinboxResources\\hide_cursor.reg\"";
+                    baseSetupLog($"hide cursor");
+                    baseSetup += $"\r\n" + regCmd;
+                    regAppScriptFirstInitCmd("hide_cursor", regCmd);
+                    await OverwriteSystemCursorEmpty(Path.Combine(wimMountPath, "Windows", "Cursors"));
+                }
+                else if (customCursor)
+                {
+                    await Program.CopyFilesRecursivelyAsync(cursorPath, Path.Combine(WinboxResourcesPath, "cursor"));
+                    await CopyResource("custom_cursor.reg");
+                    string regCmd = "regedit /s \"C:\\WinboxResources\\custom_cursor.reg\"";
+                    baseSetupLog($"custom cursor");
+                    baseSetup += $"\r\n" + regCmd;
+                    regAppScriptFirstInitCmd("custom_cursor", regCmd);
+                    await OverwriteSystemCursorEmpty(Path.Combine(wimMountPath, "Windows", "Cursors"));
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Hide Touchscreen Visualization"))
+                {
+                    await CopyResource("hide_touch.reg");
+                    string regCmd = "regedit /s \"C:\\WinboxResources\\hide_touch.reg\"";
+                    baseSetupLog($"hide touchscreen visualization");
+                    baseSetup += $"\r\n" + regCmd;
+                    regAppScriptFirstInitCmd("hide_touch", regCmd);
+                }
+
+                if (customBootLogo)
+                {
+                    string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
+                    if (File.Exists(logoPath))
+                    {
+                        BootresPatcher.PatchBootres(Path.Combine(wimMountPath, "Windows\\Boot\\Resources\\bootres.dll"), logoPath);
+
+                        await UnpackBlob("HackBGRT.zip");
+
+                        string splashBootLogoPath = Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "splash.bmp");
+                        ImageConverter.ConvertToBmp_54_24(logoPath, splashBootLogoPath);
+                        await copyToDebugFile("logo.bmp", splashBootLogoPath);
+
+                        string configBootLogoPath = Program.ResourcePath(Path.Combine("resources", winBoxConfig.CustomBootLogo_centering == true ? "hackBGRT_centering.txt" : "hackBGRT.txt"));
+                        await Program.CopyFileAsync(configBootLogoPath, Path.Combine(WinboxResourcesPath, "HackBGRT-2.5.2", "config.txt"));
+
+                        string hackBGRT = "cd C:\\WinboxResources\\HackBGRT-2.5.2\r\nC:\\WinboxResources\\HackBGRT-2.5.2\\setup.exe batch install allow-secure-boot allow-bitlocker allow-bad-loader enable-overwrite enable-bcdedit";
+                        baseSetupLog($"apply HackBGRT");
+                        baseSetup += "\r\n" + hackBGRT;
+
+                        regAppScriptFirstInitCmd("hackBGRT", hackBGRT);
+                    }
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Integrate PSTools"))
+                {
+                    await UnpackBlob("PSTools.zip", "executable");
+                }
+
+                baseSetup += "\r\ncd C:\\";
+                applicationScript += "\r\ncd C:\\";
+
+                if (winBoxConfig.PostInstall_reg != null)
+                {
+                    string regPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_reg);
+                    if (File.Exists(regPath))
+                    {
+                        await Program.CopyFileAsync(regPath, Path.Combine(WinboxResourcesPath, "postinstall.reg"));
+                        baseSetupLog($"run postinstall.reg");
+                        baseSetup += $"\r\nregedit /s \"C:\\WinboxResources\\postinstall.reg\"";
+                    }
+                }
+
+                if (winBoxConfig.PostInstall_bat != null)
+                {
+                    string batPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_bat);
+                    if (File.Exists(batPath))
+                    {
+                        await Program.CopyFileAsync(batPath, Path.Combine(WinboxResourcesPath, "postinstall.bat"));
+                        baseSetupLog($"run postinstall.bat");
+                        baseSetup += $"\r\ncall \"C:\\WinboxResources\\postinstall.bat\"";
+                    }
+                }
+
+                if (winBoxConfig.PostInstall_user_reg != null)
+                {
+                    string regPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_user_reg);
+                    if (File.Exists(regPath))
+                    {
+                        await Program.CopyFileAsync(regPath, Path.Combine(WinboxResourcesPath, "postinstall_user.reg"));
+                        regAppScriptFirstInitCmd("postinstall_reg", $"regedit /s \"C:\\WinboxResources\\postinstall_user.reg\"");
+                    }
+                }
+
+                if (winBoxConfig.PostInstall_user_bat != null)
+                {
+                    string batPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.PostInstall_user_bat);
+                    if (File.Exists(batPath))
+                    {
+                        await Program.CopyFileAsync(batPath, Path.Combine(WinboxResourcesPath, "postinstall_user.bat"));
+                        regAppScriptFirstInitCmd("postinstall_bat", $"call \"C:\\WinboxResources\\postinstall_user.bat\"");
+                    }
+                }
+
+                if (winBoxConfig.AddVirtualDisplay == true)
+                {
+                    await UnpackBlob("usbmmidd_v2.zip");
+                    await CopyResource("usbmmidd_v2\\install_driver.bat");
+                    await CopyResource("usbmmidd_v2\\add_display.bat");
+                    await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_add_display_hidden.vbs"), "C:\\WinboxResources\\usbmmidd_v2\\add_display.bat", null);
+                    string regStr = $"\r\nreg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\WUDF\\Services\\usbmmIdd\\Parameters\\Monitors\" /v 0 /t REG_SZ /d \"{winBoxConfig.VirtualDisplayWidth},{winBoxConfig.VirtualDisplayHeight}\" /f";
+                    string installDriver = $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\install_driver.bat";
+                    string addDisplay = $"\r\ncall C:\\WinboxResources\\usbmmidd_v2\\add_display.bat";
+                    applicationScript += $"\r\ntimeout /t 2";
+                    applicationScript += regStr;
+                    applicationScript += installDriver;
+                    applicationScript += regStr;
+                    applicationScript += addDisplay;
+                }
+
+                if (useWinboxService)
+                {
+                    //await Program.CopyFilesRecursivelyAsync(AppDomain.CurrentDomain.BaseDirectory, Path.Combine(WinboxResourcesPath, "winbox_maker"));
+                }
+
+                if (winBoxConfig.UseEmbeddedDisplay == true)
+                {
+                    //applicationScript += $"\r\nstart /B \"\" C:\\WinboxResources\\winbox_maker\\WinBox-Maker.exe";
+                }
+
+                if (initViaVmMode && winBoxConfig.img_shutdownAfterInstall == true)
+                {
+                    string firstBootShutdown = "\r\npause";
+
+                    if (winBoxConfig.img_generalizeAfterInstall == true)
+                    {
+                        firstBootShutdown = "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown" + firstBootShutdown;
+                    }
+                    else
+                    {
+                        firstBootShutdown = "shutdown /s /t 0" + firstBootShutdown;
+                    }
+
+                    if (winBoxConfig.img_runningPostinstallOnFirstRealStartup == true)
+                    {
+                        string[] deleteAfterVm =
+                        {
+                            "C:\\WinboxResources\\firstInit1.installed",
+                            "C:\\WinboxResources\\firstInit2.installed",
+                            "C:\\WinboxResources\\hackBGRT.installed",
+                            "C:\\WinboxResources\\postinstall_reg.installed",
+                            "C:\\WinboxResources\\postinstall_bat.installed"
+                        };
+
+                        foreach (string path in deleteAfterVm)
+                        {
+                            firstBootShutdown = $"del /F /Q \"{path}\"\r\n" + firstBootShutdown;
+                        }
+                    }
+
+                    regAppScriptFirstInitCmd("firstBootShutdown", firstBootShutdown, true);
+                }
+
+                switch (winBoxConfig.firstBootAction)
+                {
+                    case FirstBootActionEnum.reboot:
+                        regAppScriptFirstInitCmd("firstBootAction", "shutdown /r /t 0\r\npause", true);
+                        break;
+
+                    case FirstBootActionEnum.shutdown:
+                        regAppScriptFirstInitCmd("firstBootAction", "shutdown /s /t 0\r\npause", true);
+                        break;
+
+                    case FirstBootActionEnum.hibernate:
+                        regAppScriptFirstInitCmd("firstBootAction", "shutdown /h /t 0\r\npause", true);
+                        break;
+
+                    case FirstBootActionEnum.reboot_to_desktop:
+                        regAppScriptFirstInitCmd("firstBootAction", reboot_to_desktop_cmd, true);
+                        break;
+
+                    case FirstBootActionEnum.generalize:
+                        regAppScriptFirstInitCmd("firstBootAction", "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown\r\npause", true);
+                        break;
+                }
+
+                baseSetupLog($"unload DEFAULT_USER");
+
+                baseSetup += $"\r\n";
+                baseSetup += @$"reg unload HKLM\DEFAULT_USER
+
+    echo SetupComplete - creating a user >> C:\WinboxResources\setup.log
+    net user winbox /add
+
+    echo SetupComplete - PasswordExpires=False >> C:\WinboxResources\setup.log
+    wmic useraccount where ""Name='winbox'"" set PasswordExpires=False
+
+    echo SetupComplete - making the user an administrator >> C:\WinboxResources\setup.log
+    net localgroup Administrators winbox /add";
+
+                baseSetupLog($"end");
+
+                await writeDebugFile("UpdateSystemSettings", updateSystemSettings);
+                await writeDebugFile("SetupComplete", baseSetup);
+
+                await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "UpdateSystemSettings.bat"), updateSystemSettings);
+                await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);
             }
-
-            baseSetupLog($"unload DEFAULT_USER");
-
-            baseSetup += $"\r\n";
-            baseSetup += @$"reg unload HKLM\DEFAULT_USER
-
-echo SetupComplete - creating a user >> C:\WinboxResources\setup.log
-net user winbox /add
-
-echo SetupComplete - PasswordExpires=False >> C:\WinboxResources\setup.log
-wmic useraccount where ""Name='winbox'"" set PasswordExpires=False
-
-echo SetupComplete - making the user an administrator >> C:\WinboxResources\setup.log
-net localgroup Administrators winbox /add";
-
-            baseSetupLog($"end");
-
-            await writeDebugFile("UpdateSystemSettings", updateSystemSettings);
-            await writeDebugFile("SetupComplete", baseSetup);
-
-            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "UpdateSystemSettings.bat"), updateSystemSettings);
-            await File.WriteAllTextAsync(Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"), baseSetup);
 
             // ------------------------------------ copy program files
             if (!manual)
