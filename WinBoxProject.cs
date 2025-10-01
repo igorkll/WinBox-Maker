@@ -2026,6 +2026,30 @@ powercfg -s SCHEME_CURRENT";
             }
 
             // ------------------------------------ copy files
+
+            if (manual)
+            {
+                if (winBoxConfig.manual_setup_complete != null)
+                {
+                    string batPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.manual_setup_complete);
+                    if (File.Exists(batPath))
+                    {
+                        Directory.CreateDirectory(WindowsScriptsPath);
+                        await Program.CopyFileAsync(batPath, Path.Combine(WindowsScriptsPath, "SetupComplete.cmd"));
+                    }
+                }
+
+                if (winBoxConfig.manual_setup_error != null)
+                {
+                    string batPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.manual_setup_error);
+                    if (File.Exists(batPath))
+                    {
+                        Directory.CreateDirectory(WindowsScriptsPath);
+                        await Program.CopyFileAsync(batPath, Path.Combine(WindowsScriptsPath, "ErrorHandler.cmd"));
+                    }
+                }
+            }
+
             string filesPath = Path.Combine(resourcesDirectoryPath, "files");
             if (Directory.Exists(filesPath))
             {
@@ -2457,7 +2481,9 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             processName("ISO modification");
             processValue(80);
 
-            if (winBoxConfig.manual_setup != true) {
+            bool manual = winBoxConfig.manual_setup == true;
+
+            if (!manual) {
                 string bcdPath = Path.Combine(unpackIsoPath, "boot\\bcd");
                 if (File.Exists(bcdPath)) {
                     await modifyBCD(1, bcdPath);
@@ -2476,6 +2502,18 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             }
 
             await modUnpackedIso(unpackIsoPath);
+
+            if (manual)
+            {
+                if (winBoxConfig.manual_setup_autounattend != null)
+                {
+                    string xmlPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.manual_setup_autounattend);
+                    if (File.Exists(xmlPath))
+                    {
+                        await Program.CopyFileAsync(xmlPath, Path.Combine(unpackIsoPath, "autounattend.xml"));
+                    }
+                }
+            }
 
             string isoFilesPath = Path.Combine(resourcesDirectoryPath, "iso_files");
             if (Directory.Exists(isoFilesPath))
