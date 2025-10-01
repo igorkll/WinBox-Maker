@@ -2338,7 +2338,7 @@ if errorlevel 1 (
                 if (Program.IsDirectoryNotEmpty(packagesPath))
                 {
                     processName("Installing .cab/.msu packages");
-                    processValue(58);
+                    processValue(56);
                     await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-package /PackagePath:\"{packagesPath}\"");
                 }
             }
@@ -2347,6 +2347,13 @@ if errorlevel 1 (
             await addUserDrivers(tempDirectoryPath);
             await addCabMsu(resourcesDirectoryPath);
             await addCabMsu(tempDirectoryPath);
+
+            if (winBoxConfig.forceIot == true)
+            {
+                processName("Change edition");
+                processValue(57);
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-Edition:IoTEnterprise /accepteula");
+            }
 
             if (!manual)
             {
@@ -2359,11 +2366,6 @@ if errorlevel 1 (
 
                 processName("Enabling necessary windows components");
                 processValue(60);
-                if (winBoxConfig.forceIot == true)
-                {
-                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-Edition:IoTEnterprise /accepteula");
-                }
-
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-DeviceLockdown");
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedLogon");
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-KeyboardFilter");
