@@ -1955,13 +1955,15 @@ powercfg -s SCHEME_CURRENT";
                     await writeDebugFile("sysprep_unattend.xml", sysprep_unattend, false);
                 }
 
+                string sysprepCmd = "C:\\Windows\\System32\\Sysprep\\sysprep.exe /quiet /generalize /oobe /shutdown /unattend:C:\\WinboxResources\\sysprep_unattend.xml";
+
                 if (initViaVmMode && winBoxConfig.img_shutdownAfterInstall == true)
                 {
                     string firstBootShutdown = "\r\npause";
 
                     if (winBoxConfig.img_generalizeAfterInstall == true)
                     {
-                        firstBootShutdown = "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown /unattend:C:\\WinboxResources\\sysprep_unattend.xml" + firstBootShutdown;
+                        firstBootShutdown = sysprepCmd + firstBootShutdown;
                     }
                     else
                     {
@@ -2007,7 +2009,7 @@ powercfg -s SCHEME_CURRENT";
                         break;
 
                     case FirstBootActionEnum.generalize:
-                        regAppScriptFirstInitCmd("firstBootAction", "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown /unattend:C:\\WinboxResources\\sysprep_unattend.xml\r\npause", true);
+                        regAppScriptFirstInitCmd("firstBootAction", sysprepCmd + "\r\npause", true);
                         break;
                 }
 
