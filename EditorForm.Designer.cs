@@ -326,11 +326,21 @@
             img_shutdownAfterInstall = new CheckBox();
             label55 = new Label();
             label56 = new Label();
+            tabPage25 = new TabPage();
+            delete_dism = new RichTextBox();
+            delete_paths = new RichTextBox();
+            tabPage26 = new TabPage();
             OpenEmbeddedFolder = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
+            tabControl6 = new TabControl();
+            tabPage27 = new TabPage();
+            tabPage28 = new TabPage();
+            richTextBox11 = new RichTextBox();
+            tabPage29 = new TabPage();
+            tabPage30 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -393,7 +403,11 @@
             dl_panel.SuspendLayout();
             tabPage16.SuspendLayout();
             panel16.SuspendLayout();
+            tabPage25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabControl6.SuspendLayout();
+            tabPage27.SuspendLayout();
+            tabPage28.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1036,6 +1050,8 @@
             tabControl1.Controls.Add(tabPage10);
             tabControl1.Controls.Add(tabPage11);
             tabControl1.Controls.Add(tabPage16);
+            tabControl1.Controls.Add(tabPage25);
+            tabControl1.Controls.Add(tabPage26);
             tabControl1.Location = new Point(12, 63);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -3494,6 +3510,43 @@
             label56.TabIndex = 3;
             label56.Text = "the amount of RAM during installation (in megabytes)";
             // 
+            // tabPage25
+            // 
+            tabPage25.Controls.Add(tabControl6);
+            tabPage25.Location = new Point(4, 34);
+            tabPage25.Name = "tabPage25";
+            tabPage25.Size = new Size(1018, 347);
+            tabPage25.TabIndex = 12;
+            tabPage25.Text = "delete";
+            tabPage25.UseVisualStyleBackColor = true;
+            // 
+            // delete_dism
+            // 
+            delete_dism.Location = new Point(6, 6);
+            delete_dism.Name = "delete_dism";
+            delete_dism.Size = new Size(629, 291);
+            delete_dism.TabIndex = 1;
+            delete_dism.Text = "";
+            delete_dism.TextChanged += delete_dism_TextChanged;
+            // 
+            // delete_paths
+            // 
+            delete_paths.Location = new Point(6, 6);
+            delete_paths.Name = "delete_paths";
+            delete_paths.Size = new Size(629, 291);
+            delete_paths.TabIndex = 0;
+            delete_paths.Text = "";
+            delete_paths.TextChanged += delete_paths_TextChanged;
+            // 
+            // tabPage26
+            // 
+            tabPage26.Location = new Point(4, 34);
+            tabPage26.Name = "tabPage26";
+            tabPage26.Size = new Size(1018, 347);
+            tabPage26.TabIndex = 13;
+            tabPage26.Text = "manual setup";
+            tabPage26.UseVisualStyleBackColor = true;
+            // 
             // OpenEmbeddedFolder
             // 
             OpenEmbeddedFolder.Location = new Point(799, 12);
@@ -3543,6 +3596,69 @@
             ExportImgUefi.Text = "export installed .img (for UEFI)";
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
+            // 
+            // tabControl6
+            // 
+            tabControl6.Controls.Add(tabPage27);
+            tabControl6.Controls.Add(tabPage28);
+            tabControl6.Controls.Add(tabPage29);
+            tabControl6.Controls.Add(tabPage30);
+            tabControl6.Location = new Point(3, 3);
+            tabControl6.Name = "tabControl6";
+            tabControl6.SelectedIndex = 0;
+            tabControl6.Size = new Size(1012, 341);
+            tabControl6.TabIndex = 4;
+            // 
+            // tabPage27
+            // 
+            tabPage27.Controls.Add(richTextBox11);
+            tabPage27.Controls.Add(delete_paths);
+            tabPage27.Location = new Point(4, 34);
+            tabPage27.Name = "tabPage27";
+            tabPage27.Padding = new Padding(3);
+            tabPage27.Size = new Size(1004, 303);
+            tabPage27.TabIndex = 0;
+            tabPage27.Text = "Raw paths";
+            tabPage27.UseVisualStyleBackColor = true;
+            // 
+            // tabPage28
+            // 
+            tabPage28.Controls.Add(delete_dism);
+            tabPage28.Location = new Point(4, 34);
+            tabPage28.Name = "tabPage28";
+            tabPage28.Padding = new Padding(3);
+            tabPage28.Size = new Size(1004, 303);
+            tabPage28.TabIndex = 1;
+            tabPage28.Text = "Dism (Disable-Feature)";
+            tabPage28.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox11
+            // 
+            richTextBox11.BackColor = SystemColors.Info;
+            richTextBox11.Location = new Point(641, 6);
+            richTextBox11.Name = "richTextBox11";
+            richTextBox11.ReadOnly = true;
+            richTextBox11.Size = new Size(357, 291);
+            richTextBox11.TabIndex = 1;
+            richTextBox11.Text = resources.GetString("richTextBox11.Text");
+            // 
+            // tabPage29
+            // 
+            tabPage29.Location = new Point(4, 34);
+            tabPage29.Name = "tabPage29";
+            tabPage29.Size = new Size(1004, 303);
+            tabPage29.TabIndex = 2;
+            tabPage29.Text = "Dism (Remove-Package)";
+            tabPage29.UseVisualStyleBackColor = true;
+            // 
+            // tabPage30
+            // 
+            tabPage30.Location = new Point(4, 34);
+            tabPage30.Name = "tabPage30";
+            tabPage30.Size = new Size(1004, 303);
+            tabPage30.TabIndex = 3;
+            tabPage30.Text = "Dism (Remove-ProvisionedAppxPackage)";
+            tabPage30.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
@@ -3680,7 +3796,11 @@
             tabPage16.PerformLayout();
             panel16.ResumeLayout(false);
             panel16.PerformLayout();
+            tabPage25.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabControl6.ResumeLayout(false);
+            tabPage27.ResumeLayout(false);
+            tabPage28.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3989,5 +4109,15 @@
         private Label label68;
         private Label label69;
         private Label label70;
+        private TabPage tabPage25;
+        private TabPage tabPage26;
+        private RichTextBox delete_dism;
+        private RichTextBox delete_paths;
+        private TabControl tabControl6;
+        private TabPage tabPage27;
+        private TabPage tabPage28;
+        private RichTextBox richTextBox11;
+        private TabPage tabPage29;
+        private TabPage tabPage30;
     }
 }

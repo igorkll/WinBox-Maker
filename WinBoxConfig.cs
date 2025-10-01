@@ -152,6 +152,8 @@ namespace WinBox_Maker
         public string? logoBeforeApp { get; set; }
         public StretchMode? logoBeforeApp_stretch { get; set; }
         public bool? wait_before_app_logo { get; set; }
+        public string? delete_paths { get; set; }
+        public string? delete_dism { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -253,6 +255,9 @@ namespace WinBox_Maker
             if (logoBeforeApp_stretch == null) logoBeforeApp_stretch = StretchMode.None;
 
             if (wait_before_app_logo == null) wait_before_app_logo = true;
+
+            if (delete_paths == null) delete_paths = "";
+            if (delete_dism == null) delete_dism = "";
         }
 
         public void Save(string wnbFilePath)

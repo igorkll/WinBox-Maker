@@ -3618,6 +3618,10 @@ it is better to download files to the "winbox_temp/files" directory, refer to th
         g4GFvNjfil2JWW21/wOsMlr/Whm3FwAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="richTextBox11.Text" xml:space="preserve">
+    <value>deletes files or directories by specified paths inside the mounted Windows.
+if the path refers to a directory, then an empty directory will be created in its place, this is done because in Windows, when deleting many system directories, the system can continue to work normally if the directory itself exists, even if it is empty, but the system refuses to work if the directory itself has been deleted.</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAAAAAAAEAIABJrAAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAEAAAABAAgGAAAAXHKoZgAAgABJ

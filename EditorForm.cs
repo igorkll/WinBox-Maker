@@ -576,6 +576,9 @@ namespace WinBox_Maker
             logoBeforeApp.Text = winBoxProject.winBoxConfig.logoBeforeApp ?? "not selected";
             logoBeforeApp_stretch.SelectedIndex = (int)(winBoxProject.winBoxConfig.logoBeforeApp_stretch ?? 0);
 
+            delete_paths.Text = winBoxProject.winBoxConfig.delete_paths ?? "";
+            delete_dism.Text = winBoxProject.winBoxConfig.delete_dism ?? "";
+
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -2217,6 +2220,22 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.DiskTimeout_dc = checkPowercfgTimeoutNumber(winBoxProject.winBoxConfig.DiskTimeout_dc ?? 0, DiskTimeout_dc.Text);
             if (winBoxProject.winBoxConfig.DiskTimeout_dc.ToString() != DiskTimeout_dc.Text)
                 DiskTimeout_dc.Text = winBoxProject.winBoxConfig.DiskTimeout_dc.ToString();
+            winBoxProject.SaveConfig();
+        }
+
+        private void delete_paths_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.delete_paths = delete_paths.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void delete_dism_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.delete_dism = delete_dism.Text;
             winBoxProject.SaveConfig();
         }
     }

@@ -1113,6 +1113,15 @@ powercfg -s SCHEME_CURRENT";
             File.Delete(bcdscriptPath);
         }
 
+        public string[] splitRickTextboxLines(string text)
+        {
+            return text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+        }
+
+        public string[] splitRickTextboxLinesWithoutEmptyLines(string text)
+        {
+            return text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        }
 
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath, bool initViaVmMode=false)
         {
@@ -1298,13 +1307,24 @@ powercfg -s SCHEME_CURRENT";
 
             async Task removeSystemObject(string path, bool createFolder=false)
             {
+                path = path.Replace("/", "\\");
+                path = path.TrimStart('\\', '/');
+
+                if (path.StartsWith("/") || path.StartsWith("\\") || path.Contains(".."))
+                {
+                    return;
+                }
+
                 path = Path.Combine(wimMountPath, path);
 
                 await Task.Run(() => {
+                    bool recreateDir = false;
+
                     if (Directory.Exists(path))
                     {
                         Program.SetAttributesRecursive(path, FileAttributes.Normal);
                         Directory.Delete(path, true);
+                        recreateDir = true;
                     }
 
                     if (File.Exists(path))
@@ -1313,7 +1333,10 @@ powercfg -s SCHEME_CURRENT";
                         File.Delete(path);
                     }
 
-                    Program.CreateDirectory(path);
+                    if (recreateDir)
+                    {
+                        Program.CreateDirectory(path);
+                    }
                 });
             }
 
@@ -1344,6 +1367,18 @@ powercfg -s SCHEME_CURRENT";
                 await removeSystemObject("Program Files (x86)\\Windows Defender");
                 await removeSystemObject("Program Files\\Windows Defender");
                 await removeSystemObject("Program Files\\Windows Defender Advanced Threat Protection");
+            }
+
+            foreach (string path in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_paths ?? ""))
+            {
+                await removeSystemObject(path);
+            }
+
+            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism ?? ""))
+            {
+                if (!name.Contains("\"")) {
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /featurename:\"{name}\"");
+                }
             }
 
             // ------------------------------------ system init
