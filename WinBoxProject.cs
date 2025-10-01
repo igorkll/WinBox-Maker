@@ -1374,10 +1374,55 @@ powercfg -s SCHEME_CURRENT";
                 await removeSystemObject(path);
             }
 
+            async Task execDismCmd(string name, int type)
+            {
+                switch (type)
+                {
+                    case 0:
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /featurename:\"{name}\"");
+                        break;
+
+                    case 1:
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-Package /PackageName:\"{name}\"");
+                        break;
+
+                    case 2:
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-ProvisionedAppxPackage /PackageName:\"{name}\"");
+                        break;
+                }
+                
+            }
+
+            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_universal ?? ""))
+            {
+                if (!name.Contains("\""))
+                {
+                    await execDismCmd(name, 0);
+                    await execDismCmd(name, 1);
+                    await execDismCmd(name, 2);
+                }
+            }
+
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism ?? ""))
             {
                 if (!name.Contains("\"")) {
-                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /featurename:\"{name}\"");
+                    await execDismCmd(name, 0);
+                }
+            }
+
+            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_package ?? ""))
+            {
+                if (!name.Contains("\""))
+                {
+                    await execDismCmd(name, 1);
+                }
+            }
+
+            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_appx_package ?? ""))
+            {
+                if (!name.Contains("\""))
+                {
+                    await execDismCmd(name, 2);
                 }
             }
 

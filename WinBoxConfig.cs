@@ -154,6 +154,7 @@ namespace WinBox_Maker
         public bool? wait_before_app_logo { get; set; }
         public string? delete_paths { get; set; }
         public string? delete_dism { get; set; }
+        public string? delete_dism_universal { get; set; }
         public string? delete_dism_remove_package { get; set; }
         public string? delete_dism_remove_appx_package { get; set; }
 
@@ -260,6 +261,7 @@ namespace WinBox_Maker
 
             if (delete_paths == null) delete_paths = "";
             if (delete_dism == null) delete_dism = "";
+            if (delete_dism_universal == null) delete_dism_universal = "";
             if (delete_dism_remove_package == null) delete_dism_remove_package = "";
             if (delete_dism_remove_appx_package == null) delete_dism_remove_appx_package = "";
         }
