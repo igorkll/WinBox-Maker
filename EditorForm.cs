@@ -600,6 +600,9 @@ namespace WinBox_Maker
             tab_settings.Enabled = !manual;
             postinstall_panel_system.Enabled = !manual;
             postinstall_panel_user.Enabled = !manual;
+            img_shutdownAfterInstall.Enabled = !manual;
+            img_runningPostinstallOnFirstRealStartup.Enabled = !manual;
+            img_generalizeAfterInstall.Enabled = !manual;
 
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
