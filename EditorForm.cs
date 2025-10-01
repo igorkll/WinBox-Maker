@@ -601,8 +601,11 @@ namespace WinBox_Maker
             postinstall_panel_system.Enabled = !manual;
             postinstall_panel_user.Enabled = !manual;
             img_shutdownAfterInstall.Enabled = !manual;
-            img_runningPostinstallOnFirstRealStartup.Enabled = !manual;
-            img_generalizeAfterInstall.Enabled = !manual;
+            if (manual)
+            {
+                img_runningPostinstallOnFirstRealStartup.Enabled = false;
+                img_generalizeAfterInstall.Enabled = false;
+            }
 
             switch (winBoxProject.winBoxConfig.ProgramType)
             {

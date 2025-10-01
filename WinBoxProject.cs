@@ -1931,13 +1931,37 @@ powercfg -s SCHEME_CURRENT";
                     //applicationScript += $"\r\nstart /B \"\" C:\\WinboxResources\\winbox_maker\\WinBox-Maker.exe";
                 }
 
+                if (winBoxConfig.firstBootAction == FirstBootActionEnum.generalize ||
+                    (initViaVmMode && winBoxConfig.img_shutdownAfterInstall == true && winBoxConfig.img_generalizeAfterInstall == true))
+                {
+                    string architecture = winBoxConfig.Architecture;
+                    if (architecture == "x64") architecture = "amd64";
+
+                    string sysprep_unattend = $@"<?xml version=""1.0"" encoding=""utf-8""?>
+<unattend xmlns=""urn:schemas-microsoft-com:unattend"">
+    <settings pass=""oobeSystem"">
+        <component name=""Microsoft-Windows-Shell-Setup"" processorArchitecture=""{architecture}"" publicKeyToken=""31bf3856ad364e35"" language=""neutral"" versionScope=""nonSxS"" xmlns:wcm=""http://schemas.microsoft.com/WMIConfig/2002/State"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+            <OOBE>
+                <HideEULAPage>true</HideEULAPage>
+                <ProtectYourPC>3</ProtectYourPC>
+                <SkipMachineOOBE>true</SkipMachineOOBE>
+                <SkipUserOOBE>true</SkipUserOOBE>
+            </OOBE>
+        </component>
+    </settings>
+</unattend>";
+
+                    await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "sysprep_unattend.xml"), baseSetup);
+                    await writeDebugFile("sysprep_unattend.xml", sysprep_unattend, false);
+                }
+
                 if (initViaVmMode && winBoxConfig.img_shutdownAfterInstall == true)
                 {
                     string firstBootShutdown = "\r\npause";
 
                     if (winBoxConfig.img_generalizeAfterInstall == true)
                     {
-                        firstBootShutdown = "C:\\Windows\\System32\\Sysprep\\sysprep.exe /quiet /generalize /shutdown" + firstBootShutdown;
+                        firstBootShutdown = "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown /unattend:C:\\WinboxResources\\sysprep_unattend.xml" + firstBootShutdown;
                     }
                     else
                     {
@@ -1983,7 +2007,7 @@ powercfg -s SCHEME_CURRENT";
                         break;
 
                     case FirstBootActionEnum.generalize:
-                        regAppScriptFirstInitCmd("firstBootAction", "C:\\Windows\\System32\\Sysprep\\sysprep.exe /quiet /generalize /shutdown\r\npause", true);
+                        regAppScriptFirstInitCmd("firstBootAction", "C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown /unattend:C:\\WinboxResources\\sysprep_unattend.xml\r\npause", true);
                         break;
                 }
 
@@ -1992,14 +2016,14 @@ powercfg -s SCHEME_CURRENT";
                 baseSetup += $"\r\n";
                 baseSetup += @$"reg unload HKLM\DEFAULT_USER
 
-    echo SetupComplete - creating a user >> C:\WinboxResources\setup.log
-    net user winbox /add
+echo SetupComplete - creating a user >> C:\WinboxResources\setup.log
+net user winbox /add
 
-    echo SetupComplete - PasswordExpires=False >> C:\WinboxResources\setup.log
-    wmic useraccount where ""Name='winbox'"" set PasswordExpires=False
+echo SetupComplete - PasswordExpires=False >> C:\WinboxResources\setup.log
+wmic useraccount where ""Name='winbox'"" set PasswordExpires=False
 
-    echo SetupComplete - making the user an administrator >> C:\WinboxResources\setup.log
-    net localgroup Administrators winbox /add";
+echo SetupComplete - making the user an administrator >> C:\WinboxResources\setup.log
+net localgroup Administrators winbox /add";
 
                 baseSetupLog($"end");
 
