@@ -2279,24 +2279,27 @@ if errorlevel 1 (
             await addCabMsu(resourcesDirectoryPath);
             await addCabMsu(tempDirectoryPath);
 
-            processName("OEM key applying");
-            processValue(59);
-            if (winBoxConfig.UseOemKey == true)
+            if (winBoxConfig.manual_setup != true)
             {
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-ProductKey:\"{winBoxConfig.OemKey}\"");
-            }
+                processName("OEM key applying");
+                processValue(59);
+                if (winBoxConfig.UseOemKey == true)
+                {
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-ProductKey:\"{winBoxConfig.OemKey}\"");
+                }
 
-            processName("Enabling necessary windows components");
-            processValue(60);
-            if (winBoxConfig.forceIot == true)
-            {
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-Edition:IoTEnterprise /accepteula");
-            }
+                processName("Enabling necessary windows components");
+                processValue(60);
+                if (winBoxConfig.forceIot == true)
+                {
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-Edition:IoTEnterprise /accepteula");
+                }
 
-            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-DeviceLockdown");
-            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedLogon");
-            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-KeyboardFilter");
-            await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedBootExp");
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-DeviceLockdown");
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedLogon");
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-KeyboardFilter");
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedBootExp");
+            }
 
             if (winBoxConfig.winmountedEnabled == true)
             {
@@ -2384,8 +2387,8 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             // save
             await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{wimWinPeMountPath}\" /commit");
         }
- 
-        public async Task<bool> BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete=true, bool initViaVmMode=false)
+
+        public async Task<bool> BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete = true, bool initViaVmMode = false)
         {
             string? baseWindowsImageFullPath = await getWindowsImagePath();
             if (baseWindowsImageFullPath == null)
@@ -2432,20 +2435,22 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             processName("ISO modification");
             processValue(80);
 
-            string bcdPath = Path.Combine(unpackIsoPath, "boot\\bcd");
-            if (File.Exists(bcdPath)) {
-                await modifyBCD(1, bcdPath);
-            }
+            if (winBoxConfig.manual_setup != true) {
+                string bcdPath = Path.Combine(unpackIsoPath, "boot\\bcd");
+                if (File.Exists(bcdPath)) {
+                    await modifyBCD(1, bcdPath);
+                }
 
-            bcdPath = Path.Combine(unpackIsoPath, "EFI\\Microsoft\\Boot\\BCD");
-            if (File.Exists(bcdPath))
-            {
-                await modifyBCD(2, bcdPath);
-            }
+                bcdPath = Path.Combine(unpackIsoPath, "EFI\\Microsoft\\Boot\\BCD");
+                if (File.Exists(bcdPath))
+                {
+                    await modifyBCD(2, bcdPath);
+                }
 
-            if (winBoxConfig.UseOemKey == true)
-            {
-                await File.WriteAllTextAsync(Path.Combine(unpackIsoPath, "Sources\\PID.txt"), $"[PID]\nValue={winBoxConfig.OemKey}");
+                if (winBoxConfig.UseOemKey == true)
+                {
+                    await File.WriteAllTextAsync(Path.Combine(unpackIsoPath, "Sources\\PID.txt"), $"[PID]\nValue={winBoxConfig.OemKey}");
+                }
             }
 
             await modUnpackedIso(unpackIsoPath);
