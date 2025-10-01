@@ -48,6 +48,7 @@ namespace WinBox_Maker
         public static string? appconfigPath;
 
         public static string imageFilter = "Image Files (*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff)|*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff";
+        public static string batFilter = "Bat scripts (*.bat;*.cmd)|*.bat;*.cmd|All files (*.*)|*.*";
 
         static string getAppdataSubdirectory(string subdirectory)
         {

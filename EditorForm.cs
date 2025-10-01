@@ -44,8 +44,8 @@ namespace WinBox_Maker
             ClearPythonList();
 
             OpenEmbeddedFolder.Visible = false;
-            tabControl1.TabPages.Remove(tabPage7);
-            tabControl1.TabPages.Remove(tabPage9);
+            mainTabControl.TabPages.Remove(tabPage7);
+            mainTabControl.TabPages.Remove(tabPage9);
 
             UpdateDownloadItemsList();
             UpdateBuildItemsList();
@@ -582,6 +582,18 @@ namespace WinBox_Maker
             delete_dism_remove_package.Text = winBoxProject.winBoxConfig.delete_dism_remove_package ?? "";
             delete_dism_remove_appx_package.Text = winBoxProject.winBoxConfig.delete_dism_remove_appx_package ?? "";
 
+            bool manual = winBoxProject.winBoxConfig.manual_setup == true;
+            manual_setup.CheckState = manual ? CheckState.Checked : CheckState.Unchecked;
+            manual_setup_complete.Text = winBoxProject.winBoxConfig.manual_setup_complete ?? "not selected";
+            manual_setup_error.Text = winBoxProject.winBoxConfig.manual_setup_error ?? "not selected";
+            manual_setup_autounattend.Text = winBoxProject.winBoxConfig.manual_setup_autounattend ?? "not selected";
+            manual_setup_panel.Enabled = manual;
+
+            tab_app.Enabled = !manual;
+            tab_settings.Enabled = !manual;
+            postinstall_panel_system.Enabled = !manual;
+            postinstall_panel_user.Enabled = !manual;
+
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
@@ -960,7 +972,7 @@ namespace WinBox_Maker
         private async void postinstall_bat_sel_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Bat scripts (*.bat;*.cmd)|*.bat;*.cmd|All files (*.*)|*.*", winBoxProject.resourcesDirectoryPath, true);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.batFilter, winBoxProject.resourcesDirectoryPath, true);
             if (name != null)
             {
                 winBoxProject.winBoxConfig.PostInstall_bat = name;
@@ -998,7 +1010,7 @@ namespace WinBox_Maker
         private async void postinstall_user_bat_sel_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Bat scripts (*.bat;*.cmd)|*.bat;*.cmd|All files (*.*)|*.*", winBoxProject.resourcesDirectoryPath, true);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.batFilter, winBoxProject.resourcesDirectoryPath, true);
             if (name != null)
             {
                 winBoxProject.winBoxConfig.PostInstall_user_bat = name;
@@ -2264,6 +2276,72 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.delete_dism_universal = delete_dism_universal.Text;
             winBoxProject.SaveConfig();
+        }
+
+        private void manual_setup_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.manual_setup = manual_setup.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private async void manual_setup_complete_select_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.batFilter, winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.manual_setup_complete = name;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void manual_setup_complete_clear_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.manual_setup_complete = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private async void manual_setup_error_select_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.batFilter, winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.manual_setup_error = name;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void manual_setup_error_clear_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.manual_setup_error = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private async void manual_setup_autounattend_select_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.batFilter, winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.manual_setup_autounattend = name;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void manual_setup_autounattend_clear_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.manual_setup_autounattend = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }

@@ -3503,20 +3503,6 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="richTextBox13.Text" xml:space="preserve">
-    <value>manual configuration can be used if you want to use winbox maker in alternative tasks, for example, not for kiosk mode.
-in manual configuration mode, you control the system settings yourself.
-In this case, winbox maker is no longer involved in configuring the system, it only takes on the task of reassembling the wim file and the iso file.
-in this case, the standard winbox maker directories (WinboxApi, WinboxResources, WinboxProgram) will not be created.
-the directory for the program (winbox_resources/program) and building the program via build will be useless.
-you will be able to integrate packages via winbox_resources/packages and drivers via winbox_resources/drivers, and the GPU driver installation function via the installer file should also work.
-you can still use the "delete", "events", and "downloading" tabs, their functionality is fully preserved in manual configuration mode.
-img export should work soon, but the option to turn off VM and sysprep after installation will not be available, you must handle this yourself
-the "settings" and "app" tabs become completely inaccessible.
-you can still replace and add files in the system and iso using the winbox_resources/files or winbox_resources/iso_files directories.
-it is possible to build a user application from sources in manual configuration mode, but it will end up in the winbox_temp/program directory and will not be added to the automation system image, although you can copy it via build event - win mounted
-in manual configuration mode, you cannot integrate the cursor through the winbox_resources/cursor directory, and you also cannot integrate vc redist, net framework, and app runtime through their corresponding directories. to do this, save your installers to files and use the setup completed script.</value>
-  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
@@ -3562,6 +3548,20 @@ Remove-Package
 Remove-ProvisionedAppxPackage
 
 This approach doesn't care what you turn off, but simply adds names to the list.</value>
+  </data>
+  <data name="richTextBox13.Text" xml:space="preserve">
+    <value>manual configuration can be used if you want to use winbox maker in alternative tasks, for example, not for kiosk mode.
+in manual configuration mode, you control the system settings yourself.
+In this case, winbox maker is no longer involved in configuring the system, it only takes on the task of reassembling the wim file and the iso file.
+in this case, the standard winbox maker directories (WinboxApi, WinboxResources, WinboxProgram) will not be created.
+the directory for the program (winbox_resources/program) and building the program via build will be useless.
+you will be able to integrate packages via winbox_resources/packages and drivers via winbox_resources/drivers, and the GPU driver installation function via the installer file should also work.
+you can still use the "delete", "events", and "downloading" tabs, their functionality is fully preserved in manual configuration mode.
+img export should work soon, but the option to turn off VM and sysprep after installation will not be available, you must handle this yourself
+the "settings" and "app" tabs become completely inaccessible.
+you can still replace and add files in the system and iso using the winbox_resources/files or winbox_resources/iso_files directories.
+it is possible to build a user application from sources in manual configuration mode, but it will end up in the winbox_temp/program directory and will not be added to the automation system image, although you can copy it via build event - win mounted
+in manual configuration mode, you cannot integrate the cursor through the winbox_resources/cursor directory, and you also cannot integrate vc redist, net framework, and app runtime through their corresponding directories. to do this, save your installers to files and use the setup completed script.</value>
   </data>
   <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

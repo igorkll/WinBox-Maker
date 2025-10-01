@@ -158,6 +158,9 @@ namespace WinBox_Maker
         public string? delete_dism_remove_package { get; set; }
         public string? delete_dism_remove_appx_package { get; set; }
         public bool? manual_setup { get; set; }
+        public string? manual_setup_complete { get; set; }
+        public string? manual_setup_error { get; set; }
+        public string? manual_setup_autounattend { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();

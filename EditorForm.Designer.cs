@@ -72,7 +72,7 @@
             label5 = new Label();
             OpenProjectFolder = new Button();
             label10 = new Label();
-            panel3 = new Panel();
+            postinstall_panel_system = new Panel();
             postinstall_reg = new Label();
             postinstall_bat = new Label();
             postinstall_reg_clr = new Button();
@@ -91,7 +91,7 @@
             TweakList = new CheckedListBox();
             ArchitectureSelect = new ComboBox();
             label14 = new Label();
-            tabControl1 = new TabControl();
+            mainTabControl = new TabControl();
             tabPage1 = new TabPage();
             panel4 = new Panel();
             richTextBox3 = new RichTextBox();
@@ -102,7 +102,7 @@
             label16 = new Label();
             tabPage2 = new TabPage();
             richTextBox7 = new RichTextBox();
-            tabPage3 = new TabPage();
+            tab_app = new TabPage();
             tabControl3 = new TabControl();
             tabPage19 = new TabPage();
             label59 = new Label();
@@ -132,7 +132,7 @@
             panel12 = new Panel();
             afterDesktop = new RadioButton();
             insteadDesktop = new RadioButton();
-            tabPage4 = new TabPage();
+            tab_settings = new TabPage();
             tabControl2 = new TabControl();
             tabPage14 = new TabPage();
             tabControl4 = new TabControl();
@@ -215,7 +215,7 @@
             computername = new TextBox();
             computername_use = new CheckBox();
             tabPage5 = new TabPage();
-            panel5 = new Panel();
+            postinstall_panel_user = new Panel();
             postinstall_user_reg = new Label();
             label21 = new Label();
             postinstall_user_bat = new Label();
@@ -346,13 +346,11 @@
             tabPage26 = new TabPage();
             richTextBox13 = new RichTextBox();
             panel13 = new Panel();
-            manual_setup = new CheckBox();
-            OpenEmbeddedFolder = new Button();
-            contextMenuStrip1 = new ContextMenuStrip(components);
-            pictureBox3 = new PictureBox();
-            openProgramData = new Button();
-            ExportImgUefi = new Button();
-            panel21 = new Panel();
+            manual_setup_panel = new Panel();
+            manual_setup_autounattend = new Label();
+            manual_setup_autounattend_clear = new Button();
+            manual_setup_autounattend_select = new Button();
+            label72 = new Label();
             manual_setup_error = new Label();
             manual_setup_complete = new Label();
             manual_setup_error_clear = new Button();
@@ -361,20 +359,22 @@
             label73 = new Label();
             label74 = new Label();
             manual_setup_complete_select = new Button();
-            label71 = new Label();
-            button1 = new Button();
-            button2 = new Button();
-            label72 = new Label();
+            manual_setup = new CheckBox();
+            OpenEmbeddedFolder = new Button();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            pictureBox3 = new PictureBox();
+            openProgramData = new Button();
+            ExportImgUefi = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
-            panel3.SuspendLayout();
-            tabControl1.SuspendLayout();
+            postinstall_panel_system.SuspendLayout();
+            mainTabControl.SuspendLayout();
             tabPage1.SuspendLayout();
             panel4.SuspendLayout();
             tabPage2.SuspendLayout();
-            tabPage3.SuspendLayout();
+            tab_app.SuspendLayout();
             tabControl3.SuspendLayout();
             tabPage19.SuspendLayout();
             panel18.SuspendLayout();
@@ -383,7 +383,7 @@
             panel19.SuspendLayout();
             tabPage18.SuspendLayout();
             panel12.SuspendLayout();
-            tabPage4.SuspendLayout();
+            tab_settings.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPage14.SuspendLayout();
             tabControl4.SuspendLayout();
@@ -405,7 +405,7 @@
             tabPage17.SuspendLayout();
             panel17.SuspendLayout();
             tabPage5.SuspendLayout();
-            panel5.SuspendLayout();
+            postinstall_panel_user.SuspendLayout();
             tabPage7.SuspendLayout();
             panel7.SuspendLayout();
             panel6.SuspendLayout();
@@ -436,8 +436,8 @@
             tabPage30.SuspendLayout();
             tabPage26.SuspendLayout();
             panel13.SuspendLayout();
+            manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            panel21.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -879,22 +879,22 @@
             label10.TabIndex = 34;
             label10.Text = "System user (SetupComplete.cmd)";
             // 
-            // panel3
+            // postinstall_panel_system
             // 
-            panel3.BackColor = SystemColors.Window;
-            panel3.BorderStyle = BorderStyle.Fixed3D;
-            panel3.Controls.Add(postinstall_reg);
-            panel3.Controls.Add(postinstall_bat);
-            panel3.Controls.Add(postinstall_reg_clr);
-            panel3.Controls.Add(postinstall_reg_sel);
-            panel3.Controls.Add(postinstall_bat_clr);
-            panel3.Controls.Add(label12);
-            panel3.Controls.Add(label11);
-            panel3.Controls.Add(postinstall_bat_sel);
-            panel3.Location = new Point(6, 44);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(446, 142);
-            panel3.TabIndex = 35;
+            postinstall_panel_system.BackColor = SystemColors.Window;
+            postinstall_panel_system.BorderStyle = BorderStyle.Fixed3D;
+            postinstall_panel_system.Controls.Add(postinstall_reg);
+            postinstall_panel_system.Controls.Add(postinstall_bat);
+            postinstall_panel_system.Controls.Add(postinstall_reg_clr);
+            postinstall_panel_system.Controls.Add(postinstall_reg_sel);
+            postinstall_panel_system.Controls.Add(postinstall_bat_clr);
+            postinstall_panel_system.Controls.Add(label12);
+            postinstall_panel_system.Controls.Add(label11);
+            postinstall_panel_system.Controls.Add(postinstall_bat_sel);
+            postinstall_panel_system.Location = new Point(6, 44);
+            postinstall_panel_system.Name = "postinstall_panel_system";
+            postinstall_panel_system.Size = new Size(446, 142);
+            postinstall_panel_system.TabIndex = 35;
             // 
             // postinstall_reg
             // 
@@ -1067,26 +1067,26 @@
             label14.TabIndex = 38;
             label14.Text = "must match the architecture of the image and the target architecture";
             // 
-            // tabControl1
+            // mainTabControl
             // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Controls.Add(tabPage3);
-            tabControl1.Controls.Add(tabPage4);
-            tabControl1.Controls.Add(tabPage5);
-            tabControl1.Controls.Add(tabPage7);
-            tabControl1.Controls.Add(tabPage8);
-            tabControl1.Controls.Add(tabPage9);
-            tabControl1.Controls.Add(tabPage10);
-            tabControl1.Controls.Add(tabPage11);
-            tabControl1.Controls.Add(tabPage16);
-            tabControl1.Controls.Add(tabPage25);
-            tabControl1.Controls.Add(tabPage26);
-            tabControl1.Location = new Point(12, 63);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1026, 385);
-            tabControl1.TabIndex = 39;
+            mainTabControl.Controls.Add(tabPage1);
+            mainTabControl.Controls.Add(tabPage2);
+            mainTabControl.Controls.Add(tab_app);
+            mainTabControl.Controls.Add(tab_settings);
+            mainTabControl.Controls.Add(tabPage5);
+            mainTabControl.Controls.Add(tabPage7);
+            mainTabControl.Controls.Add(tabPage8);
+            mainTabControl.Controls.Add(tabPage9);
+            mainTabControl.Controls.Add(tabPage10);
+            mainTabControl.Controls.Add(tabPage11);
+            mainTabControl.Controls.Add(tabPage16);
+            mainTabControl.Controls.Add(tabPage25);
+            mainTabControl.Controls.Add(tabPage26);
+            mainTabControl.Location = new Point(12, 63);
+            mainTabControl.Name = "mainTabControl";
+            mainTabControl.SelectedIndex = 0;
+            mainTabControl.Size = new Size(1026, 385);
+            mainTabControl.TabIndex = 39;
             // 
             // tabPage1
             // 
@@ -1201,18 +1201,18 @@
             richTextBox7.TabIndex = 2;
             richTextBox7.Text = resources.GetString("richTextBox7.Text");
             // 
-            // tabPage3
+            // tab_app
             // 
-            tabPage3.Controls.Add(tabControl3);
-            tabPage3.Controls.Add(panel2);
-            tabPage3.Controls.Add(label3);
-            tabPage3.Location = new Point(4, 34);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(1018, 347);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "app";
-            tabPage3.UseVisualStyleBackColor = true;
+            tab_app.Controls.Add(tabControl3);
+            tab_app.Controls.Add(panel2);
+            tab_app.Controls.Add(label3);
+            tab_app.Location = new Point(4, 34);
+            tab_app.Name = "tab_app";
+            tab_app.Padding = new Padding(3);
+            tab_app.Size = new Size(1018, 347);
+            tab_app.TabIndex = 2;
+            tab_app.Text = "app";
+            tab_app.UseVisualStyleBackColor = true;
             // 
             // tabControl3
             // 
@@ -1526,18 +1526,18 @@
             insteadDesktop.UseVisualStyleBackColor = true;
             insteadDesktop.CheckedChanged += insteadDesktop_CheckedChanged;
             // 
-            // tabPage4
+            // tab_settings
             // 
-            tabPage4.Controls.Add(tabControl2);
-            tabPage4.Controls.Add(TweakList);
-            tabPage4.Controls.Add(label5);
-            tabPage4.Location = new Point(4, 34);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(1018, 347);
-            tabPage4.TabIndex = 3;
-            tabPage4.Text = "settings";
-            tabPage4.UseVisualStyleBackColor = true;
+            tab_settings.Controls.Add(tabControl2);
+            tab_settings.Controls.Add(TweakList);
+            tab_settings.Controls.Add(label5);
+            tab_settings.Location = new Point(4, 34);
+            tab_settings.Name = "tab_settings";
+            tab_settings.Padding = new Padding(3);
+            tab_settings.Size = new Size(1018, 347);
+            tab_settings.TabIndex = 3;
+            tab_settings.Text = "settings";
+            tab_settings.UseVisualStyleBackColor = true;
             // 
             // tabControl2
             // 
@@ -2391,10 +2391,10 @@
             // 
             // tabPage5
             // 
-            tabPage5.Controls.Add(panel5);
+            tabPage5.Controls.Add(postinstall_panel_user);
             tabPage5.Controls.Add(label17);
             tabPage5.Controls.Add(label10);
-            tabPage5.Controls.Add(panel3);
+            tabPage5.Controls.Add(postinstall_panel_system);
             tabPage5.Location = new Point(4, 34);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
@@ -2403,21 +2403,21 @@
             tabPage5.Text = "post install";
             tabPage5.UseVisualStyleBackColor = true;
             // 
-            // panel5
+            // postinstall_panel_user
             // 
-            panel5.BorderStyle = BorderStyle.Fixed3D;
-            panel5.Controls.Add(postinstall_user_reg);
-            panel5.Controls.Add(label21);
-            panel5.Controls.Add(postinstall_user_bat);
-            panel5.Controls.Add(postinstall_user_bat_sel);
-            panel5.Controls.Add(postinstall_user_reg_clr);
-            panel5.Controls.Add(label20);
-            panel5.Controls.Add(postinstall_user_reg_sel);
-            panel5.Controls.Add(postinstall_user_bat_clr);
-            panel5.Location = new Point(566, 44);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(446, 142);
-            panel5.TabIndex = 37;
+            postinstall_panel_user.BorderStyle = BorderStyle.Fixed3D;
+            postinstall_panel_user.Controls.Add(postinstall_user_reg);
+            postinstall_panel_user.Controls.Add(label21);
+            postinstall_panel_user.Controls.Add(postinstall_user_bat);
+            postinstall_panel_user.Controls.Add(postinstall_user_bat_sel);
+            postinstall_panel_user.Controls.Add(postinstall_user_reg_clr);
+            postinstall_panel_user.Controls.Add(label20);
+            postinstall_panel_user.Controls.Add(postinstall_user_reg_sel);
+            postinstall_panel_user.Controls.Add(postinstall_user_bat_clr);
+            postinstall_panel_user.Location = new Point(566, 44);
+            postinstall_panel_user.Name = "postinstall_panel_user";
+            postinstall_panel_user.Size = new Size(446, 142);
+            postinstall_panel_user.TabIndex = 37;
             // 
             // postinstall_user_reg
             // 
@@ -3738,12 +3738,147 @@
             // panel13
             // 
             panel13.BorderStyle = BorderStyle.Fixed3D;
-            panel13.Controls.Add(panel21);
+            panel13.Controls.Add(manual_setup_panel);
             panel13.Controls.Add(manual_setup);
             panel13.Location = new Point(6, 6);
             panel13.Name = "panel13";
             panel13.Size = new Size(524, 338);
             panel13.TabIndex = 1;
+            // 
+            // manual_setup_panel
+            // 
+            manual_setup_panel.BackColor = SystemColors.Window;
+            manual_setup_panel.BorderStyle = BorderStyle.Fixed3D;
+            manual_setup_panel.Controls.Add(manual_setup_autounattend);
+            manual_setup_panel.Controls.Add(manual_setup_autounattend_clear);
+            manual_setup_panel.Controls.Add(manual_setup_autounattend_select);
+            manual_setup_panel.Controls.Add(label72);
+            manual_setup_panel.Controls.Add(manual_setup_error);
+            manual_setup_panel.Controls.Add(manual_setup_complete);
+            manual_setup_panel.Controls.Add(manual_setup_error_clear);
+            manual_setup_panel.Controls.Add(manual_setup_error_select);
+            manual_setup_panel.Controls.Add(manual_setup_complete_clear);
+            manual_setup_panel.Controls.Add(label73);
+            manual_setup_panel.Controls.Add(label74);
+            manual_setup_panel.Controls.Add(manual_setup_complete_select);
+            manual_setup_panel.Location = new Point(3, 38);
+            manual_setup_panel.Name = "manual_setup_panel";
+            manual_setup_panel.Size = new Size(514, 206);
+            manual_setup_panel.TabIndex = 36;
+            // 
+            // manual_setup_autounattend
+            // 
+            manual_setup_autounattend.AutoSize = true;
+            manual_setup_autounattend.Location = new Point(179, 168);
+            manual_setup_autounattend.Name = "manual_setup_autounattend";
+            manual_setup_autounattend.Size = new Size(68, 25);
+            manual_setup_autounattend.TabIndex = 11;
+            manual_setup_autounattend.Text = "xml file";
+            // 
+            // manual_setup_autounattend_clear
+            // 
+            manual_setup_autounattend_clear.Location = new Point(91, 163);
+            manual_setup_autounattend_clear.Name = "manual_setup_autounattend_clear";
+            manual_setup_autounattend_clear.Size = new Size(82, 34);
+            manual_setup_autounattend_clear.TabIndex = 10;
+            manual_setup_autounattend_clear.Text = "clear";
+            manual_setup_autounattend_clear.UseVisualStyleBackColor = true;
+            manual_setup_autounattend_clear.Click += manual_setup_autounattend_clear_Click;
+            // 
+            // manual_setup_autounattend_select
+            // 
+            manual_setup_autounattend_select.Location = new Point(3, 163);
+            manual_setup_autounattend_select.Name = "manual_setup_autounattend_select";
+            manual_setup_autounattend_select.Size = new Size(82, 34);
+            manual_setup_autounattend_select.TabIndex = 9;
+            manual_setup_autounattend_select.Text = "select";
+            manual_setup_autounattend_select.UseVisualStyleBackColor = true;
+            manual_setup_autounattend_select.Click += manual_setup_autounattend_select_Click;
+            // 
+            // label72
+            // 
+            label72.AutoSize = true;
+            label72.Location = new Point(3, 135);
+            label72.Name = "label72";
+            label72.Size = new Size(226, 25);
+            label72.TabIndex = 8;
+            label72.Text = "autounattend.xml (installer)";
+            // 
+            // manual_setup_error
+            // 
+            manual_setup_error.AutoSize = true;
+            manual_setup_error.Location = new Point(179, 103);
+            manual_setup_error.Name = "manual_setup_error";
+            manual_setup_error.Size = new Size(86, 25);
+            manual_setup_error.TabIndex = 7;
+            manual_setup_error.Text = "bat script";
+            // 
+            // manual_setup_complete
+            // 
+            manual_setup_complete.AutoSize = true;
+            manual_setup_complete.Location = new Point(179, 38);
+            manual_setup_complete.Name = "manual_setup_complete";
+            manual_setup_complete.Size = new Size(86, 25);
+            manual_setup_complete.TabIndex = 6;
+            manual_setup_complete.Text = "bat script";
+            // 
+            // manual_setup_error_clear
+            // 
+            manual_setup_error_clear.Location = new Point(91, 98);
+            manual_setup_error_clear.Name = "manual_setup_error_clear";
+            manual_setup_error_clear.Size = new Size(82, 34);
+            manual_setup_error_clear.TabIndex = 5;
+            manual_setup_error_clear.Text = "clear";
+            manual_setup_error_clear.UseVisualStyleBackColor = true;
+            manual_setup_error_clear.Click += manual_setup_error_clear_Click;
+            // 
+            // manual_setup_error_select
+            // 
+            manual_setup_error_select.Location = new Point(3, 98);
+            manual_setup_error_select.Name = "manual_setup_error_select";
+            manual_setup_error_select.Size = new Size(82, 34);
+            manual_setup_error_select.TabIndex = 4;
+            manual_setup_error_select.Text = "select";
+            manual_setup_error_select.UseVisualStyleBackColor = true;
+            manual_setup_error_select.Click += manual_setup_error_select_Click;
+            // 
+            // manual_setup_complete_clear
+            // 
+            manual_setup_complete_clear.Location = new Point(91, 33);
+            manual_setup_complete_clear.Name = "manual_setup_complete_clear";
+            manual_setup_complete_clear.Size = new Size(82, 34);
+            manual_setup_complete_clear.TabIndex = 3;
+            manual_setup_complete_clear.Text = "clear";
+            manual_setup_complete_clear.UseVisualStyleBackColor = true;
+            manual_setup_complete_clear.Click += manual_setup_complete_clear_Click;
+            // 
+            // label73
+            // 
+            label73.AutoSize = true;
+            label73.Location = new Point(3, 70);
+            label73.Name = "label73";
+            label73.Size = new Size(151, 25);
+            label73.TabIndex = 2;
+            label73.Text = "ErrorHandler.cmd";
+            // 
+            // label74
+            // 
+            label74.AutoSize = true;
+            label74.Location = new Point(0, 5);
+            label74.Name = "label74";
+            label74.Size = new Size(174, 25);
+            label74.TabIndex = 1;
+            label74.Text = "SetupComplete.cmd";
+            // 
+            // manual_setup_complete_select
+            // 
+            manual_setup_complete_select.Location = new Point(3, 33);
+            manual_setup_complete_select.Name = "manual_setup_complete_select";
+            manual_setup_complete_select.Size = new Size(82, 34);
+            manual_setup_complete_select.TabIndex = 0;
+            manual_setup_complete_select.Text = "select";
+            manual_setup_complete_select.UseVisualStyleBackColor = true;
+            manual_setup_complete_select.Click += manual_setup_complete_select_Click;
             // 
             // manual_setup
             // 
@@ -3754,6 +3889,7 @@
             manual_setup.TabIndex = 0;
             manual_setup.Text = "Use the manual setting mode";
             manual_setup.UseVisualStyleBackColor = true;
+            manual_setup.CheckedChanged += manual_setup_CheckedChanged;
             // 
             // OpenEmbeddedFolder
             // 
@@ -3805,135 +3941,6 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
-            // panel21
-            // 
-            panel21.BackColor = SystemColors.Window;
-            panel21.BorderStyle = BorderStyle.Fixed3D;
-            panel21.Controls.Add(label71);
-            panel21.Controls.Add(button1);
-            panel21.Controls.Add(button2);
-            panel21.Controls.Add(label72);
-            panel21.Controls.Add(manual_setup_error);
-            panel21.Controls.Add(manual_setup_complete);
-            panel21.Controls.Add(manual_setup_error_clear);
-            panel21.Controls.Add(manual_setup_error_select);
-            panel21.Controls.Add(manual_setup_complete_clear);
-            panel21.Controls.Add(label73);
-            panel21.Controls.Add(label74);
-            panel21.Controls.Add(manual_setup_complete_select);
-            panel21.Location = new Point(3, 38);
-            panel21.Name = "panel21";
-            panel21.Size = new Size(514, 206);
-            panel21.TabIndex = 36;
-            // 
-            // manual_setup_error
-            // 
-            manual_setup_error.AutoSize = true;
-            manual_setup_error.Location = new Point(179, 103);
-            manual_setup_error.Name = "manual_setup_error";
-            manual_setup_error.Size = new Size(86, 25);
-            manual_setup_error.TabIndex = 7;
-            manual_setup_error.Text = "bat script";
-            // 
-            // manual_setup_complete
-            // 
-            manual_setup_complete.AutoSize = true;
-            manual_setup_complete.Location = new Point(179, 38);
-            manual_setup_complete.Name = "manual_setup_complete";
-            manual_setup_complete.Size = new Size(86, 25);
-            manual_setup_complete.TabIndex = 6;
-            manual_setup_complete.Text = "bat script";
-            // 
-            // manual_setup_error_clear
-            // 
-            manual_setup_error_clear.Location = new Point(91, 98);
-            manual_setup_error_clear.Name = "manual_setup_error_clear";
-            manual_setup_error_clear.Size = new Size(82, 34);
-            manual_setup_error_clear.TabIndex = 5;
-            manual_setup_error_clear.Text = "clear";
-            manual_setup_error_clear.UseVisualStyleBackColor = true;
-            // 
-            // manual_setup_error_select
-            // 
-            manual_setup_error_select.Location = new Point(3, 98);
-            manual_setup_error_select.Name = "manual_setup_error_select";
-            manual_setup_error_select.Size = new Size(82, 34);
-            manual_setup_error_select.TabIndex = 4;
-            manual_setup_error_select.Text = "select";
-            manual_setup_error_select.UseVisualStyleBackColor = true;
-            // 
-            // manual_setup_complete_clear
-            // 
-            manual_setup_complete_clear.Location = new Point(91, 33);
-            manual_setup_complete_clear.Name = "manual_setup_complete_clear";
-            manual_setup_complete_clear.Size = new Size(82, 34);
-            manual_setup_complete_clear.TabIndex = 3;
-            manual_setup_complete_clear.Text = "clear";
-            manual_setup_complete_clear.UseVisualStyleBackColor = true;
-            // 
-            // label73
-            // 
-            label73.AutoSize = true;
-            label73.Location = new Point(3, 70);
-            label73.Name = "label73";
-            label73.Size = new Size(151, 25);
-            label73.TabIndex = 2;
-            label73.Text = "ErrorHandler.cmd";
-            // 
-            // label74
-            // 
-            label74.AutoSize = true;
-            label74.Location = new Point(0, 5);
-            label74.Name = "label74";
-            label74.Size = new Size(174, 25);
-            label74.TabIndex = 1;
-            label74.Text = "SetupComplete.cmd";
-            // 
-            // manual_setup_complete_select
-            // 
-            manual_setup_complete_select.Location = new Point(3, 33);
-            manual_setup_complete_select.Name = "manual_setup_complete_select";
-            manual_setup_complete_select.Size = new Size(82, 34);
-            manual_setup_complete_select.TabIndex = 0;
-            manual_setup_complete_select.Text = "select";
-            manual_setup_complete_select.UseVisualStyleBackColor = true;
-            // 
-            // label71
-            // 
-            label71.AutoSize = true;
-            label71.Location = new Point(179, 168);
-            label71.Name = "label71";
-            label71.Size = new Size(68, 25);
-            label71.TabIndex = 11;
-            label71.Text = "xml file";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(91, 163);
-            button1.Name = "button1";
-            button1.Size = new Size(82, 34);
-            button1.TabIndex = 10;
-            button1.Text = "clear";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(3, 163);
-            button2.Name = "button2";
-            button2.Size = new Size(82, 34);
-            button2.TabIndex = 9;
-            button2.Text = "select";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // label72
-            // 
-            label72.AutoSize = true;
-            label72.Location = new Point(3, 135);
-            label72.Name = "label72";
-            label72.Size = new Size(226, 25);
-            label72.TabIndex = 8;
-            label72.Text = "autounattend.xml (installer)";
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -3946,7 +3953,7 @@
             Controls.Add(openProgramData);
             Controls.Add(pictureBox3);
             Controls.Add(OpenEmbeddedFolder);
-            Controls.Add(tabControl1);
+            Controls.Add(mainTabControl);
             Controls.Add(OpenProjectFolder);
             Controls.Add(ExportImg);
             Controls.Add(LICENSE);
@@ -3969,17 +3976,17 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
-            tabControl1.ResumeLayout(false);
+            postinstall_panel_system.ResumeLayout(false);
+            postinstall_panel_system.PerformLayout();
+            mainTabControl.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
-            tabPage3.ResumeLayout(false);
-            tabPage3.PerformLayout();
+            tab_app.ResumeLayout(false);
+            tab_app.PerformLayout();
             tabControl3.ResumeLayout(false);
             tabPage19.ResumeLayout(false);
             tabPage19.PerformLayout();
@@ -3995,8 +4002,8 @@
             tabPage18.PerformLayout();
             panel12.ResumeLayout(false);
             panel12.PerformLayout();
-            tabPage4.ResumeLayout(false);
-            tabPage4.PerformLayout();
+            tab_settings.ResumeLayout(false);
+            tab_settings.PerformLayout();
             tabControl2.ResumeLayout(false);
             tabPage14.ResumeLayout(false);
             tabControl4.ResumeLayout(false);
@@ -4030,8 +4037,8 @@
             panel17.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
+            postinstall_panel_user.ResumeLayout(false);
+            postinstall_panel_user.PerformLayout();
             tabPage7.ResumeLayout(false);
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
@@ -4080,9 +4087,9 @@
             tabPage26.ResumeLayout(false);
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
+            manual_setup_panel.ResumeLayout(false);
+            manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            panel21.ResumeLayout(false);
-            panel21.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -4127,7 +4134,7 @@
         private Label label9;
         private Button OpenLocalHtml;
         private Label label10;
-        private Panel panel3;
+        private Panel postinstall_panel_system;
         private Button postinstall_bat_sel;
         private Label label11;
         private Label label12;
@@ -4145,15 +4152,15 @@
         private Button CustomBootLogo_select;
         private Button CustomBootLogo_clear;
         private Label CustomBootLogo;
-        private TabControl tabControl1;
+        private TabControl mainTabControl;
         private TabPage tabPage1;
         private TabPage tabPage2;
-        private TabPage tabPage3;
-        private TabPage tabPage4;
+        private TabPage tab_app;
+        private TabPage tab_settings;
         private TabPage tabPage5;
         private Label label16;
         private Label label17;
-        private Panel panel5;
+        private Panel postinstall_panel_user;
         private Label postinstall_user_reg;
         private Label label21;
         private Label postinstall_user_bat;
@@ -4412,7 +4419,7 @@
         private Panel panel13;
         private CheckBox manual_setup;
         private RichTextBox richTextBox13;
-        private Panel panel21;
+        private Panel manual_setup_panel;
         private Label manual_setup_error;
         private Label manual_setup_complete;
         private Button manual_setup_error_clear;
@@ -4421,9 +4428,9 @@
         private Label label73;
         private Label label74;
         private Button manual_setup_complete_select;
-        private Label label71;
-        private Button button1;
-        private Button button2;
+        private Label manual_setup_autounattend;
+        private Button manual_setup_autounattend_clear;
+        private Button manual_setup_autounattend_select;
         private Label label72;
     }
 }
