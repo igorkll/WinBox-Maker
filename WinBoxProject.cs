@@ -2611,7 +2611,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
                 canExport = false;
             }
 
-            if (canExport)
+            if (canExport && winBoxConfig.manual_setup != true)
             {
                 switch (winBoxConfig.ProgramType)
                 {
