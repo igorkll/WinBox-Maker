@@ -161,6 +161,12 @@ namespace WinBox_Maker
         public string? manual_setup_complete { get; set; }
         public string? manual_setup_error { get; set; }
         public string? manual_setup_autounattend { get; set; }
+        public bool? aaf_readme_iso { get; set; }
+        public bool? aaf_readme_system { get; set; }
+        public bool? aaf_readme_boot { get; set; }
+        public bool? aaf_info_iso { get; set; }
+        public bool? aaf_info_system { get; set; }
+        public bool? aaf_info_boot { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -270,6 +276,13 @@ namespace WinBox_Maker
             if (delete_dism_remove_appx_package == null) delete_dism_remove_appx_package = "";
 
             if (manual_setup == null) manual_setup = false;
+
+            if (aaf_readme_iso == null) aaf_readme_iso = true;
+            if (aaf_readme_system == null) aaf_readme_system = true;
+            if (aaf_readme_boot == null) aaf_readme_boot = true;
+            if (aaf_info_iso == null) aaf_info_iso = true;
+            if (aaf_info_system == null) aaf_info_system = true;
+            if (aaf_info_boot == null) aaf_info_boot = true;
         }
 
         public void Save(string wnbFilePath)

@@ -101,6 +101,16 @@
             label26 = new Label();
             label16 = new Label();
             tabPage2 = new TabPage();
+            label76 = new Label();
+            panel3 = new Panel();
+            aaf_info_boot = new CheckBox();
+            aaf_info_system = new CheckBox();
+            aaf_info_iso = new CheckBox();
+            aaf_readme_boot = new CheckBox();
+            aaf_readme_system = new CheckBox();
+            label75 = new Label();
+            label71 = new Label();
+            aaf_readme_iso = new CheckBox();
             richTextBox7 = new RichTextBox();
             tab_app = new TabPage();
             tabControl3 = new TabControl();
@@ -374,6 +384,7 @@
             tabPage1.SuspendLayout();
             panel4.SuspendLayout();
             tabPage2.SuspendLayout();
+            panel3.SuspendLayout();
             tab_app.SuspendLayout();
             tabControl3.SuspendLayout();
             tabPage19.SuspendLayout();
@@ -1179,6 +1190,8 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(label76);
+            tabPage2.Controls.Add(panel3);
             tabPage2.Controls.Add(richTextBox7);
             tabPage2.Controls.Add(label2);
             tabPage2.Controls.Add(WinboxName);
@@ -1190,6 +1203,117 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "description";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label76
+            // 
+            label76.AutoSize = true;
+            label76.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label76.Location = new Point(668, 3);
+            label76.Name = "label76";
+            label76.Size = new Size(255, 38);
+            label76.TabIndex = 16;
+            label76.Text = "Add additional files";
+            // 
+            // panel3
+            // 
+            panel3.BorderStyle = BorderStyle.Fixed3D;
+            panel3.Controls.Add(aaf_info_boot);
+            panel3.Controls.Add(aaf_info_system);
+            panel3.Controls.Add(aaf_info_iso);
+            panel3.Controls.Add(aaf_readme_boot);
+            panel3.Controls.Add(aaf_readme_system);
+            panel3.Controls.Add(label75);
+            panel3.Controls.Add(label71);
+            panel3.Controls.Add(aaf_readme_iso);
+            panel3.Location = new Point(665, 44);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(347, 285);
+            panel3.TabIndex = 15;
+            // 
+            // aaf_info_boot
+            // 
+            aaf_info_boot.AutoSize = true;
+            aaf_info_boot.Location = new Point(3, 234);
+            aaf_info_boot.Name = "aaf_info_boot";
+            aaf_info_boot.Size = new Size(204, 29);
+            aaf_info_boot.TabIndex = 7;
+            aaf_info_boot.Text = "boot.wim winPE root";
+            aaf_info_boot.UseVisualStyleBackColor = true;
+            aaf_info_boot.CheckedChanged += aaf_info_boot_CheckedChanged;
+            // 
+            // aaf_info_system
+            // 
+            aaf_info_system.AutoSize = true;
+            aaf_info_system.Location = new Point(3, 199);
+            aaf_info_system.Name = "aaf_info_system";
+            aaf_info_system.Size = new Size(133, 29);
+            aaf_info_system.TabIndex = 6;
+            aaf_info_system.Text = "system root";
+            aaf_info_system.UseVisualStyleBackColor = true;
+            aaf_info_system.CheckedChanged += aaf_info_system_CheckedChanged;
+            // 
+            // aaf_info_iso
+            // 
+            aaf_info_iso.AutoSize = true;
+            aaf_info_iso.Location = new Point(3, 164);
+            aaf_info_iso.Name = "aaf_info_iso";
+            aaf_info_iso.Size = new Size(165, 29);
+            aaf_info_iso.TabIndex = 5;
+            aaf_info_iso.Text = "iso installer root";
+            aaf_info_iso.UseVisualStyleBackColor = true;
+            aaf_info_iso.CheckedChanged += aaf_info_iso_CheckedChanged;
+            // 
+            // aaf_readme_boot
+            // 
+            aaf_readme_boot.AutoSize = true;
+            aaf_readme_boot.Location = new Point(3, 104);
+            aaf_readme_boot.Name = "aaf_readme_boot";
+            aaf_readme_boot.Size = new Size(204, 29);
+            aaf_readme_boot.TabIndex = 4;
+            aaf_readme_boot.Text = "boot.wim winPE root";
+            aaf_readme_boot.UseVisualStyleBackColor = true;
+            aaf_readme_boot.CheckedChanged += aaf_readme_boot_CheckedChanged;
+            // 
+            // aaf_readme_system
+            // 
+            aaf_readme_system.AutoSize = true;
+            aaf_readme_system.Location = new Point(3, 69);
+            aaf_readme_system.Name = "aaf_readme_system";
+            aaf_readme_system.Size = new Size(133, 29);
+            aaf_readme_system.TabIndex = 3;
+            aaf_readme_system.Text = "system root";
+            aaf_readme_system.UseVisualStyleBackColor = true;
+            aaf_readme_system.CheckedChanged += aaf_readme_system_CheckedChanged;
+            // 
+            // label75
+            // 
+            label75.AutoSize = true;
+            label75.Location = new Point(3, 136);
+            label75.Name = "label75";
+            label75.Size = new Size(322, 25);
+            label75.TabIndex = 2;
+            label75.Text = "INFO.txt with the name and description";
+            // 
+            // label71
+            // 
+            label71.AutoSize = true;
+            label71.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label71.Location = new Point(3, 6);
+            label71.Name = "label71";
+            label71.Size = new Size(293, 25);
+            label71.TabIndex = 1;
+            label71.Text = "README.txt with winbox maker ads";
+            // 
+            // aaf_readme_iso
+            // 
+            aaf_readme_iso.AutoSize = true;
+            aaf_readme_iso.Location = new Point(3, 34);
+            aaf_readme_iso.Name = "aaf_readme_iso";
+            aaf_readme_iso.Size = new Size(165, 29);
+            aaf_readme_iso.TabIndex = 0;
+            aaf_readme_iso.Text = "iso installer root";
+            aaf_readme_iso.UseVisualStyleBackColor = true;
+            aaf_readme_iso.CheckedChanged += aaf_readme_iso_CheckedChanged;
             // 
             // richTextBox7
             // 
@@ -3985,6 +4109,8 @@
             panel4.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             tab_app.ResumeLayout(false);
             tab_app.PerformLayout();
             tabControl3.ResumeLayout(false);
@@ -4432,5 +4558,15 @@
         private Button manual_setup_autounattend_clear;
         private Button manual_setup_autounattend_select;
         private Label label72;
+        private Panel panel3;
+        private Label label71;
+        private CheckBox aaf_readme_iso;
+        private Label label75;
+        private CheckBox aaf_info_boot;
+        private CheckBox aaf_info_system;
+        private CheckBox aaf_info_iso;
+        private CheckBox aaf_readme_boot;
+        private CheckBox aaf_readme_system;
+        private Label label76;
     }
 }

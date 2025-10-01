@@ -582,6 +582,13 @@ namespace WinBox_Maker
             delete_dism_remove_package.Text = winBoxProject.winBoxConfig.delete_dism_remove_package ?? "";
             delete_dism_remove_appx_package.Text = winBoxProject.winBoxConfig.delete_dism_remove_appx_package ?? "";
 
+            aaf_readme_iso.CheckState = winBoxProject.winBoxConfig.aaf_readme_iso == true ? CheckState.Checked : CheckState.Unchecked;
+            aaf_readme_system.CheckState = winBoxProject.winBoxConfig.aaf_readme_system == true ? CheckState.Checked : CheckState.Unchecked;
+            aaf_readme_boot.CheckState = winBoxProject.winBoxConfig.aaf_readme_boot == true ? CheckState.Checked : CheckState.Unchecked;
+            aaf_info_iso.CheckState = winBoxProject.winBoxConfig.aaf_info_iso == true ? CheckState.Checked : CheckState.Unchecked;
+            aaf_info_system.CheckState = winBoxProject.winBoxConfig.aaf_info_system == true ? CheckState.Checked : CheckState.Unchecked;
+            aaf_info_boot.CheckState = winBoxProject.winBoxConfig.aaf_info_boot == true ? CheckState.Checked : CheckState.Unchecked;
+
             bool manual = winBoxProject.winBoxConfig.manual_setup == true;
             manual_setup.CheckState = manual ? CheckState.Checked : CheckState.Unchecked;
             manual_setup_complete.Text = winBoxProject.winBoxConfig.manual_setup_complete ?? "not selected";
@@ -2340,6 +2347,60 @@ namespace WinBox_Maker
         private void manual_setup_autounattend_clear_Click(object sender, EventArgs e)
         {
             winBoxProject.winBoxConfig.manual_setup_autounattend = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void aaf_readme_iso_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.aaf_readme_iso = aaf_readme_iso.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void aaf_readme_system_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.aaf_readme_system = aaf_readme_system.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void aaf_readme_boot_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.aaf_readme_boot = aaf_readme_boot.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void aaf_info_iso_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.aaf_info_iso = aaf_info_iso.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void aaf_info_system_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.aaf_info_system = aaf_info_system.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void aaf_info_boot_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.aaf_info_boot = aaf_info_boot.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }

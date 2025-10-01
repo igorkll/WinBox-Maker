@@ -1096,10 +1096,10 @@ powercfg -s SCHEME_CURRENT";
             return servicesSetup;
         }
 
-        async Task addAdFiles(string path, WindowsDescription newWindowsDescription)
+        async Task addAdFiles(string path, WindowsDescription newWindowsDescription, bool? advertising = true, bool? info = true)
         {
-            await File.WriteAllTextAsync(Path.Combine(path, "README.txt"), $"this image was created by the {Program.version} free software\r\nhttps://github.com/igorkll/WinBox-Maker");
-            await File.WriteAllTextAsync(Path.Combine(path, "INFO.txt"), $"name: {newWindowsDescription.name}\r\ndescription: {newWindowsDescription.description}");
+            if (advertising == true) await File.WriteAllTextAsync(Path.Combine(path, "README.txt"), $"this image was created by the {Program.version} free software\r\nhttps://github.com/igorkll/WinBox-Maker");
+            if (info == true) await File.WriteAllTextAsync(Path.Combine(path, "INFO.txt"), $"name: {newWindowsDescription.name}\r\ndescription: {newWindowsDescription.description}");
         }
 
         async Task modifyBCD(int index, string bcdPath)
@@ -2062,7 +2062,7 @@ powercfg -s SCHEME_CURRENT";
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimMountPath);
             }
 
-            await addAdFiles(wimMountPath, newWindowsDescription);
+            await addAdFiles(wimMountPath, newWindowsDescription, winBoxConfig.aaf_readme_system, winBoxConfig.aaf_info_system);
 
             // ------------------------------------ setup application autorun
             if (!manual) {
@@ -2384,7 +2384,7 @@ if errorlevel 1 (
             await Task.Delay(2000);
         }
 
-        async Task modUnpackedIso(string unpackIsoPath)
+        async Task modUnpackedIso(string unpackIsoPath, WindowsDescription newWindowsDescription)
         {
             // unpack winPE
             string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
@@ -2415,6 +2415,8 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             }
 
             // apply the boot.wim modification
+            await addAdFiles(wimWinPeMountPath, newWindowsDescription, winBoxConfig.aaf_readme_boot, winBoxConfig.aaf_info_boot);
+
             string filesPath = Path.Combine(resourcesDirectoryPath, "boot_files");
             if (Directory.Exists(filesPath))
             {
@@ -2501,7 +2503,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
                 }
             }
 
-            await modUnpackedIso(unpackIsoPath);
+            await modUnpackedIso(unpackIsoPath, newWindowsDescription);
 
             if (manual)
             {
@@ -2527,7 +2529,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
                 await Program.CopyFilesRecursivelyAsync(isoFilesPath, unpackIsoPath);
             }
 
-            await addAdFiles(unpackIsoPath, newWindowsDescription);
+            await addAdFiles(unpackIsoPath, newWindowsDescription, winBoxConfig.aaf_readme_iso, winBoxConfig.aaf_info_iso);
 
             processName("Building an ISO image");
             processValue(85);
