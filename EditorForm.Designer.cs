@@ -331,6 +331,9 @@
             tabPage27 = new TabPage();
             richTextBox11 = new RichTextBox();
             delete_paths = new RichTextBox();
+            tabPage31 = new TabPage();
+            richTextBox14 = new RichTextBox();
+            delete_dism_universal = new RichTextBox();
             tabPage28 = new TabPage();
             richTextBox12 = new RichTextBox();
             delete_dism = new RichTextBox();
@@ -341,14 +344,27 @@
             richTextBox16 = new RichTextBox();
             delete_dism_remove_appx_package = new RichTextBox();
             tabPage26 = new TabPage();
+            richTextBox13 = new RichTextBox();
+            panel13 = new Panel();
+            manual_setup = new CheckBox();
             OpenEmbeddedFolder = new Button();
             contextMenuStrip1 = new ContextMenuStrip(components);
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
-            tabPage31 = new TabPage();
-            delete_dism_universal = new RichTextBox();
-            richTextBox14 = new RichTextBox();
+            panel21 = new Panel();
+            manual_setup_error = new Label();
+            manual_setup_complete = new Label();
+            manual_setup_error_clear = new Button();
+            manual_setup_error_select = new Button();
+            manual_setup_complete_clear = new Button();
+            label73 = new Label();
+            label74 = new Label();
+            manual_setup_complete_select = new Button();
+            label71 = new Label();
+            button1 = new Button();
+            button2 = new Button();
+            label72 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -414,11 +430,14 @@
             tabPage25.SuspendLayout();
             tabControl6.SuspendLayout();
             tabPage27.SuspendLayout();
+            tabPage31.SuspendLayout();
             tabPage28.SuspendLayout();
             tabPage29.SuspendLayout();
             tabPage30.SuspendLayout();
+            tabPage26.SuspendLayout();
+            panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage31.SuspendLayout();
+            panel21.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -3575,6 +3594,36 @@
             delete_paths.Text = "";
             delete_paths.TextChanged += delete_paths_TextChanged;
             // 
+            // tabPage31
+            // 
+            tabPage31.Controls.Add(richTextBox14);
+            tabPage31.Controls.Add(delete_dism_universal);
+            tabPage31.Location = new Point(4, 34);
+            tabPage31.Name = "tabPage31";
+            tabPage31.Size = new Size(1004, 303);
+            tabPage31.TabIndex = 4;
+            tabPage31.Text = "Dism (universal)";
+            tabPage31.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox14
+            // 
+            richTextBox14.BackColor = SystemColors.Info;
+            richTextBox14.Location = new Point(641, 6);
+            richTextBox14.Name = "richTextBox14";
+            richTextBox14.ReadOnly = true;
+            richTextBox14.Size = new Size(357, 291);
+            richTextBox14.TabIndex = 3;
+            richTextBox14.Text = resources.GetString("richTextBox14.Text");
+            // 
+            // delete_dism_universal
+            // 
+            delete_dism_universal.Location = new Point(6, 6);
+            delete_dism_universal.Name = "delete_dism_universal";
+            delete_dism_universal.Size = new Size(629, 291);
+            delete_dism_universal.TabIndex = 3;
+            delete_dism_universal.Text = "";
+            delete_dism_universal.TextChanged += delete_dism_universal_TextChanged;
+            // 
             // tabPage28
             // 
             tabPage28.Controls.Add(richTextBox12);
@@ -3668,12 +3717,43 @@
             // 
             // tabPage26
             // 
+            tabPage26.Controls.Add(richTextBox13);
+            tabPage26.Controls.Add(panel13);
             tabPage26.Location = new Point(4, 34);
             tabPage26.Name = "tabPage26";
             tabPage26.Size = new Size(1018, 347);
             tabPage26.TabIndex = 13;
             tabPage26.Text = "manual setup";
             tabPage26.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox13
+            // 
+            richTextBox13.BackColor = SystemColors.Info;
+            richTextBox13.Location = new Point(536, 6);
+            richTextBox13.Name = "richTextBox13";
+            richTextBox13.Size = new Size(479, 338);
+            richTextBox13.TabIndex = 2;
+            richTextBox13.Text = resources.GetString("richTextBox13.Text");
+            // 
+            // panel13
+            // 
+            panel13.BorderStyle = BorderStyle.Fixed3D;
+            panel13.Controls.Add(panel21);
+            panel13.Controls.Add(manual_setup);
+            panel13.Location = new Point(6, 6);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(524, 338);
+            panel13.TabIndex = 1;
+            // 
+            // manual_setup
+            // 
+            manual_setup.AutoSize = true;
+            manual_setup.Location = new Point(3, 3);
+            manual_setup.Name = "manual_setup";
+            manual_setup.Size = new Size(271, 29);
+            manual_setup.TabIndex = 0;
+            manual_setup.Text = "Use the manual setting mode";
+            manual_setup.UseVisualStyleBackColor = true;
             // 
             // OpenEmbeddedFolder
             // 
@@ -3725,35 +3805,134 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
-            // tabPage31
+            // panel21
             // 
-            tabPage31.Controls.Add(richTextBox14);
-            tabPage31.Controls.Add(delete_dism_universal);
-            tabPage31.Location = new Point(4, 34);
-            tabPage31.Name = "tabPage31";
-            tabPage31.Size = new Size(1004, 303);
-            tabPage31.TabIndex = 4;
-            tabPage31.Text = "Dism (universal)";
-            tabPage31.UseVisualStyleBackColor = true;
+            panel21.BackColor = SystemColors.Window;
+            panel21.BorderStyle = BorderStyle.Fixed3D;
+            panel21.Controls.Add(label71);
+            panel21.Controls.Add(button1);
+            panel21.Controls.Add(button2);
+            panel21.Controls.Add(label72);
+            panel21.Controls.Add(manual_setup_error);
+            panel21.Controls.Add(manual_setup_complete);
+            panel21.Controls.Add(manual_setup_error_clear);
+            panel21.Controls.Add(manual_setup_error_select);
+            panel21.Controls.Add(manual_setup_complete_clear);
+            panel21.Controls.Add(label73);
+            panel21.Controls.Add(label74);
+            panel21.Controls.Add(manual_setup_complete_select);
+            panel21.Location = new Point(3, 38);
+            panel21.Name = "panel21";
+            panel21.Size = new Size(514, 206);
+            panel21.TabIndex = 36;
             // 
-            // delete_dism_universal
+            // manual_setup_error
             // 
-            delete_dism_universal.Location = new Point(6, 6);
-            delete_dism_universal.Name = "delete_dism_universal";
-            delete_dism_universal.Size = new Size(629, 291);
-            delete_dism_universal.TabIndex = 3;
-            delete_dism_universal.Text = "";
-            delete_dism_universal.TextChanged += delete_dism_universal_TextChanged;
+            manual_setup_error.AutoSize = true;
+            manual_setup_error.Location = new Point(179, 103);
+            manual_setup_error.Name = "manual_setup_error";
+            manual_setup_error.Size = new Size(86, 25);
+            manual_setup_error.TabIndex = 7;
+            manual_setup_error.Text = "bat script";
             // 
-            // richTextBox14
+            // manual_setup_complete
             // 
-            richTextBox14.BackColor = SystemColors.Info;
-            richTextBox14.Location = new Point(641, 6);
-            richTextBox14.Name = "richTextBox14";
-            richTextBox14.ReadOnly = true;
-            richTextBox14.Size = new Size(357, 291);
-            richTextBox14.TabIndex = 3;
-            richTextBox14.Text = resources.GetString("richTextBox14.Text");
+            manual_setup_complete.AutoSize = true;
+            manual_setup_complete.Location = new Point(179, 38);
+            manual_setup_complete.Name = "manual_setup_complete";
+            manual_setup_complete.Size = new Size(86, 25);
+            manual_setup_complete.TabIndex = 6;
+            manual_setup_complete.Text = "bat script";
+            // 
+            // manual_setup_error_clear
+            // 
+            manual_setup_error_clear.Location = new Point(91, 98);
+            manual_setup_error_clear.Name = "manual_setup_error_clear";
+            manual_setup_error_clear.Size = new Size(82, 34);
+            manual_setup_error_clear.TabIndex = 5;
+            manual_setup_error_clear.Text = "clear";
+            manual_setup_error_clear.UseVisualStyleBackColor = true;
+            // 
+            // manual_setup_error_select
+            // 
+            manual_setup_error_select.Location = new Point(3, 98);
+            manual_setup_error_select.Name = "manual_setup_error_select";
+            manual_setup_error_select.Size = new Size(82, 34);
+            manual_setup_error_select.TabIndex = 4;
+            manual_setup_error_select.Text = "select";
+            manual_setup_error_select.UseVisualStyleBackColor = true;
+            // 
+            // manual_setup_complete_clear
+            // 
+            manual_setup_complete_clear.Location = new Point(91, 33);
+            manual_setup_complete_clear.Name = "manual_setup_complete_clear";
+            manual_setup_complete_clear.Size = new Size(82, 34);
+            manual_setup_complete_clear.TabIndex = 3;
+            manual_setup_complete_clear.Text = "clear";
+            manual_setup_complete_clear.UseVisualStyleBackColor = true;
+            // 
+            // label73
+            // 
+            label73.AutoSize = true;
+            label73.Location = new Point(3, 70);
+            label73.Name = "label73";
+            label73.Size = new Size(151, 25);
+            label73.TabIndex = 2;
+            label73.Text = "ErrorHandler.cmd";
+            // 
+            // label74
+            // 
+            label74.AutoSize = true;
+            label74.Location = new Point(0, 5);
+            label74.Name = "label74";
+            label74.Size = new Size(174, 25);
+            label74.TabIndex = 1;
+            label74.Text = "SetupComplete.cmd";
+            // 
+            // manual_setup_complete_select
+            // 
+            manual_setup_complete_select.Location = new Point(3, 33);
+            manual_setup_complete_select.Name = "manual_setup_complete_select";
+            manual_setup_complete_select.Size = new Size(82, 34);
+            manual_setup_complete_select.TabIndex = 0;
+            manual_setup_complete_select.Text = "select";
+            manual_setup_complete_select.UseVisualStyleBackColor = true;
+            // 
+            // label71
+            // 
+            label71.AutoSize = true;
+            label71.Location = new Point(179, 168);
+            label71.Name = "label71";
+            label71.Size = new Size(68, 25);
+            label71.TabIndex = 11;
+            label71.Text = "xml file";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(91, 163);
+            button1.Name = "button1";
+            button1.Size = new Size(82, 34);
+            button1.TabIndex = 10;
+            button1.Text = "clear";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(3, 163);
+            button2.Name = "button2";
+            button2.Size = new Size(82, 34);
+            button2.TabIndex = 9;
+            button2.Text = "select";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // label72
+            // 
+            label72.AutoSize = true;
+            label72.Location = new Point(3, 135);
+            label72.Name = "label72";
+            label72.Size = new Size(226, 25);
+            label72.TabIndex = 8;
+            label72.Text = "autounattend.xml (installer)";
             // 
             // EditorForm
             // 
@@ -3894,11 +4073,16 @@
             tabPage25.ResumeLayout(false);
             tabControl6.ResumeLayout(false);
             tabPage27.ResumeLayout(false);
+            tabPage31.ResumeLayout(false);
             tabPage28.ResumeLayout(false);
             tabPage29.ResumeLayout(false);
             tabPage30.ResumeLayout(false);
+            tabPage26.ResumeLayout(false);
+            panel13.ResumeLayout(false);
+            panel13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage31.ResumeLayout(false);
+            panel21.ResumeLayout(false);
+            panel21.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -4225,5 +4409,21 @@
         private TabPage tabPage31;
         private RichTextBox delete_dism_universal;
         private RichTextBox richTextBox14;
+        private Panel panel13;
+        private CheckBox manual_setup;
+        private RichTextBox richTextBox13;
+        private Panel panel21;
+        private Label manual_setup_error;
+        private Label manual_setup_complete;
+        private Button manual_setup_error_clear;
+        private Button manual_setup_error_select;
+        private Button manual_setup_complete_clear;
+        private Label label73;
+        private Label label74;
+        private Button manual_setup_complete_select;
+        private Label label71;
+        private Button button1;
+        private Button button2;
+        private Label label72;
     }
 }

@@ -71,6 +71,9 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * events - execute cmd commands on the host machine during the build process. this can be used, for example, to copy files to the project directory or for anything else. to make this work, don't forget to activate the events you use in the checkmark!
 * build - build your app together with Winbox. when using this, you can make the "winbox_resources/program" directory empty and specify a name *.exe file in "app" tab manually. in order for this to work, don't forget to activate the checkmark function near the "add" button!
 * downloading - allows you to download files during the build stage. It allows you to unpack archives automatically. please note that the download path is set relative to the project folder. it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore"
+* export img settings - export settings in img format
+* delete - allows you to delete files and windows components
+* manual setup - it allows you to use winbox maker in manual configuration mode, in which case the settings from winbox maker will be unavailable and you will set the system configuration yourself
 
 ## what was disabled
 * explorer.exe (the desktop is completely inaccessible)
@@ -180,6 +183,37 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * disabled updates
 * page translation is disabled
 * synchronization is disabled
+
+## manual setup mode
+* manual configuration can be used if you want to use winbox maker in alternative tasks, for example, not for kiosk mode.
+* in manual configuration mode, you control the system settings yourself.
+* In this case, winbox maker is no longer involved in configuring the system, it only takes on the task of reassembling the wim file and the iso file.
+* in this case, the standard winbox maker directories (WinboxApi, WinboxResources, WinboxProgram) will not be created.
+* the directory for the program (winbox_resources/program) and building the program via build will be useless.
+* you will be able to integrate packages via winbox_resources/packages and drivers via winbox_resources/drivers, and the GPU driver installation function via the installer file should also work.
+* you can still use the "delete", "events", and "downloading" tabs, their functionality is fully preserved in manual configuration mode.
+* img export should work soon, but the option to turn off VM and sysprep after installation will not be available, you must handle this yourself
+* the "settings" and "app" tabs become completely inaccessible.
+* you can still replace and add files in the system and iso using the winbox_resources/files or winbox_resources/iso_files directories.
+* it is possible to build a user application from sources in manual configuration mode, but it will end up in the winbox_temp/program directory and will not be added to the automation system image, although you can copy it via build event - win mounted
+* in manual configuration mode, you cannot integrate the cursor through the winbox_resources/cursor directory, and you also cannot integrate vc redist, net framework, and app runtime through their corresponding directories. to do this, save your installers to files and use the setup completed script.
+
+## which directories work in manual setup mode
+* files - working
+* program - not working (although the result of the automatic build of the user application can be moved to this directory in winbox_temp, the files will not be copied to the image)
+* drivers - working
+* nvidia_drivers - working
+* amd_drivers - working
+* intel_drivers - working
+* driver_installers - working
+* packages - working
+* cursor - not working
+* sources - it works, but the build result will not be automatically placed in the system image
+* iso_files - working
+* vc_redist - not working
+* net - not working
+* net_framework - not working
+* app_runtime - not working
 
 ## project structure
 * winbox.wnb - the main project file. contains all settings and paths

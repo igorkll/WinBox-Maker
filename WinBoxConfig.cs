@@ -157,6 +157,7 @@ namespace WinBox_Maker
         public string? delete_dism_universal { get; set; }
         public string? delete_dism_remove_package { get; set; }
         public string? delete_dism_remove_appx_package { get; set; }
+        public bool? manual_setup { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -264,6 +265,8 @@ namespace WinBox_Maker
             if (delete_dism_universal == null) delete_dism_universal = "";
             if (delete_dism_remove_package == null) delete_dism_remove_package = "";
             if (delete_dism_remove_appx_package == null) delete_dism_remove_appx_package = "";
+
+            if (manual_setup == null) manual_setup = false;
         }
 
         public void Save(string wnbFilePath)
