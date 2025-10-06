@@ -1318,10 +1318,16 @@ powercfg -s SCHEME_CURRENT";
 
             async Task removeSystemObject(string path, bool createFolder = false)
             {
+                bool createEmptyDir = true;
+                if (path.StartsWith("!"))
+                {
+                    createEmptyDir = false;
+                    path = path.Substring(1);
+                }
                 path = path.Replace("/", "\\");
                 path = path.TrimStart('\\', '/');
 
-                if (path.StartsWith("/") || path.StartsWith("\\") || path.Contains(".."))
+                if (path.StartsWith("/") || path.StartsWith("\\") || path.Contains("..") || path.Contains(":"))
                 {
                     return;
                 }
@@ -1344,7 +1350,7 @@ powercfg -s SCHEME_CURRENT";
                         File.Delete(path);
                     }
 
-                    if (recreateDir)
+                    if (recreateDir && createEmptyDir)
                     {
                         Program.CreateDirectory(path);
                     }

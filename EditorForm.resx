@@ -3539,7 +3539,8 @@ it is better to download files to the "winbox_temp/files" directory, refer to th
   </data>
   <data name="richTextBox11.Text" xml:space="preserve">
     <value>deletes files or directories by specified paths inside the mounted Windows.
-if the path refers to a directory, then an empty directory will be created in its place, this is done because in Windows, when deleting many system directories, the system can continue to work normally if the directory itself exists, even if it is empty, but the system refuses to work if the directory itself has been deleted.</value>
+if the path refers to a directory, then an empty directory will be created in its place, this is done because in Windows, when deleting many system directories, the system can continue to work normally if the directory itself exists, even if it is empty, but the system refuses to work if the directory itself has been deleted.
+if you need to completely delete the directory so that it doesn't exist at all. start the path with the character "!"</value>
   </data>
   <data name="richTextBox14.Text" xml:space="preserve">
     <value>removing Windows components or disabling features via dism. trying to call in turn:
