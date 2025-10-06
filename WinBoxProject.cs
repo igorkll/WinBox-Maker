@@ -1316,21 +1316,31 @@ powercfg -s SCHEME_CURRENT";
             }
             */
 
-            async Task removeSystemObject(string path, bool createFolder = false)
+            string RemovePaths_log = "";
+
+            async Task removeSystemObject(string path)
             {
+                RemovePaths_log += $"remove path request: {path}\n";
+
                 bool createEmptyDir = true;
                 if (path.StartsWith("!"))
                 {
                     createEmptyDir = false;
                     path = path.Substring(1);
+                    RemovePaths_log += $"disable create empty dir: {path}\n";
                 }
                 path = path.Replace("/", "\\");
                 path = path.TrimStart('\\', '/');
 
+                RemovePaths_log += $"path processing: {path}\n";
+
                 if (path.StartsWith("/") || path.StartsWith("\\") || path.Contains("..") || path.Contains(":"))
                 {
+                    RemovePaths_log += $"bad path: {path}\n";
                     return;
                 }
+
+                RemovePaths_log += $"launching deleting: {path}\n";
 
                 path = Path.Combine(wimMountPath, path);
 
@@ -1371,7 +1381,7 @@ powercfg -s SCHEME_CURRENT";
 
                 if (Program.isTweakEnabled(winBoxConfig, "removal of the subsystem SysWOW64"))
                 {
-                    await removeSystemObject("Windows\\SysWOW64", true);
+                    await removeSystemObject("Windows\\SysWOW64");
                 }
 
                 if (Program.isTweakEnabled(winBoxConfig, "removing UWP apps"))
@@ -1390,7 +1400,10 @@ powercfg -s SCHEME_CURRENT";
 
             foreach (string path in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_paths ?? ""))
             {
-                await removeSystemObject(path);
+                if (!string.IsNullOrEmpty(name))
+                {
+                    await removeSystemObject(path);
+                }
             }
 
             async Task execDismCmd(string name, int type)
@@ -1398,7 +1411,7 @@ powercfg -s SCHEME_CURRENT";
                 switch (type)
                 {
                     case 0:
-                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /featurename:\"{name}\"");
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /featurename:\"{name}\" /Remove");
                         break;
 
                     case 1:
@@ -1414,7 +1427,7 @@ powercfg -s SCHEME_CURRENT";
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_universal ?? ""))
             {
-                if (!name.Contains("\""))
+                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
                 {
                     await execDismCmd(name, 0);
                     await execDismCmd(name, 1);
@@ -1424,14 +1437,14 @@ powercfg -s SCHEME_CURRENT";
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism ?? ""))
             {
-                if (!name.Contains("\"")) {
+                if (!string.IsNullOrEmpty(name) || !name.Contains("\"")) {
                     await execDismCmd(name, 0);
                 }
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_package ?? ""))
             {
-                if (!name.Contains("\""))
+                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
                 {
                     await execDismCmd(name, 1);
                 }
@@ -1439,11 +1452,13 @@ powercfg -s SCHEME_CURRENT";
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_appx_package ?? ""))
             {
-                if (!name.Contains("\""))
+                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
                 {
                     await execDismCmd(name, 2);
                 }
             }
+
+            await writeDebugFile("RemovePaths", RemovePaths_log);
 
             // ------------------------------------ system init
 
