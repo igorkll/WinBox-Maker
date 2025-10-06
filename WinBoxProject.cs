@@ -1349,6 +1349,7 @@ powercfg -s SCHEME_CURRENT";
 
                     if (Directory.Exists(path))
                     {
+                        RemovePaths_log += $"try delete directory\n";
                         Program.SetAttributesRecursive(path, FileAttributes.Normal);
                         Directory.Delete(path, true);
                         recreateDir = true;
@@ -1356,15 +1357,32 @@ powercfg -s SCHEME_CURRENT";
 
                     if (File.Exists(path))
                     {
+                        RemovePaths_log += $"try delete file\n";
                         File.SetAttributes(path, FileAttributes.Normal);
                         File.Delete(path);
                     }
 
+                    if (Directory.Exists(path))
+                    {
+                        RemovePaths_log += $"failed to delete directory\n";
+                    }
+                    else if (Directory.Exists(path))
+                    {
+                        RemovePaths_log += $"failed to delete file\n";
+                    }
+                    else
+                    {
+                        RemovePaths_log += $"successfully deleted\n";
+                    }
+
                     if (recreateDir && createEmptyDir)
                     {
+                        RemovePaths_log += $"create empty directory\n";
                         Program.CreateDirectory(path);
                     }
                 });
+
+                RemovePaths_log += "\n";
             }
 
             if (!manual) {
