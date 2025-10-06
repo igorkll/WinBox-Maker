@@ -1392,45 +1392,6 @@ powercfg -s SCHEME_CURRENT";
                 RemovePaths_log += "\n";
             }
 
-            if (!manual) {
-                if (Program.isTweakEnabled(winBoxConfig, "completely remove explorer.exe"))
-                {
-                    await removeSystemObject("Windows\\explorer.exe");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "completely remove system audio/images"))
-                {
-                    await removeSystemObject("Windows\\Web");
-                    await removeSystemObject("Windows\\Media");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "removal of the subsystem SysWOW64"))
-                {
-                    await removeSystemObject("Windows\\SysWOW64");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "removing UWP apps"))
-                {
-                    await removeSystemObject("Windows\\SystemApps");
-                    await removeSystemObject("Program Files\\WindowsApps");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "remove windows defender files"))
-                {
-                    await removeSystemObject("Program Files (x86)\\Windows Defender");
-                    await removeSystemObject("Program Files\\Windows Defender");
-                    await removeSystemObject("Program Files\\Windows Defender Advanced Threat Protection");
-                }
-            }
-
-            foreach (string path in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_paths ?? ""))
-            {
-                if (!string.IsNullOrEmpty(name))
-                {
-                    await removeSystemObject(path);
-                }
-            }
-
             async Task execDismCmd(string name, int type)
             {
                 switch (type)
@@ -1480,6 +1441,46 @@ powercfg -s SCHEME_CURRENT";
                 if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
                 {
                     await execDismCmd(name, 2);
+                }
+            }
+
+            if (!manual)
+            {
+                if (Program.isTweakEnabled(winBoxConfig, "completely remove explorer.exe"))
+                {
+                    await removeSystemObject("Windows\\explorer.exe");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "completely remove system audio/images"))
+                {
+                    await removeSystemObject("Windows\\Web");
+                    await removeSystemObject("Windows\\Media");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "removal of the subsystem SysWOW64"))
+                {
+                    await removeSystemObject("Windows\\SysWOW64");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "removing UWP apps"))
+                {
+                    await removeSystemObject("Windows\\SystemApps");
+                    await removeSystemObject("Program Files\\WindowsApps");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "remove windows defender files"))
+                {
+                    await removeSystemObject("Program Files (x86)\\Windows Defender");
+                    await removeSystemObject("Program Files\\Windows Defender");
+                    await removeSystemObject("Program Files\\Windows Defender Advanced Threat Protection");
+                }
+            }
+
+            foreach (string path in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_paths ?? ""))
+            {
+                if (!string.IsNullOrEmpty(name))
+                {
+                    await removeSystemObject(path);
                 }
             }
 
