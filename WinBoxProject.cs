@@ -1346,6 +1346,7 @@ powercfg -s SCHEME_CURRENT";
 
                 await Task.Run(() => {
                     bool recreateDir = false;
+                    bool successfully = false;
 
                     if (Directory.Exists(path))
                     {
@@ -1353,6 +1354,7 @@ powercfg -s SCHEME_CURRENT";
                         Program.SetAttributesRecursive(path, FileAttributes.Normal);
                         Directory.Delete(path, true);
                         recreateDir = true;
+                        successfully = true;
                     }
 
                     if (File.Exists(path))
@@ -1360,22 +1362,27 @@ powercfg -s SCHEME_CURRENT";
                         RemovePaths_log += $"try delete file\n";
                         File.SetAttributes(path, FileAttributes.Normal);
                         File.Delete(path);
+                        successfully = true;
                     }
 
                     if (Directory.Exists(path))
                     {
                         RemovePaths_log += $"failed to delete directory\n";
                     }
-                    else if (Directory.Exists(path))
+                    else if (File.Exists(path))
                     {
                         RemovePaths_log += $"failed to delete file\n";
                     }
-                    else
+                    else if (successfully)
                     {
                         RemovePaths_log += $"successfully deleted\n";
                     }
+                    else
+                    {
+                        RemovePaths_log += $"path not found\n";
+                    }
 
-                    if (recreateDir && createEmptyDir)
+                    if (recreateDir && createEmptyDir && successfully)
                     {
                         RemovePaths_log += $"create empty directory\n";
                         Program.CreateDirectory(path);
