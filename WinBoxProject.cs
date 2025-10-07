@@ -2374,7 +2374,7 @@ if errorlevel 1 (
             {
                 string oldRegPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.onbuild_reg);
                 string newRegPath = Path.Combine(tempDirectoryPath, "modified_reg.reg");
-                RegPatcher.regPatcher(oldRegPath, newRegPath);
+                await RegPatcher.regPatcher(oldRegPath, newRegPath);
                 copyToDebugFile("modified_reg.txt", newRegPath);
                 await Program.ExecuteAsync("reg.exe", $"import \"{newRegPath}\"");
                 File.Delete(newRegPath);
