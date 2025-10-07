@@ -468,6 +468,7 @@ namespace WinBox_Maker
             WebSite.Text = winBoxProject.winBoxConfig.WebSite ?? "";
             WebSessionTimeout.Text = winBoxProject.winBoxConfig.WebSessionTimeout.ToString();
 
+            onbuild_reg.Text = winBoxProject.winBoxConfig.onbuild_reg ?? "not selected";
             postinstall_bat.Text = winBoxProject.winBoxConfig.PostInstall_bat ?? "not selected";
             postinstall_reg.Text = winBoxProject.winBoxConfig.PostInstall_reg ?? "not selected";
             postinstall_user_bat.Text = winBoxProject.winBoxConfig.PostInstall_user_bat ?? "not selected";
@@ -2407,6 +2408,25 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.aaf_info_boot = aaf_info_boot.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private async void onbuild_reg_sel_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Registry files (*.reg)|*.reg|All files (*.*)|*.*", winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.onbuild_reg = name;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void onbuild_reg_clr_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.onbuild_reg = null;
             winBoxProject.SaveConfig();
             UpdateGui();
         }

@@ -1215,9 +1215,14 @@ powercfg -s SCHEME_CURRENT";
                 processName("modification of BCD");
                 processValue(45);
                 await modifyBCD(0, Path.Combine(wimMountPath, "Windows\\System32\\Config\\BCD-Template"));
+            }
 
-                processName("Modification of the system files");
-                processValue(50);
+            bool modSystemReg = !manual || winBoxConfig.onbuild_reg != null;
+
+            processName("Modification of the system files");
+            processValue(50);
+            if (modSystemReg)
+            {
                 await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
                 //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
             }
@@ -2365,8 +2370,15 @@ if errorlevel 1 (
             }
 
             // ------------------------------------ save & export
-            if (!manual)
+            if (modSystemReg)
             {
+                string oldRegPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.onbuild_reg);
+                string newRegPath = Path.Combine(tempDirectoryPath, "modified_reg.reg");
+                RegPatcher.regPatcher(oldRegPath, newRegPath);
+                copyToDebugFile("modified_reg.txt", newRegPath);
+                await Program.ExecuteAsync("reg.exe", $"import \"{newRegPath}\"");
+                File.Delete(newRegPath);
+
                 await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
                 //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
             }

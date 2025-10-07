@@ -225,6 +225,12 @@
             computername = new TextBox();
             computername_use = new CheckBox();
             tabPage5 = new TabPage();
+            label77 = new Label();
+            panel5 = new Panel();
+            onbuild_reg = new Label();
+            label79 = new Label();
+            onbuild_reg_clr = new Button();
+            onbuild_reg_sel = new Button();
             postinstall_panel_user = new Panel();
             postinstall_user_reg = new Label();
             label21 = new Label();
@@ -375,6 +381,7 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
+            richTextBox17 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -416,6 +423,7 @@
             tabPage17.SuspendLayout();
             panel17.SuspendLayout();
             tabPage5.SuspendLayout();
+            panel5.SuspendLayout();
             postinstall_panel_user.SuspendLayout();
             tabPage7.SuspendLayout();
             panel7.SuspendLayout();
@@ -904,7 +912,7 @@
             postinstall_panel_system.Controls.Add(postinstall_bat_sel);
             postinstall_panel_system.Location = new Point(6, 44);
             postinstall_panel_system.Name = "postinstall_panel_system";
-            postinstall_panel_system.Size = new Size(446, 142);
+            postinstall_panel_system.Size = new Size(494, 142);
             postinstall_panel_system.TabIndex = 35;
             // 
             // postinstall_reg
@@ -2515,6 +2523,8 @@
             // 
             // tabPage5
             // 
+            tabPage5.Controls.Add(label77);
+            tabPage5.Controls.Add(panel5);
             tabPage5.Controls.Add(postinstall_panel_user);
             tabPage5.Controls.Add(label17);
             tabPage5.Controls.Add(label10);
@@ -2527,6 +2537,68 @@
             tabPage5.Text = "post install";
             tabPage5.UseVisualStyleBackColor = true;
             // 
+            // label77
+            // 
+            label77.AutoSize = true;
+            label77.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label77.Location = new Point(3, 189);
+            label77.Name = "label77";
+            label77.Size = new Size(287, 38);
+            label77.TabIndex = 38;
+            label77.Text = "integrate during build";
+            // 
+            // panel5
+            // 
+            panel5.BackColor = SystemColors.Window;
+            panel5.BorderStyle = BorderStyle.Fixed3D;
+            panel5.Controls.Add(richTextBox17);
+            panel5.Controls.Add(onbuild_reg);
+            panel5.Controls.Add(label79);
+            panel5.Controls.Add(onbuild_reg_clr);
+            panel5.Controls.Add(onbuild_reg_sel);
+            panel5.Location = new Point(6, 230);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(623, 111);
+            panel5.TabIndex = 39;
+            // 
+            // onbuild_reg
+            // 
+            onbuild_reg.AutoSize = true;
+            onbuild_reg.Location = new Point(179, 37);
+            onbuild_reg.Name = "onbuild_reg";
+            onbuild_reg.Size = new Size(66, 25);
+            onbuild_reg.TabIndex = 11;
+            onbuild_reg.Text = "reg file";
+            // 
+            // label79
+            // 
+            label79.AutoSize = true;
+            label79.Location = new Point(3, 4);
+            label79.Name = "label79";
+            label79.Size = new Size(70, 25);
+            label79.TabIndex = 8;
+            label79.Text = "Reg file";
+            // 
+            // onbuild_reg_clr
+            // 
+            onbuild_reg_clr.Location = new Point(91, 32);
+            onbuild_reg_clr.Name = "onbuild_reg_clr";
+            onbuild_reg_clr.Size = new Size(82, 34);
+            onbuild_reg_clr.TabIndex = 10;
+            onbuild_reg_clr.Text = "clear";
+            onbuild_reg_clr.UseVisualStyleBackColor = true;
+            onbuild_reg_clr.Click += onbuild_reg_clr_Click;
+            // 
+            // onbuild_reg_sel
+            // 
+            onbuild_reg_sel.Location = new Point(3, 32);
+            onbuild_reg_sel.Name = "onbuild_reg_sel";
+            onbuild_reg_sel.Size = new Size(82, 34);
+            onbuild_reg_sel.TabIndex = 9;
+            onbuild_reg_sel.Text = "select";
+            onbuild_reg_sel.UseVisualStyleBackColor = true;
+            onbuild_reg_sel.Click += onbuild_reg_sel_Click;
+            // 
             // postinstall_panel_user
             // 
             postinstall_panel_user.BorderStyle = BorderStyle.Fixed3D;
@@ -2538,9 +2610,9 @@
             postinstall_panel_user.Controls.Add(label20);
             postinstall_panel_user.Controls.Add(postinstall_user_reg_sel);
             postinstall_panel_user.Controls.Add(postinstall_user_bat_clr);
-            postinstall_panel_user.Location = new Point(566, 44);
+            postinstall_panel_user.Location = new Point(506, 44);
             postinstall_panel_user.Name = "postinstall_panel_user";
-            postinstall_panel_user.Size = new Size(446, 142);
+            postinstall_panel_user.Size = new Size(506, 142);
             postinstall_panel_user.TabIndex = 37;
             // 
             // postinstall_user_reg
@@ -3768,7 +3840,7 @@
             richTextBox12.ReadOnly = true;
             richTextBox12.Size = new Size(357, 291);
             richTextBox12.TabIndex = 2;
-            richTextBox12.Text = "disable windows features you don't need using dism";
+            richTextBox12.Text = "disable windows features you don't need using dism.\nit doesn't just disable them, it deletes them.";
             // 
             // delete_dism
             // 
@@ -4065,6 +4137,15 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
+            // richTextBox17
+            // 
+            richTextBox17.BackColor = SystemColors.Info;
+            richTextBox17.Location = new Point(314, 4);
+            richTextBox17.Name = "richTextBox17";
+            richTextBox17.Size = new Size(302, 100);
+            richTextBox17.TabIndex = 44;
+            richTextBox17.Text = resources.GetString("richTextBox17.Text");
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -4163,6 +4244,8 @@
             panel17.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             postinstall_panel_user.ResumeLayout(false);
             postinstall_panel_user.PerformLayout();
             tabPage7.ResumeLayout(false);
@@ -4568,5 +4651,18 @@
         private CheckBox aaf_readme_boot;
         private CheckBox aaf_readme_system;
         private Label label76;
+        private Label label77;
+        private Panel panel5;
+        private Label label79;
+        private Button button3;
+        private Label label81;
+        private Button button4;
+        private Label label78;
+        private Button button1;
+        private Button button2;
+        private Button onbuild_reg_sel;
+        private Label onbuild_reg;
+        private Button onbuild_reg_clr;
+        private RichTextBox richTextBox17;
     }
 }

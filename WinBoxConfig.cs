@@ -80,6 +80,7 @@ namespace WinBox_Maker
         public string? PostInstall_reg { get; set; }
         public string? PostInstall_user_bat { get; set; }
         public string? PostInstall_user_reg { get; set; }
+        public string? onbuild_reg { get; set; }
         public int? WebSessionTimeout { get; set; }
         public int? ScreenTimeout { get; set; }
         public int? StandbyTimeout { get; set; }

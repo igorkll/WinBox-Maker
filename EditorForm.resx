@@ -3503,6 +3503,9 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="richTextBox17.Text" xml:space="preserve">
+    <value>integrates the reg file even at the stage of image assembly, before the first system startup. this allows you to use it even in manual setup mode. However, only the HKLM\SOFTWARE registry hive is currently supported.</value>
+  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
