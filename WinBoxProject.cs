@@ -2193,12 +2193,15 @@ if errorlevel 1 (
             // ------------------------------------ apple reg
             if (modSystemReg)
             {
-                string oldRegPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.onbuild_reg);
-                string newRegPath = Path.Combine(tempDirectoryPath, "modified_reg.reg");
-                await RegPatcher.regPatcher(oldRegPath, newRegPath);
-                copyToDebugFile("modified_reg.txt", newRegPath);
-                await Program.ExecuteAsync("reg.exe", $"import \"{newRegPath}\"");
-                File.Delete(newRegPath);
+                if (winBoxConfig.onbuild_reg != null)
+                {
+                    string oldRegPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.onbuild_reg);
+                    string newRegPath = Path.Combine(tempDirectoryPath, "modified_reg.reg");
+                    await RegPatcher.regPatcher(oldRegPath, newRegPath);
+                    copyToDebugFile("modified_reg.txt", newRegPath);
+                    await Program.ExecuteAsync("reg.exe", $"import \"{newRegPath}\"");
+                    File.Delete(newRegPath);
+                }
 
                 await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
                 //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
