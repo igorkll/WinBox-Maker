@@ -197,6 +197,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * you can still replace and add files in the system and iso using the winbox_resources/files or winbox_resources/iso_files directories.
 * it is possible to build a user application from sources in manual configuration mode, but it will end up in the winbox_temp/program directory and will not be added to the automation system image, although you can copy it via build event - win mounted
 * in manual configuration mode, you cannot integrate the cursor through the winbox_resources/cursor directory, and you also cannot integrate vc redist, net framework, and app runtime through their corresponding directories. to do this, save your installers to files and use the setup completed script.
+* in the "manual setup" mode, you can use the integration of the reg file into the image at the build stage (before the first boot of the system), the option is located on the post-install tab
 
 ## which directories work in manual setup mode
 * files - working
