@@ -3849,7 +3849,7 @@
             richTextBox12.ReadOnly = true;
             richTextBox12.Size = new Size(357, 291);
             richTextBox12.TabIndex = 2;
-            richTextBox12.Text = "disables features via DISM. if you need to completely delete them, then put a \"!\" sign in front of the name.";
+            richTextBox12.Text = "disables (deletes) features via DISM. if you only need to disable them without deleting them, then put a sign \"!\" before the name";
             // 
             // delete_dism
             // 

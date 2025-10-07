@@ -1311,198 +1311,6 @@ powercfg -s SCHEME_CURRENT";
                 Directory.CreateDirectory(executablePath);
             }
 
-            // ------------------------------------ removing excess
-
-            /*
-            string lockScreenAppPath = Path.Combine(wimMountPath, "Windows\\SystemApps\\Microsoft.LockApp_cw5n1h2txyewy");
-            if (Directory.Exists(lockScreenAppPath))
-            {
-                Directory.Delete(lockScreenAppPath, true);
-            }
-            */
-
-            string RemovePaths_log = "";
-
-            async Task removeSystemObject(string path)
-            {
-                RemovePaths_log += $"remove path request: {path}\n";
-
-                bool createEmptyDir = true;
-                if (path.StartsWith("!"))
-                {
-                    createEmptyDir = false;
-                    path = path.Substring(1);
-                    RemovePaths_log += $"disable create empty dir: {path}\n";
-                }
-                path = path.Replace("/", "\\");
-                path = path.TrimStart('\\', '/');
-
-                RemovePaths_log += $"path processing: {path}\n";
-
-                if (path.StartsWith("/") || path.StartsWith("\\") || path.Contains("..") || path.Contains(":"))
-                {
-                    RemovePaths_log += $"bad path: {path}\n";
-                    return;
-                }
-
-                RemovePaths_log += $"launching deleting: {path}\n";
-
-                path = Path.Combine(wimMountPath, path);
-
-                await Task.Run(() => {
-                    bool recreateDir = false;
-                    bool successfully = false;
-
-                    if (Directory.Exists(path))
-                    {
-                        RemovePaths_log += $"try delete directory\n";
-                        Program.SetAttributesRecursive(path, FileAttributes.Normal);
-                        Directory.Delete(path, true);
-                        recreateDir = true;
-                        successfully = true;
-                    }
-
-                    if (File.Exists(path))
-                    {
-                        RemovePaths_log += $"try delete file\n";
-                        File.SetAttributes(path, FileAttributes.Normal);
-                        File.Delete(path);
-                        successfully = true;
-                    }
-
-                    if (Directory.Exists(path))
-                    {
-                        RemovePaths_log += $"failed to delete directory\n";
-                    }
-                    else if (File.Exists(path))
-                    {
-                        RemovePaths_log += $"failed to delete file\n";
-                    }
-                    else if (successfully)
-                    {
-                        RemovePaths_log += $"successfully deleted\n";
-                    }
-                    else
-                    {
-                        RemovePaths_log += $"path not found\n";
-                    }
-
-                    if (recreateDir && createEmptyDir && successfully)
-                    {
-                        RemovePaths_log += $"create empty directory\n";
-                        Program.CreateDirectory(path);
-                    }
-                });
-
-                RemovePaths_log += "\n";
-            }
-
-            async Task execDismCmd(string name, int type)
-            {
-                switch (type)
-                {
-                    case 0:
-                        {
-                            bool removeFlag = false;
-                            if (name.StartsWith("!"))
-                            {
-                                name = name.Substring(1);
-                                removeFlag = true;
-                            }
-                            string cmd = $"/image:\"{wimMountPath}\" /disable-feature /featurename:\"{name}\"";
-                            if (removeFlag)
-                            {
-                                cmd += " /Remove";
-                            }
-                            await Program.ExecuteAsync("dism.exe", cmd, null, tempDirectoryPath);
-                            break;
-                        }
-
-                    case 1:
-                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-Package /PackageName:\"{name}\"", null, tempDirectoryPath);
-                        break;
-
-                    case 2:
-                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-ProvisionedAppxPackage /PackageName:\"{name}\"", null, tempDirectoryPath);
-                        break;
-                }
-
-            }
-
-            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_universal ?? ""))
-            {
-                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
-                {
-                    await execDismCmd(name, 0);
-                    await execDismCmd(name, 1);
-                    await execDismCmd(name, 2);
-                }
-            }
-
-            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism ?? ""))
-            {
-                if (!string.IsNullOrEmpty(name) || !name.Contains("\"")) {
-                    await execDismCmd(name, 0);
-                }
-            }
-
-            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_package ?? ""))
-            {
-                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
-                {
-                    await execDismCmd(name, 1);
-                }
-            }
-
-            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_appx_package ?? ""))
-            {
-                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
-                {
-                    await execDismCmd(name, 2);
-                }
-            }
-
-            if (!manual)
-            {
-                if (Program.isTweakEnabled(winBoxConfig, "completely remove explorer.exe"))
-                {
-                    await removeSystemObject("Windows\\explorer.exe");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "completely remove system audio/images"))
-                {
-                    await removeSystemObject("Windows\\Web");
-                    await removeSystemObject("Windows\\Media");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "removal of the subsystem SysWOW64"))
-                {
-                    await removeSystemObject("Windows\\SysWOW64");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "removing UWP apps"))
-                {
-                    await removeSystemObject("Windows\\SystemApps");
-                    await removeSystemObject("Program Files\\WindowsApps");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "remove windows defender files"))
-                {
-                    await removeSystemObject("Program Files (x86)\\Windows Defender");
-                    await removeSystemObject("Program Files\\Windows Defender");
-                    await removeSystemObject("Program Files\\Windows Defender Advanced Threat Protection");
-                }
-            }
-
-            foreach (string path in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_paths ?? ""))
-            {
-                if (!string.IsNullOrEmpty(name))
-                {
-                    await removeSystemObject(path);
-                }
-            }
-
-            await writeDebugFile("RemovePaths", RemovePaths_log);
 
             // ------------------------------------ system init
 
@@ -2382,7 +2190,7 @@ if errorlevel 1 (
                 }
             }
 
-            // ------------------------------------ save & export
+            // ------------------------------------ apple reg
             if (modSystemReg)
             {
                 string oldRegPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.onbuild_reg);
@@ -2395,6 +2203,202 @@ if errorlevel 1 (
                 await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
                 //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
             }
+
+            // ------------------------------------ removing excess
+
+            /*
+            string lockScreenAppPath = Path.Combine(wimMountPath, "Windows\\SystemApps\\Microsoft.LockApp_cw5n1h2txyewy");
+            if (Directory.Exists(lockScreenAppPath))
+            {
+                Directory.Delete(lockScreenAppPath, true);
+            }
+            */
+
+            string RemovePaths_log = "";
+
+            async Task removeSystemObject(string path)
+            {
+                RemovePaths_log += $"remove path request: {path}\n";
+
+                bool createEmptyDir = true;
+                if (path.StartsWith("!"))
+                {
+                    createEmptyDir = false;
+                    path = path.Substring(1);
+                    RemovePaths_log += $"disable create empty dir: {path}\n";
+                }
+                path = path.Replace("/", "\\");
+                path = path.TrimStart('\\', '/');
+
+                RemovePaths_log += $"path processing: {path}\n";
+
+                if (path.StartsWith("/") || path.StartsWith("\\") || path.Contains("..") || path.Contains(":"))
+                {
+                    RemovePaths_log += $"bad path: {path}\n";
+                    return;
+                }
+
+                RemovePaths_log += $"launching deleting: {path}\n";
+
+                path = Path.Combine(wimMountPath, path);
+
+                await Task.Run(() => {
+                    bool recreateDir = false;
+                    bool successfully = false;
+
+                    if (Directory.Exists(path))
+                    {
+                        RemovePaths_log += $"try delete directory\n";
+                        Program.SetAttributesRecursive(path, FileAttributes.Normal);
+                        Directory.Delete(path, true);
+                        recreateDir = true;
+                        successfully = true;
+                    }
+
+                    if (File.Exists(path))
+                    {
+                        RemovePaths_log += $"try delete file\n";
+                        File.SetAttributes(path, FileAttributes.Normal);
+                        File.Delete(path);
+                        successfully = true;
+                    }
+
+                    if (Directory.Exists(path))
+                    {
+                        RemovePaths_log += $"failed to delete directory\n";
+                    }
+                    else if (File.Exists(path))
+                    {
+                        RemovePaths_log += $"failed to delete file\n";
+                    }
+                    else if (successfully)
+                    {
+                        RemovePaths_log += $"successfully deleted\n";
+                    }
+                    else
+                    {
+                        RemovePaths_log += $"path not found\n";
+                    }
+
+                    if (recreateDir && createEmptyDir && successfully)
+                    {
+                        RemovePaths_log += $"create empty directory\n";
+                        Program.CreateDirectory(path);
+                    }
+                });
+
+                RemovePaths_log += "\n";
+            }
+
+            async Task execDismCmd(string name, int type)
+            {
+                switch (type)
+                {
+                    case 0:
+                        {
+                            bool removeFlag = true; //remove default
+                            if (name.StartsWith("!"))
+                            {
+                                name = name.Substring(1);
+                                removeFlag = false;
+                            }
+                            string cmd = $"/image:\"{wimMountPath}\" /disable-feature /featurename:\"{name}\"";
+                            if (removeFlag)
+                            {
+                                cmd += " /Remove";
+                            }
+                            await Program.ExecuteAsync("dism.exe", cmd, null, tempDirectoryPath);
+                            break;
+                        }
+
+                    case 1:
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-Package /PackageName:\"{name}\"", null, tempDirectoryPath);
+                        break;
+
+                    case 2:
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-ProvisionedAppxPackage /PackageName:\"{name}\"", null, tempDirectoryPath);
+                        break;
+                }
+
+            }
+
+            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_universal ?? ""))
+            {
+                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
+                {
+                    await execDismCmd(name, 0);
+                    await execDismCmd(name, 1);
+                    await execDismCmd(name, 2);
+                }
+            }
+
+            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism ?? ""))
+            {
+                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
+                {
+                    await execDismCmd(name, 0);
+                }
+            }
+
+            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_package ?? ""))
+            {
+                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
+                {
+                    await execDismCmd(name, 1);
+                }
+            }
+
+            foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_appx_package ?? ""))
+            {
+                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
+                {
+                    await execDismCmd(name, 2);
+                }
+            }
+
+            if (!manual)
+            {
+                if (Program.isTweakEnabled(winBoxConfig, "completely remove explorer.exe"))
+                {
+                    await removeSystemObject("Windows\\explorer.exe");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "completely remove system audio/images"))
+                {
+                    await removeSystemObject("Windows\\Web");
+                    await removeSystemObject("Windows\\Media");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "removal of the subsystem SysWOW64"))
+                {
+                    await removeSystemObject("Windows\\SysWOW64");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "removing UWP apps"))
+                {
+                    await removeSystemObject("Windows\\SystemApps");
+                    await removeSystemObject("Program Files\\WindowsApps");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "remove windows defender files"))
+                {
+                    await removeSystemObject("Program Files (x86)\\Windows Defender");
+                    await removeSystemObject("Program Files\\Windows Defender");
+                    await removeSystemObject("Program Files\\Windows Defender Advanced Threat Protection");
+                }
+            }
+
+            foreach (string path in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_paths ?? ""))
+            {
+                if (!string.IsNullOrEmpty(name))
+                {
+                    await removeSystemObject(path);
+                }
+            }
+
+            await writeDebugFile("RemovePaths", RemovePaths_log);
+
+            // ------------------------------------ save & export
 
             async Task addUserDrivers(string baseDir)
             {

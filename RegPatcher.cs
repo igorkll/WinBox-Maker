@@ -18,7 +18,7 @@ namespace WinBox_Maker
         {
             using (var regFile = new FileStream(regPath, FileMode.Open, FileAccess.Read))
             using (var newRegFile = new FileStream(newRegPath, FileMode.OpenOrCreate, FileAccess.Write))
-            using (var reader = new StreamReader(regFile, Encoding.Unicode))
+            using (var reader = new StreamReader(regFile, Encoding.UTF8))
             using (var writer = new StreamWriter(newRegFile, new UTF8Encoding(false)))
             {
                 writer.WriteLine(reader.ReadLine()); //skip first line
