@@ -36,7 +36,7 @@ namespace WinBox_Maker
                             string fromReplace = $"{startPrefix}{replace[0]}";
                             if (line.StartsWith(fromReplace, StringComparison.OrdinalIgnoreCase))
                             {
-                                line = startPrefix + replaceHives[1] + line.Substring(fromReplace.Length);
+                                line = startPrefix + replace[1] + line.Substring(fromReplace.Length);
                                 allowed = true;
                             }
                             else
@@ -45,7 +45,7 @@ namespace WinBox_Maker
                                 fromReplace = $"{startPrefix}{replace[0]}";
                                 if (line.StartsWith(fromReplace, StringComparison.OrdinalIgnoreCase))
                                 {
-                                    line = startPrefix + replaceHives[1] + line.Substring(fromReplace.Length);
+                                    line = startPrefix + replace[1] + line.Substring(fromReplace.Length);
                                     allowed = true;
                                 }
                             }
