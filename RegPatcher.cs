@@ -23,20 +23,21 @@ namespace WinBox_Maker
             {
                 writer.WriteLine(reader.ReadLine()); //skip first line
 
+                bool allowed = false;
                 string? line;
                 while ((line = reader.ReadLine()) != null)
                 {
                     line = line.Trim();
 
-                    bool allowed = false;
                     if (line.StartsWith("[", StringComparison.OrdinalIgnoreCase)) {
+                        allowed = false;
                         foreach (string[] replace in replaceHives)
                         {
                             string startPrefix = "[";
                             string fromReplace = $"{startPrefix}{replace[0]}";
                             if (line.StartsWith(fromReplace, StringComparison.OrdinalIgnoreCase))
                             {
-                                line = startPrefix + replace[1] + line.Substring(fromReplace.Length);
+                                line = "\n" + startPrefix + replace[1] + line.Substring(fromReplace.Length);
                                 allowed = true;
                             }
                             else
@@ -45,10 +46,11 @@ namespace WinBox_Maker
                                 fromReplace = $"{startPrefix}{replace[0]}";
                                 if (line.StartsWith(fromReplace, StringComparison.OrdinalIgnoreCase))
                                 {
-                                    line = startPrefix + replace[1] + line.Substring(fromReplace.Length);
+                                    line = "\n" + startPrefix + replace[1] + line.Substring(fromReplace.Length);
                                     allowed = true;
                                 }
                             }
+                            if (allowed) break;
                         }
                     }
 
