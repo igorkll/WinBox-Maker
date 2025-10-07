@@ -2573,7 +2573,7 @@
             // onbuild_reg
             // 
             onbuild_reg.AutoSize = true;
-            onbuild_reg.Location = new Point(179, 37);
+            onbuild_reg.Location = new Point(3, 69);
             onbuild_reg.Name = "onbuild_reg";
             onbuild_reg.Size = new Size(66, 25);
             onbuild_reg.TabIndex = 11;
