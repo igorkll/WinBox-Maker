@@ -227,6 +227,7 @@
             tabPage5 = new TabPage();
             label77 = new Label();
             panel5 = new Panel();
+            richTextBox17 = new RichTextBox();
             onbuild_reg = new Label();
             label79 = new Label();
             onbuild_reg_clr = new Button();
@@ -381,7 +382,6 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
-            richTextBox17 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -2561,6 +2561,15 @@
             panel5.Size = new Size(623, 111);
             panel5.TabIndex = 39;
             // 
+            // richTextBox17
+            // 
+            richTextBox17.BackColor = SystemColors.Info;
+            richTextBox17.Location = new Point(314, 4);
+            richTextBox17.Name = "richTextBox17";
+            richTextBox17.Size = new Size(302, 100);
+            richTextBox17.TabIndex = 44;
+            richTextBox17.Text = resources.GetString("richTextBox17.Text");
+            // 
             // onbuild_reg
             // 
             onbuild_reg.AutoSize = true;
@@ -3840,7 +3849,7 @@
             richTextBox12.ReadOnly = true;
             richTextBox12.Size = new Size(357, 291);
             richTextBox12.TabIndex = 2;
-            richTextBox12.Text = "disable windows features you don't need using dism.\nit doesn't just disable them, it deletes them.";
+            richTextBox12.Text = "disables features via DISM. if you need to completely delete them, then put a \"!\" sign in front of the name.";
             // 
             // delete_dism
             // 
@@ -4136,15 +4145,6 @@
             ExportImgUefi.Text = "export installed .img (for UEFI)";
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
-            // 
-            // richTextBox17
-            // 
-            richTextBox17.BackColor = SystemColors.Info;
-            richTextBox17.Location = new Point(314, 4);
-            richTextBox17.Name = "richTextBox17";
-            richTextBox17.Size = new Size(302, 100);
-            richTextBox17.TabIndex = 44;
-            richTextBox17.Text = resources.GetString("richTextBox17.Text");
             // 
             // EditorForm
             // 

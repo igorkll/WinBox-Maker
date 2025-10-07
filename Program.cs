@@ -378,6 +378,11 @@ namespace WinBox_Maker
                 if (workingDirectory != null)
                     process.StartInfo.WorkingDirectory = workingDirectory;
 
+                if (outputPath != null && Directory.Exists(outputPath))
+                {
+                    outputPath = Path.Combine(outputPath, "logs", exec + "_" + CalculateMD5(exec) + ".txt");
+                }
+
                 if (outputPath != null)
                 {
                     process.StartInfo.RedirectStandardOutput = true;

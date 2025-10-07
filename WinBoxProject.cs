@@ -1402,15 +1402,28 @@ powercfg -s SCHEME_CURRENT";
                 switch (type)
                 {
                     case 0:
-                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /featurename:\"{name}\" /Remove");
-                        break;
+                        {
+                            bool removeFlag = false;
+                            if (name.StartsWith("!"))
+                            {
+                                name = name.Substring(1);
+                                removeFlag = true;
+                            }
+                            string cmd = $"/image:\"{wimMountPath}\" /disable-feature /featurename:\"{name}\"";
+                            if (removeFlag)
+                            {
+                                cmd += " /Remove";
+                            }
+                            await Program.ExecuteAsync("dism.exe", cmd, null, tempDirectoryPath);
+                            break;
+                        }
 
                     case 1:
-                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-Package /PackageName:\"{name}\"");
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-Package /PackageName:\"{name}\"", null, tempDirectoryPath);
                         break;
 
                     case 2:
-                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-ProvisionedAppxPackage /PackageName:\"{name}\"");
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-ProvisionedAppxPackage /PackageName:\"{name}\"", null, tempDirectoryPath);
                         break;
                 }
 
