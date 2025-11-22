@@ -1594,6 +1594,17 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                     baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient"" /v Enabled /t REG_DWORD /d 0 /f";
                 }
 
+                if (winBoxConfig.RealTimeIsUniversal == true)
+                {
+                    baseSetupLog($"set RealTimeIsUniversal: {winBoxConfig.RealTimeIsUniversal}");
+                    baseSetup += $"\r\n" + $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\RealTimeIsUniversal"" /v Enabled /t REG_DWORD /d {(winBoxConfig.RealTimeIsUniversal == true ? 1 : 0)} /f";
+                }
+
+                {
+                    baseSetupLog($"change time zone: {winBoxConfig.TimeZoneKeyName}");
+                    baseSetup += $"\r\n" + $@"tzutil /s ""{winBoxConfig.TimeZoneKeyName}""";
+                }
+
                 if (winBoxConfig.UseCustomDisplaySettings == true)
                 {
                     await CopyResource("ChangeResolution.ps1");
