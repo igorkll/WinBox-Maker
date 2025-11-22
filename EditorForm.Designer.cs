@@ -408,6 +408,8 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            services_stopOnlyList = new CheckBox();
+            services_startOnlyList = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -2720,6 +2722,8 @@
             // 
             // tabPage35
             // 
+            tabPage35.Controls.Add(services_startOnlyList);
+            tabPage35.Controls.Add(services_stopOnlyList);
             tabPage35.Controls.Add(label81);
             tabPage35.Controls.Add(label83);
             tabPage35.Controls.Add(services_stop);
@@ -4459,6 +4463,28 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // services_stopOnlyList
+            // 
+            services_stopOnlyList.AutoSize = true;
+            services_stopOnlyList.Location = new Point(72, 7);
+            services_stopOnlyList.Name = "services_stopOnlyList";
+            services_stopOnlyList.Size = new Size(140, 29);
+            services_stopOnlyList.TabIndex = 46;
+            services_stopOnlyList.Text = "stop only list";
+            services_stopOnlyList.UseVisualStyleBackColor = true;
+            services_stopOnlyList.CheckedChanged += services_stopOnlyList_CheckedChanged;
+            // 
+            // services_startOnlyList
+            // 
+            services_startOnlyList.AutoSize = true;
+            services_startOnlyList.Location = new Point(298, 7);
+            services_startOnlyList.Name = "services_startOnlyList";
+            services_startOnlyList.Size = new Size(139, 29);
+            services_startOnlyList.TabIndex = 47;
+            services_startOnlyList.Text = "start only list";
+            services_startOnlyList.UseVisualStyleBackColor = true;
+            services_startOnlyList.CheckedChanged += services_startOnlyList_CheckedChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -5013,5 +5039,7 @@
         private Label label83;
         private RichTextBox services_stop;
         private RichTextBox services_start;
+        private CheckBox services_startOnlyList;
+        private CheckBox services_stopOnlyList;
     }
 }

@@ -1085,6 +1085,11 @@ powercfg -s SCHEME_CURRENT";
                 "wisvc"
             };
 
+            if (winBoxConfig.services_stopOnlyList == true)
+            {
+                stopServicesList = new string[0];
+            }
+
             stopServices.AddRange(stopServicesList);
             stopServices.AddRange(getCustomStopList());
             Program.DelRange(stopServices, getStartServicesList());
@@ -1095,9 +1100,12 @@ powercfg -s SCHEME_CURRENT";
         public string[] getStartServicesList()
         {
             List<string> startServices = new List<string>();
-            if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry"))
+            if (winBoxConfig.services_startOnlyList != true)
             {
-                startServices.Add("MsKeyboardFilter");
+                if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry"))
+                {
+                    startServices.Add("MsKeyboardFilter");
+                }
             }
 
             Program.DelRange(startServices, getCustomStopList());

@@ -474,6 +474,12 @@ namespace WinBox_Maker
             guiEventsLock = false;
         }
 
+        void UpdateGuiCurrentServices()
+        {
+            services_stop_view.Text = string.Join("\n", winBoxProject.getStopServicesList());
+            services_start_view.Text = string.Join("\n", winBoxProject.getStartServicesList());
+        }
+
         void UpdateGui()
         {
             guiEventsLock = true;
@@ -630,8 +636,7 @@ namespace WinBox_Maker
             manual_setup_sysunattend.Text = winBoxProject.winBoxConfig.manual_setup_sysunattend ?? "not selected";
             manual_setup_panel.Enabled = manual;
 
-            services_stop_view.Text = string.Join("\n", winBoxProject.getStopServicesList());
-            services_start_view.Text = string.Join("\n", winBoxProject.getStartServicesList());
+            UpdateGuiCurrentServices();
 
             services_stop.Text = winBoxProject.winBoxConfig.services_stop ?? "";
             services_start.Text = winBoxProject.winBoxConfig.services_start ?? "";
@@ -1178,7 +1183,7 @@ namespace WinBox_Maker
             bool state = e.NewValue == CheckState.Checked;
             Program.setTweakEnabled(winBoxProject.winBoxConfig, title, state);
             winBoxProject.SaveConfig();
-            UpdateGui();
+            UpdateGuiCurrentServices();
         }
 
         private void DownloadItems_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -2546,7 +2551,7 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.services_stop = services_stop.Text;
             winBoxProject.SaveConfig();
-            UpdateGui();
+            UpdateGuiCurrentServices();
         }
 
         private void services_start_TextChanged(object sender, EventArgs e)
@@ -2554,6 +2559,24 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.services_start = services_start.Text;
+            winBoxProject.SaveConfig();
+            UpdateGuiCurrentServices();
+        }
+
+        private void services_stopOnlyList_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.services_stopOnlyList = services_stopOnlyList.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void services_startOnlyList_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.services_startOnlyList = services_startOnlyList.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
