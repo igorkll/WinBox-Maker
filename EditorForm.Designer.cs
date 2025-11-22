@@ -48,6 +48,9 @@
             LICENSE = new Button();
             ExportImg = new Button();
             panel1 = new Panel();
+            oemkey_slmgr = new CheckBox();
+            oemkey_dism = new CheckBox();
+            oemkey_installer = new CheckBox();
             label7 = new Label();
             OemKey = new TextBox();
             UseOemKey = new CheckBox();
@@ -643,13 +646,49 @@
             // 
             panel1.BackColor = SystemColors.Window;
             panel1.BorderStyle = BorderStyle.Fixed3D;
+            panel1.Controls.Add(oemkey_slmgr);
+            panel1.Controls.Add(oemkey_dism);
+            panel1.Controls.Add(oemkey_installer);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(OemKey);
             panel1.Controls.Add(UseOemKey);
             panel1.Location = new Point(6, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(487, 108);
+            panel1.Size = new Size(487, 209);
             panel1.TabIndex = 26;
+            // 
+            // oemkey_slmgr
+            // 
+            oemkey_slmgr.AutoSize = true;
+            oemkey_slmgr.Location = new Point(3, 176);
+            oemkey_slmgr.Name = "oemkey_slmgr";
+            oemkey_slmgr.Size = new Size(453, 29);
+            oemkey_slmgr.TabIndex = 5;
+            oemkey_slmgr.Text = "apply OEM key via slmgr.vbs in SetupComplete.cmd";
+            oemkey_slmgr.UseVisualStyleBackColor = true;
+            oemkey_slmgr.CheckedChanged += oemkey_slmgr_CheckedChanged;
+            // 
+            // oemkey_dism
+            // 
+            oemkey_dism.AutoSize = true;
+            oemkey_dism.Location = new Point(3, 141);
+            oemkey_dism.Name = "oemkey_dism";
+            oemkey_dism.Size = new Size(305, 29);
+            oemkey_dism.TabIndex = 4;
+            oemkey_dism.Text = "apply OEM key via DISM on build";
+            oemkey_dism.UseVisualStyleBackColor = true;
+            oemkey_dism.CheckedChanged += oemkey_dism_CheckedChanged;
+            // 
+            // oemkey_installer
+            // 
+            oemkey_installer.AutoSize = true;
+            oemkey_installer.Location = new Point(3, 108);
+            oemkey_installer.Name = "oemkey_installer";
+            oemkey_installer.Size = new Size(326, 29);
+            oemkey_installer.TabIndex = 3;
+            oemkey_installer.Text = "apply OEM key via PID.txt in installer";
+            oemkey_installer.UseVisualStyleBackColor = true;
+            oemkey_installer.CheckedChanged += oemkey_installer_CheckedChanged;
             // 
             // label7
             // 
@@ -2465,10 +2504,10 @@
             // richTextBox4
             // 
             richTextBox4.BackColor = SystemColors.Info;
-            richTextBox4.Location = new Point(6, 120);
+            richTextBox4.Location = new Point(6, 221);
             richTextBox4.Name = "richTextBox4";
             richTextBox4.ReadOnly = true;
-            richTextBox4.Size = new Size(487, 171);
+            richTextBox4.Size = new Size(487, 70);
             richTextBox4.TabIndex = 27;
             richTextBox4.Text = resources.GetString("richTextBox4.Text");
             // 
@@ -3632,7 +3671,7 @@
             tabPage16.Name = "tabPage16";
             tabPage16.Size = new Size(1018, 347);
             tabPage16.TabIndex = 11;
-            tabPage16.Text = "export img";
+            tabPage16.Text = "export";
             tabPage16.UseVisualStyleBackColor = true;
             // 
             // label57
@@ -4678,5 +4717,8 @@
         private Button onbuild_reg_clr;
         private RichTextBox richTextBox17;
         private Button ExportInstallEsd;
+        private CheckBox oemkey_installer;
+        private CheckBox oemkey_dism;
+        private CheckBox oemkey_slmgr;
     }
 }

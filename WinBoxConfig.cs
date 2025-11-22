@@ -168,6 +168,9 @@ namespace WinBox_Maker
         public bool? aaf_info_iso { get; set; }
         public bool? aaf_info_system { get; set; }
         public bool? aaf_info_boot { get; set; }
+        public bool? oemkey_installer { get; set; }
+        public bool? oemkey_dism { get; set; }
+        public bool? oemkey_slmgr { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -284,6 +287,10 @@ namespace WinBox_Maker
             if (aaf_info_iso == null) aaf_info_iso = true;
             if (aaf_info_system == null) aaf_info_system = true;
             if (aaf_info_boot == null) aaf_info_boot = true;
+
+            if (oemkey_installer == null) oemkey_installer = true;
+            if (oemkey_dism == null) oemkey_dism = true;
+            if (oemkey_slmgr == null) oemkey_slmgr = false;
         }
 
         public void Save(string wnbFilePath)

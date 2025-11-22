@@ -615,6 +615,10 @@ namespace WinBox_Maker
             aaf_info_system.CheckState = winBoxProject.winBoxConfig.aaf_info_system == true ? CheckState.Checked : CheckState.Unchecked;
             aaf_info_boot.CheckState = winBoxProject.winBoxConfig.aaf_info_boot == true ? CheckState.Checked : CheckState.Unchecked;
 
+            oemkey_installer.CheckState = winBoxProject.winBoxConfig.oemkey_installer == true ? CheckState.Checked : CheckState.Unchecked;
+            oemkey_dism.CheckState = winBoxProject.winBoxConfig.oemkey_dism == true ? CheckState.Checked : CheckState.Unchecked;
+            oemkey_slmgr.CheckState = winBoxProject.winBoxConfig.oemkey_slmgr == true ? CheckState.Checked : CheckState.Unchecked;
+
             bool manual = winBoxProject.winBoxConfig.manual_setup == true;
             manual_setup.CheckState = manual ? CheckState.Checked : CheckState.Unchecked;
             manual_setup_complete.Text = winBoxProject.winBoxConfig.manual_setup_complete ?? "not selected";
@@ -2452,6 +2456,33 @@ namespace WinBox_Maker
         private void onbuild_reg_clr_Click(object sender, EventArgs e)
         {
             winBoxProject.winBoxConfig.onbuild_reg = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void oemkey_installer_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.oemkey_installer = oemkey_installer.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void oemkey_dism_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.oemkey_dism = oemkey_dism.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void oemkey_slmgr_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.oemkey_slmgr = oemkey_slmgr.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
