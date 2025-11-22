@@ -57,6 +57,7 @@ namespace WinBox_Maker
         string unpackIsoPath;
         string name;
         string? err;
+        string debugFolder;
 
         string[] imageInfoFiles;
 
@@ -77,7 +78,8 @@ namespace WinBox_Maker
             wimWinPeMountPath = Path.Combine(tempDirectoryPath, "wim_boot_mount");
             unpackIsoPath = Path.Combine(tempDirectoryPath, "iso_unpack");
             sourcesDirectoryPath = Path.Combine(resourcesDirectoryPath, "sources");
-            debugBuildProgramsPath = Path.Combine(tempDirectoryPath, "debug", "program");
+            debugFolder = Path.Combine(tempDirectoryPath, "debug");
+            debugBuildProgramsPath = Path.Combine(debugFolder, "program");
             name = Path.GetFileName(baseDirectoryPath);
 
             imageInfoFiles = new string[] {
@@ -223,21 +225,19 @@ namespace WinBox_Maker
 
         string getDebugFilePath(string name)
         {
-            return Path.Combine(tempDirectoryPath, "debug", name + ".txt");
+            return Path.Combine(debugFolder, name + ".txt");
         }
 
         async Task writeDebugFile(string name, string content, bool addTxt=true)
         {
-            string folder = Path.Combine(tempDirectoryPath, "debug");
-            Program.CreateDirectory(folder);
-            await File.WriteAllTextAsync(Path.Combine(folder, name + (addTxt ? ".txt" : "")), content);
+            Program.CreateDirectory(debugFolder);
+            await File.WriteAllTextAsync(Path.Combine(debugFolder, name + (addTxt ? ".txt" : "")), content);
         }
 
         async Task copyToDebugFile(string name, string sourcePath)
         {
-            string folder = Path.Combine(tempDirectoryPath, "debug");
-            Program.CreateDirectory(folder);
-            await Program.CopyFileAsync(sourcePath, Path.Combine(folder, name));
+            Program.CreateDirectory(debugFolder);
+            await Program.CopyFileAsync(sourcePath, Path.Combine(debugFolder, name));
         }
 
         public string? GetName()
@@ -2455,16 +2455,16 @@ if errorlevel 1 (
                             {
                                 cmd += " /Remove";
                             }
-                            await Program.ExecuteAsync("dism.exe", cmd, null, tempDirectoryPath);
+                            await Program.ExecuteAsync("dism.exe", cmd, null, debugFolder);
                             break;
                         }
 
                     case 1:
-                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-Package /PackageName:\"{name}\"", null, tempDirectoryPath);
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-Package /PackageName:\"{name}\"", null, debugFolder);
                         break;
 
                     case 2:
-                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-ProvisionedAppxPackage /PackageName:\"{name}\"", null, tempDirectoryPath);
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-ProvisionedAppxPackage /PackageName:\"{name}\"", null, debugFolder);
                         break;
                 }
 
@@ -2509,7 +2509,7 @@ if errorlevel 1 (
                 if (winBoxConfig.customdism_enabled == true) {
                     foreach (string command in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.customdism_commands ?? ""))
                     {
-                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" {command}", baseDirectoryPath, tempDirectoryPath);
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" {command}", baseDirectoryPath, debugFolder);
                     }
                 }
 
