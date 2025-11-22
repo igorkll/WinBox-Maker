@@ -627,6 +627,7 @@ namespace WinBox_Maker
 
             DynamicDaylightTimeDisabled.CheckState = winBoxProject.winBoxConfig.DynamicDaylightTimeDisabled == true ? CheckState.Checked : CheckState.Unchecked;
             DisableNtp.CheckState = winBoxProject.winBoxConfig.DisableNtp == true ? CheckState.Checked : CheckState.Unchecked;
+            RealTimeIsUniversal.CheckState = winBoxProject.winBoxConfig.RealTimeIsUniversal == true ? CheckState.Checked : CheckState.Unchecked;
 
             bool manual = winBoxProject.winBoxConfig.manual_setup == true;
             manual_setup.CheckState = manual ? CheckState.Checked : CheckState.Unchecked;
@@ -640,6 +641,8 @@ namespace WinBox_Maker
 
             services_stop.Text = winBoxProject.winBoxConfig.services_stop ?? "";
             services_start.Text = winBoxProject.winBoxConfig.services_start ?? "";
+            services_stopOnlyList.CheckState = winBoxProject.winBoxConfig.services_stopOnlyList == true ? CheckState.Checked : CheckState.Unchecked;
+            services_startOnlyList.CheckState = winBoxProject.winBoxConfig.services_startOnlyList == true ? CheckState.Checked : CheckState.Unchecked;
 
             tab_app.Enabled = !manual;
             tab_settings.Enabled = !manual;
@@ -2577,6 +2580,15 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.services_startOnlyList = services_startOnlyList.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void RealTimeIsUniversal_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.RealTimeIsUniversal = RealTimeIsUniversal.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }

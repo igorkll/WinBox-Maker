@@ -4500,6 +4500,7 @@
             RealTimeIsUniversal.TabIndex = 2;
             RealTimeIsUniversal.Text = "interpret the time in the BIOS as UTC (RealTimeIsUniversal)";
             RealTimeIsUniversal.UseVisualStyleBackColor = true;
+            RealTimeIsUniversal.CheckedChanged += RealTimeIsUniversal_CheckedChanged;
             // 
             // TimeZoneKeyName
             // 

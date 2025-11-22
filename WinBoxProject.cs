@@ -46,6 +46,7 @@ namespace WinBox_Maker
         public string sourcesDirectoryPath;
         public string debugBuildProgramsPath;
         string tempDirectoryPath;
+        string imageTimeZonesInfo;
         string unpackedWimFile;
         string wimInfoFile;
         string newWimFile;
@@ -54,6 +55,8 @@ namespace WinBox_Maker
         string unpackIsoPath;
         string name;
         string? err;
+
+        string[] imageInfoFiles;
 
         public WinBoxProject(string wnbFilePath)
         {
@@ -66,6 +69,7 @@ namespace WinBox_Maker
             tempDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_temp");
             unpackedWimFile = Path.Combine(tempDirectoryPath, "base_install.wim");
             wimInfoFile = Path.Combine(tempDirectoryPath, "installWimInfo.json");
+            imageTimeZonesInfo = Path.Combine(tempDirectoryPath, "timeZonesInfo.json");
             newWimFile = Path.Combine(tempDirectoryPath, "new_install.wim");
             wimMountPath = Path.Combine(tempDirectoryPath, "wim_mount");
             wimWinPeMountPath = Path.Combine(tempDirectoryPath, "wim_boot_mount");
@@ -73,6 +77,11 @@ namespace WinBox_Maker
             sourcesDirectoryPath = Path.Combine(resourcesDirectoryPath, "sources");
             debugBuildProgramsPath = Path.Combine(tempDirectoryPath, "debug", "program");
             name = Path.GetFileName(baseDirectoryPath);
+
+            imageInfoFiles = new string[] {
+                wimInfoFile,
+                imageTimeZonesInfo
+            };
 
             if (File.Exists(wnbFilePath))
             {
@@ -368,7 +377,7 @@ namespace WinBox_Maker
 
         public bool NeedLoadWindows()
         {
-            return winBoxConfig.BaseWindowsImage != null && !File.Exists(wimInfoFile);
+            return winBoxConfig.BaseWindowsImage != null && !Program.AnyFileExists(imageInfoFiles);
         }
 
         public async Task<bool> ExtractInstallWim(Action<string> processName, Action<int> processValue)
@@ -469,6 +478,13 @@ namespace WinBox_Maker
 
                     string json = JsonSerializer.Serialize(windowsDescriptions, new JsonSerializerOptions { WriteIndented = true });
                     await File.WriteAllTextAsync(wimInfoFile, json);
+
+                    // ---------------------------------------------------
+
+                    List<string> timeZones = new List<string>();
+
+                    json = JsonSerializer.Serialize(timeZones, new JsonSerializerOptions { WriteIndented = true });
+                    await File.WriteAllTextAsync(imageTimeZonesInfo, json);
                 }
             }
 
@@ -478,10 +494,7 @@ namespace WinBox_Maker
 
         public void UnloadWindowsImage()
         {
-            if (File.Exists(wimInfoFile))
-            {
-                File.Delete(wimInfoFile);
-            }
+            Program.DeleteFiles(imageInfoFiles);
         }
 
         public WindowsDescription[] GetWindowsDescriptions()
@@ -494,6 +507,22 @@ namespace WinBox_Maker
                 if (windowsVersions != null)
                 {
                     return windowsVersions.ToArray();
+                }
+            }
+
+            return [];
+        }
+
+        public string[] GetWindowsTimeZones()
+        {
+            if (File.Exists(imageTimeZonesInfo))
+            {
+                string json = File.ReadAllText(imageTimeZonesInfo);
+
+                List<string>? list = JsonSerializer.Deserialize<List<string>>(json);
+                if (list != null)
+                {
+                    return list.ToArray();
                 }
             }
 

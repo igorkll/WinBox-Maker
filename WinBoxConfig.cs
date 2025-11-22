@@ -174,6 +174,7 @@ namespace WinBox_Maker
         public bool? oemkey_slmgr { get; set; }
         public bool? DynamicDaylightTimeDisabled { get; set; }
         public bool? DisableNtp { get; set; }
+        public bool? RealTimeIsUniversal { get; set; }
         public string? services_stop { get; set; }
         public string? services_start { get; set; }
         public bool? services_stopOnlyList { get; set; }
@@ -302,6 +303,7 @@ namespace WinBox_Maker
 
             if (DynamicDaylightTimeDisabled == null) DynamicDaylightTimeDisabled = true;
             if (DisableNtp == null) DisableNtp = true;
+            if (RealTimeIsUniversal == null) RealTimeIsUniversal = true;
 
             if (services_stop == null) services_stop = "";
             if (services_start == null) services_start = "";

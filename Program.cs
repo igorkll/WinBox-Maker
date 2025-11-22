@@ -207,6 +207,23 @@ namespace WinBox_Maker
             list.RemoveAll(s => arr.Contains(s));
         }
 
+        public static bool AnyFileExists(string[] list)
+        {
+            foreach (string path in list)
+            {
+                if (File.Exists(path)) return true;
+            }
+            return false;
+        }
+
+        public static void DeleteFiles(string[] list)
+        {
+            foreach (string path in list)
+            {
+                if (File.Exists(path)) File.Delete(path);
+            }
+        }
+
         static void InitOscdimg()
         {
             switch (RuntimeInformation.ProcessArchitecture)
