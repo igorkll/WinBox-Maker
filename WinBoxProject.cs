@@ -1068,7 +1068,9 @@ powercfg -s SCHEME_CURRENT";
                 "XboxNetApiSvc",
                 "WaaSMedicSvc",
                 "WdNisSvc",
-                "wscsvc"
+                "wscsvc",
+                "w32time",
+                "wisvc"
             };
 
             List<string> startServices = new List<string>();
@@ -1467,6 +1469,18 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
                     baseSetupLog("Enable CrashOnCtrlScroll");
                     baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\kbdhid\Parameters"" /v CrashOnCtrlScroll /t REG_DWORD /d 1 /f";
                     baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\i8042prt\Parameters"" /v CrashOnCtrlScroll /t REG_DWORD /d 1 /f";
+                }
+
+                if (winBoxConfig.DynamicDaylightTimeDisabled == true)
+                {
+                    baseSetupLog("disable DynamicDaylightTimeDisabled");
+                    baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\TimeZoneInformation"" /v DynamicDaylightTimeDisabled /t REG_DWORD /d 1 /f";
+                }
+
+                if (winBoxConfig.DisableNtp == true)
+                {
+                    baseSetupLog("disable NtpClient");
+                    baseSetup += $"\r\n" + @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient"" /v Enabled /t REG_DWORD /d 0 /f";
                 }
 
                 if (winBoxConfig.UseCustomDisplaySettings == true)

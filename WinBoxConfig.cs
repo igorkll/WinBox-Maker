@@ -172,6 +172,8 @@ namespace WinBox_Maker
         public bool? oemkey_installer { get; set; }
         public bool? oemkey_dism { get; set; }
         public bool? oemkey_slmgr { get; set; }
+        public bool? DynamicDaylightTimeDisabled { get; set; }
+        public bool? DisableNtp { get; set; }
 
         public WinBoxConfig() {
             InitDefaults();
@@ -292,6 +294,9 @@ namespace WinBox_Maker
             if (oemkey_installer == null) oemkey_installer = true;
             if (oemkey_dism == null) oemkey_dism = true;
             if (oemkey_slmgr == null) oemkey_slmgr = false;
+
+            if (DynamicDaylightTimeDisabled == null) DynamicDaylightTimeDisabled = true;
+            if (DisableNtp == null) DisableNtp = true;
         }
 
         public void Save(string wnbFilePath)

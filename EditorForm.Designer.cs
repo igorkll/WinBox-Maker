@@ -227,6 +227,9 @@
             richTextBox8 = new RichTextBox();
             computername = new TextBox();
             computername_use = new CheckBox();
+            tabPage3 = new TabPage();
+            DisableNtp = new CheckBox();
+            DynamicDaylightTimeDisabled = new CheckBox();
             tabPage5 = new TabPage();
             label77 = new Label();
             panel5 = new Panel();
@@ -367,6 +370,10 @@
             richTextBox13 = new RichTextBox();
             panel13 = new Panel();
             manual_setup_panel = new Panel();
+            manual_setup_sysunattend = new Label();
+            manual_setup_sysunattend_clear = new Button();
+            manual_setup_sysunattend_select = new Button();
+            label82 = new Label();
             manual_setup_autounattend = new Label();
             manual_setup_autounattend_clear = new Button();
             manual_setup_autounattend_select = new Button();
@@ -386,10 +393,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            manual_setup_sysunattend = new Label();
-            manual_setup_sysunattend_clear = new Button();
-            manual_setup_sysunattend_select = new Button();
-            label82 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -430,6 +433,7 @@
             tabPage13.SuspendLayout();
             tabPage17.SuspendLayout();
             panel17.SuspendLayout();
+            tabPage3.SuspendLayout();
             tabPage5.SuspendLayout();
             panel5.SuspendLayout();
             postinstall_panel_user.SuspendLayout();
@@ -1723,6 +1727,7 @@
             tabControl2.Controls.Add(tabPage15);
             tabControl2.Controls.Add(tabPage13);
             tabControl2.Controls.Add(tabPage17);
+            tabControl2.Controls.Add(tabPage3);
             tabControl2.Location = new Point(505, 6);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
@@ -2564,6 +2569,39 @@
             computername_use.Text = "Custom computer name";
             computername_use.UseVisualStyleBackColor = true;
             computername_use.CheckedChanged += computername_use_CheckedChanged;
+            // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(DisableNtp);
+            tabPage3.Controls.Add(DynamicDaylightTimeDisabled);
+            tabPage3.Location = new Point(4, 34);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Size = new Size(499, 297);
+            tabPage3.TabIndex = 6;
+            tabPage3.Text = "time";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // DisableNtp
+            // 
+            DisableNtp.AutoSize = true;
+            DisableNtp.Location = new Point(2, 39);
+            DisableNtp.Name = "DisableNtp";
+            DisableNtp.Size = new Size(474, 29);
+            DisableNtp.TabIndex = 1;
+            DisableNtp.Text = "prohibit automatic time synchronization with the server";
+            DisableNtp.UseVisualStyleBackColor = true;
+            DisableNtp.CheckedChanged += DisableNtp_CheckedChanged;
+            // 
+            // DynamicDaylightTimeDisabled
+            // 
+            DynamicDaylightTimeDisabled.AutoSize = true;
+            DynamicDaylightTimeDisabled.Location = new Point(3, 4);
+            DynamicDaylightTimeDisabled.Name = "DynamicDaylightTimeDisabled";
+            DynamicDaylightTimeDisabled.Size = new Size(501, 29);
+            DynamicDaylightTimeDisabled.TabIndex = 0;
+            DynamicDaylightTimeDisabled.Text = "prohibit auto time change (DynamicDaylightTimeDisabled)";
+            DynamicDaylightTimeDisabled.UseVisualStyleBackColor = true;
+            DynamicDaylightTimeDisabled.CheckedChanged += DynamicDaylightTimeDisabled_CheckedChanged;
             // 
             // tabPage5
             // 
@@ -4019,6 +4057,45 @@
             manual_setup_panel.Size = new Size(514, 293);
             manual_setup_panel.TabIndex = 36;
             // 
+            // manual_setup_sysunattend
+            // 
+            manual_setup_sysunattend.AutoSize = true;
+            manual_setup_sysunattend.Location = new Point(179, 233);
+            manual_setup_sysunattend.Name = "manual_setup_sysunattend";
+            manual_setup_sysunattend.Size = new Size(68, 25);
+            manual_setup_sysunattend.TabIndex = 15;
+            manual_setup_sysunattend.Text = "xml file";
+            manual_setup_sysunattend.Click += manual_setup_sysunattend_Click;
+            // 
+            // manual_setup_sysunattend_clear
+            // 
+            manual_setup_sysunattend_clear.Location = new Point(91, 228);
+            manual_setup_sysunattend_clear.Name = "manual_setup_sysunattend_clear";
+            manual_setup_sysunattend_clear.Size = new Size(82, 34);
+            manual_setup_sysunattend_clear.TabIndex = 14;
+            manual_setup_sysunattend_clear.Text = "clear";
+            manual_setup_sysunattend_clear.UseVisualStyleBackColor = true;
+            manual_setup_sysunattend_clear.Click += manual_setup_sysunattend_clear_Click;
+            // 
+            // manual_setup_sysunattend_select
+            // 
+            manual_setup_sysunattend_select.Location = new Point(3, 228);
+            manual_setup_sysunattend_select.Name = "manual_setup_sysunattend_select";
+            manual_setup_sysunattend_select.Size = new Size(82, 34);
+            manual_setup_sysunattend_select.TabIndex = 13;
+            manual_setup_sysunattend_select.Text = "select";
+            manual_setup_sysunattend_select.UseVisualStyleBackColor = true;
+            manual_setup_sysunattend_select.Click += manual_setup_sysunattend_select_Click;
+            // 
+            // label82
+            // 
+            label82.AutoSize = true;
+            label82.Location = new Point(3, 200);
+            label82.Name = "label82";
+            label82.Size = new Size(380, 25);
+            label82.TabIndex = 12;
+            label82.Text = "unattend.xml (Windows\\Panther\\unattend.xml)";
+            // 
             // manual_setup_autounattend
             // 
             manual_setup_autounattend.AutoSize = true;
@@ -4205,45 +4282,6 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // manual_setup_sysunattend
-            // 
-            manual_setup_sysunattend.AutoSize = true;
-            manual_setup_sysunattend.Location = new Point(179, 233);
-            manual_setup_sysunattend.Name = "manual_setup_sysunattend";
-            manual_setup_sysunattend.Size = new Size(68, 25);
-            manual_setup_sysunattend.TabIndex = 15;
-            manual_setup_sysunattend.Text = "xml file";
-            manual_setup_sysunattend.Click += manual_setup_sysunattend_Click;
-            // 
-            // manual_setup_sysunattend_clear
-            // 
-            manual_setup_sysunattend_clear.Location = new Point(91, 228);
-            manual_setup_sysunattend_clear.Name = "manual_setup_sysunattend_clear";
-            manual_setup_sysunattend_clear.Size = new Size(82, 34);
-            manual_setup_sysunattend_clear.TabIndex = 14;
-            manual_setup_sysunattend_clear.Text = "clear";
-            manual_setup_sysunattend_clear.UseVisualStyleBackColor = true;
-            manual_setup_sysunattend_clear.Click += manual_setup_sysunattend_clear_Click;
-            // 
-            // manual_setup_sysunattend_select
-            // 
-            manual_setup_sysunattend_select.Location = new Point(3, 228);
-            manual_setup_sysunattend_select.Name = "manual_setup_sysunattend_select";
-            manual_setup_sysunattend_select.Size = new Size(82, 34);
-            manual_setup_sysunattend_select.TabIndex = 13;
-            manual_setup_sysunattend_select.Text = "select";
-            manual_setup_sysunattend_select.UseVisualStyleBackColor = true;
-            manual_setup_sysunattend_select.Click += manual_setup_sysunattend_select_Click;
-            // 
-            // label82
-            // 
-            label82.AutoSize = true;
-            label82.Location = new Point(3, 200);
-            label82.Name = "label82";
-            label82.Size = new Size(380, 25);
-            label82.TabIndex = 12;
-            label82.Text = "unattend.xml (Windows\\Panther\\unattend.xml)";
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -4341,6 +4379,8 @@
             tabPage17.ResumeLayout(false);
             panel17.ResumeLayout(false);
             panel17.PerformLayout();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             panel5.ResumeLayout(false);
@@ -4771,5 +4811,9 @@
         private Button manual_setup_sysunattend_clear;
         private Button manual_setup_sysunattend_select;
         private Label label82;
+        private TabPage tabPage3;
+        private CheckBox DynamicDaylightTimeDisabled;
+        private CheckBox checkBox1;
+        private CheckBox DisableNtp;
     }
 }

@@ -619,6 +619,9 @@ namespace WinBox_Maker
             oemkey_dism.CheckState = winBoxProject.winBoxConfig.oemkey_dism == true ? CheckState.Checked : CheckState.Unchecked;
             oemkey_slmgr.CheckState = winBoxProject.winBoxConfig.oemkey_slmgr == true ? CheckState.Checked : CheckState.Unchecked;
 
+            DynamicDaylightTimeDisabled.CheckState = winBoxProject.winBoxConfig.DynamicDaylightTimeDisabled == true ? CheckState.Checked : CheckState.Unchecked;
+            DisableNtp.CheckState = winBoxProject.winBoxConfig.DisableNtp == true ? CheckState.Checked : CheckState.Unchecked;
+
             bool manual = winBoxProject.winBoxConfig.manual_setup == true;
             manual_setup.CheckState = manual ? CheckState.Checked : CheckState.Unchecked;
             manual_setup_complete.Text = winBoxProject.winBoxConfig.manual_setup_complete ?? "not selected";
@@ -2510,6 +2513,24 @@ namespace WinBox_Maker
         private void manual_setup_sysunattend_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void DynamicDaylightTimeDisabled_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.DynamicDaylightTimeDisabled = DynamicDaylightTimeDisabled.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void DisableNtp_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.DisableNtp = DisableNtp.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }
