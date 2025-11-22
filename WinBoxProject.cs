@@ -1947,6 +1947,15 @@ net localgroup Administrators winbox /add";
                         await Program.CopyFileAsync(batPath, Path.Combine(WindowsScriptsPath, "ErrorHandler.cmd"));
                     }
                 }
+
+                if (winBoxConfig.manual_setup_sysunattend != null)
+                {
+                    string xmlPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.manual_setup_sysunattend);
+                    if (File.Exists(xmlPath))
+                    {
+                        await Program.CopyFileAsync(xmlPath, Path.Combine(wimMountPath, "Windows", "Panther", "unattend.xml"));
+                    }
+                }
             }
 
             string filesPath = Path.Combine(resourcesDirectoryPath, "files");

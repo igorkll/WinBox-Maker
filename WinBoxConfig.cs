@@ -162,6 +162,7 @@ namespace WinBox_Maker
         public string? manual_setup_complete { get; set; }
         public string? manual_setup_error { get; set; }
         public string? manual_setup_autounattend { get; set; }
+        public string? manual_setup_sysunattend { get; set; }
         public bool? aaf_readme_iso { get; set; }
         public bool? aaf_readme_system { get; set; }
         public bool? aaf_readme_boot { get; set; }

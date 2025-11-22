@@ -624,6 +624,7 @@ namespace WinBox_Maker
             manual_setup_complete.Text = winBoxProject.winBoxConfig.manual_setup_complete ?? "not selected";
             manual_setup_error.Text = winBoxProject.winBoxConfig.manual_setup_error ?? "not selected";
             manual_setup_autounattend.Text = winBoxProject.winBoxConfig.manual_setup_autounattend ?? "not selected";
+            manual_setup_sysunattend.Text = winBoxProject.winBoxConfig.manual_setup_sysunattend ?? "not selected";
             manual_setup_panel.Enabled = manual;
 
             tab_app.Enabled = !manual;
@@ -2485,6 +2486,30 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.oemkey_slmgr = oemkey_slmgr.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private async void manual_setup_sysunattend_select_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.xmlFilter, winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.manual_setup_sysunattend = name;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void manual_setup_sysunattend_clear_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.manual_setup_sysunattend = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void manual_setup_sysunattend_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

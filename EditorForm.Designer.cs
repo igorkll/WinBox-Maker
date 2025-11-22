@@ -386,6 +386,10 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            manual_setup_sysunattend = new Label();
+            manual_setup_sysunattend_clear = new Button();
+            manual_setup_sysunattend_select = new Button();
+            label82 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -3994,6 +3998,10 @@
             // 
             manual_setup_panel.BackColor = SystemColors.Window;
             manual_setup_panel.BorderStyle = BorderStyle.Fixed3D;
+            manual_setup_panel.Controls.Add(manual_setup_sysunattend);
+            manual_setup_panel.Controls.Add(manual_setup_sysunattend_clear);
+            manual_setup_panel.Controls.Add(manual_setup_sysunattend_select);
+            manual_setup_panel.Controls.Add(label82);
             manual_setup_panel.Controls.Add(manual_setup_autounattend);
             manual_setup_panel.Controls.Add(manual_setup_autounattend_clear);
             manual_setup_panel.Controls.Add(manual_setup_autounattend_select);
@@ -4008,7 +4016,7 @@
             manual_setup_panel.Controls.Add(manual_setup_complete_select);
             manual_setup_panel.Location = new Point(3, 38);
             manual_setup_panel.Name = "manual_setup_panel";
-            manual_setup_panel.Size = new Size(514, 206);
+            manual_setup_panel.Size = new Size(514, 293);
             manual_setup_panel.TabIndex = 36;
             // 
             // manual_setup_autounattend
@@ -4196,6 +4204,45 @@
             ExportInstallEsd.Text = "export install.esd";
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
+            // 
+            // manual_setup_sysunattend
+            // 
+            manual_setup_sysunattend.AutoSize = true;
+            manual_setup_sysunattend.Location = new Point(179, 233);
+            manual_setup_sysunattend.Name = "manual_setup_sysunattend";
+            manual_setup_sysunattend.Size = new Size(68, 25);
+            manual_setup_sysunattend.TabIndex = 15;
+            manual_setup_sysunattend.Text = "xml file";
+            manual_setup_sysunattend.Click += manual_setup_sysunattend_Click;
+            // 
+            // manual_setup_sysunattend_clear
+            // 
+            manual_setup_sysunattend_clear.Location = new Point(91, 228);
+            manual_setup_sysunattend_clear.Name = "manual_setup_sysunattend_clear";
+            manual_setup_sysunattend_clear.Size = new Size(82, 34);
+            manual_setup_sysunattend_clear.TabIndex = 14;
+            manual_setup_sysunattend_clear.Text = "clear";
+            manual_setup_sysunattend_clear.UseVisualStyleBackColor = true;
+            manual_setup_sysunattend_clear.Click += manual_setup_sysunattend_clear_Click;
+            // 
+            // manual_setup_sysunattend_select
+            // 
+            manual_setup_sysunattend_select.Location = new Point(3, 228);
+            manual_setup_sysunattend_select.Name = "manual_setup_sysunattend_select";
+            manual_setup_sysunattend_select.Size = new Size(82, 34);
+            manual_setup_sysunattend_select.TabIndex = 13;
+            manual_setup_sysunattend_select.Text = "select";
+            manual_setup_sysunattend_select.UseVisualStyleBackColor = true;
+            manual_setup_sysunattend_select.Click += manual_setup_sysunattend_select_Click;
+            // 
+            // label82
+            // 
+            label82.AutoSize = true;
+            label82.Location = new Point(3, 200);
+            label82.Name = "label82";
+            label82.Size = new Size(380, 25);
+            label82.TabIndex = 12;
+            label82.Text = "unattend.xml (Windows\\Panther\\unattend.xml)";
             // 
             // EditorForm
             // 
@@ -4720,5 +4767,9 @@
         private CheckBox oemkey_installer;
         private CheckBox oemkey_dism;
         private CheckBox oemkey_slmgr;
+        private Label manual_setup_sysunattend;
+        private Button manual_setup_sysunattend_clear;
+        private Button manual_setup_sysunattend_select;
+        private Label label82;
     }
 }
