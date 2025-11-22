@@ -486,6 +486,7 @@ namespace WinBox_Maker
 
             TimeZoneKeyName.Items.Clear();
             TimeZoneKeyName.Items.AddRange(winBoxProject.GetWindowsTimeZones());
+            TimeZoneKeyName.Text = winBoxProject.winBoxConfig.TimeZoneKeyName ?? "";
 
             pythonVersion.Text = winBoxProject.winBoxConfig.pythonVersion ?? "none";
 
@@ -642,7 +643,6 @@ namespace WinBox_Maker
 
             UpdateGuiCurrentServices();
 
-            TimeZoneKeyName.Text = winBoxProject.winBoxConfig.TimeZoneKeyName ?? "";
             services_stop.Text = winBoxProject.winBoxConfig.services_stop ?? "";
             services_start.Text = winBoxProject.winBoxConfig.services_start ?? "";
             services_stopOnlyList.CheckState = winBoxProject.winBoxConfig.services_stopOnlyList == true ? CheckState.Checked : CheckState.Unchecked;
@@ -2596,12 +2596,22 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
         }
 
-        private void TimeZoneKeyName_SelectedIndexChanged(object sender, EventArgs e)
+        void updateTimeZoneKeyInConfig()
         {
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.TimeZoneKeyName = TimeZoneKeyName.Text;
             winBoxProject.SaveConfig();
+        }
+
+        private void TimeZoneKeyName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateTimeZoneKeyInConfig();
+        }
+
+        private void TimeZoneKeyName_TextChanged(object sender, EventArgs e)
+        {
+            updateTimeZoneKeyInConfig();
         }
     }
 }

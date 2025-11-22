@@ -2628,6 +2628,7 @@
             TimeZoneKeyName.Size = new Size(318, 33);
             TimeZoneKeyName.TabIndex = 44;
             TimeZoneKeyName.SelectedIndexChanged += TimeZoneKeyName_SelectedIndexChanged;
+            TimeZoneKeyName.TextChanged += TimeZoneKeyName_TextChanged;
             // 
             // RealTimeIsUniversal
             // 
