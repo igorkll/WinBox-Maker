@@ -174,6 +174,9 @@ namespace WinBox_Maker
         public bool? oemkey_slmgr { get; set; }
         public bool? DynamicDaylightTimeDisabled { get; set; }
         public bool? DisableNtp { get; set; }
+        public string? services_stop { get; set; }
+        public string? services_start { get; set; }
+
 
         public WinBoxConfig() {
             InitDefaults();
@@ -297,6 +300,9 @@ namespace WinBox_Maker
 
             if (DynamicDaylightTimeDisabled == null) DynamicDaylightTimeDisabled = true;
             if (DisableNtp == null) DisableNtp = true;
+
+            if (services_stop == null) services_stop = "";
+            if (services_start == null) services_start = "";
         }
 
         public void Save(string wnbFilePath)

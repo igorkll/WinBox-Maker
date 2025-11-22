@@ -1041,9 +1041,11 @@ powercfg -s SCHEME_CURRENT";
             return powercfgSetup;
         }
 
-        string _getServicesSetup()
+        string[] _getStopServicesList()
         {
-            string[] stopServices = {
+            List<string> stopServices = new List<string>();
+
+            string[] stopServicesList = {
                 "edgeupdate",
                 "edgeupdatem",
                 "wbengine",
@@ -1073,11 +1075,27 @@ powercfg -s SCHEME_CURRENT";
                 "wisvc"
             };
 
+            stopServices.AddRange(stopServicesList);
+            stopServices.AddRange(splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.services_stop ?? ""));
+            return stopServices.ToArray();
+        }
+
+        string[] _getStartServicesList()
+        {
             List<string> startServices = new List<string>();
             if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry"))
             {
                 startServices.Add("MsKeyboardFilter");
             }
+
+            startServices.AddRange(splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.services_start ?? ""));
+            return startServices.ToArray();
+        }
+
+        string _getServicesSetup()
+        {
+            string[] stopServices = _getStopServicesList();
+            string[] startServices = _getStartServicesList();
 
             string servicesSetup = "";
             foreach (string service in stopServices)
