@@ -106,6 +106,20 @@ namespace WinBox_Maker
             NewLine();
         }
 
+        public void ExportInstallEsd(string? path)
+        {
+            eventWarningDelay();
+            path = getExportPath(path, "esd", null);
+            Console.WriteLine($">> exporting install.esd from {winBoxProject.GetName()} to: {path}");
+            WindowsDescription windowsDescription = new WindowsDescription
+            {
+                name = winBoxProject.winBoxConfig.WinboxName,
+                description = winBoxProject.winBoxConfig.WinboxDescription
+            };
+            winBoxProject.BuildEsdAsync(UpdateProcessName, UpdateProcessValue, path, windowsDescription).Wait();
+            NewLine();
+        }
+
         public void ExportImg(string? path, bool useUefi=false)
         {
             eventWarningDelay();

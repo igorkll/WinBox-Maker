@@ -181,6 +181,11 @@ namespace WinBox_Maker
                 WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
                 winboxConsoleExporter.ExportInstallWim(output);
             }
+            else if (flags.Contains("d"))
+            {
+                WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);
+                winboxConsoleExporter.ExportInstallEsd(output);
+            }
             else if (flags.Contains("r"))
             {
                 WinboxConsoleExporter winboxConsoleExporter = new WinboxConsoleExporter(winBoxProject);

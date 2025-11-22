@@ -284,6 +284,7 @@ this can be used to control some aspects of the system from your user applicatio
 
 ## command line flags
 * /i - exports the .iso installer
-* /w - exports the .wim file
+* /w - exports the install.wim file
+* /d - exports the install.esd file
 * /r - exports the .img file with Windows already installed for BIOS-based systems (installation via qemu)
 * /e - exports the .img file with Windows already installed for UEFI-based systems (installation via qemu)

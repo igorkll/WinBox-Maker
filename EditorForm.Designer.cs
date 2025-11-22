@@ -382,6 +382,7 @@
             pictureBox3 = new PictureBox();
             openProgramData = new Button();
             ExportImgUefi = new Button();
+            ExportInstallEsd = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -4146,6 +4147,17 @@
             ExportImgUefi.UseVisualStyleBackColor = true;
             ExportImgUefi.Click += ExportImgUefi_Click;
             // 
+            // ExportInstallEsd
+            // 
+            ExportInstallEsd.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ExportInstallEsd.Location = new Point(940, 479);
+            ExportInstallEsd.Name = "ExportInstallEsd";
+            ExportInstallEsd.Size = new Size(222, 38);
+            ExportInstallEsd.TabIndex = 44;
+            ExportInstallEsd.Text = "export install.esd";
+            ExportInstallEsd.UseVisualStyleBackColor = true;
+            ExportInstallEsd.Click += ExportInstallEsd_Click;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -4154,6 +4166,7 @@
             AutoScrollMargin = new Size(10, 30);
             BackColor = Color.DimGray;
             ClientSize = new Size(1178, 644);
+            Controls.Add(ExportInstallEsd);
             Controls.Add(ExportImgUefi);
             Controls.Add(openProgramData);
             Controls.Add(pictureBox3);
@@ -4664,5 +4677,6 @@
         private Label onbuild_reg;
         private Button onbuild_reg_clr;
         private RichTextBox richTextBox17;
+        private Button ExportInstallEsd;
     }
 }

@@ -2543,6 +2543,34 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{wimWinPeMountPath}\" /commit");
         }
 
+        public async Task<bool> BuildEsdAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete = true)
+        {
+
+            string new_install_wim = Path.Combine(tempDirectoryPath, "new_install.wim");
+            if (!await MakeModWim(processName, processValue, newWindowsDescription, new_install_wim, null))
+            {
+                return false;
+            }
+
+            processName("Converting install.wim to install.esd");
+            processValue(77);
+            await Program.ExecuteAsync("dism.exe", @$"/Export-Image /SourceImageFile:""{new_install_wim}"" /All /DestinationImageFile:""{exportPath}"" /Compress:recovery /CheckIntegrity");
+
+            processName("Deleting install.wim");
+            processValue(79);
+            await Task.Run(() =>
+            {
+                File.Delete(new_install_wim);
+            });
+
+            if (showComplete)
+            {
+                await CompleteExport(processName, processValue, exportPath);
+            }
+
+            return true;
+        }
+
         public async Task<bool> BuildIsoAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete = true, bool initViaVmMode = false)
         {
             string? baseWindowsImageFullPath = await getWindowsImagePath();
@@ -2558,24 +2586,12 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             bool failed = false;
             if (await Program.UnpackUdfIso(baseWindowsImageFullPath, unpackIsoPath, processValue, unpackBlacklist))
             {
-                string new_install_wim = Path.Combine(tempDirectoryPath, "new_install.wim");
-                if (!await MakeModWim(processName, processValue, newWindowsDescription, new_install_wim, null, initViaVmMode))
+                if (!await BuildEsdAsync(processName, processValue, Path.Combine(unpackIsoPath, "sources\\install.esd"), newWindowsDescription, false))
                 {
                     showComplete = false;
                     failed = true;
                     goto end;
                 }
-
-                processName("Converting install.wim to install.esd");
-                processValue(77);
-                await Program.ExecuteAsync("dism.exe", @$"/Export-Image /SourceImageFile:""{new_install_wim}"" /All /DestinationImageFile:""{Path.Combine(unpackIsoPath, "sources\\install.esd")}"" /Compress:recovery /CheckIntegrity");
-
-                processName("Deleting install.wim");
-                processValue(79);
-                await Task.Run(() =>
-                {
-                    File.Delete(new_install_wim);
-                });
             }
             else
             {

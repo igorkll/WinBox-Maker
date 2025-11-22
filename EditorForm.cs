@@ -308,7 +308,7 @@ namespace WinBox_Maker
                 saveFileDialog.InitialDirectory = winBoxProject.buildDirectoryPath;
                 saveFileDialog.Filter = "WinBox (*.wim)|*.wim";
                 saveFileDialog.Title = $"Save you WinBox install.wim ({winBoxProject.winBoxConfig.WinboxName})";
-                saveFileDialog.DefaultExt = "iso";
+                saveFileDialog.DefaultExt = "wim";
                 saveFileDialog.FileName = winBoxProject.winBoxConfig.WinboxName;
                 saveFileDialog.AddExtension = true;
 
@@ -320,6 +320,31 @@ namespace WinBox_Maker
                         description = winBoxProject.winBoxConfig.WinboxDescription
                     };
                     await winBoxProject.BuildWimAsync(UpdateProcessName, UpdateProcessValue, saveFileDialog.FileName, windowsDescription);
+                }
+            }
+            UnlockForm();
+        }
+
+        private async void ExportInstallEsd_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.InitialDirectory = winBoxProject.buildDirectoryPath;
+                saveFileDialog.Filter = "WinBox (*.esd)|*.esd";
+                saveFileDialog.Title = $"Save you WinBox install.esd ({winBoxProject.winBoxConfig.WinboxName})";
+                saveFileDialog.DefaultExt = "esd";
+                saveFileDialog.FileName = winBoxProject.winBoxConfig.WinboxName;
+                saveFileDialog.AddExtension = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    WindowsDescription windowsDescription = new WindowsDescription
+                    {
+                        name = winBoxProject.winBoxConfig.WinboxName,
+                        description = winBoxProject.winBoxConfig.WinboxDescription
+                    };
+                    await winBoxProject.BuildEsdAsync(UpdateProcessName, UpdateProcessValue, saveFileDialog.FileName, windowsDescription);
                 }
             }
             UnlockForm();
