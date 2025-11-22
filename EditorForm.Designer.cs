@@ -413,6 +413,7 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            richTextBox18 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -2599,6 +2600,7 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(richTextBox18);
             tabPage3.Controls.Add(label84);
             tabPage3.Controls.Add(TimeZoneKeyName);
             tabPage3.Controls.Add(RealTimeIsUniversal);
@@ -4521,6 +4523,16 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // richTextBox18
+            // 
+            richTextBox18.BackColor = SystemColors.Info;
+            richTextBox18.Location = new Point(3, 148);
+            richTextBox18.Name = "richTextBox18";
+            richTextBox18.ReadOnly = true;
+            richTextBox18.Size = new Size(493, 146);
+            richTextBox18.TabIndex = 46;
+            richTextBox18.Text = resources.GetString("richTextBox18.Text");
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -5080,5 +5092,6 @@
         private CheckBox RealTimeIsUniversal;
         private ComboBox TimeZoneKeyName;
         private Label label84;
+        private RichTextBox richTextBox18;
     }
 }

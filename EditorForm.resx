@@ -3503,6 +3503,9 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="richTextBox18.Text" xml:space="preserve">
+    <value>if you have the "RealTimeIsUniversal" option turned off (it is turned off by default), then the choice of time zone will not affect anything. Since the BIOS interprets the time as local, it will be displayed unchanged regardless of the selected time zone. however, it is possible in this case that windows will change the time in the BIOS when executing SetupComplete.cmd to offset the selected time zone. for this reason, it's better not to touch the time zone settings at all, just change the BIOS time and do not touch the settings on this tab.</value>
+  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
