@@ -179,6 +179,7 @@ namespace WinBox_Maker
         public string? services_start { get; set; }
         public bool? services_stopOnlyList { get; set; }
         public bool? services_startOnlyList { get; set; }
+        public string? TimeZoneKeyName { get; set; }
 
 
         public WinBoxConfig() {
@@ -303,12 +304,14 @@ namespace WinBox_Maker
 
             if (DynamicDaylightTimeDisabled == null) DynamicDaylightTimeDisabled = true;
             if (DisableNtp == null) DisableNtp = true;
-            if (RealTimeIsUniversal == null) RealTimeIsUniversal = true;
+            if (RealTimeIsUniversal == null) RealTimeIsUniversal = false;
 
             if (services_stop == null) services_stop = "";
             if (services_start == null) services_start = "";
             if (services_stopOnlyList == null) services_stopOnlyList = false;
             if (services_startOnlyList == null) services_startOnlyList = false;
+
+            if (TimeZoneKeyName == null) TimeZoneKeyName = "UTC";
         }
 
         public void Save(string wnbFilePath)

@@ -228,6 +228,9 @@
             computername = new TextBox();
             computername_use = new CheckBox();
             tabPage3 = new TabPage();
+            label84 = new Label();
+            TimeZoneKeyName = new ComboBox();
+            RealTimeIsUniversal = new CheckBox();
             DisableNtp = new CheckBox();
             DynamicDaylightTimeDisabled = new CheckBox();
             tabPage4 = new TabPage();
@@ -410,9 +413,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            RealTimeIsUniversal = new CheckBox();
-            TimeZoneKeyName = new ComboBox();
-            label84 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -2611,6 +2611,35 @@
             tabPage3.Text = "time";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label84
+            // 
+            label84.AutoSize = true;
+            label84.Location = new Point(327, 112);
+            label84.Name = "label84";
+            label84.Size = new Size(90, 25);
+            label84.TabIndex = 45;
+            label84.Text = "time zone";
+            // 
+            // TimeZoneKeyName
+            // 
+            TimeZoneKeyName.FormattingEnabled = true;
+            TimeZoneKeyName.Location = new Point(3, 109);
+            TimeZoneKeyName.Name = "TimeZoneKeyName";
+            TimeZoneKeyName.Size = new Size(318, 33);
+            TimeZoneKeyName.TabIndex = 44;
+            TimeZoneKeyName.SelectedIndexChanged += TimeZoneKeyName_SelectedIndexChanged;
+            // 
+            // RealTimeIsUniversal
+            // 
+            RealTimeIsUniversal.AutoSize = true;
+            RealTimeIsUniversal.Location = new Point(2, 74);
+            RealTimeIsUniversal.Name = "RealTimeIsUniversal";
+            RealTimeIsUniversal.Size = new Size(495, 29);
+            RealTimeIsUniversal.TabIndex = 2;
+            RealTimeIsUniversal.Text = "interpret the time in the BIOS as UTC (RealTimeIsUniversal)";
+            RealTimeIsUniversal.UseVisualStyleBackColor = true;
+            RealTimeIsUniversal.CheckedChanged += RealTimeIsUniversal_CheckedChanged;
+            // 
             // DisableNtp
             // 
             DisableNtp.AutoSize = true;
@@ -4490,34 +4519,6 @@
             ExportInstallEsd.Text = "export install.esd";
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
-            // 
-            // RealTimeIsUniversal
-            // 
-            RealTimeIsUniversal.AutoSize = true;
-            RealTimeIsUniversal.Location = new Point(2, 74);
-            RealTimeIsUniversal.Name = "RealTimeIsUniversal";
-            RealTimeIsUniversal.Size = new Size(495, 29);
-            RealTimeIsUniversal.TabIndex = 2;
-            RealTimeIsUniversal.Text = "interpret the time in the BIOS as UTC (RealTimeIsUniversal)";
-            RealTimeIsUniversal.UseVisualStyleBackColor = true;
-            RealTimeIsUniversal.CheckedChanged += RealTimeIsUniversal_CheckedChanged;
-            // 
-            // TimeZoneKeyName
-            // 
-            TimeZoneKeyName.FormattingEnabled = true;
-            TimeZoneKeyName.Location = new Point(3, 109);
-            TimeZoneKeyName.Name = "TimeZoneKeyName";
-            TimeZoneKeyName.Size = new Size(318, 33);
-            TimeZoneKeyName.TabIndex = 44;
-            // 
-            // label84
-            // 
-            label84.AutoSize = true;
-            label84.Location = new Point(327, 112);
-            label84.Name = "label84";
-            label84.Size = new Size(90, 25);
-            label84.TabIndex = 45;
-            label84.Text = "time zone";
             // 
             // EditorForm
             // 

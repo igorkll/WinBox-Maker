@@ -3,6 +3,7 @@ using DiscUtils.Udf;
 using DiscUtils.Vfs;
 using ManagedWimLib;
 using Microsoft.VisualBasic.ApplicationServices;
+using Microsoft.Win32;
 using Shell32;
 using System;
 using System.Collections;
@@ -30,6 +31,7 @@ using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using IWshShortcut = IWshRuntimeLibrary.IWshShortcut;
 using WshShell = IWshRuntimeLibrary.WshShell;
+using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace WinBox_Maker
 {
@@ -377,7 +379,7 @@ namespace WinBox_Maker
 
         public bool NeedLoadWindows()
         {
-            return winBoxConfig.BaseWindowsImage != null && !Program.AnyFileExists(imageInfoFiles);
+            return winBoxConfig.BaseWindowsImage != null && !Program.AllFileExists(imageInfoFiles);
         }
 
         public async Task<bool> ExtractInstallWim(Action<string> processName, Action<int> processValue)
@@ -454,6 +456,27 @@ namespace WinBox_Maker
             }
         }
 
+        async Task mountDism(string wimPath)
+        {
+            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{wimPath}\" /index:1 /MountDir:\"{wimMountPath}\"");
+        }
+
+        async Task umountDism(bool commit, string? path = null)
+        {
+            if (path == null) path = wimMountPath;
+            await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{path}\" {(commit ? "/commit" : "/discard")}");
+        }
+
+        async Task mountReg()
+        {
+            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
+        }
+
+        async Task umountReg()
+        {
+            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
+        }
+
         public async Task LoadWindowsImageAsync(Action<string> processName, Action<int> processValue)
         {
             await ExtractInstallWim(processName, processValue);
@@ -481,14 +504,34 @@ namespace WinBox_Maker
 
                     // ---------------------------------------------------
 
+                    processName("Extracting image data");
+                    processValue(40);
+
                     List<string> timeZones = new List<string>();
+
+                    await mountDism(unpackedWimFile);
+                    await mountReg();
+
+                    using (RegistryKey? tzRoot = Registry.LocalMachine.OpenSubKey($@"WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones"))
+                    {
+                        if (tzRoot != null)
+                        {
+                            foreach (string tzName in tzRoot.GetSubKeyNames())
+                            {
+                                timeZones.Add(tzName);
+                            }
+                        }
+                    }
+
+                    await umountReg();
+                    await umountDism(false);
 
                     json = JsonSerializer.Serialize(timeZones, new JsonSerializerOptions { WriteIndented = true });
                     await File.WriteAllTextAsync(imageTimeZonesInfo, json);
                 }
             }
 
-            processValue(50);
+            processValue(60);
             await DeleteInstallWim(processName);
         }
 
@@ -1277,7 +1320,7 @@ powercfg -s SCHEME_CURRENT";
             // ------------------------------------ mounting system
             processName("Mounting install.wim");
             processValue(30);
-            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{newWimPath}\" /index:1 /MountDir:\"{wimMountPath}\"");
+            await mountDism(newWimPath);
 
             // ------------------------------------ tweaks
 
@@ -2294,7 +2337,7 @@ if errorlevel 1 (
                     File.Delete(newRegPath);
                 }
 
-                await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
+                await umountReg();
                 //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
             }
 
@@ -2554,7 +2597,7 @@ if errorlevel 1 (
 
             processName("Unmounting and save install.wim");
             processValue(70);
-            await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{wimMountPath}\" /commit");
+            await umountDism(true);
 
             if (imgExportPath != null)
             {
@@ -2631,7 +2674,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             await RemoveTempFolder("boot_files");
 
             // save
-            await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{wimWinPeMountPath}\" /commit");
+            await umountDism(true, wimWinPeMountPath);
         }
 
         public async Task<bool> BuildEsdAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete = true)

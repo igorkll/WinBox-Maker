@@ -216,6 +216,15 @@ namespace WinBox_Maker
             return false;
         }
 
+        public static bool AllFileExists(string[] list)
+        {
+            foreach (string path in list)
+            {
+                if (!File.Exists(path)) return false;
+            }
+            return true;
+        }
+
         public static void DeleteFiles(string[] list)
         {
             foreach (string path in list)
