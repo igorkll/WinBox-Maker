@@ -484,6 +484,9 @@ namespace WinBox_Maker
         {
             guiEventsLock = true;
 
+            TimeZoneKeyName.Items.Clear();
+            TimeZoneKeyName.Items.AddRange(winBoxProject.GetWindowsTimeZones());
+
             pythonVersion.Text = winBoxProject.winBoxConfig.pythonVersion ?? "none";
 
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
