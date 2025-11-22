@@ -240,6 +240,8 @@
             services_start_view = new RichTextBox();
             services_stop_view = new RichTextBox();
             tabPage35 = new TabPage();
+            services_startOnlyList = new CheckBox();
+            services_stopOnlyList = new CheckBox();
             label81 = new Label();
             label83 = new Label();
             services_stop = new RichTextBox();
@@ -408,8 +410,9 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            services_stopOnlyList = new CheckBox();
-            services_startOnlyList = new CheckBox();
+            RealTimeIsUniversal = new CheckBox();
+            TimeZoneKeyName = new ComboBox();
+            label84 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -2596,6 +2599,9 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(label84);
+            tabPage3.Controls.Add(TimeZoneKeyName);
+            tabPage3.Controls.Add(RealTimeIsUniversal);
             tabPage3.Controls.Add(DisableNtp);
             tabPage3.Controls.Add(DynamicDaylightTimeDisabled);
             tabPage3.Location = new Point(4, 34);
@@ -2735,6 +2741,28 @@
             tabPage35.TabIndex = 1;
             tabPage35.Text = "customize";
             tabPage35.UseVisualStyleBackColor = true;
+            // 
+            // services_startOnlyList
+            // 
+            services_startOnlyList.AutoSize = true;
+            services_startOnlyList.Location = new Point(298, 7);
+            services_startOnlyList.Name = "services_startOnlyList";
+            services_startOnlyList.Size = new Size(139, 29);
+            services_startOnlyList.TabIndex = 47;
+            services_startOnlyList.Text = "start only list";
+            services_startOnlyList.UseVisualStyleBackColor = true;
+            services_startOnlyList.CheckedChanged += services_startOnlyList_CheckedChanged;
+            // 
+            // services_stopOnlyList
+            // 
+            services_stopOnlyList.AutoSize = true;
+            services_stopOnlyList.Location = new Point(72, 7);
+            services_stopOnlyList.Name = "services_stopOnlyList";
+            services_stopOnlyList.Size = new Size(140, 29);
+            services_stopOnlyList.TabIndex = 46;
+            services_stopOnlyList.Text = "stop only list";
+            services_stopOnlyList.UseVisualStyleBackColor = true;
+            services_stopOnlyList.CheckedChanged += services_stopOnlyList_CheckedChanged;
             // 
             // label81
             // 
@@ -4463,27 +4491,32 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // services_stopOnlyList
+            // RealTimeIsUniversal
             // 
-            services_stopOnlyList.AutoSize = true;
-            services_stopOnlyList.Location = new Point(72, 7);
-            services_stopOnlyList.Name = "services_stopOnlyList";
-            services_stopOnlyList.Size = new Size(140, 29);
-            services_stopOnlyList.TabIndex = 46;
-            services_stopOnlyList.Text = "stop only list";
-            services_stopOnlyList.UseVisualStyleBackColor = true;
-            services_stopOnlyList.CheckedChanged += services_stopOnlyList_CheckedChanged;
+            RealTimeIsUniversal.AutoSize = true;
+            RealTimeIsUniversal.Location = new Point(2, 74);
+            RealTimeIsUniversal.Name = "RealTimeIsUniversal";
+            RealTimeIsUniversal.Size = new Size(495, 29);
+            RealTimeIsUniversal.TabIndex = 2;
+            RealTimeIsUniversal.Text = "interpret the time in the BIOS as UTC (RealTimeIsUniversal)";
+            RealTimeIsUniversal.UseVisualStyleBackColor = true;
             // 
-            // services_startOnlyList
+            // TimeZoneKeyName
             // 
-            services_startOnlyList.AutoSize = true;
-            services_startOnlyList.Location = new Point(298, 7);
-            services_startOnlyList.Name = "services_startOnlyList";
-            services_startOnlyList.Size = new Size(139, 29);
-            services_startOnlyList.TabIndex = 47;
-            services_startOnlyList.Text = "start only list";
-            services_startOnlyList.UseVisualStyleBackColor = true;
-            services_startOnlyList.CheckedChanged += services_startOnlyList_CheckedChanged;
+            TimeZoneKeyName.FormattingEnabled = true;
+            TimeZoneKeyName.Location = new Point(3, 109);
+            TimeZoneKeyName.Name = "TimeZoneKeyName";
+            TimeZoneKeyName.Size = new Size(318, 33);
+            TimeZoneKeyName.TabIndex = 44;
+            // 
+            // label84
+            // 
+            label84.AutoSize = true;
+            label84.Location = new Point(327, 112);
+            label84.Name = "label84";
+            label84.Size = new Size(90, 25);
+            label84.TabIndex = 45;
+            label84.Text = "time zone";
             // 
             // EditorForm
             // 
@@ -5041,5 +5074,8 @@
         private RichTextBox services_start;
         private CheckBox services_startOnlyList;
         private CheckBox services_stopOnlyList;
+        private CheckBox RealTimeIsUniversal;
+        private ComboBox TimeZoneKeyName;
+        private Label label84;
     }
 }
