@@ -630,6 +630,12 @@ namespace WinBox_Maker
             manual_setup_sysunattend.Text = winBoxProject.winBoxConfig.manual_setup_sysunattend ?? "not selected";
             manual_setup_panel.Enabled = manual;
 
+            services_stop_view.Text = string.Join("\n", winBoxProject.getStopServicesList());
+            services_start_view.Text = string.Join("\n", winBoxProject.getStartServicesList());
+
+            services_stop.Text = winBoxProject.winBoxConfig.services_stop ?? "";
+            services_start.Text = winBoxProject.winBoxConfig.services_start ?? "";
+
             tab_app.Enabled = !manual;
             tab_settings.Enabled = !manual;
             postinstall_panel_system.Enabled = !manual;
@@ -1172,6 +1178,7 @@ namespace WinBox_Maker
             bool state = e.NewValue == CheckState.Checked;
             Program.setTweakEnabled(winBoxProject.winBoxConfig, title, state);
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void DownloadItems_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -2529,6 +2536,24 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.DisableNtp = DisableNtp.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void services_stop_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.services_stop = services_stop.Text;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void services_start_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.services_start = services_start.Text;
             winBoxProject.SaveConfig();
             UpdateGui();
         }

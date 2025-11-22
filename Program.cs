@@ -202,6 +202,11 @@ namespace WinBox_Maker
             }
         }
 
+        public static void DelRange(List<string> list, string[] arr)
+        {
+            list.RemoveAll(s => arr.Contains(s));
+        }
+
         static void InitOscdimg()
         {
             switch (RuntimeInformation.ProcessArchitecture)

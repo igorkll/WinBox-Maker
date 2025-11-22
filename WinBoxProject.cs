@@ -1041,7 +1041,17 @@ powercfg -s SCHEME_CURRENT";
             return powercfgSetup;
         }
 
-        string[] _getStopServicesList()
+        string[] getCustomStopList()
+        {
+            return splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.services_stop ?? "");
+        }
+
+        string[] getCustomStartList()
+        {
+            return splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.services_start ?? "");
+        }
+
+        public string[] getStopServicesList()
         {
             List<string> stopServices = new List<string>();
 
@@ -1076,11 +1086,13 @@ powercfg -s SCHEME_CURRENT";
             };
 
             stopServices.AddRange(stopServicesList);
-            stopServices.AddRange(splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.services_stop ?? ""));
-            return stopServices.ToArray();
+            stopServices.AddRange(getCustomStopList());
+            Program.DelRange(stopServices, getStartServicesList());
+
+            return stopServices.Distinct().ToArray();
         }
 
-        string[] _getStartServicesList()
+        public string[] getStartServicesList()
         {
             List<string> startServices = new List<string>();
             if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry"))
@@ -1088,14 +1100,15 @@ powercfg -s SCHEME_CURRENT";
                 startServices.Add("MsKeyboardFilter");
             }
 
-            startServices.AddRange(splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.services_start ?? ""));
-            return startServices.ToArray();
+            Program.DelRange(startServices, getCustomStopList());
+            startServices.AddRange(getCustomStartList());
+            return startServices.Distinct().ToArray();
         }
 
         string _getServicesSetup()
         {
-            string[] stopServices = _getStopServicesList();
-            string[] startServices = _getStartServicesList();
+            string[] stopServices = getStopServicesList();
+            string[] startServices = getStartServicesList();
 
             string servicesSetup = "";
             foreach (string service in stopServices)

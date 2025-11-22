@@ -230,6 +230,21 @@
             tabPage3 = new TabPage();
             DisableNtp = new CheckBox();
             DynamicDaylightTimeDisabled = new CheckBox();
+            tabPage4 = new TabPage();
+            tabControl1 = new TabControl();
+            tabPage32 = new TabPage();
+            tabControl7 = new TabControl();
+            tabPage34 = new TabPage();
+            label80 = new Label();
+            label78 = new Label();
+            services_start_view = new RichTextBox();
+            services_stop_view = new RichTextBox();
+            tabPage35 = new TabPage();
+            label81 = new Label();
+            label83 = new Label();
+            services_stop = new RichTextBox();
+            services_start = new RichTextBox();
+            tabPage33 = new TabPage();
             tabPage5 = new TabPage();
             label77 = new Label();
             panel5 = new Panel();
@@ -393,21 +408,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            tabPage4 = new TabPage();
-            tabControl1 = new TabControl();
-            tabPage32 = new TabPage();
-            tabPage33 = new TabPage();
-            tabControl7 = new TabControl();
-            tabPage34 = new TabPage();
-            tabPage35 = new TabPage();
-            services_stop_view = new RichTextBox();
-            services_start_view = new RichTextBox();
-            label78 = new Label();
-            label80 = new Label();
-            label81 = new Label();
-            label83 = new Label();
-            richTextBox18 = new RichTextBox();
-            richTextBox19 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -449,6 +449,12 @@
             tabPage17.SuspendLayout();
             panel17.SuspendLayout();
             tabPage3.SuspendLayout();
+            tabPage4.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage32.SuspendLayout();
+            tabControl7.SuspendLayout();
+            tabPage34.SuspendLayout();
+            tabPage35.SuspendLayout();
             tabPage5.SuspendLayout();
             panel5.SuspendLayout();
             postinstall_panel_user.SuspendLayout();
@@ -484,12 +490,6 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage4.SuspendLayout();
-            tabControl1.SuspendLayout();
-            tabPage32.SuspendLayout();
-            tabControl7.SuspendLayout();
-            tabPage34.SuspendLayout();
-            tabPage35.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -2625,6 +2625,161 @@
             DynamicDaylightTimeDisabled.UseVisualStyleBackColor = true;
             DynamicDaylightTimeDisabled.CheckedChanged += DynamicDaylightTimeDisabled_CheckedChanged;
             // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(tabControl1);
+            tabPage4.Location = new Point(4, 34);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Size = new Size(499, 297);
+            tabPage4.TabIndex = 7;
+            tabPage4.Text = "advanced";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage32);
+            tabControl1.Controls.Add(tabPage33);
+            tabControl1.Location = new Point(3, 4);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(493, 290);
+            tabControl1.TabIndex = 0;
+            // 
+            // tabPage32
+            // 
+            tabPage32.Controls.Add(tabControl7);
+            tabPage32.Location = new Point(4, 34);
+            tabPage32.Name = "tabPage32";
+            tabPage32.Padding = new Padding(3);
+            tabPage32.Size = new Size(485, 252);
+            tabPage32.TabIndex = 0;
+            tabPage32.Text = "services";
+            tabPage32.UseVisualStyleBackColor = true;
+            // 
+            // tabControl7
+            // 
+            tabControl7.Controls.Add(tabPage34);
+            tabControl7.Controls.Add(tabPage35);
+            tabControl7.Location = new Point(6, 6);
+            tabControl7.Name = "tabControl7";
+            tabControl7.SelectedIndex = 0;
+            tabControl7.Size = new Size(473, 240);
+            tabControl7.TabIndex = 0;
+            // 
+            // tabPage34
+            // 
+            tabPage34.Controls.Add(label80);
+            tabPage34.Controls.Add(label78);
+            tabPage34.Controls.Add(services_start_view);
+            tabPage34.Controls.Add(services_stop_view);
+            tabPage34.Location = new Point(4, 34);
+            tabPage34.Name = "tabPage34";
+            tabPage34.Padding = new Padding(3);
+            tabPage34.Size = new Size(465, 202);
+            tabPage34.TabIndex = 0;
+            tabPage34.Text = "current";
+            tabPage34.UseVisualStyleBackColor = true;
+            // 
+            // label80
+            // 
+            label80.AutoSize = true;
+            label80.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label80.Location = new Point(232, 4);
+            label80.Name = "label80";
+            label80.Size = new Size(60, 32);
+            label80.TabIndex = 41;
+            label80.Text = "start";
+            // 
+            // label78
+            // 
+            label78.AutoSize = true;
+            label78.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label78.Location = new Point(6, 4);
+            label78.Name = "label78";
+            label78.Size = new Size(60, 32);
+            label78.TabIndex = 40;
+            label78.Text = "stop";
+            // 
+            // services_start_view
+            // 
+            services_start_view.Location = new Point(232, 39);
+            services_start_view.Name = "services_start_view";
+            services_start_view.ReadOnly = true;
+            services_start_view.Size = new Size(227, 157);
+            services_start_view.TabIndex = 39;
+            services_start_view.Text = "";
+            // 
+            // services_stop_view
+            // 
+            services_stop_view.Location = new Point(6, 39);
+            services_stop_view.Name = "services_stop_view";
+            services_stop_view.ReadOnly = true;
+            services_stop_view.Size = new Size(220, 157);
+            services_stop_view.TabIndex = 38;
+            services_stop_view.Text = "";
+            // 
+            // tabPage35
+            // 
+            tabPage35.Controls.Add(label81);
+            tabPage35.Controls.Add(label83);
+            tabPage35.Controls.Add(services_stop);
+            tabPage35.Controls.Add(services_start);
+            tabPage35.Location = new Point(4, 34);
+            tabPage35.Name = "tabPage35";
+            tabPage35.Padding = new Padding(3);
+            tabPage35.Size = new Size(465, 202);
+            tabPage35.TabIndex = 1;
+            tabPage35.Text = "customize";
+            tabPage35.UseVisualStyleBackColor = true;
+            // 
+            // label81
+            // 
+            label81.AutoSize = true;
+            label81.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label81.Location = new Point(232, 4);
+            label81.Name = "label81";
+            label81.Size = new Size(60, 32);
+            label81.TabIndex = 45;
+            label81.Text = "start";
+            // 
+            // label83
+            // 
+            label83.AutoSize = true;
+            label83.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label83.Location = new Point(6, 4);
+            label83.Name = "label83";
+            label83.Size = new Size(60, 32);
+            label83.TabIndex = 44;
+            label83.Text = "stop";
+            // 
+            // services_stop
+            // 
+            services_stop.Location = new Point(6, 39);
+            services_stop.Name = "services_stop";
+            services_stop.Size = new Size(220, 157);
+            services_stop.TabIndex = 42;
+            services_stop.Text = "";
+            services_stop.TextChanged += services_stop_TextChanged;
+            // 
+            // services_start
+            // 
+            services_start.Location = new Point(232, 39);
+            services_start.Name = "services_start";
+            services_start.Size = new Size(227, 157);
+            services_start.TabIndex = 43;
+            services_start.Text = "";
+            services_start.TextChanged += services_start_TextChanged;
+            // 
+            // tabPage33
+            // 
+            tabPage33.Location = new Point(4, 34);
+            tabPage33.Name = "tabPage33";
+            tabPage33.Padding = new Padding(3);
+            tabPage33.Size = new Size(485, 252);
+            tabPage33.TabIndex = 1;
+            tabPage33.Text = "dism";
+            tabPage33.UseVisualStyleBackColor = true;
+            // 
             // tabPage5
             // 
             tabPage5.Controls.Add(label77);
@@ -4304,159 +4459,6 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // tabPage4
-            // 
-            tabPage4.Controls.Add(tabControl1);
-            tabPage4.Location = new Point(4, 34);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(499, 297);
-            tabPage4.TabIndex = 7;
-            tabPage4.Text = "advanced";
-            tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tabControl1
-            // 
-            tabControl1.Controls.Add(tabPage32);
-            tabControl1.Controls.Add(tabPage33);
-            tabControl1.Location = new Point(3, 4);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(493, 290);
-            tabControl1.TabIndex = 0;
-            // 
-            // tabPage32
-            // 
-            tabPage32.Controls.Add(tabControl7);
-            tabPage32.Location = new Point(4, 34);
-            tabPage32.Name = "tabPage32";
-            tabPage32.Padding = new Padding(3);
-            tabPage32.Size = new Size(485, 252);
-            tabPage32.TabIndex = 0;
-            tabPage32.Text = "services";
-            tabPage32.UseVisualStyleBackColor = true;
-            // 
-            // tabPage33
-            // 
-            tabPage33.Location = new Point(4, 34);
-            tabPage33.Name = "tabPage33";
-            tabPage33.Padding = new Padding(3);
-            tabPage33.Size = new Size(485, 252);
-            tabPage33.TabIndex = 1;
-            tabPage33.Text = "dism";
-            tabPage33.UseVisualStyleBackColor = true;
-            // 
-            // tabControl7
-            // 
-            tabControl7.Controls.Add(tabPage34);
-            tabControl7.Controls.Add(tabPage35);
-            tabControl7.Location = new Point(6, 6);
-            tabControl7.Name = "tabControl7";
-            tabControl7.SelectedIndex = 0;
-            tabControl7.Size = new Size(473, 240);
-            tabControl7.TabIndex = 0;
-            // 
-            // tabPage34
-            // 
-            tabPage34.Controls.Add(label80);
-            tabPage34.Controls.Add(label78);
-            tabPage34.Controls.Add(services_start_view);
-            tabPage34.Controls.Add(services_stop_view);
-            tabPage34.Location = new Point(4, 34);
-            tabPage34.Name = "tabPage34";
-            tabPage34.Padding = new Padding(3);
-            tabPage34.Size = new Size(465, 202);
-            tabPage34.TabIndex = 0;
-            tabPage34.Text = "current";
-            tabPage34.UseVisualStyleBackColor = true;
-            // 
-            // tabPage35
-            // 
-            tabPage35.Controls.Add(label81);
-            tabPage35.Controls.Add(label83);
-            tabPage35.Controls.Add(richTextBox19);
-            tabPage35.Controls.Add(richTextBox18);
-            tabPage35.Location = new Point(4, 34);
-            tabPage35.Name = "tabPage35";
-            tabPage35.Padding = new Padding(3);
-            tabPage35.Size = new Size(465, 202);
-            tabPage35.TabIndex = 1;
-            tabPage35.Text = "customize";
-            tabPage35.UseVisualStyleBackColor = true;
-            // 
-            // services_stop_view
-            // 
-            services_stop_view.Location = new Point(6, 39);
-            services_stop_view.Name = "services_stop_view";
-            services_stop_view.ReadOnly = true;
-            services_stop_view.Size = new Size(220, 157);
-            services_stop_view.TabIndex = 38;
-            services_stop_view.Text = "";
-            // 
-            // services_start_view
-            // 
-            services_start_view.Location = new Point(232, 39);
-            services_start_view.Name = "services_start_view";
-            services_start_view.ReadOnly = true;
-            services_start_view.Size = new Size(227, 157);
-            services_start_view.TabIndex = 39;
-            services_start_view.Text = "";
-            // 
-            // label78
-            // 
-            label78.AutoSize = true;
-            label78.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label78.Location = new Point(6, 4);
-            label78.Name = "label78";
-            label78.Size = new Size(60, 32);
-            label78.TabIndex = 40;
-            label78.Text = "stop";
-            // 
-            // label80
-            // 
-            label80.AutoSize = true;
-            label80.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label80.Location = new Point(232, 4);
-            label80.Name = "label80";
-            label80.Size = new Size(60, 32);
-            label80.TabIndex = 41;
-            label80.Text = "start";
-            // 
-            // label81
-            // 
-            label81.AutoSize = true;
-            label81.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label81.Location = new Point(232, 4);
-            label81.Name = "label81";
-            label81.Size = new Size(60, 32);
-            label81.TabIndex = 45;
-            label81.Text = "start";
-            // 
-            // label83
-            // 
-            label83.AutoSize = true;
-            label83.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label83.Location = new Point(6, 4);
-            label83.Name = "label83";
-            label83.Size = new Size(60, 32);
-            label83.TabIndex = 44;
-            label83.Text = "stop";
-            // 
-            // richTextBox18
-            // 
-            richTextBox18.Location = new Point(232, 39);
-            richTextBox18.Name = "richTextBox18";
-            richTextBox18.Size = new Size(227, 157);
-            richTextBox18.TabIndex = 43;
-            richTextBox18.Text = "";
-            // 
-            // richTextBox19
-            // 
-            richTextBox19.Location = new Point(6, 39);
-            richTextBox19.Name = "richTextBox19";
-            richTextBox19.Size = new Size(220, 157);
-            richTextBox19.TabIndex = 42;
-            richTextBox19.Text = "";
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -4556,6 +4558,14 @@
             panel17.PerformLayout();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
+            tabPage4.ResumeLayout(false);
+            tabControl1.ResumeLayout(false);
+            tabPage32.ResumeLayout(false);
+            tabControl7.ResumeLayout(false);
+            tabPage34.ResumeLayout(false);
+            tabPage34.PerformLayout();
+            tabPage35.ResumeLayout(false);
+            tabPage35.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             panel5.ResumeLayout(false);
@@ -4613,14 +4623,6 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage4.ResumeLayout(false);
-            tabControl1.ResumeLayout(false);
-            tabPage32.ResumeLayout(false);
-            tabControl7.ResumeLayout(false);
-            tabPage34.ResumeLayout(false);
-            tabPage34.PerformLayout();
-            tabPage35.ResumeLayout(false);
-            tabPage35.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5009,7 +5011,7 @@
         private Label label80;
         private Label label81;
         private Label label83;
-        private RichTextBox richTextBox19;
-        private RichTextBox richTextBox18;
+        private RichTextBox services_stop;
+        private RichTextBox services_start;
     }
 }
