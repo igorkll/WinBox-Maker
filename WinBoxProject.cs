@@ -2506,6 +2506,13 @@ if errorlevel 1 (
 
             if (!manual)
             {
+                if (winBoxConfig.customdism_enabled == true) {
+                    foreach (string command in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.customdism_commands ?? ""))
+                    {
+                        await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" {command}", baseDirectoryPath, tempDirectoryPath);
+                    }
+                }
+
                 if (Program.isTweakEnabled(winBoxConfig, "completely remove explorer.exe"))
                 {
                     await removeSystemObject("Windows\\explorer.exe");

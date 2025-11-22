@@ -180,6 +180,8 @@ namespace WinBox_Maker
         public bool? services_stopOnlyList { get; set; }
         public bool? services_startOnlyList { get; set; }
         public string? TimeZoneKeyName { get; set; }
+        public bool? customdism_enabled { get; set; }
+        public string? customdism_commands { get; set; }
 
 
         public WinBoxConfig() {
@@ -342,7 +344,7 @@ namespace WinBox_Maker
 
         public bool isBuildEventsUsed()
         {
-            return prebuildEnabled == true || postbuildEnabled == true || winmountedEnabled == true || downloadEnabled == true || buildEnabled == true;
+            return prebuildEnabled == true || postbuildEnabled == true || winmountedEnabled == true || downloadEnabled == true || buildEnabled == true || customdism_enabled == true;
         }
     }
 }

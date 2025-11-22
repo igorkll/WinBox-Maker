@@ -228,6 +228,7 @@
             computername = new TextBox();
             computername_use = new CheckBox();
             tabPage3 = new TabPage();
+            richTextBox18 = new RichTextBox();
             label84 = new Label();
             TimeZoneKeyName = new ComboBox();
             RealTimeIsUniversal = new CheckBox();
@@ -250,6 +251,10 @@
             services_stop = new RichTextBox();
             services_start = new RichTextBox();
             tabPage33 = new TabPage();
+            richTextBox20 = new RichTextBox();
+            customdism_enabled = new CheckBox();
+            label85 = new Label();
+            customdism_commands = new RichTextBox();
             tabPage5 = new TabPage();
             label77 = new Label();
             panel5 = new Panel();
@@ -413,7 +418,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            richTextBox18 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -461,6 +465,7 @@
             tabControl7.SuspendLayout();
             tabPage34.SuspendLayout();
             tabPage35.SuspendLayout();
+            tabPage33.SuspendLayout();
             tabPage5.SuspendLayout();
             panel5.SuspendLayout();
             postinstall_panel_user.SuspendLayout();
@@ -2613,6 +2618,16 @@
             tabPage3.Text = "time";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // richTextBox18
+            // 
+            richTextBox18.BackColor = SystemColors.Info;
+            richTextBox18.Location = new Point(3, 148);
+            richTextBox18.Name = "richTextBox18";
+            richTextBox18.ReadOnly = true;
+            richTextBox18.Size = new Size(493, 146);
+            richTextBox18.TabIndex = 46;
+            richTextBox18.Text = resources.GetString("richTextBox18.Text");
+            // 
             // label84
             // 
             label84.AutoSize = true;
@@ -2836,6 +2851,10 @@
             // 
             // tabPage33
             // 
+            tabPage33.Controls.Add(richTextBox20);
+            tabPage33.Controls.Add(customdism_enabled);
+            tabPage33.Controls.Add(label85);
+            tabPage33.Controls.Add(customdism_commands);
             tabPage33.Location = new Point(4, 34);
             tabPage33.Name = "tabPage33";
             tabPage33.Padding = new Padding(3);
@@ -2843,6 +2862,47 @@
             tabPage33.TabIndex = 1;
             tabPage33.Text = "dism";
             tabPage33.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox20
+            // 
+            richTextBox20.BackColor = SystemColors.Info;
+            richTextBox20.Location = new Point(6, 165);
+            richTextBox20.Name = "richTextBox20";
+            richTextBox20.ReadOnly = true;
+            richTextBox20.Size = new Size(473, 81);
+            richTextBox20.TabIndex = 6;
+            richTextBox20.Text = resources.GetString("richTextBox20.Text");
+            // 
+            // customdism_enabled
+            // 
+            customdism_enabled.AutoSize = true;
+            customdism_enabled.CheckAlign = ContentAlignment.MiddleRight;
+            customdism_enabled.Location = new Point(378, 9);
+            customdism_enabled.Name = "customdism_enabled";
+            customdism_enabled.Size = new Size(101, 29);
+            customdism_enabled.TabIndex = 5;
+            customdism_enabled.Text = "enabled";
+            customdism_enabled.UseVisualStyleBackColor = true;
+            customdism_enabled.CheckedChanged += customdism_enabled_CheckedChanged;
+            // 
+            // label85
+            // 
+            label85.AutoSize = true;
+            label85.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label85.Location = new Point(0, 3);
+            label85.Name = "label85";
+            label85.Size = new Size(317, 38);
+            label85.TabIndex = 3;
+            label85.Text = "custom dism commands";
+            // 
+            // customdism_commands
+            // 
+            customdism_commands.Location = new Point(5, 44);
+            customdism_commands.Name = "customdism_commands";
+            customdism_commands.Size = new Size(474, 115);
+            customdism_commands.TabIndex = 4;
+            customdism_commands.Text = "";
+            customdism_commands.TextChanged += customdism_commands_TextChanged;
             // 
             // tabPage5
             // 
@@ -4523,16 +4583,6 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // richTextBox18
-            // 
-            richTextBox18.BackColor = SystemColors.Info;
-            richTextBox18.Location = new Point(3, 148);
-            richTextBox18.Name = "richTextBox18";
-            richTextBox18.ReadOnly = true;
-            richTextBox18.Size = new Size(493, 146);
-            richTextBox18.TabIndex = 46;
-            richTextBox18.Text = resources.GetString("richTextBox18.Text");
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -4640,6 +4690,8 @@
             tabPage34.PerformLayout();
             tabPage35.ResumeLayout(false);
             tabPage35.PerformLayout();
+            tabPage33.ResumeLayout(false);
+            tabPage33.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             panel5.ResumeLayout(false);
@@ -5093,5 +5145,9 @@
         private ComboBox TimeZoneKeyName;
         private Label label84;
         private RichTextBox richTextBox18;
+        private CheckBox customdism_enabled;
+        private Label label85;
+        private RichTextBox customdism_commands;
+        private RichTextBox richTextBox20;
     }
 }

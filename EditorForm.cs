@@ -540,6 +540,9 @@ namespace WinBox_Maker
             winmountedEnabled.CheckState = winBoxProject.winBoxConfig.winmountedEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             winmountedEvent.Text = winBoxProject.winBoxConfig.winmountedEvent ?? "";
 
+            customdism_enabled.CheckState = winBoxProject.winBoxConfig.customdism_enabled == true ? CheckState.Checked : CheckState.Unchecked;
+            customdism_commands.Text = winBoxProject.winBoxConfig.customdism_commands ?? "";
+
             buildEnabled.CheckState = winBoxProject.winBoxConfig.buildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             downloadEnabled.CheckState = winBoxProject.winBoxConfig.downloadEnabled == true ? CheckState.Checked : CheckState.Unchecked;
 
@@ -2612,6 +2615,22 @@ namespace WinBox_Maker
         private void TimeZoneKeyName_TextChanged(object sender, EventArgs e)
         {
             updateTimeZoneKeyInConfig();
+        }
+
+        private void customdism_enabled_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.customdism_enabled = customdism_enabled.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void customdism_commands_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.customdism_commands = customdism_commands.Text;
+            winBoxProject.SaveConfig();
         }
     }
 }
