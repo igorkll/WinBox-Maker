@@ -285,8 +285,6 @@
             VirtualDisplayHeight = new TextBox();
             VirtualDisplayWidth = new TextBox();
             AddVirtualDisplay = new CheckBox();
-            tabPage8 = new TabPage();
-            panel10 = new Panel();
             winmountedEnabled = new CheckBox();
             winmountedEvent = new RichTextBox();
             label24 = new Label();
@@ -422,6 +420,7 @@
             tabControl9 = new TabControl();
             tabPage41 = new TabPage();
             tabPage42 = new TabPage();
+            tabPage43 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -481,8 +480,6 @@
             tabPage7.SuspendLayout();
             panel7.SuspendLayout();
             panel6.SuspendLayout();
-            tabPage8.SuspendLayout();
-            panel10.SuspendLayout();
             tabPage9.SuspendLayout();
             panel11.SuspendLayout();
             tabPage10.SuspendLayout();
@@ -512,6 +509,7 @@
             tabControl9.SuspendLayout();
             tabPage41.SuspendLayout();
             tabPage42.SuspendLayout();
+            tabPage43.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1164,7 +1162,6 @@
             mainTabControl.Controls.Add(tabPage38);
             mainTabControl.Controls.Add(tabPage5);
             mainTabControl.Controls.Add(tabPage7);
-            mainTabControl.Controls.Add(tabPage8);
             mainTabControl.Controls.Add(tabPage9);
             mainTabControl.Controls.Add(tabPage10);
             mainTabControl.Controls.Add(tabPage11);
@@ -3223,32 +3220,11 @@
             AddVirtualDisplay.UseVisualStyleBackColor = true;
             AddVirtualDisplay.CheckedChanged += AddVirtualDisplay_CheckedChanged;
             // 
-            // tabPage8
-            // 
-            tabPage8.Controls.Add(panel10);
-            tabPage8.Location = new Point(4, 34);
-            tabPage8.Name = "tabPage8";
-            tabPage8.Size = new Size(1018, 347);
-            tabPage8.TabIndex = 7;
-            tabPage8.Text = "events";
-            tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // panel10
-            // 
-            panel10.BorderStyle = BorderStyle.Fixed3D;
-            panel10.Controls.Add(winmountedEnabled);
-            panel10.Controls.Add(winmountedEvent);
-            panel10.Controls.Add(label24);
-            panel10.Location = new Point(515, 5);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(500, 163);
-            panel10.TabIndex = 3;
-            // 
             // winmountedEnabled
             // 
             winmountedEnabled.AutoSize = true;
             winmountedEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            winmountedEnabled.Location = new Point(392, 6);
+            winmountedEnabled.Location = new Point(883, 14);
             winmountedEnabled.Name = "winmountedEnabled";
             winmountedEnabled.Size = new Size(101, 29);
             winmountedEnabled.TabIndex = 2;
@@ -3258,9 +3234,9 @@
             // 
             // winmountedEvent
             // 
-            winmountedEvent.Location = new Point(3, 41);
+            winmountedEvent.Location = new Point(6, 48);
             winmountedEvent.Name = "winmountedEvent";
-            winmountedEvent.Size = new Size(490, 115);
+            winmountedEvent.Size = new Size(978, 205);
             winmountedEvent.TabIndex = 1;
             winmountedEvent.Text = "";
             winmountedEvent.TextChanged += winmountedEvent_TextChanged;
@@ -3269,7 +3245,7 @@
             // 
             label24.AutoSize = true;
             label24.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label24.Location = new Point(-2, 0);
+            label24.Location = new Point(6, 4);
             label24.Name = "label24";
             label24.Size = new Size(259, 38);
             label24.TabIndex = 0;
@@ -4602,7 +4578,8 @@
             // 
             tabControl9.Controls.Add(tabPage41);
             tabControl9.Controls.Add(tabPage42);
-            tabControl9.Location = new Point(3, 3);
+            tabControl9.Controls.Add(tabPage43);
+            tabControl9.Location = new Point(3, 6);
             tabControl9.Name = "tabControl9";
             tabControl9.SelectedIndex = 0;
             tabControl9.Size = new Size(998, 297);
@@ -4633,6 +4610,18 @@
             tabPage42.TabIndex = 1;
             tabPage42.Text = "post build";
             tabPage42.UseVisualStyleBackColor = true;
+            // 
+            // tabPage43
+            // 
+            tabPage43.Controls.Add(winmountedEnabled);
+            tabPage43.Controls.Add(label24);
+            tabPage43.Controls.Add(winmountedEvent);
+            tabPage43.Location = new Point(4, 34);
+            tabPage43.Name = "tabPage43";
+            tabPage43.Size = new Size(990, 259);
+            tabPage43.TabIndex = 2;
+            tabPage43.Text = "win mounted";
+            tabPage43.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
@@ -4758,9 +4747,6 @@
             panel7.PerformLayout();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
-            tabPage8.ResumeLayout(false);
-            panel10.ResumeLayout(false);
-            panel10.PerformLayout();
             tabPage9.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
@@ -4806,6 +4792,8 @@
             tabPage41.PerformLayout();
             tabPage42.ResumeLayout(false);
             tabPage42.PerformLayout();
+            tabPage43.ResumeLayout(false);
+            tabPage43.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -4895,7 +4883,6 @@
         private Button OpenEmbeddedFolder;
         private Button EmbedDisplayReadme;
         private CheckBox CustomBootLogo_centering;
-        private TabPage tabPage8;
         private ContextMenuStrip contextMenuStrip1;
         private Label label22;
         private Label label23;
@@ -4903,7 +4890,6 @@
         private RichTextBox postbuildEvent;
         private CheckBox postbuildEnabled;
         private CheckBox prebuildEnabled;
-        private Panel panel10;
         private CheckBox dl_unpack;
         private RichTextBox richTextBox1;
         private Label label24;
@@ -5210,5 +5196,6 @@
         private TabControl tabControl9;
         private TabPage tabPage41;
         private TabPage tabPage42;
+        private TabPage tabPage43;
     }
 }
