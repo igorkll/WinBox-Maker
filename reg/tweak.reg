@@ -31,7 +31,7 @@ Windows Registry Editor Version 5.00
 "DisableScanOnRealtimeEnable"=dword:00000001
 "DisableIOAVProtection"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager]
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
 "DisableRealtimeMonitoring"=dword:00000001
