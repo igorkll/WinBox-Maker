@@ -323,7 +323,7 @@ namespace WinBox_Maker
             if (services_startOnlyList == null) services_startOnlyList = false;
 
             if (TimeZoneKeyName == null) TimeZoneKeyName = "UTC";
-            if (powerScheme == null) powerScheme = PowerScheme.Default;
+            if (powerScheme == null) powerScheme = PowerScheme.Balanced;
         }
 
         public void Save(string wnbFilePath)

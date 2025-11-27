@@ -166,6 +166,7 @@
             tabPage12 = new TabPage();
             tabControl5 = new TabControl();
             tabPage37 = new TabPage();
+            label77 = new Label();
             comboBox1 = new ComboBox();
             enable_hiberboot = new CheckBox();
             enable_hibernation = new CheckBox();
@@ -423,7 +424,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            label77 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1981,6 +1981,15 @@
             tabPage37.TabIndex = 2;
             tabPage37.Text = "base";
             tabPage37.UseVisualStyleBackColor = true;
+            // 
+            // label77
+            // 
+            label77.AutoSize = true;
+            label77.Location = new Point(327, 115);
+            label77.Name = "label77";
+            label77.Size = new Size(187, 25);
+            label77.TabIndex = 45;
+            label77.Text = "default power scheme";
             // 
             // comboBox1
             // 
@@ -4650,15 +4659,6 @@
             ExportInstallEsd.Text = "export install.esd";
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
-            // 
-            // label77
-            // 
-            label77.AutoSize = true;
-            label77.Location = new Point(327, 115);
-            label77.Name = "label77";
-            label77.Size = new Size(69, 25);
-            label77.TabIndex = 45;
-            label77.Text = "label77";
             // 
             // EditorForm
             // 
