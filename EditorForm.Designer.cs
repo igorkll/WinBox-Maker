@@ -104,6 +104,8 @@
             tabPage2 = new TabPage();
             label76 = new Label();
             panel3 = new Panel();
+            aaf_readme_recovery = new CheckBox();
+            aaf_info_recovery = new CheckBox();
             aaf_info_boot = new CheckBox();
             aaf_info_system = new CheckBox();
             aaf_info_iso = new CheckBox();
@@ -424,8 +426,7 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            aaf_info_recovery = new CheckBox();
-            aaf_readme_recovery = new CheckBox();
+            tabPage8 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1311,6 +1312,28 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(347, 285);
             panel3.TabIndex = 15;
+            // 
+            // aaf_readme_recovery
+            // 
+            aaf_readme_recovery.AutoSize = true;
+            aaf_readme_recovery.Location = new Point(174, 34);
+            aaf_readme_recovery.Name = "aaf_readme_recovery";
+            aaf_readme_recovery.Size = new Size(144, 29);
+            aaf_readme_recovery.TabIndex = 9;
+            aaf_readme_recovery.Text = "recovery root";
+            aaf_readme_recovery.UseVisualStyleBackColor = true;
+            aaf_readme_recovery.CheckedChanged += aaf_readme_recovery_CheckedChanged;
+            // 
+            // aaf_info_recovery
+            // 
+            aaf_info_recovery.AutoSize = true;
+            aaf_info_recovery.Location = new Point(174, 164);
+            aaf_info_recovery.Name = "aaf_info_recovery";
+            aaf_info_recovery.Size = new Size(144, 29);
+            aaf_info_recovery.TabIndex = 8;
+            aaf_info_recovery.Text = "recovery root";
+            aaf_info_recovery.UseVisualStyleBackColor = true;
+            aaf_info_recovery.CheckedChanged += aaf_info_recovery_CheckedChanged;
             // 
             // aaf_info_boot
             // 
@@ -2911,6 +2934,7 @@
             tabControl8.Controls.Add(tabPage33);
             tabControl8.Controls.Add(tabPage39);
             tabControl8.Controls.Add(tabPage40);
+            tabControl8.Controls.Add(tabPage8);
             tabControl8.Location = new Point(3, 3);
             tabControl8.Name = "tabControl8";
             tabControl8.SelectedIndex = 0;
@@ -4664,27 +4688,14 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // aaf_info_recovery
+            // tabPage8
             // 
-            aaf_info_recovery.AutoSize = true;
-            aaf_info_recovery.Location = new Point(174, 164);
-            aaf_info_recovery.Name = "aaf_info_recovery";
-            aaf_info_recovery.Size = new Size(144, 29);
-            aaf_info_recovery.TabIndex = 8;
-            aaf_info_recovery.Text = "recovery root";
-            aaf_info_recovery.UseVisualStyleBackColor = true;
-            aaf_info_recovery.CheckedChanged += aaf_info_recovery_CheckedChanged;
-            // 
-            // aaf_readme_recovery
-            // 
-            aaf_readme_recovery.AutoSize = true;
-            aaf_readme_recovery.Location = new Point(174, 34);
-            aaf_readme_recovery.Name = "aaf_readme_recovery";
-            aaf_readme_recovery.Size = new Size(144, 29);
-            aaf_readme_recovery.TabIndex = 9;
-            aaf_readme_recovery.Text = "recovery root";
-            aaf_readme_recovery.UseVisualStyleBackColor = true;
-            aaf_readme_recovery.CheckedChanged += aaf_readme_recovery_CheckedChanged;
+            tabPage8.Location = new Point(4, 34);
+            tabPage8.Name = "tabPage8";
+            tabPage8.Size = new Size(1004, 303);
+            tabPage8.TabIndex = 3;
+            tabPage8.Text = "recovery";
+            tabPage8.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
@@ -5264,5 +5275,6 @@
         private ComboBox comboBox1;
         private Label label77;
         private CheckBox aaf_readme_recovery;
+        private TabPage tabPage8;
     }
 }
