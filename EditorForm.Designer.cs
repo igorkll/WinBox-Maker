@@ -53,7 +53,6 @@
             oemkey_installer = new CheckBox();
             label7 = new Label();
             OemKey = new TextBox();
-            UseOemKey = new CheckBox();
             panel2 = new Panel();
             ProgramType_None = new RadioButton();
             ProgramName = new TextBox();
@@ -419,6 +418,7 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            tabPage38 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -694,7 +694,6 @@
             panel1.Controls.Add(oemkey_installer);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(OemKey);
-            panel1.Controls.Add(UseOemKey);
             panel1.Location = new Point(6, 6);
             panel1.Name = "panel1";
             panel1.Size = new Size(487, 285);
@@ -703,7 +702,7 @@
             // oemkey_slmgr
             // 
             oemkey_slmgr.AutoSize = true;
-            oemkey_slmgr.Location = new Point(3, 176);
+            oemkey_slmgr.Location = new Point(3, 142);
             oemkey_slmgr.Name = "oemkey_slmgr";
             oemkey_slmgr.Size = new Size(453, 29);
             oemkey_slmgr.TabIndex = 5;
@@ -714,7 +713,7 @@
             // oemkey_dism
             // 
             oemkey_dism.AutoSize = true;
-            oemkey_dism.Location = new Point(3, 141);
+            oemkey_dism.Location = new Point(3, 107);
             oemkey_dism.Name = "oemkey_dism";
             oemkey_dism.Size = new Size(305, 29);
             oemkey_dism.TabIndex = 4;
@@ -725,7 +724,7 @@
             // oemkey_installer
             // 
             oemkey_installer.AutoSize = true;
-            oemkey_installer.Location = new Point(3, 108);
+            oemkey_installer.Location = new Point(3, 74);
             oemkey_installer.Name = "oemkey_installer";
             oemkey_installer.Size = new Size(326, 29);
             oemkey_installer.TabIndex = 3;
@@ -749,17 +748,6 @@
             OemKey.Size = new Size(477, 31);
             OemKey.TabIndex = 1;
             OemKey.TextChanged += OemKey_TextChanged;
-            // 
-            // UseOemKey
-            // 
-            UseOemKey.AutoSize = true;
-            UseOemKey.Location = new Point(3, 73);
-            UseOemKey.Name = "UseOemKey";
-            UseOemKey.Size = new Size(347, 29);
-            UseOemKey.TabIndex = 0;
-            UseOemKey.Text = "Activate windows with this product key";
-            UseOemKey.UseVisualStyleBackColor = true;
-            UseOemKey.CheckedChanged += UseOemKey_CheckedChanged;
             // 
             // panel2
             // 
@@ -1165,6 +1153,7 @@
             mainTabControl.Controls.Add(tabPage2);
             mainTabControl.Controls.Add(tab_app);
             mainTabControl.Controls.Add(tab_settings);
+            mainTabControl.Controls.Add(tabPage38);
             mainTabControl.Controls.Add(tabPage5);
             mainTabControl.Controls.Add(tabPage7);
             mainTabControl.Controls.Add(tabPage8);
@@ -2806,7 +2795,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(498, 7);
+            label5.Location = new Point(498, 4);
             label5.Name = "label5";
             label5.Size = new Size(60, 32);
             label5.TabIndex = 45;
@@ -2827,7 +2816,7 @@
             // 
             label86.AutoSize = true;
             label86.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label86.Location = new Point(6, 7);
+            label86.Location = new Point(6, 4);
             label86.Name = "label86";
             label86.Size = new Size(60, 32);
             label86.TabIndex = 44;
@@ -2846,7 +2835,7 @@
             // 
             // services_stop
             // 
-            services_stop.Location = new Point(6, 42);
+            services_stop.Location = new Point(6, 39);
             services_stop.Name = "services_stop";
             services_stop.Size = new Size(486, 157);
             services_stop.TabIndex = 42;
@@ -2855,7 +2844,7 @@
             // 
             // services_start
             // 
-            services_start.Location = new Point(498, 42);
+            services_start.Location = new Point(498, 39);
             services_start.Name = "services_start";
             services_start.Size = new Size(460, 157);
             services_start.TabIndex = 43;
@@ -4596,6 +4585,15 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // tabPage38
+            // 
+            tabPage38.Location = new Point(4, 34);
+            tabPage38.Name = "tabPage38";
+            tabPage38.Size = new Size(1018, 347);
+            tabPage38.TabIndex = 14;
+            tabPage38.Text = "build settings";
+            tabPage38.UseVisualStyleBackColor = true;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -4786,7 +4784,6 @@
         private Button LICENSE;
         private Button ExportImg;
         private Panel panel1;
-        private CheckBox UseOemKey;
         private TextBox OemKey;
         private Panel panel2;
         private Label label3;
@@ -5164,5 +5161,6 @@
         private Label label86;
         private RichTextBox services_stop;
         private RichTextBox services_start;
+        private TabPage tabPage38;
     }
 }

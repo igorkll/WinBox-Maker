@@ -71,7 +71,6 @@ namespace WinBox_Maker
         public string? WinboxName { get; set; }
         public string? WinboxDescription { get; set; }
         public string? OemKey { get; set; }
-        public bool? UseOemKey { get; set; }
         public string? ProgramName { get; set; }
         public string? ProgramArgs { get; set; }
         public string? RawCommand { get; set; }
@@ -197,7 +196,6 @@ namespace WinBox_Maker
             if (WinboxName == null) WinboxName = "Winbox Name";
             if (WinboxDescription == null) WinboxDescription = "Winbox Description";
             if (OemKey == null) OemKey = "";
-            if (UseOemKey == null) UseOemKey = false;
             if (ProgramArgs == null) ProgramArgs = "";
             if (RawCommand == null) RawCommand = "";
             if (WebSite == null) WebSite = "";
@@ -345,6 +343,12 @@ namespace WinBox_Maker
         public bool isBuildEventsUsed()
         {
             return prebuildEnabled == true || postbuildEnabled == true || winmountedEnabled == true || downloadEnabled == true || buildEnabled == true || customdism_enabled == true;
+        }
+
+        public bool isValidOemKey()
+        {
+            if (OemKey == null) return false;
+            return OemKey.Length > 0 && !OemKey.Contains("\"");
         }
     }
 }

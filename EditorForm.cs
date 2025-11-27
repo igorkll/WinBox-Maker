@@ -494,7 +494,6 @@ namespace WinBox_Maker
             ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
 
             OemKey.Text = winBoxProject.winBoxConfig.OemKey ?? "";
-            UseOemKey.CheckState = winBoxProject.winBoxConfig.UseOemKey == true ? CheckState.Checked : CheckState.Unchecked;
 
             ProgramName.Text = winBoxProject.winBoxConfig.ProgramName ?? "";
             ProgramArgs.Text = winBoxProject.winBoxConfig.ProgramArgs ?? "";
@@ -823,16 +822,6 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.OemKey = OemKey.Text;
-            winBoxProject.winBoxConfig.UseOemKey = OemKey.Text.Length > 0;
-            winBoxProject.SaveConfig();
-            UpdateGui();
-        }
-
-        private void UseOemKey_CheckedChanged(object sender, EventArgs e)
-        {
-            if (guiEventsLock) return;
-
-            winBoxProject.winBoxConfig.UseOemKey = UseOemKey.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
 
