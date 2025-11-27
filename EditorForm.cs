@@ -2632,5 +2632,10 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.customdism_commands = customdism_commands.Text;
             winBoxProject.SaveConfig();
         }
+
+        private void tabPage6_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

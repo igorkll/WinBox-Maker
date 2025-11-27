@@ -72,7 +72,6 @@
             AppClear = new Button();
             AppSelect = new Button();
             label3 = new Label();
-            label5 = new Label();
             OpenProjectFolder = new Button();
             label10 = new Label();
             postinstall_panel_system = new Panel();
@@ -147,6 +146,7 @@
             insteadDesktop = new RadioButton();
             tab_settings = new TabPage();
             tabControl2 = new TabControl();
+            tabPage36 = new TabPage();
             tabPage14 = new TabPage();
             tabControl4 = new TabControl();
             tabPage21 = new TabPage();
@@ -166,6 +166,9 @@
             logoBeforeApp_select = new Button();
             tabPage12 = new TabPage();
             tabControl5 = new TabControl();
+            tabPage37 = new TabPage();
+            enable_hibernation = new CheckBox();
+            dc_use = new CheckBox();
             tabPage24 = new TabPage();
             DiskTimeout = new TextBox();
             label42 = new Label();
@@ -194,8 +197,6 @@
             StandbyTimeout_dc = new TextBox();
             action_closingLaptop_dc = new ComboBox();
             HibernateTimeout_dc = new TextBox();
-            enable_hibernation = new CheckBox();
-            dc_use = new CheckBox();
             tabPage6 = new TabPage();
             richTextBox5 = new RichTextBox();
             CustomDisplaySettings_panel = new Panel();
@@ -244,10 +245,10 @@
             services_start_view = new RichTextBox();
             services_stop_view = new RichTextBox();
             tabPage35 = new TabPage();
+            label5 = new Label();
             services_startOnlyList = new CheckBox();
+            label86 = new Label();
             services_stopOnlyList = new CheckBox();
-            label81 = new Label();
-            label83 = new Label();
             services_stop = new RichTextBox();
             services_start = new RichTextBox();
             tabPage33 = new TabPage();
@@ -439,6 +440,7 @@
             panel12.SuspendLayout();
             tab_settings.SuspendLayout();
             tabControl2.SuspendLayout();
+            tabPage36.SuspendLayout();
             tabPage14.SuspendLayout();
             tabControl4.SuspendLayout();
             tabPage21.SuspendLayout();
@@ -449,6 +451,7 @@
             logoBeforeApp_panel.SuspendLayout();
             tabPage12.SuspendLayout();
             tabControl5.SuspendLayout();
+            tabPage37.SuspendLayout();
             tabPage24.SuspendLayout();
             dc_panel.SuspendLayout();
             tabPage6.SuspendLayout();
@@ -694,7 +697,7 @@
             panel1.Controls.Add(UseOemKey);
             panel1.Location = new Point(6, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(487, 209);
+            panel1.Size = new Size(487, 285);
             panel1.TabIndex = 26;
             // 
             // oemkey_slmgr
@@ -948,16 +951,6 @@
             label3.TabIndex = 28;
             label3.Text = "You application";
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(6, 3);
-            label5.Name = "label5";
-            label5.Size = new Size(116, 38);
-            label5.TabIndex = 30;
-            label5.Text = "Settings";
-            // 
             // OpenProjectFolder
             // 
             OpenProjectFolder.Location = new Point(381, 12);
@@ -1141,9 +1134,9 @@
             // 
             TweakList.BackColor = SystemColors.Control;
             TweakList.FormattingEnabled = true;
-            TweakList.Location = new Point(6, 44);
+            TweakList.Location = new Point(3, 3);
             TweakList.Name = "TweakList";
-            TweakList.Size = new Size(493, 284);
+            TweakList.Size = new Size(992, 284);
             TweakList.TabIndex = 2;
             TweakList.ItemCheck += TweakList_ItemCheck;
             // 
@@ -1741,8 +1734,6 @@
             // tab_settings
             // 
             tab_settings.Controls.Add(tabControl2);
-            tab_settings.Controls.Add(TweakList);
-            tab_settings.Controls.Add(label5);
             tab_settings.Location = new Point(4, 34);
             tab_settings.Name = "tab_settings";
             tab_settings.Padding = new Padding(3);
@@ -1753,6 +1744,7 @@
             // 
             // tabControl2
             // 
+            tabControl2.Controls.Add(tabPage36);
             tabControl2.Controls.Add(tabPage14);
             tabControl2.Controls.Add(tabPage12);
             tabControl2.Controls.Add(tabPage6);
@@ -1761,18 +1753,28 @@
             tabControl2.Controls.Add(tabPage17);
             tabControl2.Controls.Add(tabPage3);
             tabControl2.Controls.Add(tabPage4);
-            tabControl2.Location = new Point(505, 6);
+            tabControl2.Location = new Point(6, 6);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(507, 335);
+            tabControl2.Size = new Size(1006, 335);
             tabControl2.TabIndex = 37;
+            // 
+            // tabPage36
+            // 
+            tabPage36.Controls.Add(TweakList);
+            tabPage36.Location = new Point(4, 34);
+            tabPage36.Name = "tabPage36";
+            tabPage36.Size = new Size(998, 297);
+            tabPage36.TabIndex = 8;
+            tabPage36.Text = "patchs";
+            tabPage36.UseVisualStyleBackColor = true;
             // 
             // tabPage14
             // 
             tabPage14.Controls.Add(tabControl4);
             tabPage14.Location = new Point(4, 34);
             tabPage14.Name = "tabPage14";
-            tabPage14.Size = new Size(499, 297);
+            tabPage14.Size = new Size(998, 297);
             tabPage14.TabIndex = 2;
             tabPage14.Text = "boot";
             tabPage14.UseVisualStyleBackColor = true;
@@ -1785,7 +1787,7 @@
             tabControl4.Location = new Point(3, 4);
             tabControl4.Name = "tabControl4";
             tabControl4.SelectedIndex = 0;
-            tabControl4.Size = new Size(493, 284);
+            tabControl4.Size = new Size(992, 284);
             tabControl4.TabIndex = 17;
             // 
             // tabPage21
@@ -1794,7 +1796,7 @@
             tabPage21.Location = new Point(4, 34);
             tabPage21.Name = "tabPage21";
             tabPage21.Padding = new Padding(3);
-            tabPage21.Size = new Size(485, 246);
+            tabPage21.Size = new Size(984, 246);
             tabPage21.TabIndex = 0;
             tabPage21.Text = "boot logo";
             tabPage21.UseVisualStyleBackColor = true;
@@ -1830,7 +1832,7 @@
             tabPage22.Location = new Point(4, 34);
             tabPage22.Name = "tabPage22";
             tabPage22.Padding = new Padding(3);
-            tabPage22.Size = new Size(485, 246);
+            tabPage22.Size = new Size(984, 246);
             tabPage22.TabIndex = 1;
             tabPage22.Text = "action";
             tabPage22.UseVisualStyleBackColor = true;
@@ -1870,7 +1872,7 @@
             tabPage23.Controls.Add(logoBeforeApp_panel);
             tabPage23.Location = new Point(4, 34);
             tabPage23.Name = "tabPage23";
-            tabPage23.Size = new Size(485, 246);
+            tabPage23.Size = new Size(984, 246);
             tabPage23.TabIndex = 2;
             tabPage23.Text = "app logo";
             tabPage23.UseVisualStyleBackColor = true;
@@ -1950,25 +1952,58 @@
             // tabPage12
             // 
             tabPage12.Controls.Add(tabControl5);
-            tabPage12.Controls.Add(enable_hibernation);
-            tabPage12.Controls.Add(dc_use);
             tabPage12.Location = new Point(4, 34);
             tabPage12.Name = "tabPage12";
             tabPage12.Padding = new Padding(3);
-            tabPage12.Size = new Size(499, 297);
+            tabPage12.Size = new Size(998, 297);
             tabPage12.TabIndex = 0;
             tabPage12.Text = "power";
             tabPage12.UseVisualStyleBackColor = true;
             // 
             // tabControl5
             // 
+            tabControl5.Controls.Add(tabPage37);
             tabControl5.Controls.Add(tabPage24);
             tabControl5.Controls.Add(dc_panel);
             tabControl5.Location = new Point(6, 6);
             tabControl5.Name = "tabControl5";
             tabControl5.SelectedIndex = 0;
-            tabControl5.Size = new Size(487, 253);
+            tabControl5.Size = new Size(986, 285);
             tabControl5.TabIndex = 12;
+            // 
+            // tabPage37
+            // 
+            tabPage37.Controls.Add(enable_hibernation);
+            tabPage37.Controls.Add(dc_use);
+            tabPage37.Location = new Point(4, 34);
+            tabPage37.Name = "tabPage37";
+            tabPage37.Size = new Size(978, 247);
+            tabPage37.TabIndex = 2;
+            tabPage37.Text = "base";
+            tabPage37.UseVisualStyleBackColor = true;
+            // 
+            // enable_hibernation
+            // 
+            enable_hibernation.AutoSize = true;
+            enable_hibernation.Location = new Point(3, 7);
+            enable_hibernation.Name = "enable_hibernation";
+            enable_hibernation.Size = new Size(185, 29);
+            enable_hibernation.TabIndex = 11;
+            enable_hibernation.Text = "enable hibernation";
+            enable_hibernation.UseVisualStyleBackColor = true;
+            enable_hibernation.CheckedChanged += enable_hibernation_CheckedChanged;
+            // 
+            // dc_use
+            // 
+            dc_use.AutoSize = true;
+            dc_use.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dc_use.Location = new Point(3, 42);
+            dc_use.Name = "dc_use";
+            dc_use.Size = new Size(291, 29);
+            dc_use.TabIndex = 10;
+            dc_use.Text = "separate settings for the battery";
+            dc_use.UseVisualStyleBackColor = true;
+            dc_use.CheckedChanged += dc_use_CheckedChanged;
             // 
             // tabPage24
             // 
@@ -1991,7 +2026,7 @@
             tabPage24.Location = new Point(4, 34);
             tabPage24.Name = "tabPage24";
             tabPage24.Padding = new Padding(3);
-            tabPage24.Size = new Size(479, 215);
+            tabPage24.Size = new Size(978, 247);
             tabPage24.TabIndex = 0;
             tabPage24.Text = "AC (charging)";
             tabPage24.UseVisualStyleBackColor = true;
@@ -2129,7 +2164,7 @@
             dc_panel.Location = new Point(4, 34);
             dc_panel.Name = "dc_panel";
             dc_panel.Padding = new Padding(3);
-            dc_panel.Size = new Size(479, 215);
+            dc_panel.Size = new Size(978, 247);
             dc_panel.TabIndex = 1;
             dc_panel.Text = "DC (battery)";
             dc_panel.UseVisualStyleBackColor = true;
@@ -2264,29 +2299,6 @@
             HibernateTimeout_dc.TabIndex = 4;
             HibernateTimeout_dc.TextChanged += HibernateTimeout_dc_TextChanged;
             // 
-            // enable_hibernation
-            // 
-            enable_hibernation.AutoSize = true;
-            enable_hibernation.Location = new Point(6, 265);
-            enable_hibernation.Name = "enable_hibernation";
-            enable_hibernation.Size = new Size(185, 29);
-            enable_hibernation.TabIndex = 11;
-            enable_hibernation.Text = "enable hibernation";
-            enable_hibernation.UseVisualStyleBackColor = true;
-            enable_hibernation.CheckedChanged += enable_hibernation_CheckedChanged;
-            // 
-            // dc_use
-            // 
-            dc_use.AutoSize = true;
-            dc_use.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dc_use.Location = new Point(195, 265);
-            dc_use.Name = "dc_use";
-            dc_use.Size = new Size(291, 29);
-            dc_use.TabIndex = 10;
-            dc_use.Text = "separate settings for the battery";
-            dc_use.UseVisualStyleBackColor = true;
-            dc_use.CheckedChanged += dc_use_CheckedChanged;
-            // 
             // tabPage6
             // 
             tabPage6.Controls.Add(richTextBox5);
@@ -2294,18 +2306,19 @@
             tabPage6.Controls.Add(UseCustomDisplaySettings);
             tabPage6.Location = new Point(4, 34);
             tabPage6.Name = "tabPage6";
-            tabPage6.Size = new Size(499, 297);
+            tabPage6.Size = new Size(998, 297);
             tabPage6.TabIndex = 3;
             tabPage6.Text = "display";
             tabPage6.UseVisualStyleBackColor = true;
+            tabPage6.Click += tabPage6_Click;
             // 
             // richTextBox5
             // 
             richTextBox5.BackColor = SystemColors.Info;
-            richTextBox5.Location = new Point(3, 168);
+            richTextBox5.Location = new Point(502, 3);
             richTextBox5.Name = "richTextBox5";
             richTextBox5.ReadOnly = true;
-            richTextBox5.Size = new Size(493, 126);
+            richTextBox5.Size = new Size(493, 291);
             richTextBox5.TabIndex = 2;
             richTextBox5.Text = resources.GetString("richTextBox5.Text");
             // 
@@ -2328,7 +2341,7 @@
             CustomDisplaySettings_panel.Controls.Add(cds_width);
             CustomDisplaySettings_panel.Location = new Point(3, 38);
             CustomDisplaySettings_panel.Name = "CustomDisplaySettings_panel";
-            CustomDisplaySettings_panel.Size = new Size(493, 124);
+            CustomDisplaySettings_panel.Size = new Size(493, 256);
             CustomDisplaySettings_panel.TabIndex = 1;
             // 
             // cds_refreshRate_use
@@ -2478,7 +2491,7 @@
             tabPage15.Controls.Add(UseCustomDisplaySettings_scale);
             tabPage15.Location = new Point(4, 34);
             tabPage15.Name = "tabPage15";
-            tabPage15.Size = new Size(499, 297);
+            tabPage15.Size = new Size(998, 297);
             tabPage15.TabIndex = 4;
             tabPage15.Text = "scale";
             tabPage15.UseVisualStyleBackColor = true;
@@ -2486,10 +2499,10 @@
             // richTextBox6
             // 
             richTextBox6.BackColor = SystemColors.Info;
-            richTextBox6.Location = new Point(3, 168);
+            richTextBox6.Location = new Point(502, 3);
             richTextBox6.Name = "richTextBox6";
             richTextBox6.ReadOnly = true;
-            richTextBox6.Size = new Size(493, 126);
+            richTextBox6.Size = new Size(493, 291);
             richTextBox6.TabIndex = 3;
             richTextBox6.Text = "the settings may not be applied at the first boot. for this reason, you can use the \"first boot action\" function on the \"boot\" tab";
             // 
@@ -2500,7 +2513,7 @@
             UseCustomDisplaySettings_scale_panel.Controls.Add(cds_scaling);
             UseCustomDisplaySettings_scale_panel.Location = new Point(3, 38);
             UseCustomDisplaySettings_scale_panel.Name = "UseCustomDisplaySettings_scale_panel";
-            UseCustomDisplaySettings_scale_panel.Size = new Size(493, 124);
+            UseCustomDisplaySettings_scale_panel.Size = new Size(493, 256);
             UseCustomDisplaySettings_scale_panel.TabIndex = 44;
             // 
             // label50
@@ -2538,7 +2551,7 @@
             tabPage13.Location = new Point(4, 34);
             tabPage13.Name = "tabPage13";
             tabPage13.Padding = new Padding(3);
-            tabPage13.Size = new Size(499, 297);
+            tabPage13.Size = new Size(998, 297);
             tabPage13.TabIndex = 1;
             tabPage13.Text = "activation";
             tabPage13.UseVisualStyleBackColor = true;
@@ -2546,10 +2559,10 @@
             // richTextBox4
             // 
             richTextBox4.BackColor = SystemColors.Info;
-            richTextBox4.Location = new Point(6, 221);
+            richTextBox4.Location = new Point(499, 5);
             richTextBox4.Name = "richTextBox4";
             richTextBox4.ReadOnly = true;
-            richTextBox4.Size = new Size(487, 70);
+            richTextBox4.Size = new Size(496, 286);
             richTextBox4.TabIndex = 27;
             richTextBox4.Text = resources.GetString("richTextBox4.Text");
             // 
@@ -2558,7 +2571,7 @@
             tabPage17.Controls.Add(panel17);
             tabPage17.Location = new Point(4, 34);
             tabPage17.Name = "tabPage17";
-            tabPage17.Size = new Size(499, 297);
+            tabPage17.Size = new Size(998, 297);
             tabPage17.TabIndex = 5;
             tabPage17.Text = "misc";
             tabPage17.UseVisualStyleBackColor = true;
@@ -2613,7 +2626,7 @@
             tabPage3.Controls.Add(DynamicDaylightTimeDisabled);
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(499, 297);
+            tabPage3.Size = new Size(998, 297);
             tabPage3.TabIndex = 6;
             tabPage3.Text = "time";
             tabPage3.UseVisualStyleBackColor = true;
@@ -2621,10 +2634,10 @@
             // richTextBox18
             // 
             richTextBox18.BackColor = SystemColors.Info;
-            richTextBox18.Location = new Point(3, 148);
+            richTextBox18.Location = new Point(503, 4);
             richTextBox18.Name = "richTextBox18";
             richTextBox18.ReadOnly = true;
-            richTextBox18.Size = new Size(493, 146);
+            richTextBox18.Size = new Size(492, 290);
             richTextBox18.TabIndex = 46;
             richTextBox18.Text = resources.GetString("richTextBox18.Text");
             // 
@@ -2685,7 +2698,7 @@
             tabPage4.Controls.Add(tabControl1);
             tabPage4.Location = new Point(4, 34);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(499, 297);
+            tabPage4.Size = new Size(998, 297);
             tabPage4.TabIndex = 7;
             tabPage4.Text = "advanced";
             tabPage4.UseVisualStyleBackColor = true;
@@ -2697,7 +2710,7 @@
             tabControl1.Location = new Point(3, 4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(493, 290);
+            tabControl1.Size = new Size(992, 290);
             tabControl1.TabIndex = 0;
             // 
             // tabPage32
@@ -2706,7 +2719,7 @@
             tabPage32.Location = new Point(4, 34);
             tabPage32.Name = "tabPage32";
             tabPage32.Padding = new Padding(3);
-            tabPage32.Size = new Size(485, 252);
+            tabPage32.Size = new Size(984, 252);
             tabPage32.TabIndex = 0;
             tabPage32.Text = "services";
             tabPage32.UseVisualStyleBackColor = true;
@@ -2718,7 +2731,7 @@
             tabControl7.Location = new Point(6, 6);
             tabControl7.Name = "tabControl7";
             tabControl7.SelectedIndex = 0;
-            tabControl7.Size = new Size(473, 240);
+            tabControl7.Size = new Size(972, 240);
             tabControl7.TabIndex = 0;
             // 
             // tabPage34
@@ -2730,7 +2743,7 @@
             tabPage34.Location = new Point(4, 34);
             tabPage34.Name = "tabPage34";
             tabPage34.Padding = new Padding(3);
-            tabPage34.Size = new Size(465, 202);
+            tabPage34.Size = new Size(964, 202);
             tabPage34.TabIndex = 0;
             tabPage34.Text = "current";
             tabPage34.UseVisualStyleBackColor = true;
@@ -2739,7 +2752,7 @@
             // 
             label80.AutoSize = true;
             label80.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label80.Location = new Point(232, 4);
+            label80.Location = new Point(498, 4);
             label80.Name = "label80";
             label80.Size = new Size(60, 32);
             label80.TabIndex = 41;
@@ -2757,10 +2770,10 @@
             // 
             // services_start_view
             // 
-            services_start_view.Location = new Point(232, 39);
+            services_start_view.Location = new Point(498, 39);
             services_start_view.Name = "services_start_view";
             services_start_view.ReadOnly = true;
-            services_start_view.Size = new Size(227, 157);
+            services_start_view.Size = new Size(460, 157);
             services_start_view.TabIndex = 39;
             services_start_view.Text = "";
             // 
@@ -2769,30 +2782,40 @@
             services_stop_view.Location = new Point(6, 39);
             services_stop_view.Name = "services_stop_view";
             services_stop_view.ReadOnly = true;
-            services_stop_view.Size = new Size(220, 157);
+            services_stop_view.Size = new Size(486, 157);
             services_stop_view.TabIndex = 38;
             services_stop_view.Text = "";
             // 
             // tabPage35
             // 
+            tabPage35.Controls.Add(label5);
             tabPage35.Controls.Add(services_startOnlyList);
+            tabPage35.Controls.Add(label86);
             tabPage35.Controls.Add(services_stopOnlyList);
-            tabPage35.Controls.Add(label81);
-            tabPage35.Controls.Add(label83);
             tabPage35.Controls.Add(services_stop);
             tabPage35.Controls.Add(services_start);
             tabPage35.Location = new Point(4, 34);
             tabPage35.Name = "tabPage35";
             tabPage35.Padding = new Padding(3);
-            tabPage35.Size = new Size(465, 202);
+            tabPage35.Size = new Size(964, 202);
             tabPage35.TabIndex = 1;
             tabPage35.Text = "customize";
             tabPage35.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(498, 7);
+            label5.Name = "label5";
+            label5.Size = new Size(60, 32);
+            label5.TabIndex = 45;
+            label5.Text = "start";
+            // 
             // services_startOnlyList
             // 
             services_startOnlyList.AutoSize = true;
-            services_startOnlyList.Location = new Point(298, 7);
+            services_startOnlyList.Location = new Point(564, 10);
             services_startOnlyList.Name = "services_startOnlyList";
             services_startOnlyList.Size = new Size(139, 29);
             services_startOnlyList.TabIndex = 47;
@@ -2800,10 +2823,20 @@
             services_startOnlyList.UseVisualStyleBackColor = true;
             services_startOnlyList.CheckedChanged += services_startOnlyList_CheckedChanged;
             // 
+            // label86
+            // 
+            label86.AutoSize = true;
+            label86.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label86.Location = new Point(6, 7);
+            label86.Name = "label86";
+            label86.Size = new Size(60, 32);
+            label86.TabIndex = 44;
+            label86.Text = "stop";
+            // 
             // services_stopOnlyList
             // 
             services_stopOnlyList.AutoSize = true;
-            services_stopOnlyList.Location = new Point(72, 7);
+            services_stopOnlyList.Location = new Point(72, 10);
             services_stopOnlyList.Name = "services_stopOnlyList";
             services_stopOnlyList.Size = new Size(140, 29);
             services_stopOnlyList.TabIndex = 46;
@@ -2811,40 +2844,20 @@
             services_stopOnlyList.UseVisualStyleBackColor = true;
             services_stopOnlyList.CheckedChanged += services_stopOnlyList_CheckedChanged;
             // 
-            // label81
-            // 
-            label81.AutoSize = true;
-            label81.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label81.Location = new Point(232, 4);
-            label81.Name = "label81";
-            label81.Size = new Size(60, 32);
-            label81.TabIndex = 45;
-            label81.Text = "start";
-            // 
-            // label83
-            // 
-            label83.AutoSize = true;
-            label83.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label83.Location = new Point(6, 4);
-            label83.Name = "label83";
-            label83.Size = new Size(60, 32);
-            label83.TabIndex = 44;
-            label83.Text = "stop";
-            // 
             // services_stop
             // 
-            services_stop.Location = new Point(6, 39);
+            services_stop.Location = new Point(6, 42);
             services_stop.Name = "services_stop";
-            services_stop.Size = new Size(220, 157);
+            services_stop.Size = new Size(486, 157);
             services_stop.TabIndex = 42;
             services_stop.Text = "";
             services_stop.TextChanged += services_stop_TextChanged;
             // 
             // services_start
             // 
-            services_start.Location = new Point(232, 39);
+            services_start.Location = new Point(498, 42);
             services_start.Name = "services_start";
-            services_start.Size = new Size(227, 157);
+            services_start.Size = new Size(460, 157);
             services_start.TabIndex = 43;
             services_start.Text = "";
             services_start.TextChanged += services_start_TextChanged;
@@ -2858,7 +2871,7 @@
             tabPage33.Location = new Point(4, 34);
             tabPage33.Name = "tabPage33";
             tabPage33.Padding = new Padding(3);
-            tabPage33.Size = new Size(485, 252);
+            tabPage33.Size = new Size(984, 252);
             tabPage33.TabIndex = 1;
             tabPage33.Text = "dism";
             tabPage33.UseVisualStyleBackColor = true;
@@ -2866,10 +2879,10 @@
             // richTextBox20
             // 
             richTextBox20.BackColor = SystemColors.Info;
-            richTextBox20.Location = new Point(6, 165);
+            richTextBox20.Location = new Point(485, 6);
             richTextBox20.Name = "richTextBox20";
             richTextBox20.ReadOnly = true;
-            richTextBox20.Size = new Size(473, 81);
+            richTextBox20.Size = new Size(493, 240);
             richTextBox20.TabIndex = 6;
             richTextBox20.Text = resources.GetString("richTextBox20.Text");
             // 
@@ -2899,7 +2912,7 @@
             // 
             customdism_commands.Location = new Point(5, 44);
             customdism_commands.Name = "customdism_commands";
-            customdism_commands.Size = new Size(474, 115);
+            customdism_commands.Size = new Size(474, 202);
             customdism_commands.TabIndex = 4;
             customdism_commands.Text = "";
             customdism_commands.TextChanged += customdism_commands_TextChanged;
@@ -4648,8 +4661,8 @@
             panel12.ResumeLayout(false);
             panel12.PerformLayout();
             tab_settings.ResumeLayout(false);
-            tab_settings.PerformLayout();
             tabControl2.ResumeLayout(false);
+            tabPage36.ResumeLayout(false);
             tabPage14.ResumeLayout(false);
             tabControl4.ResumeLayout(false);
             tabPage21.ResumeLayout(false);
@@ -4662,8 +4675,9 @@
             logoBeforeApp_panel.ResumeLayout(false);
             logoBeforeApp_panel.PerformLayout();
             tabPage12.ResumeLayout(false);
-            tabPage12.PerformLayout();
             tabControl5.ResumeLayout(false);
+            tabPage37.ResumeLayout(false);
+            tabPage37.PerformLayout();
             tabPage24.ResumeLayout(false);
             tabPage24.PerformLayout();
             dc_panel.ResumeLayout(false);
@@ -4780,7 +4794,6 @@
         private Button AppSelect;
         private Label label4;
         private TextBox ProgramArgs;
-        private Label label5;
         private VScrollBar vScrollBar1;
         private RadioButton ProgramType_RawCommand;
         private TextBox RawCommand;
@@ -5135,10 +5148,6 @@
         private RichTextBox services_start_view;
         private RichTextBox services_stop_view;
         private Label label80;
-        private Label label81;
-        private Label label83;
-        private RichTextBox services_stop;
-        private RichTextBox services_start;
         private CheckBox services_startOnlyList;
         private CheckBox services_stopOnlyList;
         private CheckBox RealTimeIsUniversal;
@@ -5149,5 +5158,11 @@
         private Label label85;
         private RichTextBox customdism_commands;
         private RichTextBox richTextBox20;
+        private TabPage tabPage36;
+        private TabPage tabPage37;
+        private Label label5;
+        private Label label86;
+        private RichTextBox services_stop;
+        private RichTextBox services_start;
     }
 }
