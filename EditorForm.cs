@@ -2645,5 +2645,23 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.powerScheme = (PowerScheme)comboBox1.SelectedIndex;
             winBoxProject.SaveConfig();
         }
+
+        private void aaf_readme_recovery_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.aaf_readme_recovery = aaf_readme_recovery.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void aaf_info_recovery_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.aaf_info_recovery = aaf_info_recovery.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
     }
 }

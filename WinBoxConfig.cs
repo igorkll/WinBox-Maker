@@ -174,9 +174,11 @@ namespace WinBox_Maker
         public bool? aaf_readme_iso { get; set; }
         public bool? aaf_readme_system { get; set; }
         public bool? aaf_readme_boot { get; set; }
+        public bool? aaf_readme_recovery { get; set; }
         public bool? aaf_info_iso { get; set; }
         public bool? aaf_info_system { get; set; }
         public bool? aaf_info_boot { get; set; }
+        public bool? aaf_info_recovery { get; set; }
         public bool? oemkey_installer { get; set; }
         public bool? oemkey_dism { get; set; }
         public bool? oemkey_slmgr { get; set; }
@@ -305,9 +307,11 @@ namespace WinBox_Maker
             if (aaf_readme_iso == null) aaf_readme_iso = true;
             if (aaf_readme_system == null) aaf_readme_system = true;
             if (aaf_readme_boot == null) aaf_readme_boot = true;
+            if (aaf_readme_recovery == null) aaf_readme_recovery = true;
             if (aaf_info_iso == null) aaf_info_iso = true;
             if (aaf_info_system == null) aaf_info_system = true;
             if (aaf_info_boot == null) aaf_info_boot = true;
+            if (aaf_info_recovery == null) aaf_info_recovery = true;
 
             if (oemkey_installer == null) oemkey_installer = true;
             if (oemkey_dism == null) oemkey_dism = true;

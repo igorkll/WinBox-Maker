@@ -424,6 +424,8 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            aaf_info_recovery = new CheckBox();
+            aaf_readme_recovery = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1295,6 +1297,8 @@
             // panel3
             // 
             panel3.BorderStyle = BorderStyle.Fixed3D;
+            panel3.Controls.Add(aaf_readme_recovery);
+            panel3.Controls.Add(aaf_info_recovery);
             panel3.Controls.Add(aaf_info_boot);
             panel3.Controls.Add(aaf_info_system);
             panel3.Controls.Add(aaf_info_iso);
@@ -3939,7 +3943,7 @@
             tabPage11.Padding = new Padding(3);
             tabPage11.Size = new Size(1018, 347);
             tabPage11.TabIndex = 10;
-            tabPage11.Text = "downloading";
+            tabPage11.Text = "download";
             tabPage11.UseVisualStyleBackColor = true;
             // 
             // downloadEnabled
@@ -4660,6 +4664,28 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // aaf_info_recovery
+            // 
+            aaf_info_recovery.AutoSize = true;
+            aaf_info_recovery.Location = new Point(174, 164);
+            aaf_info_recovery.Name = "aaf_info_recovery";
+            aaf_info_recovery.Size = new Size(144, 29);
+            aaf_info_recovery.TabIndex = 8;
+            aaf_info_recovery.Text = "recovery root";
+            aaf_info_recovery.UseVisualStyleBackColor = true;
+            aaf_info_recovery.CheckedChanged += aaf_info_recovery_CheckedChanged;
+            // 
+            // aaf_readme_recovery
+            // 
+            aaf_readme_recovery.AutoSize = true;
+            aaf_readme_recovery.Location = new Point(174, 34);
+            aaf_readme_recovery.Name = "aaf_readme_recovery";
+            aaf_readme_recovery.Size = new Size(144, 29);
+            aaf_readme_recovery.TabIndex = 9;
+            aaf_readme_recovery.Text = "recovery root";
+            aaf_readme_recovery.UseVisualStyleBackColor = true;
+            aaf_readme_recovery.CheckedChanged += aaf_readme_recovery_CheckedChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -5198,7 +5224,7 @@
         private Label label82;
         private TabPage tabPage3;
         private CheckBox DynamicDaylightTimeDisabled;
-        private CheckBox checkBox1;
+        private CheckBox aaf_info_recovery;
         private CheckBox DisableNtp;
         private TabPage tabPage4;
         private TabControl tabControl1;
@@ -5237,5 +5263,6 @@
         private CheckBox enable_hiberboot;
         private ComboBox comboBox1;
         private Label label77;
+        private CheckBox aaf_readme_recovery;
     }
 }

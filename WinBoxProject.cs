@@ -2854,11 +2854,11 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             await CompleteExport(processName, processValue, exportPath);
         }
 
-        public async Task BuildImgAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool useUefi=false)
+        public async Task<bool> BuildImgAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool useUefi=false, bool showComplete=true)
         {
             string tempIsoPath = Path.Combine(tempDirectoryPath, "temp.iso");
+            bool successfully = true;
 
-            bool showComplete = true;
             if (await BuildIsoAsync(processName, processValue, tempIsoPath, newWindowsDescription, false, true))
             {
                 processName("Launching a virtual machine");
@@ -2868,6 +2868,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             else
             {
                 showComplete = false;
+                successfully = false;
             }
 
             processName("Deleting temp temp.iso");
@@ -2875,6 +2876,43 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             await Task.Run(() =>
             {
                 File.Delete(tempIsoPath);
+            });
+
+            if (showComplete)
+            {
+                await CompleteExport(processName, processValue, exportPath);
+            }
+
+            return successfully && File.Exists(exportPath);
+        }
+
+        async Task CaptureFfu(string imgPath, string ffuOutput)
+        {
+            string args = @$"/Capture-Ffu /CaptureDrive:""{imgPath}"" /ImageFile:""{ffuOutput}"" /Name:""{winBoxConfig.WinboxName}"" /Description:""{winBoxConfig.WinboxDescription}""";
+            await Program.ExecuteAsync("dism.exe", args, null, debugFolder);
+        }
+
+        public async Task BuildFfuAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool useUefi = false)
+        {
+            string tempImgPath = Path.Combine(tempDirectoryPath, "temp.img");
+
+            bool showComplete = false;
+            if (await BuildImgAsync(processName, processValue, tempImgPath, newWindowsDescription, useUefi, false))
+            {
+                processName("Launching a virtual machine");
+                processValue(95);
+                await CaptureFfu(tempImgPath, exportPath);
+            }
+            else
+            {
+                showComplete = false;
+            }
+
+            processName("Deleting temp temp.img");
+            processValue(97);
+            await Task.Run(() =>
+            {
+                File.Delete(tempImgPath);
             });
 
             if (showComplete)

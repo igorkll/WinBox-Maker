@@ -3507,6 +3507,8 @@
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
 the same name and description will become the new name and description of the windows image in the wim file (not working yet)
+the same name and description will be used when exporting FFU.
+
 </value>
   </data>
   <data name="richTextBox10.Text" xml:space="preserve">
