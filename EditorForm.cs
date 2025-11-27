@@ -626,9 +626,13 @@ namespace WinBox_Maker
             aaf_readme_iso.CheckState = winBoxProject.winBoxConfig.aaf_readme_iso == true ? CheckState.Checked : CheckState.Unchecked;
             aaf_readme_system.CheckState = winBoxProject.winBoxConfig.aaf_readme_system == true ? CheckState.Checked : CheckState.Unchecked;
             aaf_readme_boot.CheckState = winBoxProject.winBoxConfig.aaf_readme_boot == true ? CheckState.Checked : CheckState.Unchecked;
+            aaf_info_recovery.CheckState = winBoxProject.winBoxConfig.aaf_info_boot == true ? CheckState.Checked : CheckState.Unchecked;
             aaf_info_iso.CheckState = winBoxProject.winBoxConfig.aaf_info_iso == true ? CheckState.Checked : CheckState.Unchecked;
             aaf_info_system.CheckState = winBoxProject.winBoxConfig.aaf_info_system == true ? CheckState.Checked : CheckState.Unchecked;
             aaf_info_boot.CheckState = winBoxProject.winBoxConfig.aaf_info_boot == true ? CheckState.Checked : CheckState.Unchecked;
+            aaf_info_recovery.CheckState = winBoxProject.winBoxConfig.aaf_info_boot == true ? CheckState.Checked : CheckState.Unchecked;
+
+            recoverymod_manual_allow.CheckState = winBoxProject.winBoxConfig.recoverymod_manual_allow == true ? CheckState.Checked : CheckState.Unchecked;
 
             oemkey_installer.CheckState = winBoxProject.winBoxConfig.oemkey_installer == true ? CheckState.Checked : CheckState.Unchecked;
             oemkey_dism.CheckState = winBoxProject.winBoxConfig.oemkey_dism == true ? CheckState.Checked : CheckState.Unchecked;
@@ -2411,7 +2415,6 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.aaf_readme_iso = aaf_readme_iso.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
-            UpdateGui();
         }
 
         private void aaf_readme_system_CheckedChanged(object sender, EventArgs e)
@@ -2420,7 +2423,6 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.aaf_readme_system = aaf_readme_system.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
-            UpdateGui();
         }
 
         private void aaf_readme_boot_CheckedChanged(object sender, EventArgs e)
@@ -2429,7 +2431,6 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.aaf_readme_boot = aaf_readme_boot.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
-            UpdateGui();
         }
 
         private void aaf_info_iso_CheckedChanged(object sender, EventArgs e)
@@ -2438,7 +2439,6 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.aaf_info_iso = aaf_info_iso.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
-            UpdateGui();
         }
 
         private void aaf_info_system_CheckedChanged(object sender, EventArgs e)
@@ -2447,7 +2447,6 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.aaf_info_system = aaf_info_system.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
-            UpdateGui();
         }
 
         private void aaf_info_boot_CheckedChanged(object sender, EventArgs e)
@@ -2456,7 +2455,6 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.aaf_info_boot = aaf_info_boot.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
-            UpdateGui();
         }
 
         private async void onbuild_reg_sel_Click(object sender, EventArgs e)
@@ -2652,7 +2650,6 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.aaf_readme_recovery = aaf_readme_recovery.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
-            UpdateGui();
         }
 
         private void aaf_info_recovery_CheckedChanged(object sender, EventArgs e)
@@ -2661,7 +2658,14 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.aaf_info_recovery = aaf_info_recovery.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
-            UpdateGui();
+        }
+
+        private void recoverymod_manual_allow_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.recoverymod_manual_allow = recoverymod_manual_allow.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
         }
     }
 }

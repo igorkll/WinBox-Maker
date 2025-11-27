@@ -193,6 +193,7 @@ namespace WinBox_Maker
         public bool? customdism_enabled { get; set; }
         public string? customdism_commands { get; set; }
         public PowerScheme? powerScheme { get; set; }
+        public bool? recoverymod_manual_allow { get; set; }
 
 
         public WinBoxConfig() {
@@ -328,6 +329,8 @@ namespace WinBox_Maker
 
             if (TimeZoneKeyName == null) TimeZoneKeyName = "UTC";
             if (powerScheme == null) powerScheme = PowerScheme.Balanced;
+
+            if (recoverymod_manual_allow == null) recoverymod_manual_allow = true;
         }
 
         public void Save(string wnbFilePath)

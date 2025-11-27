@@ -427,6 +427,10 @@
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
             tabPage8 = new TabPage();
+            comboBox2 = new ComboBox();
+            label81 = new Label();
+            recoverymod_manual_allow = new CheckBox();
+            richTextBox19 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -516,6 +520,7 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage8.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -4690,12 +4695,56 @@
             // 
             // tabPage8
             // 
+            tabPage8.Controls.Add(richTextBox19);
+            tabPage8.Controls.Add(recoverymod_manual_allow);
+            tabPage8.Controls.Add(label81);
+            tabPage8.Controls.Add(comboBox2);
             tabPage8.Location = new Point(4, 34);
             tabPage8.Name = "tabPage8";
             tabPage8.Size = new Size(1004, 303);
             tabPage8.TabIndex = 3;
             tabPage8.Text = "recovery";
             tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // comboBox2
+            // 
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "Delete", "Do not touch (stay default)" });
+            comboBox2.Location = new Point(3, 3);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(318, 33);
+            comboBox2.TabIndex = 44;
+            // 
+            // label81
+            // 
+            label81.AutoSize = true;
+            label81.Location = new Point(327, 6);
+            label81.Name = "label81";
+            label81.Size = new Size(158, 25);
+            label81.TabIndex = 45;
+            label81.Text = "action on recovery";
+            // 
+            // recoverymod_manual_allow
+            // 
+            recoverymod_manual_allow.AutoSize = true;
+            recoverymod_manual_allow.Location = new Point(3, 271);
+            recoverymod_manual_allow.Name = "recoverymod_manual_allow";
+            recoverymod_manual_allow.Size = new Size(262, 29);
+            recoverymod_manual_allow.TabIndex = 46;
+            recoverymod_manual_allow.Text = "allow in manual setup mode";
+            recoverymod_manual_allow.UseVisualStyleBackColor = true;
+            recoverymod_manual_allow.CheckedChanged += recoverymod_manual_allow_CheckedChanged;
+            // 
+            // richTextBox19
+            // 
+            richTextBox19.BackColor = SystemColors.Info;
+            richTextBox19.Location = new Point(491, 6);
+            richTextBox19.Name = "richTextBox19";
+            richTextBox19.ReadOnly = true;
+            richTextBox19.Size = new Size(507, 291);
+            richTextBox19.TabIndex = 7;
+            richTextBox19.Text = "here you can change the behavior of the system recovery menu.";
             // 
             // EditorForm
             // 
@@ -4868,6 +4917,8 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage8.ResumeLayout(false);
+            tabPage8.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5276,5 +5327,9 @@
         private Label label77;
         private CheckBox aaf_readme_recovery;
         private TabPage tabPage8;
+        private Label label81;
+        private ComboBox comboBox2;
+        private CheckBox recoverymod_manual_allow;
+        private RichTextBox richTextBox19;
     }
 }

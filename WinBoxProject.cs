@@ -1344,10 +1344,18 @@ powercfg -s {powerScheme}";
             processValue(30);
             await mountDism(newWimPath);
 
+            // ------------------------------------ modification of the recovery menu
+            if (!manual || winBoxConfig.recoverymod_manual_allow == true)
+            {
+                processName("Modification of the recovery menu");
+                processValue(35);
+                
+            }
+
             // ------------------------------------ tweaks
 
             if (!manual) {
-                processName("modification of BCD");
+                processName("Modification of BCD");
                 processValue(45);
                 await modifyBCD(0, Path.Combine(wimMountPath, "Windows\\System32\\Config\\BCD-Template"));
             }
