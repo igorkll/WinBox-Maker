@@ -120,6 +120,7 @@ namespace WinBox_Maker
         public bool? forceIot { get; set; }
         public bool? dc_use { get; set; }
         public bool? enable_hibernation { get; set; }
+        public bool? enable_hiberboot { get; set; }
         public bool? UseCustomDisplaySettings { get; set; }
         public bool? UseCustomDisplaySettings_scale { get; set; }
         public int? cds_width { get; set; }
@@ -235,6 +236,7 @@ namespace WinBox_Maker
             if (forceIot == null) forceIot = false;
             if (dc_use == null) dc_use = false;
             if (enable_hibernation == null) enable_hibernation = false;
+            if (enable_hiberboot == null) enable_hiberboot = false;
             if (UseCustomDisplaySettings == null) UseCustomDisplaySettings = false;
             if (UseCustomDisplaySettings_scale == null) UseCustomDisplaySettings_scale = false;
             if (cds_width == null) cds_width = 800;

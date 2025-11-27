@@ -166,6 +166,7 @@
             tabPage12 = new TabPage();
             tabControl5 = new TabControl();
             tabPage37 = new TabPage();
+            enable_hiberboot = new CheckBox();
             enable_hibernation = new CheckBox();
             dc_use = new CheckBox();
             tabPage24 = new TabPage();
@@ -252,6 +253,20 @@
             services_start = new RichTextBox();
             tabPage38 = new TabPage();
             tabControl8 = new TabControl();
+            tabPage33 = new TabPage();
+            tabControl9 = new TabControl();
+            tabPage41 = new TabPage();
+            prebuildEnabled = new CheckBox();
+            prebuildEvent = new RichTextBox();
+            label22 = new Label();
+            tabPage42 = new TabPage();
+            postbuildEnabled = new CheckBox();
+            label23 = new Label();
+            postbuildEvent = new RichTextBox();
+            tabPage43 = new TabPage();
+            winmountedEnabled = new CheckBox();
+            label24 = new Label();
+            winmountedEvent = new RichTextBox();
             tabPage39 = new TabPage();
             richTextBox17 = new RichTextBox();
             panel5 = new Panel();
@@ -285,15 +300,6 @@
             VirtualDisplayHeight = new TextBox();
             VirtualDisplayWidth = new TextBox();
             AddVirtualDisplay = new CheckBox();
-            winmountedEnabled = new CheckBox();
-            winmountedEvent = new RichTextBox();
-            label24 = new Label();
-            postbuildEnabled = new CheckBox();
-            postbuildEvent = new RichTextBox();
-            label23 = new Label();
-            prebuildEnabled = new CheckBox();
-            prebuildEvent = new RichTextBox();
-            label22 = new Label();
             tabPage9 = new TabPage();
             panel11 = new Panel();
             label25 = new Label();
@@ -416,11 +422,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            tabPage33 = new TabPage();
-            tabControl9 = new TabControl();
-            tabPage41 = new TabPage();
-            tabPage42 = new TabPage();
-            tabPage43 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -472,6 +473,11 @@
             tabPage35.SuspendLayout();
             tabPage38.SuspendLayout();
             tabControl8.SuspendLayout();
+            tabPage33.SuspendLayout();
+            tabControl9.SuspendLayout();
+            tabPage41.SuspendLayout();
+            tabPage42.SuspendLayout();
+            tabPage43.SuspendLayout();
             tabPage39.SuspendLayout();
             panel5.SuspendLayout();
             tabPage40.SuspendLayout();
@@ -505,11 +511,6 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage33.SuspendLayout();
-            tabControl9.SuspendLayout();
-            tabPage41.SuspendLayout();
-            tabPage42.SuspendLayout();
-            tabPage43.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1967,6 +1968,7 @@
             // 
             // tabPage37
             // 
+            tabPage37.Controls.Add(enable_hiberboot);
             tabPage37.Controls.Add(enable_hibernation);
             tabPage37.Controls.Add(dc_use);
             tabPage37.Location = new Point(4, 34);
@@ -1975,6 +1977,17 @@
             tabPage37.TabIndex = 2;
             tabPage37.Text = "base";
             tabPage37.UseVisualStyleBackColor = true;
+            // 
+            // enable_hiberboot
+            // 
+            enable_hiberboot.AutoSize = true;
+            enable_hiberboot.Location = new Point(3, 42);
+            enable_hiberboot.Name = "enable_hiberboot";
+            enable_hiberboot.Size = new Size(282, 29);
+            enable_hiberboot.TabIndex = 12;
+            enable_hiberboot.Text = "enable hiberboot (Fast Startup)";
+            enable_hiberboot.UseVisualStyleBackColor = true;
+            enable_hiberboot.CheckedChanged += enable_hiberboot_CheckedChanged;
             // 
             // enable_hibernation
             // 
@@ -1991,7 +2004,7 @@
             // 
             dc_use.AutoSize = true;
             dc_use.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dc_use.Location = new Point(3, 42);
+            dc_use.Location = new Point(3, 77);
             dc_use.Name = "dc_use";
             dc_use.Size = new Size(291, 29);
             dc_use.TabIndex = 10;
@@ -2876,6 +2889,158 @@
             tabControl8.Size = new Size(1012, 341);
             tabControl8.TabIndex = 0;
             // 
+            // tabPage33
+            // 
+            tabPage33.Controls.Add(tabControl9);
+            tabPage33.Location = new Point(4, 34);
+            tabPage33.Name = "tabPage33";
+            tabPage33.Size = new Size(1004, 303);
+            tabPage33.TabIndex = 2;
+            tabPage33.Text = "events";
+            tabPage33.UseVisualStyleBackColor = true;
+            // 
+            // tabControl9
+            // 
+            tabControl9.Controls.Add(tabPage41);
+            tabControl9.Controls.Add(tabPage42);
+            tabControl9.Controls.Add(tabPage43);
+            tabControl9.Location = new Point(3, 6);
+            tabControl9.Name = "tabControl9";
+            tabControl9.SelectedIndex = 0;
+            tabControl9.Size = new Size(998, 297);
+            tabControl9.TabIndex = 0;
+            // 
+            // tabPage41
+            // 
+            tabPage41.Controls.Add(prebuildEnabled);
+            tabPage41.Controls.Add(prebuildEvent);
+            tabPage41.Controls.Add(label22);
+            tabPage41.Location = new Point(4, 34);
+            tabPage41.Name = "tabPage41";
+            tabPage41.Padding = new Padding(3);
+            tabPage41.Size = new Size(990, 259);
+            tabPage41.TabIndex = 0;
+            tabPage41.Text = "pre build";
+            tabPage41.UseVisualStyleBackColor = true;
+            // 
+            // prebuildEnabled
+            // 
+            prebuildEnabled.AutoSize = true;
+            prebuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
+            prebuildEnabled.Location = new Point(883, 14);
+            prebuildEnabled.Name = "prebuildEnabled";
+            prebuildEnabled.Size = new Size(101, 29);
+            prebuildEnabled.TabIndex = 2;
+            prebuildEnabled.Text = "enabled";
+            prebuildEnabled.UseVisualStyleBackColor = true;
+            prebuildEnabled.CheckedChanged += prebuildEnabled_CheckedChanged;
+            // 
+            // prebuildEvent
+            // 
+            prebuildEvent.Location = new Point(6, 48);
+            prebuildEvent.Name = "prebuildEvent";
+            prebuildEvent.Size = new Size(978, 205);
+            prebuildEvent.TabIndex = 1;
+            prebuildEvent.Text = "";
+            prebuildEvent.TextChanged += prebuildEvent_TextChanged;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label22.Location = new Point(6, 5);
+            label22.Name = "label22";
+            label22.Size = new Size(207, 38);
+            label22.TabIndex = 0;
+            label22.Text = "pre-build event";
+            // 
+            // tabPage42
+            // 
+            tabPage42.Controls.Add(postbuildEnabled);
+            tabPage42.Controls.Add(label23);
+            tabPage42.Controls.Add(postbuildEvent);
+            tabPage42.Location = new Point(4, 34);
+            tabPage42.Name = "tabPage42";
+            tabPage42.Padding = new Padding(3);
+            tabPage42.Size = new Size(990, 259);
+            tabPage42.TabIndex = 1;
+            tabPage42.Text = "post build";
+            tabPage42.UseVisualStyleBackColor = true;
+            // 
+            // postbuildEnabled
+            // 
+            postbuildEnabled.AutoSize = true;
+            postbuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
+            postbuildEnabled.Location = new Point(883, 14);
+            postbuildEnabled.Name = "postbuildEnabled";
+            postbuildEnabled.Size = new Size(101, 29);
+            postbuildEnabled.TabIndex = 2;
+            postbuildEnabled.Text = "enabled";
+            postbuildEnabled.UseVisualStyleBackColor = true;
+            postbuildEnabled.CheckedChanged += postbuildEnabled_CheckedChanged;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label23.Location = new Point(6, 4);
+            label23.Name = "label23";
+            label23.Size = new Size(219, 38);
+            label23.TabIndex = 0;
+            label23.Text = "post-build event";
+            // 
+            // postbuildEvent
+            // 
+            postbuildEvent.Location = new Point(6, 48);
+            postbuildEvent.Name = "postbuildEvent";
+            postbuildEvent.Size = new Size(978, 205);
+            postbuildEvent.TabIndex = 1;
+            postbuildEvent.Text = "";
+            postbuildEvent.TextChanged += postbuildEvent_TextChanged;
+            // 
+            // tabPage43
+            // 
+            tabPage43.Controls.Add(winmountedEnabled);
+            tabPage43.Controls.Add(label24);
+            tabPage43.Controls.Add(winmountedEvent);
+            tabPage43.Location = new Point(4, 34);
+            tabPage43.Name = "tabPage43";
+            tabPage43.Size = new Size(990, 259);
+            tabPage43.TabIndex = 2;
+            tabPage43.Text = "win mounted";
+            tabPage43.UseVisualStyleBackColor = true;
+            // 
+            // winmountedEnabled
+            // 
+            winmountedEnabled.AutoSize = true;
+            winmountedEnabled.CheckAlign = ContentAlignment.MiddleRight;
+            winmountedEnabled.Location = new Point(883, 14);
+            winmountedEnabled.Name = "winmountedEnabled";
+            winmountedEnabled.Size = new Size(101, 29);
+            winmountedEnabled.TabIndex = 2;
+            winmountedEnabled.Text = "enabled";
+            winmountedEnabled.UseVisualStyleBackColor = true;
+            winmountedEnabled.CheckedChanged += winmountedEnabled_CheckedChanged;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label24.Location = new Point(6, 4);
+            label24.Name = "label24";
+            label24.Size = new Size(259, 38);
+            label24.TabIndex = 0;
+            label24.Text = "win-mounted event";
+            // 
+            // winmountedEvent
+            // 
+            winmountedEvent.Location = new Point(6, 48);
+            winmountedEvent.Name = "winmountedEvent";
+            winmountedEvent.Size = new Size(978, 205);
+            winmountedEvent.TabIndex = 1;
+            winmountedEvent.Text = "";
+            winmountedEvent.TextChanged += winmountedEvent_TextChanged;
+            // 
             // tabPage39
             // 
             tabPage39.Controls.Add(richTextBox17);
@@ -3219,99 +3384,6 @@
             AddVirtualDisplay.Text = "Add virtual display";
             AddVirtualDisplay.UseVisualStyleBackColor = true;
             AddVirtualDisplay.CheckedChanged += AddVirtualDisplay_CheckedChanged;
-            // 
-            // winmountedEnabled
-            // 
-            winmountedEnabled.AutoSize = true;
-            winmountedEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            winmountedEnabled.Location = new Point(883, 14);
-            winmountedEnabled.Name = "winmountedEnabled";
-            winmountedEnabled.Size = new Size(101, 29);
-            winmountedEnabled.TabIndex = 2;
-            winmountedEnabled.Text = "enabled";
-            winmountedEnabled.UseVisualStyleBackColor = true;
-            winmountedEnabled.CheckedChanged += winmountedEnabled_CheckedChanged;
-            // 
-            // winmountedEvent
-            // 
-            winmountedEvent.Location = new Point(6, 48);
-            winmountedEvent.Name = "winmountedEvent";
-            winmountedEvent.Size = new Size(978, 205);
-            winmountedEvent.TabIndex = 1;
-            winmountedEvent.Text = "";
-            winmountedEvent.TextChanged += winmountedEvent_TextChanged;
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label24.Location = new Point(6, 4);
-            label24.Name = "label24";
-            label24.Size = new Size(259, 38);
-            label24.TabIndex = 0;
-            label24.Text = "win-mounted event";
-            // 
-            // postbuildEnabled
-            // 
-            postbuildEnabled.AutoSize = true;
-            postbuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            postbuildEnabled.Location = new Point(883, 14);
-            postbuildEnabled.Name = "postbuildEnabled";
-            postbuildEnabled.Size = new Size(101, 29);
-            postbuildEnabled.TabIndex = 2;
-            postbuildEnabled.Text = "enabled";
-            postbuildEnabled.UseVisualStyleBackColor = true;
-            postbuildEnabled.CheckedChanged += postbuildEnabled_CheckedChanged;
-            // 
-            // postbuildEvent
-            // 
-            postbuildEvent.Location = new Point(6, 48);
-            postbuildEvent.Name = "postbuildEvent";
-            postbuildEvent.Size = new Size(978, 205);
-            postbuildEvent.TabIndex = 1;
-            postbuildEvent.Text = "";
-            postbuildEvent.TextChanged += postbuildEvent_TextChanged;
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label23.Location = new Point(6, 4);
-            label23.Name = "label23";
-            label23.Size = new Size(219, 38);
-            label23.TabIndex = 0;
-            label23.Text = "post-build event";
-            // 
-            // prebuildEnabled
-            // 
-            prebuildEnabled.AutoSize = true;
-            prebuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            prebuildEnabled.Location = new Point(883, 14);
-            prebuildEnabled.Name = "prebuildEnabled";
-            prebuildEnabled.Size = new Size(101, 29);
-            prebuildEnabled.TabIndex = 2;
-            prebuildEnabled.Text = "enabled";
-            prebuildEnabled.UseVisualStyleBackColor = true;
-            prebuildEnabled.CheckedChanged += prebuildEnabled_CheckedChanged;
-            // 
-            // prebuildEvent
-            // 
-            prebuildEvent.Location = new Point(6, 48);
-            prebuildEvent.Name = "prebuildEvent";
-            prebuildEvent.Size = new Size(978, 205);
-            prebuildEvent.TabIndex = 1;
-            prebuildEvent.Text = "";
-            prebuildEvent.TextChanged += prebuildEvent_TextChanged;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label22.Location = new Point(6, 5);
-            label22.Name = "label22";
-            label22.Size = new Size(207, 38);
-            label22.TabIndex = 0;
-            label22.Text = "pre-build event";
             // 
             // tabPage9
             // 
@@ -4564,65 +4636,6 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // tabPage33
-            // 
-            tabPage33.Controls.Add(tabControl9);
-            tabPage33.Location = new Point(4, 34);
-            tabPage33.Name = "tabPage33";
-            tabPage33.Size = new Size(1004, 303);
-            tabPage33.TabIndex = 2;
-            tabPage33.Text = "events";
-            tabPage33.UseVisualStyleBackColor = true;
-            // 
-            // tabControl9
-            // 
-            tabControl9.Controls.Add(tabPage41);
-            tabControl9.Controls.Add(tabPage42);
-            tabControl9.Controls.Add(tabPage43);
-            tabControl9.Location = new Point(3, 6);
-            tabControl9.Name = "tabControl9";
-            tabControl9.SelectedIndex = 0;
-            tabControl9.Size = new Size(998, 297);
-            tabControl9.TabIndex = 0;
-            // 
-            // tabPage41
-            // 
-            tabPage41.Controls.Add(prebuildEnabled);
-            tabPage41.Controls.Add(prebuildEvent);
-            tabPage41.Controls.Add(label22);
-            tabPage41.Location = new Point(4, 34);
-            tabPage41.Name = "tabPage41";
-            tabPage41.Padding = new Padding(3);
-            tabPage41.Size = new Size(990, 259);
-            tabPage41.TabIndex = 0;
-            tabPage41.Text = "pre build";
-            tabPage41.UseVisualStyleBackColor = true;
-            // 
-            // tabPage42
-            // 
-            tabPage42.Controls.Add(postbuildEnabled);
-            tabPage42.Controls.Add(label23);
-            tabPage42.Controls.Add(postbuildEvent);
-            tabPage42.Location = new Point(4, 34);
-            tabPage42.Name = "tabPage42";
-            tabPage42.Padding = new Padding(3);
-            tabPage42.Size = new Size(990, 259);
-            tabPage42.TabIndex = 1;
-            tabPage42.Text = "post build";
-            tabPage42.UseVisualStyleBackColor = true;
-            // 
-            // tabPage43
-            // 
-            tabPage43.Controls.Add(winmountedEnabled);
-            tabPage43.Controls.Add(label24);
-            tabPage43.Controls.Add(winmountedEvent);
-            tabPage43.Location = new Point(4, 34);
-            tabPage43.Name = "tabPage43";
-            tabPage43.Size = new Size(990, 259);
-            tabPage43.TabIndex = 2;
-            tabPage43.Text = "win mounted";
-            tabPage43.UseVisualStyleBackColor = true;
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -4733,6 +4746,14 @@
             tabPage35.PerformLayout();
             tabPage38.ResumeLayout(false);
             tabControl8.ResumeLayout(false);
+            tabPage33.ResumeLayout(false);
+            tabControl9.ResumeLayout(false);
+            tabPage41.ResumeLayout(false);
+            tabPage41.PerformLayout();
+            tabPage42.ResumeLayout(false);
+            tabPage42.PerformLayout();
+            tabPage43.ResumeLayout(false);
+            tabPage43.PerformLayout();
             tabPage39.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
@@ -4786,14 +4807,6 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage33.ResumeLayout(false);
-            tabControl9.ResumeLayout(false);
-            tabPage41.ResumeLayout(false);
-            tabPage41.PerformLayout();
-            tabPage42.ResumeLayout(false);
-            tabPage42.PerformLayout();
-            tabPage43.ResumeLayout(false);
-            tabPage43.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5197,5 +5210,6 @@
         private TabPage tabPage41;
         private TabPage tabPage42;
         private TabPage tabPage43;
+        private CheckBox enable_hiberboot;
     }
 }

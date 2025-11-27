@@ -547,6 +547,8 @@ namespace WinBox_Maker
 
             forceIot.CheckState = winBoxProject.winBoxConfig.forceIot == true ? CheckState.Checked : CheckState.Unchecked;
             enable_hibernation.CheckState = winBoxProject.winBoxConfig.enable_hibernation == true ? CheckState.Checked : CheckState.Unchecked;
+            enable_hiberboot.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
+            enable_hiberboot.CheckState = winBoxProject.winBoxConfig.enable_hiberboot == true ? CheckState.Checked : CheckState.Unchecked;
             dc_use.CheckState = winBoxProject.winBoxConfig.dc_use == true ? CheckState.Checked : CheckState.Unchecked;
             UseCustomDisplaySettings.CheckState = winBoxProject.winBoxConfig.UseCustomDisplaySettings == true ? CheckState.Checked : CheckState.Unchecked;
             UseCustomDisplaySettings_scale.CheckState = winBoxProject.winBoxConfig.UseCustomDisplaySettings_scale == true ? CheckState.Checked : CheckState.Unchecked;
@@ -2625,6 +2627,14 @@ namespace WinBox_Maker
         private void tabPage6_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void enable_hiberboot_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.enable_hiberboot = enable_hiberboot.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
         }
     }
 }

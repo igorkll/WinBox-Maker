@@ -1463,6 +1463,7 @@ powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
                 //which will create a vulnerability so that the system restore window can open.
                 //This is one of those cases where it is better to solve a problem in several ways at once.
 
+                int hiberboot = (winBoxConfig.enable_hibernation == true && winBoxConfig.enable_hiberboot == true) ? 1 : 0;
                 string baseSetup = $@"echo SetupComplete - start >> C:\WinboxResources\setup.log
 
 echo SetupComplete - call SetupComplete and FirstInit >> C:\WinboxResources\setup.log
@@ -1502,6 +1503,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power"" /v HiberbootEnabled /t REG_DWORD /d {hiberboot} /f
 
 echo SetupComplete - setup Memory Management >> C:\WinboxResources\setup.log
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control"" /v ProcessTerminationOnMemoryExhaustion /t REG_DWORD /d 0 /f
