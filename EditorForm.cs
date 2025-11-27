@@ -626,11 +626,11 @@ namespace WinBox_Maker
             aaf_readme_iso.CheckState = winBoxProject.winBoxConfig.aaf_readme_iso == true ? CheckState.Checked : CheckState.Unchecked;
             aaf_readme_system.CheckState = winBoxProject.winBoxConfig.aaf_readme_system == true ? CheckState.Checked : CheckState.Unchecked;
             aaf_readme_boot.CheckState = winBoxProject.winBoxConfig.aaf_readme_boot == true ? CheckState.Checked : CheckState.Unchecked;
-            aaf_info_recovery.CheckState = winBoxProject.winBoxConfig.aaf_info_boot == true ? CheckState.Checked : CheckState.Unchecked;
+            aaf_readme_recovery.CheckState = winBoxProject.winBoxConfig.aaf_readme_recovery == true ? CheckState.Checked : CheckState.Unchecked;
             aaf_info_iso.CheckState = winBoxProject.winBoxConfig.aaf_info_iso == true ? CheckState.Checked : CheckState.Unchecked;
             aaf_info_system.CheckState = winBoxProject.winBoxConfig.aaf_info_system == true ? CheckState.Checked : CheckState.Unchecked;
             aaf_info_boot.CheckState = winBoxProject.winBoxConfig.aaf_info_boot == true ? CheckState.Checked : CheckState.Unchecked;
-            aaf_info_recovery.CheckState = winBoxProject.winBoxConfig.aaf_info_boot == true ? CheckState.Checked : CheckState.Unchecked;
+            aaf_info_recovery.CheckState = winBoxProject.winBoxConfig.aaf_info_recovery == true ? CheckState.Checked : CheckState.Unchecked;
 
             recoverymod_manual_allow.CheckState = winBoxProject.winBoxConfig.recoverymod_manual_allow == true ? CheckState.Checked : CheckState.Unchecked;
 
