@@ -170,6 +170,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(wimWinPeMountPath);
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "files"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "boot_files"));
+            Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "recovery_files"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "program"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "drivers"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "nvidia_drivers"));
@@ -703,6 +704,8 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await RemoveTempFolder("net");
             await RemoveTempFolder("net_framework");
             await RemoveTempFolder("app_runtime");
+            await RemoveTempFolder("boot_files");
+            await RemoveTempFolder("recovery_files");
         }
 
         public async Task BuildCMakeProject(int index, BuildItem buildItem, string cmakeFolder, string output)
@@ -1237,6 +1240,23 @@ powercfg -s {powerScheme}";
         public string[] splitRickTextboxLinesWithoutEmptyLines(string text)
         {
             return text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        async Task patchRecoveryPartition(string mountedRecoveryPath, WindowsDescription newWindowsDescription)
+        {
+            await addAdFiles(mountedRecoveryPath, newWindowsDescription, winBoxConfig.aaf_readme_recovery, winBoxConfig.aaf_info_recovery);
+
+            string recoveryFilesPath = Path.Combine(resourcesDirectoryPath, "recovery_files");
+            if (Directory.Exists(recoveryFilesPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(recoveryFilesPath, mountedRecoveryPath);
+            }
+
+            recoveryFilesPath = Path.Combine(tempDirectoryPath, "recovery_files");
+            if (Directory.Exists(recoveryFilesPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(recoveryFilesPath, mountedRecoveryPath);
+            }
         }
 
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath, bool initViaVmMode = false)
@@ -2625,12 +2645,9 @@ if errorlevel 1 (
             if (imgExportPath != null)
             {
                 processName("Generating an .img image of a partition");
-                processValue(65);
+                processValue(75);
                 await ExportImg(newWimPath, imgExportPath);
             }
-
-            processValue(75);
-            await RemoveTemp(processName);
 
             return true;
         }
@@ -2638,10 +2655,13 @@ if errorlevel 1 (
         {
             if (winBoxConfig.postbuildEnabled == true)
             {
-                processValue(99);
+                processValue(98);
                 processName("Executing a post-build event");
                 await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.postbuildEvent, $"\"{exportPath}\"");
             }
+
+            processValue(99);
+            await RemoveTemp(processName);
 
             processName("Completed!");
             processValue(100);
@@ -2692,9 +2712,6 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             {
                 await Program.CopyFilesRecursivelyAsync(filesPath, wimWinPeMountPath);
             }
-
-            // remove temp
-            await RemoveTempFolder("boot_files");
 
             // save
             await umountDism(true, wimWinPeMountPath);
@@ -2797,6 +2814,8 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
                 }
             }
 
+            await addAdFiles(unpackIsoPath, newWindowsDescription, winBoxConfig.aaf_readme_iso, winBoxConfig.aaf_info_iso);
+
             string isoFilesPath = Path.Combine(resourcesDirectoryPath, "iso_files");
             if (Directory.Exists(isoFilesPath))
             {
@@ -2808,8 +2827,6 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             {
                 await Program.CopyFilesRecursivelyAsync(isoFilesPath, unpackIsoPath);
             }
-
-            await addAdFiles(unpackIsoPath, newWindowsDescription, winBoxConfig.aaf_readme_iso, winBoxConfig.aaf_info_iso);
 
             processName("Building an ISO image");
             processValue(85);
