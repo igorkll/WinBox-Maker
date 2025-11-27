@@ -250,10 +250,6 @@
             services_stopOnlyList = new CheckBox();
             services_stop = new RichTextBox();
             services_start = new RichTextBox();
-            richTextBox20 = new RichTextBox();
-            customdism_enabled = new CheckBox();
-            label85 = new Label();
-            customdism_commands = new RichTextBox();
             tabPage38 = new TabPage();
             tabControl8 = new TabControl();
             tabPage39 = new TabPage();
@@ -264,6 +260,10 @@
             onbuild_reg_clr = new Button();
             onbuild_reg_sel = new Button();
             tabPage40 = new TabPage();
+            richTextBox20 = new RichTextBox();
+            customdism_commands = new RichTextBox();
+            customdism_enabled = new CheckBox();
+            label85 = new Label();
             tabPage5 = new TabPage();
             postinstall_panel_user = new Panel();
             postinstall_user_reg = new Label();
@@ -290,11 +290,9 @@
             winmountedEnabled = new CheckBox();
             winmountedEvent = new RichTextBox();
             label24 = new Label();
-            panel9 = new Panel();
             postbuildEnabled = new CheckBox();
             postbuildEvent = new RichTextBox();
             label23 = new Label();
-            panel8 = new Panel();
             prebuildEnabled = new CheckBox();
             prebuildEvent = new RichTextBox();
             label22 = new Label();
@@ -420,6 +418,10 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            tabPage33 = new TabPage();
+            tabControl9 = new TabControl();
+            tabPage41 = new TabPage();
+            tabPage42 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -481,8 +483,6 @@
             panel6.SuspendLayout();
             tabPage8.SuspendLayout();
             panel10.SuspendLayout();
-            panel9.SuspendLayout();
-            panel8.SuspendLayout();
             tabPage9.SuspendLayout();
             panel11.SuspendLayout();
             tabPage10.SuspendLayout();
@@ -508,6 +508,10 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage33.SuspendLayout();
+            tabControl9.SuspendLayout();
+            tabPage41.SuspendLayout();
+            tabPage42.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -2854,47 +2858,6 @@
             services_start.Text = "";
             services_start.TextChanged += services_start_TextChanged;
             // 
-            // richTextBox20
-            // 
-            richTextBox20.BackColor = SystemColors.Info;
-            richTextBox20.Location = new Point(491, 6);
-            richTextBox20.Name = "richTextBox20";
-            richTextBox20.ReadOnly = true;
-            richTextBox20.Size = new Size(507, 291);
-            richTextBox20.TabIndex = 6;
-            richTextBox20.Text = resources.GetString("richTextBox20.Text");
-            // 
-            // customdism_enabled
-            // 
-            customdism_enabled.AutoSize = true;
-            customdism_enabled.CheckAlign = ContentAlignment.MiddleRight;
-            customdism_enabled.Location = new Point(384, 9);
-            customdism_enabled.Name = "customdism_enabled";
-            customdism_enabled.Size = new Size(101, 29);
-            customdism_enabled.TabIndex = 5;
-            customdism_enabled.Text = "enabled";
-            customdism_enabled.UseVisualStyleBackColor = true;
-            customdism_enabled.CheckedChanged += customdism_enabled_CheckedChanged;
-            // 
-            // label85
-            // 
-            label85.AutoSize = true;
-            label85.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label85.Location = new Point(6, 3);
-            label85.Name = "label85";
-            label85.Size = new Size(317, 38);
-            label85.TabIndex = 3;
-            label85.Text = "custom dism commands";
-            // 
-            // customdism_commands
-            // 
-            customdism_commands.Location = new Point(6, 44);
-            customdism_commands.Name = "customdism_commands";
-            customdism_commands.Size = new Size(479, 253);
-            customdism_commands.TabIndex = 4;
-            customdism_commands.Text = "";
-            customdism_commands.TextChanged += customdism_commands_TextChanged;
-            // 
             // tabPage38
             // 
             tabPage38.Controls.Add(tabControl8);
@@ -2907,6 +2870,7 @@
             // 
             // tabControl8
             // 
+            tabControl8.Controls.Add(tabPage33);
             tabControl8.Controls.Add(tabPage39);
             tabControl8.Controls.Add(tabPage40);
             tabControl8.Location = new Point(3, 3);
@@ -3000,6 +2964,47 @@
             tabPage40.TabIndex = 1;
             tabPage40.Text = "dism";
             tabPage40.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox20
+            // 
+            richTextBox20.BackColor = SystemColors.Info;
+            richTextBox20.Location = new Point(491, 6);
+            richTextBox20.Name = "richTextBox20";
+            richTextBox20.ReadOnly = true;
+            richTextBox20.Size = new Size(507, 291);
+            richTextBox20.TabIndex = 6;
+            richTextBox20.Text = resources.GetString("richTextBox20.Text");
+            // 
+            // customdism_commands
+            // 
+            customdism_commands.Location = new Point(6, 44);
+            customdism_commands.Name = "customdism_commands";
+            customdism_commands.Size = new Size(479, 253);
+            customdism_commands.TabIndex = 4;
+            customdism_commands.Text = "";
+            customdism_commands.TextChanged += customdism_commands_TextChanged;
+            // 
+            // customdism_enabled
+            // 
+            customdism_enabled.AutoSize = true;
+            customdism_enabled.CheckAlign = ContentAlignment.MiddleRight;
+            customdism_enabled.Location = new Point(384, 9);
+            customdism_enabled.Name = "customdism_enabled";
+            customdism_enabled.Size = new Size(101, 29);
+            customdism_enabled.TabIndex = 5;
+            customdism_enabled.Text = "enabled";
+            customdism_enabled.UseVisualStyleBackColor = true;
+            customdism_enabled.CheckedChanged += customdism_enabled_CheckedChanged;
+            // 
+            // label85
+            // 
+            label85.AutoSize = true;
+            label85.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label85.Location = new Point(6, 3);
+            label85.Name = "label85";
+            label85.Size = new Size(317, 38);
+            label85.TabIndex = 3;
+            label85.Text = "custom dism commands";
             // 
             // tabPage5
             // 
@@ -3221,8 +3226,6 @@
             // tabPage8
             // 
             tabPage8.Controls.Add(panel10);
-            tabPage8.Controls.Add(panel9);
-            tabPage8.Controls.Add(panel8);
             tabPage8.Location = new Point(4, 34);
             tabPage8.Name = "tabPage8";
             tabPage8.Size = new Size(1018, 347);
@@ -3272,22 +3275,11 @@
             label24.TabIndex = 0;
             label24.Text = "win-mounted event";
             // 
-            // panel9
-            // 
-            panel9.BorderStyle = BorderStyle.Fixed3D;
-            panel9.Controls.Add(postbuildEnabled);
-            panel9.Controls.Add(postbuildEvent);
-            panel9.Controls.Add(label23);
-            panel9.Location = new Point(3, 172);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(500, 163);
-            panel9.TabIndex = 1;
-            // 
             // postbuildEnabled
             // 
             postbuildEnabled.AutoSize = true;
             postbuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            postbuildEnabled.Location = new Point(392, 6);
+            postbuildEnabled.Location = new Point(883, 14);
             postbuildEnabled.Name = "postbuildEnabled";
             postbuildEnabled.Size = new Size(101, 29);
             postbuildEnabled.TabIndex = 2;
@@ -3297,9 +3289,9 @@
             // 
             // postbuildEvent
             // 
-            postbuildEvent.Location = new Point(3, 41);
+            postbuildEvent.Location = new Point(6, 48);
             postbuildEvent.Name = "postbuildEvent";
-            postbuildEvent.Size = new Size(490, 115);
+            postbuildEvent.Size = new Size(978, 205);
             postbuildEvent.TabIndex = 1;
             postbuildEvent.Text = "";
             postbuildEvent.TextChanged += postbuildEvent_TextChanged;
@@ -3308,28 +3300,17 @@
             // 
             label23.AutoSize = true;
             label23.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label23.Location = new Point(-2, 0);
+            label23.Location = new Point(6, 4);
             label23.Name = "label23";
             label23.Size = new Size(219, 38);
             label23.TabIndex = 0;
             label23.Text = "post-build event";
             // 
-            // panel8
-            // 
-            panel8.BorderStyle = BorderStyle.Fixed3D;
-            panel8.Controls.Add(prebuildEnabled);
-            panel8.Controls.Add(prebuildEvent);
-            panel8.Controls.Add(label22);
-            panel8.Location = new Point(3, 3);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(500, 163);
-            panel8.TabIndex = 0;
-            // 
             // prebuildEnabled
             // 
             prebuildEnabled.AutoSize = true;
             prebuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            prebuildEnabled.Location = new Point(392, 6);
+            prebuildEnabled.Location = new Point(883, 14);
             prebuildEnabled.Name = "prebuildEnabled";
             prebuildEnabled.Size = new Size(101, 29);
             prebuildEnabled.TabIndex = 2;
@@ -3339,9 +3320,9 @@
             // 
             // prebuildEvent
             // 
-            prebuildEvent.Location = new Point(3, 41);
+            prebuildEvent.Location = new Point(6, 48);
             prebuildEvent.Name = "prebuildEvent";
-            prebuildEvent.Size = new Size(490, 115);
+            prebuildEvent.Size = new Size(978, 205);
             prebuildEvent.TabIndex = 1;
             prebuildEvent.Text = "";
             prebuildEvent.TextChanged += prebuildEvent_TextChanged;
@@ -3350,7 +3331,7 @@
             // 
             label22.AutoSize = true;
             label22.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label22.Location = new Point(-2, 0);
+            label22.Location = new Point(6, 5);
             label22.Name = "label22";
             label22.Size = new Size(207, 38);
             label22.TabIndex = 0;
@@ -4607,6 +4588,52 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // tabPage33
+            // 
+            tabPage33.Controls.Add(tabControl9);
+            tabPage33.Location = new Point(4, 34);
+            tabPage33.Name = "tabPage33";
+            tabPage33.Size = new Size(1004, 303);
+            tabPage33.TabIndex = 2;
+            tabPage33.Text = "events";
+            tabPage33.UseVisualStyleBackColor = true;
+            // 
+            // tabControl9
+            // 
+            tabControl9.Controls.Add(tabPage41);
+            tabControl9.Controls.Add(tabPage42);
+            tabControl9.Location = new Point(3, 3);
+            tabControl9.Name = "tabControl9";
+            tabControl9.SelectedIndex = 0;
+            tabControl9.Size = new Size(998, 297);
+            tabControl9.TabIndex = 0;
+            // 
+            // tabPage41
+            // 
+            tabPage41.Controls.Add(prebuildEnabled);
+            tabPage41.Controls.Add(prebuildEvent);
+            tabPage41.Controls.Add(label22);
+            tabPage41.Location = new Point(4, 34);
+            tabPage41.Name = "tabPage41";
+            tabPage41.Padding = new Padding(3);
+            tabPage41.Size = new Size(990, 259);
+            tabPage41.TabIndex = 0;
+            tabPage41.Text = "pre build";
+            tabPage41.UseVisualStyleBackColor = true;
+            // 
+            // tabPage42
+            // 
+            tabPage42.Controls.Add(postbuildEnabled);
+            tabPage42.Controls.Add(label23);
+            tabPage42.Controls.Add(postbuildEvent);
+            tabPage42.Location = new Point(4, 34);
+            tabPage42.Name = "tabPage42";
+            tabPage42.Padding = new Padding(3);
+            tabPage42.Size = new Size(990, 259);
+            tabPage42.TabIndex = 1;
+            tabPage42.Text = "post build";
+            tabPage42.UseVisualStyleBackColor = true;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -4734,10 +4761,6 @@
             tabPage8.ResumeLayout(false);
             panel10.ResumeLayout(false);
             panel10.PerformLayout();
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
             tabPage9.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
@@ -4777,6 +4800,12 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage33.ResumeLayout(false);
+            tabControl9.ResumeLayout(false);
+            tabPage41.ResumeLayout(false);
+            tabPage41.PerformLayout();
+            tabPage42.ResumeLayout(false);
+            tabPage42.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -4868,8 +4897,6 @@
         private CheckBox CustomBootLogo_centering;
         private TabPage tabPage8;
         private ContextMenuStrip contextMenuStrip1;
-        private Panel panel8;
-        private Panel panel9;
         private Label label22;
         private Label label23;
         private RichTextBox prebuildEvent;
@@ -5179,5 +5206,9 @@
         private TabControl tabControl8;
         private TabPage tabPage39;
         private TabPage tabPage40;
+        private TabPage tabPage33;
+        private TabControl tabControl9;
+        private TabPage tabPage41;
+        private TabPage tabPage42;
     }
 }
