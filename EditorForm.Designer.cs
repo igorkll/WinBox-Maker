@@ -3272,7 +3272,7 @@
             // 
             recoveryMenuAction.DropDownStyle = ComboBoxStyle.DropDownList;
             recoveryMenuAction.FormattingEnabled = true;
-            recoveryMenuAction.Items.AddRange(new object[] { "Delete", "Do not touch (stay default)" });
+            recoveryMenuAction.Items.AddRange(new object[] { "Delete", "Stay default" });
             recoveryMenuAction.Location = new Point(3, 3);
             recoveryMenuAction.Name = "recoveryMenuAction";
             recoveryMenuAction.Size = new Size(318, 33);
