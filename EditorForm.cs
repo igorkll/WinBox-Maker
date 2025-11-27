@@ -561,6 +561,7 @@ namespace WinBox_Maker
 
             cds_orientation.SelectedIndex = winBoxProject.winBoxConfig.cds_orientation ?? 0;
             firstBootAction.SelectedIndex = (int)(winBoxProject.winBoxConfig.firstBootAction ?? 0);
+            comboBox1.SelectedIndex = (int)(winBoxProject.winBoxConfig.powerScheme ?? 0);
 
             action_closingLaptop.SelectedIndex = (int)(winBoxProject.winBoxConfig.action_closingLaptop ?? 0);
             action_powerButton.SelectedIndex = (int)(winBoxProject.winBoxConfig.action_powerButton ?? 0);
@@ -2634,6 +2635,14 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.enable_hiberboot = enable_hiberboot.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.powerScheme = (PowerScheme)comboBox1.SelectedIndex;
             winBoxProject.SaveConfig();
         }
     }

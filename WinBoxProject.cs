@@ -1093,7 +1093,9 @@ exit
 
         string _getPowercfgSetup()
         {
-            string powercfgSetup = $@"{(winBoxConfig.enable_hibernation == true ? "powercfg -h on" : "powercfg -h off")}
+            string powerScheme = Program.powerSchemes[(int)winBoxConfig.powerScheme];
+            string powercfgSetup = $@"powercfg -s {powerScheme}
+{(winBoxConfig.enable_hibernation == true ? "powercfg -h on" : "powercfg -h off")}
 powercfg -change -standby-timeout-ac {winBoxConfig.StandbyTimeout}
 powercfg -change -standby-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.StandbyTimeout_dc : winBoxConfig.StandbyTimeout)}
 powercfg -change -hibernate-timeout-ac {winBoxConfig.HibernateTimeout}
@@ -1102,13 +1104,13 @@ powercfg -change -monitor-timeout-ac {winBoxConfig.ScreenTimeout}
 powercfg -change -monitor-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.ScreenTimeout_dc : winBoxConfig.ScreenTimeout)}
 powercfg -change -disk-timeout-ac {winBoxConfig.DiskTimeout}
 powercfg -change -disk-timeout-dc {(winBoxConfig.dc_use == true ? winBoxConfig.DiskTimeout_dc : winBoxConfig.DiskTimeout)}
-powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION {(int)winBoxConfig.action_closingLaptop}
-powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION {(int)(winBoxConfig.dc_use == true ? winBoxConfig.action_closingLaptop_dc : winBoxConfig.action_closingLaptop)}
-powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION {(int)winBoxConfig.action_sleepButton}
-powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION {(int)(winBoxConfig.dc_use == true ? winBoxConfig.action_sleepButton_dc : winBoxConfig.action_sleepButton)}
-powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION {(int)winBoxConfig.action_powerButton}
-powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION {(int)(winBoxConfig.dc_use == true ? winBoxConfig.action_powerButton_dc : winBoxConfig.action_powerButton)}
-powercfg -s SCHEME_CURRENT";
+powercfg -setacvalueindex {powerScheme} SUB_BUTTONS LIDACTION {(int)winBoxConfig.action_closingLaptop}
+powercfg -setdcvalueindex {powerScheme} SUB_BUTTONS LIDACTION {(int)(winBoxConfig.dc_use == true ? winBoxConfig.action_closingLaptop_dc : winBoxConfig.action_closingLaptop)}
+powercfg -setacvalueindex {powerScheme} SUB_BUTTONS SBUTTONACTION {(int)winBoxConfig.action_sleepButton}
+powercfg -setdcvalueindex {powerScheme} SUB_BUTTONS SBUTTONACTION {(int)(winBoxConfig.dc_use == true ? winBoxConfig.action_sleepButton_dc : winBoxConfig.action_sleepButton)}
+powercfg -setacvalueindex {powerScheme} SUB_BUTTONS PBUTTONACTION {(int)winBoxConfig.action_powerButton}
+powercfg -setdcvalueindex {powerScheme} SUB_BUTTONS PBUTTONACTION {(int)(winBoxConfig.dc_use == true ? winBoxConfig.action_powerButton_dc : winBoxConfig.action_powerButton)}
+powercfg -s {powerScheme}";
 
             return powercfgSetup;
         }

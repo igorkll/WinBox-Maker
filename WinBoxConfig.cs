@@ -60,6 +60,14 @@ namespace WinBox_Maker
         UniformToFill
     }
 
+    public enum PowerScheme
+    {
+        Default,
+        Balanced,
+        High_Performance,
+        Power_Saver
+    }
+
     public class WinBoxConfig
     {
         //public List<string>? Resources { get; set; }
@@ -182,6 +190,7 @@ namespace WinBox_Maker
         public string? TimeZoneKeyName { get; set; }
         public bool? customdism_enabled { get; set; }
         public string? customdism_commands { get; set; }
+        public PowerScheme? powerScheme { get; set; }
 
 
         public WinBoxConfig() {
@@ -314,6 +323,7 @@ namespace WinBox_Maker
             if (services_startOnlyList == null) services_startOnlyList = false;
 
             if (TimeZoneKeyName == null) TimeZoneKeyName = "UTC";
+            if (powerScheme == null) powerScheme = PowerScheme.Default;
         }
 
         public void Save(string wnbFilePath)

@@ -51,6 +51,15 @@ namespace WinBox_Maker
         public static string batFilter = "Bat scripts (*.bat;*.cmd)|*.bat;*.cmd|All files (*.*)|*.*";
         public static string xmlFilter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
 
+        public static string[] powerSchemes = new string[]
+        {
+            "SCHEME_CURRENT", //Default
+            "381b4222-f694-41f0-9685-ff5bb260df2e", // Balanced
+            "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c", // High performance
+            "a1841308-3541-4fab-bc81-f71556f20b4a" // Power saver
+        };
+
+
         static string getAppdataSubdirectory(string subdirectory)
         {
             string path = Path.Combine(appdataPath, subdirectory);

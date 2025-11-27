@@ -166,6 +166,7 @@
             tabPage12 = new TabPage();
             tabControl5 = new TabControl();
             tabPage37 = new TabPage();
+            comboBox1 = new ComboBox();
             enable_hiberboot = new CheckBox();
             enable_hibernation = new CheckBox();
             dc_use = new CheckBox();
@@ -422,6 +423,7 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            label77 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1968,6 +1970,8 @@
             // 
             // tabPage37
             // 
+            tabPage37.Controls.Add(label77);
+            tabPage37.Controls.Add(comboBox1);
             tabPage37.Controls.Add(enable_hiberboot);
             tabPage37.Controls.Add(enable_hibernation);
             tabPage37.Controls.Add(dc_use);
@@ -1977,6 +1981,17 @@
             tabPage37.TabIndex = 2;
             tabPage37.Text = "base";
             tabPage37.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Default (auto)", "Balanced", "High Performance", "Power Saver" });
+            comboBox1.Location = new Point(3, 112);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(318, 33);
+            comboBox1.TabIndex = 44;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // enable_hiberboot
             // 
@@ -4636,6 +4651,15 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // label77
+            // 
+            label77.AutoSize = true;
+            label77.Location = new Point(327, 115);
+            label77.Name = "label77";
+            label77.Size = new Size(69, 25);
+            label77.TabIndex = 45;
+            label77.Text = "label77";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -5211,5 +5235,7 @@
         private TabPage tabPage42;
         private TabPage tabPage43;
         private CheckBox enable_hiberboot;
+        private ComboBox comboBox1;
+        private Label label77;
     }
 }
