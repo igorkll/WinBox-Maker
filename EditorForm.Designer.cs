@@ -250,19 +250,21 @@
             services_stopOnlyList = new CheckBox();
             services_stop = new RichTextBox();
             services_start = new RichTextBox();
-            tabPage33 = new TabPage();
             richTextBox20 = new RichTextBox();
             customdism_enabled = new CheckBox();
             label85 = new Label();
             customdism_commands = new RichTextBox();
-            tabPage5 = new TabPage();
-            label77 = new Label();
-            panel5 = new Panel();
+            tabPage38 = new TabPage();
+            tabControl8 = new TabControl();
+            tabPage39 = new TabPage();
             richTextBox17 = new RichTextBox();
+            panel5 = new Panel();
             onbuild_reg = new Label();
             label79 = new Label();
             onbuild_reg_clr = new Button();
             onbuild_reg_sel = new Button();
+            tabPage40 = new TabPage();
+            tabPage5 = new TabPage();
             postinstall_panel_user = new Panel();
             postinstall_user_reg = new Label();
             label21 = new Label();
@@ -418,7 +420,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            tabPage38 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -468,9 +469,12 @@
             tabControl7.SuspendLayout();
             tabPage34.SuspendLayout();
             tabPage35.SuspendLayout();
-            tabPage33.SuspendLayout();
-            tabPage5.SuspendLayout();
+            tabPage38.SuspendLayout();
+            tabControl8.SuspendLayout();
+            tabPage39.SuspendLayout();
             panel5.SuspendLayout();
+            tabPage40.SuspendLayout();
+            tabPage5.SuspendLayout();
             postinstall_panel_user.SuspendLayout();
             tabPage7.SuspendLayout();
             panel7.SuspendLayout();
@@ -2695,7 +2699,6 @@
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage32);
-            tabControl1.Controls.Add(tabPage33);
             tabControl1.Location = new Point(3, 4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -2851,27 +2854,13 @@
             services_start.Text = "";
             services_start.TextChanged += services_start_TextChanged;
             // 
-            // tabPage33
-            // 
-            tabPage33.Controls.Add(richTextBox20);
-            tabPage33.Controls.Add(customdism_enabled);
-            tabPage33.Controls.Add(label85);
-            tabPage33.Controls.Add(customdism_commands);
-            tabPage33.Location = new Point(4, 34);
-            tabPage33.Name = "tabPage33";
-            tabPage33.Padding = new Padding(3);
-            tabPage33.Size = new Size(984, 252);
-            tabPage33.TabIndex = 1;
-            tabPage33.Text = "dism";
-            tabPage33.UseVisualStyleBackColor = true;
-            // 
             // richTextBox20
             // 
             richTextBox20.BackColor = SystemColors.Info;
-            richTextBox20.Location = new Point(485, 6);
+            richTextBox20.Location = new Point(491, 6);
             richTextBox20.Name = "richTextBox20";
             richTextBox20.ReadOnly = true;
-            richTextBox20.Size = new Size(493, 240);
+            richTextBox20.Size = new Size(507, 291);
             richTextBox20.TabIndex = 6;
             richTextBox20.Text = resources.GetString("richTextBox20.Text");
             // 
@@ -2879,7 +2868,7 @@
             // 
             customdism_enabled.AutoSize = true;
             customdism_enabled.CheckAlign = ContentAlignment.MiddleRight;
-            customdism_enabled.Location = new Point(378, 9);
+            customdism_enabled.Location = new Point(384, 9);
             customdism_enabled.Name = "customdism_enabled";
             customdism_enabled.Size = new Size(101, 29);
             customdism_enabled.TabIndex = 5;
@@ -2891,7 +2880,7 @@
             // 
             label85.AutoSize = true;
             label85.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label85.Location = new Point(0, 3);
+            label85.Location = new Point(6, 3);
             label85.Name = "label85";
             label85.Size = new Size(317, 38);
             label85.TabIndex = 3;
@@ -2899,61 +2888,66 @@
             // 
             // customdism_commands
             // 
-            customdism_commands.Location = new Point(5, 44);
+            customdism_commands.Location = new Point(6, 44);
             customdism_commands.Name = "customdism_commands";
-            customdism_commands.Size = new Size(474, 202);
+            customdism_commands.Size = new Size(479, 253);
             customdism_commands.TabIndex = 4;
             customdism_commands.Text = "";
             customdism_commands.TextChanged += customdism_commands_TextChanged;
             // 
-            // tabPage5
+            // tabPage38
             // 
-            tabPage5.Controls.Add(label77);
-            tabPage5.Controls.Add(panel5);
-            tabPage5.Controls.Add(postinstall_panel_user);
-            tabPage5.Controls.Add(label17);
-            tabPage5.Controls.Add(label10);
-            tabPage5.Controls.Add(postinstall_panel_system);
-            tabPage5.Location = new Point(4, 34);
-            tabPage5.Name = "tabPage5";
-            tabPage5.Padding = new Padding(3);
-            tabPage5.Size = new Size(1018, 347);
-            tabPage5.TabIndex = 4;
-            tabPage5.Text = "post install";
-            tabPage5.UseVisualStyleBackColor = true;
+            tabPage38.Controls.Add(tabControl8);
+            tabPage38.Location = new Point(4, 34);
+            tabPage38.Name = "tabPage38";
+            tabPage38.Size = new Size(1018, 347);
+            tabPage38.TabIndex = 14;
+            tabPage38.Text = "build settings";
+            tabPage38.UseVisualStyleBackColor = true;
             // 
-            // label77
+            // tabControl8
             // 
-            label77.AutoSize = true;
-            label77.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label77.Location = new Point(3, 189);
-            label77.Name = "label77";
-            label77.Size = new Size(287, 38);
-            label77.TabIndex = 38;
-            label77.Text = "integrate during build";
+            tabControl8.Controls.Add(tabPage39);
+            tabControl8.Controls.Add(tabPage40);
+            tabControl8.Location = new Point(3, 3);
+            tabControl8.Name = "tabControl8";
+            tabControl8.SelectedIndex = 0;
+            tabControl8.Size = new Size(1012, 341);
+            tabControl8.TabIndex = 0;
+            // 
+            // tabPage39
+            // 
+            tabPage39.Controls.Add(richTextBox17);
+            tabPage39.Controls.Add(panel5);
+            tabPage39.Location = new Point(4, 34);
+            tabPage39.Name = "tabPage39";
+            tabPage39.Padding = new Padding(3);
+            tabPage39.Size = new Size(1004, 303);
+            tabPage39.TabIndex = 0;
+            tabPage39.Text = "registry";
+            tabPage39.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox17
+            // 
+            richTextBox17.BackColor = SystemColors.Info;
+            richTextBox17.Location = new Point(491, 6);
+            richTextBox17.Name = "richTextBox17";
+            richTextBox17.Size = new Size(507, 291);
+            richTextBox17.TabIndex = 44;
+            richTextBox17.Text = resources.GetString("richTextBox17.Text");
             // 
             // panel5
             // 
             panel5.BackColor = SystemColors.Window;
             panel5.BorderStyle = BorderStyle.Fixed3D;
-            panel5.Controls.Add(richTextBox17);
             panel5.Controls.Add(onbuild_reg);
             panel5.Controls.Add(label79);
             panel5.Controls.Add(onbuild_reg_clr);
             panel5.Controls.Add(onbuild_reg_sel);
-            panel5.Location = new Point(6, 230);
+            panel5.Location = new Point(6, 6);
             panel5.Name = "panel5";
-            panel5.Size = new Size(623, 111);
+            panel5.Size = new Size(479, 107);
             panel5.TabIndex = 39;
-            // 
-            // richTextBox17
-            // 
-            richTextBox17.BackColor = SystemColors.Info;
-            richTextBox17.Location = new Point(314, 4);
-            richTextBox17.Name = "richTextBox17";
-            richTextBox17.Size = new Size(302, 100);
-            richTextBox17.TabIndex = 44;
-            richTextBox17.Text = resources.GetString("richTextBox17.Text");
             // 
             // onbuild_reg
             // 
@@ -2992,6 +2986,34 @@
             onbuild_reg_sel.Text = "select";
             onbuild_reg_sel.UseVisualStyleBackColor = true;
             onbuild_reg_sel.Click += onbuild_reg_sel_Click;
+            // 
+            // tabPage40
+            // 
+            tabPage40.Controls.Add(richTextBox20);
+            tabPage40.Controls.Add(customdism_commands);
+            tabPage40.Controls.Add(customdism_enabled);
+            tabPage40.Controls.Add(label85);
+            tabPage40.Location = new Point(4, 34);
+            tabPage40.Name = "tabPage40";
+            tabPage40.Padding = new Padding(3);
+            tabPage40.Size = new Size(1004, 303);
+            tabPage40.TabIndex = 1;
+            tabPage40.Text = "dism";
+            tabPage40.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            tabPage5.Controls.Add(postinstall_panel_user);
+            tabPage5.Controls.Add(label17);
+            tabPage5.Controls.Add(label10);
+            tabPage5.Controls.Add(postinstall_panel_system);
+            tabPage5.Location = new Point(4, 34);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding(3);
+            tabPage5.Size = new Size(1018, 347);
+            tabPage5.TabIndex = 4;
+            tabPage5.Text = "post install";
+            tabPage5.UseVisualStyleBackColor = true;
             // 
             // postinstall_panel_user
             // 
@@ -4585,15 +4607,6 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // tabPage38
-            // 
-            tabPage38.Location = new Point(4, 34);
-            tabPage38.Name = "tabPage38";
-            tabPage38.Size = new Size(1018, 347);
-            tabPage38.TabIndex = 14;
-            tabPage38.Text = "build settings";
-            tabPage38.UseVisualStyleBackColor = true;
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -4702,12 +4715,15 @@
             tabPage34.PerformLayout();
             tabPage35.ResumeLayout(false);
             tabPage35.PerformLayout();
-            tabPage33.ResumeLayout(false);
-            tabPage33.PerformLayout();
-            tabPage5.ResumeLayout(false);
-            tabPage5.PerformLayout();
+            tabPage38.ResumeLayout(false);
+            tabControl8.ResumeLayout(false);
+            tabPage39.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
+            tabPage40.ResumeLayout(false);
+            tabPage40.PerformLayout();
+            tabPage5.ResumeLayout(false);
+            tabPage5.PerformLayout();
             postinstall_panel_user.ResumeLayout(false);
             postinstall_panel_user.PerformLayout();
             tabPage7.ResumeLayout(false);
@@ -5111,7 +5127,6 @@
         private CheckBox aaf_readme_boot;
         private CheckBox aaf_readme_system;
         private Label label76;
-        private Label label77;
         private Panel panel5;
         private Label label79;
         private Button button3;
@@ -5138,7 +5153,6 @@
         private TabPage tabPage4;
         private TabControl tabControl1;
         private TabPage tabPage32;
-        private TabPage tabPage33;
         private TabControl tabControl7;
         private TabPage tabPage34;
         private TabPage tabPage35;
@@ -5162,5 +5176,8 @@
         private RichTextBox services_stop;
         private RichTextBox services_start;
         private TabPage tabPage38;
+        private TabControl tabControl8;
+        private TabPage tabPage39;
+        private TabPage tabPage40;
     }
 }
