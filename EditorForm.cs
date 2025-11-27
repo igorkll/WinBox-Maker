@@ -642,6 +642,8 @@ namespace WinBox_Maker
             DisableNtp.CheckState = winBoxProject.winBoxConfig.DisableNtp == true ? CheckState.Checked : CheckState.Unchecked;
             RealTimeIsUniversal.CheckState = winBoxProject.winBoxConfig.RealTimeIsUniversal == true ? CheckState.Checked : CheckState.Unchecked;
 
+            recoveryMenuAction.SelectedIndex = (int)(winBoxProject.winBoxConfig.recoveryMenuAction ?? 0);
+
             bool manual = winBoxProject.winBoxConfig.manual_setup == true;
             manual_setup.CheckState = manual ? CheckState.Checked : CheckState.Unchecked;
             manual_setup_complete.Text = winBoxProject.winBoxConfig.manual_setup_complete ?? "not selected";
@@ -2665,6 +2667,14 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.recoverymod_manual_allow = recoverymod_manual_allow.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void recoveryMenuAction_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.recoveryMenuAction = (RecoveryMenuAction)recoveryMenuAction.SelectedIndex;
             winBoxProject.SaveConfig();
         }
     }

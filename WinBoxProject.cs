@@ -54,6 +54,7 @@ namespace WinBox_Maker
         string newWimFile;
         string wimMountPath;
         string wimWinPeMountPath;
+        string recoveryMountPath;
         string unpackIsoPath;
         string name;
         string? err;
@@ -76,6 +77,7 @@ namespace WinBox_Maker
             newWimFile = Path.Combine(tempDirectoryPath, "new_install.wim");
             wimMountPath = Path.Combine(tempDirectoryPath, "wim_mount");
             wimWinPeMountPath = Path.Combine(tempDirectoryPath, "wim_boot_mount");
+            recoveryMountPath = Path.Combine(tempDirectoryPath, "recovery_mount");
             unpackIsoPath = Path.Combine(tempDirectoryPath, "iso_unpack");
             sourcesDirectoryPath = Path.Combine(resourcesDirectoryPath, "sources");
             debugFolder = Path.Combine(tempDirectoryPath, "debug");
@@ -152,6 +154,7 @@ namespace WinBox_Maker
 
             if (umount(wimMountPath)) return;
             if (umount(wimWinPeMountPath)) return;
+            if (umount(recoveryMountPath)) return;
 
             if (Directory.Exists(unpackIsoPath))
             {
@@ -168,6 +171,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(tempDirectoryPath);
             Program.CreateDirectory(wimMountPath);
             Program.CreateDirectory(wimWinPeMountPath);
+            Program.CreateDirectory(recoveryMountPath);
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "files"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "boot_files"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "recovery_files"));
@@ -457,9 +461,10 @@ namespace WinBox_Maker
             }
         }
 
-        async Task mountDism(string wimPath)
+        async Task mountDism(string wimPath, string? mountPath = null)
         {
-            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{wimPath}\" /index:1 /MountDir:\"{wimMountPath}\"");
+            if (mountPath == null) mountPath = wimMountPath;
+            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{wimPath}\" /index:1 /MountDir:\"{mountPath}\"");
         }
 
         async Task umountDism(bool commit, string? path = null)
@@ -1261,6 +1266,82 @@ powercfg -s {powerScheme}";
 
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath, bool initViaVmMode = false)
         {
+            string RemovePaths_log = "";
+
+            async Task removeSystemObject(string path)
+            {
+                RemovePaths_log += $"remove path request: {path}\n";
+
+                bool createEmptyDir = true;
+                if (path.StartsWith("!"))
+                {
+                    createEmptyDir = false;
+                    path = path.Substring(1);
+                    RemovePaths_log += $"disable create empty dir: {path}\n";
+                }
+                path = path.Replace("/", "\\");
+                path = path.TrimStart('\\', '/');
+
+                RemovePaths_log += $"path processing: {path}\n";
+
+                if (path.StartsWith("/") || path.StartsWith("\\") || path.Contains("..") || path.Contains(":"))
+                {
+                    RemovePaths_log += $"bad path: {path}\n";
+                    return;
+                }
+
+                RemovePaths_log += $"launching deleting: {path}\n";
+
+                path = Path.Combine(wimMountPath, path);
+
+                await Task.Run(() => {
+                    bool recreateDir = false;
+                    bool successfully = false;
+
+                    if (Directory.Exists(path))
+                    {
+                        RemovePaths_log += $"try delete directory\n";
+                        Program.SetAttributesRecursive(path, FileAttributes.Normal);
+                        Directory.Delete(path, true);
+                        recreateDir = true;
+                        successfully = true;
+                    }
+
+                    if (File.Exists(path))
+                    {
+                        RemovePaths_log += $"try delete file\n";
+                        File.SetAttributes(path, FileAttributes.Normal);
+                        File.Delete(path);
+                        successfully = true;
+                    }
+
+                    if (Directory.Exists(path))
+                    {
+                        RemovePaths_log += $"failed to delete directory\n";
+                    }
+                    else if (File.Exists(path))
+                    {
+                        RemovePaths_log += $"failed to delete file\n";
+                    }
+                    else if (successfully)
+                    {
+                        RemovePaths_log += $"successfully deleted\n";
+                    }
+                    else
+                    {
+                        RemovePaths_log += $"path not found\n";
+                    }
+
+                    if (recreateDir && createEmptyDir && successfully)
+                    {
+                        RemovePaths_log += $"create empty directory\n";
+                        Program.CreateDirectory(path);
+                    }
+                });
+
+                RemovePaths_log += "\n";
+            }
+
             bool manual = winBoxConfig.manual_setup == true;
 
             if (winBoxConfig.prebuildEnabled == true)
@@ -1350,6 +1431,22 @@ powercfg -s {powerScheme}";
                 processName("Modification of the recovery menu");
                 processValue(35);
                 
+                switch (winBoxConfig.recoveryMenuAction)
+                {
+                    case RecoveryMenuAction.StayDefault:
+                        break;
+
+                    default:
+                        await removeSystemObject("Windows\\System32\\Recovery");
+                        break;
+                }
+
+                string winREpath = Path.Combine(wimMountPath, "Windows\\System32\\Recovery\\Winre.wim");
+                if (File.Exists(winREpath)) {
+                    await mountDism(winREpath, recoveryMountPath);
+                    await patchRecoveryPartition(recoveryMountPath, newWindowsDescription);
+                    await umountDism(true, recoveryMountPath);
+                }
             }
 
             // ------------------------------------ tweaks
@@ -2393,82 +2490,6 @@ if errorlevel 1 (
                 Directory.Delete(lockScreenAppPath, true);
             }
             */
-
-            string RemovePaths_log = "";
-
-            async Task removeSystemObject(string path)
-            {
-                RemovePaths_log += $"remove path request: {path}\n";
-
-                bool createEmptyDir = true;
-                if (path.StartsWith("!"))
-                {
-                    createEmptyDir = false;
-                    path = path.Substring(1);
-                    RemovePaths_log += $"disable create empty dir: {path}\n";
-                }
-                path = path.Replace("/", "\\");
-                path = path.TrimStart('\\', '/');
-
-                RemovePaths_log += $"path processing: {path}\n";
-
-                if (path.StartsWith("/") || path.StartsWith("\\") || path.Contains("..") || path.Contains(":"))
-                {
-                    RemovePaths_log += $"bad path: {path}\n";
-                    return;
-                }
-
-                RemovePaths_log += $"launching deleting: {path}\n";
-
-                path = Path.Combine(wimMountPath, path);
-
-                await Task.Run(() => {
-                    bool recreateDir = false;
-                    bool successfully = false;
-
-                    if (Directory.Exists(path))
-                    {
-                        RemovePaths_log += $"try delete directory\n";
-                        Program.SetAttributesRecursive(path, FileAttributes.Normal);
-                        Directory.Delete(path, true);
-                        recreateDir = true;
-                        successfully = true;
-                    }
-
-                    if (File.Exists(path))
-                    {
-                        RemovePaths_log += $"try delete file\n";
-                        File.SetAttributes(path, FileAttributes.Normal);
-                        File.Delete(path);
-                        successfully = true;
-                    }
-
-                    if (Directory.Exists(path))
-                    {
-                        RemovePaths_log += $"failed to delete directory\n";
-                    }
-                    else if (File.Exists(path))
-                    {
-                        RemovePaths_log += $"failed to delete file\n";
-                    }
-                    else if (successfully)
-                    {
-                        RemovePaths_log += $"successfully deleted\n";
-                    }
-                    else
-                    {
-                        RemovePaths_log += $"path not found\n";
-                    }
-
-                    if (recreateDir && createEmptyDir && successfully)
-                    {
-                        RemovePaths_log += $"create empty directory\n";
-                        Program.CreateDirectory(path);
-                    }
-                });
-
-                RemovePaths_log += "\n";
-            }
 
             async Task execDismCmd(string name, int type)
             {

@@ -68,6 +68,12 @@ namespace WinBox_Maker
         Power_Saver
     }
 
+    public enum RecoveryMenuAction
+    {
+        Delete,
+        StayDefault
+    }
+
     public class WinBoxConfig
     {
         //public List<string>? Resources { get; set; }
@@ -194,6 +200,7 @@ namespace WinBox_Maker
         public string? customdism_commands { get; set; }
         public PowerScheme? powerScheme { get; set; }
         public bool? recoverymod_manual_allow { get; set; }
+        public RecoveryMenuAction? recoveryMenuAction { get; set; }
 
 
         public WinBoxConfig() {
@@ -331,6 +338,7 @@ namespace WinBox_Maker
             if (powerScheme == null) powerScheme = PowerScheme.Balanced;
 
             if (recoverymod_manual_allow == null) recoverymod_manual_allow = true;
+            if (recoveryMenuAction == null) recoveryMenuAction = RecoveryMenuAction.Delete;
         }
 
         public void Save(string wnbFilePath)
