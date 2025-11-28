@@ -1214,6 +1214,7 @@ powercfg -s {powerScheme}";
                 servicesSetup += $"sc config {service} start= disabled\r\n";
                 servicesSetup += $"net stop {service}\r\n";
                 servicesSetup += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\{service}"" /v Start /t REG_DWORD /d 4 /f" + "\r\n";
+                servicesSetup += $"echo service {service} stoped >> C:\\WinboxResources\\setup.log\r\n";
             }
 
             foreach (string service in startServices)
@@ -1222,6 +1223,7 @@ powercfg -s {powerScheme}";
                 servicesSetup += $"sc config {service} start= auto\r\n";
                 servicesSetup += $"sc start {service}\r\n";
                 servicesSetup += $"net start {service}\r\n";
+                servicesSetup += $"echo service {service} started >> C:\\WinboxResources\\setup.log\r\n";
             }
 
             return servicesSetup;
