@@ -1154,6 +1154,10 @@ powercfg -s {powerScheme}";
                 "UsoSvc",
                 "wlidsvcNetwork",
 
+                "eventlog",
+                "ClickToRunSvc",
+                "VSS",
+
                 "edgeupdate",
                 "edgeupdatem",
                 "wbengine",

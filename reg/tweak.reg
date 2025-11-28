@@ -264,3 +264,10 @@ Windows Registry Editor Version 5.00
 ; ---------------- a fix for UWP apps
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "FilterAdministratorToken"=dword:00000001
+
+; ---------------- disabling automatic creation of recovery points
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\SystemRestore]
+"DisableSR"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore]
+"RPSessionInterval"=dword:00000000
