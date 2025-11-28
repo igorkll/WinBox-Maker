@@ -1138,6 +1138,7 @@ powercfg -s {powerScheme}";
             List<string> stopServices = new List<string>();
 
             string[] stopServicesList = {
+                "SecurityHealthService",
                 "edgeupdate",
                 "edgeupdatem",
                 "wbengine",
@@ -1590,6 +1591,9 @@ echo SetupComplete and FirstInit - end >> C:\WinboxResources\setup.log";
 
                 string updateSystemSettingsAndFirstInit = $@"powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
 powershell -Command ""Set-MpPreference -DisableRealtimeMonitoring $true""
+powershell -Command ""Set-MpPreference -DisableIOAVProtection $true""
+powershell -Command ""Set-MpPreference -DisableBehaviorMonitoring $true""
+powershell -Command ""Set-MpPreference -DisableScriptScanning $true""
 
 {bcdeditSetup}";
                 //why do I change the bcd every time I start?
@@ -2600,8 +2604,10 @@ if errorlevel 1 (
                 if (Program.isTweakEnabled(winBoxConfig, "remove windows defender files"))
                 {
                     await removeSystemObject("Program Files (x86)\\Windows Defender");
+                    await removeSystemObject("Program Files (x86)\\Windows Defender Advanced Threat Protection");
                     await removeSystemObject("Program Files\\Windows Defender");
                     await removeSystemObject("Program Files\\Windows Defender Advanced Threat Protection");
+                    await removeSystemObject("ProgramData\\Microsoft\\Windows Defender");
                 }
             }
 
@@ -2666,6 +2672,11 @@ if errorlevel 1 (
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedLogon");
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-KeyboardFilter");
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedBootExp");
+
+                processName("disabling unnecessary Windows components");
+                processValue(61);
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender"); //it will probably only work for Windows server
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender-GUI");
             }
 
             if (winBoxConfig.winmountedEnabled == true)
