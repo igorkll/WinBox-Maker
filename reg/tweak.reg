@@ -25,6 +25,7 @@ Windows Registry Editor Version 5.00
 "DisableRoutinelyTakingAction"=dword:00000001
 "ServiceKeepAlive"=dword:00000000
 "DisableBlockAtFirstSeen"=dword:00000001
+"DisableEnhancedNotifications"=dword:00000001
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection]
 "DisableAntiSpyware"=dword:00000001
@@ -38,6 +39,7 @@ Windows Registry Editor Version 5.00
 "DisableRoutinelyTakingAction"=dword:00000001
 "ServiceKeepAlive"=dword:00000000
 "DisableBlockAtFirstSeen"=dword:00000001
+"DisableEnhancedNotifications"=dword:00000001
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager]
 "DisableAntiSpyware"=dword:00000001
@@ -51,6 +53,7 @@ Windows Registry Editor Version 5.00
 "DisableRoutinelyTakingAction"=dword:00000001
 "ServiceKeepAlive"=dword:00000000
 "DisableBlockAtFirstSeen"=dword:00000001
+"DisableEnhancedNotifications"=dword:00000001
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet]
 "DisableAntiSpyware"=dword:00000001
@@ -64,6 +67,7 @@ Windows Registry Editor Version 5.00
 "DisableRoutinelyTakingAction"=dword:00000001
 "ServiceKeepAlive"=dword:00000000
 "DisableBlockAtFirstSeen"=dword:00000001
+"DisableEnhancedNotifications"=dword:00000001
 
 ; ---------------- disable TamperProtection
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\Features]

