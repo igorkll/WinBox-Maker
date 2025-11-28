@@ -1138,6 +1138,12 @@ powercfg -s {powerScheme}";
             List<string> stopServices = new List<string>();
 
             string[] stopServicesList = {
+                //"SecurityHealthService",
+                //"Sense",
+                //"WdBoot",
+                //"WdFilter",
+                //"WdNisDrv",
+                //"WdNisSvc",
                 "edgeupdate",
                 "edgeupdatem",
                 "wbengine",
@@ -1203,6 +1209,7 @@ powercfg -s {powerScheme}";
             string servicesSetup = "";
             foreach (string service in stopServices)
             {
+                servicesSetup += $"echo stop service: {service} >> C:\\WinboxResources\\setup.log\r\n";
                 servicesSetup += $"sc stop {service}\r\n";
                 servicesSetup += $"sc config {service} start= disabled\r\n";
                 servicesSetup += $"net stop {service}\r\n";
@@ -1211,6 +1218,7 @@ powercfg -s {powerScheme}";
 
             foreach (string service in startServices)
             {
+                servicesSetup += $"echo start service: {service} >> C:\\WinboxResources\\setup.log\r\n";
                 servicesSetup += $"sc config {service} start= auto\r\n";
                 servicesSetup += $"sc start {service}\r\n";
                 servicesSetup += $"net start {service}\r\n";
