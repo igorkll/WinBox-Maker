@@ -1138,7 +1138,6 @@ powercfg -s {powerScheme}";
             List<string> stopServices = new List<string>();
 
             string[] stopServicesList = {
-                "SecurityHealthService",
                 "edgeupdate",
                 "edgeupdatem",
                 "wbengine",
