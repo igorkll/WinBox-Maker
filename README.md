@@ -41,12 +41,14 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * if the program freezes when opening the winbox maker project, most likely the old windows image was not unmounted from a temporary directory last time (for example, due to a failure in the build process), wait until winbox maker starts working, it may take some time.
 * DO NOT USE the launch of the application "after the desktop" except for debugging. Not only is it not safe and will allow you to access the system, but it also currently does not work well and may not be compatible with other settings
 * when exporting img, make sure that you have the 64-bit version of qemu installed and that it is selected in the winbox maker settings. otherwise, it will most likely "crash"
-* please note that when installing in .img, some actions will be performed twice. once when you first set up on qemu and the second time when you turn it on for the first time on a real device. among such actions: a postinstall script and a .reg file run from the user (those in setup completed are not subject to duplication since setup completed is executed only when it is actually turned on for the first time (on qemu)) this was done because, for example, the driver installer that you can put in postinstall may not want to install the driver without actually connected hardware, or it may install and double-launch it to install it in any case, and if it works, it will be installed immediately in img, installing a custom boot logo via hackBGRT (perhaps it will reset, although this is unlikely), disabling services, changing bcd settings, and others will be performed twice, the first time when you turn on qemu for the first time and the second time when you turn on a real device for the first time
 * if you do not need postinstall duplication, you can turn it off on the img export settings tab, or you can disable automatic shutdown at the end of installation on qemu, in which case you will need to turn off the VM yourself after installation (when you see your application), For example, you can use this in conjunction with first boot action > reboot to desktop to get to the desktop in qemu and make additional settings, then turn off the VM and get a locked down image without access to the desktop, but with additional settings made from the desktop
 * after creating the image and deploying it for the first time on real hardware, I STRONGLY recommend making sure that windows hotkeys really don't work (unless you purposefully decide to keep them working using the "Do not disable hotkeys by changing the *" options), at least check combinations such as alt+f4 and ctrl+alt+del to make sure that they are ignored by the system
 * at the moment, the custom boot logo installation only works on UEFI systems (you also need to turn off secure boot) (it may also not work at all for reasons unknown to me)
 * it is better not to use the function of replacing the boot logo in winbox maker, the right solution would be to make your own UEFI with your own boot logo (BGRT) or change an existing one. windows will automatically use the UEFI logo. also, if the computer is in a public place, it is better not to make a UEFI menu
 * if you used the "Do not disable hotkeys by changing the layout" option on a non-enterprise version of windows, it is likely that the keyboard shortcuts will still work because keyboard filter will not work
+* please note that when installing in .img, some actions will be performed twice. once when you first set up on qemu and the second time when you turn it on for the first time on a real device. among such actions: a postinstall script and a .reg file run from the user (those in setup completed are not subject to duplication since setup completed is executed only when it is actually turned on for the first time (on qemu)) this was done because, for example, the driver installer that you can put in postinstall may not want to install the driver without actually connected hardware, or it may install and double-launch it to install it in any case, and if it works, it will be installed immediately in img, installing a custom boot logo via hackBGRT (perhaps it will reset, although this is unlikely), disabling services, changing bcd settings, and others will be performed twice, the first time when you turn on qemu for the first time and the second time when you turn on a real device for the first time (the same thing happens if you use the "export initialized install.wim" option)
+* please note that if you use the "export initialized install.wim" option or export .img, this will actually launch qemu and require you to go through the standard Windows installation, this will make it impossible to build completely using the CLI unless you automate the installer
+* the "export initialized install.wim" option does not work if you export .img, as it literally would not make any sense, but would require double-running the Windows installer (however, when exporting a different format, it works because. the wim is contained within)
 
 ## notes
 * it is recommended to use "Windows 10 Enterprise" or "Windows 10 IoT Enterprise" (not Evaluation) specifically, otherwise some things probably won't work, such as disabling the login animation and disabling keyboard shortcuts in the system itself (keyboard filter) (winbox maker disables combinations in two ways. by changing the keyboard layout, it will still work)
@@ -68,16 +70,16 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * description - enter the names of the project and its description, this information will be included in the final *.wim file and will also serve as the name for the output file
 * app - choose what your Windows image will do. This can be the launch of a single web page or a custom application
 * settings - configure your windows image and embed the components that are necessary for your application to work
+* build settings - the settings that are performed at the stage of image assembly and can be used even in the manual setup mode
 * post install - install the scripts and registry files that will be applied to the system when it is first turned on. This can be used to change the system configuration or install software
-* activation - enter the windows activation key that will be embedded in the image. the system will work without this, however, it will be inactive and despite the fact that there will be no activation sign, such a system will not be considered legal and is suitable only for testing. You can include the activation key immediately in the image or activate the system during installation using standard installer tools
 * events - execute cmd commands on the host machine during the build process. this can be used, for example, to copy files to the project directory or for anything else. to make this work, don't forget to activate the events you use in the checkmark!
 * build - build your app together with Winbox. when using this, you can make the "winbox_resources/program" directory empty and specify a name *.exe file in "app" tab manually. in order for this to work, don't forget to activate the checkmark function near the "add" button!
-* downloading - allows you to download files during the build stage. It allows you to unpack archives automatically. please note that the download path is set relative to the project folder. it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore"
-* export img - export settings in img format
+* download - allows you to download files during the build stage. It allows you to unpack archives automatically. please note that the download path is set relative to the project folder. it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore"
+* export - export settings
 * delete - allows you to delete files and windows components
 * manual setup - it allows you to use winbox maker in manual configuration mode, in which case the settings from winbox maker will be unavailable and you will set the system configuration yourself
 
-## what was disabled
+## what was disabled (can be customized)
 * explorer.exe (the desktop is completely inaccessible)
 * BSOD display (if the device goes into a BSOD, it will just reboot without displaying a BSOD)
 * alt+f4
@@ -91,7 +93,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * creating screenshots
 * sticky keys
 * check disk
-* hibernation and fast loading (can be customized)
+* hibernation and fast loading
 * oobe
 * firewall
 * system recovery menu
@@ -107,7 +109,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * lock screen
 * logon animation (it only works normally in the enterprise version)
 
-## services that have been disabled
+## services that have been disabled (can be customized)
 * edgeupdate
 * edgeupdatem
 * wbengine
@@ -218,6 +220,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * net - not working
 * net_framework - not working
 * app_runtime - not working
+* recovery_files - it only works if reassembly recovery is enabled in manual setup mode
 
 ## project structure
 * winbox.wnb - the main project file. contains all settings and paths
