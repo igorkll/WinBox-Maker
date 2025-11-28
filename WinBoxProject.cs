@@ -1144,6 +1144,14 @@ powercfg -s {powerScheme}";
                 //"WdFilter",
                 //"WdNisDrv",
                 //"WdNisSvc",
+                //"Superfetch",
+                //"OneSyncSvc",
+                //"OfficeClickToRun",
+                //"OneDrive",
+                //"Cortana",
+                //"SyncHost",
+                //"CompatTelRunner",
+                //"UsoSvc",
                 "edgeupdate",
                 "edgeupdatem",
                 "wbengine",
@@ -1180,6 +1188,17 @@ powercfg -s {powerScheme}";
 
             stopServices.AddRange(stopServicesList);
             stopServices.AddRange(getCustomStopList());
+
+            stopServices.Add("AppXSvc");
+            if (!winBoxConfig.isValidOemKey())
+            {
+                stopServices.Add("sppsvc");
+            }
+            if (winBoxConfig.LaunchMode != ProgramLaunchModeEnum.afterDesktop)
+            {
+                stopServices.Add("WpnUserService"); //какие нах пуши без экспорера?
+            }
+
             Program.DelRange(stopServices, getStartServicesList());
 
             return stopServices.Distinct().ToArray();
@@ -1201,7 +1220,7 @@ powercfg -s {powerScheme}";
             return startServices.Distinct().ToArray();
         }
 
-        string _getServicesSetup()
+        string _getServicesSetup(bool onlyRegStop=false)
         {
             string[] stopServices = getStopServicesList();
             string[] startServices = getStartServicesList();
@@ -1210,9 +1229,13 @@ powercfg -s {powerScheme}";
             foreach (string service in stopServices)
             {
                 servicesSetup += $"echo stop service: {service} >> C:\\WinboxResources\\setup.log\r\n";
-                servicesSetup += $"sc stop {service}\r\n";
-                servicesSetup += $"sc config {service} start= disabled\r\n";
-                servicesSetup += $"net stop {service}\r\n";
+                servicesSetup += $"echo only reg stop: {onlyRegStop} >> C:\\WinboxResources\\setup.log\r\n";
+                if (!onlyRegStop)
+                {
+                    servicesSetup += $"sc stop {service}\r\n";
+                    servicesSetup += $"sc config {service} start= disabled\r\n";
+                    servicesSetup += $"net stop {service}\r\n";
+                }
                 servicesSetup += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\{service}"" /v Start /t REG_DWORD /d 4 /f" + "\r\n";
                 servicesSetup += $"echo service {service} stoped >> C:\\WinboxResources\\setup.log\r\n";
             }
@@ -1571,7 +1594,6 @@ powercfg -s {powerScheme}";
             {
                 string bcdeditSetup = _getBcdeditSetup();
                 string powercfgSetup = _getPowercfgSetup();
-                string servicesSetup = _getServicesSetup();
 
                 string setupCompleteAndFirstInit = $@"echo SetupComplete and FirstInit - start >> C:\WinboxResources\setup.log
 
@@ -1593,9 +1615,6 @@ dism /online /enable-feature /all /featurename:Client-EmbeddedBootExp
 echo SetupComplete and FirstInit - setup powercfg >> C:\WinboxResources\setup.log
 {powercfgSetup}
 
-echo SetupComplete and FirstInit - setup services >> C:\WinboxResources\setup.log
-{servicesSetup}
-
 echo SetupComplete and FirstInit - end >> C:\WinboxResources\setup.log";
 
                 string updateSystemSettingsAndFirstInit = $@"powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
@@ -1616,6 +1635,9 @@ powershell -Command ""Set-MpPreference -DisableScriptScanning $true""
 
 echo SetupComplete - call SetupComplete and FirstInit >> C:\WinboxResources\setup.log
 {setupCompleteAndFirstInit}
+
+echo SetupComplete - setup services >> C:\WinboxResources\setup.log
+{_getServicesSetup(true)}
 
 echo SetupComplete - add executable to PATH >> C:\WinboxResources\setup.log
 setx PATH ""%PATH%;C:\WinboxResources\executable"" /M
@@ -1681,11 +1703,11 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v HungAppTime
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v WaitToKillAppTimeout /t REG_SZ /d ""5000"" /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f";
 
-                string updateSystemSettings = $@"@echo off
-
-reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
+                string updateSystemSettings = $@"reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
 
 {updateSystemSettingsAndFirstInit}";
+
+                string firstInit = $@"{_getServicesSetup()}";
 
                 void regAppScriptFirstInitCmd(string name, string cmd, bool writeFirst = false)
                 {
@@ -1704,6 +1726,7 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentic
 
                 regAppScriptFirstInitCmd("firstInit1", setupCompleteAndFirstInit);
                 regAppScriptFirstInitCmd("firstInit2", updateSystemSettingsAndFirstInit);
+                regAppScriptFirstInitCmd("firstInit3", firstInit);
 
                 if (winBoxConfig.computername_use == true)
                 {
