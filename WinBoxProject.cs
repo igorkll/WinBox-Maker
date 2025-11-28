@@ -1138,20 +1138,22 @@ powercfg -s {powerScheme}";
             List<string> stopServices = new List<string>();
 
             string[] stopServicesList = {
-                //"SecurityHealthService",
-                //"Sense",
-                //"WdBoot",
-                //"WdFilter",
-                //"WdNisDrv",
-                //"WdNisSvc",
-                //"Superfetch",
-                //"OneSyncSvc",
-                //"OfficeClickToRun",
-                //"OneDrive",
-                //"Cortana",
-                //"SyncHost",
-                //"CompatTelRunner",
-                //"UsoSvc",
+                "SecurityHealthService",
+                "Sense",
+                "WdBoot",
+                "WdFilter",
+                "WdNisDrv",
+                "WdNisSvc",
+                "Superfetch",
+                "OneSyncSvc",
+                "OfficeClickToRun",
+                "OneDrive",
+                "Cortana",
+                "SyncHost",
+                "CompatTelRunner",
+                "UsoSvc",
+                "wlidsvcNetwork",
+
                 "edgeupdate",
                 "edgeupdatem",
                 "wbengine",
@@ -1707,7 +1709,11 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTask
 
 {updateSystemSettingsAndFirstInit}";
 
-                string firstInit = $@"{_getServicesSetup()}";
+                string firstInit = $@"echo FirstInit - start >> C:\WinboxResources\setup.log
+
+{_getServicesSetup()}
+
+echo FirstInit - end >> C:\WinboxResources\setup.log";
 
                 void regAppScriptFirstInitCmd(string name, string cmd, bool writeFirst = false)
                 {
