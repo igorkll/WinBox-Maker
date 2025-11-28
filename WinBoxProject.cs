@@ -1565,6 +1565,15 @@ powercfg -s {powerScheme}";
 
                 string setupCompleteAndFirstInit = $@"echo SetupComplete and FirstInit - start >> C:\WinboxResources\setup.log
 
+echo SetupComplete and FirstInit - setup recovery >> C:\WinboxResources\setup.log
+reagentc.exe /disable
+
+echo SetupComplete and FirstInit - setup BCD >> C:\WinboxResources\setup.log
+{bcdeditSetup}
+
+echo SetupComplete and FirstInit - disable firewall >> C:\WinboxResources\setup.log
+netsh advfirewall set allprofiles state off
+
 echo SetupComplete and FirstInit - setup dism >> C:\WinboxResources\setup.log
 dism /online /enable-feature /all /featurename:Client-DeviceLockdown
 dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
@@ -1579,9 +1588,8 @@ echo SetupComplete and FirstInit - setup services >> C:\WinboxResources\setup.lo
 
 echo SetupComplete and FirstInit - end >> C:\WinboxResources\setup.log";
 
-                string updateSystemSettingsAndFirstInit = $@"reagentc.exe /disable
-netsh advfirewall set allprofiles state off
-powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
+                string updateSystemSettingsAndFirstInit = $@"powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
+powershell -Command ""Set-MpPreference -DisableRealtimeMonitoring $true""
 
 {bcdeditSetup}";
                 //why do I change the bcd every time I start?
