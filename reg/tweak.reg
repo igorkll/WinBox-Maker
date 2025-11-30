@@ -13,6 +13,34 @@ Windows Registry Editor Version 5.00
 "DumpType"=dword:00000000
 
 ; ---------------- disable windows defender
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender]
+"DisableAntiSpyware"=dword:00000001
+"DisableAntiVirus"=dword:00000001
+"DisableRealtimeMonitoring"=dword:00000001
+"DisableBehaviorMonitoring"=dword:00000001
+"DisableOnAccessProtection"=dword:00000001
+"DisableScanOnRealtimeEnable"=dword:00000001
+"DisableIOAVProtection"=dword:00000001
+"DisableSpecialRunningModes"=dword:00000001
+"DisableRoutinelyTakingAction"=dword:00000001
+"ServiceKeepAlive"=dword:00000000
+"DisableBlockAtFirstSeen"=dword:00000001
+"DisableEnhancedNotifications"=dword:00000001
+"DpaDisabled"=dword:00000001
+"VerifiedAndReputableTrustModeEnabled"=dword:00000001
+"ProductAppDataPath"=" *|%@^&\\/! +- ~"
+"RemediationExe"=" *|%@^&\\/! +- ~"
+"ProductLocalizedName"=" *|%@^&\\/! +- ~"
+"ProductIcon"=" *|%@^&\\/! +- ~"
+"InstallLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"HybridModeEnabled"=dword:00000000
+"AllowFastServiceStartup"=dword:00000000
+"ServiceKeepAlive"=dword:00000000
+"LocalSettingOverrideSpynetReporting"=dword:00000000
+"SubmitSamplesConsent"=dword:00000002
+
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
@@ -35,6 +63,11 @@ Windows Registry Editor Version 5.00
 "InstallLocation"=" *|%@^&\\/! +- ~"
 "BackupLocation"=" *|%@^&\\/! +- ~"
 "BackupLocation"=" *|%@^&\\/! +- ~"
+"HybridModeEnabled"=dword:00000000
+"AllowFastServiceStartup"=dword:00000000
+"ServiceKeepAlive"=dword:00000000
+"LocalSettingOverrideSpynetReporting"=dword:00000000
+"SubmitSamplesConsent"=dword:00000002
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection]
 "DisableAntiSpyware"=dword:00000001
@@ -50,6 +83,47 @@ Windows Registry Editor Version 5.00
 "DisableBlockAtFirstSeen"=dword:00000001
 "DisableEnhancedNotifications"=dword:00000001
 "DpaDisabled"=dword:00000001
+"VerifiedAndReputableTrustModeEnabled"=dword:00000001
+"ProductAppDataPath"=" *|%@^&\\/! +- ~"
+"RemediationExe"=" *|%@^&\\/! +- ~"
+"ProductLocalizedName"=" *|%@^&\\/! +- ~"
+"ProductIcon"=" *|%@^&\\/! +- ~"
+"InstallLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"HybridModeEnabled"=dword:00000000
+"AllowFastServiceStartup"=dword:00000000
+"ServiceKeepAlive"=dword:00000000
+"LocalSettingOverrideSpynetReporting"=dword:00000000
+"SubmitSamplesConsent"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\Real-Time Protection]
+"DisableAntiSpyware"=dword:00000001
+"DisableAntiVirus"=dword:00000001
+"DisableRealtimeMonitoring"=dword:00000001
+"DisableBehaviorMonitoring"=dword:00000001
+"DisableOnAccessProtection"=dword:00000001
+"DisableScanOnRealtimeEnable"=dword:00000001
+"DisableIOAVProtection"=dword:00000001
+"DisableSpecialRunningModes"=dword:00000001
+"DisableRoutinelyTakingAction"=dword:00000001
+"ServiceKeepAlive"=dword:00000000
+"DisableBlockAtFirstSeen"=dword:00000001
+"DisableEnhancedNotifications"=dword:00000001
+"DpaDisabled"=dword:00000001
+"VerifiedAndReputableTrustModeEnabled"=dword:00000001
+"ProductAppDataPath"=" *|%@^&\\/! +- ~"
+"RemediationExe"=" *|%@^&\\/! +- ~"
+"ProductLocalizedName"=" *|%@^&\\/! +- ~"
+"ProductIcon"=" *|%@^&\\/! +- ~"
+"InstallLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"HybridModeEnabled"=dword:00000000
+"AllowFastServiceStartup"=dword:00000000
+"ServiceKeepAlive"=dword:00000000
+"LocalSettingOverrideSpynetReporting"=dword:00000000
+"SubmitSamplesConsent"=dword:00000002
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager]
 "DisableAntiSpyware"=dword:00000001
@@ -65,6 +139,47 @@ Windows Registry Editor Version 5.00
 "DisableBlockAtFirstSeen"=dword:00000001
 "DisableEnhancedNotifications"=dword:00000001
 "DpaDisabled"=dword:00000001
+"VerifiedAndReputableTrustModeEnabled"=dword:00000001
+"ProductAppDataPath"=" *|%@^&\\/! +- ~"
+"RemediationExe"=" *|%@^&\\/! +- ~"
+"ProductLocalizedName"=" *|%@^&\\/! +- ~"
+"ProductIcon"=" *|%@^&\\/! +- ~"
+"InstallLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"HybridModeEnabled"=dword:00000000
+"AllowFastServiceStartup"=dword:00000000
+"ServiceKeepAlive"=dword:00000000
+"LocalSettingOverrideSpynetReporting"=dword:00000000
+"SubmitSamplesConsent"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\Policy Manager]
+"DisableAntiSpyware"=dword:00000001
+"DisableAntiVirus"=dword:00000001
+"DisableRealtimeMonitoring"=dword:00000001
+"DisableBehaviorMonitoring"=dword:00000001
+"DisableOnAccessProtection"=dword:00000001
+"DisableScanOnRealtimeEnable"=dword:00000001
+"DisableIOAVProtection"=dword:00000001
+"DisableSpecialRunningModes"=dword:00000001
+"DisableRoutinelyTakingAction"=dword:00000001
+"ServiceKeepAlive"=dword:00000000
+"DisableBlockAtFirstSeen"=dword:00000001
+"DisableEnhancedNotifications"=dword:00000001
+"DpaDisabled"=dword:00000001
+"VerifiedAndReputableTrustModeEnabled"=dword:00000001
+"ProductAppDataPath"=" *|%@^&\\/! +- ~"
+"RemediationExe"=" *|%@^&\\/! +- ~"
+"ProductLocalizedName"=" *|%@^&\\/! +- ~"
+"ProductIcon"=" *|%@^&\\/! +- ~"
+"InstallLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"HybridModeEnabled"=dword:00000000
+"AllowFastServiceStartup"=dword:00000000
+"ServiceKeepAlive"=dword:00000000
+"LocalSettingOverrideSpynetReporting"=dword:00000000
+"SubmitSamplesConsent"=dword:00000002
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet]
 "DisableAntiSpyware"=dword:00000001
@@ -80,6 +195,47 @@ Windows Registry Editor Version 5.00
 "DisableBlockAtFirstSeen"=dword:00000001
 "DisableEnhancedNotifications"=dword:00000001
 "DpaDisabled"=dword:00000001
+"VerifiedAndReputableTrustModeEnabled"=dword:00000001
+"ProductAppDataPath"=" *|%@^&\\/! +- ~"
+"RemediationExe"=" *|%@^&\\/! +- ~"
+"ProductLocalizedName"=" *|%@^&\\/! +- ~"
+"ProductIcon"=" *|%@^&\\/! +- ~"
+"InstallLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"HybridModeEnabled"=dword:00000000
+"AllowFastServiceStartup"=dword:00000000
+"ServiceKeepAlive"=dword:00000000
+"LocalSettingOverrideSpynetReporting"=dword:00000000
+"SubmitSamplesConsent"=dword:00000002
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\SpyNet]
+"DisableAntiSpyware"=dword:00000001
+"DisableAntiVirus"=dword:00000001
+"DisableRealtimeMonitoring"=dword:00000001
+"DisableBehaviorMonitoring"=dword:00000001
+"DisableOnAccessProtection"=dword:00000001
+"DisableScanOnRealtimeEnable"=dword:00000001
+"DisableIOAVProtection"=dword:00000001
+"DisableSpecialRunningModes"=dword:00000001
+"DisableRoutinelyTakingAction"=dword:00000001
+"ServiceKeepAlive"=dword:00000000
+"DisableBlockAtFirstSeen"=dword:00000001
+"DisableEnhancedNotifications"=dword:00000001
+"DpaDisabled"=dword:00000001
+"VerifiedAndReputableTrustModeEnabled"=dword:00000001
+"ProductAppDataPath"=" *|%@^&\\/! +- ~"
+"RemediationExe"=" *|%@^&\\/! +- ~"
+"ProductLocalizedName"=" *|%@^&\\/! +- ~"
+"ProductIcon"=" *|%@^&\\/! +- ~"
+"InstallLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"BackupLocation"=" *|%@^&\\/! +- ~"
+"HybridModeEnabled"=dword:00000000
+"AllowFastServiceStartup"=dword:00000000
+"ServiceKeepAlive"=dword:00000000
+"LocalSettingOverrideSpynetReporting"=dword:00000000
+"SubmitSamplesConsent"=dword:00000002
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths]
 "A:\\"=""
@@ -107,7 +263,6 @@ Windows Registry Editor Version 5.00
 "X:\\"=""
 "Y:\\"=""
 "Z:\\"=""
-
 "A:\\ "=""
 "B:\\ "=""
 "C:\\ "=""
@@ -133,7 +288,6 @@ Windows Registry Editor Version 5.00
 "X:\\ "=""
 "Y:\\ "=""
 "Z:\\ "=""
-
 "A:\\*"=""
 "B:\\*"=""
 "C:\\*"=""
@@ -159,7 +313,6 @@ Windows Registry Editor Version 5.00
 "X:\\*"=""
 "Y:\\*"=""
 "Z:\\*"=""
-
 ""=""
 "*"=""
 "//"=""
