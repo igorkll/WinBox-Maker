@@ -2648,7 +2648,7 @@ if errorlevel 1 (
                     await removeSystemObject("Windows\\SysWOW64");
                 }
 
-                if (Program.isTweakEnabled(winBoxConfig, "removing UWP apps"))
+                if (Program.isTweakEnabled(winBoxConfig, "removing Windows/System apps (breaks the default shell)"))
                 {
                     await removeSystemObject("Windows\\SystemApps");
                     await removeSystemObject("Program Files\\WindowsApps");

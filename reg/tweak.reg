@@ -13,6 +13,8 @@ Windows Registry Editor Version 5.00
 "DumpType"=dword:00000000
 
 ; ---------------- disable windows defender
+; БЛЯТЬ, ебанавинда не дает писать в эти разделы ДАЖЕ В СМОНТИРОВАНОМ БЛЯТЬ РЕЕСТРЕ! microsoft, BRUHHHHHHHHHHHHH
+; нада будет походу свою либу писать чтобы файлы реестера патчить
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
@@ -33,7 +35,6 @@ Windows Registry Editor Version 5.00
 "ProductLocalizedName"=" *|%@^&\\/! +- ~"
 "ProductIcon"=" *|%@^&\\/! +- ~"
 "InstallLocation"=" *|%@^&\\/! +- ~"
-"BackupLocation"=" *|%@^&\\/! +- ~"
 "BackupLocation"=" *|%@^&\\/! +- ~"
 "HybridModeEnabled"=dword:00000000
 "AllowFastServiceStartup"=dword:00000000
@@ -62,7 +63,6 @@ Windows Registry Editor Version 5.00
 "ProductIcon"=" *|%@^&\\/! +- ~"
 "InstallLocation"=" *|%@^&\\/! +- ~"
 "BackupLocation"=" *|%@^&\\/! +- ~"
-"BackupLocation"=" *|%@^&\\/! +- ~"
 "HybridModeEnabled"=dword:00000000
 "AllowFastServiceStartup"=dword:00000000
 "ServiceKeepAlive"=dword:00000000
@@ -89,7 +89,6 @@ Windows Registry Editor Version 5.00
 "ProductLocalizedName"=" *|%@^&\\/! +- ~"
 "ProductIcon"=" *|%@^&\\/! +- ~"
 "InstallLocation"=" *|%@^&\\/! +- ~"
-"BackupLocation"=" *|%@^&\\/! +- ~"
 "BackupLocation"=" *|%@^&\\/! +- ~"
 "HybridModeEnabled"=dword:00000000
 "AllowFastServiceStartup"=dword:00000000
@@ -118,7 +117,6 @@ Windows Registry Editor Version 5.00
 "ProductIcon"=" *|%@^&\\/! +- ~"
 "InstallLocation"=" *|%@^&\\/! +- ~"
 "BackupLocation"=" *|%@^&\\/! +- ~"
-"BackupLocation"=" *|%@^&\\/! +- ~"
 "HybridModeEnabled"=dword:00000000
 "AllowFastServiceStartup"=dword:00000000
 "ServiceKeepAlive"=dword:00000000
@@ -145,7 +143,6 @@ Windows Registry Editor Version 5.00
 "ProductLocalizedName"=" *|%@^&\\/! +- ~"
 "ProductIcon"=" *|%@^&\\/! +- ~"
 "InstallLocation"=" *|%@^&\\/! +- ~"
-"BackupLocation"=" *|%@^&\\/! +- ~"
 "BackupLocation"=" *|%@^&\\/! +- ~"
 "HybridModeEnabled"=dword:00000000
 "AllowFastServiceStartup"=dword:00000000
@@ -174,7 +171,6 @@ Windows Registry Editor Version 5.00
 "ProductIcon"=" *|%@^&\\/! +- ~"
 "InstallLocation"=" *|%@^&\\/! +- ~"
 "BackupLocation"=" *|%@^&\\/! +- ~"
-"BackupLocation"=" *|%@^&\\/! +- ~"
 "HybridModeEnabled"=dword:00000000
 "AllowFastServiceStartup"=dword:00000000
 "ServiceKeepAlive"=dword:00000000
@@ -202,7 +198,6 @@ Windows Registry Editor Version 5.00
 "ProductIcon"=" *|%@^&\\/! +- ~"
 "InstallLocation"=" *|%@^&\\/! +- ~"
 "BackupLocation"=" *|%@^&\\/! +- ~"
-"BackupLocation"=" *|%@^&\\/! +- ~"
 "HybridModeEnabled"=dword:00000000
 "AllowFastServiceStartup"=dword:00000000
 "ServiceKeepAlive"=dword:00000000
@@ -229,7 +224,6 @@ Windows Registry Editor Version 5.00
 "ProductLocalizedName"=" *|%@^&\\/! +- ~"
 "ProductIcon"=" *|%@^&\\/! +- ~"
 "InstallLocation"=" *|%@^&\\/! +- ~"
-"BackupLocation"=" *|%@^&\\/! +- ~"
 "BackupLocation"=" *|%@^&\\/! +- ~"
 "HybridModeEnabled"=dword:00000000
 "AllowFastServiceStartup"=dword:00000000
@@ -318,9 +312,96 @@ Windows Registry Editor Version 5.00
 "//"=""
 "\\"=""
 " "=""
+"!"=""
+"~"=""
 "*:\\"=""
 "*:\\ "=""
 "*:\\*"=""
+"1"="A:\\"
+"2"="B:\\"
+"3"="C:\\"
+"4"="D:\\"
+"5"="E:\\"
+"6"="F:\\"
+"7"="G:\\"
+"8"="H:\\"
+"9"="I:\\"
+"10"="J:\\"
+"11"="K:\\"
+"12"="L:\\"
+"13"="M:\\"
+"14"="N:\\"
+"15"="O:\\"
+"16"="P:\\"
+"17"="Q:\\"
+"18"="S:\\"
+"19"="T:\\"
+"20"="U:\\"
+"21"="V:\\"
+"22"="W:\\"
+"23"="X:\\"
+"24"="Y:\\"
+"25"="Z:\\"
+"26"="A:\\ "
+"27"="B:\\ "
+"28"="C:\\ "
+"29"="D:\\ "
+"30"="E:\\ "
+"31"="F:\\ "
+"32"="G:\\ "
+"33"="H:\\ "
+"34"="I:\\ "
+"35"="J:\\ "
+"36"="K:\\ "
+"37"="L:\\ "
+"38"="M:\\ "
+"39"="N:\\ "
+"40"="O:\\ "
+"41"="P:\\ "
+"42"="Q:\\ "
+"43"="S:\\ "
+"44"="T:\\ "
+"45"="U:\\ "
+"46"="V:\\ "
+"47"="W:\\ "
+"48"="X:\\ "
+"49"="Y:\\ "
+"50"="Z:\\ "
+"51"="A:\\*"
+"52"="B:\\*"
+"53"="C:\\*"
+"54"="D:\\*"
+"55"="E:\\*"
+"56"="F:\\*"
+"57"="G:\\*"
+"58"="H:\\*"
+"59"="I:\\*"
+"60"="J:\\*"
+"61"="K:\\*"
+"62"="L:\\*"
+"63"="M:\\*"
+"64"="N:\\*"
+"65"="O:\\*"
+"66"="P:\\*"
+"67"="Q:\\*"
+"68"="S:\\*"
+"69"="T:\\*"
+"70"="U:\\*"
+"71"="V:\\*"
+"72"="W:\\*"
+"73"="X:\\*"
+"74"="Y:\\*"
+"75"="Z:\\*"
+"76"=""
+"77"="*"
+"78"="//"
+"79"="\\"
+"80"=" "
+"81"="!"
+"82"="~"
+"83"="*:\\"
+"84"="*:\\ "
+"85"="*:\\*"
 
 ; ---------------- disable TamperProtection
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\Features]

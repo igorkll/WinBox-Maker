@@ -162,6 +162,20 @@ namespace WinBox_Maker
             }
         }
 
+        static public void ReplaceAll(string[] items, string oldValue, string newValue)
+        {
+            for (int index = 0; index < items.Length; index++)
+                if (items[index] == oldValue)
+                    items[index] = newValue;
+        }
+
+        static public void ReplaceAll(List<string> items, string oldValue, string newValue)
+        {
+            for (int index = 0; index < items.Count; index++)
+                if (items[index] == oldValue)
+                    items[index] = newValue;
+        }
+
         static void consoleConvert(string path, string? output, List<string> flags)
         {
             path = Path.GetFullPath(path);

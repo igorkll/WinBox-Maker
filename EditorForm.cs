@@ -75,7 +75,7 @@ namespace WinBox_Maker
             AddTweakToList("Do not disable hotkeys by changing the registry");
             AddTweakToList("completely remove explorer.exe");
             AddTweakToList("completely remove system audio/images");
-            AddTweakToList("removing UWP apps");
+            AddTweakToList("removing Windows/System apps (breaks the default shell)");
             AddTweakToList("removal of the subsystem SysWOW64");
             AddTweakToList("remove windows defender files");
             AddTweakToList("Allow check-disk");

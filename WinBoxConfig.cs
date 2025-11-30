@@ -203,6 +203,14 @@ namespace WinBox_Maker
         public bool? recoverymod_manual_allow { get; set; }
         public RecoveryMenuAction? recoveryMenuAction { get; set; }
 
+        static string[] renameTweaks_from = [
+            "removing UWP apps"
+        ];
+
+        static string[] renameTweaks_to = [
+            "removing Windows/System apps (breaks the default shell)"
+        ];
+
 
         public WinBoxConfig() {
             InitDefaults();
@@ -341,6 +349,11 @@ namespace WinBox_Maker
 
             if (recoverymod_manual_allow == null) recoverymod_manual_allow = true;
             if (recoveryMenuAction == null) recoveryMenuAction = RecoveryMenuAction.Delete;
+
+            for (int i = 0; i < renameTweaks_from.Length; i++)
+            {
+                Program.ReplaceAll(TweakList, renameTweaks_from[i], renameTweaks_to[i]);
+            }
         }
 
         public void Save(string wnbFilePath)
