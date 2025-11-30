@@ -431,6 +431,8 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            label83 = new Label();
+            services_deleteFromList = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -2850,6 +2852,8 @@
             // 
             // tabPage35
             // 
+            tabPage35.Controls.Add(label83);
+            tabPage35.Controls.Add(services_deleteFromList);
             tabPage35.Controls.Add(label5);
             tabPage35.Controls.Add(services_startOnlyList);
             tabPage35.Controls.Add(label86);
@@ -2868,7 +2872,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(498, 4);
+            label5.Location = new Point(328, 4);
             label5.Name = "label5";
             label5.Size = new Size(60, 32);
             label5.TabIndex = 45;
@@ -2877,7 +2881,7 @@
             // services_startOnlyList
             // 
             services_startOnlyList.AutoSize = true;
-            services_startOnlyList.Location = new Point(564, 10);
+            services_startOnlyList.Location = new Point(394, 10);
             services_startOnlyList.Name = "services_startOnlyList";
             services_startOnlyList.Size = new Size(139, 29);
             services_startOnlyList.TabIndex = 47;
@@ -2910,16 +2914,16 @@
             // 
             services_stop.Location = new Point(6, 39);
             services_stop.Name = "services_stop";
-            services_stop.Size = new Size(486, 157);
+            services_stop.Size = new Size(316, 157);
             services_stop.TabIndex = 42;
             services_stop.Text = "";
             services_stop.TextChanged += services_stop_TextChanged;
             // 
             // services_start
             // 
-            services_start.Location = new Point(498, 39);
+            services_start.Location = new Point(328, 39);
             services_start.Name = "services_start";
-            services_start.Size = new Size(460, 157);
+            services_start.Size = new Size(316, 157);
             services_start.TabIndex = 43;
             services_start.Text = "";
             services_start.TextChanged += services_start_TextChanged;
@@ -4747,6 +4751,25 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // label83
+            // 
+            label83.AutoSize = true;
+            label83.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label83.Location = new Point(650, 4);
+            label83.Name = "label83";
+            label83.Size = new Size(176, 32);
+            label83.TabIndex = 49;
+            label83.Text = "delete from list";
+            // 
+            // services_deleteFromList
+            // 
+            services_deleteFromList.Location = new Point(650, 39);
+            services_deleteFromList.Name = "services_deleteFromList";
+            services_deleteFromList.Size = new Size(308, 157);
+            services_deleteFromList.TabIndex = 48;
+            services_deleteFromList.Text = "";
+            services_deleteFromList.TextChanged += services_deleteFromList_TextChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -5332,5 +5355,7 @@
         private ComboBox recoveryMenuAction;
         private CheckBox recoverymod_manual_allow;
         private RichTextBox richTextBox19;
+        private Label label83;
+        private RichTextBox services_deleteFromList;
     }
 }

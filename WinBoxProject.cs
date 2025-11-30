@@ -1128,6 +1128,11 @@ powercfg -s {powerScheme}";
             return splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.services_stop ?? "");
         }
 
+        string[] getCustomDeleteList()
+        {
+            return splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.services_deleteFromList ?? "");
+        }
+
         string[] getCustomStartList()
         {
             return splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.services_start ?? "");
@@ -1154,7 +1159,7 @@ powercfg -s {powerScheme}";
                 "UsoSvc",
                 "wlidsvcNetwork",
 
-                "eventlog",
+                "WpnUserService",
                 "ClickToRunSvc",
                 "VSS",
 
@@ -1169,7 +1174,6 @@ powercfg -s {powerScheme}";
                 "shellhwdetection",
                 "SSDPSRV",
                 "TermService",
-                "lanmanserver",
                 "napagent",
                 "WinDefend",
                 "wlidsvc",
@@ -1185,6 +1189,9 @@ powercfg -s {powerScheme}";
                 "wscsvc",
                 "w32time",
                 "wisvc"
+
+                //"eventlog",
+                //"lanmanserver"
             };
 
             if (winBoxConfig.services_stopOnlyList == true)
@@ -1202,11 +1209,11 @@ powercfg -s {powerScheme}";
             }
             if (winBoxConfig.LaunchMode != ProgramLaunchModeEnum.afterDesktop)
             {
-                stopServices.Add("WpnUserService"); //какие нах пуши без экспорера?
+                //stopServices.Add("WpnUserService"); //какие нах пуши без экспорера?
             }
 
             Program.DelRange(stopServices, getStartServicesList());
-
+            Program.DelRange(stopServices, getCustomDeleteList());
             return stopServices.Distinct().ToArray();
         }
 
@@ -1223,6 +1230,7 @@ powercfg -s {powerScheme}";
 
             Program.DelRange(startServices, getCustomStopList());
             startServices.AddRange(getCustomStartList());
+            Program.DelRange(startServices, getCustomDeleteList());
             return startServices.Distinct().ToArray();
         }
 

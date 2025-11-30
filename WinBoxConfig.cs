@@ -193,6 +193,7 @@ namespace WinBox_Maker
         public bool? RealTimeIsUniversal { get; set; }
         public string? services_stop { get; set; }
         public string? services_start { get; set; }
+        public string? services_deleteFromList { get; set; }
         public bool? services_stopOnlyList { get; set; }
         public bool? services_startOnlyList { get; set; }
         public string? TimeZoneKeyName { get; set; }
@@ -331,6 +332,7 @@ namespace WinBox_Maker
 
             if (services_stop == null) services_stop = "";
             if (services_start == null) services_start = "";
+            if (services_deleteFromList == null) services_deleteFromList = "";
             if (services_stopOnlyList == null) services_stopOnlyList = false;
             if (services_startOnlyList == null) services_startOnlyList = false;
 

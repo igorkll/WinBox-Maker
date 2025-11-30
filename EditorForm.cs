@@ -656,6 +656,7 @@ namespace WinBox_Maker
 
             services_stop.Text = winBoxProject.winBoxConfig.services_stop ?? "";
             services_start.Text = winBoxProject.winBoxConfig.services_start ?? "";
+            services_deleteFromList.Text = winBoxProject.winBoxConfig.services_deleteFromList ?? "";
             services_stopOnlyList.CheckState = winBoxProject.winBoxConfig.services_stopOnlyList == true ? CheckState.Checked : CheckState.Unchecked;
             services_startOnlyList.CheckState = winBoxProject.winBoxConfig.services_startOnlyList == true ? CheckState.Checked : CheckState.Unchecked;
 
@@ -2676,6 +2677,15 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.recoveryMenuAction = (RecoveryMenuAction)recoveryMenuAction.SelectedIndex;
             winBoxProject.SaveConfig();
+        }
+
+        private void services_deleteFromList_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.services_deleteFromList = services_deleteFromList.Text;
+            winBoxProject.SaveConfig();
+            UpdateGuiCurrentServices();
         }
     }
 }
