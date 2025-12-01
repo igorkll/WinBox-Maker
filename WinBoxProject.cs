@@ -1052,12 +1052,19 @@ exit
                 bcdeditSetup += $"// BCD Path: {store} \r\n";
             }
 
-            void regBcdChange(string change)
+            void regBcdChange(string change, string partition=null)
             {
-                bcdeditSetup += $"bcdedit{storeCmd} /set {{globalsettings}} " + change + "\r\n";
-                bcdeditSetup += $"bcdedit{storeCmd} /set {{bootmgr}} " + change + "\r\n";
-                bcdeditSetup += $"bcdedit{storeCmd} /set {{current}} " + change + "\r\n";
-                bcdeditSetup += $"bcdedit{storeCmd} /set {{default}} " + change + "\r\n\r\n";
+                if (partition != null)
+                {
+                    bcdeditSetup += $"bcdedit{storeCmd} /set {{{partition}}} " + change + "\r\n";
+                }
+                else
+                {
+                    bcdeditSetup += $"bcdedit{storeCmd} /set {{globalsettings}} " + change + "\r\n";
+                    bcdeditSetup += $"bcdedit{storeCmd} /set {{bootmgr}} " + change + "\r\n";
+                    bcdeditSetup += $"bcdedit{storeCmd} /set {{current}} " + change + "\r\n";
+                    bcdeditSetup += $"bcdedit{storeCmd} /set {{default}} " + change + "\r\n\r\n";
+                }
             }
 
             if (winBoxConfig.manual_setup != true)
