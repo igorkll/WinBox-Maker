@@ -1043,13 +1043,14 @@ exit
 
         string _getBcdeditSetup(string? store = null)
         {
+            string bcdeditSetup = "";
+
             string? storeCmd = "";
             if (store != null)
             {
                 storeCmd = @$" /store ""{store}""";
+                bcdeditSetup += $"// BCD Path: {store} \r\n";
             }
-
-            string bcdeditSetup = "";
 
             void regBcdChange(string change)
             {
@@ -1059,41 +1060,44 @@ exit
                 bcdeditSetup += $"bcdedit{storeCmd} /set {{default}} " + change + "\r\n\r\n";
             }
 
-            regBcdChange("advancedoptions false");
-            regBcdChange("optionsedit false");
-
-            regBcdChange("displaybootmenu no");
-            regBcdChange("timeout 0");
-
-            regBcdChange("bootstatuspolicy ignoreallfailures");
-            regBcdChange("recoveryenabled no");
-            regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS");
-            regBcdChange("NOINTEGRITYCHECKS ON");
-            regBcdChange("TESTSIGNING ON");
-
-            if (Program.isTweakEnabled(winBoxConfig, "Disable boot circle"))
+            if (winBoxConfig.manual_setup != true)
             {
-                regBcdChange("custom:16000069 true");
-            }
+                regBcdChange("advancedoptions false");
+                regBcdChange("optionsedit false");
 
-            if (Program.isTweakEnabled(winBoxConfig, "Disable boot logo"))
-            {
-                regBcdChange("custom:16000067 true");
-            }
+                regBcdChange("displaybootmenu no");
+                regBcdChange("timeout 0");
 
-            if (Program.isTweakEnabled(winBoxConfig, "Disable boot messages"))
-            {
-                regBcdChange("custom:16000068 true");
-            }
+                regBcdChange("bootstatuspolicy ignoreallfailures");
+                regBcdChange("recoveryenabled no");
+                regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS");
+                regBcdChange("NOINTEGRITYCHECKS ON");
+                regBcdChange("TESTSIGNING ON");
 
-            if (Program.isTweakEnabled(winBoxConfig, "Disable all boot UI"))
-            {
-                regBcdChange("bootuxdisabled on");
-            }
+                if (Program.isTweakEnabled(winBoxConfig, "Disable boot circle"))
+                {
+                    regBcdChange("custom:16000069 true");
+                }
 
-            if (Program.isTweakEnabled(winBoxConfig, "Hide bootmgr errors"))
-            {
-                regBcdChange("noerrordisplay on");
+                if (Program.isTweakEnabled(winBoxConfig, "Disable boot logo"))
+                {
+                    regBcdChange("custom:16000067 true");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Disable boot messages"))
+                {
+                    regBcdChange("custom:16000068 true");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Disable all boot UI"))
+                {
+                    regBcdChange("bootuxdisabled on");
+                }
+
+                if (Program.isTweakEnabled(winBoxConfig, "Hide bootmgr errors"))
+                {
+                    regBcdChange("noerrordisplay on");
+                }
             }
 
             return bcdeditSetup;
@@ -1329,9 +1333,9 @@ powercfg -s {powerScheme}";
             if (info == true) await File.WriteAllTextAsync(Path.Combine(path, "INFO.txt"), $"name: {newWindowsDescription.name}\r\ndescription: {newWindowsDescription.description}");
         }
 
-        async Task modifyBCD(int index, string bcdPath)
+        async Task modifyBCD(string bcdPath)
         {
-            string bcdscriptName = $"modifyBCD_{index}";
+            string bcdscriptName = $"modifyBCD_{Program.CalculateMD5(bcdPath)}";
             string bcdscriptPath = Path.Combine(tempDirectoryPath, $"{bcdscriptName}.bat");
             string bcdeditCommand = _getBcdeditSetup(bcdPath);
 
@@ -1567,7 +1571,7 @@ powercfg -s {powerScheme}";
             if (!manual) {
                 processName("Modification of BCD");
                 processValue(45);
-                await modifyBCD(0, Path.Combine(wimMountPath, "Windows\\System32\\Config\\BCD-Template"));
+                await modifyBCD(Path.Combine(wimMountPath, "Windows\\System32\\Config\\BCD-Template"));
             }
 
             bool modSystemReg = !manual || winBoxConfig.onbuild_reg != null;
@@ -2944,13 +2948,13 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             if (!manual) {
                 string bcdPath = Path.Combine(unpackIsoPath, "boot\\bcd");
                 if (File.Exists(bcdPath)) {
-                    await modifyBCD(1, bcdPath);
+                    await modifyBCD(bcdPath);
                 }
 
                 bcdPath = Path.Combine(unpackIsoPath, "EFI\\Microsoft\\Boot\\BCD");
                 if (File.Exists(bcdPath))
                 {
-                    await modifyBCD(2, bcdPath);
+                    await modifyBCD(bcdPath);
                 }
 
                 if (winBoxConfig.oemkey_installer == true && winBoxConfig.isValidOemKey())
