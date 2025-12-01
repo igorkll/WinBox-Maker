@@ -78,6 +78,7 @@ namespace WinBox_Maker
             AddTweakToList("removing Windows/System apps (breaks the default shell)");
             AddTweakToList("removal of the subsystem SysWOW64");
             AddTweakToList("remove windows defender files");
+            AddTweakToList("remove OneDrive");
             AddTweakToList("Allow check-disk");
             softwareCheck = false;
 

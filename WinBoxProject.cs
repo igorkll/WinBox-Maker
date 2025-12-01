@@ -473,14 +473,14 @@ namespace WinBox_Maker
             await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{path}\" {(commit ? "/commit" : "/discard")}", null, debugFolder);
         }
 
-        async Task mountReg()
+        async Task mountReg(string hive="SOFTWARE")
         {
-            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"", null, debugFolder);
+            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_{hive} \"{Path.Combine(wimMountPath, $"Windows\\System32\\config\\{hive}")}\"", null, debugFolder);
         }
 
-        async Task umountReg()
+        async Task umountReg(string hive="SOFTWARE")
         {
-            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE", null, debugFolder);
+            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_{hive}", null, debugFolder);
         }
 
         public async Task LoadWindowsImageAsync(Action<string> processName, Action<int> processValue)
@@ -1213,7 +1213,16 @@ powercfg -s {powerScheme}";
                 "ConsentUxUserSvc",
                 "PimIndexMaintenanceSvc",
                 "UnistoreSvc",
-                ""
+                "wercplsupport",
+                "PcaSvc",
+                "RasMan",
+                "DevicePickerUserSvc",
+                "DevicesFlowUserSvc",
+                "BcastDVRUserService",
+                "MessagingService",
+                "UdkUserSvc",
+                "UserDataSvc",
+                "AppXSvc"
 
                 //"eventlog",
                 //"lanmanserver"
@@ -1227,7 +1236,6 @@ powercfg -s {powerScheme}";
             stopServices.AddRange(stopServicesList);
             stopServices.AddRange(getCustomStopList());
 
-            stopServices.Add("AppXSvc");
             if (!winBoxConfig.isValidOemKey())
             {
                 stopServices.Add("sppsvc");
@@ -1568,7 +1576,7 @@ powercfg -s {powerScheme}";
             processValue(50);
             if (modSystemReg)
             {
-                await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"", null, debugFolder);
+                await mountReg();
                 //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
             }
 
@@ -2766,6 +2774,10 @@ if errorlevel 1 (
                     await removeSystemObject("Program Files\\Windows Defender Advanced Threat Protection");
                     await removeSystemObject("ProgramData\\Microsoft\\Windows Defender");
                 }
+
+                if (Program.isTweakEnabled(winBoxConfig, "remove OneDrive")) {
+                    await removeSystemObject("Windows\\System32\\Tasks\\Microsoft\\OneDrive");
+                }
             }
 
             foreach (string path in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_paths ?? ""))
@@ -2818,7 +2830,7 @@ if errorlevel 1 (
         {
             // unpack winPE
             string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
-            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{bootWimPath}\" /index:1 /MountDir:\"{wimWinPeMountPath}\"", null, debugFolder);
+            await mountDism(bootWimPath, wimWinPeMountPath);
 
             if (winBoxConfig.manual_setup != true)
             {
