@@ -433,7 +433,7 @@ namespace WinBox_Maker
                     await unpackFile(esdPath, unpackEsdFile);
                     processName("Converting install.esd to install.wim");
                     processValue(20);
-                    await Program.ExecuteAsync("dism.exe", @$"/Export-Image /SourceImageFile:""{unpackEsdFile}"" /All /DestinationImageFile:""{unpackedWimFile}"" /Compress:max /CheckIntegrity");
+                    await Program.ExecuteAsync("dism.exe", @$"/Export-Image /SourceImageFile:""{unpackEsdFile}"" /All /DestinationImageFile:""{unpackedWimFile}"" /Compress:max /CheckIntegrity", null, debugFolder);
                     if (File.Exists(unpackEsdFile))
                     {
                         processName("Deleting install.esd");
@@ -464,18 +464,18 @@ namespace WinBox_Maker
         async Task mountDism(string wimPath, string? mountPath = null)
         {
             if (mountPath == null) mountPath = wimMountPath;
-            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{wimPath}\" /index:1 /MountDir:\"{mountPath}\"");
+            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{wimPath}\" /index:1 /MountDir:\"{mountPath}\"", null, debugFolder);
         }
 
         async Task umountDism(bool commit, string? path = null)
         {
             if (path == null) path = wimMountPath;
-            await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{path}\" {(commit ? "/commit" : "/discard")}");
+            await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{path}\" {(commit ? "/commit" : "/discard")}", null, debugFolder);
         }
 
         async Task mountReg()
         {
-            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
+            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"", null, debugFolder);
         }
 
         async Task umountReg()
@@ -1234,6 +1234,28 @@ powercfg -s {powerScheme}";
             return startServices.Distinct().ToArray();
         }
 
+        string[] getEnableFeatures()
+        {
+            List<string> enableFeatures = new List<string>();
+            if (winBoxConfig.manual_setup != true)
+            {
+                enableFeatures.Add("Client-DeviceLockdown");
+                enableFeatures.Add("Client-EmbeddedLogon");
+                enableFeatures.Add("Client-KeyboardFilter");
+                enableFeatures.Add("Client-EmbeddedBootExp");
+            }
+
+            if (winBoxConfig.customdism_enabled == true)
+            {
+                foreach (string feature in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.customdism_features ?? ""))
+                {
+                    enableFeatures.Add(feature);
+                }
+            }
+
+            return enableFeatures.Distinct().ToArray();
+        }
+
         string _getServicesSetup(bool onlyRegStop=false)
         {
             string[] stopServices = getStopServicesList();
@@ -1291,7 +1313,16 @@ powercfg -s {powerScheme}";
 
         public string[] splitRickTextboxLinesWithoutEmptyLines(string text)
         {
-            return text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] array = text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            List<string> list = new List<string>(array);
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                if (list[i].Contains("\"") || list[i].Contains("'"))
+                {
+                    list.RemoveAt(i);
+                }
+            }
+            return list.ToArray();
         }
 
         async Task patchRecoveryPartition(string mountedRecoveryPath, WindowsDescription newWindowsDescription)
@@ -2590,44 +2621,24 @@ if errorlevel 1 (
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_universal ?? ""))
             {
-                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
-                {
-                    await execDismCmd(name, 0);
-                    await execDismCmd(name, 1);
-                    await execDismCmd(name, 2);
-                }
+                await execDismCmd(name, 0);
+                await execDismCmd(name, 1);
+                await execDismCmd(name, 2);
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism ?? ""))
             {
-                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
-                {
-                    await execDismCmd(name, 0);
-                }
+                await execDismCmd(name, 0);
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_package ?? ""))
             {
-                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
-                {
-                    await execDismCmd(name, 1);
-                }
+                await execDismCmd(name, 1);
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_appx_package ?? ""))
             {
-                if (!string.IsNullOrEmpty(name) || !name.Contains("\""))
-                {
-                    await execDismCmd(name, 2);
-                }
-            }
-
-            if (winBoxConfig.customdism_enabled == true)
-            {
-                foreach (string command in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.customdism_commands ?? ""))
-                {
-                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" {command}", baseDirectoryPath, debugFolder);
-                }
+                await execDismCmd(name, 2);
             }
 
             if (!manual)
@@ -2666,10 +2677,7 @@ if errorlevel 1 (
 
             foreach (string path in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_paths ?? ""))
             {
-                if (!string.IsNullOrEmpty(name))
-                {
-                    await removeSystemObject(path);
-                }
+                await removeSystemObject(path);
             }
 
             await writeDebugFile("RemovePaths", RemovePaths_log);
@@ -2683,7 +2691,7 @@ if errorlevel 1 (
                 {
                     processName("Installing user drivers");
                     processValue(55);
-                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-driver /driver:\"{driversPath}\" /recurse /forceunsigned");
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-driver /driver:\"{driversPath}\" /recurse /forceunsigned", null, debugFolder);
                 }
             }
 
@@ -2694,7 +2702,7 @@ if errorlevel 1 (
                 {
                     processName("Installing .cab/.msu packages");
                     processValue(56);
-                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-package /PackagePath:\"{packagesPath}\"");
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-package /PackagePath:\"{packagesPath}\"", null, debugFolder);
                 }
             }
 
@@ -2707,29 +2715,39 @@ if errorlevel 1 (
             {
                 processName("Change edition");
                 processValue(57);
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-Edition:IoTEnterprise /accepteula");
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-Edition:IoTEnterprise /accepteula", null, debugFolder);
+            }
+
+            if (winBoxConfig.customdism_enabled == true)
+            {
+                processName("Applying custom dism commands");
+                processValue(58);
+                foreach (string command in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.customdism_commands ?? ""))
+                {
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" {command}", baseDirectoryPath, debugFolder);
+                }
+            }
+
+            processName("Enabling necessary windows components");
+            processValue(59);
+            foreach (string feature in getEnableFeatures())
+            {
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Enable-Feature /all /FeatureName:\"{feature}\"", baseDirectoryPath, debugFolder);
             }
 
             if (!manual)
             {
+                processName("disabling unnecessary Windows components");
+                processValue(60);
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender", null, debugFolder); //it will probably only work for Windows server
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender-GUI", null, debugFolder);
+
                 processName("OEM key applying");
-                processValue(59);
+                processValue(61);
                 if (winBoxConfig.oemkey_dism == true && winBoxConfig.isValidOemKey())
                 {
-                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-ProductKey:\"{winBoxConfig.OemKey}\"");
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-ProductKey:\"{winBoxConfig.OemKey}\"", null, debugFolder);
                 }
-
-                processName("Enabling necessary windows components");
-                processValue(60);
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-DeviceLockdown");
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedLogon");
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-KeyboardFilter");
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /enable-feature /all /featurename:Client-EmbeddedBootExp");
-
-                processName("disabling unnecessary Windows components");
-                processValue(61);
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender"); //it will probably only work for Windows server
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender-GUI");
             }
 
             if (winBoxConfig.winmountedEnabled == true)
@@ -2773,7 +2791,7 @@ if errorlevel 1 (
         {
             // unpack winPE
             string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
-            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{bootWimPath}\" /index:1 /MountDir:\"{wimWinPeMountPath}\"");
+            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{bootWimPath}\" /index:1 /MountDir:\"{wimWinPeMountPath}\"", null, debugFolder);
 
             if (winBoxConfig.manual_setup != true)
             {
@@ -2829,7 +2847,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
 
             processName("Converting install.wim to install.esd");
             processValue(77);
-            await Program.ExecuteAsync("dism.exe", @$"/Export-Image /SourceImageFile:""{new_install_wim}"" /All /DestinationImageFile:""{exportPath}"" /Compress:recovery /CheckIntegrity");
+            await Program.ExecuteAsync("dism.exe", @$"/Export-Image /SourceImageFile:""{new_install_wim}"" /All /DestinationImageFile:""{exportPath}"" /Compress:recovery /CheckIntegrity", null, debugFolder);
 
             processName("Deleting install.wim");
             processValue(79);
@@ -2932,7 +2950,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             processName("Building an ISO image");
             processValue(85);
             //await Program.ExecuteAsync(Program.oscdimgPath, $"-m -u2 -b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
-            await Program.ExecuteAsync(Program.oscdimgPath, $"-m -o -u2 -udfver102 -bootdata:2#p0,e,b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\"#pEF,e,b\"{Path.Combine(unpackIsoPath, "efi\\microsoft\\boot\\efisys.bin")}\" \"{unpackIsoPath}\" \"{exportPath}\"");
+            await Program.ExecuteAsync(Program.oscdimgPath, $"-m -o -u2 -udfver102 -bootdata:2#p0,e,b\"{Path.Combine(unpackIsoPath, "boot\\etfsboot.com")}\"#pEF,e,b\"{Path.Combine(unpackIsoPath, "efi\\microsoft\\boot\\efisys.bin")}\" \"{unpackIsoPath}\" \"{exportPath}\"", null, debugFolder);
 
             end:
             processName("Deleting unpacked ISO files");

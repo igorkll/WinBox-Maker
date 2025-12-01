@@ -447,7 +447,7 @@ namespace WinBox_Maker
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.RedirectStandardError = true;
 
-                    Program.CreateDirectory(Path.GetDirectoryName(outputPath));
+                    CreateDirectory(Path.GetDirectoryName(outputPath));
 
                     var outputLines = new List<string>();
 

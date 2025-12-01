@@ -249,6 +249,8 @@
             services_start_view = new RichTextBox();
             services_stop_view = new RichTextBox();
             tabPage35 = new TabPage();
+            label83 = new Label();
+            services_deleteFromList = new RichTextBox();
             label5 = new Label();
             services_startOnlyList = new CheckBox();
             label86 = new Label();
@@ -431,8 +433,12 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            label83 = new Label();
-            services_deleteFromList = new RichTextBox();
+            customdism = new TabControl();
+            tabPage44 = new TabPage();
+            tabPage45 = new TabPage();
+            label87 = new Label();
+            richTextBox21 = new RichTextBox();
+            customdism_features = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -523,6 +529,9 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            customdism.SuspendLayout();
+            tabPage44.SuspendLayout();
+            tabPage45.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -2868,6 +2877,25 @@
             tabPage35.Text = "customize";
             tabPage35.UseVisualStyleBackColor = true;
             // 
+            // label83
+            // 
+            label83.AutoSize = true;
+            label83.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label83.Location = new Point(650, 4);
+            label83.Name = "label83";
+            label83.Size = new Size(176, 32);
+            label83.TabIndex = 49;
+            label83.Text = "delete from list";
+            // 
+            // services_deleteFromList
+            // 
+            services_deleteFromList.Location = new Point(650, 39);
+            services_deleteFromList.Name = "services_deleteFromList";
+            services_deleteFromList.Size = new Size(308, 157);
+            services_deleteFromList.TabIndex = 48;
+            services_deleteFromList.Text = "";
+            services_deleteFromList.TextChanged += services_deleteFromList_TextChanged;
+            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -3176,10 +3204,8 @@
             // 
             // tabPage40
             // 
-            tabPage40.Controls.Add(richTextBox20);
-            tabPage40.Controls.Add(customdism_commands);
+            tabPage40.Controls.Add(customdism);
             tabPage40.Controls.Add(customdism_enabled);
-            tabPage40.Controls.Add(label85);
             tabPage40.Location = new Point(4, 34);
             tabPage40.Name = "tabPage40";
             tabPage40.Padding = new Padding(3);
@@ -3194,15 +3220,15 @@
             richTextBox20.Location = new Point(491, 6);
             richTextBox20.Name = "richTextBox20";
             richTextBox20.ReadOnly = true;
-            richTextBox20.Size = new Size(507, 291);
+            richTextBox20.Size = new Size(487, 206);
             richTextBox20.TabIndex = 6;
             richTextBox20.Text = resources.GetString("richTextBox20.Text");
             // 
             // customdism_commands
             // 
-            customdism_commands.Location = new Point(6, 44);
+            customdism_commands.Location = new Point(6, 45);
             customdism_commands.Name = "customdism_commands";
-            customdism_commands.Size = new Size(479, 253);
+            customdism_commands.Size = new Size(479, 167);
             customdism_commands.TabIndex = 4;
             customdism_commands.Text = "";
             customdism_commands.TextChanged += customdism_commands_TextChanged;
@@ -3211,7 +3237,7 @@
             // 
             customdism_enabled.AutoSize = true;
             customdism_enabled.CheckAlign = ContentAlignment.MiddleRight;
-            customdism_enabled.Location = new Point(384, 9);
+            customdism_enabled.Location = new Point(6, 6);
             customdism_enabled.Name = "customdism_enabled";
             customdism_enabled.Size = new Size(101, 29);
             customdism_enabled.TabIndex = 5;
@@ -3225,9 +3251,9 @@
             label85.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label85.Location = new Point(6, 3);
             label85.Name = "label85";
-            label85.Size = new Size(317, 38);
+            label85.Size = new Size(321, 38);
             label85.TabIndex = 3;
-            label85.Text = "custom dism commands";
+            label85.Text = "Custom dism commands";
             // 
             // tabPage8
             // 
@@ -4751,24 +4777,70 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // label83
+            // customdism
             // 
-            label83.AutoSize = true;
-            label83.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label83.Location = new Point(650, 4);
-            label83.Name = "label83";
-            label83.Size = new Size(176, 32);
-            label83.TabIndex = 49;
-            label83.Text = "delete from list";
+            customdism.Controls.Add(tabPage44);
+            customdism.Controls.Add(tabPage45);
+            customdism.Location = new Point(6, 41);
+            customdism.Name = "customdism";
+            customdism.SelectedIndex = 0;
+            customdism.Size = new Size(992, 256);
+            customdism.TabIndex = 7;
             // 
-            // services_deleteFromList
+            // tabPage44
             // 
-            services_deleteFromList.Location = new Point(650, 39);
-            services_deleteFromList.Name = "services_deleteFromList";
-            services_deleteFromList.Size = new Size(308, 157);
-            services_deleteFromList.TabIndex = 48;
-            services_deleteFromList.Text = "";
-            services_deleteFromList.TextChanged += services_deleteFromList_TextChanged;
+            tabPage44.Controls.Add(label87);
+            tabPage44.Controls.Add(richTextBox21);
+            tabPage44.Controls.Add(customdism_features);
+            tabPage44.Location = new Point(4, 34);
+            tabPage44.Name = "tabPage44";
+            tabPage44.Padding = new Padding(3);
+            tabPage44.Size = new Size(984, 218);
+            tabPage44.TabIndex = 0;
+            tabPage44.Text = "features";
+            tabPage44.UseVisualStyleBackColor = true;
+            // 
+            // tabPage45
+            // 
+            tabPage45.Controls.Add(label85);
+            tabPage45.Controls.Add(richTextBox20);
+            tabPage45.Controls.Add(customdism_commands);
+            tabPage45.Location = new Point(4, 34);
+            tabPage45.Name = "tabPage45";
+            tabPage45.Padding = new Padding(3);
+            tabPage45.Size = new Size(984, 218);
+            tabPage45.TabIndex = 1;
+            tabPage45.Text = "custom";
+            tabPage45.UseVisualStyleBackColor = true;
+            // 
+            // label87
+            // 
+            label87.AutoSize = true;
+            label87.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label87.Location = new Point(6, 3);
+            label87.Name = "label87";
+            label87.Size = new Size(203, 38);
+            label87.TabIndex = 7;
+            label87.Text = "Enable-Feature";
+            // 
+            // richTextBox21
+            // 
+            richTextBox21.BackColor = SystemColors.Info;
+            richTextBox21.Location = new Point(491, 6);
+            richTextBox21.Name = "richTextBox21";
+            richTextBox21.ReadOnly = true;
+            richTextBox21.Size = new Size(487, 206);
+            richTextBox21.TabIndex = 9;
+            richTextBox21.Text = "this is used to enable the feature via DISM /image:X /Enable-Feature /all /FeatureName:X\nfunctions are enables along with all dependencies.\nseparate several functions by line breaks";
+            // 
+            // customdism_features
+            // 
+            customdism_features.Location = new Point(6, 45);
+            customdism_features.Name = "customdism_features";
+            customdism_features.Size = new Size(479, 167);
+            customdism_features.TabIndex = 8;
+            customdism_features.Text = "";
+            customdism_features.TextChanged += customdism_features_TextChanged;
             // 
             // EditorForm
             // 
@@ -4943,6 +5015,11 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            customdism.ResumeLayout(false);
+            tabPage44.ResumeLayout(false);
+            tabPage44.PerformLayout();
+            tabPage45.ResumeLayout(false);
+            tabPage45.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5357,5 +5434,11 @@
         private RichTextBox richTextBox19;
         private Label label83;
         private RichTextBox services_deleteFromList;
+        private TabControl customdism;
+        private TabPage tabPage44;
+        private TabPage tabPage45;
+        private Label label87;
+        private RichTextBox richTextBox21;
+        private RichTextBox customdism_features;
     }
 }

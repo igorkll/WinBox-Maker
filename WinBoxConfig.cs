@@ -199,6 +199,7 @@ namespace WinBox_Maker
         public string? TimeZoneKeyName { get; set; }
         public bool? customdism_enabled { get; set; }
         public string? customdism_commands { get; set; }
+        public string? customdism_features { get; set; }
         public PowerScheme? powerScheme { get; set; }
         public bool? recoverymod_manual_allow { get; set; }
         public RecoveryMenuAction? recoveryMenuAction { get; set; }

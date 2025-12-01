@@ -541,6 +541,9 @@ namespace WinBox_Maker
 
             customdism_enabled.CheckState = winBoxProject.winBoxConfig.customdism_enabled == true ? CheckState.Checked : CheckState.Unchecked;
             customdism_commands.Text = winBoxProject.winBoxConfig.customdism_commands ?? "";
+            customdism_features.Text = winBoxProject.winBoxConfig.customdism_features ?? "";
+
+            customdism.Visible = winBoxProject.winBoxConfig.customdism_enabled == true;
 
             buildEnabled.CheckState = winBoxProject.winBoxConfig.buildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             downloadEnabled.CheckState = winBoxProject.winBoxConfig.downloadEnabled == true ? CheckState.Checked : CheckState.Unchecked;
@@ -2616,6 +2619,7 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.customdism_enabled = customdism_enabled.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void customdism_commands_TextChanged(object sender, EventArgs e)
@@ -2686,6 +2690,14 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.services_deleteFromList = services_deleteFromList.Text;
             winBoxProject.SaveConfig();
             UpdateGuiCurrentServices();
+        }
+
+        private void customdism_features_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.customdism_features = customdism_features.Text;
+            winBoxProject.SaveConfig();
         }
     }
 }

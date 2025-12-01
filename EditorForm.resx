@@ -3503,6 +3503,9 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="richTextBox20.Text" xml:space="preserve">
+    <value>here you can define custom DISM commands that will be used when building the system. specify only the arguments, use line breaks to separate the commands. DISM /image:mountpath will be inserted in front of each of your commands automatically and you will not need to specify them.</value>
+  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
@@ -3533,9 +3536,6 @@ If you are using the "force make "IoT Enterprise" " function, then you must also
   </data>
   <data name="richTextBox17.Text" xml:space="preserve">
     <value>integrates the reg file even at the stage of image assembly, before the first system startup. this allows you to use it even in manual setup mode. However, only the HKLM\SOFTWARE registry hive is currently supported.</value>
-  </data>
-  <data name="richTextBox20.Text" xml:space="preserve">
-    <value>here you can define custom DISM commands that will be used when building the system. specify only the arguments, use line breaks to separate the commands. DISM /image:mountpath will be inserted in front of each of your commands automatically and you will not need to specify them.</value>
   </data>
   <data name="richTextBox2.Text" xml:space="preserve">
     <value>the command is launched from the source code folder
