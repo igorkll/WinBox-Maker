@@ -292,10 +292,11 @@
             customdism_commands = new RichTextBox();
             customdism_enabled = new CheckBox();
             tabPage8 = new TabPage();
+            recoverypanel = new Panel();
+            recoveryMenuAction = new ComboBox();
+            label81 = new Label();
             richTextBox19 = new RichTextBox();
             recoverymod_manual_allow = new CheckBox();
-            label81 = new Label();
-            recoveryMenuAction = new ComboBox();
             tabPage5 = new TabPage();
             postinstall_panel_user = new Panel();
             postinstall_user_reg = new Label();
@@ -439,7 +440,10 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            recoverypanel = new Panel();
+            panel8 = new Panel();
+            bsod_autoreboot = new CheckBox();
+            label88 = new Label();
+            bsod_disabledisplay = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -503,6 +507,7 @@
             tabPage44.SuspendLayout();
             tabPage45.SuspendLayout();
             tabPage8.SuspendLayout();
+            recoverypanel.SuspendLayout();
             tabPage5.SuspendLayout();
             postinstall_panel_user.SuspendLayout();
             tabPage7.SuspendLayout();
@@ -533,7 +538,7 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            recoverypanel.SuspendLayout();
+            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -2644,6 +2649,7 @@
             // 
             // tabPage17
             // 
+            tabPage17.Controls.Add(panel8);
             tabPage17.Controls.Add(panel17);
             tabPage17.Location = new Point(4, 34);
             tabPage17.Name = "tabPage17";
@@ -3334,6 +3340,36 @@
             tabPage8.Text = "recovery";
             tabPage8.UseVisualStyleBackColor = true;
             // 
+            // recoverypanel
+            // 
+            recoverypanel.BorderStyle = BorderStyle.Fixed3D;
+            recoverypanel.Controls.Add(recoveryMenuAction);
+            recoverypanel.Controls.Add(label81);
+            recoverypanel.Location = new Point(3, 6);
+            recoverypanel.Name = "recoverypanel";
+            recoverypanel.Size = new Size(505, 259);
+            recoverypanel.TabIndex = 47;
+            // 
+            // recoveryMenuAction
+            // 
+            recoveryMenuAction.DropDownStyle = ComboBoxStyle.DropDownList;
+            recoveryMenuAction.FormattingEnabled = true;
+            recoveryMenuAction.Items.AddRange(new object[] { "Delete", "Stay default" });
+            recoveryMenuAction.Location = new Point(3, 3);
+            recoveryMenuAction.Name = "recoveryMenuAction";
+            recoveryMenuAction.Size = new Size(318, 33);
+            recoveryMenuAction.TabIndex = 44;
+            recoveryMenuAction.SelectedIndexChanged += recoveryMenuAction_SelectedIndexChanged;
+            // 
+            // label81
+            // 
+            label81.AutoSize = true;
+            label81.Location = new Point(327, 6);
+            label81.Name = "label81";
+            label81.Size = new Size(158, 25);
+            label81.TabIndex = 45;
+            label81.Text = "action on recovery";
+            // 
             // richTextBox19
             // 
             richTextBox19.BackColor = SystemColors.Info;
@@ -3354,26 +3390,6 @@
             recoverymod_manual_allow.Text = "allow in manual setup mode";
             recoverymod_manual_allow.UseVisualStyleBackColor = true;
             recoverymod_manual_allow.CheckedChanged += recoverymod_manual_allow_CheckedChanged;
-            // 
-            // label81
-            // 
-            label81.AutoSize = true;
-            label81.Location = new Point(327, 6);
-            label81.Name = "label81";
-            label81.Size = new Size(158, 25);
-            label81.TabIndex = 45;
-            label81.Text = "action on recovery";
-            // 
-            // recoveryMenuAction
-            // 
-            recoveryMenuAction.DropDownStyle = ComboBoxStyle.DropDownList;
-            recoveryMenuAction.FormattingEnabled = true;
-            recoveryMenuAction.Items.AddRange(new object[] { "Delete", "Stay default" });
-            recoveryMenuAction.Location = new Point(3, 3);
-            recoveryMenuAction.Name = "recoveryMenuAction";
-            recoveryMenuAction.Size = new Size(318, 33);
-            recoveryMenuAction.TabIndex = 44;
-            recoveryMenuAction.SelectedIndexChanged += recoveryMenuAction_SelectedIndexChanged;
             // 
             // tabPage5
             // 
@@ -4843,15 +4859,47 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // recoverypanel
+            // panel8
             // 
-            recoverypanel.BorderStyle = BorderStyle.Fixed3D;
-            recoverypanel.Controls.Add(recoveryMenuAction);
-            recoverypanel.Controls.Add(label81);
-            recoverypanel.Location = new Point(3, 6);
-            recoverypanel.Name = "recoverypanel";
-            recoverypanel.Size = new Size(505, 259);
-            recoverypanel.TabIndex = 47;
+            panel8.BorderStyle = BorderStyle.Fixed3D;
+            panel8.Controls.Add(bsod_disabledisplay);
+            panel8.Controls.Add(label88);
+            panel8.Controls.Add(bsod_autoreboot);
+            panel8.Location = new Point(502, 4);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(493, 106);
+            panel8.TabIndex = 1;
+            // 
+            // bsod_autoreboot
+            // 
+            bsod_autoreboot.AutoSize = true;
+            bsod_autoreboot.Location = new Point(3, 32);
+            bsod_autoreboot.Name = "bsod_autoreboot";
+            bsod_autoreboot.Size = new Size(136, 29);
+            bsod_autoreboot.TabIndex = 0;
+            bsod_autoreboot.Text = "Auto reboot";
+            bsod_autoreboot.UseVisualStyleBackColor = true;
+            bsod_autoreboot.CheckedChanged += bsod_autoreboot_CheckedChanged;
+            // 
+            // label88
+            // 
+            label88.AutoSize = true;
+            label88.Location = new Point(3, 4);
+            label88.Name = "label88";
+            label88.Size = new Size(190, 25);
+            label88.TabIndex = 1;
+            label88.Text = "behavior during BSOD";
+            // 
+            // bsod_disabledisplay
+            // 
+            bsod_disabledisplay.AutoSize = true;
+            bsod_disabledisplay.Location = new Point(3, 67);
+            bsod_disabledisplay.Name = "bsod_disabledisplay";
+            bsod_disabledisplay.Size = new Size(209, 29);
+            bsod_disabledisplay.TabIndex = 2;
+            bsod_disabledisplay.Text = "Disable BSOD display";
+            bsod_disabledisplay.UseVisualStyleBackColor = true;
+            bsod_disabledisplay.CheckedChanged += bsod_disabledisplay_CheckedChanged;
             // 
             // EditorForm
             // 
@@ -4983,6 +5031,8 @@
             tabPage45.PerformLayout();
             tabPage8.ResumeLayout(false);
             tabPage8.PerformLayout();
+            recoverypanel.ResumeLayout(false);
+            recoverypanel.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             postinstall_panel_user.ResumeLayout(false);
@@ -5031,8 +5081,8 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            recoverypanel.ResumeLayout(false);
-            recoverypanel.PerformLayout();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5454,5 +5504,9 @@
         private RichTextBox richTextBox21;
         private RichTextBox customdism_features;
         private Panel recoverypanel;
+        private Panel panel8;
+        private Label label88;
+        private CheckBox bsod_autoreboot;
+        private CheckBox bsod_disabledisplay;
     }
 }

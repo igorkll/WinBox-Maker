@@ -665,6 +665,9 @@ namespace WinBox_Maker
             services_stopOnlyList.CheckState = winBoxProject.winBoxConfig.services_stopOnlyList == true ? CheckState.Checked : CheckState.Unchecked;
             services_startOnlyList.CheckState = winBoxProject.winBoxConfig.services_startOnlyList == true ? CheckState.Checked : CheckState.Unchecked;
 
+            bsod_autoreboot.CheckState = winBoxProject.winBoxConfig.bsod_autoreboot == true ? CheckState.Checked : CheckState.Unchecked;
+            bsod_disabledisplay.CheckState = winBoxProject.winBoxConfig.bsod_disabledisplay == true ? CheckState.Checked : CheckState.Unchecked;
+
             tab_app.Enabled = !manual;
             tab_settings.Enabled = !manual;
             postinstall_panel_system.Enabled = !manual;
@@ -2700,6 +2703,22 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.customdism_features = customdism_features.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void bsod_autoreboot_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.bsod_autoreboot = bsod_autoreboot.CheckState == CheckState.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void bsod_disabledisplay_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.bsod_disabledisplay = bsod_disabledisplay.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
         }
     }

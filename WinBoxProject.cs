@@ -1204,7 +1204,6 @@ powercfg -s {powerScheme}";
                 "PushToInstall",
                 "WinRM",
                 "workfolderssvc",
-                "LanmanWorkstation",
                 "WwanSvc",
                 "AarSvc",
                 "cbdhsvc",
@@ -1226,6 +1225,7 @@ powercfg -s {powerScheme}";
 
                 //"eventlog",
                 //"lanmanserver"
+                //"LanmanWorkstation"
             };
 
             if (winBoxConfig.services_stopOnlyList == true)
@@ -1717,6 +1717,7 @@ powershell -Command ""Set-MpPreference -DisableEnhancedNotifications $true""
                 //This is one of those cases where it is better to solve a problem in several ways at once.
 
                 int hiberboot = (winBoxConfig.enable_hibernation == true && winBoxConfig.enable_hiberboot == true) ? 1 : 0;
+                int disabledisplay = (winBoxConfig.bsod_disabledisplay == true) ? 1 : 0;
                 string baseSetup = $@"echo SetupComplete - start >> C:\WinboxResources\setup.log
 
 echo SetupComplete - call SetupComplete and FirstInit >> C:\WinboxResources\setup.log
@@ -1746,13 +1747,13 @@ echo SetupComplete - DisableTamperProtection >> C:\WinboxResources\setup.log
 powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
 
 echo SetupComplete - setup SYSTEM >> C:\WinboxResources\setup.log
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d {((winBoxConfig.bsod_autoreboot == true) ? 1 : 0)} /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v LogEvent /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v Overwrite /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v EnableLogFile /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayError /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayDisabled /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayError /t REG_DWORD /d {(1 - disabledisplay)} /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayDisabled /t REG_DWORD /d {disabledisplay} /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\HardwareEvents"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Application"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security"" /v MaxSize /t REG_DWORD /d 0 /f

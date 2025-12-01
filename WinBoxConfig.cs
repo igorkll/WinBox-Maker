@@ -203,6 +203,8 @@ namespace WinBox_Maker
         public PowerScheme? powerScheme { get; set; }
         public bool? recoverymod_manual_allow { get; set; }
         public RecoveryMenuAction? recoveryMenuAction { get; set; }
+        public bool? bsod_autoreboot { get; set; }
+        public bool? bsod_disabledisplay { get; set; }
 
         static string[] renameTweaks_from = [
             "removing UWP apps"
@@ -355,6 +357,9 @@ namespace WinBox_Maker
             {
                 Program.ReplaceAll(TweakList, renameTweaks_from[i], renameTweaks_to[i]);
             }
+
+            if (bsod_autoreboot == null) bsod_autoreboot = true;
+            if (bsod_disabledisplay == null) bsod_disabledisplay = true;
         }
 
         public void Save(string wnbFilePath)
