@@ -1217,15 +1217,17 @@ powercfg -s {powerScheme}";
             return stopServices.Distinct().ToArray();
         }
 
+        bool needEnableKeyboardFilter()
+        {
+            return !Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry");
+        }
+
         public string[] getStartServicesList()
         {
             List<string> startServices = new List<string>();
             if (winBoxConfig.services_startOnlyList != true)
             {
-                if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry"))
-                {
-                    startServices.Add("MsKeyboardFilter");
-                }
+                if (needEnableKeyboardFilter()) startServices.Add("MsKeyboardFilter");
             }
 
             Program.DelRange(startServices, getCustomStopList());
@@ -1241,7 +1243,7 @@ powercfg -s {powerScheme}";
             {
                 enableFeatures.Add("Client-DeviceLockdown");
                 enableFeatures.Add("Client-EmbeddedLogon");
-                enableFeatures.Add("Client-KeyboardFilter");
+                if (needEnableKeyboardFilter()) enableFeatures.Add("Client-KeyboardFilter");
                 enableFeatures.Add("Client-EmbeddedBootExp");
             }
 
@@ -1640,6 +1642,12 @@ powercfg -s {powerScheme}";
                 string bcdeditSetup = _getBcdeditSetup();
                 string powercfgSetup = _getPowercfgSetup();
 
+                string enableDismOnlineCommands = "";
+                foreach (string feature in getEnableFeatures())
+                {
+                    enableDismOnlineCommands += $"dism /online /enable-feature /all /featurename:\"{feature}\"\r\n";
+                }
+
                 string setupCompleteAndFirstInit = $@"echo SetupComplete and FirstInit - start >> C:\WinboxResources\setup.log
 
 echo SetupComplete and FirstInit - setup recovery >> C:\WinboxResources\setup.log
@@ -1652,10 +1660,7 @@ echo SetupComplete and FirstInit - disable firewall >> C:\WinboxResources\setup.
 netsh advfirewall set allprofiles state off
 
 echo SetupComplete and FirstInit - setup dism >> C:\WinboxResources\setup.log
-dism /online /enable-feature /all /featurename:Client-DeviceLockdown
-dism /online /enable-feature /all /featurename:Client-EmbeddedLogon
-dism /online /enable-feature /all /featurename:Client-KeyboardFilter
-dism /online /enable-feature /all /featurename:Client-EmbeddedBootExp
+{enableDismOnlineCommands}
 
 echo SetupComplete and FirstInit - setup powercfg >> C:\WinboxResources\setup.log
 {powercfgSetup}
