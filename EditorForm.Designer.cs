@@ -281,10 +281,16 @@
             onbuild_reg_clr = new Button();
             onbuild_reg_sel = new Button();
             tabPage40 = new TabPage();
+            customdism = new TabControl();
+            tabPage44 = new TabPage();
+            label87 = new Label();
+            richTextBox21 = new RichTextBox();
+            customdism_features = new RichTextBox();
+            tabPage45 = new TabPage();
+            label85 = new Label();
             richTextBox20 = new RichTextBox();
             customdism_commands = new RichTextBox();
             customdism_enabled = new CheckBox();
-            label85 = new Label();
             tabPage8 = new TabPage();
             richTextBox19 = new RichTextBox();
             recoverymod_manual_allow = new CheckBox();
@@ -433,12 +439,7 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            customdism = new TabControl();
-            tabPage44 = new TabPage();
-            tabPage45 = new TabPage();
-            label87 = new Label();
-            richTextBox21 = new RichTextBox();
-            customdism_features = new RichTextBox();
+            recoverypanel = new Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -498,6 +499,9 @@
             tabPage39.SuspendLayout();
             panel5.SuspendLayout();
             tabPage40.SuspendLayout();
+            customdism.SuspendLayout();
+            tabPage44.SuspendLayout();
+            tabPage45.SuspendLayout();
             tabPage8.SuspendLayout();
             tabPage5.SuspendLayout();
             postinstall_panel_user.SuspendLayout();
@@ -529,9 +533,7 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            customdism.SuspendLayout();
-            tabPage44.SuspendLayout();
-            tabPage45.SuspendLayout();
+            recoverypanel.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -3214,6 +3216,81 @@
             tabPage40.Text = "dism";
             tabPage40.UseVisualStyleBackColor = true;
             // 
+            // customdism
+            // 
+            customdism.Controls.Add(tabPage44);
+            customdism.Controls.Add(tabPage45);
+            customdism.Location = new Point(6, 41);
+            customdism.Name = "customdism";
+            customdism.SelectedIndex = 0;
+            customdism.Size = new Size(992, 256);
+            customdism.TabIndex = 7;
+            // 
+            // tabPage44
+            // 
+            tabPage44.Controls.Add(label87);
+            tabPage44.Controls.Add(richTextBox21);
+            tabPage44.Controls.Add(customdism_features);
+            tabPage44.Location = new Point(4, 34);
+            tabPage44.Name = "tabPage44";
+            tabPage44.Padding = new Padding(3);
+            tabPage44.Size = new Size(984, 218);
+            tabPage44.TabIndex = 0;
+            tabPage44.Text = "features";
+            tabPage44.UseVisualStyleBackColor = true;
+            // 
+            // label87
+            // 
+            label87.AutoSize = true;
+            label87.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label87.Location = new Point(6, 3);
+            label87.Name = "label87";
+            label87.Size = new Size(203, 38);
+            label87.TabIndex = 7;
+            label87.Text = "Enable-Feature";
+            // 
+            // richTextBox21
+            // 
+            richTextBox21.BackColor = SystemColors.Info;
+            richTextBox21.Location = new Point(491, 6);
+            richTextBox21.Name = "richTextBox21";
+            richTextBox21.ReadOnly = true;
+            richTextBox21.Size = new Size(487, 206);
+            richTextBox21.TabIndex = 9;
+            richTextBox21.Text = "this is used to enable the feature via DISM /image:X /Enable-Feature /all /FeatureName:X\nfunctions are enables along with all dependencies.\nseparate several functions by line breaks";
+            // 
+            // customdism_features
+            // 
+            customdism_features.Location = new Point(6, 45);
+            customdism_features.Name = "customdism_features";
+            customdism_features.Size = new Size(479, 167);
+            customdism_features.TabIndex = 8;
+            customdism_features.Text = "";
+            customdism_features.TextChanged += customdism_features_TextChanged;
+            // 
+            // tabPage45
+            // 
+            tabPage45.Controls.Add(label85);
+            tabPage45.Controls.Add(richTextBox20);
+            tabPage45.Controls.Add(customdism_commands);
+            tabPage45.Location = new Point(4, 34);
+            tabPage45.Name = "tabPage45";
+            tabPage45.Padding = new Padding(3);
+            tabPage45.Size = new Size(984, 218);
+            tabPage45.TabIndex = 1;
+            tabPage45.Text = "custom";
+            tabPage45.UseVisualStyleBackColor = true;
+            // 
+            // label85
+            // 
+            label85.AutoSize = true;
+            label85.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label85.Location = new Point(6, 3);
+            label85.Name = "label85";
+            label85.Size = new Size(321, 38);
+            label85.TabIndex = 3;
+            label85.Text = "Custom dism commands";
+            // 
             // richTextBox20
             // 
             richTextBox20.BackColor = SystemColors.Info;
@@ -3245,22 +3322,11 @@
             customdism_enabled.UseVisualStyleBackColor = true;
             customdism_enabled.CheckedChanged += customdism_enabled_CheckedChanged;
             // 
-            // label85
-            // 
-            label85.AutoSize = true;
-            label85.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label85.Location = new Point(6, 3);
-            label85.Name = "label85";
-            label85.Size = new Size(321, 38);
-            label85.TabIndex = 3;
-            label85.Text = "Custom dism commands";
-            // 
             // tabPage8
             // 
+            tabPage8.Controls.Add(recoverypanel);
             tabPage8.Controls.Add(richTextBox19);
             tabPage8.Controls.Add(recoverymod_manual_allow);
-            tabPage8.Controls.Add(label81);
-            tabPage8.Controls.Add(recoveryMenuAction);
             tabPage8.Location = new Point(4, 34);
             tabPage8.Name = "tabPage8";
             tabPage8.Size = new Size(1004, 303);
@@ -3271,10 +3337,10 @@
             // richTextBox19
             // 
             richTextBox19.BackColor = SystemColors.Info;
-            richTextBox19.Location = new Point(491, 6);
+            richTextBox19.Location = new Point(514, 6);
             richTextBox19.Name = "richTextBox19";
             richTextBox19.ReadOnly = true;
-            richTextBox19.Size = new Size(507, 291);
+            richTextBox19.Size = new Size(484, 291);
             richTextBox19.TabIndex = 7;
             richTextBox19.Text = "here you can change the behavior of the system recovery menu.";
             // 
@@ -4777,70 +4843,15 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // customdism
+            // recoverypanel
             // 
-            customdism.Controls.Add(tabPage44);
-            customdism.Controls.Add(tabPage45);
-            customdism.Location = new Point(6, 41);
-            customdism.Name = "customdism";
-            customdism.SelectedIndex = 0;
-            customdism.Size = new Size(992, 256);
-            customdism.TabIndex = 7;
-            // 
-            // tabPage44
-            // 
-            tabPage44.Controls.Add(label87);
-            tabPage44.Controls.Add(richTextBox21);
-            tabPage44.Controls.Add(customdism_features);
-            tabPage44.Location = new Point(4, 34);
-            tabPage44.Name = "tabPage44";
-            tabPage44.Padding = new Padding(3);
-            tabPage44.Size = new Size(984, 218);
-            tabPage44.TabIndex = 0;
-            tabPage44.Text = "features";
-            tabPage44.UseVisualStyleBackColor = true;
-            // 
-            // tabPage45
-            // 
-            tabPage45.Controls.Add(label85);
-            tabPage45.Controls.Add(richTextBox20);
-            tabPage45.Controls.Add(customdism_commands);
-            tabPage45.Location = new Point(4, 34);
-            tabPage45.Name = "tabPage45";
-            tabPage45.Padding = new Padding(3);
-            tabPage45.Size = new Size(984, 218);
-            tabPage45.TabIndex = 1;
-            tabPage45.Text = "custom";
-            tabPage45.UseVisualStyleBackColor = true;
-            // 
-            // label87
-            // 
-            label87.AutoSize = true;
-            label87.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label87.Location = new Point(6, 3);
-            label87.Name = "label87";
-            label87.Size = new Size(203, 38);
-            label87.TabIndex = 7;
-            label87.Text = "Enable-Feature";
-            // 
-            // richTextBox21
-            // 
-            richTextBox21.BackColor = SystemColors.Info;
-            richTextBox21.Location = new Point(491, 6);
-            richTextBox21.Name = "richTextBox21";
-            richTextBox21.ReadOnly = true;
-            richTextBox21.Size = new Size(487, 206);
-            richTextBox21.TabIndex = 9;
-            richTextBox21.Text = "this is used to enable the feature via DISM /image:X /Enable-Feature /all /FeatureName:X\nfunctions are enables along with all dependencies.\nseparate several functions by line breaks";
-            // 
-            // customdism_features
-            // 
-            customdism_features.Location = new Point(6, 45);
-            customdism_features.Name = "customdism_features";
-            customdism_features.Size = new Size(479, 167);
-            customdism_features.TabIndex = 8;
-            customdism_features.Text = "";
-            customdism_features.TextChanged += customdism_features_TextChanged;
+            recoverypanel.BorderStyle = BorderStyle.Fixed3D;
+            recoverypanel.Controls.Add(recoveryMenuAction);
+            recoverypanel.Controls.Add(label81);
+            recoverypanel.Location = new Point(3, 6);
+            recoverypanel.Name = "recoverypanel";
+            recoverypanel.Size = new Size(505, 259);
+            recoverypanel.TabIndex = 47;
             // 
             // EditorForm
             // 
@@ -4965,6 +4976,11 @@
             panel5.PerformLayout();
             tabPage40.ResumeLayout(false);
             tabPage40.PerformLayout();
+            customdism.ResumeLayout(false);
+            tabPage44.ResumeLayout(false);
+            tabPage44.PerformLayout();
+            tabPage45.ResumeLayout(false);
+            tabPage45.PerformLayout();
             tabPage8.ResumeLayout(false);
             tabPage8.PerformLayout();
             tabPage5.ResumeLayout(false);
@@ -5015,11 +5031,8 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            customdism.ResumeLayout(false);
-            tabPage44.ResumeLayout(false);
-            tabPage44.PerformLayout();
-            tabPage45.ResumeLayout(false);
-            tabPage45.PerformLayout();
+            recoverypanel.ResumeLayout(false);
+            recoverypanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5440,5 +5453,6 @@
         private Label label87;
         private RichTextBox richTextBox21;
         private RichTextBox customdism_features;
+        private Panel recoverypanel;
     }
 }

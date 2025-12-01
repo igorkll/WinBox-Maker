@@ -480,7 +480,7 @@ namespace WinBox_Maker
 
         async Task umountReg()
         {
-            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
+            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE", null, debugFolder);
         }
 
         public async Task LoadWindowsImageAsync(Action<string> processName, Action<int> processValue)
@@ -600,7 +600,7 @@ namespace WinBox_Maker
 ""{key}""={value}
 ";
             await File.WriteAllTextAsync(tempRegPath, regMod);
-            await Program.ExecuteAsync("reg.exe", $"import \"{tempRegPath}\"");
+            await Program.ExecuteAsync("reg.exe", $"import \"{tempRegPath}\"", null, debugFolder);
             File.Delete(tempRegPath);
         }
 
@@ -899,7 +899,7 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             if (downloadItem.unpack == true)
             {
                 Directory.CreateDirectory(outputPath);
-                await Program.ExecuteAsync(Program.z7Path, @$"x ""{downloadPath}"" -o""{outputPath}""");
+                await Program.ExecuteAsync(Program.z7Path, @$"x ""{downloadPath}"" -o""{outputPath}""", null, debugFolder);
             }
             else
             {
@@ -1005,8 +1005,8 @@ exit
 
             await writeDebugFile("qemu-launch", $"\"{qemuPath}\" {qemuParameters}");
 
-            await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, "qemu-img.exe"), $"create -f raw \"{imgPath}\" {winBoxConfig.img_size}M");
-            await Program.ExecuteAsync(qemuPath, qemuParameters);
+            await Program.ExecuteAsync(Path.Combine(Program.winboxSettings.path_qemu_folder, "qemu-img.exe"), $"create -f raw \"{imgPath}\" {winBoxConfig.img_size}M", null, debugFolder);
+            await Program.ExecuteAsync(qemuPath, qemuParameters, null, debugFolder);
         }
 
         public async Task OverwriteSystemCursorEmpty(string cursorsPath)
@@ -1541,7 +1541,7 @@ powercfg -s {powerScheme}";
             processValue(50);
             if (modSystemReg)
             {
-                await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"");
+                await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SOFTWARE \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SOFTWARE")}\"", null, debugFolder);
                 //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
             }
 
@@ -1566,7 +1566,7 @@ powercfg -s {powerScheme}";
                     {
                         string path = Path.Combine(tempDirectoryPath, "drivers", "nvidia" + number);
                         Directory.CreateDirectory(path);
-                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
+                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""", null, debugFolder);
                         number++;
                     }
                 }
@@ -1580,7 +1580,7 @@ powercfg -s {powerScheme}";
                     {
                         string path = Path.Combine(tempDirectoryPath, "drivers", "amd" + number);
                         Directory.CreateDirectory(path);
-                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
+                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""", null, debugFolder);
                         number++;
                     }
                 }
@@ -1594,7 +1594,7 @@ powercfg -s {powerScheme}";
                     {
                         string path = Path.Combine(tempDirectoryPath, "drivers", "intel" + number);
                         Directory.CreateDirectory(path);
-                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
+                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""", null, debugFolder);
                         number++;
                     }
                 }
@@ -1608,7 +1608,7 @@ powercfg -s {powerScheme}";
                     {
                         string path = Path.Combine(tempDirectoryPath, "drivers", "any" + number);
                         Directory.CreateDirectory(path);
-                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""");
+                        await Program.ExecuteAsync(Program.z7Path, @$"x ""{file}"" -o""{path}""", null, debugFolder);
                         number++;
                     }
                 }
@@ -1619,10 +1619,10 @@ powercfg -s {powerScheme}";
 
             if (!manual)
             {
-                await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"");
+                await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"", null, debugFolder);
                 if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry"))
                 {
-                    await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "disable_hotkeys.reg"))}\"");
+                    await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "disable_hotkeys.reg"))}\"", null, debugFolder);
                 }
 
                 string executablePath = Path.Combine(WinboxResourcesPath, "executable");
@@ -2569,7 +2569,7 @@ if errorlevel 1 (
                     string newRegPath = Path.Combine(tempDirectoryPath, "modified_reg.reg");
                     await RegPatcher.regPatcher(oldRegPath, newRegPath);
                     copyToDebugFile("modified_reg.txt", newRegPath);
-                    await Program.ExecuteAsync("reg.exe", $"import \"{newRegPath}\"");
+                    await Program.ExecuteAsync("reg.exe", $"import \"{newRegPath}\"", null, debugFolder);
                     File.Delete(newRegPath);
                 }
 

@@ -543,7 +543,7 @@ namespace WinBox_Maker
             customdism_commands.Text = winBoxProject.winBoxConfig.customdism_commands ?? "";
             customdism_features.Text = winBoxProject.winBoxConfig.customdism_features ?? "";
 
-            customdism.Visible = winBoxProject.winBoxConfig.customdism_enabled == true;
+            customdism.Enabled = winBoxProject.winBoxConfig.customdism_enabled == true;
 
             buildEnabled.CheckState = winBoxProject.winBoxConfig.buildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
             downloadEnabled.CheckState = winBoxProject.winBoxConfig.downloadEnabled == true ? CheckState.Checked : CheckState.Unchecked;
@@ -654,6 +654,7 @@ namespace WinBox_Maker
             manual_setup_autounattend.Text = winBoxProject.winBoxConfig.manual_setup_autounattend ?? "not selected";
             manual_setup_sysunattend.Text = winBoxProject.winBoxConfig.manual_setup_sysunattend ?? "not selected";
             manual_setup_panel.Enabled = manual;
+            recoverypanel.Enabled = !manual || winBoxProject.winBoxConfig.recoverymod_manual_allow == true;
 
             UpdateGuiCurrentServices();
 
@@ -2673,6 +2674,7 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.recoverymod_manual_allow = recoverymod_manual_allow.CheckState == CheckState.Checked;
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void recoveryMenuAction_SelectedIndexChanged(object sender, EventArgs e)
