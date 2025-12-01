@@ -1188,7 +1188,32 @@ powercfg -s {powerScheme}";
                 "WdNisSvc",
                 "wscsvc",
                 "w32time",
-                "wisvc"
+                "wisvc",
+
+                "PhoneSvc",
+                "SessionEnv",
+                "UmRdpService",
+                "svsvc",
+                "TapiSrv",
+                "SDRSVC",
+                "WbioSrvc",
+                "mpssvc",
+                "Wecsvc",
+                "ClipSVC",
+                "WpnService",
+                "PushToInstall",
+                "WinRM",
+                "workfolderssvc",
+                "LanmanWorkstation",
+                "WwanSvc",
+                "AarSvc",
+                "cbdhsvc",
+                "CloudBackupRestoreSvc",
+                "CDPUserSvc",
+                "ConsentUxUserSvc",
+                "PimIndexMaintenanceSvc",
+                "UnistoreSvc",
+                ""
 
                 //"eventlog",
                 //"lanmanserver"
