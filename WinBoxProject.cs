@@ -2577,15 +2577,78 @@ if errorlevel 1 (
                 //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
             }
 
+            // ------------------------------------ install drivers & setup features
+
+            async Task addUserDrivers(string baseDir)
+            {
+                string driversPath = Path.Combine(baseDir, "drivers");
+                if (Program.IsDirectoryNotEmpty(driversPath))
+                {
+                    processName("Installing user drivers");
+                    processValue(55);
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-driver /driver:\"{driversPath}\" /recurse /forceunsigned", null, debugFolder);
+                }
+            }
+
+            async Task addCabMsu(string baseDir)
+            {
+                string packagesPath = Path.Combine(baseDir, "packages");
+                if (Program.IsDirectoryNotEmpty(packagesPath))
+                {
+                    processName("Installing .cab/.msu packages");
+                    processValue(56);
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-package /PackagePath:\"{packagesPath}\"", null, debugFolder);
+                }
+            }
+
+            await addUserDrivers(resourcesDirectoryPath);
+            await addUserDrivers(tempDirectoryPath);
+            await addCabMsu(resourcesDirectoryPath);
+            await addCabMsu(tempDirectoryPath);
+
+            if (winBoxConfig.forceIot == true)
+            {
+                processName("Change edition");
+                processValue(57);
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-Edition:IoTEnterprise /accepteula", null, debugFolder);
+            }
+
+            if (winBoxConfig.customdism_enabled == true)
+            {
+                processName("Applying custom dism commands");
+                processValue(58);
+                foreach (string command in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.customdism_commands ?? ""))
+                {
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" {command}", baseDirectoryPath, debugFolder);
+                }
+            }
+
+            processName("Enabling necessary windows components");
+            processValue(59);
+            foreach (string feature in getEnableFeatures())
+            {
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Enable-Feature /all /FeatureName:\"{feature}\"", baseDirectoryPath, debugFolder);
+            }
+
+            if (!manual)
+            {
+                processName("disabling unnecessary Windows components");
+                processValue(60);
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender", null, debugFolder); //it will probably only work for Windows server
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender-GUI", null, debugFolder);
+
+                processName("OEM key applying");
+                processValue(61);
+                if (winBoxConfig.oemkey_dism == true && winBoxConfig.isValidOemKey())
+                {
+                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-ProductKey:\"{winBoxConfig.OemKey}\"", null, debugFolder);
+                }
+            }
+
             // ------------------------------------ removing excess
 
-            /*
-            string lockScreenAppPath = Path.Combine(wimMountPath, "Windows\\SystemApps\\Microsoft.LockApp_cw5n1h2txyewy");
-            if (Directory.Exists(lockScreenAppPath))
-            {
-                Directory.Delete(lockScreenAppPath, true);
-            }
-            */
+            processName("Deleting unnecessary content selected by the user");
+            processValue(62);
 
             async Task execDismCmd(string name, int type)
             {
@@ -2683,72 +2746,6 @@ if errorlevel 1 (
             await writeDebugFile("RemovePaths", RemovePaths_log);
 
             // ------------------------------------ save & export
-
-            async Task addUserDrivers(string baseDir)
-            {
-                string driversPath = Path.Combine(baseDir, "drivers");
-                if (Program.IsDirectoryNotEmpty(driversPath))
-                {
-                    processName("Installing user drivers");
-                    processValue(55);
-                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-driver /driver:\"{driversPath}\" /recurse /forceunsigned", null, debugFolder);
-                }
-            }
-
-            async Task addCabMsu(string baseDir)
-            {
-                string packagesPath = Path.Combine(baseDir, "packages");
-                if (Program.IsDirectoryNotEmpty(packagesPath))
-                {
-                    processName("Installing .cab/.msu packages");
-                    processValue(56);
-                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /add-package /PackagePath:\"{packagesPath}\"", null, debugFolder);
-                }
-            }
-
-            await addUserDrivers(resourcesDirectoryPath);
-            await addUserDrivers(tempDirectoryPath);
-            await addCabMsu(resourcesDirectoryPath);
-            await addCabMsu(tempDirectoryPath);
-
-            if (winBoxConfig.forceIot == true)
-            {
-                processName("Change edition");
-                processValue(57);
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-Edition:IoTEnterprise /accepteula", null, debugFolder);
-            }
-
-            if (winBoxConfig.customdism_enabled == true)
-            {
-                processName("Applying custom dism commands");
-                processValue(58);
-                foreach (string command in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.customdism_commands ?? ""))
-                {
-                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" {command}", baseDirectoryPath, debugFolder);
-                }
-            }
-
-            processName("Enabling necessary windows components");
-            processValue(59);
-            foreach (string feature in getEnableFeatures())
-            {
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Enable-Feature /all /FeatureName:\"{feature}\"", baseDirectoryPath, debugFolder);
-            }
-
-            if (!manual)
-            {
-                processName("disabling unnecessary Windows components");
-                processValue(60);
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender", null, debugFolder); //it will probably only work for Windows server
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender-GUI", null, debugFolder);
-
-                processName("OEM key applying");
-                processValue(61);
-                if (winBoxConfig.oemkey_dism == true && winBoxConfig.isValidOemKey())
-                {
-                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-ProductKey:\"{winBoxConfig.OemKey}\"", null, debugFolder);
-                }
-            }
 
             if (winBoxConfig.winmountedEnabled == true)
             {
