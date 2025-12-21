@@ -1988,8 +1988,7 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" 
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVTweak"" /v OverlayHook /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v HungAppTimeout /t REG_SZ /d ""2147483647"" /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v WaitToKillAppTimeout /t REG_SZ /d ""5000"" /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetric"" /v MinAnimate /t REG_SZ /d ""0"" /f";
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f";
 
                 string updateSystemSettings = $@"reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
 
