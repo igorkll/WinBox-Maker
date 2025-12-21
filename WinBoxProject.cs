@@ -231,6 +231,11 @@ namespace WinBox_Maker
             }
         }
 
+        void breakpointStop(string eventname, bool after)
+        {
+            MessageBox.Show($"{(after ? "after" : "before")} {eventname} event\n", "breakpoint", MessageBoxButtons.OK);
+        }
+
         string getDebugFilePath(string name)
         {
             return Path.Combine(debugFolder, name + ".txt");
@@ -1488,12 +1493,14 @@ powercfg -s {powerScheme}";
 
             bool manual = winBoxConfig.manual_setup == true;
 
+            if (winBoxConfig.prebuild_breakbefore == true) breakpointStop("pre-build", false);
             if (winBoxConfig.prebuildEnabled == true)
             {
                 processValue(2);
                 processName("Executing a pre-build event");
                 await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.prebuildEvent);
             }
+            if (winBoxConfig.prebuild_breakafter == true) breakpointStop("pre-build", true);
 
             processValue(5);
             await RemoveTemp(processName);
@@ -2866,12 +2873,14 @@ if errorlevel 1 (
 
             // ------------------------------------ save & export
 
+            if (winBoxConfig.winmounted_breakbefore == true) breakpointStop("win-mounted", false);
             if (winBoxConfig.winmountedEnabled == true)
             {
                 processValue(63);
                 processName("Executing a win-mounted event");
                 await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.winmountedEvent);
             }
+            if (winBoxConfig.winmounted_breakafter == true) breakpointStop("win-mounted", true);
 
             processName("Unmounting and save install.wim");
             processValue(70);
@@ -2888,12 +2897,14 @@ if errorlevel 1 (
         }
         private async Task CompleteExport(Action<string> processName, Action<int> processValue, string exportPath)
         {
+            if (winBoxConfig.postbuild_breakbefore == true) breakpointStop("post-build", false);
             if (winBoxConfig.postbuildEnabled == true)
             {
                 processValue(98);
                 processName("Executing a post-build event");
                 await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.postbuildEvent, $"\"{exportPath}\"");
             }
+            if (winBoxConfig.postbuild_breakafter == true) breakpointStop("post-build", true);
 
             processValue(99);
             await RemoveTemp(processName);

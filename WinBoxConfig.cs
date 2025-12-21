@@ -122,12 +122,6 @@ namespace WinBox_Maker
         public bool? CustomBootLogo_centering { get; set; }
         public bool? CustomBootLogo_UseLogoBeforeApp { get; set; }
         public bool? CustomBootLogo_UseOnBootres { get; set; }
-        public bool? prebuildEnabled { get; set; }
-        public string? prebuildEvent { get; set; }
-        public bool? postbuildEnabled { get; set; }
-        public string? postbuildEvent { get; set; }
-        public bool? winmountedEnabled { get; set; }
-        public string? winmountedEvent { get; set; }
         public string? pythonVersion { get; set; }
         public bool? downloadEnabled { get; set; }
         public bool? buildEnabled { get; set; }
@@ -216,6 +210,24 @@ namespace WinBox_Maker
         public string? bootresRepacking_logoPath { get; set; }
 
 
+        public bool? prebuildEnabled { get; set; }
+        public string? prebuildEvent { get; set; }
+        public bool? prebuild_breakbefore { get; set; }
+        public bool? prebuild_breakafter { get; set; }
+
+        public bool? postbuildEnabled { get; set; }
+        public string? postbuildEvent { get; set; }
+        public bool? postbuild_breakbefore { get; set; }
+        public bool? postbuild_breakafter { get; set; }
+        
+        public bool? winmountedEnabled { get; set; }
+        public string? winmountedEvent { get; set; }
+        public bool? winmounted_breakbefore { get; set; }
+        public bool? winmounted_breakafter { get; set; }
+
+
+
+
         static string[] renameTweaks_from = [
             "removing UWP apps"
         ];
@@ -264,12 +276,6 @@ namespace WinBox_Maker
             if (CustomBootLogo_centering == null) CustomBootLogo_centering = true;
             if (CustomBootLogo_UseLogoBeforeApp == null) CustomBootLogo_UseLogoBeforeApp = false;
             if (CustomBootLogo_UseOnBootres == null) CustomBootLogo_UseOnBootres = false;
-            if (prebuildEnabled == null) prebuildEnabled = false;
-            if (prebuildEvent == null) prebuildEvent = "";
-            if (postbuildEnabled == null) postbuildEnabled = false;
-            if (postbuildEvent == null) postbuildEvent = "";
-            if (winmountedEnabled == null) winmountedEnabled = false;
-            if (winmountedEvent == null) winmountedEvent = "";
             if (pythonVersion == null) pythonVersion = null;
             if (downloadEnabled == null) downloadEnabled = false;
             if (buildEnabled == null) buildEnabled = false;
@@ -378,6 +384,21 @@ namespace WinBox_Maker
             if (bsod_disabledisplay == null) bsod_disabledisplay = true;
             if (ChangeTimezone == null) ChangeTimezone = true;
             if (EnableRecovery == null) EnableRecovery = false;
+
+            if (prebuildEnabled == null) prebuildEnabled = false;
+            if (prebuildEvent == null) prebuildEvent = "";
+            if (prebuild_breakbefore == null) prebuild_breakbefore = false;
+            if (prebuild_breakafter == null) prebuild_breakafter = false;
+
+            if (postbuildEnabled == null) postbuildEnabled = false;
+            if (postbuildEvent == null) postbuildEvent = "";
+            if (postbuild_breakbefore == null) postbuild_breakbefore = false;
+            if (postbuild_breakafter == null) postbuild_breakafter = false;
+
+            if (winmountedEnabled == null) winmountedEnabled = false;
+            if (winmountedEvent == null) winmountedEvent = "";
+            if (winmounted_breakbefore == null) winmounted_breakbefore = false;
+            if (winmounted_breakafter == null) winmounted_breakafter = false;
         }
 
         public void Save(string wnbFilePath)

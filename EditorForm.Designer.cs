@@ -468,8 +468,8 @@
             ExportInstallEsd = new Button();
             richTextBox23 = new RichTextBox();
             richTextBox24 = new RichTextBox();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
+            prebuild_breakbefore = new CheckBox();
+            prebuild_breakafter = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -3233,8 +3233,8 @@
             // 
             // tabPage41
             // 
-            tabPage41.Controls.Add(checkBox2);
-            tabPage41.Controls.Add(checkBox1);
+            tabPage41.Controls.Add(prebuild_breakafter);
+            tabPage41.Controls.Add(prebuild_breakbefore);
             tabPage41.Controls.Add(prebuildEnabled);
             tabPage41.Controls.Add(prebuildEvent);
             tabPage41.Controls.Add(label22);
@@ -5187,25 +5187,25 @@
             richTextBox24.TabIndex = 17;
             richTextBox24.Text = resources.GetString("richTextBox24.Text");
             // 
-            // checkBox1
+            // prebuild_breakbefore
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(219, 13);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(234, 29);
-            checkBox1.TabIndex = 3;
-            checkBox1.Text = "break point before event";
-            checkBox1.UseVisualStyleBackColor = true;
+            prebuild_breakbefore.AutoSize = true;
+            prebuild_breakbefore.Location = new Point(219, 13);
+            prebuild_breakbefore.Name = "prebuild_breakbefore";
+            prebuild_breakbefore.Size = new Size(234, 29);
+            prebuild_breakbefore.TabIndex = 3;
+            prebuild_breakbefore.Text = "break point before event";
+            prebuild_breakbefore.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // prebuild_breakafter
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(459, 13);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(234, 29);
-            checkBox2.TabIndex = 4;
-            checkBox2.Text = "break point before event";
-            checkBox2.UseVisualStyleBackColor = true;
+            prebuild_breakafter.AutoSize = true;
+            prebuild_breakafter.Location = new Point(459, 13);
+            prebuild_breakafter.Name = "prebuild_breakafter";
+            prebuild_breakafter.Size = new Size(218, 29);
+            prebuild_breakafter.TabIndex = 4;
+            prebuild_breakafter.Text = "break point after event";
+            prebuild_breakafter.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
@@ -5845,7 +5845,7 @@
         private TabPage tabPage49;
         private RichTextBox richTextBox23;
         private RichTextBox richTextBox24;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
+        private CheckBox prebuild_breakbefore;
+        private CheckBox prebuild_breakafter;
     }
 }
