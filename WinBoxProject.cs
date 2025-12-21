@@ -2867,7 +2867,7 @@ if errorlevel 1 (
 
             // ------------------------------------ removing excess
 
-            processName("Deleting unnecessary content selected by the user");
+            processName("Deleting unnecessary content");
             processValue(62);
 
             async Task execDismCmd(string name, int type)
