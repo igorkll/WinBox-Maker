@@ -1490,7 +1490,7 @@ powercfg -s {powerScheme}";
         {
             string RemovePaths_log = "";
 
-            async Task removeSystemObject(string path)
+            async Task removeSystemObject(string path, string? systemRoot=null)
             {
                 RemovePaths_log += $"remove path request: {path}\n";
 
@@ -1514,7 +1514,17 @@ powercfg -s {powerScheme}";
 
                 RemovePaths_log += $"launching deleting: {path}\n";
 
-                path = Path.Combine(wimMountPath, path);
+                if (systemRoot != null)
+                {
+                    RemovePaths_log += $"in folder: {systemRoot}\n";
+                    path = Path.Combine(wimMountPath, systemRoot, path);
+                }
+                else
+                {
+                    path = Path.Combine(wimMountPath, path);
+                }
+
+                RemovePaths_log += $"result host path: {path}\n";
 
                 await Task.Run(() => {
                     bool recreateDir = false;
@@ -2954,6 +2964,11 @@ if errorlevel 1 (
             foreach (string path in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_paths ?? ""))
             {
                 await removeSystemObject(path);
+            }
+
+            foreach (string path in _getSchtasksDeletePaths())
+            {
+                await removeSystemObject("!" + path, "Windows\\System32\\Tasks");
             }
 
             await writeDebugFile("RemovePaths", RemovePaths_log);
