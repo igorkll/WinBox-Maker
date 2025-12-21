@@ -489,6 +489,18 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            tabPage51 = new TabPage();
+            tabControl11 = new TabControl();
+            tabPage52 = new TabPage();
+            label94 = new Label();
+            richTextBox29 = new RichTextBox();
+            tabPage53 = new TabPage();
+            label95 = new Label();
+            richTextBox30 = new RichTextBox();
+            label97 = new Label();
+            checkBox2 = new CheckBox();
+            richTextBox31 = new RichTextBox();
+            richTextBox27 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -592,6 +604,10 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage51.SuspendLayout();
+            tabControl11.SuspendLayout();
+            tabPage52.SuspendLayout();
+            tabPage53.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -3052,6 +3068,7 @@
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage32);
+            tabControl1.Controls.Add(tabPage51);
             tabControl1.Location = new Point(3, 4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -5451,6 +5468,129 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // tabPage51
+            // 
+            tabPage51.Controls.Add(richTextBox27);
+            tabPage51.Controls.Add(tabControl11);
+            tabPage51.Location = new Point(4, 34);
+            tabPage51.Name = "tabPage51";
+            tabPage51.Size = new Size(984, 252);
+            tabPage51.TabIndex = 1;
+            tabPage51.Text = "schtasks";
+            tabPage51.UseVisualStyleBackColor = true;
+            // 
+            // tabControl11
+            // 
+            tabControl11.Controls.Add(tabPage52);
+            tabControl11.Controls.Add(tabPage53);
+            tabControl11.Location = new Point(6, 6);
+            tabControl11.Name = "tabControl11";
+            tabControl11.SelectedIndex = 0;
+            tabControl11.Size = new Size(648, 240);
+            tabControl11.TabIndex = 45;
+            // 
+            // tabPage52
+            // 
+            tabPage52.Controls.Add(label94);
+            tabPage52.Controls.Add(richTextBox29);
+            tabPage52.Location = new Point(4, 34);
+            tabPage52.Name = "tabPage52";
+            tabPage52.Padding = new Padding(3);
+            tabPage52.Size = new Size(640, 202);
+            tabPage52.TabIndex = 0;
+            tabPage52.Text = "current";
+            tabPage52.UseVisualStyleBackColor = true;
+            // 
+            // label94
+            // 
+            label94.AutoSize = true;
+            label94.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label94.Location = new Point(9, 3);
+            label94.Name = "label94";
+            label94.Size = new Size(136, 32);
+            label94.TabIndex = 40;
+            label94.Text = "delete/stop";
+            // 
+            // richTextBox29
+            // 
+            richTextBox29.Location = new Point(6, 39);
+            richTextBox29.Name = "richTextBox29";
+            richTextBox29.ReadOnly = true;
+            richTextBox29.Size = new Size(628, 157);
+            richTextBox29.TabIndex = 38;
+            richTextBox29.Text = "";
+            // 
+            // tabPage53
+            // 
+            tabPage53.Controls.Add(label95);
+            tabPage53.Controls.Add(richTextBox30);
+            tabPage53.Controls.Add(label97);
+            tabPage53.Controls.Add(checkBox2);
+            tabPage53.Controls.Add(richTextBox31);
+            tabPage53.Location = new Point(4, 34);
+            tabPage53.Name = "tabPage53";
+            tabPage53.Padding = new Padding(3);
+            tabPage53.Size = new Size(640, 202);
+            tabPage53.TabIndex = 1;
+            tabPage53.Text = "customize";
+            tabPage53.UseVisualStyleBackColor = true;
+            // 
+            // label95
+            // 
+            label95.AutoSize = true;
+            label95.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label95.Location = new Point(328, 4);
+            label95.Name = "label95";
+            label95.Size = new Size(176, 32);
+            label95.TabIndex = 49;
+            label95.Text = "delete from list";
+            // 
+            // richTextBox30
+            // 
+            richTextBox30.Location = new Point(328, 39);
+            richTextBox30.Name = "richTextBox30";
+            richTextBox30.Size = new Size(308, 157);
+            richTextBox30.TabIndex = 48;
+            richTextBox30.Text = "";
+            // 
+            // label97
+            // 
+            label97.AutoSize = true;
+            label97.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label97.Location = new Point(9, 3);
+            label97.Name = "label97";
+            label97.Size = new Size(136, 32);
+            label97.TabIndex = 44;
+            label97.Text = "delete/stop";
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(151, 6);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(140, 29);
+            checkBox2.TabIndex = 46;
+            checkBox2.Text = "stop only list";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox31
+            // 
+            richTextBox31.Location = new Point(6, 39);
+            richTextBox31.Name = "richTextBox31";
+            richTextBox31.Size = new Size(316, 157);
+            richTextBox31.TabIndex = 42;
+            richTextBox31.Text = "";
+            // 
+            // richTextBox27
+            // 
+            richTextBox27.BackColor = SystemColors.Info;
+            richTextBox27.Location = new Point(660, 6);
+            richTextBox27.Name = "richTextBox27";
+            richTextBox27.ReadOnly = true;
+            richTextBox27.Size = new Size(321, 236);
+            richTextBox27.TabIndex = 45;
+            richTextBox27.Text = resources.GetString("richTextBox27.Text");
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -5646,6 +5786,12 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage51.ResumeLayout(false);
+            tabControl11.ResumeLayout(false);
+            tabPage52.ResumeLayout(false);
+            tabPage52.PerformLayout();
+            tabPage53.ResumeLayout(false);
+            tabPage53.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -6114,5 +6260,17 @@
         private RichTextBox richTextBox28;
         private CheckBox recoveryMountedEarlyEnabled;
         private RichTextBox recoveryMountedEarlyEvent;
+        private TabPage tabPage51;
+        private TabControl tabControl11;
+        private TabPage tabPage52;
+        private Label label94;
+        private RichTextBox richTextBox29;
+        private TabPage tabPage53;
+        private Label label95;
+        private RichTextBox richTextBox30;
+        private Label label97;
+        private CheckBox checkBox2;
+        private RichTextBox richTextBox31;
+        private RichTextBox richTextBox27;
     }
 }
