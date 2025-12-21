@@ -72,7 +72,7 @@ namespace WinBox_Maker
             AddTweakToList("Hide bootmgr errors");
             AddTweakToList("Enable CrashOnCtrlScroll (BSOD)");
             AddTweakToList("Do not disable hotkeys by changing the layout");
-            AddTweakToList("Do not disable hotkeys by changing the registry");
+            AddTweakToList("Do not disable hotkeys by keyboard filter");
             AddTweakToList("completely remove explorer.exe");
             AddTweakToList("completely remove system audio/images");
             AddTweakToList("removing Windows/System apps (breaks the default shell)");

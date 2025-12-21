@@ -1277,7 +1277,7 @@ powercfg -s {powerScheme}";
 
         bool needEnableKeyboardFilter()
         {
-            return !Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry");
+            return !Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by keyboard filter");
         }
 
         public string[] getStartServicesList()
@@ -1858,7 +1858,7 @@ powercfg -s {powerScheme}";
             if (!manual)
             {
                 await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"", null, debugFolder);
-                if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by changing the registry"))
+                if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by keyboard filter"))
                 {
                     await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "disable_hotkeys.reg"))}\"", null, debugFolder);
                 }

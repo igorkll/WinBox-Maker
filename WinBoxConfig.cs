@@ -243,11 +243,13 @@ namespace WinBox_Maker
 
 
         static string[] renameTweaks_from = [
-            "removing UWP apps"
+            "removing UWP apps",
+            "Do not disable hotkeys by changing the registry"
         ];
 
         static string[] renameTweaks_to = [
-            "removing Windows/System apps (breaks the default shell)"
+            "removing Windows/System apps (breaks the default shell)",
+            "Do not disable hotkeys by keyboard filter"
         ];
 
 
