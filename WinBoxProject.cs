@@ -59,6 +59,7 @@ namespace WinBox_Maker
         string name;
         string? err;
         string debugFolder;
+        string WinboxApiPath;
 
         string[] imageInfoFiles;
 
@@ -82,6 +83,7 @@ namespace WinBox_Maker
             sourcesDirectoryPath = Path.Combine(resourcesDirectoryPath, "sources");
             debugFolder = Path.Combine(tempDirectoryPath, "debug");
             debugBuildProgramsPath = Path.Combine(debugFolder, "program");
+            WinboxApiPath = Path.Combine(wimMountPath, "WinboxApi");
             name = Path.GetFileName(baseDirectoryPath);
 
             imageInfoFiles = new string[] {
@@ -1401,6 +1403,11 @@ powercfg -s {powerScheme}";
             }
         }
 
+        async Task WriteApiScript(string scriptname, string script)
+        {
+            await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, scriptname), script);
+        }
+
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath, bool initViaVmMode = false)
         {
             string RemovePaths_log = "";
@@ -1630,7 +1637,6 @@ powercfg -s {powerScheme}";
 
             string WindowsScriptsPath = Path.Combine(wimMountPath, "Windows\\Setup\\Scripts");
             string WinboxResourcesPath = Path.Combine(wimMountPath, "WinboxResources");
-            string WinboxApiPath = Path.Combine(wimMountPath, "WinboxApi");
             if (!manual)
             {
                 Directory.CreateDirectory(WindowsScriptsPath);
@@ -2632,7 +2638,7 @@ if errorlevel 1 (
                 }
                 else
                 {
-                    await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, "reboot_to_desktop.bat"), reboot_to_desktop_cmd);
+                    await WriteApiScript("reboot_to_desktop.bat", reboot_to_desktop_cmd);
 
                     string customShell = "wscript \"C:\\WinboxResources\\run_app_script_hidden.vbs\"";
 
@@ -2650,6 +2656,9 @@ if errorlevel 1 (
                     await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_app_script_hidden.vbs"), @"C:\WinboxResources\app_script.bat", null);
                     await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(customShell));
                 }
+
+                await WriteApiScript("reboot_to_recovery.bat", "reagentc /boottore\r\nshutdown /r /t 0");
+                await WriteApiScript("reboot_to_advanced_options.bat", "shutdown /r /o /f /t 0");
             }
 
             // ------------------------------------ apple reg

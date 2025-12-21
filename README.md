@@ -266,7 +266,9 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 ## API
 winbox maker images have a local API that can be used by an application loaded in winbox maker.
 this can be used to control some aspects of the system from your user application.
-* C:\WinboxApi\reboot_to_desktop.bat - call this file from your application to reboot to the windows desktop. after reboot, your application will start again. this can be used for debugging or configuration. DO NOT USE this feature in the release build. since this allows you to get into the system interface, which may be unsafe for public kiosks
+* C:\WinboxApi\reboot_to_desktop.bat - call this file from your application to reboot to the windows desktop. after reboot, your application will start again. this can be used for debugging or configuration. DO NOT USE this feature in the release build. since this allows you to get into the system interface, which may be unsafe for public kiosks (available only in the "instend of the desktop" application launch mode)
+* C:\WinboxApi\reboot_to_recovery.bat - reboots in recovery (if it is in the system (Winbox maker deletes it by default) and it is enabled (Winbox maker turns it off by default)) I recommend using custom recovery or modifying stock recovery using winbox maker tools so that the solution is safe and you get what you want.
+* C:\WinboxApi\reboot_to_advanced_options.bat - 
 
 ## custom cursor files (winbox_resources/cursor)
 * AppStarting.ani
