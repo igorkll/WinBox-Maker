@@ -1346,6 +1346,70 @@ powercfg -s {powerScheme}";
             return servicesSetup;
         }
 
+        string[] getStopOrDeleteSchtasksList()
+        {
+            List<string> stopOrDeleteSchtasks = new List<string>();
+            if (winBoxConfig.schtasks_stopOrDeleteOnlyFromList != true)
+            {
+                stopOrDeleteSchtasks.Add("");
+                stopOrDeleteSchtasks.Add("");
+                stopOrDeleteSchtasks.Add("");
+                stopOrDeleteSchtasks.Add("");
+            }
+
+            foreach (string schtasks in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.schtasks_stopOrDelete ?? ""))
+            {
+                stopOrDeleteSchtasks.Add(schtasks);
+            }
+
+            return stopOrDeleteSchtasks.Distinct().ToArray();
+        }
+
+        string _getSchtasksSetup()
+        {
+            string[] stopOrDeleteSchtasks = getStopOrDeleteSchtasksList();
+
+            string schtasksSetup = "";
+            foreach (string schtask in stopOrDeleteSchtasks)
+            {
+                bool delete = !schtask.StartsWith("!");
+                string schtaskPath = schtask;
+                if (!delete)
+                {
+                    schtaskPath = schtask.Substring(1);
+                }
+
+                schtasksSetup += $"echo {(delete ? "delete" : "stop")} schtask: {schtaskPath} >> C:\\WinboxResources\\setup.log\r\n";
+                if (delete)
+                {
+                    schtasksSetup += $"schtasks /Delete /TN \"{schtaskPath}\" /F";
+                }
+                else
+                {
+                    schtasksSetup += $"schtasks /Change /TN \"{schtaskPath}\" /disable";
+                }
+                schtasksSetup += $"echo schtask {schtaskPath} {(delete ? "deleted" : "stoped")} >> C:\\WinboxResources\\setup.log\r\n";
+            }
+            return schtasksSetup;
+        }
+
+        string[] _getSchtasksDeletePaths()
+        {
+            string[] stopOrDeleteSchtasks = getStopOrDeleteSchtasksList();
+            List<string> deletePaths = new List<string>();
+
+            foreach (string schtask in stopOrDeleteSchtasks)
+            {
+                bool delete = !schtask.StartsWith("!");
+                if (delete)
+                {
+                    deletePaths.Add(schtask);
+                }
+            }
+
+            return stopOrDeleteSchtasks.Distinct().ToArray();
+        }
+
         async Task addAdFiles(string path, WindowsDescription newWindowsDescription, bool? advertising = true, bool? info = true)
         {
             if (advertising == true) await File.WriteAllTextAsync(Path.Combine(path, "README.txt"), $"this image was created by the {Program.version} free software\r\nhttps://github.com/igorkll/WinBox-Maker");

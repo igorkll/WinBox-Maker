@@ -236,6 +236,9 @@ namespace WinBox_Maker
         public bool? recoveryMountedEarly_breakafter { get; set; }
 
 
+        public string? schtasks_stopOrDelete { get; set; }
+        public bool? schtasks_stopOrDeleteOnlyFromList { get; set; }
+
 
 
         static string[] renameTweaks_from = [
@@ -419,6 +422,9 @@ namespace WinBox_Maker
             if (recoveryMountedEarlyEvent == null) recoveryMountedEarlyEvent = "";
             if (recoveryMountedEarly_breakbefore == null) recoveryMountedEarly_breakbefore = false;
             if (recoveryMountedEarly_breakafter == null) recoveryMountedEarly_breakafter = false;
+
+            if (schtasks_stopOrDelete == null) schtasks_stopOrDelete = "";
+            if (schtasks_stopOrDeleteOnlyFromList == null) schtasks_stopOrDeleteOnlyFromList = false;
         }
 
         public void Save(string wnbFilePath)
