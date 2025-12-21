@@ -680,6 +680,7 @@ namespace WinBox_Maker
             TimeZoneKeyName.Enabled = ChangeTimezone.Checked;
 
             ReplaceRecovery.Text = winBoxProject.winBoxConfig.ReplaceRecovery ?? "";
+            EnableRecovery.Checked = winBoxProject.winBoxConfig.EnableRecovery == true;
 
             tab_app.Enabled = !manual;
             tab_settings.Enabled = !manual;
@@ -2800,6 +2801,15 @@ namespace WinBox_Maker
             if (winBoxProject.winBoxConfig.appcrash_time_value.ToString() != appcrash_time_value.Text)
                 appcrash_time_value.Text = winBoxProject.winBoxConfig.appcrash_time_value.ToString();
             winBoxProject.SaveConfig();
+        }
+
+        private void EnableRecovery_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.EnableRecovery = EnableRecovery.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }

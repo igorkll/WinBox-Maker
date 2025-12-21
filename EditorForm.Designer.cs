@@ -118,7 +118,12 @@
             tab_app = new TabPage();
             tabControl3 = new TabControl();
             tabPage19 = new TabPage();
+            panel9 = new Panel();
+            label84 = new Label();
+            appcrash_time_value = new TextBox();
+            appcrash_time = new CheckBox();
             label59 = new Label();
+            label89 = new Label();
             panel18 = new Panel();
             actionAtEndOfApplication_command = new TextBox();
             ActionAtEndOfApplication_execute_command = new RadioButton();
@@ -451,11 +456,7 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            panel9 = new Panel();
-            label84 = new Label();
-            appcrash_time_value = new TextBox();
-            appcrash_time = new CheckBox();
-            label89 = new Label();
+            EnableRecovery = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -469,6 +470,7 @@
             tab_app.SuspendLayout();
             tabControl3.SuspendLayout();
             tabPage19.SuspendLayout();
+            panel9.SuspendLayout();
             panel18.SuspendLayout();
             tabPage20.SuspendLayout();
             panel20.SuspendLayout();
@@ -552,7 +554,6 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            panel9.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1504,6 +1505,45 @@
             tabPage19.Text = "on crash";
             tabPage19.UseVisualStyleBackColor = true;
             // 
+            // panel9
+            // 
+            panel9.BorderStyle = BorderStyle.Fixed3D;
+            panel9.Controls.Add(label84);
+            panel9.Controls.Add(appcrash_time_value);
+            panel9.Controls.Add(appcrash_time);
+            panel9.Location = new Point(6, 204);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(385, 75);
+            panel9.TabIndex = 50;
+            // 
+            // label84
+            // 
+            label84.AutoSize = true;
+            label84.Location = new Point(159, 39);
+            label84.Name = "label84";
+            label84.Size = new Size(134, 25);
+            label84.TabIndex = 46;
+            label84.Text = "delay (seconds)";
+            // 
+            // appcrash_time_value
+            // 
+            appcrash_time_value.Location = new Point(3, 36);
+            appcrash_time_value.Name = "appcrash_time_value";
+            appcrash_time_value.Size = new Size(150, 31);
+            appcrash_time_value.TabIndex = 45;
+            appcrash_time_value.TextChanged += appcrash_time_value_TextChanged;
+            // 
+            // appcrash_time
+            // 
+            appcrash_time.AutoSize = true;
+            appcrash_time.Location = new Point(3, 3);
+            appcrash_time.Name = "appcrash_time";
+            appcrash_time.Size = new Size(167, 29);
+            appcrash_time.TabIndex = 44;
+            appcrash_time.Text = "delay after crash";
+            appcrash_time.UseVisualStyleBackColor = true;
+            appcrash_time.CheckedChanged += appcrash_time_CheckedChanged;
+            // 
             // label59
             // 
             label59.AutoSize = true;
@@ -1513,6 +1553,16 @@
             label59.Size = new Size(349, 38);
             label59.TabIndex = 32;
             label59.Text = "Action in case of app crash";
+            // 
+            // label89
+            // 
+            label89.AutoSize = true;
+            label89.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label89.Location = new Point(6, 163);
+            label89.Name = "label89";
+            label89.Size = new Size(368, 38);
+            label89.TabIndex = 49;
+            label89.Text = "Delay after application crash";
             // 
             // panel18
             // 
@@ -3579,6 +3629,7 @@
             // recoverypanel
             // 
             recoverypanel.BorderStyle = BorderStyle.Fixed3D;
+            recoverypanel.Controls.Add(EnableRecovery);
             recoverypanel.Controls.Add(ReplaceRecovery);
             recoverypanel.Controls.Add(ReplaceRecovery_clr);
             recoverypanel.Controls.Add(recoveryMenuAction);
@@ -4992,54 +5043,16 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // panel9
+            // EnableRecovery
             // 
-            panel9.BorderStyle = BorderStyle.Fixed3D;
-            panel9.Controls.Add(label84);
-            panel9.Controls.Add(appcrash_time_value);
-            panel9.Controls.Add(appcrash_time);
-            panel9.Location = new Point(6, 204);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(385, 75);
-            panel9.TabIndex = 50;
-            // 
-            // label84
-            // 
-            label84.AutoSize = true;
-            label84.Location = new Point(159, 39);
-            label84.Name = "label84";
-            label84.Size = new Size(134, 25);
-            label84.TabIndex = 46;
-            label84.Text = "delay (seconds)";
-            // 
-            // appcrash_time_value
-            // 
-            appcrash_time_value.Location = new Point(3, 36);
-            appcrash_time_value.Name = "appcrash_time_value";
-            appcrash_time_value.Size = new Size(150, 31);
-            appcrash_time_value.TabIndex = 45;
-            appcrash_time_value.TextChanged += appcrash_time_value_TextChanged;
-            // 
-            // appcrash_time
-            // 
-            appcrash_time.AutoSize = true;
-            appcrash_time.Location = new Point(3, 3);
-            appcrash_time.Name = "appcrash_time";
-            appcrash_time.Size = new Size(167, 29);
-            appcrash_time.TabIndex = 44;
-            appcrash_time.Text = "delay after crash";
-            appcrash_time.UseVisualStyleBackColor = true;
-            appcrash_time.CheckedChanged += appcrash_time_CheckedChanged;
-            // 
-            // label89
-            // 
-            label89.AutoSize = true;
-            label89.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label89.Location = new Point(6, 163);
-            label89.Name = "label89";
-            label89.Size = new Size(368, 38);
-            label89.TabIndex = 49;
-            label89.Text = "Delay after application crash";
+            EnableRecovery.AutoSize = true;
+            EnableRecovery.Location = new Point(3, 79);
+            EnableRecovery.Name = "EnableRecovery";
+            EnableRecovery.Size = new Size(162, 29);
+            EnableRecovery.TabIndex = 46;
+            EnableRecovery.Text = "Enable recovery";
+            EnableRecovery.UseVisualStyleBackColor = true;
+            EnableRecovery.CheckedChanged += EnableRecovery_CheckedChanged;
             // 
             // EditorForm
             // 
@@ -5093,6 +5106,8 @@
             tabControl3.ResumeLayout(false);
             tabPage19.ResumeLayout(false);
             tabPage19.PerformLayout();
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             panel18.ResumeLayout(false);
             panel18.PerformLayout();
             tabPage20.ResumeLayout(false);
@@ -5225,8 +5240,6 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5662,5 +5675,6 @@
         private TextBox appcrash_time_value;
         private CheckBox appcrash_time;
         private Label label89;
+        private CheckBox EnableRecovery;
     }
 }

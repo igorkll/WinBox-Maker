@@ -1738,7 +1738,7 @@ powercfg -s {powerScheme}";
                 string setupCompleteAndFirstInit = $@"echo SetupComplete and FirstInit - start >> C:\WinboxResources\setup.log
 
 echo SetupComplete and FirstInit - setup recovery >> C:\WinboxResources\setup.log
-reagentc.exe /disable
+reagentc.exe {(winBoxConfig.EnableRecovery == true ? "/enable" : "/disable")}
 
 echo SetupComplete and FirstInit - setup BCD >> C:\WinboxResources\setup.log
 {bcdeditSetup}
