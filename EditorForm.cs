@@ -534,26 +534,31 @@ namespace WinBox_Maker
 
             prebuildEnabled.Checked = winBoxProject.winBoxConfig.prebuildEnabled == true;
             prebuildEvent.Text = winBoxProject.winBoxConfig.prebuildEvent ?? "";
+            prebuildEvent.Enabled = winBoxProject.winBoxConfig.prebuildEnabled == true;
             prebuild_breakbefore.Checked = winBoxProject.winBoxConfig.prebuild_breakbefore == true;
             prebuild_breakafter.Checked = winBoxProject.winBoxConfig.prebuild_breakafter == true;
 
             postbuildEnabled.Checked = winBoxProject.winBoxConfig.postbuildEnabled == true;
             postbuildEvent.Text = winBoxProject.winBoxConfig.postbuildEvent ?? "";
+            postbuildEvent.Enabled = winBoxProject.winBoxConfig.postbuildEnabled == true;
             postbuild_breakbefore.Checked = winBoxProject.winBoxConfig.postbuild_breakbefore == true;
             postbuild_breakafter.Checked = winBoxProject.winBoxConfig.postbuild_breakafter == true;
 
             winmountedEnabled.Checked = winBoxProject.winBoxConfig.winmountedEnabled == true;
             winmountedEvent.Text = winBoxProject.winBoxConfig.winmountedEvent ?? "";
+            winmountedEvent.Enabled = winBoxProject.winBoxConfig.winmountedEnabled == true;
             winmounted_breakbefore.Checked = winBoxProject.winBoxConfig.winmounted_breakbefore == true;
             winmounted_breakafter.Checked = winBoxProject.winBoxConfig.winmounted_breakafter == true;
 
             winmountedEarlyEnabled.Checked = winBoxProject.winBoxConfig.winmountedEarlyEnabled == true;
             winmountedEarlyEvent.Text = winBoxProject.winBoxConfig.winmountedEarlyEvent ?? "";
+            winmountedEarlyEvent.Enabled = winBoxProject.winBoxConfig.winmountedEarlyEnabled == true;
             winmountedEarly_breakbefore.Checked = winBoxProject.winBoxConfig.winmountedEarly_breakbefore == true;
             winmountedEarly_breakafter.Checked = winBoxProject.winBoxConfig.winmountedEarly_breakafter == true;
 
             recoveryMountedEarlyEnabled.Checked = winBoxProject.winBoxConfig.recoveryMountedEarlyEnabled == true;
             recoveryMountedEarlyEvent.Text = winBoxProject.winBoxConfig.recoveryMountedEarlyEvent ?? "";
+            recoveryMountedEarlyEvent.Enabled = winBoxProject.winBoxConfig.recoveryMountedEarlyEnabled == true;
             recoveryMountedEarly_breakbefore.Checked = winBoxProject.winBoxConfig.recoveryMountedEarly_breakbefore == true;
             recoveryMountedEarly_breakafter.Checked = winBoxProject.winBoxConfig.recoveryMountedEarly_breakafter == true;
 
@@ -1376,6 +1381,7 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.prebuildEnabled = prebuildEnabled.Checked;
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void prebuildEvent_TextChanged(object sender, EventArgs e)
@@ -1392,6 +1398,7 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.postbuildEnabled = postbuildEnabled.Checked;
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void postbuildEvent_TextChanged(object sender, EventArgs e)
@@ -1408,6 +1415,7 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.winmountedEnabled = winmountedEnabled.Checked;
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void winmountedEvent_TextChanged(object sender, EventArgs e)
@@ -2863,72 +2871,116 @@ namespace WinBox_Maker
 
         private void prebuild_breakbefore_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.prebuild_breakbefore = prebuild_breakbefore.Checked;
+            winBoxProject.SaveConfig();
         }
 
         private void prebuild_breakafter_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.prebuild_breakafter = prebuild_breakafter.Checked;
+            winBoxProject.SaveConfig();
         }
 
         private void postbuild_breakbefore_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.postbuild_breakbefore = postbuild_breakbefore.Checked;
+            winBoxProject.SaveConfig();
         }
 
         private void postbuild_breakafter_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.postbuild_breakafter = postbuild_breakafter.Checked;
+            winBoxProject.SaveConfig();
         }
 
         private void winmounted_breakbefore_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.winmounted_breakbefore = winmounted_breakbefore.Checked;
+            winBoxProject.SaveConfig();
         }
 
         private void winmounted_breakafter_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.winmounted_breakafter = winmounted_breakafter.Checked;
+            winBoxProject.SaveConfig();
         }
 
         private void winmountedEarlyEnabled_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.winmountedEarlyEnabled = winmountedEarlyEnabled.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void winmountedEarlyEvent_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.winmountedEarlyEvent = winmountedEarlyEvent.Text;
+            winBoxProject.SaveConfig();
         }
 
         private void winmountedEarly_breakbefore_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.winmountedEarly_breakbefore = winmountedEarly_breakbefore.Checked;
+            winBoxProject.SaveConfig();
         }
 
         private void winmountedEarly_breakafter_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.winmountedEarly_breakafter = winmountedEarly_breakafter.Checked;
+            winBoxProject.SaveConfig();
         }
 
         private void recoveryMountedEarlyEnabled_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.recoveryMountedEarlyEnabled = recoveryMountedEarlyEnabled.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void recoveryMountedEarlyEvent_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.recoveryMountedEarlyEvent = recoveryMountedEarlyEvent.Text;
+            winBoxProject.SaveConfig();
         }
 
         private void recoveryMountedEarly_breakbefore_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.recoveryMountedEarly_breakbefore = recoveryMountedEarly_breakbefore.Checked;
+            winBoxProject.SaveConfig();
         }
 
         private void recoveryMountedEarly_breakafter_CheckedChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.recoveryMountedEarly_breakafter = recoveryMountedEarly_breakafter.Checked;
+            winBoxProject.SaveConfig();
         }
     }
 }
