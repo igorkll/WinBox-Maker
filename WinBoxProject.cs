@@ -373,7 +373,7 @@ namespace WinBox_Maker
             }
             else
             {
-                string path = Path.Combine(baseDirectoryPath, winBoxConfig.BaseWindowsImage);
+                string path = GetAbsoluteResourcePath(winBoxConfig.BaseWindowsImage);
                 if (File.Exists(path))
                 {
                     return path;
@@ -1573,6 +1573,14 @@ powercfg -s {powerScheme}";
                 switch (winBoxConfig.recoveryMenuAction)
                 {
                     case RecoveryMenuAction.Replace:
+                        if (winBoxConfig.ReplaceRecovery != null && winBoxConfig.ReplaceRecovery.Length > 0)
+                        {
+                            string path = GetAbsoluteResourcePath(winBoxConfig.ReplaceRecovery);
+                            if (File.Exists(path))
+                            {
+                                await Program.CopyFileAsync(path, winREpath);
+                            }
+                        }
                         break;
 
                     case RecoveryMenuAction.StayDefault:
