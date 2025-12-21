@@ -3656,6 +3656,9 @@ in manual configuration mode, you cannot integrate the cursor through the winbox
         g4GFvNjfil2JWW21/wOsMlr/Whm3FwAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="richTextBox24.Text" xml:space="preserve">
+    <value>it is recommended to use it in conjunction with the "Disable all boot UI" option to completely prohibit showing the entire windows boot UI (including the windows logo in cases running on the BIOS platform) but allow showing the UEFI logo (including the one replaced via hackBGRT)</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAAAAAAAEAIABJrAAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAEAAAABAAgGAAAAXHKoZgAAgABJ

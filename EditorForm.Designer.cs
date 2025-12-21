@@ -469,6 +469,7 @@
             richTextBox23 = new RichTextBox();
             richTextBox24 = new RichTextBox();
             checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -2885,7 +2886,7 @@
             panel17.Controls.Add(computername_use);
             panel17.Location = new Point(3, 4);
             panel17.Name = "panel17";
-            panel17.Size = new Size(493, 155);
+            panel17.Size = new Size(493, 197);
             panel17.TabIndex = 0;
             // 
             // richTextBox8
@@ -2894,9 +2895,9 @@
             richTextBox8.Location = new Point(3, 76);
             richTextBox8.Name = "richTextBox8";
             richTextBox8.ReadOnly = true;
-            richTextBox8.Size = new Size(483, 72);
+            richTextBox8.Size = new Size(483, 114);
             richTextBox8.TabIndex = 2;
-            richTextBox8.Text = "if you specify an unsupported computer name, it will not be applied.\n";
+            richTextBox8.Text = "if you specify an unsupported computer name, it will not be applied.\nalso note that if this name is specified incorrectly, it is possible that the system will not pass initialization at all.";
             // 
             // computername
             // 
@@ -3232,6 +3233,7 @@
             // 
             // tabPage41
             // 
+            tabPage41.Controls.Add(checkBox2);
             tabPage41.Controls.Add(checkBox1);
             tabPage41.Controls.Add(prebuildEnabled);
             tabPage41.Controls.Add(prebuildEvent);
@@ -3248,11 +3250,11 @@
             // 
             prebuildEnabled.AutoSize = true;
             prebuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            prebuildEnabled.Location = new Point(883, 14);
+            prebuildEnabled.Location = new Point(793, 15);
             prebuildEnabled.Name = "prebuildEnabled";
-            prebuildEnabled.Size = new Size(97, 29);
+            prebuildEnabled.Size = new Size(191, 29);
             prebuildEnabled.TabIndex = 2;
-            prebuildEnabled.Text = "execute";
+            prebuildEnabled.Text = "execute commands";
             prebuildEnabled.UseVisualStyleBackColor = true;
             prebuildEnabled.CheckedChanged += prebuildEnabled_CheckedChanged;
             // 
@@ -3292,11 +3294,11 @@
             // 
             postbuildEnabled.AutoSize = true;
             postbuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            postbuildEnabled.Location = new Point(883, 14);
+            postbuildEnabled.Location = new Point(793, 15);
             postbuildEnabled.Name = "postbuildEnabled";
-            postbuildEnabled.Size = new Size(97, 29);
+            postbuildEnabled.Size = new Size(191, 29);
             postbuildEnabled.TabIndex = 2;
-            postbuildEnabled.Text = "execute";
+            postbuildEnabled.Text = "execute commands";
             postbuildEnabled.UseVisualStyleBackColor = true;
             postbuildEnabled.CheckedChanged += postbuildEnabled_CheckedChanged;
             // 
@@ -3335,11 +3337,11 @@
             // 
             winmountedEnabled.AutoSize = true;
             winmountedEnabled.CheckAlign = ContentAlignment.MiddleRight;
-            winmountedEnabled.Location = new Point(883, 14);
+            winmountedEnabled.Location = new Point(793, 15);
             winmountedEnabled.Name = "winmountedEnabled";
-            winmountedEnabled.Size = new Size(97, 29);
+            winmountedEnabled.Size = new Size(191, 29);
             winmountedEnabled.TabIndex = 2;
-            winmountedEnabled.Text = "execute";
+            winmountedEnabled.Text = "execute commands";
             winmountedEnabled.UseVisualStyleBackColor = true;
             winmountedEnabled.CheckedChanged += winmountedEnabled_CheckedChanged;
             // 
@@ -5183,7 +5185,7 @@
             richTextBox24.Name = "richTextBox24";
             richTextBox24.Size = new Size(426, 184);
             richTextBox24.TabIndex = 17;
-            richTextBox24.Text = "";
+            richTextBox24.Text = resources.GetString("richTextBox24.Text");
             // 
             // checkBox1
             // 
@@ -5194,6 +5196,16 @@
             checkBox1.TabIndex = 3;
             checkBox1.Text = "break point before event";
             checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(459, 13);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(234, 29);
+            checkBox2.TabIndex = 4;
+            checkBox2.Text = "break point before event";
+            checkBox2.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
@@ -5834,5 +5846,6 @@
         private RichTextBox richTextBox23;
         private RichTextBox richTextBox24;
         private CheckBox checkBox1;
+        private CheckBox checkBox2;
     }
 }
