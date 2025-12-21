@@ -648,6 +648,10 @@ namespace WinBox_Maker
             RealTimeIsUniversal.Checked = winBoxProject.winBoxConfig.RealTimeIsUniversal == true;
 
             recoveryMenuAction.SelectedIndex = (int)(winBoxProject.winBoxConfig.recoveryMenuAction ?? 0);
+            bool replaceRecoveryFlag = winBoxProject.winBoxConfig.recoveryMenuAction == RecoveryMenuAction.Replace;
+            ReplaceRecovery.Enabled = replaceRecoveryFlag;
+            ReplaceRecovery_sel.Enabled = replaceRecoveryFlag;
+            ReplaceRecovery_clr.Enabled = replaceRecoveryFlag;
 
             bool manual = winBoxProject.winBoxConfig.manual_setup == true;
             manual_setup.Checked = manual;
@@ -2693,6 +2697,7 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.recoveryMenuAction = (RecoveryMenuAction)recoveryMenuAction.SelectedIndex;
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void services_deleteFromList_TextChanged(object sender, EventArgs e)
