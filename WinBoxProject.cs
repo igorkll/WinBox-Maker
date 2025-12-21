@@ -1576,6 +1576,15 @@ powercfg -s {powerScheme}";
             processValue(30);
             await mountDism(newWimPath);
 
+            if (winBoxConfig.winmountedEarly_breakbefore == true) breakpointStop("win-mounted-early", false);
+            if (winBoxConfig.winmountedEarlyEnabled == true)
+            {
+                processValue(63);
+                processName("Executing a win-mounted-early event");
+                await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.winmountedEarlyEvent);
+            }
+            if (winBoxConfig.winmountedEarly_breakafter == true) breakpointStop("win-mounted-early", true);
+
             // ------------------------------------ modification of the recovery menu
             if (!manual || winBoxConfig.recoverymod_manual_allow == true)
             {
@@ -1619,6 +1628,16 @@ powercfg -s {powerScheme}";
 
                 if (File.Exists(winREpath) && needMountRecovery()) {
                     await mountDism(winREpath, recoveryMountPath);
+                    
+                    if (winBoxConfig.recoveryMountedEarly_breakbefore == true) breakpointStop("recovery-mounted-early", false);
+                    if (winBoxConfig.recoveryMountedEarlyEnabled == true)
+                    {
+                        processValue(63);
+                        processName("Executing a recovery-mounted-early event");
+                        await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.recoveryMountedEarlyEvent);
+                    }
+                    if (winBoxConfig.recoveryMountedEarly_breakafter == true) breakpointStop("recovery-mounted-early", true);
+
                     await patchRecoveryPartition(recoveryMountPath, newWindowsDescription);
                     await umountDism(true, recoveryMountPath);
                 }

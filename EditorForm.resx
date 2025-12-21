@@ -3503,10 +3503,6 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="richTextBox25.Text" xml:space="preserve">
-    <value>windows relative mount path: winbox_temp/wim_mount
-the win-mounted event is triggered when the Windows image is mounted and all winbox maker patches have already been applied to it. this event can be used to apply additional patches to Windows through the winbox_temp/wim_mount directory</value>
-  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
@@ -3517,6 +3513,9 @@ the same name and description will be used when exporting FFU.
   </data>
   <data name="richTextBox10.Text" xml:space="preserve">
     <value>I can't imagine a situation at all where using the "after the desktop" mode would be justified. since system dialog boxes and system sounds may appear in this mode and it may be necessary to suppress them, and the desktop may be visible for a short time before launching the application, however, the tasks are different, so there is also such a mode</value>
+  </data>
+  <data name="richTextBox24.Text" xml:space="preserve">
+    <value>it is recommended to use it in conjunction with the "Disable all boot UI" option to completely prohibit showing the entire windows boot UI (including the windows logo in cases running on the BIOS platform) but allow showing the UEFI logo (including the one replaced via hackBGRT)</value>
   </data>
   <data name="richTextBox9.Text" xml:space="preserve">
     <value>this picture will be displayed after booting the system before launching your application. it is especially useful if you have delay installed before the Internet appeared, you can write something like "wait for an Internet connection" here
@@ -3534,6 +3533,10 @@ If you are using the "force make "IoT Enterprise" " function, then you must also
   </data>
   <data name="richTextBox18.Text" xml:space="preserve">
     <value>if you have the "RealTimeIsUniversal" option turned off (it is turned off by default), then the choice of time zone will not affect anything. Since the BIOS interprets the time as local, it will be displayed unchanged regardless of the selected time zone. however, it is possible in this case that windows will change the time in the BIOS when executing SetupComplete.cmd to offset the selected time zone. for this reason, it's better not to touch the time zone settings at all, just change the BIOS time and do not touch the settings on this tab.</value>
+  </data>
+  <data name="richTextBox25.Text" xml:space="preserve">
+    <value>windows relative mount path: winbox_temp/wim_mount
+the win-mounted event is triggered when the Windows image is mounted and all winbox maker patches have already been applied to it. this event can be used to apply additional patches to Windows through the winbox_temp/wim_mount directory</value>
   </data>
   <data name="richTextBox17.Text" xml:space="preserve">
     <value>integrates the reg file even at the stage of image assembly, before the first system startup. this allows you to use it even in manual setup mode. However, only the HKLM\SOFTWARE registry hive is currently supported.</value>
@@ -3659,9 +3662,6 @@ in manual configuration mode, you cannot integrate the cursor through the winbox
         sFcZFAT6bh30GMWC1o2CTv/vWPENVaEg0KPjp65z5rGEei9ipmAGBlxz6SFrGBAF4goXkny4yoptqBoF
         g4GFvNjfil2JWW21/wOsMlr/Whm3FwAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="richTextBox24.Text" xml:space="preserve">
-    <value>it is recommended to use it in conjunction with the "Disable all boot UI" option to completely prohibit showing the entire windows boot UI (including the windows logo in cases running on the BIOS platform) but allow showing the UEFI logo (including the one replaced via hackBGRT)</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

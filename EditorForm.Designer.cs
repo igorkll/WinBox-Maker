@@ -158,10 +158,12 @@
             tabPage21 = new TabPage();
             tabControl10 = new TabControl();
             tabPage47 = new TabPage();
+            richTextBox24 = new RichTextBox();
             panel15 = new Panel();
             CustomBootLogo_UseOnBootres = new CheckBox();
             CustomBootLogo_UseLogoBeforeApp = new CheckBox();
             tabPage48 = new TabPage();
+            richTextBox23 = new RichTextBox();
             bootresRepacking_panel = new Panel();
             label90 = new Label();
             bootresRepacking_logoPath_clr = new Button();
@@ -280,17 +282,25 @@
             tabPage33 = new TabPage();
             tabControl9 = new TabControl();
             tabPage41 = new TabPage();
+            prebuild_breakafter = new CheckBox();
+            prebuild_breakbefore = new CheckBox();
             prebuildEnabled = new CheckBox();
             prebuildEvent = new RichTextBox();
             label22 = new Label();
             tabPage42 = new TabPage();
+            checkBox1 = new CheckBox();
             postbuildEnabled = new CheckBox();
+            checkBox2 = new CheckBox();
             label23 = new Label();
             postbuildEvent = new RichTextBox();
             tabPage43 = new TabPage();
+            checkBox3 = new CheckBox();
+            richTextBox25 = new RichTextBox();
+            checkBox4 = new CheckBox();
             winmountedEnabled = new CheckBox();
             label24 = new Label();
             winmountedEvent = new RichTextBox();
+            tabPage23 = new TabPage();
             tabPage39 = new TabPage();
             richTextBox17 = new RichTextBox();
             panel5 = new Panel();
@@ -466,16 +476,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            richTextBox23 = new RichTextBox();
-            richTextBox24 = new RichTextBox();
-            prebuild_breakbefore = new CheckBox();
-            prebuild_breakafter = new CheckBox();
-            tabPage23 = new TabPage();
-            richTextBox25 = new RichTextBox();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
-            checkBox3 = new CheckBox();
-            checkBox4 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1958,6 +1958,16 @@
             tabPage47.Text = "HackBGRT (and other)";
             tabPage47.UseVisualStyleBackColor = true;
             // 
+            // richTextBox24
+            // 
+            richTextBox24.BackColor = SystemColors.Info;
+            richTextBox24.Location = new Point(532, 6);
+            richTextBox24.Name = "richTextBox24";
+            richTextBox24.ReadOnly = true;
+            richTextBox24.Size = new Size(426, 184);
+            richTextBox24.TabIndex = 17;
+            richTextBox24.Text = resources.GetString("richTextBox24.Text");
+            // 
             // panel15
             // 
             panel15.BorderStyle = BorderStyle.Fixed3D;
@@ -2006,6 +2016,16 @@
             tabPage48.TabIndex = 1;
             tabPage48.Text = "bootres.dll";
             tabPage48.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox23
+            // 
+            richTextBox23.BackColor = SystemColors.Info;
+            richTextBox23.Location = new Point(485, 6);
+            richTextBox23.Name = "richTextBox23";
+            richTextBox23.ReadOnly = true;
+            richTextBox23.Size = new Size(473, 184);
+            richTextBox23.TabIndex = 18;
+            richTextBox23.Text = "reassembles bootres.dll by replacing the logo for BIOS-based systems or if the logo has not been selected from UEFI.\nNOT IMPLEMENTED NOW";
             // 
             // bootresRepacking_panel
             // 
@@ -2135,6 +2155,7 @@
             richTextBox9.BackColor = SystemColors.Info;
             richTextBox9.Location = new Point(485, 6);
             richTextBox9.Name = "richTextBox9";
+            richTextBox9.ReadOnly = true;
             richTextBox9.Size = new Size(476, 184);
             richTextBox9.TabIndex = 18;
             richTextBox9.Text = resources.GetString("richTextBox9.Text");
@@ -3253,6 +3274,26 @@
             tabPage41.Text = "pre-build";
             tabPage41.UseVisualStyleBackColor = true;
             // 
+            // prebuild_breakafter
+            // 
+            prebuild_breakafter.AutoSize = true;
+            prebuild_breakafter.Location = new Point(459, 13);
+            prebuild_breakafter.Name = "prebuild_breakafter";
+            prebuild_breakafter.Size = new Size(218, 29);
+            prebuild_breakafter.TabIndex = 4;
+            prebuild_breakafter.Text = "break point after event";
+            prebuild_breakafter.UseVisualStyleBackColor = true;
+            // 
+            // prebuild_breakbefore
+            // 
+            prebuild_breakbefore.AutoSize = true;
+            prebuild_breakbefore.Location = new Point(219, 13);
+            prebuild_breakbefore.Name = "prebuild_breakbefore";
+            prebuild_breakbefore.Size = new Size(234, 29);
+            prebuild_breakbefore.TabIndex = 3;
+            prebuild_breakbefore.Text = "break point before event";
+            prebuild_breakbefore.UseVisualStyleBackColor = true;
+            // 
             // prebuildEnabled
             // 
             prebuildEnabled.AutoSize = true;
@@ -3299,6 +3340,16 @@
             tabPage42.Text = "post-build";
             tabPage42.UseVisualStyleBackColor = true;
             // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(468, 14);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(218, 29);
+            checkBox1.TabIndex = 6;
+            checkBox1.Text = "break point after event";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
             // postbuildEnabled
             // 
             postbuildEnabled.AutoSize = true;
@@ -3310,6 +3361,16 @@
             postbuildEnabled.Text = "execute commands";
             postbuildEnabled.UseVisualStyleBackColor = true;
             postbuildEnabled.CheckedChanged += postbuildEnabled_CheckedChanged;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(228, 14);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(234, 29);
+            checkBox2.TabIndex = 5;
+            checkBox2.Text = "break point before event";
+            checkBox2.UseVisualStyleBackColor = true;
             // 
             // label23
             // 
@@ -3345,6 +3406,36 @@
             tabPage43.Text = "win-mounted";
             tabPage43.UseVisualStyleBackColor = true;
             // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.Location = new Point(511, 14);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(218, 29);
+            checkBox3.TabIndex = 8;
+            checkBox3.Text = "break point after event";
+            checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox25
+            // 
+            richTextBox25.BackColor = SystemColors.Info;
+            richTextBox25.Location = new Point(622, 48);
+            richTextBox25.Name = "richTextBox25";
+            richTextBox25.ReadOnly = true;
+            richTextBox25.Size = new Size(362, 208);
+            richTextBox25.TabIndex = 4;
+            richTextBox25.Text = resources.GetString("richTextBox25.Text");
+            // 
+            // checkBox4
+            // 
+            checkBox4.AutoSize = true;
+            checkBox4.Location = new Point(271, 13);
+            checkBox4.Name = "checkBox4";
+            checkBox4.Size = new Size(234, 29);
+            checkBox4.TabIndex = 7;
+            checkBox4.Text = "break point before event";
+            checkBox4.UseVisualStyleBackColor = true;
+            // 
             // winmountedEnabled
             // 
             winmountedEnabled.AutoSize = true;
@@ -3376,6 +3467,15 @@
             winmountedEvent.Text = "";
             winmountedEvent.TextChanged += winmountedEvent_TextChanged;
             // 
+            // tabPage23
+            // 
+            tabPage23.Location = new Point(4, 34);
+            tabPage23.Name = "tabPage23";
+            tabPage23.Size = new Size(990, 259);
+            tabPage23.TabIndex = 3;
+            tabPage23.Text = "win-mounted-early";
+            tabPage23.UseVisualStyleBackColor = true;
+            // 
             // tabPage39
             // 
             tabPage39.Controls.Add(richTextBox17);
@@ -3393,6 +3493,7 @@
             richTextBox17.BackColor = SystemColors.Info;
             richTextBox17.Location = new Point(491, 6);
             richTextBox17.Name = "richTextBox17";
+            richTextBox17.ReadOnly = true;
             richTextBox17.Size = new Size(507, 291);
             richTextBox17.TabIndex = 44;
             richTextBox17.Text = resources.GetString("richTextBox17.Text");
@@ -5180,102 +5281,6 @@
             ExportInstallEsd.Text = "export install.esd";
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
-            // 
-            // richTextBox23
-            // 
-            richTextBox23.BackColor = SystemColors.Info;
-            richTextBox23.Location = new Point(485, 6);
-            richTextBox23.Name = "richTextBox23";
-            richTextBox23.Size = new Size(473, 184);
-            richTextBox23.TabIndex = 18;
-            richTextBox23.Text = "reassembles bootres.dll by replacing the logo for BIOS-based systems or if the logo has not been selected from UEFI.\nNOT IMPLEMENTED NOW";
-            // 
-            // richTextBox24
-            // 
-            richTextBox24.BackColor = SystemColors.Info;
-            richTextBox24.Location = new Point(532, 6);
-            richTextBox24.Name = "richTextBox24";
-            richTextBox24.Size = new Size(426, 184);
-            richTextBox24.TabIndex = 17;
-            richTextBox24.Text = resources.GetString("richTextBox24.Text");
-            // 
-            // prebuild_breakbefore
-            // 
-            prebuild_breakbefore.AutoSize = true;
-            prebuild_breakbefore.Location = new Point(219, 13);
-            prebuild_breakbefore.Name = "prebuild_breakbefore";
-            prebuild_breakbefore.Size = new Size(234, 29);
-            prebuild_breakbefore.TabIndex = 3;
-            prebuild_breakbefore.Text = "break point before event";
-            prebuild_breakbefore.UseVisualStyleBackColor = true;
-            // 
-            // prebuild_breakafter
-            // 
-            prebuild_breakafter.AutoSize = true;
-            prebuild_breakafter.Location = new Point(459, 13);
-            prebuild_breakafter.Name = "prebuild_breakafter";
-            prebuild_breakafter.Size = new Size(218, 29);
-            prebuild_breakafter.TabIndex = 4;
-            prebuild_breakafter.Text = "break point after event";
-            prebuild_breakafter.UseVisualStyleBackColor = true;
-            // 
-            // tabPage23
-            // 
-            tabPage23.Location = new Point(4, 34);
-            tabPage23.Name = "tabPage23";
-            tabPage23.Size = new Size(990, 259);
-            tabPage23.TabIndex = 3;
-            tabPage23.Text = "win-mounted-early";
-            tabPage23.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox25
-            // 
-            richTextBox25.BackColor = SystemColors.Info;
-            richTextBox25.Location = new Point(622, 48);
-            richTextBox25.Name = "richTextBox25";
-            richTextBox25.Size = new Size(362, 208);
-            richTextBox25.TabIndex = 4;
-            richTextBox25.Text = resources.GetString("richTextBox25.Text");
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(468, 14);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(218, 29);
-            checkBox1.TabIndex = 6;
-            checkBox1.Text = "break point after event";
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(228, 14);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(234, 29);
-            checkBox2.TabIndex = 5;
-            checkBox2.Text = "break point before event";
-            checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            checkBox3.AutoSize = true;
-            checkBox3.Location = new Point(511, 13);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(218, 29);
-            checkBox3.TabIndex = 8;
-            checkBox3.Text = "break point after event";
-            checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            checkBox4.AutoSize = true;
-            checkBox4.Location = new Point(271, 13);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(234, 29);
-            checkBox4.TabIndex = 7;
-            checkBox4.Text = "break point before event";
-            checkBox4.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
