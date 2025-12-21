@@ -4104,7 +4104,7 @@
             richTextBox19.ReadOnly = true;
             richTextBox19.Size = new Size(484, 291);
             richTextBox19.TabIndex = 7;
-            richTextBox19.Text = "here you can change the behavior of the system recovery menu.";
+            richTextBox19.Text = resources.GetString("richTextBox19.Text");
             // 
             // recoverymod_manual_allow
             // 
