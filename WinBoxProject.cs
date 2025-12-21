@@ -1351,15 +1351,21 @@ powercfg -s {powerScheme}";
             List<string> stopOrDeleteSchtasks = new List<string>();
             if (winBoxConfig.schtasks_stopOrDeleteOnlyFromList != true)
             {
-                stopOrDeleteSchtasks.Add("");
-                stopOrDeleteSchtasks.Add("");
-                stopOrDeleteSchtasks.Add("");
-                stopOrDeleteSchtasks.Add("");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Application Experience\ProgramDataUpdater");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Autochk\Proxy");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Customer Experience Improvement Program\Consolidator");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip");
             }
 
-            foreach (string schtasks in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.schtasks_stopOrDelete ?? ""))
+            foreach (string _schtask in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.schtasks_stopOrDelete ?? ""))
             {
-                stopOrDeleteSchtasks.Add(schtasks);
+                string schtask = _schtask.Replace("/", "\\");
+                if (!schtask.Contains("..") && !schtask.Contains(":"))
+                {
+                    stopOrDeleteSchtasks.Add(schtask);
+                }
             }
 
             return stopOrDeleteSchtasks.Distinct().ToArray();
@@ -1403,7 +1409,7 @@ powercfg -s {powerScheme}";
                 bool delete = !schtask.StartsWith("!");
                 if (delete)
                 {
-                    deletePaths.Add(schtask);
+                    deletePaths.Add(schtask.TrimStart('\\', '/'));
                 }
             }
 
@@ -1883,12 +1889,7 @@ echo SetupComplete - add UpdateSystemSettings to schtasks >> C:\WinboxResources\
 schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\UpdateSystemSettings.bat"" /sc onlogon /rl highest /ru ""SYSTEM""
 
 echo SetupComplete - setup schtasks >> C:\WinboxResources\setup.log
-schtasks /Change /TN ""\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"" /Disable
-schtasks /Change /TN ""\Microsoft\Windows\Application Experience\ProgramDataUpdater"" /Disable
-schtasks /Change /TN ""\Microsoft\Windows\Autochk\Proxy"" /Disable
-schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"" /Disable
-schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask"" /Disable
-schtasks /Change /TN ""\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"" /Disable
+{_getSchtasksSetup()}
 
 echo SetupComplete - DisableTamperProtection >> C:\WinboxResources\setup.log
 powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
