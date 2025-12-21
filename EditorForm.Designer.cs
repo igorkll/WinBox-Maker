@@ -295,15 +295,6 @@
             richTextBox20 = new RichTextBox();
             customdism_commands = new RichTextBox();
             customdism_enabled = new CheckBox();
-            tabPage8 = new TabPage();
-            recoverypanel = new Panel();
-            ReplaceRecovery = new TextBox();
-            ReplaceRecovery_clr = new Button();
-            recoveryMenuAction = new ComboBox();
-            ReplaceRecovery_sel = new Button();
-            label81 = new Label();
-            richTextBox19 = new RichTextBox();
-            recoverymod_manual_allow = new CheckBox();
             tabPage46 = new TabPage();
             tabControl6 = new TabControl();
             tabPage27 = new TabPage();
@@ -321,6 +312,19 @@
             tabPage30 = new TabPage();
             richTextBox16 = new RichTextBox();
             delete_dism_remove_appx_package = new RichTextBox();
+            tabPage8 = new TabPage();
+            recoverypanel = new Panel();
+            ReplaceRecovery = new TextBox();
+            ReplaceRecovery_clr = new Button();
+            recoveryMenuAction = new ComboBox();
+            ReplaceRecovery_sel = new Button();
+            label81 = new Label();
+            richTextBox19 = new RichTextBox();
+            recoverymod_manual_allow = new CheckBox();
+            tabPage25 = new TabPage();
+            installermod_manual_allow = new CheckBox();
+            installerpanel = new Panel();
+            richTextBox22 = new RichTextBox();
             tabPage5 = new TabPage();
             postinstall_panel_user = new Panel();
             postinstall_user_reg = new Label();
@@ -447,10 +451,11 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            tabPage25 = new TabPage();
-            installerpanel = new Panel();
-            richTextBox22 = new RichTextBox();
-            installermod_manual_allow = new CheckBox();
+            panel9 = new Panel();
+            label84 = new Label();
+            appcrash_time_value = new TextBox();
+            appcrash_time = new CheckBox();
+            label89 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -514,8 +519,6 @@
             customdism.SuspendLayout();
             tabPage44.SuspendLayout();
             tabPage45.SuspendLayout();
-            tabPage8.SuspendLayout();
-            recoverypanel.SuspendLayout();
             tabPage46.SuspendLayout();
             tabControl6.SuspendLayout();
             tabPage27.SuspendLayout();
@@ -523,6 +526,9 @@
             tabPage28.SuspendLayout();
             tabPage29.SuspendLayout();
             tabPage30.SuspendLayout();
+            tabPage8.SuspendLayout();
+            recoverypanel.SuspendLayout();
+            tabPage25.SuspendLayout();
             tabPage5.SuspendLayout();
             postinstall_panel_user.SuspendLayout();
             tabPage7.SuspendLayout();
@@ -546,7 +552,7 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage25.SuspendLayout();
+            panel9.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1486,7 +1492,9 @@
             // 
             // tabPage19
             // 
+            tabPage19.Controls.Add(panel9);
             tabPage19.Controls.Add(label59);
+            tabPage19.Controls.Add(label89);
             tabPage19.Controls.Add(panel18);
             tabPage19.Location = new Point(4, 34);
             tabPage19.Name = "tabPage19";
@@ -3381,100 +3389,6 @@
             customdism_enabled.UseVisualStyleBackColor = true;
             customdism_enabled.CheckedChanged += customdism_enabled_CheckedChanged;
             // 
-            // tabPage8
-            // 
-            tabPage8.Controls.Add(recoverypanel);
-            tabPage8.Controls.Add(richTextBox19);
-            tabPage8.Controls.Add(recoverymod_manual_allow);
-            tabPage8.Location = new Point(4, 34);
-            tabPage8.Name = "tabPage8";
-            tabPage8.Size = new Size(1004, 303);
-            tabPage8.TabIndex = 3;
-            tabPage8.Text = "recovery";
-            tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // recoverypanel
-            // 
-            recoverypanel.BorderStyle = BorderStyle.Fixed3D;
-            recoverypanel.Controls.Add(ReplaceRecovery);
-            recoverypanel.Controls.Add(ReplaceRecovery_clr);
-            recoverypanel.Controls.Add(recoveryMenuAction);
-            recoverypanel.Controls.Add(ReplaceRecovery_sel);
-            recoverypanel.Controls.Add(label81);
-            recoverypanel.Location = new Point(3, 6);
-            recoverypanel.Name = "recoverypanel";
-            recoverypanel.Size = new Size(505, 259);
-            recoverypanel.TabIndex = 47;
-            // 
-            // ReplaceRecovery
-            // 
-            ReplaceRecovery.Location = new Point(3, 42);
-            ReplaceRecovery.Name = "ReplaceRecovery";
-            ReplaceRecovery.Size = new Size(318, 31);
-            ReplaceRecovery.TabIndex = 19;
-            ReplaceRecovery.TextChanged += ReplaceRecovery_TextChanged;
-            // 
-            // ReplaceRecovery_clr
-            // 
-            ReplaceRecovery_clr.Location = new Point(405, 42);
-            ReplaceRecovery_clr.Name = "ReplaceRecovery_clr";
-            ReplaceRecovery_clr.Size = new Size(72, 31);
-            ReplaceRecovery_clr.TabIndex = 18;
-            ReplaceRecovery_clr.Text = "clear";
-            ReplaceRecovery_clr.UseVisualStyleBackColor = true;
-            ReplaceRecovery_clr.Click += ReplaceRecovery_clr_Click;
-            // 
-            // recoveryMenuAction
-            // 
-            recoveryMenuAction.DropDownStyle = ComboBoxStyle.DropDownList;
-            recoveryMenuAction.FormattingEnabled = true;
-            recoveryMenuAction.Items.AddRange(new object[] { "Delete", "Stay default", "Replace" });
-            recoveryMenuAction.Location = new Point(3, 3);
-            recoveryMenuAction.Name = "recoveryMenuAction";
-            recoveryMenuAction.Size = new Size(318, 33);
-            recoveryMenuAction.TabIndex = 44;
-            recoveryMenuAction.SelectedIndexChanged += recoveryMenuAction_SelectedIndexChanged;
-            // 
-            // ReplaceRecovery_sel
-            // 
-            ReplaceRecovery_sel.Location = new Point(327, 42);
-            ReplaceRecovery_sel.Name = "ReplaceRecovery_sel";
-            ReplaceRecovery_sel.Size = new Size(72, 31);
-            ReplaceRecovery_sel.TabIndex = 17;
-            ReplaceRecovery_sel.Text = "select";
-            ReplaceRecovery_sel.UseVisualStyleBackColor = true;
-            ReplaceRecovery_sel.Click += ReplaceRecovery_sel_Click;
-            // 
-            // label81
-            // 
-            label81.AutoSize = true;
-            label81.Location = new Point(327, 6);
-            label81.Name = "label81";
-            label81.Size = new Size(158, 25);
-            label81.TabIndex = 45;
-            label81.Text = "action on recovery";
-            // 
-            // richTextBox19
-            // 
-            richTextBox19.BackColor = SystemColors.Info;
-            richTextBox19.Location = new Point(514, 6);
-            richTextBox19.Name = "richTextBox19";
-            richTextBox19.ReadOnly = true;
-            richTextBox19.Size = new Size(484, 291);
-            richTextBox19.TabIndex = 7;
-            richTextBox19.Text = "here you can change the behavior of the system recovery menu.";
-            // 
-            // recoverymod_manual_allow
-            // 
-            recoverymod_manual_allow.AutoSize = true;
-            recoverymod_manual_allow.Location = new Point(3, 270);
-            recoverymod_manual_allow.Name = "recoverymod_manual_allow";
-            recoverymod_manual_allow.Size = new Size(262, 29);
-            recoverymod_manual_allow.TabIndex = 46;
-            recoverymod_manual_allow.Text = "allow in manual setup mode";
-            recoverymod_manual_allow.UseVisualStyleBackColor = true;
-            recoverymod_manual_allow.CheckedChanged += recoverymod_manual_allow_CheckedChanged;
-            // 
             // tabPage46
             // 
             tabPage46.Controls.Add(tabControl6);
@@ -3649,6 +3563,141 @@
             delete_dism_remove_appx_package.TabIndex = 4;
             delete_dism_remove_appx_package.Text = "";
             delete_dism_remove_appx_package.TextChanged += delete_dism_remove_appx_package_TextChanged;
+            // 
+            // tabPage8
+            // 
+            tabPage8.Controls.Add(recoverypanel);
+            tabPage8.Controls.Add(richTextBox19);
+            tabPage8.Controls.Add(recoverymod_manual_allow);
+            tabPage8.Location = new Point(4, 34);
+            tabPage8.Name = "tabPage8";
+            tabPage8.Size = new Size(1004, 303);
+            tabPage8.TabIndex = 3;
+            tabPage8.Text = "recovery";
+            tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // recoverypanel
+            // 
+            recoverypanel.BorderStyle = BorderStyle.Fixed3D;
+            recoverypanel.Controls.Add(ReplaceRecovery);
+            recoverypanel.Controls.Add(ReplaceRecovery_clr);
+            recoverypanel.Controls.Add(recoveryMenuAction);
+            recoverypanel.Controls.Add(ReplaceRecovery_sel);
+            recoverypanel.Controls.Add(label81);
+            recoverypanel.Location = new Point(3, 6);
+            recoverypanel.Name = "recoverypanel";
+            recoverypanel.Size = new Size(505, 259);
+            recoverypanel.TabIndex = 47;
+            // 
+            // ReplaceRecovery
+            // 
+            ReplaceRecovery.Location = new Point(3, 42);
+            ReplaceRecovery.Name = "ReplaceRecovery";
+            ReplaceRecovery.Size = new Size(318, 31);
+            ReplaceRecovery.TabIndex = 19;
+            ReplaceRecovery.TextChanged += ReplaceRecovery_TextChanged;
+            // 
+            // ReplaceRecovery_clr
+            // 
+            ReplaceRecovery_clr.Location = new Point(405, 42);
+            ReplaceRecovery_clr.Name = "ReplaceRecovery_clr";
+            ReplaceRecovery_clr.Size = new Size(72, 31);
+            ReplaceRecovery_clr.TabIndex = 18;
+            ReplaceRecovery_clr.Text = "clear";
+            ReplaceRecovery_clr.UseVisualStyleBackColor = true;
+            ReplaceRecovery_clr.Click += ReplaceRecovery_clr_Click;
+            // 
+            // recoveryMenuAction
+            // 
+            recoveryMenuAction.DropDownStyle = ComboBoxStyle.DropDownList;
+            recoveryMenuAction.FormattingEnabled = true;
+            recoveryMenuAction.Items.AddRange(new object[] { "Delete", "Stay default", "Replace" });
+            recoveryMenuAction.Location = new Point(3, 3);
+            recoveryMenuAction.Name = "recoveryMenuAction";
+            recoveryMenuAction.Size = new Size(318, 33);
+            recoveryMenuAction.TabIndex = 44;
+            recoveryMenuAction.SelectedIndexChanged += recoveryMenuAction_SelectedIndexChanged;
+            // 
+            // ReplaceRecovery_sel
+            // 
+            ReplaceRecovery_sel.Location = new Point(327, 42);
+            ReplaceRecovery_sel.Name = "ReplaceRecovery_sel";
+            ReplaceRecovery_sel.Size = new Size(72, 31);
+            ReplaceRecovery_sel.TabIndex = 17;
+            ReplaceRecovery_sel.Text = "select";
+            ReplaceRecovery_sel.UseVisualStyleBackColor = true;
+            ReplaceRecovery_sel.Click += ReplaceRecovery_sel_Click;
+            // 
+            // label81
+            // 
+            label81.AutoSize = true;
+            label81.Location = new Point(327, 6);
+            label81.Name = "label81";
+            label81.Size = new Size(158, 25);
+            label81.TabIndex = 45;
+            label81.Text = "action on recovery";
+            // 
+            // richTextBox19
+            // 
+            richTextBox19.BackColor = SystemColors.Info;
+            richTextBox19.Location = new Point(514, 6);
+            richTextBox19.Name = "richTextBox19";
+            richTextBox19.ReadOnly = true;
+            richTextBox19.Size = new Size(484, 291);
+            richTextBox19.TabIndex = 7;
+            richTextBox19.Text = "here you can change the behavior of the system recovery menu.";
+            // 
+            // recoverymod_manual_allow
+            // 
+            recoverymod_manual_allow.AutoSize = true;
+            recoverymod_manual_allow.Location = new Point(3, 270);
+            recoverymod_manual_allow.Name = "recoverymod_manual_allow";
+            recoverymod_manual_allow.Size = new Size(262, 29);
+            recoverymod_manual_allow.TabIndex = 46;
+            recoverymod_manual_allow.Text = "allow in manual setup mode";
+            recoverymod_manual_allow.UseVisualStyleBackColor = true;
+            recoverymod_manual_allow.CheckedChanged += recoverymod_manual_allow_CheckedChanged;
+            // 
+            // tabPage25
+            // 
+            tabPage25.Controls.Add(installermod_manual_allow);
+            tabPage25.Controls.Add(installerpanel);
+            tabPage25.Controls.Add(richTextBox22);
+            tabPage25.Location = new Point(4, 34);
+            tabPage25.Name = "tabPage25";
+            tabPage25.Size = new Size(1004, 303);
+            tabPage25.TabIndex = 5;
+            tabPage25.Text = "installer";
+            tabPage25.UseVisualStyleBackColor = true;
+            // 
+            // installermod_manual_allow
+            // 
+            installermod_manual_allow.AutoSize = true;
+            installermod_manual_allow.Location = new Point(3, 270);
+            installermod_manual_allow.Name = "installermod_manual_allow";
+            installermod_manual_allow.Size = new Size(262, 29);
+            installermod_manual_allow.TabIndex = 49;
+            installermod_manual_allow.Text = "allow in manual setup mode";
+            installermod_manual_allow.UseVisualStyleBackColor = true;
+            installermod_manual_allow.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // installerpanel
+            // 
+            installerpanel.BorderStyle = BorderStyle.Fixed3D;
+            installerpanel.Location = new Point(3, 6);
+            installerpanel.Name = "installerpanel";
+            installerpanel.Size = new Size(505, 259);
+            installerpanel.TabIndex = 50;
+            // 
+            // richTextBox22
+            // 
+            richTextBox22.BackColor = SystemColors.Info;
+            richTextBox22.Location = new Point(514, 6);
+            richTextBox22.Name = "richTextBox22";
+            richTextBox22.ReadOnly = true;
+            richTextBox22.Size = new Size(484, 291);
+            richTextBox22.TabIndex = 48;
+            richTextBox22.Text = "Here you can customize the Windows installer.";
             // 
             // tabPage5
             // 
@@ -4943,46 +4992,54 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // tabPage25
+            // panel9
             // 
-            tabPage25.Controls.Add(installermod_manual_allow);
-            tabPage25.Controls.Add(installerpanel);
-            tabPage25.Controls.Add(richTextBox22);
-            tabPage25.Location = new Point(4, 34);
-            tabPage25.Name = "tabPage25";
-            tabPage25.Size = new Size(1004, 303);
-            tabPage25.TabIndex = 5;
-            tabPage25.Text = "installer";
-            tabPage25.UseVisualStyleBackColor = true;
+            panel9.BorderStyle = BorderStyle.Fixed3D;
+            panel9.Controls.Add(label84);
+            panel9.Controls.Add(appcrash_time_value);
+            panel9.Controls.Add(appcrash_time);
+            panel9.Location = new Point(6, 204);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(385, 75);
+            panel9.TabIndex = 50;
             // 
-            // installerpanel
+            // label84
             // 
-            installerpanel.BorderStyle = BorderStyle.Fixed3D;
-            installerpanel.Location = new Point(3, 6);
-            installerpanel.Name = "installerpanel";
-            installerpanel.Size = new Size(505, 259);
-            installerpanel.TabIndex = 50;
+            label84.AutoSize = true;
+            label84.Location = new Point(159, 39);
+            label84.Name = "label84";
+            label84.Size = new Size(134, 25);
+            label84.TabIndex = 46;
+            label84.Text = "delay (seconds)";
             // 
-            // richTextBox22
+            // appcrash_time_value
             // 
-            richTextBox22.BackColor = SystemColors.Info;
-            richTextBox22.Location = new Point(514, 6);
-            richTextBox22.Name = "richTextBox22";
-            richTextBox22.ReadOnly = true;
-            richTextBox22.Size = new Size(484, 291);
-            richTextBox22.TabIndex = 48;
-            richTextBox22.Text = "Here you can customize the Windows installer.";
+            appcrash_time_value.Location = new Point(3, 36);
+            appcrash_time_value.Name = "appcrash_time_value";
+            appcrash_time_value.Size = new Size(150, 31);
+            appcrash_time_value.TabIndex = 45;
+            appcrash_time_value.TextChanged += appcrash_time_value_TextChanged;
             // 
-            // installermod_manual_allow
+            // appcrash_time
             // 
-            installermod_manual_allow.AutoSize = true;
-            installermod_manual_allow.Location = new Point(3, 270);
-            installermod_manual_allow.Name = "installermod_manual_allow";
-            installermod_manual_allow.Size = new Size(262, 29);
-            installermod_manual_allow.TabIndex = 49;
-            installermod_manual_allow.Text = "allow in manual setup mode";
-            installermod_manual_allow.UseVisualStyleBackColor = true;
-            installermod_manual_allow.CheckedChanged += checkBox1_CheckedChanged;
+            appcrash_time.AutoSize = true;
+            appcrash_time.Location = new Point(3, 3);
+            appcrash_time.Name = "appcrash_time";
+            appcrash_time.Size = new Size(167, 29);
+            appcrash_time.TabIndex = 44;
+            appcrash_time.Text = "delay after crash";
+            appcrash_time.UseVisualStyleBackColor = true;
+            appcrash_time.CheckedChanged += appcrash_time_CheckedChanged;
+            // 
+            // label89
+            // 
+            label89.AutoSize = true;
+            label89.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label89.Location = new Point(6, 163);
+            label89.Name = "label89";
+            label89.Size = new Size(368, 38);
+            label89.TabIndex = 49;
+            label89.Text = "Delay after application crash";
             // 
             // EditorForm
             // 
@@ -5114,10 +5171,6 @@
             tabPage44.PerformLayout();
             tabPage45.ResumeLayout(false);
             tabPage45.PerformLayout();
-            tabPage8.ResumeLayout(false);
-            tabPage8.PerformLayout();
-            recoverypanel.ResumeLayout(false);
-            recoverypanel.PerformLayout();
             tabPage46.ResumeLayout(false);
             tabControl6.ResumeLayout(false);
             tabPage27.ResumeLayout(false);
@@ -5125,6 +5178,12 @@
             tabPage28.ResumeLayout(false);
             tabPage29.ResumeLayout(false);
             tabPage30.ResumeLayout(false);
+            tabPage8.ResumeLayout(false);
+            tabPage8.PerformLayout();
+            recoverypanel.ResumeLayout(false);
+            recoverypanel.PerformLayout();
+            tabPage25.ResumeLayout(false);
+            tabPage25.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             postinstall_panel_user.ResumeLayout(false);
@@ -5166,8 +5225,8 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage25.ResumeLayout(false);
-            tabPage25.PerformLayout();
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5598,5 +5657,10 @@
         private CheckBox installermod_manual_allow;
         private Panel installerpanel;
         private RichTextBox richTextBox22;
+        private Panel panel9;
+        private Label label84;
+        private TextBox appcrash_time_value;
+        private CheckBox appcrash_time;
+        private Label label89;
     }
 }

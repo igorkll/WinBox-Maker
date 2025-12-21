@@ -165,6 +165,8 @@ namespace WinBox_Maker
         public bool? appdelay_internet { get; set; }
         public string? appdelay_internet_checkurl { get; set; }
         public int? appdelay_internet_requestdelay { get; set; }
+        public bool? appcrash_time { get; set; }
+        public int? appcrash_time_value { get; set; }
         public string? logoBeforeApp { get; set; }
         public StretchMode? logoBeforeApp_stretch { get; set; }
         public bool? wait_before_app_logo { get; set; }
@@ -312,6 +314,9 @@ namespace WinBox_Maker
 
             if (appdelay_time == null) appdelay_time = false;
             if (appdelay_time_value == null) appdelay_time_value = 0;
+
+            if (appcrash_time == null) appcrash_time = false;
+            if (appcrash_time_value == null) appcrash_time_value = 0;
 
             if (appdelay_internet == null) appdelay_internet = false;
             if (appdelay_internet_checkurl == null) appdelay_internet_checkurl = "google.com";

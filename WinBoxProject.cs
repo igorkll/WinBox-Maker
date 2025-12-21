@@ -2584,6 +2584,11 @@ if errorlevel 1 (
                     applicationScript += "\r\n" + command;
                 }
 
+                if (winBoxConfig.appcrash_time == true)
+                {
+                    applicationScript += $"\r\ntimeout /t {winBoxConfig.appcrash_time_value} /nobreak";
+                }
+
                 switch (winBoxConfig.actionAtEndOfApplication)
                 {
                     case ActionAtEndOfApplication.none:

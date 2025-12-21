@@ -608,10 +608,12 @@ namespace WinBox_Maker
             appdelay_internet.Checked = winBoxProject.winBoxConfig.appdelay_internet == true;
 
             appdelay_time_value.Text = winBoxProject.winBoxConfig.appdelay_time_value.ToString();
+            appcrash_time_value.Text = winBoxProject.winBoxConfig.appcrash_time_value.ToString();
             appdelay_internet_requestdelay.Text = winBoxProject.winBoxConfig.appdelay_internet_requestdelay.ToString();
             appdelay_internet_checkurl.Text = winBoxProject.winBoxConfig.appdelay_internet_checkurl;
 
             appdelay_time_value.Enabled = winBoxProject.winBoxConfig.appdelay_time == true;
+            appcrash_time_value.Enabled = winBoxProject.winBoxConfig.appcrash_time == true;
             appdelay_internet_checkurl.Enabled = winBoxProject.winBoxConfig.appdelay_internet == true;
             appdelay_internet_requestdelay.Enabled = winBoxProject.winBoxConfig.appdelay_internet == true;
 
@@ -2779,6 +2781,25 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.ReplaceRecovery = "";
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void appcrash_time_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.appcrash_time = appcrash_time.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void appcrash_time_value_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.appcrash_time_value = checkSizeNumber(winBoxProject.winBoxConfig.appcrash_time_value ?? 0, appcrash_time_value.Text, 99999);
+            if (winBoxProject.winBoxConfig.appcrash_time_value.ToString() != appcrash_time_value.Text)
+                appcrash_time_value.Text = winBoxProject.winBoxConfig.appcrash_time_value.ToString();
+            winBoxProject.SaveConfig();
         }
     }
 }
