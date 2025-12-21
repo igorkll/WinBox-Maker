@@ -449,7 +449,14 @@ namespace WinBox_Maker
 
         public bool isBuildEventsUsed()
         {
-            return prebuildEnabled == true || postbuildEnabled == true || winmountedEnabled == true || downloadEnabled == true || buildEnabled == true || customdism_enabled == true;
+            return prebuildEnabled == true ||
+                postbuildEnabled == true ||
+                winmountedEnabled == true ||
+                winmountedEarlyEnabled == true ||
+                recoveryMountedEarlyEnabled == true ||
+                downloadEnabled == true ||
+                buildEnabled == true ||
+                customdism_enabled == true;
         }
 
         public bool isValidOemKey()

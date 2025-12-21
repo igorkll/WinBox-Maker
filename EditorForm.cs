@@ -534,12 +534,28 @@ namespace WinBox_Maker
 
             prebuildEnabled.Checked = winBoxProject.winBoxConfig.prebuildEnabled == true;
             prebuildEvent.Text = winBoxProject.winBoxConfig.prebuildEvent ?? "";
+            prebuild_breakbefore.Checked = winBoxProject.winBoxConfig.prebuild_breakbefore == true;
+            prebuild_breakafter.Checked = winBoxProject.winBoxConfig.prebuild_breakafter == true;
 
             postbuildEnabled.Checked = winBoxProject.winBoxConfig.postbuildEnabled == true;
             postbuildEvent.Text = winBoxProject.winBoxConfig.postbuildEvent ?? "";
+            postbuild_breakbefore.Checked = winBoxProject.winBoxConfig.postbuild_breakbefore == true;
+            postbuild_breakafter.Checked = winBoxProject.winBoxConfig.postbuild_breakafter == true;
 
             winmountedEnabled.Checked = winBoxProject.winBoxConfig.winmountedEnabled == true;
             winmountedEvent.Text = winBoxProject.winBoxConfig.winmountedEvent ?? "";
+            winmounted_breakbefore.Checked = winBoxProject.winBoxConfig.winmounted_breakbefore == true;
+            winmounted_breakafter.Checked = winBoxProject.winBoxConfig.winmounted_breakafter == true;
+
+            winmountedEarlyEnabled.Checked = winBoxProject.winBoxConfig.winmountedEarlyEnabled == true;
+            winmountedEarlyEvent.Text = winBoxProject.winBoxConfig.winmountedEarlyEvent ?? "";
+            winmountedEarly_breakbefore.Checked = winBoxProject.winBoxConfig.winmountedEarly_breakbefore == true;
+            winmountedEarly_breakafter.Checked = winBoxProject.winBoxConfig.winmountedEarly_breakafter == true;
+
+            recoveryMountedEarlyEnabled.Checked = winBoxProject.winBoxConfig.recoveryMountedEarlyEnabled == true;
+            recoveryMountedEarlyEvent.Text = winBoxProject.winBoxConfig.recoveryMountedEarlyEvent ?? "";
+            recoveryMountedEarly_breakbefore.Checked = winBoxProject.winBoxConfig.recoveryMountedEarly_breakbefore == true;
+            recoveryMountedEarly_breakafter.Checked = winBoxProject.winBoxConfig.recoveryMountedEarly_breakafter == true;
 
             customdism_enabled.Checked = winBoxProject.winBoxConfig.customdism_enabled == true;
             customdism_commands.Text = winBoxProject.winBoxConfig.customdism_commands ?? "";
@@ -2843,6 +2859,76 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.bootresRepacking_logoPath = null;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void prebuild_breakbefore_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void prebuild_breakafter_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void postbuild_breakbefore_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void postbuild_breakafter_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void winmounted_breakbefore_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void winmounted_breakafter_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void winmountedEarlyEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void winmountedEarlyEvent_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void winmountedEarly_breakbefore_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void winmountedEarly_breakafter_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void recoveryMountedEarlyEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void recoveryMountedEarlyEvent_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void recoveryMountedEarly_breakbefore_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void recoveryMountedEarly_breakafter_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
