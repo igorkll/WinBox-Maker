@@ -297,10 +297,30 @@
             customdism_enabled = new CheckBox();
             tabPage8 = new TabPage();
             recoverypanel = new Panel();
+            ReplaceRecovery = new TextBox();
+            ReplaceRecovery_clr = new Button();
             recoveryMenuAction = new ComboBox();
+            ReplaceRecovery_sel = new Button();
             label81 = new Label();
             richTextBox19 = new RichTextBox();
             recoverymod_manual_allow = new CheckBox();
+            tabPage46 = new TabPage();
+            tabControl6 = new TabControl();
+            tabPage27 = new TabPage();
+            richTextBox11 = new RichTextBox();
+            delete_paths = new RichTextBox();
+            tabPage31 = new TabPage();
+            richTextBox14 = new RichTextBox();
+            delete_dism_universal = new RichTextBox();
+            tabPage28 = new TabPage();
+            richTextBox12 = new RichTextBox();
+            delete_dism = new RichTextBox();
+            tabPage29 = new TabPage();
+            richTextBox15 = new RichTextBox();
+            delete_dism_remove_package = new RichTextBox();
+            tabPage30 = new TabPage();
+            richTextBox16 = new RichTextBox();
+            delete_dism_remove_appx_package = new RichTextBox();
             tabPage5 = new TabPage();
             postinstall_panel_user = new Panel();
             postinstall_user_reg = new Label();
@@ -400,23 +420,6 @@
             img_shutdownAfterInstall = new CheckBox();
             label55 = new Label();
             label56 = new Label();
-            tabPage25 = new TabPage();
-            tabControl6 = new TabControl();
-            tabPage27 = new TabPage();
-            richTextBox11 = new RichTextBox();
-            delete_paths = new RichTextBox();
-            tabPage31 = new TabPage();
-            richTextBox14 = new RichTextBox();
-            delete_dism_universal = new RichTextBox();
-            tabPage28 = new TabPage();
-            richTextBox12 = new RichTextBox();
-            delete_dism = new RichTextBox();
-            tabPage29 = new TabPage();
-            richTextBox15 = new RichTextBox();
-            delete_dism_remove_package = new RichTextBox();
-            tabPage30 = new TabPage();
-            richTextBox16 = new RichTextBox();
-            delete_dism_remove_appx_package = new RichTextBox();
             tabPage26 = new TabPage();
             richTextBox13 = new RichTextBox();
             panel13 = new Panel();
@@ -509,6 +512,13 @@
             tabPage45.SuspendLayout();
             tabPage8.SuspendLayout();
             recoverypanel.SuspendLayout();
+            tabPage46.SuspendLayout();
+            tabControl6.SuspendLayout();
+            tabPage27.SuspendLayout();
+            tabPage31.SuspendLayout();
+            tabPage28.SuspendLayout();
+            tabPage29.SuspendLayout();
+            tabPage30.SuspendLayout();
             tabPage5.SuspendLayout();
             postinstall_panel_user.SuspendLayout();
             tabPage7.SuspendLayout();
@@ -528,13 +538,6 @@
             dl_panel.SuspendLayout();
             tabPage16.SuspendLayout();
             panel16.SuspendLayout();
-            tabPage25.SuspendLayout();
-            tabControl6.SuspendLayout();
-            tabPage27.SuspendLayout();
-            tabPage31.SuspendLayout();
-            tabPage28.SuspendLayout();
-            tabPage29.SuspendLayout();
-            tabPage30.SuspendLayout();
             tabPage26.SuspendLayout();
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
@@ -1195,7 +1198,6 @@
             mainTabControl.Controls.Add(tabPage10);
             mainTabControl.Controls.Add(tabPage11);
             mainTabControl.Controls.Add(tabPage16);
-            mainTabControl.Controls.Add(tabPage25);
             mainTabControl.Controls.Add(tabPage26);
             mainTabControl.Location = new Point(12, 63);
             mainTabControl.Name = "mainTabControl";
@@ -3024,6 +3026,7 @@
             tabControl8.Controls.Add(tabPage39);
             tabControl8.Controls.Add(tabPage40);
             tabControl8.Controls.Add(tabPage8);
+            tabControl8.Controls.Add(tabPage46);
             tabControl8.Location = new Point(3, 3);
             tabControl8.Name = "tabControl8";
             tabControl8.SelectedIndex = 0;
@@ -3387,23 +3390,54 @@
             // recoverypanel
             // 
             recoverypanel.BorderStyle = BorderStyle.Fixed3D;
+            recoverypanel.Controls.Add(ReplaceRecovery);
+            recoverypanel.Controls.Add(ReplaceRecovery_clr);
             recoverypanel.Controls.Add(recoveryMenuAction);
+            recoverypanel.Controls.Add(ReplaceRecovery_sel);
             recoverypanel.Controls.Add(label81);
             recoverypanel.Location = new Point(3, 6);
             recoverypanel.Name = "recoverypanel";
             recoverypanel.Size = new Size(505, 259);
             recoverypanel.TabIndex = 47;
             // 
+            // ReplaceRecovery
+            // 
+            ReplaceRecovery.Location = new Point(3, 42);
+            ReplaceRecovery.Name = "ReplaceRecovery";
+            ReplaceRecovery.Size = new Size(318, 31);
+            ReplaceRecovery.TabIndex = 19;
+            ReplaceRecovery.TextChanged += ReplaceRecovery_TextChanged;
+            // 
+            // ReplaceRecovery_clr
+            // 
+            ReplaceRecovery_clr.Location = new Point(405, 42);
+            ReplaceRecovery_clr.Name = "ReplaceRecovery_clr";
+            ReplaceRecovery_clr.Size = new Size(72, 31);
+            ReplaceRecovery_clr.TabIndex = 18;
+            ReplaceRecovery_clr.Text = "clear";
+            ReplaceRecovery_clr.UseVisualStyleBackColor = true;
+            ReplaceRecovery_clr.Click += ReplaceRecovery_clr_Click;
+            // 
             // recoveryMenuAction
             // 
             recoveryMenuAction.DropDownStyle = ComboBoxStyle.DropDownList;
             recoveryMenuAction.FormattingEnabled = true;
-            recoveryMenuAction.Items.AddRange(new object[] { "Delete", "Stay default" });
+            recoveryMenuAction.Items.AddRange(new object[] { "Delete", "Stay default", "Replace" });
             recoveryMenuAction.Location = new Point(3, 3);
             recoveryMenuAction.Name = "recoveryMenuAction";
             recoveryMenuAction.Size = new Size(318, 33);
             recoveryMenuAction.TabIndex = 44;
             recoveryMenuAction.SelectedIndexChanged += recoveryMenuAction_SelectedIndexChanged;
+            // 
+            // ReplaceRecovery_sel
+            // 
+            ReplaceRecovery_sel.Location = new Point(327, 42);
+            ReplaceRecovery_sel.Name = "ReplaceRecovery_sel";
+            ReplaceRecovery_sel.Size = new Size(72, 31);
+            ReplaceRecovery_sel.TabIndex = 17;
+            ReplaceRecovery_sel.Text = "select";
+            ReplaceRecovery_sel.UseVisualStyleBackColor = true;
+            ReplaceRecovery_sel.Click += ReplaceRecovery_sel_Click;
             // 
             // label81
             // 
@@ -3434,6 +3468,181 @@
             recoverymod_manual_allow.Text = "allow in manual setup mode";
             recoverymod_manual_allow.UseVisualStyleBackColor = true;
             recoverymod_manual_allow.CheckedChanged += recoverymod_manual_allow_CheckedChanged;
+            // 
+            // tabPage46
+            // 
+            tabPage46.Controls.Add(tabControl6);
+            tabPage46.Location = new Point(4, 34);
+            tabPage46.Name = "tabPage46";
+            tabPage46.Size = new Size(1004, 303);
+            tabPage46.TabIndex = 4;
+            tabPage46.Text = "delete";
+            tabPage46.UseVisualStyleBackColor = true;
+            // 
+            // tabControl6
+            // 
+            tabControl6.Controls.Add(tabPage27);
+            tabControl6.Controls.Add(tabPage31);
+            tabControl6.Controls.Add(tabPage28);
+            tabControl6.Controls.Add(tabPage29);
+            tabControl6.Controls.Add(tabPage30);
+            tabControl6.Location = new Point(3, 3);
+            tabControl6.Name = "tabControl6";
+            tabControl6.SelectedIndex = 0;
+            tabControl6.Size = new Size(998, 297);
+            tabControl6.TabIndex = 4;
+            // 
+            // tabPage27
+            // 
+            tabPage27.Controls.Add(richTextBox11);
+            tabPage27.Controls.Add(delete_paths);
+            tabPage27.Location = new Point(4, 34);
+            tabPage27.Name = "tabPage27";
+            tabPage27.Padding = new Padding(3);
+            tabPage27.Size = new Size(990, 259);
+            tabPage27.TabIndex = 0;
+            tabPage27.Text = "Raw paths";
+            tabPage27.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox11
+            // 
+            richTextBox11.BackColor = SystemColors.Info;
+            richTextBox11.Location = new Point(641, 6);
+            richTextBox11.Name = "richTextBox11";
+            richTextBox11.ReadOnly = true;
+            richTextBox11.Size = new Size(346, 247);
+            richTextBox11.TabIndex = 1;
+            richTextBox11.Text = resources.GetString("richTextBox11.Text");
+            // 
+            // delete_paths
+            // 
+            delete_paths.Location = new Point(6, 6);
+            delete_paths.Name = "delete_paths";
+            delete_paths.Size = new Size(629, 247);
+            delete_paths.TabIndex = 0;
+            delete_paths.Text = "";
+            delete_paths.TextChanged += delete_paths_TextChanged;
+            // 
+            // tabPage31
+            // 
+            tabPage31.Controls.Add(richTextBox14);
+            tabPage31.Controls.Add(delete_dism_universal);
+            tabPage31.Location = new Point(4, 34);
+            tabPage31.Name = "tabPage31";
+            tabPage31.Size = new Size(990, 259);
+            tabPage31.TabIndex = 4;
+            tabPage31.Text = "Dism (universal)";
+            tabPage31.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox14
+            // 
+            richTextBox14.BackColor = SystemColors.Info;
+            richTextBox14.Location = new Point(641, 6);
+            richTextBox14.Name = "richTextBox14";
+            richTextBox14.ReadOnly = true;
+            richTextBox14.Size = new Size(346, 250);
+            richTextBox14.TabIndex = 3;
+            richTextBox14.Text = resources.GetString("richTextBox14.Text");
+            // 
+            // delete_dism_universal
+            // 
+            delete_dism_universal.Location = new Point(6, 6);
+            delete_dism_universal.Name = "delete_dism_universal";
+            delete_dism_universal.Size = new Size(629, 250);
+            delete_dism_universal.TabIndex = 3;
+            delete_dism_universal.Text = "";
+            delete_dism_universal.TextChanged += delete_dism_universal_TextChanged;
+            // 
+            // tabPage28
+            // 
+            tabPage28.Controls.Add(richTextBox12);
+            tabPage28.Controls.Add(delete_dism);
+            tabPage28.Location = new Point(4, 34);
+            tabPage28.Name = "tabPage28";
+            tabPage28.Padding = new Padding(3);
+            tabPage28.Size = new Size(990, 259);
+            tabPage28.TabIndex = 1;
+            tabPage28.Text = "Dism (Disable-Feature)";
+            tabPage28.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox12
+            // 
+            richTextBox12.BackColor = SystemColors.Info;
+            richTextBox12.Location = new Point(641, 6);
+            richTextBox12.Name = "richTextBox12";
+            richTextBox12.ReadOnly = true;
+            richTextBox12.Size = new Size(343, 247);
+            richTextBox12.TabIndex = 2;
+            richTextBox12.Text = "disables (deletes) features via DISM. if you only need to disable them without deleting them, then put a sign \"!\" before the name";
+            // 
+            // delete_dism
+            // 
+            delete_dism.Location = new Point(6, 6);
+            delete_dism.Name = "delete_dism";
+            delete_dism.Size = new Size(629, 247);
+            delete_dism.TabIndex = 1;
+            delete_dism.Text = "";
+            delete_dism.TextChanged += delete_dism_TextChanged;
+            // 
+            // tabPage29
+            // 
+            tabPage29.Controls.Add(richTextBox15);
+            tabPage29.Controls.Add(delete_dism_remove_package);
+            tabPage29.Location = new Point(4, 34);
+            tabPage29.Name = "tabPage29";
+            tabPage29.Size = new Size(990, 259);
+            tabPage29.TabIndex = 2;
+            tabPage29.Text = "Dism (Remove-Package)";
+            tabPage29.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox15
+            // 
+            richTextBox15.BackColor = SystemColors.Info;
+            richTextBox15.Location = new Point(641, 6);
+            richTextBox15.Name = "richTextBox15";
+            richTextBox15.ReadOnly = true;
+            richTextBox15.Size = new Size(346, 250);
+            richTextBox15.TabIndex = 3;
+            richTextBox15.Text = "deletes packages using dism using Remove-Package";
+            // 
+            // delete_dism_remove_package
+            // 
+            delete_dism_remove_package.Location = new Point(6, 6);
+            delete_dism_remove_package.Name = "delete_dism_remove_package";
+            delete_dism_remove_package.Size = new Size(629, 250);
+            delete_dism_remove_package.TabIndex = 3;
+            delete_dism_remove_package.Text = "";
+            delete_dism_remove_package.TextChanged += delete_dism_remove_package_TextChanged;
+            // 
+            // tabPage30
+            // 
+            tabPage30.Controls.Add(richTextBox16);
+            tabPage30.Controls.Add(delete_dism_remove_appx_package);
+            tabPage30.Location = new Point(4, 34);
+            tabPage30.Name = "tabPage30";
+            tabPage30.Size = new Size(990, 259);
+            tabPage30.TabIndex = 3;
+            tabPage30.Text = "Dism (Remove-ProvisionedAppxPackage)";
+            tabPage30.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox16
+            // 
+            richTextBox16.BackColor = SystemColors.Info;
+            richTextBox16.Location = new Point(641, 6);
+            richTextBox16.Name = "richTextBox16";
+            richTextBox16.ReadOnly = true;
+            richTextBox16.Size = new Size(346, 250);
+            richTextBox16.TabIndex = 4;
+            richTextBox16.Text = "deletes packages using dism using Remove-ProvisionedAppxPackage\n";
+            // 
+            // delete_dism_remove_appx_package
+            // 
+            delete_dism_remove_appx_package.Location = new Point(6, 6);
+            delete_dism_remove_appx_package.Name = "delete_dism_remove_appx_package";
+            delete_dism_remove_appx_package.Size = new Size(629, 250);
+            delete_dism_remove_appx_package.TabIndex = 4;
+            delete_dism_remove_appx_package.Text = "";
+            delete_dism_remove_appx_package.TextChanged += delete_dism_remove_appx_package_TextChanged;
             // 
             // tabPage5
             // 
@@ -4448,181 +4657,6 @@
             label56.TabIndex = 3;
             label56.Text = "the amount of RAM during installation (in megabytes)";
             // 
-            // tabPage25
-            // 
-            tabPage25.Controls.Add(tabControl6);
-            tabPage25.Location = new Point(4, 34);
-            tabPage25.Name = "tabPage25";
-            tabPage25.Size = new Size(1018, 347);
-            tabPage25.TabIndex = 12;
-            tabPage25.Text = "delete";
-            tabPage25.UseVisualStyleBackColor = true;
-            // 
-            // tabControl6
-            // 
-            tabControl6.Controls.Add(tabPage27);
-            tabControl6.Controls.Add(tabPage31);
-            tabControl6.Controls.Add(tabPage28);
-            tabControl6.Controls.Add(tabPage29);
-            tabControl6.Controls.Add(tabPage30);
-            tabControl6.Location = new Point(3, 3);
-            tabControl6.Name = "tabControl6";
-            tabControl6.SelectedIndex = 0;
-            tabControl6.Size = new Size(1012, 341);
-            tabControl6.TabIndex = 4;
-            // 
-            // tabPage27
-            // 
-            tabPage27.Controls.Add(richTextBox11);
-            tabPage27.Controls.Add(delete_paths);
-            tabPage27.Location = new Point(4, 34);
-            tabPage27.Name = "tabPage27";
-            tabPage27.Padding = new Padding(3);
-            tabPage27.Size = new Size(1004, 303);
-            tabPage27.TabIndex = 0;
-            tabPage27.Text = "Raw paths";
-            tabPage27.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox11
-            // 
-            richTextBox11.BackColor = SystemColors.Info;
-            richTextBox11.Location = new Point(641, 6);
-            richTextBox11.Name = "richTextBox11";
-            richTextBox11.ReadOnly = true;
-            richTextBox11.Size = new Size(357, 291);
-            richTextBox11.TabIndex = 1;
-            richTextBox11.Text = resources.GetString("richTextBox11.Text");
-            // 
-            // delete_paths
-            // 
-            delete_paths.Location = new Point(6, 6);
-            delete_paths.Name = "delete_paths";
-            delete_paths.Size = new Size(629, 291);
-            delete_paths.TabIndex = 0;
-            delete_paths.Text = "";
-            delete_paths.TextChanged += delete_paths_TextChanged;
-            // 
-            // tabPage31
-            // 
-            tabPage31.Controls.Add(richTextBox14);
-            tabPage31.Controls.Add(delete_dism_universal);
-            tabPage31.Location = new Point(4, 34);
-            tabPage31.Name = "tabPage31";
-            tabPage31.Size = new Size(1004, 303);
-            tabPage31.TabIndex = 4;
-            tabPage31.Text = "Dism (universal)";
-            tabPage31.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox14
-            // 
-            richTextBox14.BackColor = SystemColors.Info;
-            richTextBox14.Location = new Point(641, 6);
-            richTextBox14.Name = "richTextBox14";
-            richTextBox14.ReadOnly = true;
-            richTextBox14.Size = new Size(357, 291);
-            richTextBox14.TabIndex = 3;
-            richTextBox14.Text = resources.GetString("richTextBox14.Text");
-            // 
-            // delete_dism_universal
-            // 
-            delete_dism_universal.Location = new Point(6, 6);
-            delete_dism_universal.Name = "delete_dism_universal";
-            delete_dism_universal.Size = new Size(629, 291);
-            delete_dism_universal.TabIndex = 3;
-            delete_dism_universal.Text = "";
-            delete_dism_universal.TextChanged += delete_dism_universal_TextChanged;
-            // 
-            // tabPage28
-            // 
-            tabPage28.Controls.Add(richTextBox12);
-            tabPage28.Controls.Add(delete_dism);
-            tabPage28.Location = new Point(4, 34);
-            tabPage28.Name = "tabPage28";
-            tabPage28.Padding = new Padding(3);
-            tabPage28.Size = new Size(1004, 303);
-            tabPage28.TabIndex = 1;
-            tabPage28.Text = "Dism (Disable-Feature)";
-            tabPage28.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox12
-            // 
-            richTextBox12.BackColor = SystemColors.Info;
-            richTextBox12.Location = new Point(641, 6);
-            richTextBox12.Name = "richTextBox12";
-            richTextBox12.ReadOnly = true;
-            richTextBox12.Size = new Size(357, 291);
-            richTextBox12.TabIndex = 2;
-            richTextBox12.Text = "disables (deletes) features via DISM. if you only need to disable them without deleting them, then put a sign \"!\" before the name";
-            // 
-            // delete_dism
-            // 
-            delete_dism.Location = new Point(6, 6);
-            delete_dism.Name = "delete_dism";
-            delete_dism.Size = new Size(629, 291);
-            delete_dism.TabIndex = 1;
-            delete_dism.Text = "";
-            delete_dism.TextChanged += delete_dism_TextChanged;
-            // 
-            // tabPage29
-            // 
-            tabPage29.Controls.Add(richTextBox15);
-            tabPage29.Controls.Add(delete_dism_remove_package);
-            tabPage29.Location = new Point(4, 34);
-            tabPage29.Name = "tabPage29";
-            tabPage29.Size = new Size(1004, 303);
-            tabPage29.TabIndex = 2;
-            tabPage29.Text = "Dism (Remove-Package)";
-            tabPage29.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox15
-            // 
-            richTextBox15.BackColor = SystemColors.Info;
-            richTextBox15.Location = new Point(641, 6);
-            richTextBox15.Name = "richTextBox15";
-            richTextBox15.ReadOnly = true;
-            richTextBox15.Size = new Size(357, 291);
-            richTextBox15.TabIndex = 3;
-            richTextBox15.Text = "deletes packages using dism using Remove-Package";
-            // 
-            // delete_dism_remove_package
-            // 
-            delete_dism_remove_package.Location = new Point(6, 6);
-            delete_dism_remove_package.Name = "delete_dism_remove_package";
-            delete_dism_remove_package.Size = new Size(629, 291);
-            delete_dism_remove_package.TabIndex = 3;
-            delete_dism_remove_package.Text = "";
-            delete_dism_remove_package.TextChanged += delete_dism_remove_package_TextChanged;
-            // 
-            // tabPage30
-            // 
-            tabPage30.Controls.Add(richTextBox16);
-            tabPage30.Controls.Add(delete_dism_remove_appx_package);
-            tabPage30.Location = new Point(4, 34);
-            tabPage30.Name = "tabPage30";
-            tabPage30.Size = new Size(1004, 303);
-            tabPage30.TabIndex = 3;
-            tabPage30.Text = "Dism (Remove-ProvisionedAppxPackage)";
-            tabPage30.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox16
-            // 
-            richTextBox16.BackColor = SystemColors.Info;
-            richTextBox16.Location = new Point(641, 6);
-            richTextBox16.Name = "richTextBox16";
-            richTextBox16.ReadOnly = true;
-            richTextBox16.Size = new Size(357, 291);
-            richTextBox16.TabIndex = 4;
-            richTextBox16.Text = "deletes packages using dism using Remove-ProvisionedAppxPackage\n";
-            // 
-            // delete_dism_remove_appx_package
-            // 
-            delete_dism_remove_appx_package.Location = new Point(6, 6);
-            delete_dism_remove_appx_package.Name = "delete_dism_remove_appx_package";
-            delete_dism_remove_appx_package.Size = new Size(629, 291);
-            delete_dism_remove_appx_package.TabIndex = 4;
-            delete_dism_remove_appx_package.Text = "";
-            delete_dism_remove_appx_package.TextChanged += delete_dism_remove_appx_package_TextChanged;
-            // 
             // tabPage26
             // 
             tabPage26.Controls.Add(richTextBox13);
@@ -5037,6 +5071,13 @@
             tabPage8.PerformLayout();
             recoverypanel.ResumeLayout(false);
             recoverypanel.PerformLayout();
+            tabPage46.ResumeLayout(false);
+            tabControl6.ResumeLayout(false);
+            tabPage27.ResumeLayout(false);
+            tabPage31.ResumeLayout(false);
+            tabPage28.ResumeLayout(false);
+            tabPage29.ResumeLayout(false);
+            tabPage30.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             postinstall_panel_user.ResumeLayout(false);
@@ -5072,13 +5113,6 @@
             tabPage16.PerformLayout();
             panel16.ResumeLayout(false);
             panel16.PerformLayout();
-            tabPage25.ResumeLayout(false);
-            tabControl6.ResumeLayout(false);
-            tabPage27.ResumeLayout(false);
-            tabPage31.ResumeLayout(false);
-            tabPage28.ResumeLayout(false);
-            tabPage29.ResumeLayout(false);
-            tabPage30.ResumeLayout(false);
             tabPage26.ResumeLayout(false);
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
@@ -5387,7 +5421,6 @@
         private Label label68;
         private Label label69;
         private Label label70;
-        private TabPage tabPage25;
         private TabPage tabPage26;
         private RichTextBox delete_dism;
         private RichTextBox delete_paths;
@@ -5436,8 +5469,8 @@
         private Button button3;
         private Button button4;
         private Label label78;
-        private Button button1;
-        private Button button2;
+        private Button ReplaceRecovery_clr;
+        private Button ReplaceRecovery_sel;
         private Button onbuild_reg_sel;
         private Label onbuild_reg;
         private Button onbuild_reg_clr;
@@ -5510,5 +5543,7 @@
         private CheckBox bsod_autoreboot;
         private CheckBox bsod_disabledisplay;
         private CheckBox ChangeTimezone;
+        private TabPage tabPage46;
+        private TextBox ReplaceRecovery;
     }
 }

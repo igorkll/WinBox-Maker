@@ -672,6 +672,8 @@ namespace WinBox_Maker
 
             TimeZoneKeyName.Enabled = ChangeTimezone.Checked;
 
+            ReplaceRecovery.Text = winBoxProject.winBoxConfig.ReplaceRecovery ?? "";
+
             tab_app.Enabled = !manual;
             tab_settings.Enabled = !manual;
             postinstall_panel_system.Enabled = !manual;
@@ -2733,6 +2735,34 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.ChangeTimezone = ChangeTimezone.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void ReplaceRecovery_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.ReplaceRecovery = ReplaceRecovery.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private async void ReplaceRecovery_sel_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? recoveryPath = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.wimFilter, winBoxProject.resourcesDirectoryPath, false);
+            if (recoveryPath != null)
+            {
+                winBoxProject.winBoxConfig.ReplaceRecovery = recoveryPath;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void ReplaceRecovery_clr_Click(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.ReplaceRecovery = "";
+            winBoxProject.SaveConfig();
         }
     }
 }

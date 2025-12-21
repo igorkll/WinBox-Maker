@@ -71,7 +71,8 @@ namespace WinBox_Maker
     public enum RecoveryMenuAction
     {
         Delete,
-        StayDefault
+        StayDefault,
+        Replace
     }
 
     public class WinBoxConfig
@@ -203,6 +204,7 @@ namespace WinBox_Maker
         public PowerScheme? powerScheme { get; set; }
         public bool? recoverymod_manual_allow { get; set; }
         public RecoveryMenuAction? recoveryMenuAction { get; set; }
+        public string? ReplaceRecovery { get; set; }
         public bool? bsod_autoreboot { get; set; }
         public bool? bsod_disabledisplay { get; set; }
         public bool? ChangeTimezone { get; set; }
@@ -354,6 +356,7 @@ namespace WinBox_Maker
 
             if (recoverymod_manual_allow == null) recoverymod_manual_allow = true;
             if (recoveryMenuAction == null) recoveryMenuAction = RecoveryMenuAction.Delete;
+            if (ReplaceRecovery == null) ReplaceRecovery = "";
 
             for (int i = 0; i < renameTweaks_from.Length; i++)
             {

@@ -3503,9 +3503,6 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="richTextBox18.Text" xml:space="preserve">
-    <value>if you have the "RealTimeIsUniversal" option turned off (it is turned off by default), then the choice of time zone will not affect anything. Since the BIOS interprets the time as local, it will be displayed unchanged regardless of the selected time zone. however, it is possible in this case that windows will change the time in the BIOS when executing SetupComplete.cmd to offset the selected time zone. for this reason, it's better not to touch the time zone settings at all, just change the BIOS time and do not touch the settings on this tab.</value>
-  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
@@ -3531,22 +3528,14 @@ also, the settings may not be applied at the first boot. for this reason, you ca
 if the product key is not entered, the windows activation label will still not appear if the "instead of the desktop" mode is used, as it outputs explorer.exe which is not running in this mode.
 If you are using the "force make "IoT Enterprise" " function, then you must also use the product key from the "IoT Enterprise" editorial office</value>
   </data>
+  <data name="richTextBox18.Text" xml:space="preserve">
+    <value>if you have the "RealTimeIsUniversal" option turned off (it is turned off by default), then the choice of time zone will not affect anything. Since the BIOS interprets the time as local, it will be displayed unchanged regardless of the selected time zone. however, it is possible in this case that windows will change the time in the BIOS when executing SetupComplete.cmd to offset the selected time zone. for this reason, it's better not to touch the time zone settings at all, just change the BIOS time and do not touch the settings on this tab.</value>
+  </data>
   <data name="richTextBox17.Text" xml:space="preserve">
     <value>integrates the reg file even at the stage of image assembly, before the first system startup. this allows you to use it even in manual setup mode. However, only the HKLM\SOFTWARE registry hive is currently supported.</value>
   </data>
   <data name="richTextBox20.Text" xml:space="preserve">
     <value>here you can define custom DISM commands that will be used when building the system. specify only the arguments, use line breaks to separate the commands. DISM /image:mountpath will be inserted in front of each of your commands automatically and you will not need to specify them.</value>
-  </data>
-  <data name="richTextBox2.Text" xml:space="preserve">
-    <value>the command is launched from the source code folder
-and gets the path to the source code folder as the first argument.
-the second argument is the path to the folder where the result should be.
-the third argument is architecture (x64, x86, arm64)</value>
-  </data>
-  <data name="richTextBox1.Text" xml:space="preserve">
-    <value>the title only affects the display in the list.
-the path is specified relative to the project folder.
-it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore".</value>
   </data>
   <data name="richTextBox11.Text" xml:space="preserve">
     <value>deletes files or directories by specified paths inside the mounted Windows.
@@ -3560,6 +3549,17 @@ Remove-Package
 Remove-ProvisionedAppxPackage
 
 This approach doesn't care what you turn off, but simply adds names to the list.</value>
+  </data>
+  <data name="richTextBox2.Text" xml:space="preserve">
+    <value>the command is launched from the source code folder
+and gets the path to the source code folder as the first argument.
+the second argument is the path to the folder where the result should be.
+the third argument is architecture (x64, x86, arm64)</value>
+  </data>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>the title only affects the display in the list.
+the path is specified relative to the project folder.
+it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore".</value>
   </data>
   <data name="richTextBox13.Text" xml:space="preserve">
     <value>manual configuration can be used if you want to use winbox maker in alternative tasks, for example, not for kiosk mode.
