@@ -166,7 +166,7 @@ namespace WinBox_Maker
                 custom_command.Text = buildItem.custom_command ?? "";
                 bl_tabcontrol.SelectedIndex = (int)currentBuildItem.type;
                 bl_folder.Text = buildItem.subdirectory ?? "";
-                bl_folder_enable.CheckState = buildItem.subdirectory_enabled == true ? CheckState.Checked : CheckState.Unchecked;
+                bl_folder_enable.Checked = buildItem.subdirectory_enabled == true;
                 guiEventsLock = false;
             }
         }
@@ -185,8 +185,8 @@ namespace WinBox_Maker
                 dl_name.Text = downloadItem.name ?? "";
                 dl_url.Text = downloadItem.url ?? "";
                 dl_path.Text = downloadItem.path ?? "";
-                dl_cache.CheckState = downloadItem.cache == true ? CheckState.Checked : CheckState.Unchecked;
-                dl_unpack.CheckState = downloadItem.unpack == true ? CheckState.Checked : CheckState.Unchecked;
+                dl_cache.Checked = downloadItem.cache == true;
+                dl_unpack.Checked = downloadItem.unpack == true;
                 guiEventsLock = false;
             }
         }
@@ -269,7 +269,7 @@ namespace WinBox_Maker
             await winBoxProject.LoadWindowsImageAsync(UpdateProcessName, UpdateProcessValue);
             UnlockForm();
             UpdateWindowsVersionsList();
-            forceIot.CheckState = winBoxProject.winBoxConfig.BaseWindowsVersion.Contains("enterprise", StringComparison.OrdinalIgnoreCase) ? CheckState.Unchecked : CheckState.Checked;
+            forceIot.Checked = winBoxProject.winBoxConfig.BaseWindowsVersion.Contains("enterprise", StringComparison.OrdinalIgnoreCase);
             UpdateGui();
             loadingWindowsTask = false;
 
@@ -472,6 +472,7 @@ namespace WinBox_Maker
             ExportInstallWim.Enabled = canExport;
             ExportImg.Enabled = canExport;
             ExportImgUefi.Enabled = canExport;
+            ExportInstallEsd.Enabled = canExport;
             guiEventsLock = false;
         }
 
@@ -510,9 +511,9 @@ namespace WinBox_Maker
             postinstall_user_reg.Text = winBoxProject.winBoxConfig.PostInstall_user_reg ?? "not selected";
             CustomBootLogo.Text = winBoxProject.winBoxConfig.CustomBootLogo ?? "not selected";
 
-            AddVirtualDisplay.CheckState = winBoxProject.winBoxConfig.AddVirtualDisplay == true ? CheckState.Checked : CheckState.Unchecked;
-            UseEmbeddedDisplay.CheckState = winBoxProject.winBoxConfig.UseEmbeddedDisplay == true ? CheckState.Checked : CheckState.Unchecked;
-            CustomBootLogo_centering.CheckState = winBoxProject.winBoxConfig.CustomBootLogo_centering == true ? CheckState.Checked : CheckState.Unchecked;
+            AddVirtualDisplay.Checked = winBoxProject.winBoxConfig.AddVirtualDisplay == true;
+            UseEmbeddedDisplay.Checked = winBoxProject.winBoxConfig.UseEmbeddedDisplay == true;
+            CustomBootLogo_centering.Checked = winBoxProject.winBoxConfig.CustomBootLogo_centering == true;
             VirtualDisplayWidth.Text = winBoxProject.winBoxConfig.VirtualDisplayWidth.ToString();
             VirtualDisplayHeight.Text = winBoxProject.winBoxConfig.VirtualDisplayHeight.ToString();
 
@@ -531,37 +532,37 @@ namespace WinBox_Maker
             cds_refreshRate.Text = winBoxProject.winBoxConfig.cds_refreshRate.ToString();
             cds_scaling.Text = winBoxProject.winBoxConfig.cds_scaling.ToString();
 
-            prebuildEnabled.CheckState = winBoxProject.winBoxConfig.prebuildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
+            prebuildEnabled.Checked = winBoxProject.winBoxConfig.prebuildEnabled == true;
             prebuildEvent.Text = winBoxProject.winBoxConfig.prebuildEvent ?? "";
 
-            postbuildEnabled.CheckState = winBoxProject.winBoxConfig.postbuildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
+            postbuildEnabled.Checked = winBoxProject.winBoxConfig.postbuildEnabled == true;
             postbuildEvent.Text = winBoxProject.winBoxConfig.postbuildEvent ?? "";
 
-            winmountedEnabled.CheckState = winBoxProject.winBoxConfig.winmountedEnabled == true ? CheckState.Checked : CheckState.Unchecked;
+            winmountedEnabled.Checked = winBoxProject.winBoxConfig.winmountedEnabled == true;
             winmountedEvent.Text = winBoxProject.winBoxConfig.winmountedEvent ?? "";
 
-            customdism_enabled.CheckState = winBoxProject.winBoxConfig.customdism_enabled == true ? CheckState.Checked : CheckState.Unchecked;
+            customdism_enabled.Checked = winBoxProject.winBoxConfig.customdism_enabled == true;
             customdism_commands.Text = winBoxProject.winBoxConfig.customdism_commands ?? "";
             customdism_features.Text = winBoxProject.winBoxConfig.customdism_features ?? "";
 
             customdism.Enabled = winBoxProject.winBoxConfig.customdism_enabled == true;
 
-            buildEnabled.CheckState = winBoxProject.winBoxConfig.buildEnabled == true ? CheckState.Checked : CheckState.Unchecked;
-            downloadEnabled.CheckState = winBoxProject.winBoxConfig.downloadEnabled == true ? CheckState.Checked : CheckState.Unchecked;
+            buildEnabled.Checked = winBoxProject.winBoxConfig.buildEnabled == true;
+            downloadEnabled.Checked = winBoxProject.winBoxConfig.downloadEnabled == true;
 
-            forceIot.CheckState = winBoxProject.winBoxConfig.forceIot == true ? CheckState.Checked : CheckState.Unchecked;
-            enable_hibernation.CheckState = winBoxProject.winBoxConfig.enable_hibernation == true ? CheckState.Checked : CheckState.Unchecked;
+            forceIot.Checked = winBoxProject.winBoxConfig.forceIot == true;
+            enable_hibernation.Checked = winBoxProject.winBoxConfig.enable_hibernation == true;
             enable_hiberboot.Enabled = winBoxProject.winBoxConfig.enable_hibernation == true;
-            enable_hiberboot.CheckState = winBoxProject.winBoxConfig.enable_hiberboot == true ? CheckState.Checked : CheckState.Unchecked;
-            dc_use.CheckState = winBoxProject.winBoxConfig.dc_use == true ? CheckState.Checked : CheckState.Unchecked;
-            UseCustomDisplaySettings.CheckState = winBoxProject.winBoxConfig.UseCustomDisplaySettings == true ? CheckState.Checked : CheckState.Unchecked;
-            UseCustomDisplaySettings_scale.CheckState = winBoxProject.winBoxConfig.UseCustomDisplaySettings_scale == true ? CheckState.Checked : CheckState.Unchecked;
+            enable_hiberboot.Checked = winBoxProject.winBoxConfig.enable_hiberboot == true;
+            dc_use.Checked = winBoxProject.winBoxConfig.dc_use == true;
+            UseCustomDisplaySettings.Checked = winBoxProject.winBoxConfig.UseCustomDisplaySettings == true;
+            UseCustomDisplaySettings_scale.Checked = winBoxProject.winBoxConfig.UseCustomDisplaySettings_scale == true;
 
-            cds_width_use.CheckState = winBoxProject.winBoxConfig.cds_width_use == true ? CheckState.Checked : CheckState.Unchecked;
-            cds_height_use.CheckState = winBoxProject.winBoxConfig.cds_height_use == true ? CheckState.Checked : CheckState.Unchecked;
-            cds_orientation_use.CheckState = winBoxProject.winBoxConfig.cds_orientation_use == true ? CheckState.Checked : CheckState.Unchecked;
-            cds_bitDepth_use.CheckState = winBoxProject.winBoxConfig.cds_bitDepth_use == true ? CheckState.Checked : CheckState.Unchecked;
-            cds_refreshRate_use.CheckState = winBoxProject.winBoxConfig.cds_refreshRate_use == true ? CheckState.Checked : CheckState.Unchecked;
+            cds_width_use.Checked = winBoxProject.winBoxConfig.cds_width_use == true;
+            cds_height_use.Checked = winBoxProject.winBoxConfig.cds_height_use == true;
+            cds_orientation_use.Checked = winBoxProject.winBoxConfig.cds_orientation_use == true;
+            cds_bitDepth_use.Checked = winBoxProject.winBoxConfig.cds_bitDepth_use == true;
+            cds_refreshRate_use.Checked = winBoxProject.winBoxConfig.cds_refreshRate_use == true;
 
             cds_orientation.SelectedIndex = winBoxProject.winBoxConfig.cds_orientation ?? 0;
             firstBootAction.SelectedIndex = (int)(winBoxProject.winBoxConfig.firstBootAction ?? 0);
@@ -578,9 +579,9 @@ namespace WinBox_Maker
             img_install_ram.Text = winBoxProject.winBoxConfig.img_install_ram.ToString();
             img_install_cpu.Text = winBoxProject.winBoxConfig.img_install_cpu.ToString();
 
-            img_shutdownAfterInstall.CheckState = winBoxProject.winBoxConfig.img_shutdownAfterInstall == true ? CheckState.Checked : CheckState.Unchecked;
-            img_runningPostinstallOnFirstRealStartup.CheckState = winBoxProject.winBoxConfig.img_runningPostinstallOnFirstRealStartup == true ? CheckState.Checked : CheckState.Unchecked;
-            img_generalizeAfterInstall.CheckState = winBoxProject.winBoxConfig.img_generalizeAfterInstall == true ? CheckState.Checked : CheckState.Unchecked;
+            img_shutdownAfterInstall.Checked = winBoxProject.winBoxConfig.img_shutdownAfterInstall == true;
+            img_runningPostinstallOnFirstRealStartup.Checked = winBoxProject.winBoxConfig.img_runningPostinstallOnFirstRealStartup == true;
+            img_generalizeAfterInstall.Checked = winBoxProject.winBoxConfig.img_generalizeAfterInstall == true;
 
             img_runningPostinstallOnFirstRealStartup.Enabled = winBoxProject.winBoxConfig.img_shutdownAfterInstall == true;
             img_generalizeAfterInstall.Enabled = winBoxProject.winBoxConfig.img_shutdownAfterInstall == true;
@@ -599,12 +600,12 @@ namespace WinBox_Maker
 
             computername.Text = winBoxProject.winBoxConfig.computername;
             actionAtEndOfApplication_command.Text = winBoxProject.winBoxConfig.actionAtEndOfApplication_command;
-            computername_use.CheckState = winBoxProject.winBoxConfig.computername_use == true ? CheckState.Checked : CheckState.Unchecked;
+            computername_use.Checked = winBoxProject.winBoxConfig.computername_use == true;
             computername.Enabled = winBoxProject.winBoxConfig.computername_use == true;
             actionAtEndOfApplication_command.Enabled = winBoxProject.winBoxConfig.actionAtEndOfApplication == ActionAtEndOfApplication.execute_command;
 
-            appdelay_time.CheckState = winBoxProject.winBoxConfig.appdelay_time == true ? CheckState.Checked : CheckState.Unchecked;
-            appdelay_internet.CheckState = winBoxProject.winBoxConfig.appdelay_internet == true ? CheckState.Checked : CheckState.Unchecked;
+            appdelay_time.Checked = winBoxProject.winBoxConfig.appdelay_time == true;
+            appdelay_internet.Checked = winBoxProject.winBoxConfig.appdelay_internet == true;
 
             appdelay_time_value.Text = winBoxProject.winBoxConfig.appdelay_time_value.ToString();
             appdelay_internet_requestdelay.Text = winBoxProject.winBoxConfig.appdelay_internet_requestdelay.ToString();
@@ -614,8 +615,8 @@ namespace WinBox_Maker
             appdelay_internet_checkurl.Enabled = winBoxProject.winBoxConfig.appdelay_internet == true;
             appdelay_internet_requestdelay.Enabled = winBoxProject.winBoxConfig.appdelay_internet == true;
 
-            CustomBootLogo_UseLogoBeforeApp.CheckState = winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp == true ? CheckState.Checked : CheckState.Unchecked;
-            wait_before_app_logo.CheckState = winBoxProject.winBoxConfig.wait_before_app_logo == true ? CheckState.Checked : CheckState.Unchecked;
+            CustomBootLogo_UseLogoBeforeApp.Checked = winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp == true;
+            wait_before_app_logo.Checked = winBoxProject.winBoxConfig.wait_before_app_logo == true;
             logoBeforeApp_panel.Enabled = winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp != true;
 
             logoBeforeApp.Text = winBoxProject.winBoxConfig.logoBeforeApp ?? "not selected";
@@ -627,29 +628,29 @@ namespace WinBox_Maker
             delete_dism_remove_package.Text = winBoxProject.winBoxConfig.delete_dism_remove_package ?? "";
             delete_dism_remove_appx_package.Text = winBoxProject.winBoxConfig.delete_dism_remove_appx_package ?? "";
 
-            aaf_readme_iso.CheckState = winBoxProject.winBoxConfig.aaf_readme_iso == true ? CheckState.Checked : CheckState.Unchecked;
-            aaf_readme_system.CheckState = winBoxProject.winBoxConfig.aaf_readme_system == true ? CheckState.Checked : CheckState.Unchecked;
-            aaf_readme_boot.CheckState = winBoxProject.winBoxConfig.aaf_readme_boot == true ? CheckState.Checked : CheckState.Unchecked;
-            aaf_readme_recovery.CheckState = winBoxProject.winBoxConfig.aaf_readme_recovery == true ? CheckState.Checked : CheckState.Unchecked;
-            aaf_info_iso.CheckState = winBoxProject.winBoxConfig.aaf_info_iso == true ? CheckState.Checked : CheckState.Unchecked;
-            aaf_info_system.CheckState = winBoxProject.winBoxConfig.aaf_info_system == true ? CheckState.Checked : CheckState.Unchecked;
-            aaf_info_boot.CheckState = winBoxProject.winBoxConfig.aaf_info_boot == true ? CheckState.Checked : CheckState.Unchecked;
-            aaf_info_recovery.CheckState = winBoxProject.winBoxConfig.aaf_info_recovery == true ? CheckState.Checked : CheckState.Unchecked;
+            aaf_readme_iso.Checked = winBoxProject.winBoxConfig.aaf_readme_iso == true;
+            aaf_readme_system.Checked = winBoxProject.winBoxConfig.aaf_readme_system == true;
+            aaf_readme_boot.Checked = winBoxProject.winBoxConfig.aaf_readme_boot == true;
+            aaf_readme_recovery.Checked = winBoxProject.winBoxConfig.aaf_readme_recovery == true;
+            aaf_info_iso.Checked = winBoxProject.winBoxConfig.aaf_info_iso == true;
+            aaf_info_system.Checked = winBoxProject.winBoxConfig.aaf_info_system == true;
+            aaf_info_boot.Checked = winBoxProject.winBoxConfig.aaf_info_boot == true;
+            aaf_info_recovery.Checked = winBoxProject.winBoxConfig.aaf_info_recovery == true;
 
-            recoverymod_manual_allow.CheckState = winBoxProject.winBoxConfig.recoverymod_manual_allow == true ? CheckState.Checked : CheckState.Unchecked;
+            recoverymod_manual_allow.Checked = winBoxProject.winBoxConfig.recoverymod_manual_allow == true;
 
-            oemkey_installer.CheckState = winBoxProject.winBoxConfig.oemkey_installer == true ? CheckState.Checked : CheckState.Unchecked;
-            oemkey_dism.CheckState = winBoxProject.winBoxConfig.oemkey_dism == true ? CheckState.Checked : CheckState.Unchecked;
-            oemkey_slmgr.CheckState = winBoxProject.winBoxConfig.oemkey_slmgr == true ? CheckState.Checked : CheckState.Unchecked;
+            oemkey_installer.Checked = winBoxProject.winBoxConfig.oemkey_installer == true;
+            oemkey_dism.Checked = winBoxProject.winBoxConfig.oemkey_dism == true;
+            oemkey_slmgr.Checked = winBoxProject.winBoxConfig.oemkey_slmgr == true;
 
-            DynamicDaylightTimeDisabled.CheckState = winBoxProject.winBoxConfig.DynamicDaylightTimeDisabled == true ? CheckState.Checked : CheckState.Unchecked;
-            DisableNtp.CheckState = winBoxProject.winBoxConfig.DisableNtp == true ? CheckState.Checked : CheckState.Unchecked;
-            RealTimeIsUniversal.CheckState = winBoxProject.winBoxConfig.RealTimeIsUniversal == true ? CheckState.Checked : CheckState.Unchecked;
+            DynamicDaylightTimeDisabled.Checked = winBoxProject.winBoxConfig.DynamicDaylightTimeDisabled == true;
+            DisableNtp.Checked = winBoxProject.winBoxConfig.DisableNtp == true;
+            RealTimeIsUniversal.Checked = winBoxProject.winBoxConfig.RealTimeIsUniversal == true;
 
             recoveryMenuAction.SelectedIndex = (int)(winBoxProject.winBoxConfig.recoveryMenuAction ?? 0);
 
             bool manual = winBoxProject.winBoxConfig.manual_setup == true;
-            manual_setup.CheckState = manual ? CheckState.Checked : CheckState.Unchecked;
+            manual_setup.Checked = manual;
             manual_setup_complete.Text = winBoxProject.winBoxConfig.manual_setup_complete ?? "not selected";
             manual_setup_error.Text = winBoxProject.winBoxConfig.manual_setup_error ?? "not selected";
             manual_setup_autounattend.Text = winBoxProject.winBoxConfig.manual_setup_autounattend ?? "not selected";
@@ -662,11 +663,14 @@ namespace WinBox_Maker
             services_stop.Text = winBoxProject.winBoxConfig.services_stop ?? "";
             services_start.Text = winBoxProject.winBoxConfig.services_start ?? "";
             services_deleteFromList.Text = winBoxProject.winBoxConfig.services_deleteFromList ?? "";
-            services_stopOnlyList.CheckState = winBoxProject.winBoxConfig.services_stopOnlyList == true ? CheckState.Checked : CheckState.Unchecked;
-            services_startOnlyList.CheckState = winBoxProject.winBoxConfig.services_startOnlyList == true ? CheckState.Checked : CheckState.Unchecked;
+            services_stopOnlyList.Checked = winBoxProject.winBoxConfig.services_stopOnlyList == true;
+            services_startOnlyList.Checked = winBoxProject.winBoxConfig.services_startOnlyList == true;
 
-            bsod_autoreboot.CheckState = winBoxProject.winBoxConfig.bsod_autoreboot == true ? CheckState.Checked : CheckState.Unchecked;
-            bsod_disabledisplay.CheckState = winBoxProject.winBoxConfig.bsod_disabledisplay == true ? CheckState.Checked : CheckState.Unchecked;
+            bsod_autoreboot.Checked = winBoxProject.winBoxConfig.bsod_autoreboot == true;
+            bsod_disabledisplay.Checked = winBoxProject.winBoxConfig.bsod_disabledisplay == true;
+            ChangeTimezone.Checked = winBoxProject.winBoxConfig.ChangeTimezone == true;
+
+            TimeZoneKeyName.Enabled = ChangeTimezone.Checked;
 
             tab_app.Enabled = !manual;
             tab_settings.Enabled = !manual;
@@ -1256,7 +1260,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.AddVirtualDisplay = AddVirtualDisplay.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.AddVirtualDisplay = AddVirtualDisplay.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1323,7 +1327,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.UseEmbeddedDisplay = UseEmbeddedDisplay.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.UseEmbeddedDisplay = UseEmbeddedDisplay.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1331,7 +1335,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.CustomBootLogo_centering = CustomBootLogo_centering.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.CustomBootLogo_centering = CustomBootLogo_centering.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1339,7 +1343,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.prebuildEnabled = prebuildEnabled.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.prebuildEnabled = prebuildEnabled.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1355,7 +1359,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.postbuildEnabled = postbuildEnabled.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.postbuildEnabled = postbuildEnabled.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1371,7 +1375,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.winmountedEnabled = winmountedEnabled.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.winmountedEnabled = winmountedEnabled.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1434,7 +1438,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.downloadEnabled = downloadEnabled.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.downloadEnabled = downloadEnabled.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1490,7 +1494,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            currentDownloadItem.cache = dl_cache.CheckState == CheckState.Checked;
+            currentDownloadItem.cache = dl_cache.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1498,7 +1502,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            currentDownloadItem.unpack = dl_unpack.CheckState == CheckState.Checked;
+            currentDownloadItem.unpack = dl_unpack.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1517,7 +1521,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.buildEnabled = buildEnabled.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.buildEnabled = buildEnabled.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1642,7 +1646,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            currentBuildItem.subdirectory_enabled = bl_folder_enable.CheckState == CheckState.Checked;
+            currentBuildItem.subdirectory_enabled = bl_folder_enable.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1762,7 +1766,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.forceIot = forceIot.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.forceIot = forceIot.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -1770,7 +1774,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.enable_hibernation = enable_hibernation.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.enable_hibernation = enable_hibernation.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -1779,7 +1783,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.dc_use = dc_use.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.dc_use = dc_use.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -1846,7 +1850,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.UseCustomDisplaySettings = UseCustomDisplaySettings.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.UseCustomDisplaySettings = UseCustomDisplaySettings.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -1926,7 +1930,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.UseCustomDisplaySettings_scale = UseCustomDisplaySettings_scale.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.UseCustomDisplaySettings_scale = UseCustomDisplaySettings_scale.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -1983,7 +1987,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.cds_width_use = cds_width_use.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.cds_width_use = cds_width_use.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -1992,7 +1996,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.cds_height_use = cds_height_use.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.cds_height_use = cds_height_use.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2001,7 +2005,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.cds_orientation_use = cds_orientation_use.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.cds_orientation_use = cds_orientation_use.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2010,7 +2014,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.cds_bitDepth_use = cds_bitDepth_use.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.cds_bitDepth_use = cds_bitDepth_use.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2019,7 +2023,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.cds_refreshRate_use = cds_refreshRate_use.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.cds_refreshRate_use = cds_refreshRate_use.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2093,7 +2097,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.img_shutdownAfterInstall = img_shutdownAfterInstall.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.img_shutdownAfterInstall = img_shutdownAfterInstall.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2102,7 +2106,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.img_runningPostinstallOnFirstRealStartup = img_runningPostinstallOnFirstRealStartup.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.img_runningPostinstallOnFirstRealStartup = img_runningPostinstallOnFirstRealStartup.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2110,7 +2114,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.computername_use = computername_use.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.computername_use = computername_use.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2127,7 +2131,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.img_generalizeAfterInstall = img_generalizeAfterInstall.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.img_generalizeAfterInstall = img_generalizeAfterInstall.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2208,7 +2212,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.appdelay_time = appdelay_time.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.appdelay_time = appdelay_time.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2217,7 +2221,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.appdelay_internet = appdelay_internet.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.appdelay_internet = appdelay_internet.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2271,7 +2275,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp = CustomBootLogo_UseLogoBeforeApp.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.CustomBootLogo_UseLogoBeforeApp = CustomBootLogo_UseLogoBeforeApp.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2290,7 +2294,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.wait_before_app_logo = wait_before_app_logo.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.wait_before_app_logo = wait_before_app_logo.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2358,7 +2362,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.manual_setup = manual_setup.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.manual_setup = manual_setup.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2424,7 +2428,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.aaf_readme_iso = aaf_readme_iso.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.aaf_readme_iso = aaf_readme_iso.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2432,7 +2436,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.aaf_readme_system = aaf_readme_system.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.aaf_readme_system = aaf_readme_system.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2440,7 +2444,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.aaf_readme_boot = aaf_readme_boot.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.aaf_readme_boot = aaf_readme_boot.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2448,7 +2452,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.aaf_info_iso = aaf_info_iso.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.aaf_info_iso = aaf_info_iso.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2456,7 +2460,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.aaf_info_system = aaf_info_system.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.aaf_info_system = aaf_info_system.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2464,7 +2468,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.aaf_info_boot = aaf_info_boot.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.aaf_info_boot = aaf_info_boot.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2491,7 +2495,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.oemkey_installer = oemkey_installer.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.oemkey_installer = oemkey_installer.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2500,7 +2504,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.oemkey_dism = oemkey_dism.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.oemkey_dism = oemkey_dism.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2509,7 +2513,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.oemkey_slmgr = oemkey_slmgr.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.oemkey_slmgr = oemkey_slmgr.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2542,7 +2546,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.DynamicDaylightTimeDisabled = DynamicDaylightTimeDisabled.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.DynamicDaylightTimeDisabled = DynamicDaylightTimeDisabled.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2551,7 +2555,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.DisableNtp = DisableNtp.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.DisableNtp = DisableNtp.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2578,7 +2582,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.services_stopOnlyList = services_stopOnlyList.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.services_stopOnlyList = services_stopOnlyList.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2587,7 +2591,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.services_startOnlyList = services_startOnlyList.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.services_startOnlyList = services_startOnlyList.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2596,7 +2600,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.RealTimeIsUniversal = RealTimeIsUniversal.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.RealTimeIsUniversal = RealTimeIsUniversal.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2622,7 +2626,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.customdism_enabled = customdism_enabled.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.customdism_enabled = customdism_enabled.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2644,7 +2648,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.enable_hiberboot = enable_hiberboot.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.enable_hiberboot = enable_hiberboot.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2660,7 +2664,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.aaf_readme_recovery = aaf_readme_recovery.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.aaf_readme_recovery = aaf_readme_recovery.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2668,7 +2672,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.aaf_info_recovery = aaf_info_recovery.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.aaf_info_recovery = aaf_info_recovery.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2676,7 +2680,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.recoverymod_manual_allow = recoverymod_manual_allow.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.recoverymod_manual_allow = recoverymod_manual_allow.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2710,7 +2714,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.bsod_autoreboot = bsod_autoreboot.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.bsod_autoreboot = bsod_autoreboot.Checked;
             winBoxProject.SaveConfig();
         }
 
@@ -2718,8 +2722,17 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.bsod_disabledisplay = bsod_disabledisplay.CheckState == CheckState.Checked;
+            winBoxProject.winBoxConfig.bsod_disabledisplay = bsod_disabledisplay.Checked;
             winBoxProject.SaveConfig();
+        }
+
+        private void ChangeTimezone_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.ChangeTimezone = ChangeTimezone.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }

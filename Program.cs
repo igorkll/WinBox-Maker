@@ -63,7 +63,7 @@ namespace WinBox_Maker
         static string getAppdataSubdirectory(string subdirectory)
         {
             string path = Path.Combine(appdataPath, subdirectory);
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            CreateDirectory(path);
             return path;
         }
 
@@ -78,7 +78,7 @@ namespace WinBox_Maker
 
             string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             appdataPath = Path.Combine(localAppDataPath, "Winbox-Maker");
-            if (!Directory.Exists(appdataPath)) Directory.CreateDirectory(appdataPath);
+            CreateDirectory(appdataPath);
             appconfigPath = Path.Combine(appdataPath, "config.json");
             downloadCachePath = getAppdataSubdirectory("DownloadCache");
             downloadImagesPath = getAppdataSubdirectory("DownloadImages");
@@ -517,7 +517,7 @@ namespace WinBox_Maker
 
         public static async Task CopyFilesRecursivelyAsync(string sourceDir, string targetDir)
         {
-            Directory.CreateDirectory(targetDir);
+            CreateDirectory(targetDir);
 
             foreach (string file in Directory.GetFiles(sourceDir))
             {
@@ -607,7 +607,7 @@ namespace WinBox_Maker
                 if (!blacklist.Contains(file.FullName))
                 {
                     string outputPath = Path.Combine(outputDirectory, file.FullName);
-                    Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+                    CreateDirectory(Path.GetDirectoryName(outputPath));
 
                     using (var wimFile = cd.OpenFile(file.FullName, FileMode.Open, FileAccess.Read))
                     {
@@ -629,7 +629,7 @@ namespace WinBox_Maker
 
             foreach (DiscDirectoryInfo dir in currentDir.GetDirectories())
             {
-                Directory.CreateDirectory(Path.Combine(outputDirectory, dir.FullName));
+                CreateDirectory(Path.Combine(outputDirectory, dir.FullName));
                 await RecursiveUnpack(cd, dir, outputDirectory, processValue, globalUsedSpace, copied, blacklist);
             }
         }

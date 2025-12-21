@@ -205,6 +205,8 @@ namespace WinBox_Maker
         public RecoveryMenuAction? recoveryMenuAction { get; set; }
         public bool? bsod_autoreboot { get; set; }
         public bool? bsod_disabledisplay { get; set; }
+        public bool? ChangeTimezone { get; set; }
+
 
         static string[] renameTweaks_from = [
             "removing UWP apps"
@@ -360,6 +362,7 @@ namespace WinBox_Maker
 
             if (bsod_autoreboot == null) bsod_autoreboot = true;
             if (bsod_disabledisplay == null) bsod_disabledisplay = true;
+            if (ChangeTimezone == null) ChangeTimezone = true;
         }
 
         public void Save(string wnbFilePath)

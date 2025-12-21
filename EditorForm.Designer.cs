@@ -228,13 +228,17 @@
             tabPage13 = new TabPage();
             richTextBox4 = new RichTextBox();
             tabPage17 = new TabPage();
+            panel8 = new Panel();
+            bsod_disabledisplay = new CheckBox();
+            label88 = new Label();
+            bsod_autoreboot = new CheckBox();
             panel17 = new Panel();
             richTextBox8 = new RichTextBox();
             computername = new TextBox();
             computername_use = new CheckBox();
             tabPage3 = new TabPage();
+            ChangeTimezone = new CheckBox();
             richTextBox18 = new RichTextBox();
-            label84 = new Label();
             TimeZoneKeyName = new ComboBox();
             RealTimeIsUniversal = new CheckBox();
             DisableNtp = new CheckBox();
@@ -440,10 +444,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            panel8 = new Panel();
-            bsod_autoreboot = new CheckBox();
-            label88 = new Label();
-            bsod_disabledisplay = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -485,6 +485,7 @@
             UseCustomDisplaySettings_scale_panel.SuspendLayout();
             tabPage13.SuspendLayout();
             tabPage17.SuspendLayout();
+            panel8.SuspendLayout();
             panel17.SuspendLayout();
             tabPage3.SuspendLayout();
             tabPage4.SuspendLayout();
@@ -538,7 +539,6 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -2658,6 +2658,48 @@
             tabPage17.Text = "misc";
             tabPage17.UseVisualStyleBackColor = true;
             // 
+            // panel8
+            // 
+            panel8.BorderStyle = BorderStyle.Fixed3D;
+            panel8.Controls.Add(bsod_disabledisplay);
+            panel8.Controls.Add(label88);
+            panel8.Controls.Add(bsod_autoreboot);
+            panel8.Location = new Point(502, 4);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(493, 106);
+            panel8.TabIndex = 1;
+            // 
+            // bsod_disabledisplay
+            // 
+            bsod_disabledisplay.AutoSize = true;
+            bsod_disabledisplay.Location = new Point(3, 67);
+            bsod_disabledisplay.Name = "bsod_disabledisplay";
+            bsod_disabledisplay.Size = new Size(209, 29);
+            bsod_disabledisplay.TabIndex = 2;
+            bsod_disabledisplay.Text = "Disable BSOD display";
+            bsod_disabledisplay.UseVisualStyleBackColor = true;
+            bsod_disabledisplay.CheckedChanged += bsod_disabledisplay_CheckedChanged;
+            // 
+            // label88
+            // 
+            label88.AutoSize = true;
+            label88.Location = new Point(3, 4);
+            label88.Name = "label88";
+            label88.Size = new Size(190, 25);
+            label88.TabIndex = 1;
+            label88.Text = "behavior during BSOD";
+            // 
+            // bsod_autoreboot
+            // 
+            bsod_autoreboot.AutoSize = true;
+            bsod_autoreboot.Location = new Point(3, 32);
+            bsod_autoreboot.Name = "bsod_autoreboot";
+            bsod_autoreboot.Size = new Size(136, 29);
+            bsod_autoreboot.TabIndex = 0;
+            bsod_autoreboot.Text = "Auto reboot";
+            bsod_autoreboot.UseVisualStyleBackColor = true;
+            bsod_autoreboot.CheckedChanged += bsod_autoreboot_CheckedChanged;
+            // 
             // panel17
             // 
             panel17.BorderStyle = BorderStyle.Fixed3D;
@@ -2700,8 +2742,8 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(ChangeTimezone);
             tabPage3.Controls.Add(richTextBox18);
-            tabPage3.Controls.Add(label84);
             tabPage3.Controls.Add(TimeZoneKeyName);
             tabPage3.Controls.Add(RealTimeIsUniversal);
             tabPage3.Controls.Add(DisableNtp);
@@ -2713,6 +2755,17 @@
             tabPage3.Text = "time";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // ChangeTimezone
+            // 
+            ChangeTimezone.AutoSize = true;
+            ChangeTimezone.Location = new Point(2, 109);
+            ChangeTimezone.Name = "ChangeTimezone";
+            ChangeTimezone.Size = new Size(176, 29);
+            ChangeTimezone.TabIndex = 47;
+            ChangeTimezone.Text = "Change timezone";
+            ChangeTimezone.UseVisualStyleBackColor = true;
+            ChangeTimezone.CheckedChanged += ChangeTimezone_CheckedChanged;
+            // 
             // richTextBox18
             // 
             richTextBox18.BackColor = SystemColors.Info;
@@ -2723,19 +2776,10 @@
             richTextBox18.TabIndex = 46;
             richTextBox18.Text = resources.GetString("richTextBox18.Text");
             // 
-            // label84
-            // 
-            label84.AutoSize = true;
-            label84.Location = new Point(327, 112);
-            label84.Name = "label84";
-            label84.Size = new Size(90, 25);
-            label84.TabIndex = 45;
-            label84.Text = "time zone";
-            // 
             // TimeZoneKeyName
             // 
             TimeZoneKeyName.FormattingEnabled = true;
-            TimeZoneKeyName.Location = new Point(3, 109);
+            TimeZoneKeyName.Location = new Point(179, 107);
             TimeZoneKeyName.Name = "TimeZoneKeyName";
             TimeZoneKeyName.Size = new Size(318, 33);
             TimeZoneKeyName.TabIndex = 44;
@@ -4859,48 +4903,6 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // panel8
-            // 
-            panel8.BorderStyle = BorderStyle.Fixed3D;
-            panel8.Controls.Add(bsod_disabledisplay);
-            panel8.Controls.Add(label88);
-            panel8.Controls.Add(bsod_autoreboot);
-            panel8.Location = new Point(502, 4);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(493, 106);
-            panel8.TabIndex = 1;
-            // 
-            // bsod_autoreboot
-            // 
-            bsod_autoreboot.AutoSize = true;
-            bsod_autoreboot.Location = new Point(3, 32);
-            bsod_autoreboot.Name = "bsod_autoreboot";
-            bsod_autoreboot.Size = new Size(136, 29);
-            bsod_autoreboot.TabIndex = 0;
-            bsod_autoreboot.Text = "Auto reboot";
-            bsod_autoreboot.UseVisualStyleBackColor = true;
-            bsod_autoreboot.CheckedChanged += bsod_autoreboot_CheckedChanged;
-            // 
-            // label88
-            // 
-            label88.AutoSize = true;
-            label88.Location = new Point(3, 4);
-            label88.Name = "label88";
-            label88.Size = new Size(190, 25);
-            label88.TabIndex = 1;
-            label88.Text = "behavior during BSOD";
-            // 
-            // bsod_disabledisplay
-            // 
-            bsod_disabledisplay.AutoSize = true;
-            bsod_disabledisplay.Location = new Point(3, 67);
-            bsod_disabledisplay.Name = "bsod_disabledisplay";
-            bsod_disabledisplay.Size = new Size(209, 29);
-            bsod_disabledisplay.TabIndex = 2;
-            bsod_disabledisplay.Text = "Disable BSOD display";
-            bsod_disabledisplay.UseVisualStyleBackColor = true;
-            bsod_disabledisplay.CheckedChanged += bsod_disabledisplay_CheckedChanged;
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -4997,6 +4999,8 @@
             UseCustomDisplaySettings_scale_panel.PerformLayout();
             tabPage13.ResumeLayout(false);
             tabPage17.ResumeLayout(false);
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             panel17.ResumeLayout(false);
             panel17.PerformLayout();
             tabPage3.ResumeLayout(false);
@@ -5081,8 +5085,6 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5465,7 +5467,6 @@
         private CheckBox services_stopOnlyList;
         private CheckBox RealTimeIsUniversal;
         private ComboBox TimeZoneKeyName;
-        private Label label84;
         private RichTextBox richTextBox18;
         private CheckBox customdism_enabled;
         private Label label85;
@@ -5508,5 +5509,6 @@
         private Label label88;
         private CheckBox bsod_autoreboot;
         private CheckBox bsod_disabledisplay;
+        private CheckBox ChangeTimezone;
     }
 }

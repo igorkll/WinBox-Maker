@@ -189,6 +189,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "net_framework"));
             Program.CreateDirectory(Path.Combine(resourcesDirectoryPath, "app_runtime"));
             Program.CreateDirectory(sourcesDirectoryPath);
+            Program.CreateDirectory(debugFolder);
 
             string gitignorePath = Path.Combine(baseDirectoryPath, ".gitignore");
             if (!File.Exists(gitignorePath)) {
@@ -1198,7 +1199,6 @@ powercfg -s {powerScheme}";
                 "WaaSMedicSvc",
                 "WdNisSvc",
                 "wscsvc",
-                "w32time",
                 "wisvc",
 
                 "PhoneSvc",
@@ -1239,22 +1239,27 @@ powercfg -s {powerScheme}";
                 //"LanmanWorkstation"
             };
 
-            if (winBoxConfig.services_stopOnlyList == true)
+            if (winBoxConfig.services_stopOnlyList != true)
             {
-                stopServicesList = new string[0];
+                if (!winBoxConfig.isValidOemKey())
+                {
+                    stopServices.Add("sppsvc");
+                }
+
+                if (winBoxConfig.DisableNtp == true)
+                {
+                    stopServices.Add("w32time");
+                }
+
+                if (winBoxConfig.LaunchMode != ProgramLaunchModeEnum.afterDesktop)
+                {
+                    //stopServices.Add("WpnUserService"); //какие нах пуши без экспорера?
+                }
+
+                stopServices.AddRange(stopServicesList);
             }
 
-            stopServices.AddRange(stopServicesList);
             stopServices.AddRange(getCustomStopList());
-
-            if (!winBoxConfig.isValidOemKey())
-            {
-                stopServices.Add("sppsvc");
-            }
-            if (winBoxConfig.LaunchMode != ProgramLaunchModeEnum.afterDesktop)
-            {
-                //stopServices.Add("WpnUserService"); //какие нах пуши без экспорера?
-            }
 
             Program.DelRange(stopServices, getStartServicesList());
             Program.DelRange(stopServices, getCustomDeleteList());
@@ -1875,7 +1880,7 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
                     baseSetup += $"\r\n" + $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\RealTimeIsUniversal"" /v Enabled /t REG_DWORD /d {(winBoxConfig.RealTimeIsUniversal == true ? 1 : 0)} /f";
                 }
 
-                {
+                if (winBoxConfig.ChangeTimezone == true) {
                     baseSetupLog($"change time zone: {winBoxConfig.TimeZoneKeyName}");
                     baseSetup += $"\r\n" + $@"tzutil /s ""{winBoxConfig.TimeZoneKeyName}""";
                 }
