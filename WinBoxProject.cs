@@ -1376,6 +1376,14 @@ powercfg -s {powerScheme}";
             return list.ToArray();
         }
 
+        bool needMountRecovery()
+        {
+            return winBoxConfig.aaf_readme_recovery == true ||
+                winBoxConfig.aaf_info_recovery == true ||
+                Program.hasDirectoryNotEmpty(Path.Combine(resourcesDirectoryPath, "recovery_files")) ||
+                Program.hasDirectoryNotEmpty(Path.Combine(tempDirectoryPath, "recovery_files"));
+        }
+
         async Task patchRecoveryPartition(string mountedRecoveryPath, WindowsDescription newWindowsDescription)
         {
             await addAdFiles(mountedRecoveryPath, newWindowsDescription, winBoxConfig.aaf_readme_recovery, winBoxConfig.aaf_info_recovery);
@@ -1559,9 +1567,14 @@ powercfg -s {powerScheme}";
             {
                 processName("Modification of the recovery menu");
                 processValue(35);
-                
+
+                string winREpath = Path.Combine(wimMountPath, "Windows\\System32\\Recovery\\Winre.wim");
+
                 switch (winBoxConfig.recoveryMenuAction)
                 {
+                    case RecoveryMenuAction.Replace:
+                        break;
+
                     case RecoveryMenuAction.StayDefault:
                         break;
 
@@ -1570,8 +1583,7 @@ powercfg -s {powerScheme}";
                         break;
                 }
 
-                string winREpath = Path.Combine(wimMountPath, "Windows\\System32\\Recovery\\Winre.wim");
-                if (File.Exists(winREpath)) {
+                if (File.Exists(winREpath) && needMountRecovery()) {
                     await mountDism(winREpath, recoveryMountPath);
                     await patchRecoveryPartition(recoveryMountPath, newWindowsDescription);
                     await umountDism(true, recoveryMountPath);

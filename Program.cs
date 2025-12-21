@@ -149,7 +149,21 @@ namespace WinBox_Maker
             Application.Run(openProjectForm);
         }
 
-        static public void Error(string err)
+        public static bool hasDirectoryNotEmpty(string path)
+        {
+            if (!Directory.Exists(path))
+                return false;
+
+            if (Directory.EnumerateFiles(path).GetEnumerator().MoveNext())
+                return true;
+
+            if (Directory.EnumerateDirectories(path).GetEnumerator().MoveNext())
+                return true;
+
+            return false;
+        }
+
+        public static void Error(string err)
         {
             if (consoleExporter)
             {
@@ -163,14 +177,14 @@ namespace WinBox_Maker
             }
         }
 
-        static public void ReplaceAll(string[] items, string oldValue, string newValue)
+        public static void ReplaceAll(string[] items, string oldValue, string newValue)
         {
             for (int index = 0; index < items.Length; index++)
                 if (items[index] == oldValue)
                     items[index] = newValue;
         }
 
-        static public void ReplaceAll(List<string> items, string oldValue, string newValue)
+        public static void ReplaceAll(List<string> items, string oldValue, string newValue)
         {
             for (int index = 0; index < items.Count; index++)
                 if (items[index] == oldValue)
