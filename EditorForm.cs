@@ -2768,6 +2768,7 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.ReplaceRecovery = "";
             winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }

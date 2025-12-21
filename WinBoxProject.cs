@@ -1570,6 +1570,7 @@ powercfg -s {powerScheme}";
 
                 string winREpath = Path.Combine(wimMountPath, "Windows\\System32\\Recovery\\Winre.wim");
 
+                bool deleteRecovery = false;
                 switch (winBoxConfig.recoveryMenuAction)
                 {
                     case RecoveryMenuAction.Replace:
@@ -1580,6 +1581,14 @@ powercfg -s {powerScheme}";
                             {
                                 await Program.CopyFileAsync(path, winREpath);
                             }
+                            else
+                            {
+                                deleteRecovery = true;
+                            }
+                        }
+                        else
+                        {
+                            deleteRecovery = true;
                         }
                         break;
 
@@ -1587,9 +1596,12 @@ powercfg -s {powerScheme}";
                         break;
 
                     default:
-                        await removeSystemObject("Windows\\System32\\Recovery");
+                        deleteRecovery = true;
                         break;
                 }
+
+                if (deleteRecovery)
+                    await removeSystemObject("Windows\\System32\\Recovery");
 
                 if (File.Exists(winREpath) && needMountRecovery()) {
                     await mountDism(winREpath, recoveryMountPath);
