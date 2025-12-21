@@ -167,6 +167,7 @@
             bootresRepacking_logoPath_clr = new Button();
             bootresRepacking_logoPath_sel = new Button();
             bootresRepacking_logoPath = new Label();
+            tabPage49 = new TabPage();
             logoBeforeApp_panel = new Panel();
             logoBeforeApp_stretch = new ComboBox();
             label63 = new Label();
@@ -465,7 +466,9 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            tabPage49 = new TabPage();
+            richTextBox23 = new RichTextBox();
+            richTextBox24 = new RichTextBox();
+            checkBox1 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -497,6 +500,7 @@
             panel15.SuspendLayout();
             tabPage48.SuspendLayout();
             bootresRepacking_panel.SuspendLayout();
+            tabPage49.SuspendLayout();
             logoBeforeApp_panel.SuspendLayout();
             tabPage22.SuspendLayout();
             panel14.SuspendLayout();
@@ -566,7 +570,6 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage49.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1938,6 +1941,7 @@
             // 
             // tabPage47
             // 
+            tabPage47.Controls.Add(richTextBox24);
             tabPage47.Controls.Add(panel15);
             tabPage47.Location = new Point(4, 34);
             tabPage47.Name = "tabPage47";
@@ -1986,6 +1990,7 @@
             // 
             // tabPage48
             // 
+            tabPage48.Controls.Add(richTextBox23);
             tabPage48.Controls.Add(bootresRepacking_panel);
             tabPage48.Location = new Point(4, 34);
             tabPage48.Name = "tabPage48";
@@ -2044,6 +2049,17 @@
             bootresRepacking_logoPath.Size = new Size(78, 25);
             bootresRepacking_logoPath.TabIndex = 11;
             bootresRepacking_logoPath.Text = "bmp file";
+            // 
+            // tabPage49
+            // 
+            tabPage49.Controls.Add(logoBeforeApp_panel);
+            tabPage49.Controls.Add(richTextBox9);
+            tabPage49.Location = new Point(4, 34);
+            tabPage49.Name = "tabPage49";
+            tabPage49.Size = new Size(964, 196);
+            tabPage49.TabIndex = 2;
+            tabPage49.Text = "app logo (after boot, before you application)";
+            tabPage49.UseVisualStyleBackColor = true;
             // 
             // logoBeforeApp_panel
             // 
@@ -3216,6 +3232,7 @@
             // 
             // tabPage41
             // 
+            tabPage41.Controls.Add(checkBox1);
             tabPage41.Controls.Add(prebuildEnabled);
             tabPage41.Controls.Add(prebuildEvent);
             tabPage41.Controls.Add(label22);
@@ -3224,7 +3241,7 @@
             tabPage41.Padding = new Padding(3);
             tabPage41.Size = new Size(990, 259);
             tabPage41.TabIndex = 0;
-            tabPage41.Text = "pre build";
+            tabPage41.Text = "pre-build";
             tabPage41.UseVisualStyleBackColor = true;
             // 
             // prebuildEnabled
@@ -3233,9 +3250,9 @@
             prebuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
             prebuildEnabled.Location = new Point(883, 14);
             prebuildEnabled.Name = "prebuildEnabled";
-            prebuildEnabled.Size = new Size(101, 29);
+            prebuildEnabled.Size = new Size(97, 29);
             prebuildEnabled.TabIndex = 2;
-            prebuildEnabled.Text = "enabled";
+            prebuildEnabled.Text = "execute";
             prebuildEnabled.UseVisualStyleBackColor = true;
             prebuildEnabled.CheckedChanged += prebuildEnabled_CheckedChanged;
             // 
@@ -3268,7 +3285,7 @@
             tabPage42.Padding = new Padding(3);
             tabPage42.Size = new Size(990, 259);
             tabPage42.TabIndex = 1;
-            tabPage42.Text = "post build";
+            tabPage42.Text = "post-build";
             tabPage42.UseVisualStyleBackColor = true;
             // 
             // postbuildEnabled
@@ -3277,9 +3294,9 @@
             postbuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
             postbuildEnabled.Location = new Point(883, 14);
             postbuildEnabled.Name = "postbuildEnabled";
-            postbuildEnabled.Size = new Size(101, 29);
+            postbuildEnabled.Size = new Size(97, 29);
             postbuildEnabled.TabIndex = 2;
-            postbuildEnabled.Text = "enabled";
+            postbuildEnabled.Text = "execute";
             postbuildEnabled.UseVisualStyleBackColor = true;
             postbuildEnabled.CheckedChanged += postbuildEnabled_CheckedChanged;
             // 
@@ -3311,7 +3328,7 @@
             tabPage43.Name = "tabPage43";
             tabPage43.Size = new Size(990, 259);
             tabPage43.TabIndex = 2;
-            tabPage43.Text = "win mounted";
+            tabPage43.Text = "win-mounted";
             tabPage43.UseVisualStyleBackColor = true;
             // 
             // winmountedEnabled
@@ -3320,9 +3337,9 @@
             winmountedEnabled.CheckAlign = ContentAlignment.MiddleRight;
             winmountedEnabled.Location = new Point(883, 14);
             winmountedEnabled.Name = "winmountedEnabled";
-            winmountedEnabled.Size = new Size(101, 29);
+            winmountedEnabled.Size = new Size(97, 29);
             winmountedEnabled.TabIndex = 2;
-            winmountedEnabled.Text = "enabled";
+            winmountedEnabled.Text = "execute";
             winmountedEnabled.UseVisualStyleBackColor = true;
             winmountedEnabled.CheckedChanged += winmountedEnabled_CheckedChanged;
             // 
@@ -5150,16 +5167,33 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // tabPage49
+            // richTextBox23
             // 
-            tabPage49.Controls.Add(logoBeforeApp_panel);
-            tabPage49.Controls.Add(richTextBox9);
-            tabPage49.Location = new Point(4, 34);
-            tabPage49.Name = "tabPage49";
-            tabPage49.Size = new Size(964, 196);
-            tabPage49.TabIndex = 2;
-            tabPage49.Text = "app logo (after boot, before you application)";
-            tabPage49.UseVisualStyleBackColor = true;
+            richTextBox23.BackColor = SystemColors.Info;
+            richTextBox23.Location = new Point(485, 6);
+            richTextBox23.Name = "richTextBox23";
+            richTextBox23.Size = new Size(473, 184);
+            richTextBox23.TabIndex = 18;
+            richTextBox23.Text = "reassembles bootres.dll by replacing the logo for BIOS-based systems or if the logo has not been selected from UEFI.\nNOT IMPLEMENTED NOW";
+            // 
+            // richTextBox24
+            // 
+            richTextBox24.BackColor = SystemColors.Info;
+            richTextBox24.Location = new Point(532, 6);
+            richTextBox24.Name = "richTextBox24";
+            richTextBox24.Size = new Size(426, 184);
+            richTextBox24.TabIndex = 17;
+            richTextBox24.Text = "";
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(219, 13);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(234, 29);
+            checkBox1.TabIndex = 3;
+            checkBox1.Text = "break point before event";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
@@ -5240,6 +5274,7 @@
             tabPage48.ResumeLayout(false);
             bootresRepacking_panel.ResumeLayout(false);
             bootresRepacking_panel.PerformLayout();
+            tabPage49.ResumeLayout(false);
             logoBeforeApp_panel.ResumeLayout(false);
             logoBeforeApp_panel.PerformLayout();
             tabPage22.ResumeLayout(false);
@@ -5351,7 +5386,6 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage49.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5797,5 +5831,8 @@
         private Button bootresRepacking_logoPath_sel;
         private Label bootresRepacking_logoPath;
         private TabPage tabPage49;
+        private RichTextBox richTextBox23;
+        private RichTextBox richTextBox24;
+        private CheckBox checkBox1;
     }
 }
