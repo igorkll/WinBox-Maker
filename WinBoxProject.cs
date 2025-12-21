@@ -1387,6 +1387,9 @@ powercfg -s {powerScheme}";
         {
             return winBoxConfig.aaf_readme_recovery == true ||
                 winBoxConfig.aaf_info_recovery == true ||
+                winBoxConfig.recoveryMountedEarly_breakafter == true ||
+                winBoxConfig.recoveryMountedEarly_breakbefore == true ||
+                winBoxConfig.recoveryMountedEarlyEnabled == true ||
                 Program.hasDirectoryNotEmpty(Path.Combine(resourcesDirectoryPath, "recovery_files")) ||
                 Program.hasDirectoryNotEmpty(Path.Combine(tempDirectoryPath, "recovery_files"));
         }

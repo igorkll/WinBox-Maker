@@ -288,15 +288,15 @@
             prebuildEvent = new RichTextBox();
             label22 = new Label();
             tabPage42 = new TabPage();
-            checkBox1 = new CheckBox();
+            postbuild_breakafter = new CheckBox();
             postbuildEnabled = new CheckBox();
-            checkBox2 = new CheckBox();
+            postbuild_breakbefore = new CheckBox();
             label23 = new Label();
             postbuildEvent = new RichTextBox();
             tabPage43 = new TabPage();
-            checkBox3 = new CheckBox();
+            winmounted_breakafter = new CheckBox();
             richTextBox25 = new RichTextBox();
-            checkBox4 = new CheckBox();
+            winmounted_breakbefore = new CheckBox();
             winmountedEnabled = new CheckBox();
             label24 = new Label();
             winmountedEvent = new RichTextBox();
@@ -476,6 +476,19 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            tabPage50 = new TabPage();
+            checkBox1 = new CheckBox();
+            richTextBox26 = new RichTextBox();
+            checkBox2 = new CheckBox();
+            checkBox3 = new CheckBox();
+            label91 = new Label();
+            richTextBox27 = new RichTextBox();
+            checkBox4 = new CheckBox();
+            label92 = new Label();
+            richTextBox28 = new RichTextBox();
+            richTextBox29 = new RichTextBox();
+            checkBox5 = new CheckBox();
+            checkBox6 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -538,6 +551,7 @@
             tabPage41.SuspendLayout();
             tabPage42.SuspendLayout();
             tabPage43.SuspendLayout();
+            tabPage23.SuspendLayout();
             tabPage39.SuspendLayout();
             panel5.SuspendLayout();
             tabPage40.SuspendLayout();
@@ -577,6 +591,7 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage50.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -3253,6 +3268,7 @@
             tabControl9.Controls.Add(tabPage42);
             tabControl9.Controls.Add(tabPage43);
             tabControl9.Controls.Add(tabPage23);
+            tabControl9.Controls.Add(tabPage50);
             tabControl9.Location = new Point(3, 6);
             tabControl9.Name = "tabControl9";
             tabControl9.SelectedIndex = 0;
@@ -3327,9 +3343,9 @@
             // 
             // tabPage42
             // 
-            tabPage42.Controls.Add(checkBox1);
+            tabPage42.Controls.Add(postbuild_breakafter);
             tabPage42.Controls.Add(postbuildEnabled);
-            tabPage42.Controls.Add(checkBox2);
+            tabPage42.Controls.Add(postbuild_breakbefore);
             tabPage42.Controls.Add(label23);
             tabPage42.Controls.Add(postbuildEvent);
             tabPage42.Location = new Point(4, 34);
@@ -3340,15 +3356,15 @@
             tabPage42.Text = "post-build";
             tabPage42.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // postbuild_breakafter
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(468, 14);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(218, 29);
-            checkBox1.TabIndex = 6;
-            checkBox1.Text = "break point after event";
-            checkBox1.UseVisualStyleBackColor = true;
+            postbuild_breakafter.AutoSize = true;
+            postbuild_breakafter.Location = new Point(468, 14);
+            postbuild_breakafter.Name = "postbuild_breakafter";
+            postbuild_breakafter.Size = new Size(218, 29);
+            postbuild_breakafter.TabIndex = 6;
+            postbuild_breakafter.Text = "break point after event";
+            postbuild_breakafter.UseVisualStyleBackColor = true;
             // 
             // postbuildEnabled
             // 
@@ -3362,15 +3378,15 @@
             postbuildEnabled.UseVisualStyleBackColor = true;
             postbuildEnabled.CheckedChanged += postbuildEnabled_CheckedChanged;
             // 
-            // checkBox2
+            // postbuild_breakbefore
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(228, 14);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(234, 29);
-            checkBox2.TabIndex = 5;
-            checkBox2.Text = "break point before event";
-            checkBox2.UseVisualStyleBackColor = true;
+            postbuild_breakbefore.AutoSize = true;
+            postbuild_breakbefore.Location = new Point(228, 14);
+            postbuild_breakbefore.Name = "postbuild_breakbefore";
+            postbuild_breakbefore.Size = new Size(234, 29);
+            postbuild_breakbefore.TabIndex = 5;
+            postbuild_breakbefore.Text = "break point before event";
+            postbuild_breakbefore.UseVisualStyleBackColor = true;
             // 
             // label23
             // 
@@ -3393,9 +3409,9 @@
             // 
             // tabPage43
             // 
-            tabPage43.Controls.Add(checkBox3);
+            tabPage43.Controls.Add(winmounted_breakafter);
             tabPage43.Controls.Add(richTextBox25);
-            tabPage43.Controls.Add(checkBox4);
+            tabPage43.Controls.Add(winmounted_breakbefore);
             tabPage43.Controls.Add(winmountedEnabled);
             tabPage43.Controls.Add(label24);
             tabPage43.Controls.Add(winmountedEvent);
@@ -3406,15 +3422,15 @@
             tabPage43.Text = "win-mounted";
             tabPage43.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // winmounted_breakafter
             // 
-            checkBox3.AutoSize = true;
-            checkBox3.Location = new Point(511, 14);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(218, 29);
-            checkBox3.TabIndex = 8;
-            checkBox3.Text = "break point after event";
-            checkBox3.UseVisualStyleBackColor = true;
+            winmounted_breakafter.AutoSize = true;
+            winmounted_breakafter.Location = new Point(511, 14);
+            winmounted_breakafter.Name = "winmounted_breakafter";
+            winmounted_breakafter.Size = new Size(218, 29);
+            winmounted_breakafter.TabIndex = 8;
+            winmounted_breakafter.Text = "break point after event";
+            winmounted_breakafter.UseVisualStyleBackColor = true;
             // 
             // richTextBox25
             // 
@@ -3426,15 +3442,15 @@
             richTextBox25.TabIndex = 4;
             richTextBox25.Text = resources.GetString("richTextBox25.Text");
             // 
-            // checkBox4
+            // winmounted_breakbefore
             // 
-            checkBox4.AutoSize = true;
-            checkBox4.Location = new Point(271, 13);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(234, 29);
-            checkBox4.TabIndex = 7;
-            checkBox4.Text = "break point before event";
-            checkBox4.UseVisualStyleBackColor = true;
+            winmounted_breakbefore.AutoSize = true;
+            winmounted_breakbefore.Location = new Point(271, 13);
+            winmounted_breakbefore.Name = "winmounted_breakbefore";
+            winmounted_breakbefore.Size = new Size(234, 29);
+            winmounted_breakbefore.TabIndex = 7;
+            winmounted_breakbefore.Text = "break point before event";
+            winmounted_breakbefore.UseVisualStyleBackColor = true;
             // 
             // winmountedEnabled
             // 
@@ -3469,6 +3485,12 @@
             // 
             // tabPage23
             // 
+            tabPage23.Controls.Add(checkBox1);
+            tabPage23.Controls.Add(label91);
+            tabPage23.Controls.Add(richTextBox26);
+            tabPage23.Controls.Add(richTextBox27);
+            tabPage23.Controls.Add(checkBox3);
+            tabPage23.Controls.Add(checkBox2);
             tabPage23.Location = new Point(4, 34);
             tabPage23.Name = "tabPage23";
             tabPage23.Size = new Size(990, 259);
@@ -5282,6 +5304,139 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // tabPage50
+            // 
+            tabPage50.Controls.Add(checkBox4);
+            tabPage50.Controls.Add(label92);
+            tabPage50.Controls.Add(checkBox6);
+            tabPage50.Controls.Add(richTextBox28);
+            tabPage50.Controls.Add(checkBox5);
+            tabPage50.Controls.Add(richTextBox29);
+            tabPage50.Location = new Point(4, 34);
+            tabPage50.Name = "tabPage50";
+            tabPage50.Size = new Size(990, 259);
+            tabPage50.TabIndex = 4;
+            tabPage50.Text = "recovery-mounted-early";
+            tabPage50.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(511, 15);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(218, 29);
+            checkBox1.TabIndex = 14;
+            checkBox1.Text = "break point after event";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox26
+            // 
+            richTextBox26.BackColor = SystemColors.Info;
+            richTextBox26.Location = new Point(622, 48);
+            richTextBox26.Name = "richTextBox26";
+            richTextBox26.ReadOnly = true;
+            richTextBox26.Size = new Size(362, 208);
+            richTextBox26.TabIndex = 12;
+            richTextBox26.Text = resources.GetString("richTextBox26.Text");
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(271, 14);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(234, 29);
+            checkBox2.TabIndex = 13;
+            checkBox2.Text = "break point before event";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.CheckAlign = ContentAlignment.MiddleRight;
+            checkBox3.Location = new Point(793, 15);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(191, 29);
+            checkBox3.TabIndex = 11;
+            checkBox3.Text = "execute commands";
+            checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // label91
+            // 
+            label91.AutoSize = true;
+            label91.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label91.Location = new Point(6, 13);
+            label91.Name = "label91";
+            label91.Size = new Size(259, 30);
+            label91.TabIndex = 9;
+            label91.Text = "win-mounted-early event";
+            // 
+            // richTextBox27
+            // 
+            richTextBox27.Location = new Point(6, 48);
+            richTextBox27.Name = "richTextBox27";
+            richTextBox27.Size = new Size(610, 208);
+            richTextBox27.TabIndex = 10;
+            richTextBox27.Text = "";
+            // 
+            // checkBox4
+            // 
+            checkBox4.AutoSize = true;
+            checkBox4.Location = new Point(560, 14);
+            checkBox4.Name = "checkBox4";
+            checkBox4.Size = new Size(218, 29);
+            checkBox4.TabIndex = 20;
+            checkBox4.Text = "break point after event";
+            checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // label92
+            // 
+            label92.AutoSize = true;
+            label92.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label92.Location = new Point(6, 13);
+            label92.Name = "label92";
+            label92.Size = new Size(311, 30);
+            label92.TabIndex = 15;
+            label92.Text = "recovery-mounted-early event";
+            // 
+            // richTextBox28
+            // 
+            richTextBox28.BackColor = SystemColors.Info;
+            richTextBox28.Location = new Point(622, 48);
+            richTextBox28.Name = "richTextBox28";
+            richTextBox28.ReadOnly = true;
+            richTextBox28.Size = new Size(362, 208);
+            richTextBox28.TabIndex = 18;
+            richTextBox28.Text = "recovery relative mount path: winbox_temp/recovery_mount\nfiles replace folder: winbox_resources/recovery_files\n";
+            // 
+            // richTextBox29
+            // 
+            richTextBox29.Location = new Point(6, 48);
+            richTextBox29.Name = "richTextBox29";
+            richTextBox29.Size = new Size(610, 208);
+            richTextBox29.TabIndex = 16;
+            richTextBox29.Text = "";
+            // 
+            // checkBox5
+            // 
+            checkBox5.AutoSize = true;
+            checkBox5.CheckAlign = ContentAlignment.MiddleRight;
+            checkBox5.Location = new Point(793, 15);
+            checkBox5.Name = "checkBox5";
+            checkBox5.Size = new Size(191, 29);
+            checkBox5.TabIndex = 17;
+            checkBox5.Text = "execute commands";
+            checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            checkBox6.AutoSize = true;
+            checkBox6.Location = new Point(320, 13);
+            checkBox6.Name = "checkBox6";
+            checkBox6.Size = new Size(234, 29);
+            checkBox6.TabIndex = 19;
+            checkBox6.Text = "break point before event";
+            checkBox6.UseVisualStyleBackColor = true;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -5409,6 +5564,8 @@
             tabPage42.PerformLayout();
             tabPage43.ResumeLayout(false);
             tabPage43.PerformLayout();
+            tabPage23.ResumeLayout(false);
+            tabPage23.PerformLayout();
             tabPage39.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
@@ -5473,6 +5630,8 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage50.ResumeLayout(false);
+            tabPage50.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5924,9 +6083,22 @@
         private CheckBox prebuild_breakafter;
         private TabPage tabPage23;
         private RichTextBox richTextBox25;
+        private CheckBox postbuild_breakafter;
+        private CheckBox postbuild_breakbefore;
+        private CheckBox winmounted_breakafter;
+        private CheckBox winmounted_breakbefore;
+        private TabPage tabPage50;
         private CheckBox checkBox1;
-        private CheckBox checkBox2;
+        private Label label91;
+        private RichTextBox richTextBox26;
+        private RichTextBox richTextBox27;
         private CheckBox checkBox3;
+        private CheckBox checkBox2;
         private CheckBox checkBox4;
+        private Label label92;
+        private CheckBox checkBox6;
+        private RichTextBox richTextBox28;
+        private CheckBox checkBox5;
+        private RichTextBox richTextBox29;
     }
 }

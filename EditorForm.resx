@@ -3503,6 +3503,16 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="richTextBox25.Text" xml:space="preserve">
+    <value>windows relative mount path: winbox_temp/wim_mount
+files replace folder: winbox_resources/files
+the win-mounted event is triggered when the Windows image is mounted and all winbox maker patches have already been applied to it. this event can be used to apply additional patches to Windows through the winbox_temp/wim_mount directory</value>
+  </data>
+  <data name="richTextBox26.Text" xml:space="preserve">
+    <value>windows relative mount path: winbox_temp/wim_mount
+files replace folder: winbox_resources/files
+This event, unlike the usual "win-mounted" event, is performed immediately after Windows is mounted and not after all winbox maker patches.</value>
+  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
@@ -3533,10 +3543,6 @@ If you are using the "force make "IoT Enterprise" " function, then you must also
   </data>
   <data name="richTextBox18.Text" xml:space="preserve">
     <value>if you have the "RealTimeIsUniversal" option turned off (it is turned off by default), then the choice of time zone will not affect anything. Since the BIOS interprets the time as local, it will be displayed unchanged regardless of the selected time zone. however, it is possible in this case that windows will change the time in the BIOS when executing SetupComplete.cmd to offset the selected time zone. for this reason, it's better not to touch the time zone settings at all, just change the BIOS time and do not touch the settings on this tab.</value>
-  </data>
-  <data name="richTextBox25.Text" xml:space="preserve">
-    <value>windows relative mount path: winbox_temp/wim_mount
-the win-mounted event is triggered when the Windows image is mounted and all winbox maker patches have already been applied to it. this event can be used to apply additional patches to Windows through the winbox_temp/wim_mount directory</value>
   </data>
   <data name="richTextBox17.Text" xml:space="preserve">
     <value>integrates the reg file even at the stage of image assembly, before the first system startup. this allows you to use it even in manual setup mode. However, only the HKLM\SOFTWARE registry hive is currently supported.</value>
