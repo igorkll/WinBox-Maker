@@ -225,6 +225,11 @@ namespace WinBox_Maker
         public bool? winmounted_breakbefore { get; set; }
         public bool? winmounted_breakafter { get; set; }
 
+        public bool? winmountedEarlyEnabled { get; set; }
+        public string? winmountedEarlyEvent { get; set; }
+        public bool? winmountedEarly_breakbefore { get; set; }
+        public bool? winmountedEarly_breakafter { get; set; }
+
 
 
 
@@ -399,6 +404,11 @@ namespace WinBox_Maker
             if (winmountedEvent == null) winmountedEvent = "";
             if (winmounted_breakbefore == null) winmounted_breakbefore = false;
             if (winmounted_breakafter == null) winmounted_breakafter = false;
+
+            if (winmountedEarlyEnabled == null) winmountedEarlyEnabled = false;
+            if (winmountedEarlyEvent == null) winmountedEarlyEvent = "";
+            if (winmountedEarly_breakbefore == null) winmountedEarly_breakbefore = false;
+            if (winmountedEarly_breakafter == null) winmountedEarly_breakafter = false;
         }
 
         public void Save(string wnbFilePath)
