@@ -1239,7 +1239,9 @@ powercfg -s {powerScheme}";
                 "MessagingService",
                 "UdkUserSvc",
                 "UserDataSvc",
-                "AppXSvc"
+                "AppXSvc",
+                "CscService",
+                "CSC"
 
                 //"eventlog",
                 //"lanmanserver"
@@ -1357,6 +1359,43 @@ powercfg -s {powerScheme}";
                 stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Customer Experience Improvement Program\Consolidator");
                 stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask");
                 stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip");
+
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\AppID\SmartScreenSpecific");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Application Experience\AitAgent");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Application Experience\StartupAppTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\ApplicationData\appuriverifierdaily");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\ApplicationData\appuriverifierinstall");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Device Information\Device");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Diagnosis\Scheduled");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\LanguageComponentsInstaller\Installation");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\LanguageComponentsInstaller\Uninstallation");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Maintenance\WinSAT");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Maps\MapsToastTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Maps\MapsUpdateTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Mobile Broadband Accounts\MNO Metadata Parser");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\MobilePC\HotStart");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\MUI\LPRemove");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\NetTrace\GatherNetworkInfo");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\RAC\RacTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\RemoteAssistance\RemoteAssistanceTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\RetailDemo\CleanupOfflineContent");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\SettingSync\BackgroundUploadTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\SettingSync\BackupTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\SettingSync\NetworkStateChangeTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Setup\EOSNotify");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Setup\EOSNotify2");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Setup\SetupCleanupTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Speech\SpeechModelDownloadTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\SystemRestore\SR");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Time Synchronization\SynchronizeTime");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Windows Error Reporting\QueueReporting");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\WindowsBackup\ConfigNotification");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\WS\License Validation");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\WS\WSRefreshBannedAppsListTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\XblGameSave\XblGameSaveTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\XblGameSave\XblGameSaveTaskLogon");
             }
 
             foreach (string _schtask in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.schtasks_stopOrDelete ?? ""))
@@ -1389,11 +1428,11 @@ powercfg -s {powerScheme}";
                 schtasksSetup += $"echo {(delete ? "delete" : "stop")} schtask: {schtaskPath} >> C:\\WinboxResources\\setup.log\r\n";
                 if (delete)
                 {
-                    schtasksSetup += $"schtasks /Delete /TN \"{schtaskPath}\" /F";
+                    schtasksSetup += $"schtasks /Delete /TN \"{schtaskPath}\" /F\r\n";
                 }
                 else
                 {
-                    schtasksSetup += $"schtasks /Change /TN \"{schtaskPath}\" /disable";
+                    schtasksSetup += $"schtasks /Change /TN \"{schtaskPath}\" /disable\r\n";
                 }
                 schtasksSetup += $"echo schtask {schtaskPath} {(delete ? "deleted" : "stoped")} >> C:\\WinboxResources\\setup.log\r\n";
             }
@@ -1920,6 +1959,8 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System""
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power"" /v HiberbootEnabled /t REG_DWORD /d {hiberboot} /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance"" /v fAllowFullControl /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance"" /v fAllowToGetHelp /t REG_DWORD /d 0 /f
 
 echo SetupComplete - setup Memory Management >> C:\WinboxResources\setup.log
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control"" /v ProcessTerminationOnMemoryExhaustion /t REG_DWORD /d 0 /f
@@ -1947,7 +1988,8 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" 
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVTweak"" /v OverlayHook /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v HungAppTimeout /t REG_SZ /d ""2147483647"" /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v WaitToKillAppTimeout /t REG_SZ /d ""5000"" /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f";
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetric"" /v MinAnimate /t REG_SZ /d ""0"" /f";
 
                 string updateSystemSettings = $@"reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
 
@@ -2967,10 +3009,12 @@ if errorlevel 1 (
                 await removeSystemObject(path);
             }
 
+            /*
             foreach (string path in _getSchtasksDeletePaths())
             {
                 await removeSystemObject("!" + path, "Windows\\System32\\Tasks");
             }
+            */
 
             await writeDebugFile("RemovePaths", RemovePaths_log);
 

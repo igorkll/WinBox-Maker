@@ -12,6 +12,10 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps]
 "DumpType"=dword:00000000
 
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\ScriptedDiagnosticsProvider\Policy]
+;Не обращаться к средствам устранения неполадок через интернет
+"EnableQueryRemoteServer"=dword:00000000
+
 ; ---------------- disable windows defender
 ; БЛЯТЬ, ебанавинда не дает писать в эти разделы ДАЖЕ В СМОНТИРОВАНОМ БЛЯТЬ РЕЕСТРЕ! microsoft, BRUHHHHHHHHHHHHH
 ; нада будет походу свою либу писать чтобы файлы реестера патчить
@@ -415,14 +419,28 @@ Windows Registry Editor Version 5.00
 "DisableWindowsUpdateAccess"=dword:00000001
 "DoNotConnectToWindowsUpdateInternetLocations"=dword:00000001
 "SetDisableUXWUAccess"=dword:00000001
+"AUState"=dword:00000000
+"AUOptions"=dword:00000001
+"NoAutoUpdate"=dword:00000001
+"NoAutoRebootWithLoggedOnUsers"=dword:00000001
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU]
+"DisableWindowsUpdateAccess"=dword:00000001
+"DoNotConnectToWindowsUpdateInternetLocations"=dword:00000001
+"SetDisableUXWUAccess"=dword:00000001
+"AUState"=dword:00000000
 "AUOptions"=dword:00000001
 "NoAutoUpdate"=dword:00000001
 "NoAutoRebootWithLoggedOnUsers"=dword:00000001
 
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update]
+"DisableWindowsUpdateAccess"=dword:00000001
+"DoNotConnectToWindowsUpdateInternetLocations"=dword:00000001
+"SetDisableUXWUAccess"=dword:00000001
 "AUState"=dword:00000000
+"AUOptions"=dword:00000001
+"NoAutoUpdate"=dword:00000001
+"NoAutoRebootWithLoggedOnUsers"=dword:00000001
 
 ; ---------------- disable UAC
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
