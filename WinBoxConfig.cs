@@ -203,6 +203,7 @@ namespace WinBox_Maker
         public string? customdism_features { get; set; }
         public PowerScheme? powerScheme { get; set; }
         public bool? recoverymod_manual_allow { get; set; }
+        public bool? installermod_manual_allow { get; set; }
         public RecoveryMenuAction? recoveryMenuAction { get; set; }
         public string? ReplaceRecovery { get; set; }
         public bool? bsod_autoreboot { get; set; }
@@ -354,7 +355,8 @@ namespace WinBox_Maker
             if (TimeZoneKeyName == null) TimeZoneKeyName = "UTC";
             if (powerScheme == null) powerScheme = PowerScheme.Balanced;
 
-            if (recoverymod_manual_allow == null) recoverymod_manual_allow = true;
+            if (recoverymod_manual_allow == null) recoverymod_manual_allow = false;
+            if (installermod_manual_allow == null) installermod_manual_allow = false;
             if (recoveryMenuAction == null) recoveryMenuAction = RecoveryMenuAction.Delete;
             if (ReplaceRecovery == null) ReplaceRecovery = "";
 

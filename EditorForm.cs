@@ -661,6 +661,7 @@ namespace WinBox_Maker
             manual_setup_sysunattend.Text = winBoxProject.winBoxConfig.manual_setup_sysunattend ?? "not selected";
             manual_setup_panel.Enabled = manual;
             recoverypanel.Enabled = !manual || winBoxProject.winBoxConfig.recoverymod_manual_allow == true;
+            installerpanel.Enabled = !manual || winBoxProject.winBoxConfig.installermod_manual_allow == true;
 
             UpdateGuiCurrentServices();
 
@@ -2687,6 +2688,15 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.recoverymod_manual_allow = recoverymod_manual_allow.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e) // installermod_manual_allow
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.installermod_manual_allow = installermod_manual_allow.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }

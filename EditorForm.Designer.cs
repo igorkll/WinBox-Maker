@@ -447,6 +447,10 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            tabPage25 = new TabPage();
+            installerpanel = new Panel();
+            richTextBox22 = new RichTextBox();
+            installermod_manual_allow = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -542,6 +546,7 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage25.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -3025,8 +3030,9 @@
             tabControl8.Controls.Add(tabPage33);
             tabControl8.Controls.Add(tabPage39);
             tabControl8.Controls.Add(tabPage40);
-            tabControl8.Controls.Add(tabPage8);
             tabControl8.Controls.Add(tabPage46);
+            tabControl8.Controls.Add(tabPage8);
+            tabControl8.Controls.Add(tabPage25);
             tabControl8.Location = new Point(3, 3);
             tabControl8.Name = "tabControl8";
             tabControl8.SelectedIndex = 0;
@@ -3461,7 +3467,7 @@
             // recoverymod_manual_allow
             // 
             recoverymod_manual_allow.AutoSize = true;
-            recoverymod_manual_allow.Location = new Point(3, 271);
+            recoverymod_manual_allow.Location = new Point(3, 270);
             recoverymod_manual_allow.Name = "recoverymod_manual_allow";
             recoverymod_manual_allow.Size = new Size(262, 29);
             recoverymod_manual_allow.TabIndex = 46;
@@ -4937,6 +4943,47 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // tabPage25
+            // 
+            tabPage25.Controls.Add(installermod_manual_allow);
+            tabPage25.Controls.Add(installerpanel);
+            tabPage25.Controls.Add(richTextBox22);
+            tabPage25.Location = new Point(4, 34);
+            tabPage25.Name = "tabPage25";
+            tabPage25.Size = new Size(1004, 303);
+            tabPage25.TabIndex = 5;
+            tabPage25.Text = "installer";
+            tabPage25.UseVisualStyleBackColor = true;
+            // 
+            // installerpanel
+            // 
+            installerpanel.BorderStyle = BorderStyle.Fixed3D;
+            installerpanel.Location = new Point(3, 6);
+            installerpanel.Name = "installerpanel";
+            installerpanel.Size = new Size(505, 259);
+            installerpanel.TabIndex = 50;
+            // 
+            // richTextBox22
+            // 
+            richTextBox22.BackColor = SystemColors.Info;
+            richTextBox22.Location = new Point(514, 6);
+            richTextBox22.Name = "richTextBox22";
+            richTextBox22.ReadOnly = true;
+            richTextBox22.Size = new Size(484, 291);
+            richTextBox22.TabIndex = 48;
+            richTextBox22.Text = "Here you can customize the Windows installer.";
+            // 
+            // installermod_manual_allow
+            // 
+            installermod_manual_allow.AutoSize = true;
+            installermod_manual_allow.Location = new Point(3, 270);
+            installermod_manual_allow.Name = "installermod_manual_allow";
+            installermod_manual_allow.Size = new Size(262, 29);
+            installermod_manual_allow.TabIndex = 49;
+            installermod_manual_allow.Text = "allow in manual setup mode";
+            installermod_manual_allow.UseVisualStyleBackColor = true;
+            installermod_manual_allow.CheckedChanged += checkBox1_CheckedChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -5119,6 +5166,8 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage25.ResumeLayout(false);
+            tabPage25.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5545,5 +5594,9 @@
         private CheckBox ChangeTimezone;
         private TabPage tabPage46;
         private TextBox ReplaceRecovery;
+        private TabPage tabPage25;
+        private CheckBox installermod_manual_allow;
+        private Panel installerpanel;
+        private RichTextBox richTextBox22;
     }
 }
