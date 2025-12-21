@@ -477,12 +477,12 @@
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
             tabPage50 = new TabPage();
-            checkBox1 = new CheckBox();
+            winmountedEarly_breakafter = new CheckBox();
             richTextBox26 = new RichTextBox();
-            checkBox2 = new CheckBox();
-            checkBox3 = new CheckBox();
+            winmountedEarly_breakbefore = new CheckBox();
+            winmountedEarlyEnabled = new CheckBox();
             label91 = new Label();
-            richTextBox27 = new RichTextBox();
+            winmountedEarlyEvent = new RichTextBox();
             checkBox4 = new CheckBox();
             label92 = new Label();
             richTextBox28 = new RichTextBox();
@@ -3485,12 +3485,12 @@
             // 
             // tabPage23
             // 
-            tabPage23.Controls.Add(checkBox1);
+            tabPage23.Controls.Add(winmountedEarly_breakafter);
             tabPage23.Controls.Add(label91);
             tabPage23.Controls.Add(richTextBox26);
-            tabPage23.Controls.Add(richTextBox27);
-            tabPage23.Controls.Add(checkBox3);
-            tabPage23.Controls.Add(checkBox2);
+            tabPage23.Controls.Add(winmountedEarlyEvent);
+            tabPage23.Controls.Add(winmountedEarlyEnabled);
+            tabPage23.Controls.Add(winmountedEarly_breakbefore);
             tabPage23.Location = new Point(4, 34);
             tabPage23.Name = "tabPage23";
             tabPage23.Size = new Size(990, 259);
@@ -5319,15 +5319,15 @@
             tabPage50.Text = "recovery-mounted-early";
             tabPage50.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // winmountedEarly_breakafter
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(511, 15);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(218, 29);
-            checkBox1.TabIndex = 14;
-            checkBox1.Text = "break point after event";
-            checkBox1.UseVisualStyleBackColor = true;
+            winmountedEarly_breakafter.AutoSize = true;
+            winmountedEarly_breakafter.Location = new Point(511, 15);
+            winmountedEarly_breakafter.Name = "winmountedEarly_breakafter";
+            winmountedEarly_breakafter.Size = new Size(218, 29);
+            winmountedEarly_breakafter.TabIndex = 14;
+            winmountedEarly_breakafter.Text = "break point after event";
+            winmountedEarly_breakafter.UseVisualStyleBackColor = true;
             // 
             // richTextBox26
             // 
@@ -5339,26 +5339,26 @@
             richTextBox26.TabIndex = 12;
             richTextBox26.Text = resources.GetString("richTextBox26.Text");
             // 
-            // checkBox2
+            // winmountedEarly_breakbefore
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(271, 14);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(234, 29);
-            checkBox2.TabIndex = 13;
-            checkBox2.Text = "break point before event";
-            checkBox2.UseVisualStyleBackColor = true;
+            winmountedEarly_breakbefore.AutoSize = true;
+            winmountedEarly_breakbefore.Location = new Point(271, 14);
+            winmountedEarly_breakbefore.Name = "winmountedEarly_breakbefore";
+            winmountedEarly_breakbefore.Size = new Size(234, 29);
+            winmountedEarly_breakbefore.TabIndex = 13;
+            winmountedEarly_breakbefore.Text = "break point before event";
+            winmountedEarly_breakbefore.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // winmountedEarlyEnabled
             // 
-            checkBox3.AutoSize = true;
-            checkBox3.CheckAlign = ContentAlignment.MiddleRight;
-            checkBox3.Location = new Point(793, 15);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(191, 29);
-            checkBox3.TabIndex = 11;
-            checkBox3.Text = "execute commands";
-            checkBox3.UseVisualStyleBackColor = true;
+            winmountedEarlyEnabled.AutoSize = true;
+            winmountedEarlyEnabled.CheckAlign = ContentAlignment.MiddleRight;
+            winmountedEarlyEnabled.Location = new Point(793, 15);
+            winmountedEarlyEnabled.Name = "winmountedEarlyEnabled";
+            winmountedEarlyEnabled.Size = new Size(191, 29);
+            winmountedEarlyEnabled.TabIndex = 11;
+            winmountedEarlyEnabled.Text = "execute commands";
+            winmountedEarlyEnabled.UseVisualStyleBackColor = true;
             // 
             // label91
             // 
@@ -5370,13 +5370,13 @@
             label91.TabIndex = 9;
             label91.Text = "win-mounted-early event";
             // 
-            // richTextBox27
+            // winmountedEarlyEvent
             // 
-            richTextBox27.Location = new Point(6, 48);
-            richTextBox27.Name = "richTextBox27";
-            richTextBox27.Size = new Size(610, 208);
-            richTextBox27.TabIndex = 10;
-            richTextBox27.Text = "";
+            winmountedEarlyEvent.Location = new Point(6, 48);
+            winmountedEarlyEvent.Name = "winmountedEarlyEvent";
+            winmountedEarlyEvent.Size = new Size(610, 208);
+            winmountedEarlyEvent.TabIndex = 10;
+            winmountedEarlyEvent.Text = "";
             // 
             // checkBox4
             // 
@@ -6088,12 +6088,12 @@
         private CheckBox winmounted_breakafter;
         private CheckBox winmounted_breakbefore;
         private TabPage tabPage50;
-        private CheckBox checkBox1;
+        private CheckBox winmountedEarly_breakafter;
         private Label label91;
         private RichTextBox richTextBox26;
-        private RichTextBox richTextBox27;
-        private CheckBox checkBox3;
-        private CheckBox checkBox2;
+        private RichTextBox winmountedEarlyEvent;
+        private CheckBox winmountedEarlyEnabled;
+        private CheckBox winmountedEarly_breakbefore;
         private CheckBox checkBox4;
         private Label label92;
         private CheckBox checkBox6;
