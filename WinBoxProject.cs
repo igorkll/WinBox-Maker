@@ -1346,7 +1346,7 @@ powercfg -s {powerScheme}";
             return servicesSetup;
         }
 
-        string[] getStopOrDeleteSchtasksList()
+        public string[] getStopOrDeleteSchtasksList()
         {
             List<string> stopOrDeleteSchtasks = new List<string>();
             if (winBoxConfig.schtasks_stopOrDeleteOnlyFromList != true)
@@ -1368,6 +1368,7 @@ powercfg -s {powerScheme}";
                 }
             }
 
+            Program.DelRange(stopOrDeleteSchtasks, splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.schtasks_stopOrDelete_deleteFromList ?? ""));
             return stopOrDeleteSchtasks.Distinct().ToArray();
         }
 

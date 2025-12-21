@@ -482,6 +482,11 @@ namespace WinBox_Maker
             services_start_view.Text = string.Join("\n", winBoxProject.getStartServicesList());
         }
 
+        void UpdateGuiCurrentSchtasks()
+        {
+            schtasks_stopOrDelete_view.Text = string.Join("\n", winBoxProject.getStopOrDeleteSchtasksList());
+        }
+
         void UpdateGui()
         {
             guiEventsLock = true;
@@ -561,6 +566,10 @@ namespace WinBox_Maker
             recoveryMountedEarlyEvent.Enabled = winBoxProject.winBoxConfig.recoveryMountedEarlyEnabled == true;
             recoveryMountedEarly_breakbefore.Checked = winBoxProject.winBoxConfig.recoveryMountedEarly_breakbefore == true;
             recoveryMountedEarly_breakafter.Checked = winBoxProject.winBoxConfig.recoveryMountedEarly_breakafter == true;
+
+            schtasks_stopOrDelete.Text = winBoxProject.winBoxConfig.schtasks_stopOrDelete ?? "";
+            schtasks_stopOrDelete_deleteFromList.Text = winBoxProject.winBoxConfig.schtasks_stopOrDelete_deleteFromList ?? "";
+            schtasks_stopOrDeleteOnlyFromList.Checked = winBoxProject.winBoxConfig.schtasks_stopOrDeleteOnlyFromList == true;
 
             customdism_enabled.Checked = winBoxProject.winBoxConfig.customdism_enabled == true;
             customdism_commands.Text = winBoxProject.winBoxConfig.customdism_commands ?? "";
@@ -687,6 +696,7 @@ namespace WinBox_Maker
             installerpanel.Enabled = !manual || winBoxProject.winBoxConfig.installermod_manual_allow == true;
 
             UpdateGuiCurrentServices();
+            UpdateGuiCurrentSchtasks();
 
             services_stop.Text = winBoxProject.winBoxConfig.services_stop ?? "";
             services_start.Text = winBoxProject.winBoxConfig.services_start ?? "";
@@ -2981,6 +2991,33 @@ namespace WinBox_Maker
 
             winBoxProject.winBoxConfig.recoveryMountedEarly_breakafter = recoveryMountedEarly_breakafter.Checked;
             winBoxProject.SaveConfig();
+        }
+
+        private void schtasks_stopOrDeleteOnlyFromList_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.schtasks_stopOrDeleteOnlyFromList = schtasks_stopOrDeleteOnlyFromList.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGuiCurrentSchtasks();
+        }
+
+        private void schtasks_stopOrDelete_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.schtasks_stopOrDelete = schtasks_stopOrDelete.Text;
+            winBoxProject.SaveConfig();
+            UpdateGuiCurrentSchtasks();
+        }
+
+        private void schtasks_stopOrDelete_deleteFromList_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.schtasks_stopOrDelete_deleteFromList = schtasks_stopOrDelete_deleteFromList.Text;
+            winBoxProject.SaveConfig();
+            UpdateGuiCurrentSchtasks();
         }
     }
 }

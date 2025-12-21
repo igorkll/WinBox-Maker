@@ -493,13 +493,13 @@
             tabControl11 = new TabControl();
             tabPage52 = new TabPage();
             label94 = new Label();
-            richTextBox29 = new RichTextBox();
+            schtasks_stopOrDelete_view = new RichTextBox();
             tabPage53 = new TabPage();
             label95 = new Label();
-            richTextBox30 = new RichTextBox();
+            schtasks_stopOrDelete_deleteFromList = new RichTextBox();
             label97 = new Label();
-            checkBox2 = new CheckBox();
-            richTextBox31 = new RichTextBox();
+            schtasks_stopOrDeleteOnlyFromList = new CheckBox();
+            schtasks_stopOrDelete = new RichTextBox();
             richTextBox27 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -5492,7 +5492,7 @@
             // tabPage52
             // 
             tabPage52.Controls.Add(label94);
-            tabPage52.Controls.Add(richTextBox29);
+            tabPage52.Controls.Add(schtasks_stopOrDelete_view);
             tabPage52.Location = new Point(4, 34);
             tabPage52.Name = "tabPage52";
             tabPage52.Padding = new Padding(3);
@@ -5511,22 +5511,22 @@
             label94.TabIndex = 40;
             label94.Text = "delete/stop";
             // 
-            // richTextBox29
+            // schtasks_stopOrDelete_view
             // 
-            richTextBox29.Location = new Point(6, 39);
-            richTextBox29.Name = "richTextBox29";
-            richTextBox29.ReadOnly = true;
-            richTextBox29.Size = new Size(628, 157);
-            richTextBox29.TabIndex = 38;
-            richTextBox29.Text = "";
+            schtasks_stopOrDelete_view.Location = new Point(6, 39);
+            schtasks_stopOrDelete_view.Name = "schtasks_stopOrDelete_view";
+            schtasks_stopOrDelete_view.ReadOnly = true;
+            schtasks_stopOrDelete_view.Size = new Size(628, 157);
+            schtasks_stopOrDelete_view.TabIndex = 38;
+            schtasks_stopOrDelete_view.Text = "";
             // 
             // tabPage53
             // 
             tabPage53.Controls.Add(label95);
-            tabPage53.Controls.Add(richTextBox30);
+            tabPage53.Controls.Add(schtasks_stopOrDelete_deleteFromList);
             tabPage53.Controls.Add(label97);
-            tabPage53.Controls.Add(checkBox2);
-            tabPage53.Controls.Add(richTextBox31);
+            tabPage53.Controls.Add(schtasks_stopOrDeleteOnlyFromList);
+            tabPage53.Controls.Add(schtasks_stopOrDelete);
             tabPage53.Location = new Point(4, 34);
             tabPage53.Name = "tabPage53";
             tabPage53.Padding = new Padding(3);
@@ -5545,13 +5545,14 @@
             label95.TabIndex = 49;
             label95.Text = "delete from list";
             // 
-            // richTextBox30
+            // schtasks_stopOrDelete_deleteFromList
             // 
-            richTextBox30.Location = new Point(328, 39);
-            richTextBox30.Name = "richTextBox30";
-            richTextBox30.Size = new Size(308, 157);
-            richTextBox30.TabIndex = 48;
-            richTextBox30.Text = "";
+            schtasks_stopOrDelete_deleteFromList.Location = new Point(328, 39);
+            schtasks_stopOrDelete_deleteFromList.Name = "schtasks_stopOrDelete_deleteFromList";
+            schtasks_stopOrDelete_deleteFromList.Size = new Size(308, 157);
+            schtasks_stopOrDelete_deleteFromList.TabIndex = 48;
+            schtasks_stopOrDelete_deleteFromList.Text = "";
+            schtasks_stopOrDelete_deleteFromList.TextChanged += schtasks_stopOrDelete_deleteFromList_TextChanged;
             // 
             // label97
             // 
@@ -5563,23 +5564,25 @@
             label97.TabIndex = 44;
             label97.Text = "delete/stop";
             // 
-            // checkBox2
+            // schtasks_stopOrDeleteOnlyFromList
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(151, 6);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(140, 29);
-            checkBox2.TabIndex = 46;
-            checkBox2.Text = "stop only list";
-            checkBox2.UseVisualStyleBackColor = true;
+            schtasks_stopOrDeleteOnlyFromList.AutoSize = true;
+            schtasks_stopOrDeleteOnlyFromList.Location = new Point(151, 6);
+            schtasks_stopOrDeleteOnlyFromList.Name = "schtasks_stopOrDeleteOnlyFromList";
+            schtasks_stopOrDeleteOnlyFromList.Size = new Size(140, 29);
+            schtasks_stopOrDeleteOnlyFromList.TabIndex = 46;
+            schtasks_stopOrDeleteOnlyFromList.Text = "stop only list";
+            schtasks_stopOrDeleteOnlyFromList.UseVisualStyleBackColor = true;
+            schtasks_stopOrDeleteOnlyFromList.CheckedChanged += schtasks_stopOrDeleteOnlyFromList_CheckedChanged;
             // 
-            // richTextBox31
+            // schtasks_stopOrDelete
             // 
-            richTextBox31.Location = new Point(6, 39);
-            richTextBox31.Name = "richTextBox31";
-            richTextBox31.Size = new Size(316, 157);
-            richTextBox31.TabIndex = 42;
-            richTextBox31.Text = "";
+            schtasks_stopOrDelete.Location = new Point(6, 39);
+            schtasks_stopOrDelete.Name = "schtasks_stopOrDelete";
+            schtasks_stopOrDelete.Size = new Size(316, 157);
+            schtasks_stopOrDelete.TabIndex = 42;
+            schtasks_stopOrDelete.Text = "";
+            schtasks_stopOrDelete.TextChanged += schtasks_stopOrDelete_TextChanged;
             // 
             // richTextBox27
             // 
@@ -6264,13 +6267,13 @@
         private TabControl tabControl11;
         private TabPage tabPage52;
         private Label label94;
-        private RichTextBox richTextBox29;
+        private RichTextBox schtasks_stopOrDelete_view;
         private TabPage tabPage53;
         private Label label95;
-        private RichTextBox richTextBox30;
+        private RichTextBox schtasks_stopOrDelete_deleteFromList;
         private Label label97;
-        private CheckBox checkBox2;
-        private RichTextBox richTextBox31;
+        private CheckBox schtasks_stopOrDeleteOnlyFromList;
+        private RichTextBox schtasks_stopOrDelete;
         private RichTextBox richTextBox27;
     }
 }

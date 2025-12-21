@@ -237,6 +237,7 @@ namespace WinBox_Maker
 
 
         public string? schtasks_stopOrDelete { get; set; }
+        public string? schtasks_stopOrDelete_deleteFromList { get; set; }
         public bool? schtasks_stopOrDeleteOnlyFromList { get; set; }
 
 
@@ -424,6 +425,7 @@ namespace WinBox_Maker
             if (recoveryMountedEarly_breakafter == null) recoveryMountedEarly_breakafter = false;
 
             if (schtasks_stopOrDelete == null) schtasks_stopOrDelete = "";
+            if (schtasks_stopOrDelete_deleteFromList == null) schtasks_stopOrDelete_deleteFromList = "";
             if (schtasks_stopOrDeleteOnlyFromList == null) schtasks_stopOrDeleteOnlyFromList = false;
         }
 
