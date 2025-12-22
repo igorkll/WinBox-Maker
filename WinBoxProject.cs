@@ -1646,6 +1646,11 @@ powercfg -s {powerScheme}";
             return packageNames.ToArray();
         }
 
+        string[] getFullPackagesNames(string[] packageNames, string packageNamePart)
+        {
+            return packageNames.Where(line => line.Contains(packageNamePart, StringComparison.OrdinalIgnoreCase)).ToArray();
+        }
+
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath, bool initViaVmMode = false)
         {
             string RemovePaths_log = "";
@@ -3034,6 +3039,9 @@ if errorlevel 1 (
             processName("Deleting unnecessary content");
             processValue(62);
 
+            string[]? fullPackagesNames = null;
+            string[]? fullProvisionedPackagesNames = null;
+
             async Task execDismCmd(string name, int type)
             {
                 switch (type)
@@ -3065,21 +3073,53 @@ if errorlevel 1 (
                 }
             }
 
-            string getFullPackageName(string name, bool provisionPackage=false)
+            async Task<string[]> getLocalFullPackagesNames(string name, bool provisionPackage=false)
             {
                 if (name.StartsWith("*"))
                 {
                     name = name.Substring(1);
-                    return name;
+
+                    string[]? packagesNames = null;
+                    if (provisionPackage)
+                    {
+                        packagesNames = fullProvisionedPackagesNames;
+                    }
+                    else
+                    {
+                        packagesNames = fullPackagesNames;
+                    }
+
+                    if (packagesNames == null)
+                    {
+                        packagesNames = await getImagePackagesList(provisionPackage);
+                        if (provisionPackage)
+                        {
+                            fullProvisionedPackagesNames = packagesNames;
+                        }
+                        else
+                        {
+                            fullPackagesNames = packagesNames;
+                        }
+                    }
+
+                    return getFullPackagesNames(packagesNames, name);
                 }
-                return name;
+                return [name];
+            }
+
+            async Task executeDismPackageDelete(string name, bool provisionPackage = false)
+            {
+                string[] packagesToDelete = await getLocalFullPackagesNames(name, provisionPackage);
+                foreach (string packageName in packagesToDelete) {
+                    await execDismCmd(packageName, provisionPackage ? 2 : 1);
+                }
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_universal ?? ""))
             {
                 await execDismCmd(name, 0);
-                await execDismCmd(getFullPackageName(name, false), 1);
-                await execDismCmd(getFullPackageName(name, true), 2);
+                await executeDismPackageDelete(name, false);
+                await executeDismPackageDelete(name, true);
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism ?? ""))
@@ -3089,12 +3129,12 @@ if errorlevel 1 (
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_package ?? ""))
             {
-                await execDismCmd(getFullPackageName(name, false), 1);
+                await executeDismPackageDelete(name, false);
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_appx_package ?? ""))
             {
-                await execDismCmd(getFullPackageName(name, true), 2);
+                await executeDismPackageDelete(name, true);
             }
 
             if (!manual)
