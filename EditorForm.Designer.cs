@@ -167,7 +167,6 @@
             bootresRepacking_logoPath_clr = new Button();
             bootresRepacking_logoPath_sel = new Button();
             bootresRepacking_logoPath = new Label();
-            tabPage23 = new TabPage();
             logoBeforeApp_panel = new Panel();
             logoBeforeApp_stretch = new ComboBox();
             label63 = new Label();
@@ -466,6 +465,7 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            tabPage49 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -497,7 +497,6 @@
             panel15.SuspendLayout();
             tabPage48.SuspendLayout();
             bootresRepacking_panel.SuspendLayout();
-            tabPage23.SuspendLayout();
             logoBeforeApp_panel.SuspendLayout();
             tabPage22.SuspendLayout();
             panel14.SuspendLayout();
@@ -567,6 +566,7 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage49.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1907,7 +1907,6 @@
             // tabControl4
             // 
             tabControl4.Controls.Add(tabPage21);
-            tabControl4.Controls.Add(tabPage23);
             tabControl4.Controls.Add(tabPage22);
             tabControl4.Location = new Point(3, 4);
             tabControl4.Name = "tabControl4";
@@ -1930,6 +1929,7 @@
             // 
             tabControl10.Controls.Add(tabPage47);
             tabControl10.Controls.Add(tabPage48);
+            tabControl10.Controls.Add(tabPage49);
             tabControl10.Location = new Point(6, 6);
             tabControl10.Name = "tabControl10";
             tabControl10.SelectedIndex = 0;
@@ -1944,7 +1944,7 @@
             tabPage47.Padding = new Padding(3);
             tabPage47.Size = new Size(964, 196);
             tabPage47.TabIndex = 0;
-            tabPage47.Text = "HackBGRT";
+            tabPage47.Text = "HackBGRT (and other)";
             tabPage47.UseVisualStyleBackColor = true;
             // 
             // panel15
@@ -1959,13 +1959,13 @@
             panel15.Controls.Add(CustomBootLogo);
             panel15.Location = new Point(6, 6);
             panel15.Name = "panel15";
-            panel15.Size = new Size(473, 184);
+            panel15.Size = new Size(520, 184);
             panel15.TabIndex = 16;
             // 
             // CustomBootLogo_UseOnBootres
             // 
             CustomBootLogo_UseOnBootres.AutoSize = true;
-            CustomBootLogo_UseOnBootres.Location = new Point(110, 113);
+            CustomBootLogo_UseOnBootres.Location = new Point(157, 110);
             CustomBootLogo_UseOnBootres.Name = "CustomBootLogo_UseOnBootres";
             CustomBootLogo_UseOnBootres.Size = new Size(356, 29);
             CustomBootLogo_UseOnBootres.TabIndex = 14;
@@ -1976,7 +1976,7 @@
             // CustomBootLogo_UseLogoBeforeApp
             // 
             CustomBootLogo_UseLogoBeforeApp.AutoSize = true;
-            CustomBootLogo_UseLogoBeforeApp.Location = new Point(125, 148);
+            CustomBootLogo_UseLogoBeforeApp.Location = new Point(172, 145);
             CustomBootLogo_UseLogoBeforeApp.Name = "CustomBootLogo_UseLogoBeforeApp";
             CustomBootLogo_UseLogoBeforeApp.Size = new Size(341, 29);
             CustomBootLogo_UseLogoBeforeApp.TabIndex = 13;
@@ -2024,6 +2024,7 @@
             bootresRepacking_logoPath_clr.TabIndex = 10;
             bootresRepacking_logoPath_clr.Text = "clear";
             bootresRepacking_logoPath_clr.UseVisualStyleBackColor = true;
+            bootresRepacking_logoPath_clr.Click += bootresRepacking_logoPath_clr_Click;
             // 
             // bootresRepacking_logoPath_sel
             // 
@@ -2033,6 +2034,7 @@
             bootresRepacking_logoPath_sel.TabIndex = 9;
             bootresRepacking_logoPath_sel.Text = "select";
             bootresRepacking_logoPath_sel.UseVisualStyleBackColor = true;
+            bootresRepacking_logoPath_sel.Click += bootresRepacking_logoPath_sel_Click;
             // 
             // bootresRepacking_logoPath
             // 
@@ -2043,17 +2045,6 @@
             bootresRepacking_logoPath.TabIndex = 11;
             bootresRepacking_logoPath.Text = "bmp file";
             // 
-            // tabPage23
-            // 
-            tabPage23.Controls.Add(logoBeforeApp_panel);
-            tabPage23.Controls.Add(richTextBox9);
-            tabPage23.Location = new Point(4, 34);
-            tabPage23.Name = "tabPage23";
-            tabPage23.Size = new Size(984, 246);
-            tabPage23.TabIndex = 2;
-            tabPage23.Text = "app logo";
-            tabPage23.UseVisualStyleBackColor = true;
-            // 
             // logoBeforeApp_panel
             // 
             logoBeforeApp_panel.BorderStyle = BorderStyle.Fixed3D;
@@ -2062,9 +2053,9 @@
             logoBeforeApp_panel.Controls.Add(logoBeforeApp_clear);
             logoBeforeApp_panel.Controls.Add(logoBeforeApp);
             logoBeforeApp_panel.Controls.Add(logoBeforeApp_select);
-            logoBeforeApp_panel.Location = new Point(6, 7);
+            logoBeforeApp_panel.Location = new Point(6, 6);
             logoBeforeApp_panel.Name = "logoBeforeApp_panel";
-            logoBeforeApp_panel.Size = new Size(476, 236);
+            logoBeforeApp_panel.Size = new Size(473, 184);
             logoBeforeApp_panel.TabIndex = 17;
             // 
             // logoBeforeApp_stretch
@@ -2072,7 +2063,7 @@
             logoBeforeApp_stretch.DropDownStyle = ComboBoxStyle.DropDownList;
             logoBeforeApp_stretch.FormattingEnabled = true;
             logoBeforeApp_stretch.Items.AddRange(new object[] { "native size", "stretch with distortion", "stretch without distortion", "stretch without distortion (cutting)" });
-            logoBeforeApp_stretch.Location = new Point(3, 66);
+            logoBeforeApp_stretch.Location = new Point(3, 69);
             logoBeforeApp_stretch.Name = "logoBeforeApp_stretch";
             logoBeforeApp_stretch.Size = new Size(302, 33);
             logoBeforeApp_stretch.TabIndex = 15;
@@ -2081,7 +2072,7 @@
             // label63
             // 
             label63.AutoSize = true;
-            label63.Location = new Point(3, 0);
+            label63.Location = new Point(3, 3);
             label63.Name = "label63";
             label63.Size = new Size(257, 25);
             label63.TabIndex = 14;
@@ -2089,7 +2080,7 @@
             // 
             // logoBeforeApp_clear
             // 
-            logoBeforeApp_clear.Location = new Point(88, 28);
+            logoBeforeApp_clear.Location = new Point(88, 31);
             logoBeforeApp_clear.Name = "logoBeforeApp_clear";
             logoBeforeApp_clear.Size = new Size(82, 34);
             logoBeforeApp_clear.TabIndex = 16;
@@ -2100,7 +2091,7 @@
             // logoBeforeApp
             // 
             logoBeforeApp.AutoSize = true;
-            logoBeforeApp.Location = new Point(176, 33);
+            logoBeforeApp.Location = new Point(176, 36);
             logoBeforeApp.Name = "logoBeforeApp";
             logoBeforeApp.Size = new Size(78, 25);
             logoBeforeApp.TabIndex = 17;
@@ -2108,7 +2099,7 @@
             // 
             // logoBeforeApp_select
             // 
-            logoBeforeApp_select.Location = new Point(3, 28);
+            logoBeforeApp_select.Location = new Point(3, 31);
             logoBeforeApp_select.Name = "logoBeforeApp_select";
             logoBeforeApp_select.Size = new Size(82, 34);
             logoBeforeApp_select.TabIndex = 15;
@@ -2119,9 +2110,9 @@
             // richTextBox9
             // 
             richTextBox9.BackColor = SystemColors.Info;
-            richTextBox9.Location = new Point(488, 3);
+            richTextBox9.Location = new Point(485, 6);
             richTextBox9.Name = "richTextBox9";
-            richTextBox9.Size = new Size(493, 240);
+            richTextBox9.Size = new Size(476, 184);
             richTextBox9.TabIndex = 18;
             richTextBox9.Text = resources.GetString("richTextBox9.Text");
             // 
@@ -5159,6 +5150,17 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // tabPage49
+            // 
+            tabPage49.Controls.Add(logoBeforeApp_panel);
+            tabPage49.Controls.Add(richTextBox9);
+            tabPage49.Location = new Point(4, 34);
+            tabPage49.Name = "tabPage49";
+            tabPage49.Size = new Size(964, 196);
+            tabPage49.TabIndex = 2;
+            tabPage49.Text = "app logo (after boot, before you application)";
+            tabPage49.UseVisualStyleBackColor = true;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -5238,7 +5240,6 @@
             tabPage48.ResumeLayout(false);
             bootresRepacking_panel.ResumeLayout(false);
             bootresRepacking_panel.PerformLayout();
-            tabPage23.ResumeLayout(false);
             logoBeforeApp_panel.ResumeLayout(false);
             logoBeforeApp_panel.PerformLayout();
             tabPage22.ResumeLayout(false);
@@ -5350,6 +5351,7 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage49.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5637,7 +5639,6 @@
         private TabControl tabControl4;
         private TabPage tabPage21;
         private TabPage tabPage22;
-        private TabPage tabPage23;
         private CheckBox wait_before_app_logo;
         private TabControl tabControl5;
         private TabPage tabPage24;
@@ -5795,5 +5796,6 @@
         private Button bootresRepacking_logoPath_clr;
         private Button bootresRepacking_logoPath_sel;
         private Label bootresRepacking_logoPath;
+        private TabPage tabPage49;
     }
 }

@@ -2825,5 +2825,24 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
             UpdateGui();
         }
+
+        private async void bootresRepacking_logoPath_sel_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.imageFilter, winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.bootresRepacking_logoPath = name;
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void bootresRepacking_logoPath_clr_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.bootresRepacking_logoPath = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
     }
 }
