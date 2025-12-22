@@ -135,6 +135,55 @@ namespace WinBox_Maker
             updateSelectedItem(lastItem);
         }
 
+        void ItemCheckHandler<T>(
+            CheckedListBox listControl,
+            List<T> items,
+            ref int currentIndex,
+            Action<T?> updateSelectedItem,
+            ItemCheckEventArgs e)
+            where T : class
+        {
+            if (softwareCheck) return;
+
+            softwareCheck = true;
+            bool state = e.NewValue == CheckState.Checked;
+
+            if (state)
+            {
+                int index = e.Index;
+                for (int i = 0; i < listControl.Items.Count; i++)
+                {
+                    listControl.SetItemChecked(i, i == index);
+                }
+
+                currentIndex = index;
+                updateSelectedItem(items[index]);
+            }
+            else
+            {
+                currentIndex = -1;
+                updateSelectedItem(null);
+            }
+
+            softwareCheck = false;
+        }
+
+        private void BuildItems_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            ItemCheckHandler(BuildItems, winBoxProject.winBoxConfig.BuildItems, ref currentBuildItemIndex, UpdateSelectedBuildItem, e);
+        }
+
+        private void DownloadItems_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            ItemCheckHandler(DownloadItems, winBoxProject.winBoxConfig.DownloadItems, ref currentDownloadItemIndex, UpdateSelectedDownloadItem, e);
+        }
+
+        private void keyboard_layouts_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            int currentIndex = -1;
+            ItemCheckHandler(keyboard_layouts, winBoxProject.winBoxConfig.keyboard_layouts, ref currentIndex, UpdateSelectedKeyboardLayout, e);
+        }
+
         void UpdateDownloadItemsList()
         {
             UpdateItemsList(
@@ -1295,30 +1344,6 @@ namespace WinBox_Maker
             UpdateGuiCurrentServices();
         }
 
-        private void DownloadItems_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            if (softwareCheck) return;
-
-            softwareCheck = true;
-            bool state = e.NewValue == CheckState.Checked;
-            if (state)
-            {
-                int index = e.Index;
-                for (int i = 0; i < DownloadItems.Items.Count; i++)
-                {
-                    DownloadItems.SetItemChecked(i, index == i);
-                }
-                currentDownloadItemIndex = index;
-                UpdateSelectedDownloadItem(winBoxProject.winBoxConfig.DownloadItems[index]);
-            }
-            else
-            {
-                currentDownloadItemIndex = -1;
-                UpdateSelectedDownloadItem(null);
-            }
-            softwareCheck = false;
-        }
-
         private async void CustomBootLogo_select_Click(object sender, EventArgs e)
         {
             LockForm();
@@ -1669,30 +1694,6 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.BuildItems.Remove(currentBuildItem);
             winBoxProject.SaveConfig();
             UpdateBuildItemsList();
-        }
-
-        private void BuildItems_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            if (softwareCheck) return;
-
-            softwareCheck = true;
-            bool state = e.NewValue == CheckState.Checked;
-            if (state)
-            {
-                int index = e.Index;
-                for (int i = 0; i < BuildItems.Items.Count; i++)
-                {
-                    BuildItems.SetItemChecked(i, index == i);
-                }
-                currentBuildItemIndex = index;
-                UpdateSelectedBuildItem(winBoxProject.winBoxConfig.BuildItems[index]);
-            }
-            else
-            {
-                currentBuildItemIndex = -1;
-                UpdateSelectedBuildItem(null);
-            }
-            softwareCheck = false;
         }
 
         private void bl_title_TextChanged(object sender, EventArgs e)

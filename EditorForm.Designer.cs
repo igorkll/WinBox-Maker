@@ -2968,6 +2968,7 @@
             keyboard_layouts.Size = new Size(336, 228);
             keyboard_layouts.TabIndex = 0;
             keyboard_layouts.SelectedIndexChanged += keyboard_layouts_SelectedIndexChanged;
+            keyboard_layouts.ItemCheck += keyboard_layouts_ItemCheck;
             // 
             // tabPage56
             // 
