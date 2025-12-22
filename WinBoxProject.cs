@@ -3042,6 +3042,8 @@ if errorlevel 1 (
             string[]? fullPackagesNames = null;
             string[]? fullProvisionedPackagesNames = null;
 
+            string RemoveDism_log = "";
+
             async Task execDismCmd(string name, int type)
             {
                 switch (type)
@@ -3091,6 +3093,7 @@ if errorlevel 1 (
 
                     if (packagesNames == null)
                     {
+                        RemoveDism_log += $"get full packages names: provisionPackage: {provisionPackage} < request\r\n";
                         packagesNames = await getImagePackagesList(provisionPackage);
                         if (provisionPackage)
                         {
@@ -3102,21 +3105,28 @@ if errorlevel 1 (
                         }
                     }
 
+                    RemoveDism_log += $"get full packages names: {name} | provisionPackage: {provisionPackage} > find\r\n";
                     return getFullPackagesNames(packagesNames, name);
                 }
+
+                RemoveDism_log += $"get full packages names: {name} | provisionPackage: {provisionPackage} > stub\r\n";
                 return [name];
             }
 
             async Task executeDismPackageDelete(string name, bool provisionPackage = false)
             {
+                RemoveDism_log += $"multi delete: {name} | provisionPackage: {provisionPackage}\r\n";
                 string[] packagesToDelete = await getLocalFullPackagesNames(name, provisionPackage);
                 foreach (string packageName in packagesToDelete) {
+                    RemoveDism_log += $"multi delete: {packageName}\r\n";
                     await execDismCmd(packageName, provisionPackage ? 2 : 1);
                 }
+                RemoveDism_log += $"multi delete: end\r\n";
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_universal ?? ""))
             {
+                RemoveDism_log += $"universal delete request: {name}\r\n";
                 await execDismCmd(name, 0);
                 await executeDismPackageDelete(name, false);
                 await executeDismPackageDelete(name, true);
@@ -3124,16 +3134,19 @@ if errorlevel 1 (
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism ?? ""))
             {
+                RemoveDism_log += $"disable-feature request: {name}\r\n";
                 await execDismCmd(name, 0);
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_package ?? ""))
             {
+                RemoveDism_log += $"Remove-Package request: {name}\r\n";
                 await executeDismPackageDelete(name, false);
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_appx_package ?? ""))
             {
+                RemoveDism_log += $"Remove-ProvisionedAppxPackage request: {name}\r\n";
                 await executeDismPackageDelete(name, true);
             }
 
@@ -3188,6 +3201,7 @@ if errorlevel 1 (
             */
 
             await writeDebugFile("RemovePaths", RemovePaths_log);
+            await writeDebugFile("RemoveDism", RemoveDism_log);
 
             // ------------------------------------ save & export
 
