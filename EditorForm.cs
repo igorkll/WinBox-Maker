@@ -3211,9 +3211,8 @@ namespace WinBox_Maker
 
         private void keyboard_layouts_add_Click(object sender, EventArgs e)
         {
-            TwoStrings twoStrings = new TwoStrings();
-            twoStrings.string1 = "1";
-            twoStrings.string2 = "2";
+            TwoStrings[] all_keyboard_layouts = winBoxProject.GetWindowsKeyboardLayouts();
+            TwoStrings twoStrings = all_keyboard_layouts[keyboard_layouts_available.SelectedIndex];
 
             winBoxProject.winBoxConfig.keyboard_layouts.Add(twoStrings);
             winBoxProject.SaveConfig();
