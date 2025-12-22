@@ -1511,10 +1511,11 @@ powercfg -s {powerScheme}";
 
         string getKeyboardLayoutsSetup()
         {
-            string cmd = @"reg delete ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Keyboard Layout\Preload"" /va /f";
+            string cmd = @"reg delete ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Keyboard Layout\Preload"" /va /f" + "\r\n";
 
+            int index = 1;
             foreach (TwoStrings twoStrings in winBoxConfig.keyboard_layouts) {
-                cmd += @$"reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Keyboard Layout\Preload"" /v AutoEndTasks /t REG_SZ /d ""{twoStrings.string2}"" /f";
+                cmd += @$"reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Keyboard Layout\Preload"" /v ""{index++}"" /t REG_SZ /d ""{twoStrings.string2}"" /f" + "\r\n";
             }
 
             return cmd;
