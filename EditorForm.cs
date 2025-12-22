@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -2926,7 +2927,7 @@ namespace WinBox_Maker
             MoveDown
         }
 
-        void doItemAction<T>(List<T> list, T item, ItemAction action, Action saveConfig, Action updateList)
+        void doItemAction<T>(CheckedListBox listControl, List<T> list, T item, ItemAction action, Action saveConfig, Action updateList)
         {
             if (!list.Contains(item)) return;
 
@@ -2971,6 +2972,15 @@ namespace WinBox_Maker
 
             saveConfig?.Invoke();
             updateList?.Invoke();
+
+            if (action != ItemAction.Remove)
+            {
+                int newIndex = list.IndexOf(item);
+                for (int i = 0; i < listControl.Items.Count; i++)
+                {
+                    listControl.SetItemChecked(i, i == newIndex);
+                }
+            }
         }
 
         // ------------- update lists
@@ -3079,6 +3089,7 @@ namespace WinBox_Maker
         void bl_delete_Click(object sender, EventArgs e)
         {
             doItemAction(
+                BuildItems,
                 winBoxProject.winBoxConfig.BuildItems,
                 currentBuildItem,
                 ItemAction.Remove,
@@ -3090,6 +3101,7 @@ namespace WinBox_Maker
         private void dl_delete_Click(object sender, EventArgs e)
         {
             doItemAction(
+                DownloadItems,
                 winBoxProject.winBoxConfig.DownloadItems,
                 currentDownloadItem,
                 ItemAction.Remove,
@@ -3101,6 +3113,7 @@ namespace WinBox_Maker
         private void keyboard_layouts_remove_Click(object sender, EventArgs e)
         {
             doItemAction(
+                keyboard_layouts,
                 winBoxProject.winBoxConfig.keyboard_layouts,
                 current_keyboard_layout,
                 ItemAction.Remove,
@@ -3113,18 +3126,36 @@ namespace WinBox_Maker
 
         private void BuildItems_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            ItemCheckHandler(BuildItems, winBoxProject.winBoxConfig.BuildItems, ref currentBuildItemIndex, UpdateSelectedBuildItem, e);
+            ItemCheckHandler(
+                BuildItems,
+                winBoxProject.winBoxConfig.BuildItems,
+                ref currentBuildItemIndex,
+                UpdateSelectedBuildItem,
+                e
+            );
         }
 
         private void DownloadItems_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            ItemCheckHandler(DownloadItems, winBoxProject.winBoxConfig.DownloadItems, ref currentDownloadItemIndex, UpdateSelectedDownloadItem, e);
+            ItemCheckHandler(
+                DownloadItems,
+                winBoxProject.winBoxConfig.DownloadItems,
+                ref currentDownloadItemIndex,
+                UpdateSelectedDownloadItem,
+                e
+            );
         }
 
         private void keyboard_layouts_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             int currentIndex = -1;
-            ItemCheckHandler(keyboard_layouts, winBoxProject.winBoxConfig.keyboard_layouts, ref currentIndex, UpdateSelectedKeyboardLayout, e);
+            ItemCheckHandler(
+                keyboard_layouts,
+                winBoxProject.winBoxConfig.keyboard_layouts,
+                ref currentIndex,
+                UpdateSelectedKeyboardLayout,
+                e
+            );
         }
 
         // ------------- add
@@ -3174,6 +3205,7 @@ namespace WinBox_Maker
         private void keyboard_layouts_makeDefault_Click(object sender, EventArgs e)
         {
             doItemAction(
+                keyboard_layouts,
                 winBoxProject.winBoxConfig.keyboard_layouts,
                 current_keyboard_layout,
                 ItemAction.MoveToTop,
