@@ -407,6 +407,12 @@ Windows Registry Editor Version 5.00
 "84"="*:\\ "
 "85"="*:\\*"
 
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\UX Configuration]
+"Notification_Suppress"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\UX Configuration]
+"Notification_Suppress"=dword:00000001
+
 ; ---------------- disable TamperProtection
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\Features]
 "TamperProtection"=dword:00000004
