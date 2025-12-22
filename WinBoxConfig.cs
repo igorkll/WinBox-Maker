@@ -127,6 +127,8 @@ namespace WinBox_Maker
         public bool? buildEnabled { get; set; }
         public List<DownloadItem>? DownloadItems { get; set; }
         public List<BuildItem>? BuildItems { get; set; }
+        public List<TwoStrings>? keyboard_layouts { get; set; }
+        public bool? keyboard_layouts_firstAdded { get; set; }
         public bool? forceIot { get; set; }
         public bool? dc_use { get; set; }
         public bool? enable_hibernation { get; set; }
@@ -297,6 +299,8 @@ namespace WinBox_Maker
             if (buildEnabled == null) buildEnabled = false;
             if (DownloadItems == null) DownloadItems = new List<DownloadItem>();
             if (BuildItems == null) BuildItems = new List<BuildItem>();
+            if (keyboard_layouts == null) keyboard_layouts = new List<TwoStrings>();
+            if (keyboard_layouts_firstAdded == null) keyboard_layouts_firstAdded = false;
             if (forceIot == null) forceIot = false;
             if (dc_use == null) dc_use = false;
             if (enable_hibernation == null) enable_hibernation = false;

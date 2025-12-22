@@ -277,6 +277,18 @@
             services_stopOnlyList = new CheckBox();
             services_stop = new RichTextBox();
             services_start = new RichTextBox();
+            tabPage51 = new TabPage();
+            richTextBox27 = new RichTextBox();
+            tabControl11 = new TabControl();
+            tabPage52 = new TabPage();
+            label94 = new Label();
+            schtasks_stopOrDelete_view = new RichTextBox();
+            tabPage53 = new TabPage();
+            label95 = new Label();
+            schtasks_stopOrDelete_deleteFromList = new RichTextBox();
+            label97 = new Label();
+            schtasks_stopOrDeleteOnlyFromList = new CheckBox();
+            schtasks_stopOrDelete = new RichTextBox();
             tabPage38 = new TabPage();
             tabControl8 = new TabControl();
             tabPage33 = new TabPage();
@@ -489,18 +501,14 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            tabPage51 = new TabPage();
-            tabControl11 = new TabControl();
-            tabPage52 = new TabPage();
-            label94 = new Label();
-            schtasks_stopOrDelete_view = new RichTextBox();
-            tabPage53 = new TabPage();
-            label95 = new Label();
-            schtasks_stopOrDelete_deleteFromList = new RichTextBox();
-            label97 = new Label();
-            schtasks_stopOrDeleteOnlyFromList = new CheckBox();
-            schtasks_stopOrDelete = new RichTextBox();
-            richTextBox27 = new RichTextBox();
+            tabPage54 = new TabPage();
+            tabControl12 = new TabControl();
+            tabPage55 = new TabPage();
+            tabPage56 = new TabPage();
+            keyboard_layouts = new CheckedListBox();
+            keyboard_layouts_available = new ComboBox();
+            keyboard_layouts_add = new Button();
+            keyboard_layouts_remove = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -556,6 +564,10 @@
             tabControl7.SuspendLayout();
             tabPage34.SuspendLayout();
             tabPage35.SuspendLayout();
+            tabPage51.SuspendLayout();
+            tabControl11.SuspendLayout();
+            tabPage52.SuspendLayout();
+            tabPage53.SuspendLayout();
             tabPage38.SuspendLayout();
             tabControl8.SuspendLayout();
             tabPage33.SuspendLayout();
@@ -604,10 +616,9 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage51.SuspendLayout();
-            tabControl11.SuspendLayout();
-            tabPage52.SuspendLayout();
-            tabPage53.SuspendLayout();
+            tabPage54.SuspendLayout();
+            tabControl12.SuspendLayout();
+            tabPage55.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1915,6 +1926,7 @@
             tabControl2.Controls.Add(tabPage12);
             tabControl2.Controls.Add(tabPage6);
             tabControl2.Controls.Add(tabPage15);
+            tabControl2.Controls.Add(tabPage54);
             tabControl2.Controls.Add(tabPage13);
             tabControl2.Controls.Add(tabPage17);
             tabControl2.Controls.Add(tabPage3);
@@ -3244,6 +3256,132 @@
             services_start.TabIndex = 43;
             services_start.Text = "";
             services_start.TextChanged += services_start_TextChanged;
+            // 
+            // tabPage51
+            // 
+            tabPage51.Controls.Add(richTextBox27);
+            tabPage51.Controls.Add(tabControl11);
+            tabPage51.Location = new Point(4, 34);
+            tabPage51.Name = "tabPage51";
+            tabPage51.Size = new Size(984, 252);
+            tabPage51.TabIndex = 1;
+            tabPage51.Text = "schtasks";
+            tabPage51.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox27
+            // 
+            richTextBox27.BackColor = SystemColors.Info;
+            richTextBox27.Location = new Point(660, 6);
+            richTextBox27.Name = "richTextBox27";
+            richTextBox27.ReadOnly = true;
+            richTextBox27.Size = new Size(321, 236);
+            richTextBox27.TabIndex = 45;
+            richTextBox27.Text = resources.GetString("richTextBox27.Text");
+            // 
+            // tabControl11
+            // 
+            tabControl11.Controls.Add(tabPage52);
+            tabControl11.Controls.Add(tabPage53);
+            tabControl11.Location = new Point(6, 6);
+            tabControl11.Name = "tabControl11";
+            tabControl11.SelectedIndex = 0;
+            tabControl11.Size = new Size(648, 240);
+            tabControl11.TabIndex = 45;
+            // 
+            // tabPage52
+            // 
+            tabPage52.Controls.Add(label94);
+            tabPage52.Controls.Add(schtasks_stopOrDelete_view);
+            tabPage52.Location = new Point(4, 34);
+            tabPage52.Name = "tabPage52";
+            tabPage52.Padding = new Padding(3);
+            tabPage52.Size = new Size(640, 202);
+            tabPage52.TabIndex = 0;
+            tabPage52.Text = "current";
+            tabPage52.UseVisualStyleBackColor = true;
+            // 
+            // label94
+            // 
+            label94.AutoSize = true;
+            label94.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label94.Location = new Point(9, 3);
+            label94.Name = "label94";
+            label94.Size = new Size(136, 32);
+            label94.TabIndex = 40;
+            label94.Text = "delete/stop";
+            // 
+            // schtasks_stopOrDelete_view
+            // 
+            schtasks_stopOrDelete_view.Location = new Point(6, 39);
+            schtasks_stopOrDelete_view.Name = "schtasks_stopOrDelete_view";
+            schtasks_stopOrDelete_view.ReadOnly = true;
+            schtasks_stopOrDelete_view.Size = new Size(628, 157);
+            schtasks_stopOrDelete_view.TabIndex = 38;
+            schtasks_stopOrDelete_view.Text = "";
+            // 
+            // tabPage53
+            // 
+            tabPage53.Controls.Add(label95);
+            tabPage53.Controls.Add(schtasks_stopOrDelete_deleteFromList);
+            tabPage53.Controls.Add(label97);
+            tabPage53.Controls.Add(schtasks_stopOrDeleteOnlyFromList);
+            tabPage53.Controls.Add(schtasks_stopOrDelete);
+            tabPage53.Location = new Point(4, 34);
+            tabPage53.Name = "tabPage53";
+            tabPage53.Padding = new Padding(3);
+            tabPage53.Size = new Size(640, 202);
+            tabPage53.TabIndex = 1;
+            tabPage53.Text = "customize";
+            tabPage53.UseVisualStyleBackColor = true;
+            // 
+            // label95
+            // 
+            label95.AutoSize = true;
+            label95.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label95.Location = new Point(328, 4);
+            label95.Name = "label95";
+            label95.Size = new Size(176, 32);
+            label95.TabIndex = 49;
+            label95.Text = "delete from list";
+            // 
+            // schtasks_stopOrDelete_deleteFromList
+            // 
+            schtasks_stopOrDelete_deleteFromList.Location = new Point(328, 39);
+            schtasks_stopOrDelete_deleteFromList.Name = "schtasks_stopOrDelete_deleteFromList";
+            schtasks_stopOrDelete_deleteFromList.Size = new Size(308, 157);
+            schtasks_stopOrDelete_deleteFromList.TabIndex = 48;
+            schtasks_stopOrDelete_deleteFromList.Text = "";
+            schtasks_stopOrDelete_deleteFromList.TextChanged += schtasks_stopOrDelete_deleteFromList_TextChanged;
+            // 
+            // label97
+            // 
+            label97.AutoSize = true;
+            label97.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label97.Location = new Point(9, 3);
+            label97.Name = "label97";
+            label97.Size = new Size(136, 32);
+            label97.TabIndex = 44;
+            label97.Text = "delete/stop";
+            // 
+            // schtasks_stopOrDeleteOnlyFromList
+            // 
+            schtasks_stopOrDeleteOnlyFromList.AutoSize = true;
+            schtasks_stopOrDeleteOnlyFromList.Location = new Point(151, 6);
+            schtasks_stopOrDeleteOnlyFromList.Name = "schtasks_stopOrDeleteOnlyFromList";
+            schtasks_stopOrDeleteOnlyFromList.Size = new Size(140, 29);
+            schtasks_stopOrDeleteOnlyFromList.TabIndex = 46;
+            schtasks_stopOrDeleteOnlyFromList.Text = "stop only list";
+            schtasks_stopOrDeleteOnlyFromList.UseVisualStyleBackColor = true;
+            schtasks_stopOrDeleteOnlyFromList.CheckedChanged += schtasks_stopOrDeleteOnlyFromList_CheckedChanged;
+            // 
+            // schtasks_stopOrDelete
+            // 
+            schtasks_stopOrDelete.Location = new Point(6, 39);
+            schtasks_stopOrDelete.Name = "schtasks_stopOrDelete";
+            schtasks_stopOrDelete.Size = new Size(316, 157);
+            schtasks_stopOrDelete.TabIndex = 42;
+            schtasks_stopOrDelete.Text = "";
+            schtasks_stopOrDelete.TextChanged += schtasks_stopOrDelete_TextChanged;
             // 
             // tabPage38
             // 
@@ -5468,131 +5606,84 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // tabPage51
+            // tabPage54
             // 
-            tabPage51.Controls.Add(richTextBox27);
-            tabPage51.Controls.Add(tabControl11);
-            tabPage51.Location = new Point(4, 34);
-            tabPage51.Name = "tabPage51";
-            tabPage51.Size = new Size(984, 252);
-            tabPage51.TabIndex = 1;
-            tabPage51.Text = "schtasks";
-            tabPage51.UseVisualStyleBackColor = true;
+            tabPage54.Controls.Add(tabControl12);
+            tabPage54.Location = new Point(4, 34);
+            tabPage54.Name = "tabPage54";
+            tabPage54.Size = new Size(998, 297);
+            tabPage54.TabIndex = 9;
+            tabPage54.Text = "keyboard";
+            tabPage54.UseVisualStyleBackColor = true;
             // 
-            // tabControl11
+            // tabControl12
             // 
-            tabControl11.Controls.Add(tabPage52);
-            tabControl11.Controls.Add(tabPage53);
-            tabControl11.Location = new Point(6, 6);
-            tabControl11.Name = "tabControl11";
-            tabControl11.SelectedIndex = 0;
-            tabControl11.Size = new Size(648, 240);
-            tabControl11.TabIndex = 45;
+            tabControl12.Controls.Add(tabPage55);
+            tabControl12.Controls.Add(tabPage56);
+            tabControl12.Location = new Point(3, 3);
+            tabControl12.Name = "tabControl12";
+            tabControl12.SelectedIndex = 0;
+            tabControl12.Size = new Size(992, 291);
+            tabControl12.TabIndex = 0;
             // 
-            // tabPage52
+            // tabPage55
             // 
-            tabPage52.Controls.Add(label94);
-            tabPage52.Controls.Add(schtasks_stopOrDelete_view);
-            tabPage52.Location = new Point(4, 34);
-            tabPage52.Name = "tabPage52";
-            tabPage52.Padding = new Padding(3);
-            tabPage52.Size = new Size(640, 202);
-            tabPage52.TabIndex = 0;
-            tabPage52.Text = "current";
-            tabPage52.UseVisualStyleBackColor = true;
+            tabPage55.Controls.Add(keyboard_layouts_remove);
+            tabPage55.Controls.Add(keyboard_layouts_add);
+            tabPage55.Controls.Add(keyboard_layouts_available);
+            tabPage55.Controls.Add(keyboard_layouts);
+            tabPage55.Location = new Point(4, 34);
+            tabPage55.Name = "tabPage55";
+            tabPage55.Padding = new Padding(3);
+            tabPage55.Size = new Size(984, 253);
+            tabPage55.TabIndex = 0;
+            tabPage55.Text = "layouts";
+            tabPage55.UseVisualStyleBackColor = true;
             // 
-            // label94
+            // tabPage56
             // 
-            label94.AutoSize = true;
-            label94.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label94.Location = new Point(9, 3);
-            label94.Name = "label94";
-            label94.Size = new Size(136, 32);
-            label94.TabIndex = 40;
-            label94.Text = "delete/stop";
+            tabPage56.Location = new Point(4, 34);
+            tabPage56.Name = "tabPage56";
+            tabPage56.Padding = new Padding(3);
+            tabPage56.Size = new Size(984, 253);
+            tabPage56.TabIndex = 1;
+            tabPage56.Text = "filter";
+            tabPage56.UseVisualStyleBackColor = true;
             // 
-            // schtasks_stopOrDelete_view
+            // keyboard_layouts
             // 
-            schtasks_stopOrDelete_view.Location = new Point(6, 39);
-            schtasks_stopOrDelete_view.Name = "schtasks_stopOrDelete_view";
-            schtasks_stopOrDelete_view.ReadOnly = true;
-            schtasks_stopOrDelete_view.Size = new Size(628, 157);
-            schtasks_stopOrDelete_view.TabIndex = 38;
-            schtasks_stopOrDelete_view.Text = "";
+            keyboard_layouts.FormattingEnabled = true;
+            keyboard_layouts.Location = new Point(6, 6);
+            keyboard_layouts.Name = "keyboard_layouts";
+            keyboard_layouts.Size = new Size(336, 228);
+            keyboard_layouts.TabIndex = 0;
             // 
-            // tabPage53
+            // keyboard_layouts_available
             // 
-            tabPage53.Controls.Add(label95);
-            tabPage53.Controls.Add(schtasks_stopOrDelete_deleteFromList);
-            tabPage53.Controls.Add(label97);
-            tabPage53.Controls.Add(schtasks_stopOrDeleteOnlyFromList);
-            tabPage53.Controls.Add(schtasks_stopOrDelete);
-            tabPage53.Location = new Point(4, 34);
-            tabPage53.Name = "tabPage53";
-            tabPage53.Padding = new Padding(3);
-            tabPage53.Size = new Size(640, 202);
-            tabPage53.TabIndex = 1;
-            tabPage53.Text = "customize";
-            tabPage53.UseVisualStyleBackColor = true;
+            keyboard_layouts_available.DropDownStyle = ComboBoxStyle.DropDownList;
+            keyboard_layouts_available.FormattingEnabled = true;
+            keyboard_layouts_available.Location = new Point(348, 6);
+            keyboard_layouts_available.Name = "keyboard_layouts_available";
+            keyboard_layouts_available.Size = new Size(213, 33);
+            keyboard_layouts_available.TabIndex = 1;
             // 
-            // label95
+            // keyboard_layouts_add
             // 
-            label95.AutoSize = true;
-            label95.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label95.Location = new Point(328, 4);
-            label95.Name = "label95";
-            label95.Size = new Size(176, 32);
-            label95.TabIndex = 49;
-            label95.Text = "delete from list";
+            keyboard_layouts_add.Location = new Point(348, 45);
+            keyboard_layouts_add.Name = "keyboard_layouts_add";
+            keyboard_layouts_add.Size = new Size(213, 34);
+            keyboard_layouts_add.TabIndex = 2;
+            keyboard_layouts_add.Text = "add";
+            keyboard_layouts_add.UseVisualStyleBackColor = true;
             // 
-            // schtasks_stopOrDelete_deleteFromList
+            // keyboard_layouts_remove
             // 
-            schtasks_stopOrDelete_deleteFromList.Location = new Point(328, 39);
-            schtasks_stopOrDelete_deleteFromList.Name = "schtasks_stopOrDelete_deleteFromList";
-            schtasks_stopOrDelete_deleteFromList.Size = new Size(308, 157);
-            schtasks_stopOrDelete_deleteFromList.TabIndex = 48;
-            schtasks_stopOrDelete_deleteFromList.Text = "";
-            schtasks_stopOrDelete_deleteFromList.TextChanged += schtasks_stopOrDelete_deleteFromList_TextChanged;
-            // 
-            // label97
-            // 
-            label97.AutoSize = true;
-            label97.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label97.Location = new Point(9, 3);
-            label97.Name = "label97";
-            label97.Size = new Size(136, 32);
-            label97.TabIndex = 44;
-            label97.Text = "delete/stop";
-            // 
-            // schtasks_stopOrDeleteOnlyFromList
-            // 
-            schtasks_stopOrDeleteOnlyFromList.AutoSize = true;
-            schtasks_stopOrDeleteOnlyFromList.Location = new Point(151, 6);
-            schtasks_stopOrDeleteOnlyFromList.Name = "schtasks_stopOrDeleteOnlyFromList";
-            schtasks_stopOrDeleteOnlyFromList.Size = new Size(140, 29);
-            schtasks_stopOrDeleteOnlyFromList.TabIndex = 46;
-            schtasks_stopOrDeleteOnlyFromList.Text = "stop only list";
-            schtasks_stopOrDeleteOnlyFromList.UseVisualStyleBackColor = true;
-            schtasks_stopOrDeleteOnlyFromList.CheckedChanged += schtasks_stopOrDeleteOnlyFromList_CheckedChanged;
-            // 
-            // schtasks_stopOrDelete
-            // 
-            schtasks_stopOrDelete.Location = new Point(6, 39);
-            schtasks_stopOrDelete.Name = "schtasks_stopOrDelete";
-            schtasks_stopOrDelete.Size = new Size(316, 157);
-            schtasks_stopOrDelete.TabIndex = 42;
-            schtasks_stopOrDelete.Text = "";
-            schtasks_stopOrDelete.TextChanged += schtasks_stopOrDelete_TextChanged;
-            // 
-            // richTextBox27
-            // 
-            richTextBox27.BackColor = SystemColors.Info;
-            richTextBox27.Location = new Point(660, 6);
-            richTextBox27.Name = "richTextBox27";
-            richTextBox27.ReadOnly = true;
-            richTextBox27.Size = new Size(321, 236);
-            richTextBox27.TabIndex = 45;
-            richTextBox27.Text = resources.GetString("richTextBox27.Text");
+            keyboard_layouts_remove.Location = new Point(348, 85);
+            keyboard_layouts_remove.Name = "keyboard_layouts_remove";
+            keyboard_layouts_remove.Size = new Size(213, 34);
+            keyboard_layouts_remove.TabIndex = 3;
+            keyboard_layouts_remove.Text = "remove";
+            keyboard_layouts_remove.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
@@ -5711,6 +5802,12 @@
             tabPage34.PerformLayout();
             tabPage35.ResumeLayout(false);
             tabPage35.PerformLayout();
+            tabPage51.ResumeLayout(false);
+            tabControl11.ResumeLayout(false);
+            tabPage52.ResumeLayout(false);
+            tabPage52.PerformLayout();
+            tabPage53.ResumeLayout(false);
+            tabPage53.PerformLayout();
             tabPage38.ResumeLayout(false);
             tabControl8.ResumeLayout(false);
             tabPage33.ResumeLayout(false);
@@ -5789,12 +5886,9 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage51.ResumeLayout(false);
-            tabControl11.ResumeLayout(false);
-            tabPage52.ResumeLayout(false);
-            tabPage52.PerformLayout();
-            tabPage53.ResumeLayout(false);
-            tabPage53.PerformLayout();
+            tabPage54.ResumeLayout(false);
+            tabControl12.ResumeLayout(false);
+            tabPage55.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -6275,5 +6369,13 @@
         private CheckBox schtasks_stopOrDeleteOnlyFromList;
         private RichTextBox schtasks_stopOrDelete;
         private RichTextBox richTextBox27;
+        private TabPage tabPage54;
+        private TabControl tabControl12;
+        private TabPage tabPage55;
+        private TabPage tabPage56;
+        private CheckedListBox keyboard_layouts;
+        private Button keyboard_layouts_add;
+        private ComboBox keyboard_layouts_available;
+        private Button keyboard_layouts_remove;
     }
 }

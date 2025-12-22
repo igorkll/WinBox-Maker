@@ -27,11 +27,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using WinBox_Maker.Properties;
+using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using IWshShortcut = IWshRuntimeLibrary.IWshShortcut;
-using WshShell = IWshRuntimeLibrary.WshShell;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
+using WshShell = IWshRuntimeLibrary.WshShell;
 
 namespace WinBox_Maker
 {
@@ -49,6 +50,7 @@ namespace WinBox_Maker
         public string debugBuildProgramsPath;
         string tempDirectoryPath;
         string imageTimeZonesInfo;
+        string imageKeyboardLayoutsInfo;
         string unpackedWimFile;
         string wimInfoFile;
         string newWimFile;
@@ -75,6 +77,7 @@ namespace WinBox_Maker
             unpackedWimFile = Path.Combine(tempDirectoryPath, "base_install.wim");
             wimInfoFile = Path.Combine(tempDirectoryPath, "installWimInfo.json");
             imageTimeZonesInfo = Path.Combine(tempDirectoryPath, "timeZonesInfo.json");
+            imageKeyboardLayoutsInfo = Path.Combine(tempDirectoryPath, "keyboardLayoutsInfo.json");
             newWimFile = Path.Combine(tempDirectoryPath, "new_install.wim");
             wimMountPath = Path.Combine(tempDirectoryPath, "wim_mount");
             wimWinPeMountPath = Path.Combine(tempDirectoryPath, "wim_boot_mount");
@@ -88,7 +91,8 @@ namespace WinBox_Maker
 
             imageInfoFiles = new string[] {
                 wimInfoFile,
-                imageTimeZonesInfo
+                imageTimeZonesInfo,
+                imageKeyboardLayoutsInfo
             };
 
             if (File.Exists(wnbFilePath))
@@ -522,26 +526,63 @@ namespace WinBox_Maker
                     processValue(40);
 
                     List<string> timeZones = new List<string>();
+                    List<TwoStrings> keyboardLayouts = new List<TwoStrings>();
 
                     await mountDism(unpackedWimFile);
                     await mountReg();
+                    await mountReg("SYSTEM");
 
-                    using (RegistryKey? tzRoot = Registry.LocalMachine.OpenSubKey($@"WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones"))
+                    using (RegistryKey? root = Registry.LocalMachine.OpenSubKey($@"WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones"))
                     {
-                        if (tzRoot != null)
+                        if (root != null)
                         {
-                            foreach (string tzName in tzRoot.GetSubKeyNames())
+                            foreach (string name in root.GetSubKeyNames())
                             {
-                                timeZones.Add(tzName);
+                                timeZones.Add(name);
                             }
                         }
                     }
 
+                    using (RegistryKey? root = Registry.LocalMachine.OpenSubKey($@"WINBOX_SYSTEM\CurrentControlSet\Control\Keyboard Layouts"))
+                    {
+                        if (root != null)
+                        {
+                            var tempList = new List<TwoStrings>();
+
+                            foreach (string id in root.GetSubKeyNames())
+                            {
+                                using (RegistryKey? layoutKey = root.OpenSubKey(id))
+                                {
+                                    if (layoutKey == null) continue;
+                                    TwoStrings twoStrings = new TwoStrings();
+                                    twoStrings.string1 = (layoutKey.GetValue("Layout Text") as string) + $" ({id})";
+                                    twoStrings.string2 = id;
+                                    keyboardLayouts.Add(twoStrings);
+                                }
+                            }
+
+                            keyboardLayouts.AddRange(
+                                tempList.OrderByDescending(l => l.string2 == "00000409")
+                                        .ThenBy(l => l.string1)
+                            );
+                        }
+                    }
+
+                    if (winBoxConfig.keyboard_layouts_firstAdded != true)
+                    {
+                        winBoxConfig.keyboard_layouts.Add(keyboardLayouts[0]);
+                        winBoxConfig.keyboard_layouts_firstAdded = true;
+                    }
+
                     await umountReg();
+                    await umountReg("SYSTEM");
                     await umountDism(false);
 
                     json = JsonSerializer.Serialize(timeZones, new JsonSerializerOptions { WriteIndented = true });
                     await File.WriteAllTextAsync(imageTimeZonesInfo, json);
+
+                    json = JsonSerializer.Serialize(keyboardLayouts, new JsonSerializerOptions { WriteIndented = true });
+                    await File.WriteAllTextAsync(imageKeyboardLayoutsInfo, json);
                 }
             }
 
