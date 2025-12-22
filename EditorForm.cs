@@ -97,7 +97,7 @@ namespace WinBox_Maker
             else
             {
                 UpdateWindowsVersionsList();
-                UpdateGui();
+                UpdateGuiAfterWindowsLoaded();
             }
 
             eventWarningDelay();
@@ -187,8 +187,8 @@ namespace WinBox_Maker
             await winBoxProject.LoadWindowsImageAsync(UpdateProcessName, UpdateProcessValue);
             UnlockForm();
             UpdateWindowsVersionsList();
-            forceIot.Checked = winBoxProject.winBoxConfig.BaseWindowsVersion.Contains("enterprise", StringComparison.OrdinalIgnoreCase);
-            UpdateGui();
+            OnWindowsLoadedFirst();
+            UpdateGuiAfterWindowsLoaded();
             loadingWindowsTask = false;
 
             winBoxProject.SaveConfig();
@@ -295,7 +295,7 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.BaseWindowsImage = WindowsName.Text;
             winBoxProject.winBoxConfig.BaseWindowsVersion = null;
             winBoxProject.SaveConfig();
-            UpdateGui();
+            UpdateGuiAfterWindowsLoaded();
         }
 
         void windowsReload()
@@ -361,7 +361,7 @@ namespace WinBox_Maker
         private void WindowsVersionUpdate_Click(object sender, EventArgs e)
         {
             UpdateWindowsVersionsList();
-            UpdateGui();
+            UpdateGuiAfterWindowsLoaded();
         }
 
         void UpdateGuiWithoutWindowsVersion()
@@ -405,12 +405,32 @@ namespace WinBox_Maker
             schtasks_stopOrDelete_view.Text = string.Join("\n", winBoxProject.getStopOrDeleteSchtasksList());
         }
 
-        void UpdateGui()
+        void OnWindowsLoadedFirst()
+        {
+            winBoxProject.winBoxConfig.forceIot = winBoxProject.winBoxConfig.BaseWindowsVersion.Contains("enterprise", StringComparison.OrdinalIgnoreCase);
+        }
+
+        void UpdateGuiAfterWindowsLoaded()
         {
             guiEventsLock = true;
 
             TimeZoneKeyName.Items.Clear();
             TimeZoneKeyName.Items.AddRange(winBoxProject.GetWindowsTimeZones());
+
+            keyboard_layouts_available.Items.Clear();
+            keyboard_layouts_available.Items.AddRange(winBoxProject.GetWindowsKeyboardLayoutNames());
+            if (keyboard_layouts_available.Items.Count > 0)
+            {
+                keyboard_layouts_available.SelectedIndex = 0;
+            }
+
+            UpdateGui();
+        }
+
+        void UpdateGui()
+        {
+            guiEventsLock = true;
+
             TimeZoneKeyName.Text = winBoxProject.winBoxConfig.TimeZoneKeyName ?? "";
 
             pythonVersion.Text = winBoxProject.winBoxConfig.pythonVersion ?? "none";
@@ -784,7 +804,7 @@ namespace WinBox_Maker
             WindowsVersionSelect.Items.Clear();
             winBoxProject.winBoxConfig.BaseWindowsVersion = null;
             winBoxProject.SaveConfig();
-            UpdateGui();
+            UpdateGuiAfterWindowsLoaded();
         }
 
         private void WinboxName_TextChanged(object sender, EventArgs e)

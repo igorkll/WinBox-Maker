@@ -640,6 +640,22 @@ namespace WinBox_Maker
             return [];
         }
 
+        public string[] GetWindowsKeyboardLayoutNames()
+        {
+            if (File.Exists(imageKeyboardLayoutsInfo))
+            {
+                string json = File.ReadAllText(imageKeyboardLayoutsInfo);
+
+                List<TwoStrings>? list = JsonSerializer.Deserialize<List<TwoStrings>>(json);
+                if (list != null)
+                {
+                    return list.Select(x => x.string1 ?? string.Empty).ToArray();
+                }
+            }
+
+            return Array.Empty<string>();
+        }
+
         static string ReplaceAndPrependBackslash(string input)
         {
             string modified = input.Replace('/', '\\');
