@@ -106,182 +106,6 @@ namespace WinBox_Maker
             MessageBox.Show(Program.buildEventsWarning, null, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        void UpdateItemsList<T>(
-            CheckedListBox listControl,
-            List<T> items,
-            ref int currentIndex,
-            Action<T?> updateSelectedItem,
-            string nameFieldName)
-            where T : class
-        {
-            softwareCheck = true;
-
-            T? lastItem = null;
-            int lastIndex = -1;
-
-            listControl.Items.Clear();
-            foreach (T item in items)
-            {
-                string name = (item.GetType().GetProperty(nameFieldName)?.GetValue(item) as string) ?? "(no name)";
-                lastIndex = listControl.Items.Add(name);
-                lastItem = item;
-            }
-            if (lastIndex >= 0)
-                listControl.SetItemChecked(lastIndex, true);
-
-            softwareCheck = false;
-
-            currentIndex = lastIndex;
-            updateSelectedItem(lastItem);
-        }
-
-        void ItemCheckHandler<T>(
-            CheckedListBox listControl,
-            List<T> items,
-            ref int currentIndex,
-            Action<T?> updateSelectedItem,
-            ItemCheckEventArgs e)
-            where T : class
-        {
-            if (softwareCheck) return;
-
-            softwareCheck = true;
-            bool state = e.NewValue == CheckState.Checked;
-
-            if (state)
-            {
-                int index = e.Index;
-                for (int i = 0; i < listControl.Items.Count; i++)
-                {
-                    listControl.SetItemChecked(i, i == index);
-                }
-
-                currentIndex = index;
-                updateSelectedItem(items[index]);
-            }
-            else
-            {
-                currentIndex = -1;
-                updateSelectedItem(null);
-            }
-
-            softwareCheck = false;
-        }
-
-        private void BuildItems_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            ItemCheckHandler(BuildItems, winBoxProject.winBoxConfig.BuildItems, ref currentBuildItemIndex, UpdateSelectedBuildItem, e);
-        }
-
-        private void DownloadItems_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            ItemCheckHandler(DownloadItems, winBoxProject.winBoxConfig.DownloadItems, ref currentDownloadItemIndex, UpdateSelectedDownloadItem, e);
-        }
-
-        private void keyboard_layouts_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            int currentIndex = -1;
-            ItemCheckHandler(keyboard_layouts, winBoxProject.winBoxConfig.keyboard_layouts, ref currentIndex, UpdateSelectedKeyboardLayout, e);
-        }
-
-        void UpdateDownloadItemsList()
-        {
-            UpdateItemsList(
-                DownloadItems,
-                winBoxProject.winBoxConfig.DownloadItems,
-                ref currentDownloadItemIndex,
-                UpdateSelectedDownloadItem,
-                "name"
-            );
-        }
-
-        void UpdateBuildItemsList()
-        {
-            UpdateItemsList(
-                BuildItems,
-                winBoxProject.winBoxConfig.BuildItems,
-                ref currentBuildItemIndex,
-                UpdateSelectedBuildItem,
-                "name"
-            );
-        }
-
-        void UpdateKeyboardLayoutsList()
-        {
-            int currentIndex = -1;
-            UpdateItemsList(
-                keyboard_layouts,
-                winBoxProject.winBoxConfig.keyboard_layouts,
-                ref currentIndex,
-                UpdateSelectedKeyboardLayout,
-                "string1"
-            );
-        }
-
-        void UpdateSelectedBuildItem(BuildItem? buildItem)
-        {
-            currentBuildItem = buildItem;
-            if (buildItem == null)
-            {
-                bl_panel.Visible = false;
-            }
-            else
-            {
-                bl_panel.Visible = true;
-                guiEventsLock = true;
-                bl_title.Text = buildItem.name ?? "";
-                bl_path.Text = buildItem.msbuild_path ?? "";
-                bl_conf.Text = buildItem.msbuild_configuration ?? "";
-                cmake_path.Text = buildItem.cmake_path ?? "";
-                cargo_path.Text = buildItem.cargo_path ?? "";
-                electron_packager_path.Text = buildItem.electron_packager_path ?? "";
-                electron_packager_name.Text = buildItem.electron_packager_name ?? "";
-                cmake_configuration.Text = buildItem.cmake_configuration ?? "";
-                custom_path.Text = buildItem.custom_path ?? "";
-                custom_command.Text = buildItem.custom_command ?? "";
-                bl_tabcontrol.SelectedIndex = (int)currentBuildItem.type;
-                bl_folder.Text = buildItem.subdirectory ?? "";
-                bl_folder_enable.Checked = buildItem.subdirectory_enabled == true;
-                guiEventsLock = false;
-            }
-        }
-
-        void UpdateSelectedDownloadItem(DownloadItem? downloadItem)
-        {
-            currentDownloadItem = downloadItem;
-            if (downloadItem == null)
-            {
-                dl_panel.Visible = false;
-            }
-            else
-            {
-                dl_panel.Visible = true;
-                guiEventsLock = true;
-                dl_name.Text = downloadItem.name ?? "";
-                dl_url.Text = downloadItem.url ?? "";
-                dl_path.Text = downloadItem.path ?? "";
-                dl_cache.Checked = downloadItem.cache == true;
-                dl_unpack.Checked = downloadItem.unpack == true;
-                guiEventsLock = false;
-            }
-        }
-
-        void UpdateSelectedKeyboardLayout(TwoStrings? twoString)
-        {
-            if (twoString == null)
-            {
-                keyboard_layouts_setupPanel.Visible = false;
-            }
-            else
-            {
-                keyboard_layouts_setupPanel.Visible = true;
-                guiEventsLock = true;
-                keyboard_layouts_name.Text = twoString.string1 ?? "";
-                keyboard_layouts_id.Text = twoString.string2 ?? "";
-                guiEventsLock = false;
-            }
-        }
-
         void ClearPythonList()
         {
             pythonVersion.Items.Clear();
@@ -1574,13 +1398,6 @@ namespace WinBox_Maker
             UpdateGui();
         }
 
-        private void dl_delete_Click(object sender, EventArgs e)
-        {
-            winBoxProject.winBoxConfig.DownloadItems.Remove(currentDownloadItem);
-            winBoxProject.SaveConfig();
-            UpdateDownloadItemsList();
-        }
-
         private void dl_name_TextChanged(object sender, EventArgs e)
         {
             if (guiEventsLock) return;
@@ -1687,13 +1504,6 @@ namespace WinBox_Maker
             bl_path.Text = "";
             guiEventsLock = false;
             winBoxProject.SaveConfig();
-        }
-
-        private void bl_delete_Click(object sender, EventArgs e)
-        {
-            winBoxProject.winBoxConfig.BuildItems.Remove(currentBuildItem);
-            winBoxProject.SaveConfig();
-            UpdateBuildItemsList();
         }
 
         private void bl_title_TextChanged(object sender, EventArgs e)
@@ -3066,6 +2876,285 @@ namespace WinBox_Maker
         private void keyboard_layouts_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void keyboard_layouts_add_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void keyboard_layouts_remove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void keyboard_layouts_makeDefault_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // -------------------------------------------- item lists
+
+        // ------------- service functions
+
+        void UpdateItemsList<T>(
+            CheckedListBox listControl,
+            List<T> items,
+            ref int currentIndex,
+            Action<T?> updateSelectedItem,
+            string nameFieldName)
+            where T : class
+        {
+            softwareCheck = true;
+
+            T? lastItem = null;
+            int lastIndex = -1;
+
+            listControl.Items.Clear();
+            foreach (T item in items)
+            {
+                string name = (item.GetType().GetProperty(nameFieldName)?.GetValue(item) as string) ?? "(no name)";
+                lastIndex = listControl.Items.Add(name);
+                lastItem = item;
+            }
+            if (lastIndex >= 0)
+                listControl.SetItemChecked(lastIndex, true);
+
+            softwareCheck = false;
+
+            currentIndex = lastIndex;
+            updateSelectedItem(lastItem);
+        }
+
+        void ItemCheckHandler<T>(
+            CheckedListBox listControl,
+            List<T> items,
+            ref int currentIndex,
+            Action<T?> updateSelectedItem,
+            ItemCheckEventArgs e)
+            where T : class
+        {
+            if (softwareCheck) return;
+
+            softwareCheck = true;
+            bool state = e.NewValue == CheckState.Checked;
+
+            if (state)
+            {
+                int index = e.Index;
+                for (int i = 0; i < listControl.Items.Count; i++)
+                {
+                    listControl.SetItemChecked(i, i == index);
+                }
+
+                currentIndex = index;
+                updateSelectedItem(items[index]);
+            }
+            else
+            {
+                currentIndex = -1;
+                updateSelectedItem(null);
+            }
+
+            softwareCheck = false;
+        }
+
+        enum ItemAction
+        {
+            Remove,
+            MoveToTop,
+            MoveToBottom,
+            MoveUp,
+            MoveDown
+        }
+
+        void doItemAction<T>(List<T> list, T item, ItemAction action, Action saveConfig, Action updateList)
+        {
+            if (!list.Contains(item)) return;
+
+            switch (action)
+            {
+                case ItemAction.Remove:
+                    list.Remove(item);
+                    break;
+
+                case ItemAction.MoveToTop:
+                    list.Remove(item);
+                    list.Insert(0, item);
+                    break;
+
+                case ItemAction.MoveToBottom:
+                    list.Remove(item);
+                    list.Add(item);
+                    break;
+
+                case ItemAction.MoveUp:
+                    {
+                        int index = list.IndexOf(item);
+                        if (index > 0)
+                        {
+                            list.RemoveAt(index);
+                            list.Insert(index - 1, item);
+                        }
+                    }
+                    break;
+
+                case ItemAction.MoveDown:
+                    {
+                        int index = list.IndexOf(item);
+                        if (index >= 0 && index < list.Count - 1)
+                        {
+                            list.RemoveAt(index);
+                            list.Insert(index + 1, item);
+                        }
+                    }
+                    break;
+            }
+
+            saveConfig?.Invoke();
+            updateList?.Invoke();
+        }
+
+        // ------------- update lists
+
+        void UpdateBuildItemsList()
+        {
+            UpdateItemsList(
+                BuildItems,
+                winBoxProject.winBoxConfig.BuildItems,
+                ref currentBuildItemIndex,
+                UpdateSelectedBuildItem,
+                "name"
+            );
+        }
+
+        void UpdateDownloadItemsList()
+        {
+            UpdateItemsList(
+                DownloadItems,
+                winBoxProject.winBoxConfig.DownloadItems,
+                ref currentDownloadItemIndex,
+                UpdateSelectedDownloadItem,
+                "name"
+            );
+        }
+
+        void UpdateKeyboardLayoutsList()
+        {
+            int currentIndex = -1;
+            UpdateItemsList(
+                keyboard_layouts,
+                winBoxProject.winBoxConfig.keyboard_layouts,
+                ref currentIndex,
+                UpdateSelectedKeyboardLayout,
+                "string1"
+            );
+        }
+
+        void UpdateSelectedBuildItem(BuildItem? buildItem)
+        {
+            currentBuildItem = buildItem;
+            if (buildItem == null)
+            {
+                bl_panel.Visible = false;
+            }
+            else
+            {
+                bl_panel.Visible = true;
+                guiEventsLock = true;
+                bl_title.Text = buildItem.name ?? "";
+                bl_path.Text = buildItem.msbuild_path ?? "";
+                bl_conf.Text = buildItem.msbuild_configuration ?? "";
+                cmake_path.Text = buildItem.cmake_path ?? "";
+                cargo_path.Text = buildItem.cargo_path ?? "";
+                electron_packager_path.Text = buildItem.electron_packager_path ?? "";
+                electron_packager_name.Text = buildItem.electron_packager_name ?? "";
+                cmake_configuration.Text = buildItem.cmake_configuration ?? "";
+                custom_path.Text = buildItem.custom_path ?? "";
+                custom_command.Text = buildItem.custom_command ?? "";
+                bl_tabcontrol.SelectedIndex = (int)currentBuildItem.type;
+                bl_folder.Text = buildItem.subdirectory ?? "";
+                bl_folder_enable.Checked = buildItem.subdirectory_enabled == true;
+                guiEventsLock = false;
+            }
+        }
+
+        void UpdateSelectedDownloadItem(DownloadItem? downloadItem)
+        {
+            currentDownloadItem = downloadItem;
+            if (downloadItem == null)
+            {
+                dl_panel.Visible = false;
+            }
+            else
+            {
+                dl_panel.Visible = true;
+                guiEventsLock = true;
+                dl_name.Text = downloadItem.name ?? "";
+                dl_url.Text = downloadItem.url ?? "";
+                dl_path.Text = downloadItem.path ?? "";
+                dl_cache.Checked = downloadItem.cache == true;
+                dl_unpack.Checked = downloadItem.unpack == true;
+                guiEventsLock = false;
+            }
+        }
+
+        void UpdateSelectedKeyboardLayout(TwoStrings? twoString)
+        {
+            if (twoString == null)
+            {
+                keyboard_layouts_setupPanel.Visible = false;
+            }
+            else
+            {
+                keyboard_layouts_setupPanel.Visible = true;
+                guiEventsLock = true;
+                keyboard_layouts_name.Text = twoString.string1 ?? "";
+                keyboard_layouts_id.Text = twoString.string2 ?? "";
+                guiEventsLock = false;
+            }
+        }
+
+        // ------------- deletion
+
+        void bl_delete_Click(object sender, EventArgs e)
+        {
+            doItemAction(
+                winBoxProject.winBoxConfig.BuildItems,
+                currentBuildItem,
+                ItemAction.Remove,
+                winBoxProject.SaveConfig,
+                UpdateBuildItemsList
+            );
+        }
+
+        private void dl_delete_Click(object sender, EventArgs e)
+        {
+            doItemAction(
+                winBoxProject.winBoxConfig.DownloadItems,
+                currentDownloadItem,
+                ItemAction.Remove,
+                winBoxProject.SaveConfig,
+                UpdateDownloadItemsList
+            );
+        }
+
+        // ------------- item check
+
+        private void BuildItems_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            ItemCheckHandler(BuildItems, winBoxProject.winBoxConfig.BuildItems, ref currentBuildItemIndex, UpdateSelectedBuildItem, e);
+        }
+
+        private void DownloadItems_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            ItemCheckHandler(DownloadItems, winBoxProject.winBoxConfig.DownloadItems, ref currentDownloadItemIndex, UpdateSelectedDownloadItem, e);
+        }
+
+        private void keyboard_layouts_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            int currentIndex = -1;
+            ItemCheckHandler(keyboard_layouts, winBoxProject.winBoxConfig.keyboard_layouts, ref currentIndex, UpdateSelectedKeyboardLayout, e);
         }
     }
 }

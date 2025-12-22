@@ -245,6 +245,8 @@
             tabControl12 = new TabControl();
             tabPage55 = new TabPage();
             keyboard_layouts_setupPanel = new Panel();
+            keyboard_layouts_id = new Label();
+            keyboard_layouts_name = new Label();
             keyboard_layouts_remove = new Button();
             keyboard_layouts_makeDefault = new Button();
             keyboard_layouts_add = new Button();
@@ -511,8 +513,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            keyboard_layouts_name = new Label();
-            keyboard_layouts_id = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -2924,14 +2924,33 @@
             keyboard_layouts_setupPanel.Size = new Size(213, 149);
             keyboard_layouts_setupPanel.TabIndex = 5;
             // 
+            // keyboard_layouts_id
+            // 
+            keyboard_layouts_id.AutoSize = true;
+            keyboard_layouts_id.Location = new Point(3, 105);
+            keyboard_layouts_id.Name = "keyboard_layouts_id";
+            keyboard_layouts_id.Size = new Size(69, 25);
+            keyboard_layouts_id.TabIndex = 6;
+            keyboard_layouts_id.Text = "label96";
+            // 
+            // keyboard_layouts_name
+            // 
+            keyboard_layouts_name.AutoSize = true;
+            keyboard_layouts_name.Location = new Point(3, 80);
+            keyboard_layouts_name.Name = "keyboard_layouts_name";
+            keyboard_layouts_name.Size = new Size(69, 25);
+            keyboard_layouts_name.TabIndex = 5;
+            keyboard_layouts_name.Text = "label93";
+            // 
             // keyboard_layouts_remove
             // 
             keyboard_layouts_remove.Location = new Point(3, 3);
             keyboard_layouts_remove.Name = "keyboard_layouts_remove";
             keyboard_layouts_remove.Size = new Size(203, 34);
             keyboard_layouts_remove.TabIndex = 3;
-            keyboard_layouts_remove.Text = "remove";
+            keyboard_layouts_remove.Text = "delete";
             keyboard_layouts_remove.UseVisualStyleBackColor = true;
+            keyboard_layouts_remove.Click += keyboard_layouts_remove_Click;
             // 
             // keyboard_layouts_makeDefault
             // 
@@ -2941,6 +2960,7 @@
             keyboard_layouts_makeDefault.TabIndex = 4;
             keyboard_layouts_makeDefault.Text = "make default";
             keyboard_layouts_makeDefault.UseVisualStyleBackColor = true;
+            keyboard_layouts_makeDefault.Click += keyboard_layouts_makeDefault_Click;
             // 
             // keyboard_layouts_add
             // 
@@ -2950,6 +2970,7 @@
             keyboard_layouts_add.TabIndex = 2;
             keyboard_layouts_add.Text = "add";
             keyboard_layouts_add.UseVisualStyleBackColor = true;
+            keyboard_layouts_add.Click += keyboard_layouts_add_Click;
             // 
             // keyboard_layouts_available
             // 
@@ -2967,8 +2988,8 @@
             keyboard_layouts.Name = "keyboard_layouts";
             keyboard_layouts.Size = new Size(336, 228);
             keyboard_layouts.TabIndex = 0;
-            keyboard_layouts.SelectedIndexChanged += keyboard_layouts_SelectedIndexChanged;
             keyboard_layouts.ItemCheck += keyboard_layouts_ItemCheck;
+            keyboard_layouts.SelectedIndexChanged += keyboard_layouts_SelectedIndexChanged;
             // 
             // tabPage56
             // 
@@ -5712,24 +5733,6 @@
             ExportInstallEsd.Text = "export install.esd";
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
-            // 
-            // keyboard_layouts_name
-            // 
-            keyboard_layouts_name.AutoSize = true;
-            keyboard_layouts_name.Location = new Point(3, 80);
-            keyboard_layouts_name.Name = "keyboard_layouts_name";
-            keyboard_layouts_name.Size = new Size(69, 25);
-            keyboard_layouts_name.TabIndex = 5;
-            keyboard_layouts_name.Text = "label93";
-            // 
-            // keyboard_layouts_id
-            // 
-            keyboard_layouts_id.AutoSize = true;
-            keyboard_layouts_id.Location = new Point(3, 105);
-            keyboard_layouts_id.Name = "keyboard_layouts_id";
-            keyboard_layouts_id.Size = new Size(69, 25);
-            keyboard_layouts_id.TabIndex = 6;
-            keyboard_layouts_id.Text = "label96";
             // 
             // EditorForm
             // 
