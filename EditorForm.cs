@@ -110,7 +110,8 @@ namespace WinBox_Maker
             CheckedListBox listControl,
             List<T> items,
             ref int currentIndex,
-            Action<T?> updateSelectedItem)
+            Action<T?> updateSelectedItem,
+            string nameFieldName)
             where T : class
         {
             softwareCheck = true;
@@ -121,7 +122,7 @@ namespace WinBox_Maker
             listControl.Items.Clear();
             foreach (T item in items)
             {
-                string name = (item as dynamic).name;
+                string name = (item.GetType().GetProperty(nameFieldName)?.GetValue(item) as string) ?? "(no name)";
                 lastIndex = listControl.Items.Add(name);
                 lastItem = item;
             }
@@ -140,7 +141,8 @@ namespace WinBox_Maker
                 DownloadItems,
                 winBoxProject.winBoxConfig.DownloadItems,
                 ref currentDownloadItemIndex,
-                UpdateSelectedDownloadItem
+                UpdateSelectedDownloadItem,
+                "name"
             );
         }
 
@@ -150,7 +152,8 @@ namespace WinBox_Maker
                 BuildItems,
                 winBoxProject.winBoxConfig.BuildItems,
                 ref currentBuildItemIndex,
-                UpdateSelectedBuildItem
+                UpdateSelectedBuildItem,
+                "name"
             );
         }
 
@@ -161,7 +164,8 @@ namespace WinBox_Maker
                 keyboard_layouts,
                 winBoxProject.winBoxConfig.keyboard_layouts,
                 ref currentIndex,
-                UpdateSelectedKeyboardLayout
+                UpdateSelectedKeyboardLayout,
+                "string1"
             );
         }
 
