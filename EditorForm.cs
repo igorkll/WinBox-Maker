@@ -408,6 +408,8 @@ namespace WinBox_Maker
         void OnWindowsLoadedFirst()
         {
             winBoxProject.winBoxConfig.forceIot = winBoxProject.winBoxConfig.BaseWindowsVersion.Contains("enterprise", StringComparison.OrdinalIgnoreCase);
+
+            UpdateKeyboardLayoutsList();
         }
 
         void UpdateGuiAfterWindowsLoaded()
