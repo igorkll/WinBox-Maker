@@ -470,7 +470,7 @@ namespace WinBox_Maker
                     process.OutputDataReceived += (s, e) => {
                         if (e.Data != null) {
                             outputLines.Add("[OUT] " + e.Data);
-                            outputText += e.Data;
+                            outputText += e.Data + "\n\r";
                         }
                     };
                     process.ErrorDataReceived += (s, e) => { if (e.Data != null) outputLines.Add("[ERR] " + e.Data); };

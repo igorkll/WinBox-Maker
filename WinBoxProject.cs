@@ -1612,19 +1612,19 @@ powercfg -s {powerScheme}";
             await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, scriptname), script);
         }
 
-        string? ExtractPackageNameFromDismResult(string dismLine)
+        string? ExtractPackageNameFromDismResult(string dismLine, bool provisioned=false)
         {
             // DISM выводит строку примерно так:
             // Package Identity : Microsoft-Windows-Subsystem-Linux-Package~31bf3856ad364e35~amd64~~10.0.19041.1
             // Нужно вытащить всё после "Package Identity : "
 
-            var match = Regex.Match(dismLine, @"Package Identity\s*:\s*(.+)");
+            var match = Regex.Match(dismLine, provisioned ? @"PackageName\s*:\s*(.+)" : @"Package Identity\s*:\s*(.+)");
             if (match.Success)
             {
                 return match.Groups[1].Value.Trim();
             }
 
-            return null; // если не удалось найти
+            return null;
         }
 
         async Task<string[]> getImagePackagesList(bool provisioned=false)
@@ -3115,13 +3115,13 @@ if errorlevel 1 (
 
             async Task executeDismPackageDelete(string name, bool provisionPackage = false)
             {
-                RemoveDism_log += $"multi delete: {name} | provisionPackage: {provisionPackage}\r\n";
+                RemoveDism_log += $"multi delete start: {name} | provisionPackage: {provisionPackage}\r\n";
                 string[] packagesToDelete = await getLocalFullPackagesNames(name, provisionPackage);
                 foreach (string packageName in packagesToDelete) {
-                    RemoveDism_log += $"multi delete: {packageName}\r\n";
+                    RemoveDism_log += $"mdelete: {packageName}\r\n";
                     await execDismCmd(packageName, provisionPackage ? 2 : 1);
                 }
-                RemoveDism_log += $"multi delete: end\r\n";
+                RemoveDism_log += $"multi delete end\r\n";
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_universal ?? ""))
