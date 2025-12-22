@@ -3025,14 +3025,23 @@ if errorlevel 1 (
                         await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Remove-ProvisionedAppxPackage /PackageName:\"{name}\"", null, debugFolder);
                         break;
                 }
+            }
 
+            string getFullPackageName(string name, bool provisionPackage=false)
+            {
+                if (name.StartsWith("*"))
+                {
+                    name = name.Substring(1);
+                    return name;
+                }
+                return name;
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_universal ?? ""))
             {
                 await execDismCmd(name, 0);
-                await execDismCmd(name, 1);
-                await execDismCmd(name, 2);
+                await execDismCmd(getFullPackageName(name, false), 1);
+                await execDismCmd(getFullPackageName(name, true), 2);
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism ?? ""))
@@ -3042,12 +3051,12 @@ if errorlevel 1 (
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_package ?? ""))
             {
-                await execDismCmd(name, 1);
+                await execDismCmd(getFullPackageName(name, false), 1);
             }
 
             foreach (string name in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.delete_dism_remove_appx_package ?? ""))
             {
-                await execDismCmd(name, 2);
+                await execDismCmd(getFullPackageName(name, true), 2);
             }
 
             if (!manual)

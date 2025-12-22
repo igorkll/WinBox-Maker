@@ -4253,7 +4253,7 @@
             richTextBox15.ReadOnly = true;
             richTextBox15.Size = new Size(346, 250);
             richTextBox15.TabIndex = 3;
-            richTextBox15.Text = "deletes packages using dism using Remove-Package";
+            richTextBox15.Text = resources.GetString("richTextBox15.Text");
             // 
             // delete_dism_remove_package
             // 
@@ -4283,7 +4283,7 @@
             richTextBox16.ReadOnly = true;
             richTextBox16.Size = new Size(346, 250);
             richTextBox16.TabIndex = 4;
-            richTextBox16.Text = "deletes packages using dism using Remove-ProvisionedAppxPackage\n";
+            richTextBox16.Text = resources.GetString("richTextBox16.Text");
             // 
             // delete_dism_remove_appx_package
             // 
