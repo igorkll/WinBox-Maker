@@ -1159,6 +1159,9 @@ exit
                 regBcdChange("NOINTEGRITYCHECKS ON");
                 regBcdChange("TESTSIGNING ON");
 
+                regBcdChange("hypervisorlaunchtype off");
+                regBcdChange("vsmlaunchtype off");
+
                 if (Program.isTweakEnabled(winBoxConfig, "Disable boot circle"))
                 {
                     regBcdChange("custom:16000069 true");
