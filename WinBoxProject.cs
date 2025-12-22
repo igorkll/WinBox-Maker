@@ -557,14 +557,11 @@ namespace WinBox_Maker
                                     TwoStrings twoStrings = new TwoStrings();
                                     twoStrings.string1 = (layoutKey.GetValue("Layout Text") as string) + $" ({id})";
                                     twoStrings.string2 = id;
-                                    keyboardLayouts.Add(twoStrings);
+                                    tempList.Add(twoStrings);
                                 }
                             }
 
-                            keyboardLayouts.AddRange(
-                                tempList.OrderByDescending(l => l.string2 == "00000409")
-                                        .ThenBy(l => l.string1)
-                            );
+                            keyboardLayouts.AddRange(tempList.OrderByDescending(l => l.string2 == "00000409").ThenBy(l => l.string1));
                         }
                     }
 
@@ -1090,7 +1087,7 @@ exit
             }
         }
 
-        string _getBcdeditSetup(string? store = null)
+        string getBcdeditSetup(string? store = null)
         {
             string bcdeditSetup = "";
 
@@ -1159,7 +1156,7 @@ exit
             return bcdeditSetup;
         }
 
-        string _getPowercfgSetup()
+        string getPowercfgSetup()
         {
             string powerScheme = Program.powerSchemes[(int)winBoxConfig.powerScheme];
             string powercfgSetup = $@"powercfg -s {powerScheme}
@@ -1357,7 +1354,7 @@ powercfg -s {powerScheme}";
             return enableFeatures.Distinct().ToArray();
         }
 
-        string _getServicesSetup(bool onlyRegStop=false)
+        string getServicesSetup(bool onlyRegStop=false)
         {
             string[] stopServices = getStopServicesList();
             string[] startServices = getStartServicesList();
@@ -1452,7 +1449,7 @@ powercfg -s {powerScheme}";
             return stopOrDeleteSchtasks.Distinct().ToArray();
         }
 
-        string _getSchtasksSetup()
+        string getSchtasksSetup()
         {
             string[] stopOrDeleteSchtasks = getStopOrDeleteSchtasksList();
 
@@ -1480,7 +1477,18 @@ powercfg -s {powerScheme}";
             return schtasksSetup;
         }
 
-        string[] _getSchtasksDeletePaths()
+        string getKeyboardLayoutsSetup()
+        {
+            string cmd = @"reg delete ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Keyboard Layout\Preload"" /va /f";
+
+            foreach (TwoStrings twoStrings in winBoxConfig.keyboard_layouts) {
+                cmd += @$"reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Keyboard Layout\Preload"" /v AutoEndTasks /t REG_SZ /d ""{twoStrings.string2}"" /f";
+            }
+
+            return cmd;
+        }
+
+        string[] getSchtasksDeletePaths()
         {
             string[] stopOrDeleteSchtasks = getStopOrDeleteSchtasksList();
             List<string> deletePaths = new List<string>();
@@ -1507,7 +1515,7 @@ powercfg -s {powerScheme}";
         {
             string bcdscriptName = $"modifyBCD_{Program.CalculateMD5(bcdPath)}";
             string bcdscriptPath = Path.Combine(tempDirectoryPath, $"{bcdscriptName}.bat");
-            string bcdeditCommand = _getBcdeditSetup(bcdPath);
+            string bcdeditCommand = getBcdeditSetup(bcdPath);
 
             await File.WriteAllTextAsync(bcdscriptPath, bcdeditCommand);
             await writeDebugFile(bcdscriptName, bcdeditCommand);
@@ -1916,8 +1924,8 @@ powercfg -s {powerScheme}";
 
             if (!manual)
             {
-                string bcdeditSetup = _getBcdeditSetup();
-                string powercfgSetup = _getPowercfgSetup();
+                string bcdeditSetup = getBcdeditSetup();
+                string powercfgSetup = getPowercfgSetup();
 
                 string enableDismOnlineCommands = "";
                 foreach (string feature in getEnableFeatures())
@@ -1968,7 +1976,7 @@ echo SetupComplete - call SetupComplete and FirstInit >> C:\WinboxResources\setu
 {setupCompleteAndFirstInit}
 
 echo SetupComplete - setup services >> C:\WinboxResources\setup.log
-{_getServicesSetup(true)}
+{getServicesSetup(true)}
 
 echo SetupComplete - add executable to PATH >> C:\WinboxResources\setup.log
 setx PATH ""%PATH%;C:\WinboxResources\executable"" /M
@@ -1980,7 +1988,7 @@ echo SetupComplete - add UpdateSystemSettings to schtasks >> C:\WinboxResources\
 schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\UpdateSystemSettings.bat"" /sc onlogon /rl highest /ru ""SYSTEM""
 
 echo SetupComplete - setup schtasks >> C:\WinboxResources\setup.log
-{_getSchtasksSetup()}
+{getSchtasksSetup()}
 
 echo SetupComplete - DisableTamperProtection >> C:\WinboxResources\setup.log
 powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
@@ -2029,7 +2037,10 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" 
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVTweak"" /v OverlayHook /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v HungAppTimeout /t REG_SZ /d ""2147483647"" /f
 reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v WaitToKillAppTimeout /t REG_SZ /d ""5000"" /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f";
+reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f
+
+echo SetupComplete - setup keyboard layouts >> C:\WinboxResources\setup.log
+{getKeyboardLayoutsSetup()}";
 
                 string updateSystemSettings = $@"reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
 
@@ -2037,7 +2048,7 @@ reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTask
 
                 string firstInit = $@"echo FirstInit - start >> C:\WinboxResources\setup.log
 
-{_getServicesSetup()}
+{getServicesSetup()}
 
 echo FirstInit - end >> C:\WinboxResources\setup.log";
 
@@ -3050,7 +3061,7 @@ if errorlevel 1 (
             }
 
             /*
-            foreach (string path in _getSchtasksDeletePaths())
+            foreach (string path in getSchtasksDeletePaths())
             {
                 await removeSystemObject("!" + path, "Windows\\System32\\Tasks");
             }
