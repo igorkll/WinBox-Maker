@@ -1612,7 +1612,7 @@ powercfg -s {powerScheme}";
             await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, scriptname), script);
         }
 
-        string? ExtractPackageNameFromDismResult(string dismLine, bool provisioned=false)
+        string? ExtractPackageNameFromDismResult(string dismLine, bool provisioned)
         {
             // DISM выводит строку примерно так:
             // Package Identity : Microsoft-Windows-Subsystem-Linux-Package~31bf3856ad364e35~amd64~~10.0.19041.1
@@ -1636,7 +1636,7 @@ powercfg -s {powerScheme}";
             var packageNames = new List<string>();
             foreach (var line in result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             {
-                string? packageName = ExtractPackageNameFromDismResult(line);
+                string? packageName = ExtractPackageNameFromDismResult(line, provisioned);
                 if (packageName != null)
                 {
                     packageNames.Add(packageName);
