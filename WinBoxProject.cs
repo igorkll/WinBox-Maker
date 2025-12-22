@@ -3093,7 +3093,7 @@ if errorlevel 1 (
 
                     if (packagesNames == null)
                     {
-                        RemoveDism_log += $"get full packages names: provisionPackage: {provisionPackage} < request\r\n";
+                        RemoveDism_log += $"get image packages names: provisionPackage: {provisionPackage}\r\n";
                         packagesNames = await getImagePackagesList(provisionPackage);
                         if (provisionPackage)
                         {
@@ -3105,11 +3105,11 @@ if errorlevel 1 (
                         }
                     }
 
-                    RemoveDism_log += $"get full packages names: {name} | provisionPackage: {provisionPackage} > find\r\n";
+                    RemoveDism_log += $"find full packages names: {name} | provisionPackage: {provisionPackage} | ({string.Join(",", packagesNames)})\r\n";
                     return getFullPackagesNames(packagesNames, name);
                 }
 
-                RemoveDism_log += $"get full packages names: {name} | provisionPackage: {provisionPackage} > stub\r\n";
+                RemoveDism_log += $"stub full packages names: {name} | provisionPackage: {provisionPackage}\r\n";
                 return [name];
             }
 
