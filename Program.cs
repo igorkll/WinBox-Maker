@@ -440,7 +440,7 @@ namespace WinBox_Maker
             process.WaitForExit();
         }
 
-        public static async Task ExecuteAsync(string exec, string args, string? workingDirectory = null, string? outputPath = null)
+        public static async Task<string> ExecuteAsync(string exec, string args, string? workingDirectory = null, string? outputPath = null)
         {
             using (Process process = new Process())
             {
@@ -465,8 +465,14 @@ namespace WinBox_Maker
                     CreateDirectory(Path.GetDirectoryName(outputPath));
 
                     var outputLines = new List<string>();
+                    string outputText = "";
 
-                    process.OutputDataReceived += (s, e) => { if (e.Data != null) outputLines.Add("[OUT] " + e.Data); };
+                    process.OutputDataReceived += (s, e) => {
+                        if (e.Data != null) {
+                            outputLines.Add("[OUT] " + e.Data);
+                            outputText += e.Data;
+                        }
+                    };
                     process.ErrorDataReceived += (s, e) => { if (e.Data != null) outputLines.Add("[ERR] " + e.Data); };
 
                     process.Start();
@@ -485,6 +491,8 @@ namespace WinBox_Maker
                         writer.WriteLine(line);
                     }
                     writer.Flush();
+
+                    return outputText; // вернет результат ТОЛЬКО если идет запись в лог
                 }
                 else
                 {
@@ -492,6 +500,8 @@ namespace WinBox_Maker
                     await process.WaitForExitAsync();
                 }
             }
+
+            return "";
         }
 
         public static string ConvertToPowerShellFormat(string input)

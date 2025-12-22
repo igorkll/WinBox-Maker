@@ -22,6 +22,7 @@ using System.Security.Policy;
 using System.Security.Principal;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -1609,6 +1610,40 @@ powercfg -s {powerScheme}";
         async Task WriteApiScript(string scriptname, string script)
         {
             await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, scriptname), script);
+        }
+
+        string? ExtractPackageNameFromDismResult(string dismLine)
+        {
+            // DISM выводит строку примерно так:
+            // Package Identity : Microsoft-Windows-Subsystem-Linux-Package~31bf3856ad364e35~amd64~~10.0.19041.1
+            // Нужно вытащить всё после "Package Identity : "
+
+            var match = Regex.Match(dismLine, @"Package Identity\s*:\s*(.+)");
+            if (match.Success)
+            {
+                return match.Groups[1].Value.Trim();
+            }
+
+            return null; // если не удалось найти
+        }
+
+        async Task<string[]> getImagePackagesList(bool provisioned=false)
+        {
+            // я удивлен что недокументированый ключ "/English" вообще сработал
+            string listArgs = provisioned ? $"/English /image:\"{wimMountPath}\" /Get-ProvisionedAppxPackages" : $"/English /image:\"{wimMountPath}\" /Get-Packages";
+            string result = await Program.ExecuteAsync("dism.exe", listArgs, null, debugFolder);
+
+            var packageNames = new List<string>();
+            foreach (var line in result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                string? packageName = ExtractPackageNameFromDismResult(line);
+                if (packageName != null)
+                {
+                    packageNames.Add(packageName);
+                }
+            }
+
+            return packageNames.ToArray();
         }
 
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath, bool initViaVmMode = false)
