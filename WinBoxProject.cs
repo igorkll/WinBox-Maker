@@ -2158,12 +2158,26 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
                     regAppScriptFirstInitCmd("hide_touch", regCmd);
                 }
 
+                string bootresDllPath = Path.Combine(wimMountPath, "Windows\\Boot\\Resources\\bootres.dll");
+
+                if (winBoxConfig.bootresRepacking_logoPath != null && winBoxConfig.CustomBootLogo_UseOnBootres != true)
+                {
+                    string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.bootresRepacking_logoPath);
+                    if (File.Exists(logoPath))
+                    {
+                        BootresPatcher.PatchBootres(bootresDllPath, logoPath);
+                    }
+                }
+
                 if (customBootLogo)
                 {
                     string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
                     if (File.Exists(logoPath))
                     {
-                        BootresPatcher.PatchBootres(Path.Combine(wimMountPath, "Windows\\Boot\\Resources\\bootres.dll"), logoPath);
+                        if (winBoxConfig.CustomBootLogo_UseOnBootres == true)
+                        {
+                            BootresPatcher.PatchBootres(bootresDllPath, logoPath);
+                        }
 
                         await UnpackBlob("HackBGRT.zip");
 

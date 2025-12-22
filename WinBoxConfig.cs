@@ -121,6 +121,7 @@ namespace WinBox_Maker
         public bool? UseEmbeddedDisplay { get; set; }
         public bool? CustomBootLogo_centering { get; set; }
         public bool? CustomBootLogo_UseLogoBeforeApp { get; set; }
+        public bool? CustomBootLogo_UseOnBootres { get; set; }
         public bool? prebuildEnabled { get; set; }
         public string? prebuildEvent { get; set; }
         public bool? postbuildEnabled { get; set; }
@@ -212,6 +213,7 @@ namespace WinBox_Maker
         public bool? bsod_disabledisplay { get; set; }
         public bool? ChangeTimezone { get; set; }
         public bool? EnableRecovery { get; set; }
+        public string? bootresRepacking_logoPath { get; set; }
 
 
         static string[] renameTweaks_from = [
@@ -259,8 +261,9 @@ namespace WinBox_Maker
             if (VirtualDisplayWidth == null) VirtualDisplayWidth = 960;
             if (VirtualDisplayHeight == null) VirtualDisplayHeight = 640;
             if (UseEmbeddedDisplay == null) UseEmbeddedDisplay = false;
-            if (CustomBootLogo_centering == null) CustomBootLogo_centering = false;
+            if (CustomBootLogo_centering == null) CustomBootLogo_centering = true;
             if (CustomBootLogo_UseLogoBeforeApp == null) CustomBootLogo_UseLogoBeforeApp = false;
+            if (CustomBootLogo_UseOnBootres == null) CustomBootLogo_UseOnBootres = false;
             if (prebuildEnabled == null) prebuildEnabled = false;
             if (prebuildEvent == null) prebuildEvent = "";
             if (postbuildEnabled == null) postbuildEnabled = false;

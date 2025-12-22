@@ -682,6 +682,11 @@ namespace WinBox_Maker
             ReplaceRecovery.Text = winBoxProject.winBoxConfig.ReplaceRecovery ?? "";
             EnableRecovery.Checked = winBoxProject.winBoxConfig.EnableRecovery == true;
 
+            CustomBootLogo_UseOnBootres.Checked = winBoxProject.winBoxConfig.CustomBootLogo_UseOnBootres == true;
+            bootresRepacking_logoPath.Text = winBoxProject.winBoxConfig.bootresRepacking_logoPath ?? "not selected";
+
+            bootresRepacking_panel.Enabled = winBoxProject.winBoxConfig.CustomBootLogo_UseOnBootres != true;
+
             tab_app.Enabled = !manual;
             tab_settings.Enabled = !manual;
             postinstall_panel_system.Enabled = !manual;
@@ -2808,6 +2813,15 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.EnableRecovery = EnableRecovery.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void CustomBootLogo_UseOnBootres_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.CustomBootLogo_UseOnBootres = CustomBootLogo_UseOnBootres.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
