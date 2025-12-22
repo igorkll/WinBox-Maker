@@ -543,9 +543,9 @@ namespace WinBox_Maker
                         }
                     }
 
-                    using (RegistryKey? root = Registry.LocalMachine.OpenSubKey($@"WINBOX_SYSTEM\CurrentControlSet\Control\Keyboard Layouts"))
+                    using (RegistryKey? root = Registry.LocalMachine.OpenSubKey($@"WINBOX_SYSTEM\ControlSet001\Control\Keyboard Layouts"))
                     {
-                        if (root != null)
+                         if (root != null)
                         {
                             var tempList = new List<TwoStrings>();
 
@@ -615,6 +615,22 @@ namespace WinBox_Maker
                 string json = File.ReadAllText(imageTimeZonesInfo);
 
                 List<string>? list = JsonSerializer.Deserialize<List<string>>(json);
+                if (list != null)
+                {
+                    return list.ToArray();
+                }
+            }
+
+            return [];
+        }
+
+        public TwoStrings[] GetWindowsKeyboardLayouts()
+        {
+            if (File.Exists(imageKeyboardLayoutsInfo))
+            {
+                string json = File.ReadAllText(imageKeyboardLayoutsInfo);
+
+                List<TwoStrings>? list = JsonSerializer.Deserialize<List<TwoStrings>>(json);
                 if (list != null)
                 {
                     return list.ToArray();

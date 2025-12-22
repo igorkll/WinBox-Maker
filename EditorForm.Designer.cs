@@ -241,6 +241,16 @@
             label50 = new Label();
             cds_scaling = new TextBox();
             UseCustomDisplaySettings_scale = new CheckBox();
+            tabPage54 = new TabPage();
+            tabControl12 = new TabControl();
+            tabPage55 = new TabPage();
+            keyboard_layouts_setupPanel = new Panel();
+            keyboard_layouts_remove = new Button();
+            keyboard_layouts_makeDefault = new Button();
+            keyboard_layouts_add = new Button();
+            keyboard_layouts_available = new ComboBox();
+            keyboard_layouts = new CheckedListBox();
+            tabPage56 = new TabPage();
             tabPage13 = new TabPage();
             richTextBox4 = new RichTextBox();
             tabPage17 = new TabPage();
@@ -501,14 +511,8 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            tabPage54 = new TabPage();
-            tabControl12 = new TabControl();
-            tabPage55 = new TabPage();
-            tabPage56 = new TabPage();
-            keyboard_layouts = new CheckedListBox();
-            keyboard_layouts_available = new ComboBox();
-            keyboard_layouts_add = new Button();
-            keyboard_layouts_remove = new Button();
+            keyboard_layouts_name = new Label();
+            keyboard_layouts_id = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -553,6 +557,10 @@
             CustomDisplaySettings_panel.SuspendLayout();
             tabPage15.SuspendLayout();
             UseCustomDisplaySettings_scale_panel.SuspendLayout();
+            tabPage54.SuspendLayout();
+            tabControl12.SuspendLayout();
+            tabPage55.SuspendLayout();
+            keyboard_layouts_setupPanel.SuspendLayout();
             tabPage13.SuspendLayout();
             tabPage17.SuspendLayout();
             panel8.SuspendLayout();
@@ -616,9 +624,6 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage54.SuspendLayout();
-            tabControl12.SuspendLayout();
-            tabPage55.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -2872,6 +2877,107 @@
             UseCustomDisplaySettings_scale.Text = "use custom scale settings";
             UseCustomDisplaySettings_scale.UseVisualStyleBackColor = true;
             UseCustomDisplaySettings_scale.CheckedChanged += UseCustomDisplaySettings_scale_CheckedChanged;
+            // 
+            // tabPage54
+            // 
+            tabPage54.Controls.Add(tabControl12);
+            tabPage54.Location = new Point(4, 34);
+            tabPage54.Name = "tabPage54";
+            tabPage54.Size = new Size(998, 297);
+            tabPage54.TabIndex = 9;
+            tabPage54.Text = "keyboard";
+            tabPage54.UseVisualStyleBackColor = true;
+            // 
+            // tabControl12
+            // 
+            tabControl12.Controls.Add(tabPage55);
+            tabControl12.Controls.Add(tabPage56);
+            tabControl12.Location = new Point(3, 3);
+            tabControl12.Name = "tabControl12";
+            tabControl12.SelectedIndex = 0;
+            tabControl12.Size = new Size(992, 291);
+            tabControl12.TabIndex = 0;
+            // 
+            // tabPage55
+            // 
+            tabPage55.Controls.Add(keyboard_layouts_setupPanel);
+            tabPage55.Controls.Add(keyboard_layouts_add);
+            tabPage55.Controls.Add(keyboard_layouts_available);
+            tabPage55.Controls.Add(keyboard_layouts);
+            tabPage55.Location = new Point(4, 34);
+            tabPage55.Name = "tabPage55";
+            tabPage55.Padding = new Padding(3);
+            tabPage55.Size = new Size(984, 253);
+            tabPage55.TabIndex = 0;
+            tabPage55.Text = "layouts";
+            tabPage55.UseVisualStyleBackColor = true;
+            // 
+            // keyboard_layouts_setupPanel
+            // 
+            keyboard_layouts_setupPanel.BorderStyle = BorderStyle.Fixed3D;
+            keyboard_layouts_setupPanel.Controls.Add(keyboard_layouts_id);
+            keyboard_layouts_setupPanel.Controls.Add(keyboard_layouts_name);
+            keyboard_layouts_setupPanel.Controls.Add(keyboard_layouts_remove);
+            keyboard_layouts_setupPanel.Controls.Add(keyboard_layouts_makeDefault);
+            keyboard_layouts_setupPanel.Location = new Point(348, 85);
+            keyboard_layouts_setupPanel.Name = "keyboard_layouts_setupPanel";
+            keyboard_layouts_setupPanel.Size = new Size(213, 149);
+            keyboard_layouts_setupPanel.TabIndex = 5;
+            // 
+            // keyboard_layouts_remove
+            // 
+            keyboard_layouts_remove.Location = new Point(3, 3);
+            keyboard_layouts_remove.Name = "keyboard_layouts_remove";
+            keyboard_layouts_remove.Size = new Size(203, 34);
+            keyboard_layouts_remove.TabIndex = 3;
+            keyboard_layouts_remove.Text = "remove";
+            keyboard_layouts_remove.UseVisualStyleBackColor = true;
+            // 
+            // keyboard_layouts_makeDefault
+            // 
+            keyboard_layouts_makeDefault.Location = new Point(3, 43);
+            keyboard_layouts_makeDefault.Name = "keyboard_layouts_makeDefault";
+            keyboard_layouts_makeDefault.Size = new Size(203, 34);
+            keyboard_layouts_makeDefault.TabIndex = 4;
+            keyboard_layouts_makeDefault.Text = "make default";
+            keyboard_layouts_makeDefault.UseVisualStyleBackColor = true;
+            // 
+            // keyboard_layouts_add
+            // 
+            keyboard_layouts_add.Location = new Point(348, 45);
+            keyboard_layouts_add.Name = "keyboard_layouts_add";
+            keyboard_layouts_add.Size = new Size(213, 34);
+            keyboard_layouts_add.TabIndex = 2;
+            keyboard_layouts_add.Text = "add";
+            keyboard_layouts_add.UseVisualStyleBackColor = true;
+            // 
+            // keyboard_layouts_available
+            // 
+            keyboard_layouts_available.DropDownStyle = ComboBoxStyle.DropDownList;
+            keyboard_layouts_available.FormattingEnabled = true;
+            keyboard_layouts_available.Location = new Point(348, 6);
+            keyboard_layouts_available.Name = "keyboard_layouts_available";
+            keyboard_layouts_available.Size = new Size(213, 33);
+            keyboard_layouts_available.TabIndex = 1;
+            // 
+            // keyboard_layouts
+            // 
+            keyboard_layouts.FormattingEnabled = true;
+            keyboard_layouts.Location = new Point(6, 6);
+            keyboard_layouts.Name = "keyboard_layouts";
+            keyboard_layouts.Size = new Size(336, 228);
+            keyboard_layouts.TabIndex = 0;
+            keyboard_layouts.SelectedIndexChanged += keyboard_layouts_SelectedIndexChanged;
+            // 
+            // tabPage56
+            // 
+            tabPage56.Location = new Point(4, 34);
+            tabPage56.Name = "tabPage56";
+            tabPage56.Padding = new Padding(3);
+            tabPage56.Size = new Size(984, 253);
+            tabPage56.TabIndex = 1;
+            tabPage56.Text = "filter";
+            tabPage56.UseVisualStyleBackColor = true;
             // 
             // tabPage13
             // 
@@ -5606,84 +5712,23 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // tabPage54
+            // keyboard_layouts_name
             // 
-            tabPage54.Controls.Add(tabControl12);
-            tabPage54.Location = new Point(4, 34);
-            tabPage54.Name = "tabPage54";
-            tabPage54.Size = new Size(998, 297);
-            tabPage54.TabIndex = 9;
-            tabPage54.Text = "keyboard";
-            tabPage54.UseVisualStyleBackColor = true;
+            keyboard_layouts_name.AutoSize = true;
+            keyboard_layouts_name.Location = new Point(3, 80);
+            keyboard_layouts_name.Name = "keyboard_layouts_name";
+            keyboard_layouts_name.Size = new Size(69, 25);
+            keyboard_layouts_name.TabIndex = 5;
+            keyboard_layouts_name.Text = "label93";
             // 
-            // tabControl12
+            // keyboard_layouts_id
             // 
-            tabControl12.Controls.Add(tabPage55);
-            tabControl12.Controls.Add(tabPage56);
-            tabControl12.Location = new Point(3, 3);
-            tabControl12.Name = "tabControl12";
-            tabControl12.SelectedIndex = 0;
-            tabControl12.Size = new Size(992, 291);
-            tabControl12.TabIndex = 0;
-            // 
-            // tabPage55
-            // 
-            tabPage55.Controls.Add(keyboard_layouts_remove);
-            tabPage55.Controls.Add(keyboard_layouts_add);
-            tabPage55.Controls.Add(keyboard_layouts_available);
-            tabPage55.Controls.Add(keyboard_layouts);
-            tabPage55.Location = new Point(4, 34);
-            tabPage55.Name = "tabPage55";
-            tabPage55.Padding = new Padding(3);
-            tabPage55.Size = new Size(984, 253);
-            tabPage55.TabIndex = 0;
-            tabPage55.Text = "layouts";
-            tabPage55.UseVisualStyleBackColor = true;
-            // 
-            // tabPage56
-            // 
-            tabPage56.Location = new Point(4, 34);
-            tabPage56.Name = "tabPage56";
-            tabPage56.Padding = new Padding(3);
-            tabPage56.Size = new Size(984, 253);
-            tabPage56.TabIndex = 1;
-            tabPage56.Text = "filter";
-            tabPage56.UseVisualStyleBackColor = true;
-            // 
-            // keyboard_layouts
-            // 
-            keyboard_layouts.FormattingEnabled = true;
-            keyboard_layouts.Location = new Point(6, 6);
-            keyboard_layouts.Name = "keyboard_layouts";
-            keyboard_layouts.Size = new Size(336, 228);
-            keyboard_layouts.TabIndex = 0;
-            // 
-            // keyboard_layouts_available
-            // 
-            keyboard_layouts_available.DropDownStyle = ComboBoxStyle.DropDownList;
-            keyboard_layouts_available.FormattingEnabled = true;
-            keyboard_layouts_available.Location = new Point(348, 6);
-            keyboard_layouts_available.Name = "keyboard_layouts_available";
-            keyboard_layouts_available.Size = new Size(213, 33);
-            keyboard_layouts_available.TabIndex = 1;
-            // 
-            // keyboard_layouts_add
-            // 
-            keyboard_layouts_add.Location = new Point(348, 45);
-            keyboard_layouts_add.Name = "keyboard_layouts_add";
-            keyboard_layouts_add.Size = new Size(213, 34);
-            keyboard_layouts_add.TabIndex = 2;
-            keyboard_layouts_add.Text = "add";
-            keyboard_layouts_add.UseVisualStyleBackColor = true;
-            // 
-            // keyboard_layouts_remove
-            // 
-            keyboard_layouts_remove.Location = new Point(348, 85);
-            keyboard_layouts_remove.Name = "keyboard_layouts_remove";
-            keyboard_layouts_remove.Size = new Size(213, 34);
-            keyboard_layouts_remove.TabIndex = 3;
-            keyboard_layouts_remove.Text = "remove";
-            keyboard_layouts_remove.UseVisualStyleBackColor = true;
+            keyboard_layouts_id.AutoSize = true;
+            keyboard_layouts_id.Location = new Point(3, 105);
+            keyboard_layouts_id.Name = "keyboard_layouts_id";
+            keyboard_layouts_id.Size = new Size(69, 25);
+            keyboard_layouts_id.TabIndex = 6;
+            keyboard_layouts_id.Text = "label96";
             // 
             // EditorForm
             // 
@@ -5786,6 +5831,11 @@
             tabPage15.PerformLayout();
             UseCustomDisplaySettings_scale_panel.ResumeLayout(false);
             UseCustomDisplaySettings_scale_panel.PerformLayout();
+            tabPage54.ResumeLayout(false);
+            tabControl12.ResumeLayout(false);
+            tabPage55.ResumeLayout(false);
+            keyboard_layouts_setupPanel.ResumeLayout(false);
+            keyboard_layouts_setupPanel.PerformLayout();
             tabPage13.ResumeLayout(false);
             tabPage17.ResumeLayout(false);
             panel8.ResumeLayout(false);
@@ -5886,9 +5936,6 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage54.ResumeLayout(false);
-            tabControl12.ResumeLayout(false);
-            tabPage55.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -6377,5 +6424,9 @@
         private Button keyboard_layouts_add;
         private ComboBox keyboard_layouts_available;
         private Button keyboard_layouts_remove;
+        private Panel keyboard_layouts_setupPanel;
+        private Button keyboard_layouts_makeDefault;
+        private Label keyboard_layouts_id;
+        private Label keyboard_layouts_name;
     }
 }

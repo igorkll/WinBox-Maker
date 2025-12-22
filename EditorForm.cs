@@ -21,13 +21,15 @@ namespace WinBox_Maker
         WindowsDescription[]? windowsDescriptions;
         bool softwareCheck = true;
         public TaskbarManager taskbarManager;
-        int currentBuildItemIndex = -1;
-        int currentDownloadItemIndex = -1;
-        DownloadItem? currentDownloadItem;
-        BuildItem? currentBuildItem;
         bool guiEventsLock = false;
         bool loadingWindowsTask = false;
         bool windowsImagePathChanged = false;
+
+        int currentBuildItemIndex = -1;
+        BuildItem? currentBuildItem;
+
+        int currentDownloadItemIndex = -1;
+        DownloadItem? currentDownloadItem;
 
         public EditorForm(WinBoxProject winBoxProject)
         {
@@ -49,6 +51,7 @@ namespace WinBox_Maker
 
             UpdateDownloadItemsList();
             UpdateBuildItemsList();
+            UpdateKeyboardLayoutsList();
 
             softwareCheck = true;
             TweakList.Items.Clear();
@@ -103,44 +106,63 @@ namespace WinBox_Maker
             MessageBox.Show(Program.buildEventsWarning, null, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        void UpdateDownloadItemsList()
+        void UpdateItemsList<T>(
+            CheckedListBox listControl,
+            List<T> items,
+            ref int currentIndex,
+            Action<T?> updateSelectedItem)
+            where T : class
         {
             softwareCheck = true;
-            DownloadItem? lastDownloadItem = null;
-            int lastItemIndex = -1;
-            DownloadItems.Items.Clear();
-            foreach (DownloadItem downloadItem in winBoxProject.winBoxConfig.DownloadItems)
+
+            T? lastItem = null;
+            int lastIndex = -1;
+
+            listControl.Items.Clear();
+            foreach (T item in items)
             {
-                lastItemIndex = DownloadItems.Items.Add(downloadItem.name);
-                lastDownloadItem = downloadItem;
+                string name = (item as dynamic).name;
+                lastIndex = listControl.Items.Add(name);
+                lastItem = item;
             }
-            if (lastItemIndex >= 0)
-            {
-                DownloadItems.SetItemChecked(lastItemIndex, true);
-            }
+            if (lastIndex >= 0)
+                listControl.SetItemChecked(lastIndex, true);
+
             softwareCheck = false;
-            currentDownloadItemIndex = lastItemIndex;
-            UpdateSelectedDownloadItem(lastDownloadItem);
+
+            currentIndex = lastIndex;
+            updateSelectedItem(lastItem);
+        }
+
+        void UpdateDownloadItemsList()
+        {
+            UpdateItemsList(
+                DownloadItems,
+                winBoxProject.winBoxConfig.DownloadItems,
+                ref currentDownloadItemIndex,
+                UpdateSelectedDownloadItem
+            );
         }
 
         void UpdateBuildItemsList()
         {
-            softwareCheck = true;
-            BuildItem? lastBuildItem = null;
-            int lastItemIndex = -1;
-            BuildItems.Items.Clear();
-            foreach (BuildItem buildItem in winBoxProject.winBoxConfig.BuildItems)
-            {
-                lastItemIndex = BuildItems.Items.Add(buildItem.name);
-                lastBuildItem = buildItem;
-            }
-            if (lastItemIndex >= 0)
-            {
-                BuildItems.SetItemChecked(lastItemIndex, true);
-            }
-            softwareCheck = false;
-            currentBuildItemIndex = lastItemIndex;
-            UpdateSelectedBuildItem(lastBuildItem);
+            UpdateItemsList(
+                BuildItems,
+                winBoxProject.winBoxConfig.BuildItems,
+                ref currentBuildItemIndex,
+                UpdateSelectedBuildItem
+            );
+        }
+
+        void UpdateKeyboardLayoutsList()
+        {
+            int currentIndex = -1;
+            UpdateItemsList(
+                keyboard_layouts,
+                winBoxProject.winBoxConfig.keyboard_layouts,
+                ref currentIndex,
+                UpdateSelectedKeyboardLayout
+            );
         }
 
         void UpdateSelectedBuildItem(BuildItem? buildItem)
@@ -187,6 +209,22 @@ namespace WinBox_Maker
                 dl_path.Text = downloadItem.path ?? "";
                 dl_cache.Checked = downloadItem.cache == true;
                 dl_unpack.Checked = downloadItem.unpack == true;
+                guiEventsLock = false;
+            }
+        }
+
+        void UpdateSelectedKeyboardLayout(TwoStrings? twoString)
+        {
+            if (twoString == null)
+            {
+                keyboard_layouts_setupPanel.Visible = false;
+            }
+            else
+            {
+                keyboard_layouts_setupPanel.Visible = true;
+                guiEventsLock = true;
+                keyboard_layouts_name.Text = twoString.string1 ?? "";
+                keyboard_layouts_id.Text = twoString.string2 ?? "";
                 guiEventsLock = false;
             }
         }
@@ -3018,6 +3056,11 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.schtasks_stopOrDelete_deleteFromList = schtasks_stopOrDelete_deleteFromList.Text;
             winBoxProject.SaveConfig();
             UpdateGuiCurrentSchtasks();
+        }
+
+        private void keyboard_layouts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
