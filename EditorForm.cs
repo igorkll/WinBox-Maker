@@ -31,6 +31,8 @@ namespace WinBox_Maker
         int currentDownloadItemIndex = -1;
         DownloadItem? currentDownloadItem;
 
+        TwoStrings? current_keyboard_layout;
+
         public EditorForm(WinBoxProject winBoxProject)
         {
             InitializeComponent();
@@ -1382,22 +1384,6 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
         }
 
-        private void addDownload_Click(object sender, EventArgs e)
-        {
-            DownloadItem downloadItem = new DownloadItem();
-            downloadItem.name = $"download item {winBoxProject.winBoxConfig.DownloadItems.Count() + 1}";
-            downloadItem.url = "https://raw.githubusercontent.com/igorkll/trashfolder/refs/heads/main/sound3/1.mp3";
-            downloadItem.path = "winbox_temp/files/DIRECTORIES ARE/CREATED AUTOMATICALLY/example.mp3";
-            downloadItem.cache = true;
-            downloadItem.unpack = false;
-
-            winBoxProject.winBoxConfig.downloadEnabled = true;
-            winBoxProject.winBoxConfig.DownloadItems.Add(downloadItem);
-            winBoxProject.SaveConfig();
-            UpdateDownloadItemsList();
-            UpdateGui();
-        }
-
         private void dl_name_TextChanged(object sender, EventArgs e)
         {
             if (guiEventsLock) return;
@@ -1463,19 +1449,6 @@ namespace WinBox_Maker
             TabPage selectedTab = bl_tabcontrol.SelectedTab;
             currentBuildItem.type = (BuildItemType)bl_tabcontrol.SelectedIndex;
             winBoxProject.SaveConfig();
-        }
-
-        private void addBuild_Click(object sender, EventArgs e)
-        {
-            BuildItem buildItem = new BuildItem();
-            buildItem.initDefaults();
-            buildItem.name = $"build item {winBoxProject.winBoxConfig.BuildItems.Count() + 1}";
-
-            winBoxProject.winBoxConfig.buildEnabled = true;
-            winBoxProject.winBoxConfig.BuildItems.Add(buildItem);
-            winBoxProject.SaveConfig();
-            UpdateBuildItemsList();
-            UpdateGui();
         }
 
         private async void bl_select_Click(object sender, EventArgs e)
@@ -2878,21 +2851,6 @@ namespace WinBox_Maker
 
         }
 
-        private void keyboard_layouts_add_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void keyboard_layouts_remove_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void keyboard_layouts_makeDefault_Click(object sender, EventArgs e)
-        {
-
-        }
-
         // -------------------------------------------- item lists
 
         // ------------- service functions
@@ -3101,6 +3059,7 @@ namespace WinBox_Maker
 
         void UpdateSelectedKeyboardLayout(TwoStrings? twoString)
         {
+            current_keyboard_layout = twoString;
             if (twoString == null)
             {
                 keyboard_layouts_setupPanel.Visible = false;
@@ -3139,6 +3098,17 @@ namespace WinBox_Maker
             );
         }
 
+        private void keyboard_layouts_remove_Click(object sender, EventArgs e)
+        {
+            doItemAction(
+                winBoxProject.winBoxConfig.keyboard_layouts,
+                current_keyboard_layout,
+                ItemAction.Remove,
+                winBoxProject.SaveConfig,
+                UpdateKeyboardLayoutsList
+            );
+        }
+
         // ------------- item check
 
         private void BuildItems_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -3155,6 +3125,61 @@ namespace WinBox_Maker
         {
             int currentIndex = -1;
             ItemCheckHandler(keyboard_layouts, winBoxProject.winBoxConfig.keyboard_layouts, ref currentIndex, UpdateSelectedKeyboardLayout, e);
+        }
+
+        // ------------- add
+
+        private void addBuild_Click(object sender, EventArgs e)
+        {
+            BuildItem buildItem = new BuildItem();
+            buildItem.initDefaults();
+            buildItem.name = $"build item {winBoxProject.winBoxConfig.BuildItems.Count() + 1}";
+
+            winBoxProject.winBoxConfig.buildEnabled = true;
+            winBoxProject.winBoxConfig.BuildItems.Add(buildItem);
+            winBoxProject.SaveConfig();
+            UpdateBuildItemsList();
+            UpdateGui();
+        }
+
+        private void addDownload_Click(object sender, EventArgs e)
+        {
+            DownloadItem downloadItem = new DownloadItem();
+            downloadItem.name = $"download item {winBoxProject.winBoxConfig.DownloadItems.Count() + 1}";
+            downloadItem.url = "https://raw.githubusercontent.com/igorkll/trashfolder/refs/heads/main/sound3/1.mp3";
+            downloadItem.path = "winbox_temp/files/DIRECTORIES ARE/CREATED AUTOMATICALLY/example.mp3";
+            downloadItem.cache = true;
+            downloadItem.unpack = false;
+
+            winBoxProject.winBoxConfig.downloadEnabled = true;
+            winBoxProject.winBoxConfig.DownloadItems.Add(downloadItem);
+            winBoxProject.SaveConfig();
+            UpdateDownloadItemsList();
+            UpdateGui();
+        }
+
+        private void keyboard_layouts_add_Click(object sender, EventArgs e)
+        {
+            TwoStrings twoStrings = new TwoStrings();
+            twoStrings.string1 = "1";
+            twoStrings.string2 = "2";
+
+            winBoxProject.winBoxConfig.keyboard_layouts.Add(twoStrings);
+            winBoxProject.SaveConfig();
+            UpdateKeyboardLayoutsList();
+        }
+
+        // ------------- control
+
+        private void keyboard_layouts_makeDefault_Click(object sender, EventArgs e)
+        {
+            doItemAction(
+                winBoxProject.winBoxConfig.keyboard_layouts,
+                current_keyboard_layout,
+                ItemAction.MoveToTop,
+                winBoxProject.SaveConfig,
+                UpdateKeyboardLayoutsList
+            );
         }
     }
 }
