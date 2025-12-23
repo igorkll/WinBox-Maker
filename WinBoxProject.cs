@@ -1156,12 +1156,13 @@ exit
 
                 regBcdChange("bootstatuspolicy ignoreallfailures");
                 regBcdChange("recoveryenabled no");
-                regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS");
-                regBcdChange("NOINTEGRITYCHECKS ON");
-                regBcdChange("TESTSIGNING ON");
 
                 regBcdChange("hypervisorlaunchtype off");
                 regBcdChange("vsmlaunchtype off");
+
+                regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS"); //chatGPT сказал что это даже на embedded п@здец полный
+                regBcdChange("NOINTEGRITYCHECKS ON");
+                regBcdChange("TESTSIGNING ON");
 
                 if (Program.isTweakEnabled(winBoxConfig, "Disable boot circle"))
                 {
@@ -3196,6 +3197,8 @@ if errorlevel 1 (
 
                 if (Program.isTweakEnabled(winBoxConfig, "remove OneDrive")) {
                     await removeSystemObject("Windows\\System32\\Tasks\\Microsoft\\OneDrive");
+                    await removeSystemObject("Windows\\System32\\OneDriveSetup.exe");
+                    await removeSystemObject("Windows\\SysWOW64\\OneDriveSetup.exe");
                 }
             }
 

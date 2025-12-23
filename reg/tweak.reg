@@ -462,6 +462,10 @@ Windows Registry Editor Version 5.00
 "NotificationDisabled"=dword:00000001
 "DownlevelActivation"=dword:00000002
 
+; ---------------- disable onedrive
+[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\OneDrive]
+"DisableFileSyncNGSC"=dword:00000001
+
 ; ---------------- disable screenshot
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableSnippingTool"=dword:00000001
