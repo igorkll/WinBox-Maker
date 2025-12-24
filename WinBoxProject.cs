@@ -1151,15 +1151,15 @@ exit
             {
                 regBcdChange("advancedoptions false");
                 regBcdChange("optionsedit false");
+                regBcdChange("recoveryenabled no"); //запрет автоматического входа в recovery
 
-                regBcdChange("displaybootmenu no");
+                regBcdChange("displaybootmenu no"); // нечего не показываем
                 regBcdChange("timeout 0");
-
                 regBcdChange("bootstatuspolicy ignoreallfailures");
-                regBcdChange("recoveryenabled no");
 
-                regBcdChange("hypervisorlaunchtype off");
+                regBcdChange("hypervisorlaunchtype off"); // для embedded это мусор
                 regBcdChange("vsmlaunchtype off");
+                regBcdChange("disableelamdrivers yes");
 
                 regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS"); //chatGPT сказал что это даже на embedded п@здец полный
                 regBcdChange("NOINTEGRITYCHECKS ON");

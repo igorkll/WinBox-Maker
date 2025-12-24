@@ -284,7 +284,7 @@ namespace WinBox_Maker
             if (DiskTimeout_dc == null) DiskTimeout_dc = 0;
 
             if (Architecture == null) Architecture = "x64";
-            if (TweakList == null) TweakList = ["Integrate vc redist", "Disable all boot UI", "Hide bootmgr errors"];
+            if (TweakList == null) TweakList = ["Integrate vc redist", "Disable all boot UI", "Hide bootmgr errors", "Disable boot circle", "Disable boot messages"];
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
             if (LaunchMode == null) LaunchMode = ProgramLaunchModeEnum.insteadDesktop;
             if (AddVirtualDisplay == null) AddVirtualDisplay = false;
