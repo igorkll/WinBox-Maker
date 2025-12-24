@@ -1121,7 +1121,14 @@ exit
             }
         }
 
-        string getBcdeditSetup(string? store = null)
+        enum BcdPatchObject
+        {
+            BaseSystem = 0,
+            Installer,
+            Recovery
+        }
+
+        string getBcdeditSetup(string? store = null, BcdPatchObject patchObject = BcdPatchObject.BaseSystem)
         {
             string bcdeditSetup = "";
 
@@ -1132,7 +1139,7 @@ exit
                 bcdeditSetup += $"// BCD Path: {store} \r\n";
             }
 
-            void regBcdChange(string change, string partition=null)
+            void regBcdChange(string change, string? partition=null)
             {
                 if (partition != null)
                 {
@@ -1147,7 +1154,7 @@ exit
                 }
             }
 
-            if (winBoxConfig.manual_setup != true)
+            if (winBoxConfig.manual_setup != true && patchObject == BcdPatchObject.BaseSystem)
             {
                 regBcdChange("advancedoptions false");
                 regBcdChange("optionsedit false");
@@ -1550,16 +1557,43 @@ powercfg -s {powerScheme}";
             if (info == true) await File.WriteAllTextAsync(Path.Combine(path, "INFO.txt"), $"name: {newWindowsDescription.name}\r\ndescription: {newWindowsDescription.description}");
         }
 
-        async Task modifyBCD(string bcdPath)
+        async Task modifyBCD(string bcdPath, BcdPatchObject patchObject = BcdPatchObject.BaseSystem)
         {
             string bcdscriptName = $"modifyBCD_{Program.CalculateMD5(bcdPath)}";
             string bcdscriptPath = Path.Combine(tempDirectoryPath, $"{bcdscriptName}.bat");
-            string bcdeditCommand = getBcdeditSetup(bcdPath);
+            string bcdeditCommand = getBcdeditSetup(bcdPath, patchObject);
 
             await File.WriteAllTextAsync(bcdscriptPath, bcdeditCommand);
             await writeDebugFile(bcdscriptName, bcdeditCommand);
             await Program.ExecuteAsync("cmd.exe", $"/c \"{bcdscriptPath}\"", null, getDebugFilePath($"{bcdscriptName}_output"));
             File.Delete(bcdscriptPath);
+        }
+
+        async Task modifyWinBCD(string path, BcdPatchObject patchObject = BcdPatchObject.BaseSystem)
+        {
+            string bcdPath = Path.Combine(path, "boot\\bcd");
+            if (File.Exists(bcdPath))
+            {
+                await modifyBCD(bcdPath, patchObject);
+            }
+
+            bcdPath = Path.Combine(path, "EFI\\Microsoft\\Boot\\BCD");
+            if (File.Exists(bcdPath))
+            {
+                await modifyBCD(bcdPath, patchObject);
+            }
+
+            bcdPath = Path.Combine(path, "Windows\\Boot\\EFI\\BCD");
+            if (File.Exists(bcdPath))
+            {
+                await modifyBCD(bcdPath, patchObject);
+            }
+
+            bcdPath = Path.Combine(path, "Windows\\System32\\Config\\BCD-Template");
+            if (File.Exists(bcdPath))
+            {
+                await modifyBCD(bcdPath, patchObject);
+            }
         }
 
         public string[] splitRickTextboxLines(string text)
@@ -1878,7 +1912,7 @@ powercfg -s {powerScheme}";
 
                 if (File.Exists(winREpath) && needMountRecovery()) {
                     await mountDism(winREpath, recoveryMountPath);
-                    
+
                     if (winBoxConfig.recoveryMountedEarly_breakbefore == true) breakpointStop("recovery-mounted-early", false);
                     if (winBoxConfig.recoveryMountedEarlyEnabled == true)
                     {
@@ -1888,6 +1922,7 @@ powercfg -s {powerScheme}";
                     }
                     if (winBoxConfig.recoveryMountedEarly_breakafter == true) breakpointStop("recovery-mounted-early", true);
 
+                    await modifyWinBCD(recoveryMountPath, BcdPatchObject.Recovery);
                     await patchRecoveryPartition(recoveryMountPath, newWindowsDescription);
                     await umountDism(true, recoveryMountPath);
                 }
@@ -1898,7 +1933,7 @@ powercfg -s {powerScheme}";
             if (!manual) {
                 processName("Modification of BCD");
                 processValue(45);
-                await modifyBCD(Path.Combine(wimMountPath, "Windows\\System32\\Config\\BCD-Template"));
+                await modifyWinBCD(wimMountPath);
             }
 
             bool modSystemReg = !manual || winBoxConfig.onbuild_reg != null;
@@ -3263,10 +3298,17 @@ if errorlevel 1 (
 
         async Task modUnpackedIso(string unpackIsoPath, WindowsDescription newWindowsDescription)
         {
+            // modify BCD in installer iso
+            await modifyWinBCD(unpackIsoPath, BcdPatchObject.Installer);
+
             // unpack winPE
             string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
             await mountDism(bootWimPath, wimWinPeMountPath);
 
+            // modify BCD in installer wim
+            await modifyWinBCD(wimWinPeMountPath, BcdPatchObject.Installer);
+
+            // add winbox maker installer tweaks
             if (winBoxConfig.manual_setup != true)
             {
                 string winPEsetup = @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassTPMCheck /t REG_DWORD /d 1 /f
@@ -3291,9 +3333,10 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
                 }
             }
 
-            // apply the boot.wim modification
+            // optional add adverting files
             await addAdFiles(wimWinPeMountPath, newWindowsDescription, winBoxConfig.aaf_readme_boot, winBoxConfig.aaf_info_boot);
 
+            // add user files to installer
             string filesPath = Path.Combine(resourcesDirectoryPath, "boot_files");
             if (Directory.Exists(filesPath))
             {
@@ -3376,17 +3419,6 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             bool manual = winBoxConfig.manual_setup == true;
 
             if (!manual) {
-                string bcdPath = Path.Combine(unpackIsoPath, "boot\\bcd");
-                if (File.Exists(bcdPath)) {
-                    await modifyBCD(bcdPath);
-                }
-
-                bcdPath = Path.Combine(unpackIsoPath, "EFI\\Microsoft\\Boot\\BCD");
-                if (File.Exists(bcdPath))
-                {
-                    await modifyBCD(bcdPath);
-                }
-
                 if (winBoxConfig.oemkey_installer == true && winBoxConfig.isValidOemKey())
                 {
                     await File.WriteAllTextAsync(Path.Combine(unpackIsoPath, "Sources\\PID.txt"), $"[PID]\nValue={winBoxConfig.OemKey}");
