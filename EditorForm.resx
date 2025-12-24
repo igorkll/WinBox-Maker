@@ -3503,16 +3503,6 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="richTextBox14.Text" xml:space="preserve">
-    <value>removing Windows components or disabling features via dism. trying to call in turn:
-Disable-Feature
-Remove-Package
-Remove-ProvisionedAppxPackage
-
-(Remove-Package / Remove-ProvisionedAppxPackage) start the name with * if you don't know the exact name, and winbox maker will delete all packages where there are name matches. this can be used if you do not know the exact version of the package that is installed in the selected image.
-
-This approach doesn't care what you turn off, but simply adds names to the list.</value>
-  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
@@ -3567,6 +3557,16 @@ This event, unlike the usual "win-mounted" event, is performed immediately after
     <value>deletes files or directories by specified paths inside the mounted Windows.
 if the path refers to a directory, then an empty directory will be created in its place, this is done because in Windows, when deleting many system directories, the system can continue to work normally if the directory itself exists, even if it is empty, but the system refuses to work if the directory itself has been deleted.
 if you need to completely delete the directory so that it doesn't exist at all. start the path with the character "!"</value>
+  </data>
+  <data name="richTextBox14.Text" xml:space="preserve">
+    <value>removing Windows components or disabling features via dism. trying to call in turn:
+Disable-Feature
+Remove-Package
+Remove-ProvisionedAppxPackage
+
+(Remove-Package / Remove-ProvisionedAppxPackage) start the name with * if you don't know the exact name, and winbox maker will delete all packages where there are name matches. this can be used if you do not know the exact version of the package that is installed in the selected image.
+
+This approach doesn't care what you turn off, but simply adds names to the list.</value>
   </data>
   <data name="richTextBox15.Text" xml:space="preserve">
     <value>deletes packages using dism using Remove-Package
