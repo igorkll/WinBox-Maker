@@ -32,24 +32,22 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             tabPage3 = new TabPage();
-            override_application = new CheckBox();
+            app_tab = new TabControl();
+            tabPage4 = new TabPage();
+            richTextBox2 = new RichTextBox();
+            tabPage5 = new TabPage();
+            label1 = new Label();
+            richTextBox1 = new RichTextBox();
+            app_custom_cmdline = new TextBox();
+            app_override = new CheckBox();
             tabPage2 = new TabPage();
             applyBaseSystemBCD = new CheckBox();
-            override_application_tab = new TabControl();
-            tabPage4 = new TabPage();
-            tabPage5 = new TabPage();
-            textBox1 = new TextBox();
-            richTextBox1 = new RichTextBox();
-            richTextBox2 = new RichTextBox();
-            label1 = new Label();
-            textBox2 = new TextBox();
-            label2 = new Label();
             tabControl1.SuspendLayout();
             tabPage3.SuspendLayout();
-            tabPage2.SuspendLayout();
-            override_application_tab.SuspendLayout();
+            app_tab.SuspendLayout();
             tabPage4.SuspendLayout();
             tabPage5.SuspendLayout();
+            tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -75,8 +73,8 @@
             // 
             // tabPage3
             // 
-            tabPage3.Controls.Add(override_application_tab);
-            tabPage3.Controls.Add(override_application);
+            tabPage3.Controls.Add(app_tab);
+            tabPage3.Controls.Add(app_override);
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
             tabPage3.Size = new Size(1146, 582);
@@ -84,15 +82,89 @@
             tabPage3.Text = "app";
             tabPage3.UseVisualStyleBackColor = true;
             // 
-            // override_application
+            // app_tab
             // 
-            override_application.AutoSize = true;
-            override_application.Location = new Point(3, 3);
-            override_application.Name = "override_application";
-            override_application.Size = new Size(195, 29);
-            override_application.TabIndex = 0;
-            override_application.Text = "override application";
-            override_application.UseVisualStyleBackColor = true;
+            app_tab.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            app_tab.Controls.Add(tabPage4);
+            app_tab.Controls.Add(tabPage5);
+            app_tab.Location = new Point(3, 38);
+            app_tab.Name = "app_tab";
+            app_tab.SelectedIndex = 0;
+            app_tab.Size = new Size(1140, 541);
+            app_tab.TabIndex = 1;
+            app_tab.SelectedIndexChanged += app_tab_SelectedIndexChanged;
+            // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(richTextBox2);
+            tabPage4.Location = new Point(4, 34);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(3);
+            tabPage4.Size = new Size(1132, 503);
+            tabPage4.TabIndex = 0;
+            tabPage4.Text = "winbox maker recovery";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox2
+            // 
+            richTextBox2.BackColor = SystemColors.Info;
+            richTextBox2.Location = new Point(598, 6);
+            richTextBox2.Name = "richTextBox2";
+            richTextBox2.ReadOnly = true;
+            richTextBox2.Size = new Size(528, 491);
+            richTextBox2.TabIndex = 2;
+            richTextBox2.Text = resources.GetString("richTextBox2.Text");
+            // 
+            // tabPage5
+            // 
+            tabPage5.Controls.Add(label1);
+            tabPage5.Controls.Add(richTextBox1);
+            tabPage5.Controls.Add(app_custom_cmdline);
+            tabPage5.Location = new Point(4, 34);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding(3);
+            tabPage5.Size = new Size(1132, 503);
+            tabPage5.TabIndex = 1;
+            tabPage5.Text = "custom";
+            tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(387, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(74, 25);
+            label1.TabIndex = 2;
+            label1.Text = "cmdline";
+            // 
+            // richTextBox1
+            // 
+            richTextBox1.BackColor = SystemColors.Info;
+            richTextBox1.Location = new Point(598, 6);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.ReadOnly = true;
+            richTextBox1.Size = new Size(528, 491);
+            richTextBox1.TabIndex = 1;
+            richTextBox1.Text = resources.GetString("richTextBox1.Text");
+            // 
+            // app_custom_cmdline
+            // 
+            app_custom_cmdline.Location = new Point(6, 6);
+            app_custom_cmdline.Name = "app_custom_cmdline";
+            app_custom_cmdline.Size = new Size(375, 31);
+            app_custom_cmdline.TabIndex = 0;
+            app_custom_cmdline.TextChanged += app_custom_cmdline_TextChanged;
+            // 
+            // app_override
+            // 
+            app_override.AutoSize = true;
+            app_override.Location = new Point(3, 3);
+            app_override.Name = "app_override";
+            app_override.Size = new Size(195, 29);
+            app_override.TabIndex = 0;
+            app_override.Text = "override application";
+            app_override.UseVisualStyleBackColor = true;
+            app_override.CheckedChanged += app_override_CheckedChanged;
             // 
             // tabPage2
             // 
@@ -116,95 +188,6 @@
             applyBaseSystemBCD.UseVisualStyleBackColor = true;
             applyBaseSystemBCD.CheckedChanged += applyBaseSystemBCD_CheckedChanged;
             // 
-            // override_application_tab
-            // 
-            override_application_tab.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            override_application_tab.Controls.Add(tabPage4);
-            override_application_tab.Controls.Add(tabPage5);
-            override_application_tab.Location = new Point(3, 38);
-            override_application_tab.Name = "override_application_tab";
-            override_application_tab.SelectedIndex = 0;
-            override_application_tab.Size = new Size(1140, 541);
-            override_application_tab.TabIndex = 1;
-            // 
-            // tabPage4
-            // 
-            tabPage4.Controls.Add(richTextBox2);
-            tabPage4.Location = new Point(4, 34);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(1132, 503);
-            tabPage4.TabIndex = 0;
-            tabPage4.Text = "winbox maker recovery";
-            tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            tabPage5.Controls.Add(label2);
-            tabPage5.Controls.Add(textBox2);
-            tabPage5.Controls.Add(label1);
-            tabPage5.Controls.Add(richTextBox1);
-            tabPage5.Controls.Add(textBox1);
-            tabPage5.Location = new Point(4, 34);
-            tabPage5.Name = "tabPage5";
-            tabPage5.Padding = new Padding(3);
-            tabPage5.Size = new Size(1132, 503);
-            tabPage5.TabIndex = 1;
-            tabPage5.Text = "custom";
-            tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(6, 6);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(375, 31);
-            textBox1.TabIndex = 0;
-            // 
-            // richTextBox1
-            // 
-            richTextBox1.BackColor = SystemColors.Info;
-            richTextBox1.Location = new Point(598, 6);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(528, 491);
-            richTextBox1.TabIndex = 1;
-            richTextBox1.Text = resources.GetString("richTextBox1.Text");
-            // 
-            // richTextBox2
-            // 
-            richTextBox2.BackColor = SystemColors.Info;
-            richTextBox2.Location = new Point(598, 6);
-            richTextBox2.Name = "richTextBox2";
-            richTextBox2.ReadOnly = true;
-            richTextBox2.Size = new Size(528, 491);
-            richTextBox2.TabIndex = 2;
-            richTextBox2.Text = resources.GetString("richTextBox2.Text");
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(387, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(48, 25);
-            label1.TabIndex = 2;
-            label1.Text = "path";
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(6, 43);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(375, 31);
-            textBox2.TabIndex = 3;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(387, 46);
-            label2.Name = "label2";
-            label2.Size = new Size(46, 25);
-            label2.TabIndex = 4;
-            label2.Text = "args";
-            // 
             // WinPeModificationsUI
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -216,12 +199,12 @@
             tabControl1.ResumeLayout(false);
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
-            tabPage2.ResumeLayout(false);
-            tabPage2.PerformLayout();
-            override_application_tab.ResumeLayout(false);
+            app_tab.ResumeLayout(false);
             tabPage4.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -232,15 +215,13 @@
         private TabPage tabPage2;
         private TabPage tabPage3;
         private CheckBox applyBaseSystemBCD;
-        private CheckBox override_application;
-        private TabControl override_application_tab;
+        private CheckBox app_override;
+        private TabControl app_tab;
         private TabPage tabPage4;
         private TabPage tabPage5;
-        private TextBox textBox1;
+        private TextBox app_custom_cmdline;
         private RichTextBox richTextBox1;
         private RichTextBox richTextBox2;
         private Label label1;
-        private Label label2;
-        private TextBox textBox2;
     }
 }
