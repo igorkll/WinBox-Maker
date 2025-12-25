@@ -388,6 +388,7 @@
             tabPage25 = new TabPage();
             installermod_manual_allow = new CheckBox();
             installerpanel = new Panel();
+            install_bypass = new CheckBox();
             installer_winPE_mod = new Button();
             installer_winPE_mod_en = new CheckBox();
             richTextBox22 = new RichTextBox();
@@ -518,7 +519,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            install_bypass = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -4464,6 +4464,17 @@
             installerpanel.Size = new Size(505, 259);
             installerpanel.TabIndex = 50;
             // 
+            // install_bypass
+            // 
+            install_bypass.AutoSize = true;
+            install_bypass.Location = new Point(3, 3);
+            install_bypass.Name = "install_bypass";
+            install_bypass.Size = new Size(487, 29);
+            install_bypass.TabIndex = 51;
+            install_bypass.Text = "bypass installation restrictions on unsupported hardware";
+            install_bypass.UseVisualStyleBackColor = true;
+            install_bypass.CheckedChanged += install_bypass_CheckedChanged;
+            // 
             // installer_winPE_mod
             // 
             installer_winPE_mod.Location = new Point(278, 218);
@@ -4806,7 +4817,7 @@
             // bl_folderInProject
             // 
             bl_folderInProject.FormattingEnabled = true;
-            bl_folderInProject.Items.AddRange(new object[] { "winbox_temp/program", "winbox_temp/usertemp/for_example__for_recovery" });
+            bl_folderInProject.Items.AddRange(new object[] { "winbox_temp/program", "winbox_temp/recovery_files/my_recovery_software_example", "winbox_temp/boot_files/my_installer_software_example", "winbox_temp/files/any_other_system_path" });
             bl_folderInProject.Location = new Point(7, 204);
             bl_folderInProject.Name = "bl_folderInProject";
             bl_folderInProject.Size = new Size(667, 33);
@@ -5798,17 +5809,6 @@
             ExportInstallEsd.Text = "export install.esd";
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
-            // 
-            // install_bypass
-            // 
-            install_bypass.AutoSize = true;
-            install_bypass.Location = new Point(3, 3);
-            install_bypass.Name = "install_bypass";
-            install_bypass.Size = new Size(487, 29);
-            install_bypass.TabIndex = 51;
-            install_bypass.Text = "bypass installation restrictions on unsupported hardware";
-            install_bypass.UseVisualStyleBackColor = true;
-            install_bypass.CheckedChanged += install_bypass_CheckedChanged;
             // 
             // EditorForm
             // 

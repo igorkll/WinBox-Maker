@@ -2,6 +2,7 @@
 bin
 obj
 *.csproj.user
+*.vcxproj.user
 blobs
 blobs.rar
 WinBox-Maker.rar
