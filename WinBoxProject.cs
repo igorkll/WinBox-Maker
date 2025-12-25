@@ -1515,8 +1515,17 @@ powercfg -s {powerScheme}";
                 winBoxConfig.recoveryMountedEarly_breakafter == true ||
                 winBoxConfig.recoveryMountedEarly_breakbefore == true ||
                 winBoxConfig.recoveryMountedEarlyEnabled == true ||
+                winBoxConfig.recovery_winPE_mod.enabled == true ||
                 Program.hasDirectoryNotEmpty(Path.Combine(resourcesDirectoryPath, "recovery_files")) ||
                 Program.hasDirectoryNotEmpty(Path.Combine(tempDirectoryPath, "recovery_files"));
+        }
+
+        bool needMountInstallerBoot()
+        {
+            return winBoxConfig.aaf_readme_boot == true ||
+                winBoxConfig.aaf_info_boot == true ||
+                Program.hasDirectoryNotEmpty(Path.Combine(resourcesDirectoryPath, "boot_files")) ||
+                Program.hasDirectoryNotEmpty(Path.Combine(tempDirectoryPath, "boot_files"));
         }
 
         async Task patchRecoveryPartition(string mountedRecoveryPath, WindowsDescription newWindowsDescription)
@@ -3199,14 +3208,15 @@ if errorlevel 1 (
 
             // unpack winPE
             string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
-            await mountDism(bootWimPath, wimWinPeMountPath);
+            bool mountBootWim = modAllow || needMountInstallerBoot();
+            if (mountBootWim) await mountDism(bootWimPath, wimWinPeMountPath);
 
             // modify BCD in installer wim
             if (modAllow)
                 await winBoxConfig.installer_winPE_mod.modMountedWim(wimWinPeMountPath);
 
-            // add winbox maker installer tweaks
-            if (modAllow && true)
+            // add winbox maker installer bypass
+            if (modAllow && winBoxConfig.install_bypass == true)
             {
                 string winPEsetup = @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassTPMCheck /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassSecureBootCheck /t REG_DWORD /d 1 /f
@@ -3230,24 +3240,43 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
                 }
             }
 
-            // optional add adverting files
-            await addAdFiles(wimWinPeMountPath, newWindowsDescription, winBoxConfig.aaf_readme_boot, winBoxConfig.aaf_info_boot);
-
-            // add user files to installer
-            string filesPath = Path.Combine(resourcesDirectoryPath, "boot_files");
-            if (Directory.Exists(filesPath))
+            if (mountBootWim)
             {
-                await Program.CopyFilesRecursivelyAsync(filesPath, wimWinPeMountPath);
+                // optional add adverting files to boot.wim
+                await addAdFiles(wimWinPeMountPath, newWindowsDescription, winBoxConfig.aaf_readme_boot, winBoxConfig.aaf_info_boot);
+
+                // add user files to boot.wim
+                string filesPath = Path.Combine(resourcesDirectoryPath, "boot_files");
+                if (Directory.Exists(filesPath))
+                {
+                    await Program.CopyFilesRecursivelyAsync(filesPath, wimWinPeMountPath);
+                }
+
+                filesPath = Path.Combine(tempDirectoryPath, "boot_files");
+                if (Directory.Exists(filesPath))
+                {
+                    await Program.CopyFilesRecursivelyAsync(filesPath, wimWinPeMountPath);
+                }
+
+                // umount & save boot.wim
+                await umountDism(true, wimWinPeMountPath);
             }
 
-            filesPath = Path.Combine(tempDirectoryPath, "boot_files");
-            if (Directory.Exists(filesPath))
+            // optional add adverting files to installer iso
+            await addAdFiles(unpackIsoPath, newWindowsDescription, winBoxConfig.aaf_readme_iso, winBoxConfig.aaf_info_iso);
+
+            // add user files to installer iso
+            string isoFilesPath = Path.Combine(resourcesDirectoryPath, "iso_files");
+            if (Directory.Exists(isoFilesPath))
             {
-                await Program.CopyFilesRecursivelyAsync(filesPath, wimWinPeMountPath);
+                await Program.CopyFilesRecursivelyAsync(isoFilesPath, unpackIsoPath);
             }
 
-            // save
-            await umountDism(true, wimWinPeMountPath);
+            isoFilesPath = Path.Combine(tempDirectoryPath, "iso_files");
+            if (Directory.Exists(isoFilesPath))
+            {
+                await Program.CopyFilesRecursivelyAsync(isoFilesPath, unpackIsoPath);
+            }
         }
 
         public async Task<bool> BuildEsdAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool showComplete = true)
@@ -3334,20 +3363,6 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
                         await Program.CopyFileAsync(xmlPath, Path.Combine(unpackIsoPath, "autounattend.xml"));
                     }
                 }
-            }
-
-            await addAdFiles(unpackIsoPath, newWindowsDescription, winBoxConfig.aaf_readme_iso, winBoxConfig.aaf_info_iso);
-
-            string isoFilesPath = Path.Combine(resourcesDirectoryPath, "iso_files");
-            if (Directory.Exists(isoFilesPath))
-            {
-                await Program.CopyFilesRecursivelyAsync(isoFilesPath, unpackIsoPath);
-            }
-
-            isoFilesPath = Path.Combine(tempDirectoryPath, "iso_files");
-            if (Directory.Exists(isoFilesPath))
-            {
-                await Program.CopyFilesRecursivelyAsync(isoFilesPath, unpackIsoPath);
             }
 
             processName("Building an ISO image");

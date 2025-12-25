@@ -245,6 +245,8 @@ namespace WinBox_Maker
         public WinPeModifications? recovery_winPE_mod { get; set; }
         public WinPeModifications? installer_winPE_mod { get; set; }
 
+        public bool? install_bypass { get; set; }
+
 
 
         static string[] renameTweaks_from = [
@@ -447,6 +449,8 @@ namespace WinBox_Maker
             {
                 buildItem.initDefaults();
             }
+
+            if (install_bypass == null) install_bypass = true;
         }
 
         public void Save(string wnbFilePath)
