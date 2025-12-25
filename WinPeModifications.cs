@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace WinBox_Maker
 {
@@ -44,9 +46,13 @@ namespace WinBox_Maker
             await BcdChanger.modifyWinBCD(mountedPath, this);
         }
 
+        // -------------------------------------
+
+        string recoveryFileName = "WinboxMakerRecovery.exe";
+
         async Task addWinboxMakerRecoveryFils(string mountedPath)
         {
-
+            await Program.CopyFileAsync(Program.getBlobPath(Program.winBoxConfig, recoveryFileName), Path.Combine(mountedPath, recoveryFileName));
         }
 
         public async Task modMountedWim(string mountedPath)
