@@ -567,6 +567,9 @@ namespace WinBox_Maker
             if (File.Exists(destFile))
             {
                 oldFileAttributes = File.GetAttributes(destFile);
+                if ((oldFileAttributes & FileAttributes.ReadOnly) != 0)
+                    File.SetAttributes(destFile, (FileAttributes)(oldFileAttributes & ~FileAttributes.ReadOnly));
+
                 File.Delete(destFile);
             }
 
@@ -583,6 +586,32 @@ namespace WinBox_Maker
                 File.SetAttributes(destFile, (FileAttributes)oldFileAttributes);
             }
         }
+
+        public static async Task WriteFileAsync(string destFile, string text)
+        {
+            FileAttributes? oldFileAttributes = null;
+
+            if (File.Exists(destFile))
+            {
+                oldFileAttributes = File.GetAttributes(destFile);
+                if ((oldFileAttributes & FileAttributes.ReadOnly) != 0)
+                    File.SetAttributes(destFile, (FileAttributes)(oldFileAttributes & ~FileAttributes.ReadOnly));
+
+                File.Delete(destFile);
+            }
+
+            using (FileStream destinationStream = new FileStream(destFile, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (StreamWriter writer = new StreamWriter(destinationStream))
+            {
+                await writer.WriteAsync(text);
+            }
+
+            if (oldFileAttributes != null)
+            {
+                File.SetAttributes(destFile, (FileAttributes)oldFileAttributes);
+            }
+        }
+
 
         public static void SetAttributesRecursive(string path, FileAttributes attributes)
         {

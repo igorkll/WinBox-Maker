@@ -106,7 +106,9 @@ namespace WinBox_Maker
                         break;
                 }
 
-                await File.WriteAllTextAsync(Path.Combine(mountedPath, "Windows\\System32\\winpeshl.ini"), @$"[LaunchApps]
+                string path = Path.Combine(mountedPath, "Windows\\System32\\winpeshl.ini");
+
+                await Program.WriteFileAsync(path, @$"[LaunchApps]
 %SYSTEMDRIVE%{Program.ReplaceAndPrependBackslash(cmdline)}");
             }
         }
