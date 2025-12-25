@@ -3191,18 +3191,22 @@ if errorlevel 1 (
 
         async Task modUnpackedIso(string unpackIsoPath, WindowsDescription newWindowsDescription)
         {
+            bool modAllow = winBoxConfig.manual_setup != true || winBoxConfig.installermod_manual_allow != true;
+
             // modify BCD in installer iso
-            await winBoxConfig.installer_winPE_mod.modMountedIso(unpackIsoPath);
+            if (modAllow)
+                await winBoxConfig.installer_winPE_mod.modMountedIso(unpackIsoPath);
 
             // unpack winPE
             string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
             await mountDism(bootWimPath, wimWinPeMountPath);
 
             // modify BCD in installer wim
-            await winBoxConfig.installer_winPE_mod.modMountedWim(wimWinPeMountPath);
+            if (modAllow)
+                await winBoxConfig.installer_winPE_mod.modMountedWim(wimWinPeMountPath);
 
             // add winbox maker installer tweaks
-            if (winBoxConfig.manual_setup != true)
+            if (modAllow && true)
             {
                 string winPEsetup = @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassTPMCheck /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig"" /v BypassSecureBootCheck /t REG_DWORD /d 1 /f
