@@ -40,6 +40,8 @@ namespace WinBox_Maker
         public static OpenProjectForm openProjectForm;
         static bool isClosingProgrammatically = false;
         public static WinboxMakerConfig winboxSettings;
+        public static WinBoxConfig? winBoxConfig;
+        public static WinBoxProject? winBoxProject;
         static bool consoleExporter = false;
 
         public static string? appdataPath;

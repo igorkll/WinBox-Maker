@@ -42,33 +42,35 @@ namespace WinBox_Maker
         const string resourcesDirectoryName = "winbox_resources";
         const string imagesDirectoryName = "winbox_images";
         public WinBoxConfig winBoxConfig;
-        string wnbFilePath;
+        public string wnbFilePath;
         public string baseDirectoryPath;
         public string buildDirectoryPath;
         public string resourcesDirectoryPath;
         public string imagesDirectoryPath;
         public string sourcesDirectoryPath;
         public string debugBuildProgramsPath;
-        string tempDirectoryPath;
-        string imageTimeZonesInfo;
-        string imageKeyboardLayoutsInfo;
-        string unpackedWimFile;
-        string wimInfoFile;
-        string newWimFile;
-        string wimMountPath;
-        string wimWinPeMountPath;
-        string recoveryMountPath;
-        string unpackIsoPath;
-        string name;
+        public string tempDirectoryPath;
+        public string imageTimeZonesInfo;
+        public string imageKeyboardLayoutsInfo;
+        public string unpackedWimFile;
+        public string wimInfoFile;
+        public string newWimFile;
+        public string wimMountPath;
+        public string wimWinPeMountPath;
+        public string recoveryMountPath;
+        public string unpackIsoPath;
+        public string name;
         string? err;
-        string debugFolder;
-        string WinboxApiPath;
+        public string debugFolder;
+        public string WinboxApiPath;
 
-        string[] imageInfoFiles;
+        public string[] imageInfoFiles;
 
         public WinBoxProject(string wnbFilePath)
         {
             winBoxConfig = new WinBoxConfig();
+            Program.winBoxConfig = winBoxConfig;
+            
             this.wnbFilePath = wnbFilePath;
             baseDirectoryPath = Path.GetDirectoryName(wnbFilePath) ?? "";
             buildDirectoryPath = Path.Combine(baseDirectoryPath, "winbox_build");
@@ -236,23 +238,23 @@ namespace WinBox_Maker
             }
         }
 
-        void breakpointStop(string eventname, bool after)
+        public void breakpointStop(string eventname, bool after)
         {
             MessageBox.Show($"{(after ? "after" : "before")} {eventname} event\n", "breakpoint", MessageBoxButtons.OK);
         }
 
-        string getDebugFilePath(string name)
+        public string getDebugFilePath(string name)
         {
             return Path.Combine(debugFolder, name + ".txt");
         }
 
-        async Task writeDebugFile(string name, string content, bool addTxt=true)
+        public async Task writeDebugFile(string name, string content, bool addTxt=true)
         {
             Program.CreateDirectory(debugFolder);
             await File.WriteAllTextAsync(Path.Combine(debugFolder, name + (addTxt ? ".txt" : "")), content);
         }
 
-        async Task copyToDebugFile(string name, string sourcePath)
+        public async Task copyToDebugFile(string name, string sourcePath)
         {
             Program.CreateDirectory(debugFolder);
             await Program.CopyFileAsync(sourcePath, Path.Combine(debugFolder, name));
@@ -1131,86 +1133,6 @@ exit
             }
         }
 
-        enum BcdPatchObject
-        {
-            BaseSystem = 0,
-            Installer,
-            Recovery
-        }
-
-        string getBcdeditSetup(string? store = null, BcdPatchObject patchObject = BcdPatchObject.BaseSystem)
-        {
-            string bcdeditSetup = "";
-
-            string? storeCmd = "";
-            if (store != null)
-            {
-                storeCmd = @$" /store ""{store}""";
-                bcdeditSetup += $"// BCD Path: {store} \r\n";
-            }
-
-            void regBcdChange(string change, string? partition=null)
-            {
-                if (partition != null)
-                {
-                    bcdeditSetup += $"bcdedit{storeCmd} /set {{{partition}}} " + change + "\r\n";
-                }
-                else
-                {
-                    bcdeditSetup += $"bcdedit{storeCmd} /set {{globalsettings}} " + change + "\r\n";
-                    bcdeditSetup += $"bcdedit{storeCmd} /set {{bootmgr}} " + change + "\r\n";
-                    bcdeditSetup += $"bcdedit{storeCmd} /set {{current}} " + change + "\r\n";
-                    bcdeditSetup += $"bcdedit{storeCmd} /set {{default}} " + change + "\r\n\r\n";
-                }
-            }
-
-            if (winBoxConfig.manual_setup != true && patchObject == BcdPatchObject.BaseSystem)
-            {
-                regBcdChange("advancedoptions false");
-                regBcdChange("optionsedit false");
-                regBcdChange("recoveryenabled no"); //запрет автоматического входа в recovery
-
-                regBcdChange("displaybootmenu no"); // нечего не показываем
-                regBcdChange("timeout 0");
-                regBcdChange("bootstatuspolicy ignoreallfailures");
-
-                regBcdChange("hypervisorlaunchtype off"); // для embedded это мусор
-                regBcdChange("vsmlaunchtype off");
-                regBcdChange("disableelamdrivers yes");
-
-                regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS"); //chatGPT сказал что это даже на embedded п@здец полный
-                regBcdChange("NOINTEGRITYCHECKS ON");
-                regBcdChange("TESTSIGNING ON");
-
-                if (Program.isTweakEnabled(winBoxConfig, "Disable boot circle"))
-                {
-                    regBcdChange("custom:16000069 true");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "Disable boot logo"))
-                {
-                    regBcdChange("custom:16000067 true");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "Disable boot messages"))
-                {
-                    regBcdChange("custom:16000068 true");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "Disable all boot UI"))
-                {
-                    regBcdChange("bootuxdisabled on");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "Hide bootmgr errors"))
-                {
-                    regBcdChange("noerrordisplay on");
-                }
-            }
-
-            return bcdeditSetup;
-        }
-
         string getPowercfgSetup()
         {
             string powerScheme = Program.powerSchemes[(int)winBoxConfig.powerScheme];
@@ -1567,45 +1489,6 @@ powercfg -s {powerScheme}";
             if (info == true) await File.WriteAllTextAsync(Path.Combine(path, "INFO.txt"), $"name: {newWindowsDescription.name}\r\ndescription: {newWindowsDescription.description}");
         }
 
-        async Task modifyBCD(string bcdPath, BcdPatchObject patchObject = BcdPatchObject.BaseSystem)
-        {
-            string bcdscriptName = $"modifyBCD_{Program.CalculateMD5(bcdPath)}";
-            string bcdscriptPath = Path.Combine(tempDirectoryPath, $"{bcdscriptName}.bat");
-            string bcdeditCommand = getBcdeditSetup(bcdPath, patchObject);
-
-            await File.WriteAllTextAsync(bcdscriptPath, bcdeditCommand);
-            await writeDebugFile(bcdscriptName, bcdeditCommand);
-            await Program.ExecuteAsync("cmd.exe", $"/c \"{bcdscriptPath}\"", null, getDebugFilePath($"{bcdscriptName}_output"));
-            File.Delete(bcdscriptPath);
-        }
-
-        async Task modifyWinBCD(string path, BcdPatchObject patchObject = BcdPatchObject.BaseSystem)
-        {
-            string bcdPath = Path.Combine(path, "boot\\bcd");
-            if (File.Exists(bcdPath))
-            {
-                await modifyBCD(bcdPath, patchObject);
-            }
-
-            bcdPath = Path.Combine(path, "EFI\\Microsoft\\Boot\\BCD");
-            if (File.Exists(bcdPath))
-            {
-                await modifyBCD(bcdPath, patchObject);
-            }
-
-            bcdPath = Path.Combine(path, "Windows\\Boot\\EFI\\BCD");
-            if (File.Exists(bcdPath))
-            {
-                await modifyBCD(bcdPath, patchObject);
-            }
-
-            bcdPath = Path.Combine(path, "Windows\\System32\\Config\\BCD-Template");
-            if (File.Exists(bcdPath))
-            {
-                await modifyBCD(bcdPath, patchObject);
-            }
-        }
-
         public string[] splitRickTextboxLines(string text)
         {
             return text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
@@ -1932,7 +1815,7 @@ powercfg -s {powerScheme}";
                     }
                     if (winBoxConfig.recoveryMountedEarly_breakafter == true) breakpointStop("recovery-mounted-early", true);
 
-                    await modifyWinBCD(recoveryMountPath, BcdPatchObject.Recovery);
+                    await winBoxConfig.recovery_winPE_mod.modMountedWim(recoveryMountPath);
                     await patchRecoveryPartition(recoveryMountPath, newWindowsDescription);
                     await umountDism(true, recoveryMountPath);
                 }
@@ -1943,7 +1826,7 @@ powercfg -s {powerScheme}";
             if (!manual) {
                 processName("Modification of BCD");
                 processValue(45);
-                await modifyWinBCD(wimMountPath);
+                await BcdChanger.modifyWinBCD(wimMountPath);
             }
 
             bool modSystemReg = !manual || winBoxConfig.onbuild_reg != null;
@@ -2047,7 +1930,7 @@ powercfg -s {powerScheme}";
 
             if (!manual)
             {
-                string bcdeditSetup = getBcdeditSetup();
+                string bcdeditSetup = BcdChanger.getBcdeditSetup();
                 string powercfgSetup = getPowercfgSetup();
 
                 string enableDismOnlineCommands = "";
@@ -3309,14 +3192,14 @@ if errorlevel 1 (
         async Task modUnpackedIso(string unpackIsoPath, WindowsDescription newWindowsDescription)
         {
             // modify BCD in installer iso
-            await modifyWinBCD(unpackIsoPath, BcdPatchObject.Installer);
+            await winBoxConfig.installer_winPE_mod.modMountedIso(unpackIsoPath);
 
             // unpack winPE
             string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
             await mountDism(bootWimPath, wimWinPeMountPath);
 
             // modify BCD in installer wim
-            await modifyWinBCD(wimWinPeMountPath, BcdPatchObject.Installer);
+            await winBoxConfig.installer_winPE_mod.modMountedWim(wimWinPeMountPath);
 
             // add winbox maker installer tweaks
             if (winBoxConfig.manual_setup != true)

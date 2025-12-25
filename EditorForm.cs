@@ -39,6 +39,7 @@ namespace WinBox_Maker
             InitializeComponent();
             this.Text = $"{WinBox_Maker.Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
+            Program.winBoxProject = winBoxProject;
             this.taskbarManager = TaskbarManager.Instance;
 
             ArchitectureSelect.Items.Clear();
@@ -658,10 +659,10 @@ namespace WinBox_Maker
 
             bootresRepacking_panel.Enabled = winBoxProject.winBoxConfig.CustomBootLogo_UseOnBootres != true;
 
-            recovery_winPE_mod_en.Checked = winBoxProject.winBoxConfig.recovery_winPE_mod_en == true;
-            recovery_winPE_mod.Enabled = winBoxProject.winBoxConfig.recovery_winPE_mod_en == true;
-            installer_winPE_mod_en.Checked = winBoxProject.winBoxConfig.installer_winPE_mod_en == true;
-            installer_winPE_mod.Enabled = winBoxProject.winBoxConfig.installer_winPE_mod_en == true;
+            recovery_winPE_mod_en.Checked = winBoxProject.winBoxConfig.recovery_winPE_mod.enabled == true;
+            recovery_winPE_mod.Enabled = winBoxProject.winBoxConfig.recovery_winPE_mod.enabled == true;
+            installer_winPE_mod_en.Checked = winBoxProject.winBoxConfig.installer_winPE_mod.enabled == true;
+            installer_winPE_mod.Enabled = winBoxProject.winBoxConfig.installer_winPE_mod.enabled == true;
 
             tab_app.Enabled = !manual;
             tab_settings.Enabled = !manual;
@@ -2891,7 +2892,7 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.recovery_winPE_mod_en = recovery_winPE_mod_en.Checked;
+            winBoxProject.winBoxConfig.recovery_winPE_mod.enabled = recovery_winPE_mod_en.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -2900,19 +2901,19 @@ namespace WinBox_Maker
         {
             if (guiEventsLock) return;
 
-            winBoxProject.winBoxConfig.installer_winPE_mod_en = installer_winPE_mod_en.Checked;
+            winBoxProject.winBoxConfig.installer_winPE_mod.enabled = installer_winPE_mod_en.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }
 
         private void installer_winPE_mod_Click(object sender, EventArgs e)
         {
-
+            winBoxProject.winBoxConfig.installer_winPE_mod.openGui();
         }
 
         private void recovery_winPE_mod_Click(object sender, EventArgs e)
         {
-
+            winBoxProject.winBoxConfig.recovery_winPE_mod.openGui();
         }
 
         // -------------------------------------------- item lists
