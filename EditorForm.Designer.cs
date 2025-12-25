@@ -375,6 +375,8 @@
             delete_dism_remove_appx_package = new RichTextBox();
             tabPage8 = new TabPage();
             recoverypanel = new Panel();
+            recovery_winPE_mod = new Button();
+            recovery_winPE_mod_en = new CheckBox();
             EnableRecovery = new CheckBox();
             ReplaceRecovery = new TextBox();
             ReplaceRecovery_clr = new Button();
@@ -386,6 +388,8 @@
             tabPage25 = new TabPage();
             installermod_manual_allow = new CheckBox();
             installerpanel = new Panel();
+            installer_winPE_mod = new Button();
+            installer_winPE_mod_en = new CheckBox();
             richTextBox22 = new RichTextBox();
             tabPage5 = new TabPage();
             postinstall_panel_user = new Panel();
@@ -416,6 +420,7 @@
             tabPage10 = new TabPage();
             debugBuild = new Button();
             bl_panel = new Panel();
+            bl_folderInProject = new ComboBox();
             bl_folder_enable = new CheckBox();
             bl_folder = new TextBox();
             bl_delete = new Button();
@@ -513,7 +518,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            bl_folderInProject = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -602,6 +606,7 @@
             tabPage8.SuspendLayout();
             recoverypanel.SuspendLayout();
             tabPage25.SuspendLayout();
+            installerpanel.SuspendLayout();
             tabPage5.SuspendLayout();
             postinstall_panel_user.SuspendLayout();
             tabPage7.SuspendLayout();
@@ -4310,6 +4315,8 @@
             // recoverypanel
             // 
             recoverypanel.BorderStyle = BorderStyle.Fixed3D;
+            recoverypanel.Controls.Add(recovery_winPE_mod);
+            recoverypanel.Controls.Add(recovery_winPE_mod_en);
             recoverypanel.Controls.Add(EnableRecovery);
             recoverypanel.Controls.Add(ReplaceRecovery);
             recoverypanel.Controls.Add(ReplaceRecovery_clr);
@@ -4320,6 +4327,27 @@
             recoverypanel.Name = "recoverypanel";
             recoverypanel.Size = new Size(505, 259);
             recoverypanel.TabIndex = 47;
+            // 
+            // recovery_winPE_mod
+            // 
+            recovery_winPE_mod.Location = new Point(278, 218);
+            recovery_winPE_mod.Name = "recovery_winPE_mod";
+            recovery_winPE_mod.Size = new Size(220, 34);
+            recovery_winPE_mod.TabIndex = 48;
+            recovery_winPE_mod.Text = "WinPE Modifications";
+            recovery_winPE_mod.UseVisualStyleBackColor = true;
+            recovery_winPE_mod.Click += recovery_winPE_mod_Click;
+            // 
+            // recovery_winPE_mod_en
+            // 
+            recovery_winPE_mod_en.AutoSize = true;
+            recovery_winPE_mod_en.Location = new Point(3, 218);
+            recovery_winPE_mod_en.Name = "recovery_winPE_mod_en";
+            recovery_winPE_mod_en.Size = new Size(269, 29);
+            recovery_winPE_mod_en.TabIndex = 47;
+            recovery_winPE_mod_en.Text = "WinPE Modifications enabled";
+            recovery_winPE_mod_en.UseVisualStyleBackColor = true;
+            recovery_winPE_mod_en.CheckedChanged += recovery_winPE_mod_en_CheckedChanged;
             // 
             // EnableRecovery
             // 
@@ -4427,10 +4455,33 @@
             // installerpanel
             // 
             installerpanel.BorderStyle = BorderStyle.Fixed3D;
+            installerpanel.Controls.Add(installer_winPE_mod);
+            installerpanel.Controls.Add(installer_winPE_mod_en);
             installerpanel.Location = new Point(3, 6);
             installerpanel.Name = "installerpanel";
             installerpanel.Size = new Size(505, 259);
             installerpanel.TabIndex = 50;
+            // 
+            // installer_winPE_mod
+            // 
+            installer_winPE_mod.Location = new Point(278, 218);
+            installer_winPE_mod.Name = "installer_winPE_mod";
+            installer_winPE_mod.Size = new Size(220, 34);
+            installer_winPE_mod.TabIndex = 50;
+            installer_winPE_mod.Text = "WinPE Modifications";
+            installer_winPE_mod.UseVisualStyleBackColor = true;
+            installer_winPE_mod.Click += installer_winPE_mod_Click;
+            // 
+            // installer_winPE_mod_en
+            // 
+            installer_winPE_mod_en.AutoSize = true;
+            installer_winPE_mod_en.Location = new Point(3, 218);
+            installer_winPE_mod_en.Name = "installer_winPE_mod_en";
+            installer_winPE_mod_en.Size = new Size(269, 29);
+            installer_winPE_mod_en.TabIndex = 49;
+            installer_winPE_mod_en.Text = "WinPE Modifications enabled";
+            installer_winPE_mod_en.UseVisualStyleBackColor = true;
+            installer_winPE_mod_en.CheckedChanged += installer_winPE_mod_en_CheckedChanged;
             // 
             // richTextBox22
             // 
@@ -4749,6 +4800,16 @@
             bl_panel.Name = "bl_panel";
             bl_panel.Size = new Size(681, 284);
             bl_panel.TabIndex = 3;
+            // 
+            // bl_folderInProject
+            // 
+            bl_folderInProject.FormattingEnabled = true;
+            bl_folderInProject.Items.AddRange(new object[] { "winbox_temp/program", "winbox_temp/usertemp/for_example__for_recovery" });
+            bl_folderInProject.Location = new Point(7, 204);
+            bl_folderInProject.Name = "bl_folderInProject";
+            bl_folderInProject.Size = new Size(667, 33);
+            bl_folderInProject.TabIndex = 45;
+            bl_folderInProject.SelectedIndexChanged += bl_folderInProject_SelectedIndexChanged;
             // 
             // bl_folder_enable
             // 
@@ -5736,16 +5797,6 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // bl_folderInProject
-            // 
-            bl_folderInProject.FormattingEnabled = true;
-            bl_folderInProject.Items.AddRange(new object[] { "winbox_temp/program", "winbox_temp/usertemp/for_example__for_recovery" });
-            bl_folderInProject.Location = new Point(7, 204);
-            bl_folderInProject.Name = "bl_folderInProject";
-            bl_folderInProject.Size = new Size(667, 33);
-            bl_folderInProject.TabIndex = 45;
-            bl_folderInProject.SelectedIndexChanged += bl_folderInProject_SelectedIndexChanged;
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -5911,6 +5962,8 @@
             recoverypanel.PerformLayout();
             tabPage25.ResumeLayout(false);
             tabPage25.PerformLayout();
+            installerpanel.ResumeLayout(false);
+            installerpanel.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             postinstall_panel_user.ResumeLayout(false);
@@ -6445,5 +6498,9 @@
         private Label keyboard_layouts_id;
         private Label keyboard_layouts_name;
         private ComboBox bl_folderInProject;
+        private Button recovery_winPE_mod;
+        private CheckBox recovery_winPE_mod_en;
+        private Button installer_winPE_mod;
+        private CheckBox installer_winPE_mod_en;
     }
 }

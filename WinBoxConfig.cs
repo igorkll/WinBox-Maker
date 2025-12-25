@@ -242,6 +242,11 @@ namespace WinBox_Maker
         public string? schtasks_stopOrDelete_deleteFromList { get; set; }
         public bool? schtasks_stopOrDeleteOnlyFromList { get; set; }
 
+        public bool? recovery_winPE_mod_en { get; set; }
+        public WinPeModifications? recovery_winPE_mod { get; set; }
+        public bool? installer_winPE_mod_en { get; set; }
+        public WinPeModifications? installer_winPE_mod { get; set; }
+
 
 
         static string[] renameTweaks_from = [
@@ -433,6 +438,19 @@ namespace WinBox_Maker
             if (schtasks_stopOrDelete == null) schtasks_stopOrDelete = "";
             if (schtasks_stopOrDelete_deleteFromList == null) schtasks_stopOrDelete_deleteFromList = "";
             if (schtasks_stopOrDeleteOnlyFromList == null) schtasks_stopOrDeleteOnlyFromList = false;
+
+            if (recovery_winPE_mod_en == null) recovery_winPE_mod_en = true;
+            if (recovery_winPE_mod == null) recovery_winPE_mod = new WinPeModifications();
+            if (installer_winPE_mod_en == null) installer_winPE_mod_en = true;
+            if (installer_winPE_mod == null) installer_winPE_mod = new WinPeModifications();
+
+            foreach (BuildItem buildItem in BuildItems)
+            {
+                buildItem.initDefaults();
+            }
+
+            recovery_winPE_mod.initDefaults();
+            installer_winPE_mod.initDefaults();
         }
 
         public void Save(string wnbFilePath)

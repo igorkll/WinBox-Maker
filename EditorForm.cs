@@ -658,6 +658,11 @@ namespace WinBox_Maker
 
             bootresRepacking_panel.Enabled = winBoxProject.winBoxConfig.CustomBootLogo_UseOnBootres != true;
 
+            recovery_winPE_mod_en.Checked = winBoxProject.winBoxConfig.recovery_winPE_mod_en == true;
+            recovery_winPE_mod.Enabled = winBoxProject.winBoxConfig.recovery_winPE_mod_en == true;
+            installer_winPE_mod_en.Checked = winBoxProject.winBoxConfig.installer_winPE_mod_en == true;
+            installer_winPE_mod.Enabled = winBoxProject.winBoxConfig.installer_winPE_mod_en == true;
+
             tab_app.Enabled = !manual;
             tab_settings.Enabled = !manual;
             postinstall_panel_system.Enabled = !manual;
@@ -2882,6 +2887,34 @@ namespace WinBox_Maker
 
         }
 
+        private void recovery_winPE_mod_en_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.recovery_winPE_mod_en = recovery_winPE_mod_en.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void installer_winPE_mod_en_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.installer_winPE_mod_en = installer_winPE_mod_en.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void installer_winPE_mod_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void recovery_winPE_mod_Click(object sender, EventArgs e)
+        {
+
+        }
+
         // -------------------------------------------- item lists
 
         // ------------- service functions
@@ -3244,5 +3277,6 @@ namespace WinBox_Maker
                 UpdateKeyboardLayoutsList
             );
         }
+
     }
 }
