@@ -513,6 +513,7 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            bl_folderInProject = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -4737,6 +4738,7 @@
             // bl_panel
             // 
             bl_panel.BorderStyle = BorderStyle.Fixed3D;
+            bl_panel.Controls.Add(bl_folderInProject);
             bl_panel.Controls.Add(bl_folder_enable);
             bl_panel.Controls.Add(bl_folder);
             bl_panel.Controls.Add(bl_delete);
@@ -4804,7 +4806,7 @@
             bl_tabcontrol.Location = new Point(3, 42);
             bl_tabcontrol.Name = "bl_tabcontrol";
             bl_tabcontrol.SelectedIndex = 0;
-            bl_tabcontrol.Size = new Size(671, 195);
+            bl_tabcontrol.Size = new Size(671, 156);
             bl_tabcontrol.TabIndex = 0;
             bl_tabcontrol.SelectedIndexChanged += bl_tabcontrol_SelectedIndexChanged;
             // 
@@ -4819,7 +4821,7 @@
             bl_msbuild.Location = new Point(4, 34);
             bl_msbuild.Name = "bl_msbuild";
             bl_msbuild.Padding = new Padding(3);
-            bl_msbuild.Size = new Size(663, 157);
+            bl_msbuild.Size = new Size(663, 118);
             bl_msbuild.TabIndex = 0;
             bl_msbuild.Text = "msbuild";
             bl_msbuild.UseVisualStyleBackColor = true;
@@ -4889,7 +4891,7 @@
             bl_cmake.Location = new Point(4, 34);
             bl_cmake.Name = "bl_cmake";
             bl_cmake.Padding = new Padding(3);
-            bl_cmake.Size = new Size(663, 157);
+            bl_cmake.Size = new Size(663, 118);
             bl_cmake.TabIndex = 1;
             bl_cmake.Text = "cmake";
             bl_cmake.UseVisualStyleBackColor = true;
@@ -4955,7 +4957,7 @@
             bl_cargo.Controls.Add(cargo_path_select);
             bl_cargo.Location = new Point(4, 34);
             bl_cargo.Name = "bl_cargo";
-            bl_cargo.Size = new Size(663, 157);
+            bl_cargo.Size = new Size(663, 118);
             bl_cargo.TabIndex = 2;
             bl_cargo.Text = "cargo";
             bl_cargo.UseVisualStyleBackColor = true;
@@ -5008,7 +5010,7 @@
             bl_custom.Controls.Add(custom_path_select);
             bl_custom.Location = new Point(4, 34);
             bl_custom.Name = "bl_custom";
-            bl_custom.Size = new Size(663, 157);
+            bl_custom.Size = new Size(663, 118);
             bl_custom.TabIndex = 3;
             bl_custom.Text = "custom";
             bl_custom.UseVisualStyleBackColor = true;
@@ -5029,7 +5031,7 @@
             richTextBox2.Location = new Point(6, 80);
             richTextBox2.Name = "richTextBox2";
             richTextBox2.ReadOnly = true;
-            richTextBox2.Size = new Size(654, 74);
+            richTextBox2.Size = new Size(654, 35);
             richTextBox2.TabIndex = 8;
             richTextBox2.Text = resources.GetString("richTextBox2.Text");
             // 
@@ -5087,7 +5089,7 @@
             bl_electron_packager.Controls.Add(electron_packager_path_select);
             bl_electron_packager.Location = new Point(4, 34);
             bl_electron_packager.Name = "bl_electron_packager";
-            bl_electron_packager.Size = new Size(663, 157);
+            bl_electron_packager.Size = new Size(663, 118);
             bl_electron_packager.TabIndex = 4;
             bl_electron_packager.Text = "electron-packager";
             bl_electron_packager.UseVisualStyleBackColor = true;
@@ -5733,6 +5735,16 @@
             ExportInstallEsd.Text = "export install.esd";
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
+            // 
+            // bl_folderInProject
+            // 
+            bl_folderInProject.FormattingEnabled = true;
+            bl_folderInProject.Items.AddRange(new object[] { "winbox_temp/program", "winbox_temp/usertemp/for_example__for_recovery" });
+            bl_folderInProject.Location = new Point(7, 204);
+            bl_folderInProject.Name = "bl_folderInProject";
+            bl_folderInProject.Size = new Size(667, 33);
+            bl_folderInProject.TabIndex = 45;
+            bl_folderInProject.SelectedIndexChanged += bl_folderInProject_SelectedIndexChanged;
             // 
             // EditorForm
             // 
@@ -6432,5 +6444,6 @@
         private Button keyboard_layouts_makeDefault;
         private Label keyboard_layouts_id;
         private Label keyboard_layouts_name;
+        private ComboBox bl_folderInProject;
     }
 }

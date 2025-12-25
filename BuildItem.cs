@@ -20,7 +20,8 @@ namespace WinBox_Maker
         public string? name { get; set; }
         public BuildItemType? type { get; set; }
         public string? subdirectory { get; set; }
-        public bool subdirectory_enabled { get; set; }
+        public bool? subdirectory_enabled { get; set; }
+        public string? folderInProject { get; set; }
 
 
         public string? msbuild_path { get; set; }
@@ -40,13 +41,14 @@ namespace WinBox_Maker
         public string? electron_packager_path { get; set; }
         public string? electron_packager_name { get; set; }
 
-
         public void initDefaults()
         {
             if (name == null) name = "";
             if (type == null) type = BuildItemType.msbuild;
             if (subdirectory == null) subdirectory = "";
             if (subdirectory_enabled == null) subdirectory_enabled = false;
+            if (folderInProject == null) folderInProject = "winbox_temp/program";
+
             if (msbuild_path == null) msbuild_path = "";
             if (msbuild_configuration == null) msbuild_configuration = "Release";
             if (cmake_path == null) cmake_path = "";

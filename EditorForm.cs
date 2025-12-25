@@ -1527,6 +1527,14 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
         }
 
+        private void bl_folderInProject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            currentBuildItem.folderInProject = bl_folderInProject.Text;
+            winBoxProject.SaveConfig();
+        }
+
         private void BuildItems_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -3055,6 +3063,8 @@ namespace WinBox_Maker
                 bl_title.Text = buildItem.name ?? "";
                 bl_path.Text = buildItem.msbuild_path ?? "";
                 bl_conf.Text = buildItem.msbuild_configuration ?? "";
+                bl_folderInProject.Text = buildItem.folderInProject ?? "";
+
                 cmake_path.Text = buildItem.cmake_path ?? "";
                 cargo_path.Text = buildItem.cargo_path ?? "";
                 electron_packager_path.Text = buildItem.electron_packager_path ?? "";

@@ -764,16 +764,21 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             }
         }
 
-        private async Task RemoveTempFolder(string folder)
+        private async Task RemoveTempFolder(string folder, bool recreate=false)
         {
-            string tempDriversPath = Path.Combine(tempDirectoryPath, folder);
-            if (Directory.Exists(tempDriversPath))
+            string tempPath = Path.Combine(tempDirectoryPath, folder);
+            if (Directory.Exists(tempPath))
             {
-                Directory.Delete(tempDriversPath, true);
+                Directory.Delete(tempPath, true);
+            }
+
+            if (recreate)
+            {
+                Program.CreateDirectory(tempPath);
             }
         }
 
-        private async Task RemoveTemp(Action<string> processName) {
+        private async Task RemoveTemp(Action<string> processName, bool recreate=false) {
             processName("Cleaning temporary files");
             await RemoveTempFolder("files");
             await RemoveTempFolder("program");
@@ -790,6 +795,10 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             await RemoveTempFolder("app_runtime");
             await RemoveTempFolder("boot_files");
             await RemoveTempFolder("recovery_files");
+            if (recreate)
+            {
+                await RemoveTempFolder("usertemp", true);
+            }
         }
 
         public async Task BuildCMakeProject(int index, BuildItem buildItem, string cmakeFolder, string output)
@@ -896,10 +905,11 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             string outputDir = debugBuildProgramsPath;
             if (!debug)
             {
-                outputDir = Path.Combine(tempDirectoryPath, "program");
+                if (buildItem.folderInProject.Contains("..")) return false;
+                outputDir = Path.Combine(baseDirectoryPath, buildItem.folderInProject);
             }
 
-            if (buildItem.subdirectory_enabled)
+            if (buildItem.subdirectory_enabled == true)
             {
                 if (buildItem.subdirectory.Contains("..")) return false;
                 outputDir = Path.Combine(outputDir, buildItem.subdirectory ?? "");
@@ -1777,17 +1787,17 @@ powercfg -s {powerScheme}";
 
             bool manual = winBoxConfig.manual_setup == true;
 
+            processValue(2);
+            await RemoveTemp(processName, true);
+
             if (winBoxConfig.prebuild_breakbefore == true) breakpointStop("pre-build", false);
             if (winBoxConfig.prebuildEnabled == true)
             {
-                processValue(2);
+                processValue(5);
                 processName("Executing a pre-build event");
                 await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.prebuildEvent);
             }
             if (winBoxConfig.prebuild_breakafter == true) breakpointStop("pre-build", true);
-
-            processValue(5);
-            await RemoveTemp(processName);
 
             // ------------------------------------ compiling a user program
 

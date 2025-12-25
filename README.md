@@ -244,6 +244,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * winbox_temp/net_framework - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/app_runtime - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
 * winbox_temp/recovery_files - similar to the same directory in "winbox_resources" but there is only one build. it can be used from the "downloading" function
+* winbox_temp/usertemp - the user's temporary directory. there is a single build and can be used for user files during the build.
 * winbox_resources - a folder for your resources that are needed to build the system. these files should end up in the git repository
 * winbox_resources/files - files from this directory will be moved to the root of the disk on the installed system with replacement
 * winbox_resources/program - the directory for your application that will be used in kiosk mode. make this directory empty if you are using automatic compilation of the project from the source code using winbox maker
@@ -261,7 +262,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * winbox_resources/net - you can put the installers of additional .net packages here to embed them in the image
 * winbox_resources/net_framework - you can put the installers of additional net framework packages here to embed them in the image
 * winbox_resources/app_runtime - you can put the installers of additional app runtime packages here to embed them in the image
-* winbox_resources/recovery_files - copies the replacement files to the mounted winRE.wim in the windows installer
+* winbox_resources/recovery_files - copies the replacement files to the mounted winRE.wim in the windows (in fact, you should not use this, you should use specifying your own directory to add in the WinPE modifications)
 
 ## API
 winbox maker images have a local API that can be used by an application loaded in winbox maker.
