@@ -11,7 +11,8 @@ namespace WinBox_Maker
     static public class RegPatcher
     {
         static string[][] replaceHives = [
-            ["HKEY_LOCAL_MACHINE\\SOFTWARE\\", "HKEY_LOCAL_MACHINE\\WINBOX_SOFTWARE\\"]
+            ["HKEY_LOCAL_MACHINE\\SOFTWARE\\", "HKEY_LOCAL_MACHINE\\WINBOX_SOFTWARE\\"],
+            ["HKLM\\SOFTWARE\\", "HKLM\\WINBOX_SOFTWARE\\"]
         ];
 
         static public async Task regPatcher(string regPath, string newRegPath)
@@ -21,7 +22,7 @@ namespace WinBox_Maker
             using (var reader = new StreamReader(regFile, Encoding.UTF8))
             using (var writer = new StreamWriter(newRegFile, new UTF8Encoding(false)))
             {
-                writer.WriteLine(reader.ReadLine()); //skip first line
+                writer.WriteLine("Windows Registry Editor Version 5.00");
 
                 bool allowed = false;
                 string? line;
