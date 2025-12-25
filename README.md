@@ -256,13 +256,13 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * winbox_resources/packages - you can add the .cab or .msu packages to this directory
 * winbox_resources/cursor - the directory where you can upload custom cursor files (.cur for different states)
 * winbox_resources/sources - the source code of your application for building using winbox maker
-* winbox_resources/iso_files - iso image modification files. they are copied and replaced into the iso image (NOT THE ROOT OF THE SYSTEM, BUT THE ISO. use "files" to modify the system files)
-* winbox_resources/boot_files - copies the replacement files to the mounted boot.wim in the windows installer
+* winbox_resources/iso_files - iso image modification files. they are copied and replaced into the iso image (NOT THE ROOT OF THE SYSTEM, BUT THE ISO. use "files" to modify the system files) (in fact, you should not use this (no longer relevant), you should use specifying your own directory to add in the WinPE modifications)
+* winbox_resources/boot_files - copies the replacement files to the mounted boot.wim in the windows installer (in fact, you should not use this (no longer relevant), you should use specifying your own directory to add in the WinPE modifications)
 * winbox_resources/vc_redist - you can put installers of additional visual C++ redist packages here to embed them in the image
 * winbox_resources/net - you can put the installers of additional .net packages here to embed them in the image
 * winbox_resources/net_framework - you can put the installers of additional net framework packages here to embed them in the image
 * winbox_resources/app_runtime - you can put the installers of additional app runtime packages here to embed them in the image
-* winbox_resources/recovery_files - copies the replacement files to the mounted winRE.wim in the windows (in fact, you should not use this, you should use specifying your own directory to add in the WinPE modifications)
+* winbox_resources/recovery_files - copies the replacement files to the mounted winRE.wim in the windows (in fact, you should not use this (no longer relevant), you should use specifying your own directory to add in the WinPE modifications)
 
 ## API
 winbox maker images have a local API that can be used by an application loaded in winbox maker.
