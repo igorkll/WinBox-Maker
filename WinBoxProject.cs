@@ -3200,7 +3200,7 @@ if errorlevel 1 (
 
         async Task modUnpackedIso(string unpackIsoPath, WindowsDescription newWindowsDescription)
         {
-            bool modAllow = winBoxConfig.manual_setup != true || winBoxConfig.installermod_manual_allow != true;
+            bool modAllow = winBoxConfig.manual_setup != true || winBoxConfig.installermod_manual_allow == true;
 
             // modify BCD in installer iso
             if (modAllow)
