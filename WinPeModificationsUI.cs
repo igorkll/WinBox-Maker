@@ -20,6 +20,19 @@ namespace WinBox_Maker
 
             this.winPeModifications = winPeModifications;
             this.Text = $"{this.Text} - {titleSuffix}";
+
+            UpdateGui();
+        }
+
+        void UpdateGui()
+        {
+            applyBaseSystemBCD.Checked = winPeModifications.applyBaseSystemBCD == true;
+        }
+
+        private void applyBaseSystemBCD_CheckedChanged(object sender, EventArgs e)
+        {
+            winPeModifications.applyBaseSystemBCD = applyBaseSystemBCD.Checked;
+            Program.winBoxProject.SaveConfig();
         }
     }
 }

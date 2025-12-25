@@ -30,8 +30,8 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            tabPage2 = new TabPage();
             tabPage3 = new TabPage();
+            tabPage2 = new TabPage();
             applyBaseSystemBCD = new CheckBox();
             tabControl1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -59,6 +59,15 @@
             tabPage1.Text = "main";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // tabPage3
+            // 
+            tabPage3.Location = new Point(4, 34);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Size = new Size(846, 482);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "app";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
             // tabPage2
             // 
             tabPage2.Controls.Add(applyBaseSystemBCD);
@@ -70,15 +79,6 @@
             tabPage2.Text = "bcd";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
-            // 
-            tabPage3.Location = new Point(4, 34);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(846, 482);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "app";
-            tabPage3.UseVisualStyleBackColor = true;
-            // 
             // applyBaseSystemBCD
             // 
             applyBaseSystemBCD.AutoSize = true;
@@ -88,6 +88,7 @@
             applyBaseSystemBCD.TabIndex = 0;
             applyBaseSystemBCD.Text = "apply BCD changes from the base system";
             applyBaseSystemBCD.UseVisualStyleBackColor = true;
+            applyBaseSystemBCD.CheckedChanged += applyBaseSystemBCD_CheckedChanged;
             // 
             // WinPeModificationsUI
             // 
