@@ -29,7 +29,7 @@ namespace WinBox_Maker
             if (applyBaseSystemBCD == null) applyBaseSystemBCD = true;
             if (app_override == null) app_override = false;
             if (app_override_type == null) app_override_type = AppOverrideType.WinboxMakerRecovery;
-            if (app_custom_cmdline == null) app_custom_cmdline = "X:\\my_app_example.exe --argument";
+            if (app_custom_cmdline == null) app_custom_cmdline = "my_app_example.exe --argument";
         }
 
         // ------------------------------
@@ -63,6 +63,8 @@ namespace WinBox_Maker
             if (enabled != true) return;
             await BcdChanger.modifyWinBCD(mountedPath, this);
 
+            /*
+            // FUCKING WINDOWS!
             bool needMountReg = app_override == true;
 
             if (needMountReg) await RegChanger.mountReg("SYSTEM", "WINPE", mountedPath);
@@ -87,6 +89,26 @@ namespace WinBox_Maker
             }
 
             if (needMountReg) await RegChanger.umountReg("SYSTEM", "WINPE");
+            */
+
+            if (app_override == true)
+            {
+                string cmdline = "";
+                switch (app_override_type)
+                {
+                    case AppOverrideType.WinboxMakerRecovery:
+                        await addWinboxMakerRecoveryFils(mountedPath);
+                        cmdline = "WinboxMakerRecovery\\WinboxMakerRecovery.exe";
+                        break;
+
+                    case AppOverrideType.Custom:
+                        cmdline = app_custom_cmdline;
+                        break;
+                }
+
+                await File.WriteAllTextAsync(Path.Combine(mountedPath, "Windows\\System32\\winpeshl.ini"), @$"[LaunchApps]
+%SYSTEMDRIVE%{Program.ReplaceAndPrependBackslash(cmdline)}");
+            }
         }
     }
 }
