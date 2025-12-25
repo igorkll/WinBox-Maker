@@ -120,6 +120,8 @@ namespace WinBox_Maker
             }
 
             Program.Execute("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
+            Program.Execute("reg.exe", $"unload HKLM\\WINBOX_WINPE_SOFTWARE");
+            Program.Execute("reg.exe", $"unload HKLM\\WINBOX_WINPE_SYSTEM");
 
             bool umount(string path)
             {
@@ -161,9 +163,9 @@ namespace WinBox_Maker
                 return false;
             }
 
+            if (umount(recoveryMountPath)) return;
             if (umount(wimMountPath)) return;
             if (umount(wimWinPeMountPath)) return;
-            if (umount(recoveryMountPath)) return;
 
             if (Directory.Exists(unpackIsoPath))
             {
