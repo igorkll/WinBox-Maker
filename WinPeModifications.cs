@@ -9,10 +9,12 @@ namespace WinBox_Maker
     public class WinPeModifications
     {
         public bool? enabled { get; set; }
+        public bool? applyBaseSystemBCD { get; set; }
 
         public void initDefaults()
         {
             if (enabled == null) enabled = true;
+            if (applyBaseSystemBCD == null) applyBaseSystemBCD = true;
         }
 
         // ------------------------------

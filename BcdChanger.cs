@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties;
 
 namespace WinBox_Maker
 {
@@ -35,47 +36,53 @@ namespace WinBox_Maker
                 }
             }
 
-            if (Program.winBoxConfig.manual_setup != true && (winPeModifications == null))
+            // если мы собираем базовую систему - применяем BCD базовой системы
+            // так же применяем его если в настройках winPE modifications установлен флаг о том что нужно продублировать настройки BCD из базовой системы
+            if (winPeModifications == null || winPeModifications.applyBaseSystemBCD == true)
             {
-                regBcdChange("advancedoptions false");
-                regBcdChange("optionsedit false");
-                regBcdChange("recoveryenabled no"); //запрет автоматического входа в recovery
-
-                regBcdChange("displaybootmenu no"); // нечего не показываем
-                regBcdChange("timeout 0");
-                regBcdChange("bootstatuspolicy ignoreallfailures");
-
-                regBcdChange("hypervisorlaunchtype off"); // для embedded это мусор
-                regBcdChange("vsmlaunchtype off");
-                regBcdChange("disableelamdrivers yes");
-
-                regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS"); //chatGPT сказал что это даже на embedded п@здец полный
-                regBcdChange("NOINTEGRITYCHECKS ON");
-                regBcdChange("TESTSIGNING ON");
-
-                if (Program.isTweakEnabled(Program.winBoxConfig, "Disable boot circle"))
+                // base system bcd modifications
+                if (Program.winBoxConfig.manual_setup != true)
                 {
-                    regBcdChange("custom:16000069 true");
-                }
+                    regBcdChange("advancedoptions false");
+                    regBcdChange("optionsedit false");
+                    regBcdChange("recoveryenabled no"); //запрет автоматического входа в recovery
 
-                if (Program.isTweakEnabled(Program.winBoxConfig, "Disable boot logo"))
-                {
-                    regBcdChange("custom:16000067 true");
-                }
+                    regBcdChange("displaybootmenu no"); // нечего не показываем
+                    regBcdChange("timeout 0");
+                    regBcdChange("bootstatuspolicy ignoreallfailures");
 
-                if (Program.isTweakEnabled(Program.winBoxConfig, "Disable boot messages"))
-                {
-                    regBcdChange("custom:16000068 true");
-                }
+                    regBcdChange("hypervisorlaunchtype off"); // для embedded это мусор
+                    regBcdChange("vsmlaunchtype off");
+                    regBcdChange("disableelamdrivers yes");
 
-                if (Program.isTweakEnabled(Program.winBoxConfig, "Disable all boot UI"))
-                {
-                    regBcdChange("bootuxdisabled on");
-                }
+                    regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS"); //chatGPT сказал что это даже на embedded п@здец полный
+                    regBcdChange("NOINTEGRITYCHECKS ON");
+                    regBcdChange("TESTSIGNING ON");
 
-                if (Program.isTweakEnabled(Program.winBoxConfig, "Hide bootmgr errors"))
-                {
-                    regBcdChange("noerrordisplay on");
+                    if (Program.isTweakEnabled(Program.winBoxConfig, "Disable boot circle"))
+                    {
+                        regBcdChange("custom:16000069 true");
+                    }
+
+                    if (Program.isTweakEnabled(Program.winBoxConfig, "Disable boot logo"))
+                    {
+                        regBcdChange("custom:16000067 true");
+                    }
+
+                    if (Program.isTweakEnabled(Program.winBoxConfig, "Disable boot messages"))
+                    {
+                        regBcdChange("custom:16000068 true");
+                    }
+
+                    if (Program.isTweakEnabled(Program.winBoxConfig, "Disable all boot UI"))
+                    {
+                        regBcdChange("bootuxdisabled on");
+                    }
+
+                    if (Program.isTweakEnabled(Program.winBoxConfig, "Hide bootmgr errors"))
+                    {
+                        regBcdChange("noerrordisplay on");
+                    }
                 }
             }
 
@@ -94,31 +101,23 @@ namespace WinBox_Maker
             File.Delete(bcdscriptPath);
         }
 
-        public static async Task modifyWinBCD(string path, WinPeModifications? winPeModifications = null)
+        public static async Task modifyWinBCD(string path, WinPeModifications? winPeModifications = null) // меняет BCD как для ISO winPE, так и для его boot.wim, так и для install.wim
         {
+            // winPE iso (BIOS)
             string bcdPath = Path.Combine(path, "boot\\bcd");
-            if (File.Exists(bcdPath))
-            {
-                await modifyBCD(bcdPath, winPeModifications);
-            }
+            if (File.Exists(bcdPath)) await modifyBCD(bcdPath, winPeModifications);
 
+            // winPE iso (UEFI)
             bcdPath = Path.Combine(path, "EFI\\Microsoft\\Boot\\BCD");
-            if (File.Exists(bcdPath))
-            {
-                await modifyBCD(bcdPath, winPeModifications);
-            }
+            if (File.Exists(bcdPath)) await modifyBCD(bcdPath, winPeModifications);
 
-            bcdPath = Path.Combine(path, "Windows\\Boot\\EFI\\BCD");
-            if (File.Exists(bcdPath))
-            {
-                await modifyBCD(bcdPath, winPeModifications);
-            }
-
+            // wim BCD template. используется при разворачивании образа с wim файла
             bcdPath = Path.Combine(path, "Windows\\System32\\Config\\BCD-Template");
-            if (File.Exists(bcdPath))
-            {
-                await modifyBCD(bcdPath, winPeModifications);
-            }
+            if (File.Exists(bcdPath)) await modifyBCD(bcdPath, winPeModifications);
+
+            // вроде как используется для UEFI в wim или уже установленой системе в каких то случаях. хз, пусть будет
+            bcdPath = Path.Combine(path, "Windows\\Boot\\EFI\\BCD");
+            if (File.Exists(bcdPath)) await modifyBCD(bcdPath, winPeModifications);
         }
     }
 }
