@@ -11,8 +11,7 @@ namespace WinBox_Maker
     static public class RegPatcher
     {
         static string[][] replaceHives = [
-            ["HKEY_LOCAL_MACHINE\\SOFTWARE\\", "HKEY_LOCAL_MACHINE\\WINBOX_SOFTWARE\\"],
-            ["HKLM\\SOFTWARE\\", "HKEY_LOCAL_MACHINE\\WINBOX_SOFTWARE\\"]
+            ["HKEY_LOCAL_MACHINE\\SOFTWARE\\", "HKEY_LOCAL_MACHINE\\WINBOX_SOFTWARE\\"]
         ];
 
         static public async Task regPatcher(string regPath, string newRegPath)
