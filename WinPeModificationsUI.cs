@@ -44,6 +44,7 @@ namespace WinBox_Maker
         {
             winPeModifications.app_override = app_override.Checked;
             Program.winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void app_custom_cmdline_TextChanged(object sender, EventArgs e)

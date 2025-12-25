@@ -488,16 +488,6 @@ namespace WinBox_Maker
             await Program.ExecuteAsync("dism.exe", $"/Unmount-Wim /MountDir:\"{path}\" {(commit ? "/commit" : "/discard")}", null, debugFolder);
         }
 
-        async Task mountReg(string hive="SOFTWARE")
-        {
-            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_{hive} \"{Path.Combine(wimMountPath, $"Windows\\System32\\config\\{hive}")}\"", null, debugFolder);
-        }
-
-        async Task umountReg(string hive="SOFTWARE")
-        {
-            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_{hive}", null, debugFolder);
-        }
-
         public async Task LoadWindowsImageAsync(Action<string> processName, Action<int> processValue)
         {
             await ExtractInstallWim(processName, processValue);
@@ -532,8 +522,8 @@ namespace WinBox_Maker
                     List<TwoStrings> keyboardLayouts = new List<TwoStrings>();
 
                     await mountDism(unpackedWimFile);
-                    await mountReg();
-                    await mountReg("SYSTEM");
+                    await RegChanger.mountReg();
+                    await RegChanger.mountReg("SYSTEM");
 
                     using (RegistryKey? root = Registry.LocalMachine.OpenSubKey($@"WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones"))
                     {
@@ -574,8 +564,8 @@ namespace WinBox_Maker
                         winBoxConfig.keyboard_layouts_firstAdded = true;
                     }
 
-                    await umountReg();
-                    await umountReg("SYSTEM");
+                    await RegChanger.umountReg();
+                    await RegChanger.umountReg("SYSTEM");
                     await umountDism(false);
 
                     json = JsonSerializer.Serialize(timeZones, new JsonSerializerOptions { WriteIndented = true });
@@ -1844,7 +1834,7 @@ powercfg -s {powerScheme}";
             processValue(50);
             if (modSystemReg)
             {
-                await mountReg();
+                await RegChanger.mountReg();
                 //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
             }
 
@@ -2912,7 +2902,7 @@ if errorlevel 1 (
                     File.Delete(newRegPath);
                 }
 
-                await umountReg();
+                await RegChanger.umountReg();
                 //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
             }
 

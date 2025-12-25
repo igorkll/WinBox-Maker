@@ -42,6 +42,12 @@ namespace WinBox_Maker
         {
             if (enabled != true) return;
             await BcdChanger.modifyWinBCD(mountedPath, this);
+
+            await RegChanger.mountReg("SYSTEM", "WINPE");
+            
+
+
+            await RegChanger.umountReg("SYSTEM", "WINPE");
         }
 
         public async Task modMountedIso(string mountedPath)
