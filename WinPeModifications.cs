@@ -69,7 +69,6 @@ namespace WinBox_Maker
 
             if (app_override == true)
             {
-                await RegChanger.RegMod("SYSTEM", "Setup", "SetupType", "dword:00000002", "WINPE");
                 string cmdline = "";
                 switch (app_override_type)
                 {
@@ -82,6 +81,8 @@ namespace WinBox_Maker
                         cmdline = app_custom_cmdline;
                         break;
                 }
+
+                await RegChanger.RegMod("SYSTEM", "Setup", "SetupType", "dword:00000002", "WINPE");
                 await RegChanger.RegMod("SYSTEM", "Setup", "CmdLine", Program.EscapeForRegFile(cmdline), "WINPE");
             }
 
