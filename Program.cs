@@ -785,6 +785,18 @@ namespace WinBox_Maker
             }
         }
 
+        public static string ReplaceAndPrependBackslash(string input)
+        {
+            string modified = input.Replace('/', '\\');
+
+            if (!modified.StartsWith("\\"))
+            {
+                modified = "\\" + modified;
+            }
+
+            return modified;
+        }
+
         static public async Task downloadFile(string url, string path, Action<int>? processValue = null)
         {
             var tcs = new TaskCompletionSource<bool>();

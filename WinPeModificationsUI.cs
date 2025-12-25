@@ -28,7 +28,7 @@ namespace WinBox_Maker
         {
             applyBaseSystemBCD.Checked = winPeModifications.applyBaseSystemBCD == true;
             app_override.Checked = winPeModifications.app_override == true;
-            app_tab.SelectedIndex = (int)(winPeModifications.appOverrideType ?? 0);
+            app_tab.SelectedIndex = (int)(winPeModifications.app_override_type ?? 0);
             app_custom_cmdline.Text = winPeModifications.app_custom_cmdline ?? "";
 
             app_tab.Enabled = winPeModifications.app_override == true;
@@ -55,7 +55,7 @@ namespace WinBox_Maker
 
         private void app_tab_SelectedIndexChanged(object sender, EventArgs e)
         {
-            winPeModifications.appOverrideType = (AppOverrideType)app_tab.SelectedIndex;
+            winPeModifications.app_override_type = (AppOverrideType)app_tab.SelectedIndex;
             Program.winBoxProject.SaveConfig();
         }
     }

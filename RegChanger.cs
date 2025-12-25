@@ -19,7 +19,23 @@ namespace WinBox_Maker
         public static async Task umountReg(string hive = "SOFTWARE", string tag = "")
         {
             if (tag.Length > 0) tag = "_" + tag;
-            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_{hive}", null, Program.winBoxProject.debugFolder);
+            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX{tag}_{hive}", null, Program.winBoxProject.debugFolder);
+        }
+
+        public static async Task RegMod(string baseTree, string path, string key, string value, string tag = "")
+        {
+            if (tag.Length > 0) tag = "_" + tag;
+
+            path = Program.ReplaceAndPrependBackslash(path);
+            string tempRegPath = Path.Combine(Program.winBoxProject.tempDirectoryPath, "temp.reg");
+            string regMod = $@"Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\WINBOX{tag}_{baseTree}{path}]
+""{key}""={value}
+";
+            await File.WriteAllTextAsync(tempRegPath, regMod);
+            await Program.ExecuteAsync("reg.exe", $"import \"{tempRegPath}\"", null, Program.winBoxProject.debugFolder);
+            File.Delete(tempRegPath);
         }
     }
 }

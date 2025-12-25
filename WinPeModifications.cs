@@ -18,7 +18,7 @@ namespace WinBox_Maker
 
         public bool? applyBaseSystemBCD { get; set; }
         public bool? app_override { get; set; }
-        public AppOverrideType? appOverrideType { get; set; }
+        public AppOverrideType? app_override_type { get; set; }
         public string? app_custom_cmdline { get; set; }
 
         public void initDefaults()
@@ -26,8 +26,8 @@ namespace WinBox_Maker
             if (enabled == null) enabled = true;
             if (applyBaseSystemBCD == null) applyBaseSystemBCD = true;
             if (app_override == null) app_override = false;
-            if (appOverrideType == null) appOverrideType = AppOverrideType.WinboxMakerRecovery;
-            if (app_custom_cmdline == null) app_custom_cmdline = "";
+            if (app_override_type == null) app_override_type = AppOverrideType.WinboxMakerRecovery;
+            if (app_custom_cmdline == null) app_custom_cmdline = "X:\\my_app_example.exe --argument";
         }
 
         // ------------------------------
@@ -38,22 +38,45 @@ namespace WinBox_Maker
             newForm.ShowDialog();
         }
 
+        public async Task modMountedIso(string mountedPath)
+        {
+            if (enabled != true) return;
+            await BcdChanger.modifyWinBCD(mountedPath, this);
+        }
+
+        async Task addWinboxMakerRecoveryFils(string mountedPath)
+        {
+
+        }
+
         public async Task modMountedWim(string mountedPath)
         {
             if (enabled != true) return;
             await BcdChanger.modifyWinBCD(mountedPath, this);
 
-            await RegChanger.mountReg("SYSTEM", "WINPE");
-            
+            bool needMountReg = app_override == true;
 
+            if (needMountReg) await RegChanger.mountReg("SYSTEM", "WINPE");
 
-            await RegChanger.umountReg("SYSTEM", "WINPE");
-        }
+            if (app_override == true)
+            {
+                await RegChanger.RegMod("SYSTEM", "SYSTEM\\Setup", "SetupType", "dword:00000002", "WINPE");
+                string cmdline = "";
+                switch (app_override_type)
+                {
+                    case AppOverrideType.WinboxMakerRecovery:
+                        await addWinboxMakerRecoveryFils(mountedPath);
+                        cmdline = "X:\\WinboxMakerRecovery.exe";
+                        break;
 
-        public async Task modMountedIso(string mountedPath)
-        {
-            if (enabled != true) return;
-            await BcdChanger.modifyWinBCD(mountedPath, this);
+                    case AppOverrideType.Custom:
+                        cmdline = app_custom_cmdline;
+                        break;
+                }
+                await RegChanger.RegMod("SYSTEM", "SYSTEM\\Setup", "CmdLine", Program.EscapeForRegFile(cmdline), "WINPE");
+            }
+
+            if (needMountReg) await RegChanger.umountReg("SYSTEM", "WINPE");
         }
     }
 }

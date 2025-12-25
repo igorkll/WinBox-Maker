@@ -649,32 +649,6 @@ namespace WinBox_Maker
             return Array.Empty<string>();
         }
 
-        static string ReplaceAndPrependBackslash(string input)
-        {
-            string modified = input.Replace('/', '\\');
-
-            if (!modified.StartsWith("\\"))
-            {
-                modified = "\\" + modified;
-            }
-
-            return modified;
-        }
-
-        private async Task RegMod(string baseTree, string path, string key, string value)
-        {
-            path = ReplaceAndPrependBackslash(path);
-            string tempRegPath = Path.Combine(tempDirectoryPath, "temp.reg");
-            string regMod = $@"Windows Registry Editor Version 5.00
-
-[HKEY_LOCAL_MACHINE\WINBOX_{baseTree}{path}]
-""{key}""={value}
-";
-            await File.WriteAllTextAsync(tempRegPath, regMod);
-            await Program.ExecuteAsync("reg.exe", $"import \"{tempRegPath}\"", null, debugFolder);
-            File.Delete(tempRegPath);
-        }
-
         public async Task WriteHiddenBatExecuter(string ExecuterPath, string batPath, string? args)
         {
             string vbsFile = $@"Set WshShell = CreateObject(""WScript.Shell"")
@@ -2882,7 +2856,7 @@ if errorlevel 1 (
                     );
 
                     await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_app_script_hidden.vbs"), @"C:\WinboxResources\app_script.bat", null);
-                    await RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(customShell));
+                    await RegChanger.RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(customShell));
                 }
 
                 await WriteApiScript("reboot_to_recovery.bat", "reagentc /boottore\r\nshutdown /r /t 0");
