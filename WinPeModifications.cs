@@ -52,7 +52,10 @@ namespace WinBox_Maker
 
         async Task addWinboxMakerRecoveryFils(string mountedPath)
         {
-            await Program.CopyFileAsync(Program.getBlobPath(Program.winBoxConfig, recoveryFileName), Path.Combine(mountedPath, recoveryFileName));
+            string recoveryDirectory = Path.Combine(mountedPath, "WinboxMakerRecovery");
+            Program.CreateDirectory(recoveryDirectory);
+
+            await Program.CopyFileAsync(Program.getBlobPath(Program.winBoxConfig, recoveryFileName), Path.Combine(recoveryDirectory, recoveryFileName));
         }
 
         public async Task modMountedWim(string mountedPath)
@@ -66,20 +69,20 @@ namespace WinBox_Maker
 
             if (app_override == true)
             {
-                await RegChanger.RegMod("SYSTEM", "SYSTEM\\Setup", "SetupType", "dword:00000002", "WINPE");
+                await RegChanger.RegMod("SYSTEM", "Setup", "SetupType", "dword:00000002", "WINPE");
                 string cmdline = "";
                 switch (app_override_type)
                 {
                     case AppOverrideType.WinboxMakerRecovery:
                         await addWinboxMakerRecoveryFils(mountedPath);
-                        cmdline = "X:\\WinboxMakerRecovery.exe";
+                        cmdline = "X:\\WinboxMakerRecovery\\WinboxMakerRecovery.exe";
                         break;
 
                     case AppOverrideType.Custom:
                         cmdline = app_custom_cmdline;
                         break;
                 }
-                await RegChanger.RegMod("SYSTEM", "SYSTEM\\Setup", "CmdLine", Program.EscapeForRegFile(cmdline), "WINPE");
+                await RegChanger.RegMod("SYSTEM", "Setup", "CmdLine", Program.EscapeForRegFile(cmdline), "WINPE");
             }
 
             if (needMountReg) await RegChanger.umountReg("SYSTEM", "WINPE");
