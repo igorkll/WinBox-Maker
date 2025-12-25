@@ -120,7 +120,7 @@
   <data name="richTextBox2.Text" xml:space="preserve">
     <value>Use the recovery menu provided by winbox maker as a WinPE application. This recovery menu will allow you to easily reset settings and update the firmware of your embedded device, it supports basic customization, essentially changing the logo and title in the menu, the ability to reset settings, update firmware via a wim file, as well as a reset policy when updating, but this recovery DOES NOT HAVE firmware validation and/or digital signature verification (maximum what you can do at the moment is to change the extensions.the wim of the file that recovery will accept, nothing more)
 In the settings of this recovery, you can set the paths where the data of your embedded device is stored in the main windows, this is necessary for resetting settings and updating software without resetting settings.
-
+please note that when you deploy firmware updates .WIM is A MUST!! ABSOLUTELY!! there should already be an initialized wim file, that is, where the SetupComplete.cmd stage has already BEEN COMPLETED - user access to the device where this stage has not been completed is a VERY BAD IDEA (the user will probably see the windows logo when they turn it on for the first time, as well as a sudden power outage when they turn it on for the first time in 90% of cases will lead to complete inactivity of the device). In order for the wim to be initialized, the "export initialized install.wim" option can be used on the wim tab (it will require passing the Windows installer on a virtual machine each time the system is built).
 </value>
   </data>
   <data name="richTextBox1.Text" xml:space="preserve">

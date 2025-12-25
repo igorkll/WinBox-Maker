@@ -68,7 +68,7 @@
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(846, 482);
+            tabPage1.Size = new Size(1146, 582);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "main";
             tabPage1.UseVisualStyleBackColor = true;
@@ -100,7 +100,7 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(846, 482);
+            tabPage2.Size = new Size(1146, 582);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "bcd";
             tabPage2.UseVisualStyleBackColor = true;
