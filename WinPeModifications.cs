@@ -19,9 +19,10 @@ namespace WinBox_Maker
 
         // ------------------------------
 
-        public void openGui()
+        public void openGui(string titleSuffix)
         {
-
+            WinPeModificationsUI newForm = new WinPeModificationsUI(this, titleSuffix);
+            newForm.ShowDialog();
         }
 
         public async Task modMountedWim(string mountedPath)

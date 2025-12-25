@@ -12,9 +12,14 @@ namespace WinBox_Maker
 {
     public partial class WinPeModificationsUI : Form
     {
-        public WinPeModificationsUI()
+        WinPeModifications winPeModifications;
+
+        public WinPeModificationsUI(WinPeModifications winPeModifications, string titleSuffix)
         {
             InitializeComponent();
+
+            this.winPeModifications = winPeModifications;
+            this.Text = $"{this.Text} - {titleSuffix}";
         }
     }
 }

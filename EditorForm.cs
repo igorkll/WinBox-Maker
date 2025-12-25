@@ -665,6 +665,8 @@ namespace WinBox_Maker
             installer_winPE_mod_en.Checked = winBoxProject.winBoxConfig.installer_winPE_mod.enabled == true;
             installer_winPE_mod.Enabled = winBoxProject.winBoxConfig.installer_winPE_mod.enabled == true;
 
+            install_bypass.Checked = winBoxProject.winBoxConfig.install_bypass == true;
+
             tab_app.Enabled = !manual;
             tab_settings.Enabled = !manual;
             postinstall_panel_system.Enabled = !manual;
@@ -2909,12 +2911,12 @@ namespace WinBox_Maker
 
         private void installer_winPE_mod_Click(object sender, EventArgs e)
         {
-            winBoxProject.winBoxConfig.installer_winPE_mod.openGui();
+            winBoxProject.winBoxConfig.installer_winPE_mod.openGui("Windows installer");
         }
 
         private void recovery_winPE_mod_Click(object sender, EventArgs e)
         {
-            winBoxProject.winBoxConfig.recovery_winPE_mod.openGui();
+            winBoxProject.winBoxConfig.recovery_winPE_mod.openGui("Windows recovery");
         }
 
         private void install_bypass_CheckedChanged(object sender, EventArgs e)
