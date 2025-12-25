@@ -518,7 +518,7 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            install_lock_bypass = new CheckBox();
+            install_bypass = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -4456,7 +4456,7 @@
             // installerpanel
             // 
             installerpanel.BorderStyle = BorderStyle.Fixed3D;
-            installerpanel.Controls.Add(install_lock_bypass);
+            installerpanel.Controls.Add(install_bypass);
             installerpanel.Controls.Add(installer_winPE_mod);
             installerpanel.Controls.Add(installer_winPE_mod_en);
             installerpanel.Location = new Point(3, 6);
@@ -5799,15 +5799,16 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // install_lock_bypass
+            // install_bypass
             // 
-            install_lock_bypass.AutoSize = true;
-            install_lock_bypass.Location = new Point(3, 3);
-            install_lock_bypass.Name = "install_lock_bypass";
-            install_lock_bypass.Size = new Size(487, 29);
-            install_lock_bypass.TabIndex = 51;
-            install_lock_bypass.Text = "bypass installation restrictions on unsupported hardware";
-            install_lock_bypass.UseVisualStyleBackColor = true;
+            install_bypass.AutoSize = true;
+            install_bypass.Location = new Point(3, 3);
+            install_bypass.Name = "install_bypass";
+            install_bypass.Size = new Size(487, 29);
+            install_bypass.TabIndex = 51;
+            install_bypass.Text = "bypass installation restrictions on unsupported hardware";
+            install_bypass.UseVisualStyleBackColor = true;
+            install_bypass.CheckedChanged += install_bypass_CheckedChanged;
             // 
             // EditorForm
             // 
@@ -6514,6 +6515,6 @@
         private CheckBox recovery_winPE_mod_en;
         private Button installer_winPE_mod;
         private CheckBox installer_winPE_mod_en;
-        private CheckBox install_lock_bypass;
+        private CheckBox install_bypass;
     }
 }

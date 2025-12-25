@@ -610,8 +610,6 @@ namespace WinBox_Maker
             aaf_info_boot.Checked = winBoxProject.winBoxConfig.aaf_info_boot == true;
             aaf_info_recovery.Checked = winBoxProject.winBoxConfig.aaf_info_recovery == true;
 
-            recoverymod_manual_allow.Checked = winBoxProject.winBoxConfig.recoverymod_manual_allow == true;
-
             oemkey_installer.Checked = winBoxProject.winBoxConfig.oemkey_installer == true;
             oemkey_dism.Checked = winBoxProject.winBoxConfig.oemkey_dism == true;
             oemkey_slmgr.Checked = winBoxProject.winBoxConfig.oemkey_slmgr == true;
@@ -633,6 +631,9 @@ namespace WinBox_Maker
             manual_setup_autounattend.Text = winBoxProject.winBoxConfig.manual_setup_autounattend ?? "not selected";
             manual_setup_sysunattend.Text = winBoxProject.winBoxConfig.manual_setup_sysunattend ?? "not selected";
             manual_setup_panel.Enabled = manual;
+
+            recoverymod_manual_allow.Checked = winBoxProject.winBoxConfig.recoverymod_manual_allow == true;
+            installermod_manual_allow.Checked = winBoxProject.winBoxConfig.installermod_manual_allow == true;
             recoverypanel.Enabled = !manual || winBoxProject.winBoxConfig.recoverymod_manual_allow == true;
             installerpanel.Enabled = !manual || winBoxProject.winBoxConfig.installermod_manual_allow == true;
 
@@ -2916,6 +2917,15 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.recovery_winPE_mod.openGui();
         }
 
+        private void install_bypass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.install_bypass = install_bypass.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
         // -------------------------------------------- item lists
 
         // ------------- service functions
@@ -3278,6 +3288,5 @@ namespace WinBox_Maker
                 UpdateKeyboardLayoutsList
             );
         }
-
     }
 }
