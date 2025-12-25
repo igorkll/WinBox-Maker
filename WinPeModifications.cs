@@ -65,7 +65,7 @@ namespace WinBox_Maker
 
             bool needMountReg = app_override == true;
 
-            if (needMountReg) await RegChanger.mountReg("SYSTEM", "WINPE");
+            if (needMountReg) await RegChanger.mountReg("SYSTEM", "WINPE", mountedPath);
 
             if (app_override == true)
             {
