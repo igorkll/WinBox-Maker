@@ -71,7 +71,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
-    const char* className = "FullscreenMenu";
+    const wchar_t* className = L"FullscreenMenu";
 
     WNDCLASS wc = {};
     wc.lpfnWndProc = WndProc;
@@ -81,15 +81,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
 
     RegisterClass(&wc);
 
-    // Получаем размеры экрана
     int screenWidth = GetSystemMetrics(SM_CXSCREEN);
     int screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
     HWND hwnd = CreateWindowEx(
         0,
         className,
-        "Kiosk Menu",
-        WS_POPUP, // полноэкранное окно без рамок
+        L"Kiosk Menu",
+        WS_POPUP,
         0, 0, screenWidth, screenHeight,
         nullptr,
         nullptr,
