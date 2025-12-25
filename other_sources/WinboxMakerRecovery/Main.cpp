@@ -52,7 +52,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         int y = 100;
         for (size_t i = 0; i < menuItems.size(); i++) {
             SetTextColor(hdc, i == selectedItem ? RGB(255, 255, 0) : RGB(255, 255, 255));
-            DrawTextA(hdc, menuItems[i].c_str(), -1, &RECT{ 50, y, rect.right, y + 60 }, DT_LEFT | DT_SINGLELINE);
+            RECT textRect = RECT{ 50, y, rect.right, y + 60 };
+            DrawTextA(hdc, menuItems[i].c_str(), -1, &textRect, DT_LEFT | DT_SINGLELINE);
             y += 80;
         }
 
