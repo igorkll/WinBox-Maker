@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Taskbar;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -177,7 +178,80 @@ namespace WinBox_Maker
 
         private void recovery_textOnInfoPage_TextChanged(object sender, EventArgs e)
         {
-            winPeModifications.recovery_textOnInfoPage = recovery_textOnInfoPage.Checked;
+            winPeModifications.recovery_textOnInfoPage = recovery_textOnInfoPage.Text;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void customRecoveryLogoPath_TextChanged(object sender, EventArgs e)
+        {
+            winPeModifications.customRecoveryLogoPath = customRecoveryLogoPath.Text;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void UpdateProcessName(string text)
+        {
+        }
+
+        private void UpdateProcessValue(int Value)
+        {
+        }
+
+        void UnlockForm()
+        {
+            this.Enabled = true;
+        }
+
+        void LockForm()
+        {
+            this.Enabled = false;
+        }
+
+        private async void customRecoveryLogoPath_sel_Click(object sender, EventArgs e)
+        {
+            LockForm();
+            string? name = await Program.winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.imageFilter, Program.winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winPeModifications.customRecoveryLogoPath = name;
+                Program.winBoxProject.SaveConfig();
+            }
+            UnlockForm();
+        }
+
+        private void customRecoveryLogoPath_clr_Click(object sender, EventArgs e)
+        {
+            winPeModifications.customRecoveryLogoPath = null;
+            Program.winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void recovery_title_TextChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_title = recovery_title.Text;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void recovery_dataPaths_TextChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_dataPaths = recovery_dataPaths.Text;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void recovery_ffuName_TextChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_ffuName = recovery_ffuName.Text;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void recovery_imgName_TextChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_imgName = recovery_imgName.Text;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void recovery_wimName_TextChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_wimName = recovery_wimName.Text;
             Program.winBoxProject.SaveConfig();
         }
     }
