@@ -14,6 +14,13 @@ namespace WinBox_Maker
         Custom
     }
 
+    public enum WinboxRecoveryLogoType
+    {
+        DefaultLogo,
+        CustomLogo,
+        NoLogo
+    }
+
     public class WinPeModifications
     {
         public bool? enabled { get; set; }
@@ -24,6 +31,8 @@ namespace WinBox_Maker
         public bool? app_lowlevel { get; set; }
         public AppOverrideType? app_override_type { get; set; }
         public string? app_custom_cmdline { get; set; }
+        public WinboxRecoveryLogoType? winboxRecoveryLogoType { get; set; }
+        public string? customRecoveryLogoPath { get; set; }
 
         // initFor
         // 0 - installer
@@ -38,6 +47,8 @@ namespace WinBox_Maker
             if (app_lowlevel == null) app_lowlevel = initFor == 1;
             if (app_override_type == null) app_override_type = AppOverrideType.WinboxMakerRecovery;
             if (app_custom_cmdline == null) app_custom_cmdline = "my_app_example.exe --argument";
+            if (winboxRecoveryLogoType == null) winboxRecoveryLogoType = WinboxRecoveryLogoType.DefaultLogo;
+            if (customRecoveryLogoPath == null) customRecoveryLogoPath = "";
         }
 
         // ------------------------------
@@ -64,7 +75,22 @@ namespace WinBox_Maker
             Program.CreateDirectory(recoveryDirectory);
 
             await Program.CopyFileAsync(Program.getBlobPath(Program.winBoxConfig, recoveryFileName), Path.Combine(recoveryDirectory, recoveryFileName));
-            await Program.CopyFileAsync(Program.getBlobPath(Program.winBoxConfig, "WinboxMakerRecoveryLogo.bmp"), Path.Combine(recoveryDirectory, "logo.bmp"));
+
+            string? logoPath = null;
+            switch (winboxRecoveryLogoType)
+            {
+                case WinboxRecoveryLogoType.DefaultLogo:
+                    logoPath = Program.getBlobPath(Program.winBoxConfig, "WinboxMakerRecoveryLogo.bmp");
+                    break;
+
+                case WinboxRecoveryLogoType.CustomLogo:
+                    if (customRecoveryLogoPath.Length > 0 && !customRecoveryLogoPath.Contains(".."))
+                        logoPath = Path.Combine(Program.winBoxProject.resourcesDirectoryPath, customRecoveryLogoPath);
+                    break;
+            }
+
+            if (logoPath != null)
+                ImageConverter.ConvertToBmp_54_24(logoPath, Path.Combine(recoveryDirectory, "logo.bmp"));
         }
 
         public async Task modMountedWim(string mountedPath)
