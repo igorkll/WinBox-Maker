@@ -71,11 +71,12 @@ namespace WinBox_Maker
 
         async Task addWinboxMakerRecoveryFils(string mountedPath)
         {
+            // copy recovery exe
             string recoveryDirectory = Path.Combine(mountedPath, "WinboxMakerRecovery");
             Program.CreateDirectory(recoveryDirectory);
-
             await Program.CopyFileAsync(Program.getBlobPath(Program.winBoxConfig, recoveryFileName), Path.Combine(recoveryDirectory, recoveryFileName));
 
+            // copy recovery logo
             string? logoPath = null;
             switch (winboxRecoveryLogoType)
             {
@@ -91,6 +92,9 @@ namespace WinBox_Maker
 
             if (logoPath != null)
                 ImageConverter.ConvertToBmp_54_24(logoPath, Path.Combine(recoveryDirectory, "logo.bmp"));
+
+            // write recovery settings json
+
         }
 
         public async Task modMountedWim(string mountedPath)
