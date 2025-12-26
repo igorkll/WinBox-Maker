@@ -46,21 +46,21 @@
             app_override = new CheckBox();
             tabPage2 = new TabPage();
             applyBaseSystemBCD = new CheckBox();
-            richTextBox4 = new RichTextBox();
-            textBox1 = new TextBox();
+            recovery_dataPaths = new RichTextBox();
+            recovery_title = new TextBox();
             label3 = new Label();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
-            checkBox3 = new CheckBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
-            richTextBox5 = new RichTextBox();
-            checkBox4 = new CheckBox();
+            recovery_allowFlashWim = new CheckBox();
+            recovery_allowFlashImg = new CheckBox();
+            recovery_allowFlashFfu = new CheckBox();
+            recovery_wimName = new TextBox();
+            recovery_imgName = new TextBox();
+            recovery_ffuName = new TextBox();
+            recovery_textOnInfoPage = new RichTextBox();
+            recovery_textOnInfoPage_en = new CheckBox();
             label4 = new Label();
-            checkBox5 = new CheckBox();
-            checkBox6 = new CheckBox();
-            checkBox7 = new CheckBox();
+            recovery_allowFlashWithoutFactoryReset = new CheckBox();
+            recovery_allowFlashWithFactoryReset = new CheckBox();
+            recovery_allowFactoryReset = new CheckBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage3.SuspendLayout();
@@ -161,21 +161,21 @@
             // 
             // tabPage4
             // 
-            tabPage4.Controls.Add(checkBox7);
-            tabPage4.Controls.Add(checkBox6);
-            tabPage4.Controls.Add(checkBox5);
+            tabPage4.Controls.Add(recovery_allowFactoryReset);
+            tabPage4.Controls.Add(recovery_allowFlashWithFactoryReset);
+            tabPage4.Controls.Add(recovery_allowFlashWithoutFactoryReset);
             tabPage4.Controls.Add(label4);
-            tabPage4.Controls.Add(checkBox4);
-            tabPage4.Controls.Add(richTextBox5);
-            tabPage4.Controls.Add(textBox4);
-            tabPage4.Controls.Add(textBox3);
-            tabPage4.Controls.Add(textBox2);
-            tabPage4.Controls.Add(checkBox3);
-            tabPage4.Controls.Add(checkBox2);
-            tabPage4.Controls.Add(checkBox1);
+            tabPage4.Controls.Add(recovery_textOnInfoPage_en);
+            tabPage4.Controls.Add(recovery_textOnInfoPage);
+            tabPage4.Controls.Add(recovery_ffuName);
+            tabPage4.Controls.Add(recovery_imgName);
+            tabPage4.Controls.Add(recovery_wimName);
+            tabPage4.Controls.Add(recovery_allowFlashFfu);
+            tabPage4.Controls.Add(recovery_allowFlashImg);
+            tabPage4.Controls.Add(recovery_allowFlashWim);
             tabPage4.Controls.Add(label3);
-            tabPage4.Controls.Add(textBox1);
-            tabPage4.Controls.Add(richTextBox4);
+            tabPage4.Controls.Add(recovery_title);
+            tabPage4.Controls.Add(recovery_dataPaths);
             tabPage4.Controls.Add(richTextBox2);
             tabPage4.Location = new Point(4, 34);
             tabPage4.Name = "tabPage4";
@@ -268,20 +268,20 @@
             applyBaseSystemBCD.UseVisualStyleBackColor = true;
             applyBaseSystemBCD.CheckedChanged += applyBaseSystemBCD_CheckedChanged;
             // 
-            // richTextBox4
+            // recovery_dataPaths
             // 
-            richTextBox4.Location = new Point(6, 271);
-            richTextBox4.Name = "richTextBox4";
-            richTextBox4.Size = new Size(285, 151);
-            richTextBox4.TabIndex = 3;
-            richTextBox4.Text = "";
+            recovery_dataPaths.Location = new Point(6, 271);
+            recovery_dataPaths.Name = "recovery_dataPaths";
+            recovery_dataPaths.Size = new Size(285, 151);
+            recovery_dataPaths.TabIndex = 3;
+            recovery_dataPaths.Text = "";
             // 
-            // textBox1
+            // recovery_title
             // 
-            textBox1.Location = new Point(6, 6);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(457, 31);
-            textBox1.TabIndex = 4;
+            recovery_title.Location = new Point(6, 6);
+            recovery_title.Name = "recovery_title";
+            recovery_title.Size = new Size(457, 31);
+            recovery_title.TabIndex = 4;
             // 
             // label3
             // 
@@ -292,74 +292,74 @@
             label3.TabIndex = 5;
             label3.Text = "recovery title";
             // 
-            // checkBox1
+            // recovery_allowFlashWim
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(6, 43);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(171, 29);
-            checkBox1.TabIndex = 6;
-            checkBox1.Text = "allow flash *.wim";
-            checkBox1.UseVisualStyleBackColor = true;
+            recovery_allowFlashWim.AutoSize = true;
+            recovery_allowFlashWim.Location = new Point(6, 43);
+            recovery_allowFlashWim.Name = "recovery_allowFlashWim";
+            recovery_allowFlashWim.Size = new Size(171, 29);
+            recovery_allowFlashWim.TabIndex = 6;
+            recovery_allowFlashWim.Text = "allow flash *.wim";
+            recovery_allowFlashWim.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // recovery_allowFlashImg
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(6, 78);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(169, 29);
-            checkBox2.TabIndex = 7;
-            checkBox2.Text = "allow flash *.img";
-            checkBox2.UseVisualStyleBackColor = true;
+            recovery_allowFlashImg.AutoSize = true;
+            recovery_allowFlashImg.Location = new Point(6, 78);
+            recovery_allowFlashImg.Name = "recovery_allowFlashImg";
+            recovery_allowFlashImg.Size = new Size(169, 29);
+            recovery_allowFlashImg.TabIndex = 7;
+            recovery_allowFlashImg.Text = "allow flash *.img";
+            recovery_allowFlashImg.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // recovery_allowFlashFfu
             // 
-            checkBox3.AutoSize = true;
-            checkBox3.Location = new Point(6, 113);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(160, 29);
-            checkBox3.TabIndex = 8;
-            checkBox3.Text = "allow flash *.ffu";
-            checkBox3.UseVisualStyleBackColor = true;
+            recovery_allowFlashFfu.AutoSize = true;
+            recovery_allowFlashFfu.Location = new Point(6, 113);
+            recovery_allowFlashFfu.Name = "recovery_allowFlashFfu";
+            recovery_allowFlashFfu.Size = new Size(160, 29);
+            recovery_allowFlashFfu.TabIndex = 8;
+            recovery_allowFlashFfu.Text = "allow flash *.ffu";
+            recovery_allowFlashFfu.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // recovery_wimName
             // 
-            textBox2.Location = new Point(183, 43);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(328, 31);
-            textBox2.TabIndex = 9;
+            recovery_wimName.Location = new Point(183, 43);
+            recovery_wimName.Name = "recovery_wimName";
+            recovery_wimName.Size = new Size(328, 31);
+            recovery_wimName.TabIndex = 9;
             // 
-            // textBox3
+            // recovery_imgName
             // 
-            textBox3.Location = new Point(183, 80);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(328, 31);
-            textBox3.TabIndex = 10;
+            recovery_imgName.Location = new Point(183, 80);
+            recovery_imgName.Name = "recovery_imgName";
+            recovery_imgName.Size = new Size(328, 31);
+            recovery_imgName.TabIndex = 10;
             // 
-            // textBox4
+            // recovery_ffuName
             // 
-            textBox4.Location = new Point(183, 117);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(328, 31);
-            textBox4.TabIndex = 11;
+            recovery_ffuName.Location = new Point(183, 117);
+            recovery_ffuName.Name = "recovery_ffuName";
+            recovery_ffuName.Size = new Size(328, 31);
+            recovery_ffuName.TabIndex = 11;
             // 
-            // richTextBox5
+            // recovery_textOnInfoPage
             // 
-            richTextBox5.Location = new Point(297, 271);
-            richTextBox5.Name = "richTextBox5";
-            richTextBox5.Size = new Size(295, 151);
-            richTextBox5.TabIndex = 12;
-            richTextBox5.Text = "";
+            recovery_textOnInfoPage.Location = new Point(297, 271);
+            recovery_textOnInfoPage.Name = "recovery_textOnInfoPage";
+            recovery_textOnInfoPage.Size = new Size(295, 151);
+            recovery_textOnInfoPage.TabIndex = 12;
+            recovery_textOnInfoPage.Text = "";
             // 
-            // checkBox4
+            // recovery_textOnInfoPage_en
             // 
-            checkBox4.AutoSize = true;
-            checkBox4.Location = new Point(297, 236);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(180, 29);
-            checkBox4.TabIndex = 14;
-            checkBox4.Text = "use info page text";
-            checkBox4.UseVisualStyleBackColor = true;
+            recovery_textOnInfoPage_en.AutoSize = true;
+            recovery_textOnInfoPage_en.Location = new Point(297, 236);
+            recovery_textOnInfoPage_en.Name = "recovery_textOnInfoPage_en";
+            recovery_textOnInfoPage_en.Size = new Size(180, 29);
+            recovery_textOnInfoPage_en.TabIndex = 14;
+            recovery_textOnInfoPage_en.Text = "use info page text";
+            recovery_textOnInfoPage_en.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -370,35 +370,35 @@
             label4.TabIndex = 15;
             label4.Text = "use application data paths";
             // 
-            // checkBox5
+            // recovery_allowFlashWithoutFactoryReset
             // 
-            checkBox5.AutoSize = true;
-            checkBox5.Location = new Point(6, 154);
-            checkBox5.Name = "checkBox5";
-            checkBox5.Size = new Size(289, 29);
-            checkBox5.TabIndex = 16;
-            checkBox5.Text = "allow flash without factory reset";
-            checkBox5.UseVisualStyleBackColor = true;
+            recovery_allowFlashWithoutFactoryReset.AutoSize = true;
+            recovery_allowFlashWithoutFactoryReset.Location = new Point(6, 154);
+            recovery_allowFlashWithoutFactoryReset.Name = "recovery_allowFlashWithoutFactoryReset";
+            recovery_allowFlashWithoutFactoryReset.Size = new Size(289, 29);
+            recovery_allowFlashWithoutFactoryReset.TabIndex = 16;
+            recovery_allowFlashWithoutFactoryReset.Text = "allow flash without factory reset";
+            recovery_allowFlashWithoutFactoryReset.UseVisualStyleBackColor = true;
             // 
-            // checkBox6
+            // recovery_allowFlashWithFactoryReset
             // 
-            checkBox6.AutoSize = true;
-            checkBox6.Location = new Point(301, 154);
-            checkBox6.Name = "checkBox6";
-            checkBox6.Size = new Size(262, 29);
-            checkBox6.TabIndex = 17;
-            checkBox6.Text = "allow flash with factory reset";
-            checkBox6.UseVisualStyleBackColor = true;
+            recovery_allowFlashWithFactoryReset.AutoSize = true;
+            recovery_allowFlashWithFactoryReset.Location = new Point(301, 154);
+            recovery_allowFlashWithFactoryReset.Name = "recovery_allowFlashWithFactoryReset";
+            recovery_allowFlashWithFactoryReset.Size = new Size(262, 29);
+            recovery_allowFlashWithFactoryReset.TabIndex = 17;
+            recovery_allowFlashWithFactoryReset.Text = "allow flash with factory reset";
+            recovery_allowFlashWithFactoryReset.UseVisualStyleBackColor = true;
             // 
-            // checkBox7
+            // recovery_allowFactoryReset
             // 
-            checkBox7.AutoSize = true;
-            checkBox7.Location = new Point(6, 189);
-            checkBox7.Name = "checkBox7";
-            checkBox7.Size = new Size(182, 29);
-            checkBox7.TabIndex = 18;
-            checkBox7.Text = "allow factory reset";
-            checkBox7.UseVisualStyleBackColor = true;
+            recovery_allowFactoryReset.AutoSize = true;
+            recovery_allowFactoryReset.Location = new Point(6, 189);
+            recovery_allowFactoryReset.Name = "recovery_allowFactoryReset";
+            recovery_allowFactoryReset.Size = new Size(182, 29);
+            recovery_allowFactoryReset.TabIndex = 18;
+            recovery_allowFactoryReset.Text = "allow factory reset";
+            recovery_allowFactoryReset.UseVisualStyleBackColor = true;
             // 
             // WinPeModificationsUI
             // 
@@ -442,20 +442,20 @@
         private CheckBox app_lowlevel;
         private CheckBox remove_cmd_exe;
         private RichTextBox richTextBox3;
-        private TextBox textBox1;
-        private RichTextBox richTextBox4;
+        private TextBox recovery_title;
+        private RichTextBox recovery_dataPaths;
         private Label label3;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private CheckBox checkBox3;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
-        private RichTextBox richTextBox5;
-        private CheckBox checkBox4;
+        private TextBox recovery_ffuName;
+        private TextBox recovery_imgName;
+        private TextBox recovery_wimName;
+        private CheckBox recovery_allowFlashFfu;
+        private CheckBox recovery_allowFlashImg;
+        private CheckBox recovery_allowFlashWim;
+        private RichTextBox recovery_textOnInfoPage;
+        private CheckBox recovery_textOnInfoPage_en;
         private Label label4;
-        private CheckBox checkBox6;
-        private CheckBox checkBox5;
-        private CheckBox checkBox7;
+        private CheckBox recovery_allowFlashWithFactoryReset;
+        private CheckBox recovery_allowFlashWithoutFactoryReset;
+        private CheckBox recovery_allowFactoryReset;
     }
 }

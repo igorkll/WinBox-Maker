@@ -45,6 +45,7 @@ namespace WinBox_Maker
         public string? recovery_ffuName { get; set; }
         public bool? recovery_allowFlashWithoutFactoryReset { get; set; }
         public bool? recovery_allowFlashWithFactoryReset { get; set; }
+        public bool? recovery_textOnInfoPage_en { get; set; }
         public string? recovery_textOnInfoPage { get; set; }
 
         // initFor
@@ -74,6 +75,7 @@ namespace WinBox_Maker
             if (recovery_ffuName == null) recovery_ffuName = "firmware.ffu";
             if (recovery_allowFlashWithoutFactoryReset == null) recovery_allowFlashWithoutFactoryReset = true;
             if (recovery_allowFlashWithFactoryReset == null) recovery_allowFlashWithFactoryReset = true;
+            if (recovery_textOnInfoPage_en == null) recovery_textOnInfoPage_en = false;
             if (recovery_textOnInfoPage == null) recovery_textOnInfoPage = "you can download device firmware on\nhttps://example.com";
         }
 
