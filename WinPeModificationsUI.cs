@@ -31,6 +31,8 @@ namespace WinBox_Maker
 
             applyBaseSystemBCD.Checked = winPeModifications.applyBaseSystemBCD == true;
             app_override.Checked = winPeModifications.app_override == true;
+            app_lowlevel.Checked = winPeModifications.app_lowlevel == true;
+            remove_cmd_exe.Checked = winPeModifications.remove_cmd_exe == true;
             app_tab.SelectedIndex = (int)(winPeModifications.app_override_type ?? 0);
             app_custom_cmdline.Text = winPeModifications.app_custom_cmdline ?? "";
 
@@ -70,6 +72,24 @@ namespace WinBox_Maker
 
             winPeModifications.app_override_type = (AppOverrideType)app_tab.SelectedIndex;
             Program.winBoxProject.SaveConfig();
+        }
+
+        private void app_lowlevel_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winPeModifications.app_lowlevel = app_lowlevel.Checked;
+            Program.winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void remove_cmd_exe_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winPeModifications.remove_cmd_exe = remove_cmd_exe.Checked;
+            Program.winBoxProject.SaveConfig();
+            UpdateGui();
         }
     }
 }

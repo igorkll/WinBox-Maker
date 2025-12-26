@@ -32,6 +32,8 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             tabPage3 = new TabPage();
+            app_lowlevel = new CheckBox();
+            label2 = new Label();
             app_tab = new TabControl();
             tabPage4 = new TabPage();
             richTextBox2 = new RichTextBox();
@@ -42,7 +44,9 @@
             app_override = new CheckBox();
             tabPage2 = new TabPage();
             applyBaseSystemBCD = new CheckBox();
+            remove_cmd_exe = new CheckBox();
             tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
             tabPage3.SuspendLayout();
             app_tab.SuspendLayout();
             tabPage4.SuspendLayout();
@@ -63,6 +67,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(remove_cmd_exe);
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
@@ -73,6 +78,8 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(app_lowlevel);
+            tabPage3.Controls.Add(label2);
             tabPage3.Controls.Add(app_tab);
             tabPage3.Controls.Add(app_override);
             tabPage3.Location = new Point(4, 34);
@@ -82,15 +89,35 @@
             tabPage3.Text = "app";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // app_lowlevel
+            // 
+            app_lowlevel.AutoSize = true;
+            app_lowlevel.Location = new Point(3, 38);
+            app_lowlevel.Name = "app_lowlevel";
+            app_lowlevel.Size = new Size(924, 29);
+            app_lowlevel.TabIndex = 3;
+            app_lowlevel.Text = "low-level shell initialization (prevents the console window from flashing, does not support arguments in custom)";
+            app_lowlevel.UseVisualStyleBackColor = true;
+            app_lowlevel.CheckedChanged += app_lowlevel_CheckedChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(3, 85);
+            label2.Name = "label2";
+            label2.Size = new Size(657, 25);
+            label2.TabIndex = 2;
+            label2.Text = "Please note that the application replacement option is changed by switching tabs.";
+            // 
             // app_tab
             // 
             app_tab.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             app_tab.Controls.Add(tabPage4);
             app_tab.Controls.Add(tabPage5);
-            app_tab.Location = new Point(3, 38);
+            app_tab.Location = new Point(3, 113);
             app_tab.Name = "app_tab";
             app_tab.SelectedIndex = 0;
-            app_tab.Size = new Size(1140, 541);
+            app_tab.Size = new Size(1140, 466);
             app_tab.TabIndex = 1;
             app_tab.SelectedIndexChanged += app_tab_SelectedIndexChanged;
             // 
@@ -100,7 +127,7 @@
             tabPage4.Location = new Point(4, 34);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(1132, 503);
+            tabPage4.Size = new Size(1132, 428);
             tabPage4.TabIndex = 0;
             tabPage4.Text = "winbox maker recovery";
             tabPage4.UseVisualStyleBackColor = true;
@@ -111,7 +138,7 @@
             richTextBox2.Location = new Point(598, 6);
             richTextBox2.Name = "richTextBox2";
             richTextBox2.ReadOnly = true;
-            richTextBox2.Size = new Size(528, 491);
+            richTextBox2.Size = new Size(528, 416);
             richTextBox2.TabIndex = 2;
             richTextBox2.Text = resources.GetString("richTextBox2.Text");
             // 
@@ -123,7 +150,7 @@
             tabPage5.Location = new Point(4, 34);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
-            tabPage5.Size = new Size(1132, 503);
+            tabPage5.Size = new Size(1132, 428);
             tabPage5.TabIndex = 1;
             tabPage5.Text = "custom";
             tabPage5.UseVisualStyleBackColor = true;
@@ -143,7 +170,7 @@
             richTextBox1.Location = new Point(598, 6);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(528, 491);
+            richTextBox1.Size = new Size(528, 416);
             richTextBox1.TabIndex = 1;
             richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
@@ -188,6 +215,17 @@
             applyBaseSystemBCD.UseVisualStyleBackColor = true;
             applyBaseSystemBCD.CheckedChanged += applyBaseSystemBCD_CheckedChanged;
             // 
+            // remove_cmd_exe
+            // 
+            remove_cmd_exe.AutoSize = true;
+            remove_cmd_exe.Location = new Point(6, 6);
+            remove_cmd_exe.Name = "remove_cmd_exe";
+            remove_cmd_exe.Size = new Size(614, 29);
+            remove_cmd_exe.TabIndex = 0;
+            remove_cmd_exe.Text = "delete cmd.exe (ensures that it is not possible to open cmd via shift+f10)";
+            remove_cmd_exe.UseVisualStyleBackColor = true;
+            remove_cmd_exe.CheckedChanged += remove_cmd_exe_CheckedChanged;
+            // 
             // WinPeModificationsUI
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -197,6 +235,8 @@
             Name = "WinPeModificationsUI";
             Text = "WinPE Modifications";
             tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
             app_tab.ResumeLayout(false);
@@ -223,5 +263,8 @@
         private RichTextBox richTextBox1;
         private RichTextBox richTextBox2;
         private Label label1;
+        private Label label2;
+        private CheckBox app_lowlevel;
+        private CheckBox remove_cmd_exe;
     }
 }

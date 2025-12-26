@@ -19,15 +19,23 @@ namespace WinBox_Maker
         public bool? enabled { get; set; }
 
         public bool? applyBaseSystemBCD { get; set; }
+        public bool? remove_cmd_exe { get; set; }
         public bool? app_override { get; set; }
+        public bool? app_lowlevel { get; set; }
         public AppOverrideType? app_override_type { get; set; }
         public string? app_custom_cmdline { get; set; }
 
-        public void initDefaults()
+        // initFor
+        // 0 - installer
+        // 1 - recovery
+        // 2 - other
+        public void initDefaults(int initFor = 0)
         {
             if (enabled == null) enabled = true;
             if (applyBaseSystemBCD == null) applyBaseSystemBCD = true;
+            if (remove_cmd_exe == null) remove_cmd_exe = initFor == 1;
             if (app_override == null) app_override = false;
+            if (app_lowlevel == null) app_lowlevel = initFor == 1;
             if (app_override_type == null) app_override_type = AppOverrideType.WinboxMakerRecovery;
             if (app_custom_cmdline == null) app_custom_cmdline = "my_app_example.exe --argument";
         }
@@ -110,6 +118,11 @@ namespace WinBox_Maker
 
                 await Program.WriteFileAsync(path, @$"[LaunchApps]
 %SYSTEMDRIVE%{Program.ReplaceAndPrependBackslash(cmdline)}");
+            }
+
+            if (remove_cmd_exe == true)
+            {
+                File.Delete(Path.Combine(mountedPath, "Windows\\System32\\cmd.exe"));
             }
         }
     }

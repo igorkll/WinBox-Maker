@@ -124,6 +124,7 @@ please note that when you deploy firmware updates .WIM is A MUST!! ABSOLUTELY!! 
 </value>
   </data>
   <data name="richTextBox1.Text" xml:space="preserve">
-    <value>replace the WinPE app with your own. specify here the path to the exe that actually exists in your WinPE (you can add it there using other tools, if it's an installer or recovery, then use the boot_file/recovery_files directories, and if it's another WinPE, then add files through other "WinPE modifications" settings)</value>
+    <value>replace the WinPE app with your own. specify here the path to the exe that actually exists in your WinPE (you can add it there using other tools, if it's an installer or recovery, then use the boot_file/recovery_files directories, and if it's another WinPE, then add files through other "WinPE modifications" settings)
+if you use "low level shell", then arguments cannot be passed.</value>
   </data>
 </root>

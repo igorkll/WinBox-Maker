@@ -442,8 +442,8 @@ namespace WinBox_Maker
             if (recovery_winPE_mod == null) recovery_winPE_mod = new WinPeModifications();
             if (installer_winPE_mod == null) installer_winPE_mod = new WinPeModifications();
 
-            recovery_winPE_mod.initDefaults();
-            installer_winPE_mod.initDefaults();
+            installer_winPE_mod.initDefaults(0);
+            recovery_winPE_mod.initDefaults(1);
 
             foreach (BuildItem buildItem in BuildItems)
             {
