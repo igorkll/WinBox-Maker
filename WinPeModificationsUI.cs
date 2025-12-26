@@ -39,6 +39,20 @@ namespace WinBox_Maker
             app_tab.Enabled = winPeModifications.app_override == true;
             app_lowlevel.Enabled = winPeModifications.app_override == true;
 
+            recovery_title.Text = winPeModifications.recovery_title ?? "";
+            recovery_dataPaths.Text = winPeModifications.recovery_dataPaths ?? "";
+            recovery_allowFactoryReset.Checked = winPeModifications.recovery_allowFactoryReset == true;
+            recovery_allowFlashWithFactoryReset.Checked = winPeModifications.recovery_allowFactoryReset == true;
+            recovery_allowFlashWithoutFactoryReset.Checked = winPeModifications.recovery_allowFlashWithoutFactoryReset == true;
+            recovery_textOnInfoPage_en.Checked = winPeModifications.recovery_textOnInfoPage_en == true;
+            recovery_textOnInfoPage.Text = winPeModifications.recovery_textOnInfoPage ?? "";
+            recovery_wimName.Text = winPeModifications.recovery_wimName ?? "";
+            recovery_imgName.Text = winPeModifications.recovery_imgName ?? "";
+            recovery_ffuName.Text = winPeModifications.recovery_ffuName ?? "";
+            recovery_allowFlashWim.Checked = winPeModifications.recovery_allowFlashWim == true;
+            recovery_allowFlashImg.Checked = winPeModifications.recovery_allowFlashImg == true;
+            recovery_allowFlashFfu.Checked = winPeModifications.recovery_allowFlashFfu == true;
+
             guiEventsLock = false;
         }
 
