@@ -9,11 +9,13 @@ COLORREF color_bg = RGB(0, 0, 0);
 COLORREF color_title = RGB(255, 0, 0);
 COLORREF color_text = RGB(255, 255, 255);
 COLORREF color_selectedText = RGB(255, 255, 0);
-int lineHeight = 100;
 std::string title_text = "Winbox maker recovery";
+int lineHeight = 100;
+int screenWidth;
+int screenHeight;
 
 static void loadConsts() {
-
+    lineHeight = screenHeight / 8;
 }
 
 // ------------------------------------- static
@@ -105,17 +107,20 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
     case WM_KEYDOWN:
         handleKeyboard(hwnd, wParam);
-        break;
+        return 0;
     case WM_PAINT:
         redrawMenu(hwnd);
-        break;
+        return 0;
     case WM_DESTROY:
         PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hwnd, msg, wParam, lParam);
+        return 0;
+    case WM_SYSCOMMAND:
+        if ((wParam & 0xFFF0) == SC_CLOSE) { //disable alt+f4. use esc
+            return 0;
+        }
     }
-    return 0;
+
+    return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
 void Menu_start(HINSTANCE hInstance) {
@@ -128,8 +133,8 @@ void Menu_start(HINSTANCE hInstance) {
     wc.hCursor = LoadCursor(nullptr, IDC_NO);
     RegisterClass(&wc);
 
-    int screenWidth = GetSystemMetrics(SM_CXSCREEN);
-    int screenHeight = GetSystemMetrics(SM_CYSCREEN);
+    screenWidth = GetSystemMetrics(SM_CXSCREEN);
+    screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
     HWND hwnd = CreateWindowEx(
         0,
