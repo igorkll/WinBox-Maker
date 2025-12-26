@@ -31,7 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WinPeModificationsUI));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            remove_cmd_exe = new CheckBox();
             tabPage3 = new TabPage();
+            richTextBox3 = new RichTextBox();
             app_lowlevel = new CheckBox();
             label2 = new Label();
             app_tab = new TabControl();
@@ -44,7 +46,6 @@
             app_override = new CheckBox();
             tabPage2 = new TabPage();
             applyBaseSystemBCD = new CheckBox();
-            remove_cmd_exe = new CheckBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage3.SuspendLayout();
@@ -76,8 +77,20 @@
             tabPage1.Text = "main";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // remove_cmd_exe
+            // 
+            remove_cmd_exe.AutoSize = true;
+            remove_cmd_exe.Location = new Point(6, 6);
+            remove_cmd_exe.Name = "remove_cmd_exe";
+            remove_cmd_exe.Size = new Size(614, 29);
+            remove_cmd_exe.TabIndex = 0;
+            remove_cmd_exe.Text = "delete cmd.exe (ensures that it is not possible to open cmd via shift+f10)";
+            remove_cmd_exe.UseVisualStyleBackColor = true;
+            remove_cmd_exe.CheckedChanged += remove_cmd_exe_CheckedChanged;
+            // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(richTextBox3);
             tabPage3.Controls.Add(app_lowlevel);
             tabPage3.Controls.Add(label2);
             tabPage3.Controls.Add(app_tab);
@@ -89,14 +102,24 @@
             tabPage3.Text = "app";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // richTextBox3
+            // 
+            richTextBox3.BackColor = SystemColors.Info;
+            richTextBox3.Location = new Point(810, 3);
+            richTextBox3.Name = "richTextBox3";
+            richTextBox3.ReadOnly = true;
+            richTextBox3.Size = new Size(333, 130);
+            richTextBox3.TabIndex = 4;
+            richTextBox3.Text = resources.GetString("richTextBox3.Text");
+            // 
             // app_lowlevel
             // 
             app_lowlevel.AutoSize = true;
             app_lowlevel.Location = new Point(3, 38);
             app_lowlevel.Name = "app_lowlevel";
-            app_lowlevel.Size = new Size(924, 29);
+            app_lowlevel.Size = new Size(808, 29);
             app_lowlevel.TabIndex = 3;
-            app_lowlevel.Text = "low-level shell initialization (prevents the console window from flashing, does not support arguments in custom)";
+            app_lowlevel.Text = "low-level shell initialization (prevents the console window from flashing when logging into WinPE)";
             app_lowlevel.UseVisualStyleBackColor = true;
             app_lowlevel.CheckedChanged += app_lowlevel_CheckedChanged;
             // 
@@ -215,17 +238,6 @@
             applyBaseSystemBCD.UseVisualStyleBackColor = true;
             applyBaseSystemBCD.CheckedChanged += applyBaseSystemBCD_CheckedChanged;
             // 
-            // remove_cmd_exe
-            // 
-            remove_cmd_exe.AutoSize = true;
-            remove_cmd_exe.Location = new Point(6, 6);
-            remove_cmd_exe.Name = "remove_cmd_exe";
-            remove_cmd_exe.Size = new Size(614, 29);
-            remove_cmd_exe.TabIndex = 0;
-            remove_cmd_exe.Text = "delete cmd.exe (ensures that it is not possible to open cmd via shift+f10)";
-            remove_cmd_exe.UseVisualStyleBackColor = true;
-            remove_cmd_exe.CheckedChanged += remove_cmd_exe_CheckedChanged;
-            // 
             // WinPeModificationsUI
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -266,5 +278,6 @@
         private Label label2;
         private CheckBox app_lowlevel;
         private CheckBox remove_cmd_exe;
+        private RichTextBox richTextBox3;
     }
 }

@@ -117,6 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox3.Text" xml:space="preserve">
+    <value>The "low-level shell initialization" actually replaces the winpeshl.exe with your exe file. because of this, the console window no longer flashes when logging into WinPE, and the cursor probably won't be displayed. this option is ideally suited for embedded recovery, since the user will never see that it is windows. however, in this case, you cannot pass arguments for your exe file, this file can only be an exe and is always executed from system32.
+if you try to pass arguments to for your exe in this case (using the custom tab and your exe), then WinPE simply won't work. if you need arguments rather than just an exe, do not use the "low-level shell initialization" option. However, in this case, the cursor will be visible and the console window will flash when you log in to WinPE.
+</value>
+  </data>
   <data name="richTextBox2.Text" xml:space="preserve">
     <value>Use the recovery menu provided by winbox maker as a WinPE application. This recovery menu will allow you to easily reset settings and update the firmware of your embedded device, it supports basic customization, essentially changing the logo and title in the menu, the ability to reset settings, update firmware via a wim file, as well as a reset policy when updating, but this recovery DOES NOT HAVE firmware validation and/or digital signature verification (maximum what you can do at the moment is to change the extensions.the wim of the file that recovery will accept, nothing more)
 In the settings of this recovery, you can set the paths where the data of your embedded device is stored in the main windows, this is necessary for resetting settings and updating software without resetting settings.
