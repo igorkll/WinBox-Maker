@@ -59,6 +59,9 @@ namespace WinBox_Maker
             recovery_allowFlashWim.Checked = winPeModifications.recovery_allowFlashWim == true;
             recovery_allowFlashImg.Checked = winPeModifications.recovery_allowFlashImg == true;
             recovery_allowFlashFfu.Checked = winPeModifications.recovery_allowFlashFfu == true;
+            recovery_wimName.Enabled = winPeModifications.recovery_allowFlashWim == true;
+            recovery_imgName.Enabled = winPeModifications.recovery_allowFlashImg == true;
+            recovery_ffuName.Enabled = winPeModifications.recovery_allowFlashFfu == true;
 
             winboxRecoveryLogoType.SelectedIndex = (int)(winPeModifications.winboxRecoveryLogoType ?? 0);
             customRecoveryLogoPath.Text = winPeModifications.customRecoveryLogoPath ?? "";

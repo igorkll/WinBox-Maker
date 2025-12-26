@@ -222,6 +222,7 @@
             customRecoveryLogoPath_clr.TabIndex = 19;
             customRecoveryLogoPath_clr.Text = "clear";
             customRecoveryLogoPath_clr.UseVisualStyleBackColor = true;
+            customRecoveryLogoPath_clr.Click += customRecoveryLogoPath_clr_Click;
             // 
             // customRecoveryLogoPath_sel
             // 
@@ -231,6 +232,7 @@
             customRecoveryLogoPath_sel.TabIndex = 18;
             customRecoveryLogoPath_sel.Text = "select";
             customRecoveryLogoPath_sel.UseVisualStyleBackColor = true;
+            customRecoveryLogoPath_sel.Click += customRecoveryLogoPath_sel_Click;
             // 
             // customRecoveryLogoPath
             // 
@@ -238,6 +240,7 @@
             customRecoveryLogoPath.Name = "customRecoveryLogoPath";
             customRecoveryLogoPath.Size = new Size(332, 31);
             customRecoveryLogoPath.TabIndex = 17;
+            customRecoveryLogoPath.TextChanged += customRecoveryLogoPath_TextChanged;
             // 
             // label5
             // 
@@ -264,6 +267,7 @@
             recovery_title.Name = "recovery_title";
             recovery_title.Size = new Size(457, 31);
             recovery_title.TabIndex = 4;
+            recovery_title.TextChanged += recovery_title_TextChanged;
             // 
             // recovery_textOnInfoPage_en
             // 
@@ -274,6 +278,7 @@
             recovery_textOnInfoPage_en.TabIndex = 14;
             recovery_textOnInfoPage_en.Text = "use info page text";
             recovery_textOnInfoPage_en.UseVisualStyleBackColor = true;
+            recovery_textOnInfoPage_en.CheckedChanged += recovery_textOnInfoPage_en_CheckedChanged;
             // 
             // recovery_textOnInfoPage
             // 
@@ -282,6 +287,7 @@
             recovery_textOnInfoPage.Size = new Size(576, 151);
             recovery_textOnInfoPage.TabIndex = 12;
             recovery_textOnInfoPage.Text = "";
+            recovery_textOnInfoPage.TextChanged += recovery_textOnInfoPage_TextChanged;
             // 
             // label3
             // 
@@ -322,6 +328,7 @@
             recovery_allowFactoryReset.TabIndex = 18;
             recovery_allowFactoryReset.Text = "allow factory reset";
             recovery_allowFactoryReset.UseVisualStyleBackColor = true;
+            recovery_allowFactoryReset.CheckedChanged += recovery_allowFactoryReset_CheckedChanged;
             // 
             // recovery_dataPaths
             // 
@@ -330,6 +337,7 @@
             recovery_dataPaths.Size = new Size(587, 289);
             recovery_dataPaths.TabIndex = 3;
             recovery_dataPaths.Text = "";
+            recovery_dataPaths.TextChanged += recovery_dataPaths_TextChanged;
             // 
             // tabPage7
             // 
@@ -358,6 +366,7 @@
             recovery_allowFlashWim.TabIndex = 6;
             recovery_allowFlashWim.Text = "allow flash *.wim";
             recovery_allowFlashWim.UseVisualStyleBackColor = true;
+            recovery_allowFlashWim.CheckedChanged += recovery_allowFlashWim_CheckedChanged;
             // 
             // recovery_imgName
             // 
@@ -365,6 +374,7 @@
             recovery_imgName.Name = "recovery_imgName";
             recovery_imgName.Size = new Size(328, 31);
             recovery_imgName.TabIndex = 10;
+            recovery_imgName.TextChanged += recovery_imgName_TextChanged;
             // 
             // recovery_wimName
             // 
@@ -372,6 +382,7 @@
             recovery_wimName.Name = "recovery_wimName";
             recovery_wimName.Size = new Size(328, 31);
             recovery_wimName.TabIndex = 9;
+            recovery_wimName.TextChanged += recovery_wimName_TextChanged;
             // 
             // recovery_ffuName
             // 
@@ -379,6 +390,7 @@
             recovery_ffuName.Name = "recovery_ffuName";
             recovery_ffuName.Size = new Size(328, 31);
             recovery_ffuName.TabIndex = 11;
+            recovery_ffuName.TextChanged += recovery_ffuName_TextChanged;
             // 
             // recovery_allowFlashWithFactoryReset
             // 
@@ -389,6 +401,7 @@
             recovery_allowFlashWithFactoryReset.TabIndex = 17;
             recovery_allowFlashWithFactoryReset.Text = "allow flash with factory reset";
             recovery_allowFlashWithFactoryReset.UseVisualStyleBackColor = true;
+            recovery_allowFlashWithFactoryReset.CheckedChanged += recovery_allowFlashWithFactoryReset_CheckedChanged;
             // 
             // recovery_allowFlashWithoutFactoryReset
             // 
@@ -399,6 +412,7 @@
             recovery_allowFlashWithoutFactoryReset.TabIndex = 16;
             recovery_allowFlashWithoutFactoryReset.Text = "allow flash without factory reset";
             recovery_allowFlashWithoutFactoryReset.UseVisualStyleBackColor = true;
+            recovery_allowFlashWithoutFactoryReset.CheckedChanged += recovery_allowFlashWithoutFactoryReset_CheckedChanged;
             // 
             // recovery_allowFlashFfu
             // 
@@ -409,6 +423,7 @@
             recovery_allowFlashFfu.TabIndex = 8;
             recovery_allowFlashFfu.Text = "allow flash *.ffu";
             recovery_allowFlashFfu.UseVisualStyleBackColor = true;
+            recovery_allowFlashFfu.CheckedChanged += recovery_allowFlashFfu_CheckedChanged;
             // 
             // recovery_allowFlashImg
             // 
@@ -419,6 +434,7 @@
             recovery_allowFlashImg.TabIndex = 7;
             recovery_allowFlashImg.Text = "allow flash *.img";
             recovery_allowFlashImg.UseVisualStyleBackColor = true;
+            recovery_allowFlashImg.CheckedChanged += recovery_allowFlashImg_CheckedChanged;
             // 
             // richTextBox2
             // 
