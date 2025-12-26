@@ -64,8 +64,13 @@ namespace WinBox_Maker
             if (recovery_title == null) recovery_title = "Winbox maker recovery";
             if (recovery_allowFactoryReset == null) recovery_allowFactoryReset = true;
             if (recovery_allowFlashWim == null) recovery_allowFlashWim = true;
+            if (recovery_wimName == null) recovery_wimName = "firmware.wim";
             if (recovery_allowFlashImg == null) recovery_allowFlashImg = true;
+            if (recovery_imgName == null) recovery_imgName = "firmware.img";
             if (recovery_allowFlashFfu == null) recovery_allowFlashFfu = true;
+            if (recovery_ffuName == null) recovery_ffuName = "firmware.ffu";
+            if (recovery_allowFlashWithoutFactoryReset == null) recovery_allowFlashWithoutFactoryReset = true;
+            if (recovery_allowFlashWithFactoryReset == null) recovery_allowFlashWithFactoryReset = true;
 
         }
 
