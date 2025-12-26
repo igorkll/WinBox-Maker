@@ -37,6 +37,7 @@ namespace WinBox_Maker
             app_custom_cmdline.Text = winPeModifications.app_custom_cmdline ?? "";
 
             app_tab.Enabled = winPeModifications.app_override == true;
+            app_lowlevel.Enabled = winPeModifications.app_override == true;
 
             guiEventsLock = false;
         }

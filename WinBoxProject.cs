@@ -1820,8 +1820,8 @@ powercfg -s {powerScheme}";
                     }
                     if (winBoxConfig.recoveryMountedEarly_breakafter == true) breakpointStop("recovery-mounted-early", true);
 
-                    await winBoxConfig.recovery_winPE_mod.modMountedWim(recoveryMountPath);
                     await patchRecoveryPartition(recoveryMountPath, newWindowsDescription);
+                    await winBoxConfig.recovery_winPE_mod.modMountedWim(recoveryMountPath);
                     await umountDism(true, recoveryMountPath);
                 }
             }
@@ -3227,6 +3227,28 @@ if errorlevel 1 (
                 await mountDism(bootWimPath, wimWinPeMountPath, wimSetupSlot);
             }
 
+            if (mountBootWim)
+            {
+                // optional add adverting files to boot.wim
+                await addAdFiles(wimWinPeMountPath, newWindowsDescription, winBoxConfig.aaf_readme_boot, winBoxConfig.aaf_info_boot);
+
+                // add user files to boot.wim
+                string filesPath = Path.Combine(resourcesDirectoryPath, "boot_files");
+                if (Directory.Exists(filesPath))
+                {
+                    await Program.CopyFilesRecursivelyAsync(filesPath, wimWinPeMountPath);
+                }
+
+                filesPath = Path.Combine(tempDirectoryPath, "boot_files");
+                if (Directory.Exists(filesPath))
+                {
+                    await Program.CopyFilesRecursivelyAsync(filesPath, wimWinPeMountPath);
+                }
+
+                // umount & save boot.wim
+                await umountDism(true, wimWinPeMountPath);
+            }
+
             // modify BCD in installer wim
             if (modAllow)
                 await winBoxConfig.installer_winPE_mod.modMountedWim(wimWinPeMountPath);
@@ -3254,28 +3276,6 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
                     string winPEsetupExec = @$"call ""X:\{winPEsetupName}""";
                     await File.WriteAllTextAsync(winPEcmdPath, winPEsetupExec + "\r\n" + File.ReadAllText(winPEcmdPath) + "\r\n" + winPEsetupExec);
                 }
-            }
-
-            if (mountBootWim)
-            {
-                // optional add adverting files to boot.wim
-                await addAdFiles(wimWinPeMountPath, newWindowsDescription, winBoxConfig.aaf_readme_boot, winBoxConfig.aaf_info_boot);
-
-                // add user files to boot.wim
-                string filesPath = Path.Combine(resourcesDirectoryPath, "boot_files");
-                if (Directory.Exists(filesPath))
-                {
-                    await Program.CopyFilesRecursivelyAsync(filesPath, wimWinPeMountPath);
-                }
-
-                filesPath = Path.Combine(tempDirectoryPath, "boot_files");
-                if (Directory.Exists(filesPath))
-                {
-                    await Program.CopyFilesRecursivelyAsync(filesPath, wimWinPeMountPath);
-                }
-
-                // umount & save boot.wim
-                await umountDism(true, wimWinPeMountPath);
             }
 
             // optional add adverting files to installer iso

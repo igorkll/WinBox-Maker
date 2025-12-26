@@ -119,16 +119,16 @@ namespace WinBox_Maker
 
                 await Program.WriteFileAsync(path_winpeshl_ini, @$"[LaunchApps]
 %SYSTEMDRIVE%{Program.ReplaceAndPrependBackslash(cmdline)}");
+
+                if (app_lowlevel == true && cmdline.Length > 0 && !cmdline.Contains(".."))
+                {
+                    await Program.CopyFileAsync(Path.Combine(mountedPath, cmdline), path_winpeshl_exe);
+                }
             }
 
             if (remove_cmd_exe == true)
             {
                 File.Delete(Path.Combine(mountedPath, "Windows\\System32\\cmd.exe"));
-            }
-
-            if (app_lowlevel == true)
-            {
-
             }
         }
     }
