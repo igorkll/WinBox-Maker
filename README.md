@@ -1,10 +1,17 @@
 # WinBox-Maker 1.8.0
+a tool for creating minimal embed versions of windows (this is usually Windows with access to only one application without the ability to open any system menu or shell, but this is not the only scenario)  
+the easiest way to create a kiosk on Windows or use Windows on embedded device (single app mode)  
+program examples: https://github.com/igorkll/WinBox-Maker-programs  
+WARNING!!! if you read this text from GITHUB page please, download a release and read description there. on github this text is DEV winbox maker version (not released yet)
+![previewlogo](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/previewlogo.png)  
 ![preview1](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview.png)  
 ![preview2](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview2.png)  
 ![preview3](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview3.png)  
-a tool for creating minimal embed versions of windows (this is usually Windows with access to only one application without the ability to open any system menu or shell, but this is not the only scenario)  
-the easiest way to create a kiosk on Windows  
-program examples: https://github.com/igorkll/WinBox-Maker-programs  
+![preview4](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview4.png)  
+![preview5](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview5.png)  
+![preview6](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview6.png)  
+![preview7](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview7.png)  
+![preview8](https://raw.githubusercontent.com/igorkll/WinBox-Maker/refs/heads/master/preview8.png)  
 download "blobs" folder: https://drive.google.com/file/d/1xH0g-R7ckmCbhAJV-ED4NHXPXl_dOrfH/view?usp=sharing (it is only needed for self-build of the program)  
 takes on the task of modifying the windows image to remove excess and embed software there  
 the program is perfect for windows builds designed for ATM terminals and other devices that unauthorized people have access to and should not be allowed to leave the specified sandbox  

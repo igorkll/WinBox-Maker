@@ -217,6 +217,7 @@ namespace WinBox_Maker
             {
                 winPeModifications.customRecoveryLogoPath = name;
                 Program.winBoxProject.SaveConfig();
+                UpdateGui();
             }
             UnlockForm();
         }
