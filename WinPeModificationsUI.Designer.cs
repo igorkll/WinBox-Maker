@@ -70,6 +70,9 @@
             app_override = new CheckBox();
             tabPage2 = new TabPage();
             applyBaseSystemBCD = new CheckBox();
+            checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
+            checkBox3 = new CheckBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage3.SuspendLayout();
@@ -192,7 +195,7 @@
             tabControl2.Location = new Point(6, 6);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(601, 416);
+            tabControl2.Size = new Size(631, 416);
             tabControl2.TabIndex = 19;
             // 
             // tabPage6
@@ -341,6 +344,9 @@
             // 
             // tabPage7
             // 
+            tabPage7.Controls.Add(checkBox3);
+            tabPage7.Controls.Add(checkBox2);
+            tabPage7.Controls.Add(checkBox1);
             tabPage7.Controls.Add(recovery_allowFlashWim);
             tabPage7.Controls.Add(recovery_imgName);
             tabPage7.Controls.Add(recovery_wimName);
@@ -352,7 +358,7 @@
             tabPage7.Location = new Point(4, 34);
             tabPage7.Name = "tabPage7";
             tabPage7.Padding = new Padding(3);
-            tabPage7.Size = new Size(593, 378);
+            tabPage7.Size = new Size(623, 378);
             tabPage7.TabIndex = 1;
             tabPage7.Text = "flash";
             tabPage7.UseVisualStyleBackColor = true;
@@ -439,10 +445,10 @@
             // richTextBox2
             // 
             richTextBox2.BackColor = SystemColors.Info;
-            richTextBox2.Location = new Point(613, 6);
+            richTextBox2.Location = new Point(643, 6);
             richTextBox2.Name = "richTextBox2";
             richTextBox2.ReadOnly = true;
-            richTextBox2.Size = new Size(513, 416);
+            richTextBox2.Size = new Size(483, 416);
             richTextBox2.TabIndex = 2;
             richTextBox2.Text = resources.GetString("richTextBox2.Text");
             // 
@@ -519,6 +525,36 @@
             applyBaseSystemBCD.UseVisualStyleBackColor = true;
             applyBaseSystemBCD.CheckedChanged += applyBaseSystemBCD_CheckedChanged;
             // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(6, 187);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(589, 29);
+            checkBox1.TabIndex = 18;
+            checkBox1.Text = "allow auto-flash without factory reset from image on system partition";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(6, 222);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(163, 29);
+            checkBox2.TabIndex = 19;
+            checkBox2.Text = "auto-flash quiet";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.Location = new Point(6, 257);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(300, 29);
+            checkBox3.TabIndex = 20;
+            checkBox3.Text = "allow manual flash from recovery";
+            checkBox3.UseVisualStyleBackColor = true;
+            // 
             // WinPeModificationsUI
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -591,5 +627,8 @@
         private TextBox customRecoveryLogoPath;
         private Button customRecoveryLogoPath_clr;
         private Button customRecoveryLogoPath_sel;
+        private CheckBox checkBox1;
+        private CheckBox checkBox2;
+        private CheckBox checkBox3;
     }
 }
