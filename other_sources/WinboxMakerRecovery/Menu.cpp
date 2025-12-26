@@ -3,6 +3,34 @@
 #include <string>
 #include <vector>
 
+// ------------------------------------- consts
+
+COLORREF color_bg = RGB(0, 0, 0);
+COLORREF color_title = RGB(255, 255, 0);
+std::string title_text = "Winbox maker recovery";
+
+static void loadConsts() {
+
+}
+
+// ------------------------------------- static
+
+static HBRUSH backgroundBrush;
+static HFONT titleFont;
+static HFONT menuFont;
+
+static void initStaticObjects() {
+    backgroundBrush = CreateSolidBrush(color_bg);
+    titleFont = CreateFont(60, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+        DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+        DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Arial");
+    menuFont = CreateFont(48, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+        DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+        DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Arial");
+}
+
+// ------------------------------------- vars
+
 static std::vector<std::string> menuItems = {
     "Start Application",
     "Settings",
@@ -10,14 +38,26 @@ static std::vector<std::string> menuItems = {
 };
 static int selectedItem = 0;
 
-static HBRUSH backgroundBrush;
-static HFONT font;
+// ------------------------------------- code
 
-static void initStaticObjects() {
-    backgroundBrush = CreateSolidBrush(color_bg);
-    font = CreateFont(48, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+static void drawCenterizedText(HDC hdc, int y, const std::string& text) {
+    static HFONT hFont = CreateFont(48, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
         DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
         DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Arial");
+
+    SetBkMode(hdc, TRANSPARENT);
+    SetTextColor(hdc, RGB(255, 255, 255));
+
+    RECT rect;
+    GetClientRect(WindowFromDC(hdc), &rect);
+    rect.top = y;
+    rect.bottom = y + 100;
+    rect.left = 50;
+    rect.right = rect.right;
+
+    HFONT oldFont = (HFONT)SelectObject(hdc, hFont);
+    DrawTextA(hdc, text.c_str(), -1, &rect, DT_LEFT | DT_SINGLELINE);
+    SelectObject(hdc, oldFont);
 }
 
 static void redrawMenu(HWND hwnd) {
@@ -28,14 +68,17 @@ static void redrawMenu(HWND hwnd) {
     RECT rect;
     GetClientRect(hwnd, &rect);
 
-    SelectObject(hdc, font);
+    SetBkMode(hdc, TRANSPARENT);
     FillRect(hdc, &rect, backgroundBrush);
+
+    SelectObject(hdc, titleFont);
+    SetTextColor(hdc, color_title);
+    drawCenterizedText(hdc, 50, title_text);
 
     int y = 100;
     for (size_t i = 0; i < menuItems.size(); i++) {
         SetTextColor(hdc, i == selectedItem ? RGB(255, 255, 0) : RGB(255, 255, 255));
-        RECT textRect = RECT{ 50, y, rect.right, y + 60 };
-        DrawTextA(hdc, menuItems[i].c_str(), -1, &textRect, DT_LEFT | DT_SINGLELINE);
+        drawCenterizedText(hdc, y, menuItems[i]);
         y += 80;
     }
 
@@ -104,6 +147,7 @@ void Menu_start(HINSTANCE hInstance) {
         nullptr
     );
 
+    loadConsts();
     initStaticObjects();
 
     ShowWindow(hwnd, SW_SHOW);
