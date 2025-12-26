@@ -139,6 +139,9 @@
     <None Update="blobs\def\usbmmidd_v2.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="blobs\def\WinboxMakerRecoveryLogo.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="blobs\x64\appruntime173.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -49,6 +49,18 @@
             richTextBox4 = new RichTextBox();
             textBox1 = new TextBox();
             label3 = new Label();
+            checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
+            checkBox3 = new CheckBox();
+            textBox2 = new TextBox();
+            textBox3 = new TextBox();
+            textBox4 = new TextBox();
+            richTextBox5 = new RichTextBox();
+            checkBox4 = new CheckBox();
+            label4 = new Label();
+            checkBox5 = new CheckBox();
+            checkBox6 = new CheckBox();
+            checkBox7 = new CheckBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage3.SuspendLayout();
@@ -149,6 +161,18 @@
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(checkBox7);
+            tabPage4.Controls.Add(checkBox6);
+            tabPage4.Controls.Add(checkBox5);
+            tabPage4.Controls.Add(label4);
+            tabPage4.Controls.Add(checkBox4);
+            tabPage4.Controls.Add(richTextBox5);
+            tabPage4.Controls.Add(textBox4);
+            tabPage4.Controls.Add(textBox3);
+            tabPage4.Controls.Add(textBox2);
+            tabPage4.Controls.Add(checkBox3);
+            tabPage4.Controls.Add(checkBox2);
+            tabPage4.Controls.Add(checkBox1);
             tabPage4.Controls.Add(label3);
             tabPage4.Controls.Add(textBox1);
             tabPage4.Controls.Add(richTextBox4);
@@ -246,9 +270,9 @@
             // 
             // richTextBox4
             // 
-            richTextBox4.Location = new Point(6, 243);
+            richTextBox4.Location = new Point(6, 271);
             richTextBox4.Name = "richTextBox4";
-            richTextBox4.Size = new Size(198, 179);
+            richTextBox4.Size = new Size(285, 151);
             richTextBox4.TabIndex = 3;
             richTextBox4.Text = "";
             // 
@@ -267,6 +291,114 @@
             label3.Size = new Size(113, 25);
             label3.TabIndex = 5;
             label3.Text = "recovery title";
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(6, 43);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(171, 29);
+            checkBox1.TabIndex = 6;
+            checkBox1.Text = "allow flash *.wim";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(6, 78);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(169, 29);
+            checkBox2.TabIndex = 7;
+            checkBox2.Text = "allow flash *.img";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.Location = new Point(6, 113);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(160, 29);
+            checkBox3.TabIndex = 8;
+            checkBox3.Text = "allow flash *.ffu";
+            checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(183, 43);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(328, 31);
+            textBox2.TabIndex = 9;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(183, 80);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(328, 31);
+            textBox3.TabIndex = 10;
+            // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(183, 117);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(328, 31);
+            textBox4.TabIndex = 11;
+            // 
+            // richTextBox5
+            // 
+            richTextBox5.Location = new Point(297, 271);
+            richTextBox5.Name = "richTextBox5";
+            richTextBox5.Size = new Size(295, 151);
+            richTextBox5.TabIndex = 12;
+            richTextBox5.Text = "";
+            // 
+            // checkBox4
+            // 
+            checkBox4.AutoSize = true;
+            checkBox4.Location = new Point(297, 236);
+            checkBox4.Name = "checkBox4";
+            checkBox4.Size = new Size(180, 29);
+            checkBox4.TabIndex = 14;
+            checkBox4.Text = "use info page text";
+            checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(6, 236);
+            label4.Name = "label4";
+            label4.Size = new Size(220, 25);
+            label4.TabIndex = 15;
+            label4.Text = "use application data paths";
+            // 
+            // checkBox5
+            // 
+            checkBox5.AutoSize = true;
+            checkBox5.Location = new Point(6, 154);
+            checkBox5.Name = "checkBox5";
+            checkBox5.Size = new Size(289, 29);
+            checkBox5.TabIndex = 16;
+            checkBox5.Text = "allow flash without factory reset";
+            checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            checkBox6.AutoSize = true;
+            checkBox6.Location = new Point(301, 154);
+            checkBox6.Name = "checkBox6";
+            checkBox6.Size = new Size(262, 29);
+            checkBox6.TabIndex = 17;
+            checkBox6.Text = "allow flash with factory reset";
+            checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox7
+            // 
+            checkBox7.AutoSize = true;
+            checkBox7.Location = new Point(6, 189);
+            checkBox7.Name = "checkBox7";
+            checkBox7.Size = new Size(182, 29);
+            checkBox7.TabIndex = 18;
+            checkBox7.Text = "allow factory reset";
+            checkBox7.UseVisualStyleBackColor = true;
             // 
             // WinPeModificationsUI
             // 
@@ -313,5 +445,17 @@
         private TextBox textBox1;
         private RichTextBox richTextBox4;
         private Label label3;
+        private TextBox textBox4;
+        private TextBox textBox3;
+        private TextBox textBox2;
+        private CheckBox checkBox3;
+        private CheckBox checkBox2;
+        private CheckBox checkBox1;
+        private RichTextBox richTextBox5;
+        private CheckBox checkBox4;
+        private Label label4;
+        private CheckBox checkBox6;
+        private CheckBox checkBox5;
+        private CheckBox checkBox7;
     }
 }

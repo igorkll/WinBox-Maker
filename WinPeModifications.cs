@@ -35,6 +35,7 @@ namespace WinBox_Maker
         public string? customRecoveryLogoPath { get; set; }
 
         public string? recovery_title { get; set; }
+        public string? recovery_dataPaths { get; set; }
         public bool? recovery_allowFactoryReset { get; set; }
         public bool? recovery_allowFlashWim { get; set; }
         public string? recovery_wimName { get; set; }
@@ -44,6 +45,7 @@ namespace WinBox_Maker
         public string? recovery_ffuName { get; set; }
         public bool? recovery_allowFlashWithoutFactoryReset { get; set; }
         public bool? recovery_allowFlashWithFactoryReset { get; set; }
+        public string? recovery_textOnInfoPage { get; set; }
 
         // initFor
         // 0 - installer
@@ -62,6 +64,7 @@ namespace WinBox_Maker
             if (customRecoveryLogoPath == null) customRecoveryLogoPath = "";
 
             if (recovery_title == null) recovery_title = "Winbox maker recovery";
+            if (recovery_dataPaths == null) recovery_dataPaths = "Users\\winbox\\AppData\\Roaming\\MY_APP_DATA_EXAMPLE\nOTHER_DATA_FOLDER_IN_C_DRIVE\nUsers\\winbox\\desktop\\FILE_ON_DESKTOP_EXAMPLE";
             if (recovery_allowFactoryReset == null) recovery_allowFactoryReset = true;
             if (recovery_allowFlashWim == null) recovery_allowFlashWim = true;
             if (recovery_wimName == null) recovery_wimName = "firmware.wim";
@@ -71,7 +74,7 @@ namespace WinBox_Maker
             if (recovery_ffuName == null) recovery_ffuName = "firmware.ffu";
             if (recovery_allowFlashWithoutFactoryReset == null) recovery_allowFlashWithoutFactoryReset = true;
             if (recovery_allowFlashWithFactoryReset == null) recovery_allowFlashWithFactoryReset = true;
-
+            if (recovery_textOnInfoPage == null) recovery_textOnInfoPage = "you can download device firmware on\nhttps://example.com";
         }
 
         // ------------------------------
