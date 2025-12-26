@@ -1533,24 +1533,47 @@ powercfg -s {powerScheme}";
 
         async Task<string[]> getAnyFromDism(string args, string prefix)
         {
-            // я удивлен что недокументированый ключ "/English" вообще сработал
             string result = await Program.ExecuteAsync("dism.exe", args, null, debugFolder);
+            string[] resultLines = result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
-            var packageNames = new List<string>();
-            foreach (var line in result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            var outputLines = new List<string>();
+
+            foreach (string line in resultLines)
             {
-                string? packageName = ExtractAnyFromDismResult(line, prefix);
-                if (packageName != null)
+                string? outputLine = ExtractAnyFromDismResult(line, prefix);
+                if (outputLine != null)
                 {
-                    packageNames.Add(packageName);
+                    outputLines.Add(outputLine);
                 }
             }
 
-            return packageNames.ToArray();
+            return outputLines.ToArray();
+        }
+
+        async Task<string[]> getFromDismWithOffset(string args, string lineStartsWith, string prefix, int offset)
+        {
+            string result = await Program.ExecuteAsync("dism.exe", args, null, debugFolder);
+            string[] resultLines = result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            var outputLines = new List<string>();
+
+            int outputLineIndex = 0;
+            foreach (string line in resultLines)
+            {
+                if (line.StartsWith(lineStartsWith))
+                {
+                    string? outputLine = ExtractAnyFromDismResult(resultLines[outputLineIndex + offset], prefix);
+                    if (outputLine != null) outputLines.Add(outputLine);
+                }
+                outputLineIndex++;
+            }
+
+            return outputLines.ToArray();
         }
 
         async Task<string[]> getImagePackagesList(bool provisioned=false)
         {
+            // я удивлен что недокументированый ключ "/English" вообще сработал
             return await getAnyFromDism(
                 provisioned ? $"/English /image:\"{wimMountPath}\" /Get-ProvisionedAppxPackages" : $"/English /image:\"{wimMountPath}\" /Get-Packages",
                 provisioned ? @"PackageName" : @"Package Identity"
@@ -3171,14 +3194,14 @@ if errorlevel 1 (
             await Task.Delay(2000);
         }
 
-        int getWindowsSetupWimSlot(string wimPath)
+        async Task<int> getWindowsSetupWimSlot(string wimPath)
         {
-            /*
-            await getAnyFromDism(
+            string[] outputLines = await getFromDismWithOffset(
                 $"/English /Get-WimInfo /WimFile:\"{wimPath}\"",
-                provisioned ? @"PackageName" : @"Package Identity"
+                "Name : Microsoft Windows Setup",
+                "Index",
+                -1
             );
-            */
 
             return 1;
         }
@@ -3194,7 +3217,10 @@ if errorlevel 1 (
             // unpack winPE
             string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
             bool mountBootWim = modAllow || needMountInstallerBoot();
-            if (mountBootWim) await mountDism(bootWimPath, wimWinPeMountPath, 1);
+            if (mountBootWim) {
+                int wimSetupSlot = await getWindowsSetupWimSlot(bootWimPath);
+                await mountDism(bootWimPath, wimWinPeMountPath, wimSetupSlot);
+            }
 
             // modify BCD in installer wim
             if (modAllow)
