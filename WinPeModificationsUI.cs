@@ -128,5 +128,57 @@ namespace WinBox_Maker
             Program.winBoxProject.SaveConfig();
             UpdateGui();
         }
+
+        private void recovery_textOnInfoPage_en_CheckedChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_textOnInfoPage_en = recovery_textOnInfoPage_en.Checked;
+            Program.winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void recovery_allowFlashWim_CheckedChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_allowFlashWim = recovery_allowFlashWim.Checked;
+            Program.winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void recovery_allowFlashImg_CheckedChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_allowFlashImg = recovery_allowFlashImg.Checked;
+            Program.winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void recovery_allowFlashFfu_CheckedChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_allowFlashFfu = recovery_allowFlashFfu.Checked;
+            Program.winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void recovery_allowFlashWithoutFactoryReset_CheckedChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_allowFlashWithoutFactoryReset = recovery_allowFlashWithoutFactoryReset.Checked;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void recovery_allowFlashWithFactoryReset_CheckedChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_allowFlashWithFactoryReset = recovery_allowFlashWithFactoryReset.Checked;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void recovery_allowFactoryReset_CheckedChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_allowFactoryReset = recovery_allowFactoryReset.Checked;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void recovery_textOnInfoPage_TextChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_textOnInfoPage = recovery_textOnInfoPage.Checked;
+            Program.winBoxProject.SaveConfig();
+        }
     }
 }
