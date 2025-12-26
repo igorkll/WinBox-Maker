@@ -7,6 +7,9 @@
 
 COLORREF color_bg = RGB(0, 0, 0);
 COLORREF color_title = RGB(255, 255, 0);
+COLORREF color_text = RGB(255, 255, 255);
+COLORREF color_selectedText = RGB(255, 255, 0);
+int lineHeight = 100;
 std::string title_text = "Winbox maker recovery";
 
 static void loadConsts() {
@@ -41,23 +44,14 @@ static int selectedItem = 0;
 // ------------------------------------- code
 
 static void drawCenterizedText(HDC hdc, int y, const std::string& text) {
-    static HFONT hFont = CreateFont(48, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
-        DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-        DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Arial");
-
-    SetBkMode(hdc, TRANSPARENT);
-    SetTextColor(hdc, RGB(255, 255, 255));
-
     RECT rect;
     GetClientRect(WindowFromDC(hdc), &rect);
     rect.top = y;
-    rect.bottom = y + 100;
-    rect.left = 50;
+    rect.bottom = y + lineHeight;
+    rect.left = 0;
     rect.right = rect.right;
 
-    HFONT oldFont = (HFONT)SelectObject(hdc, hFont);
-    DrawTextA(hdc, text.c_str(), -1, &rect, DT_LEFT | DT_SINGLELINE);
-    SelectObject(hdc, oldFont);
+    DrawTextA(hdc, text.c_str(), -1, &rect, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
 }
 
 static void redrawMenu(HWND hwnd) {
@@ -73,13 +67,13 @@ static void redrawMenu(HWND hwnd) {
 
     SelectObject(hdc, titleFont);
     SetTextColor(hdc, color_title);
-    drawCenterizedText(hdc, 50, title_text);
+    drawCenterizedText(hdc, 0, title_text);
 
-    int y = 100;
+    int y = lineHeight;
     for (size_t i = 0; i < menuItems.size(); i++) {
-        SetTextColor(hdc, i == selectedItem ? RGB(255, 255, 0) : RGB(255, 255, 255));
+        SetTextColor(hdc, i == selectedItem ? color_selectedText : color_text);
         drawCenterizedText(hdc, y, menuItems[i]);
-        y += 80;
+        y += lineHeight;
     }
 
     EndPaint(hwnd, &ps);
