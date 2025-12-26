@@ -1,3 +1,4 @@
+#include "Menu.hpp"
 #include <windows.h>
 #include <string>
 #include <vector>
@@ -13,7 +14,7 @@ static HBRUSH backgroundBrush;
 static HFONT font;
 
 static void initStaticObjects() {
-    backgroundBrush = CreateSolidBrush(RGB(0, 0, 50));
+    backgroundBrush = CreateSolidBrush(color_bg);
     font = CreateFont(48, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
         DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
         DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Arial");
