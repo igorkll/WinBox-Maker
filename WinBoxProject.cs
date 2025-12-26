@@ -478,10 +478,10 @@ namespace WinBox_Maker
             }
         }
 
-        async Task mountDism(string wimPath, string? mountPath = null)
+        async Task mountDism(string wimPath, string? mountPath = null, int index = 1)
         {
             if (mountPath == null) mountPath = wimMountPath;
-            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{wimPath}\" /index:1 /MountDir:\"{mountPath}\"", null, debugFolder);
+            await Program.ExecuteAsync("dism.exe", $"/Mount-Wim /WimFile:\"{wimPath}\" /index:{index} /MountDir:\"{mountPath}\"", null, debugFolder);
         }
 
         async Task umountDism(bool commit, string? path = null)
@@ -1516,13 +1516,13 @@ powercfg -s {powerScheme}";
             await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, scriptname), script);
         }
 
-        string? ExtractPackageNameFromDismResult(string dismLine, bool provisioned)
+        string? ExtractAnyFromDismResult(string dismLine, string prefix)
         {
             // DISM выводит строку примерно так:
             // Package Identity : Microsoft-Windows-Subsystem-Linux-Package~31bf3856ad364e35~amd64~~10.0.19041.1
             // Нужно вытащить всё после "Package Identity : "
 
-            var match = Regex.Match(dismLine, provisioned ? @"PackageName\s*:\s*(.+)" : @"Package Identity\s*:\s*(.+)");
+            var match = Regex.Match(dismLine, prefix + @"\s*:\s*(.+)");
             if (match.Success)
             {
                 return match.Groups[1].Value.Trim();
@@ -1531,16 +1531,15 @@ powercfg -s {powerScheme}";
             return null;
         }
 
-        async Task<string[]> getImagePackagesList(bool provisioned=false)
+        async Task<string[]> getAnyFromDism(string args, string prefix)
         {
             // я удивлен что недокументированый ключ "/English" вообще сработал
-            string listArgs = provisioned ? $"/English /image:\"{wimMountPath}\" /Get-ProvisionedAppxPackages" : $"/English /image:\"{wimMountPath}\" /Get-Packages";
-            string result = await Program.ExecuteAsync("dism.exe", listArgs, null, debugFolder);
+            string result = await Program.ExecuteAsync("dism.exe", args, null, debugFolder);
 
             var packageNames = new List<string>();
             foreach (var line in result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             {
-                string? packageName = ExtractPackageNameFromDismResult(line, provisioned);
+                string? packageName = ExtractAnyFromDismResult(line, prefix);
                 if (packageName != null)
                 {
                     packageNames.Add(packageName);
@@ -1548,6 +1547,14 @@ powercfg -s {powerScheme}";
             }
 
             return packageNames.ToArray();
+        }
+
+        async Task<string[]> getImagePackagesList(bool provisioned=false)
+        {
+            return await getAnyFromDism(
+                provisioned ? $"/English /image:\"{wimMountPath}\" /Get-ProvisionedAppxPackages" : $"/English /image:\"{wimMountPath}\" /Get-Packages",
+                provisioned ? @"PackageName" : @"Package Identity"
+            );
         }
 
         string[] getFullPackagesNames(string[] packageNames, string packageNamePart)
@@ -3164,6 +3171,12 @@ if errorlevel 1 (
             await Task.Delay(2000);
         }
 
+        int getWindowsSetupWimSlot(string wimPath)
+        {
+
+            return 1;
+        }
+
         async Task modUnpackedIso(string unpackIsoPath, WindowsDescription newWindowsDescription)
         {
             bool modAllow = winBoxConfig.manual_setup != true || winBoxConfig.installermod_manual_allow == true;
@@ -3175,7 +3188,7 @@ if errorlevel 1 (
             // unpack winPE
             string bootWimPath = Path.Combine(unpackIsoPath, "sources\\boot.wim");
             bool mountBootWim = modAllow || needMountInstallerBoot();
-            if (mountBootWim) await mountDism(bootWimPath, wimWinPeMountPath);
+            if (mountBootWim) await mountDism(bootWimPath, wimWinPeMountPath, 1);
 
             // modify BCD in installer wim
             if (modAllow)
