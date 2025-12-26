@@ -23,6 +23,7 @@ static void loadConsts() {
 static HBRUSH backgroundBrush;
 static HFONT titleFont;
 static HFONT menuFont;
+static HBITMAP menuLogo;
 
 static void initStaticObjects() {
     backgroundBrush = CreateSolidBrush(color_bg);
@@ -32,6 +33,7 @@ static void initStaticObjects() {
     menuFont = CreateFont(lineHeight * 0.6, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
         DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
         DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Arial");
+    menuLogo = (HBITMAP)LoadImageA(nullptr, "C:\\WinboxMakerRecovery\\logo.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
 // ------------------------------------- vars
@@ -57,6 +59,33 @@ static void drawCenterizedText(HDC hdc, int y, const std::string& text) {
     DrawTextA(hdc, text.c_str(), -1, &rect, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
 }
 
+static void drawLogo(HWND hwnd, HDC hdc, HBITMAP logo) {
+    RECT rc;
+    GetClientRect(hwnd, &rc);
+    int winW = rc.right - rc.left;
+    int winH = rc.bottom - rc.top;
+
+    BITMAP bmp;
+    GetObject(logo, sizeof(bmp), &bmp);
+    int imgW = bmp.bmWidth;
+    int imgH = bmp.bmHeight;
+
+    float scale = min((float)winW / imgW, (float)winH / imgH);
+    int drawW = (int)(imgW * scale);
+    int drawH = (int)(imgH * scale);
+
+    int x = (winW - drawW) / 2;
+    int y = (winH - drawH) / 2;
+
+    HDC hMemDC = CreateCompatibleDC(hdc);
+    HBITMAP hOld = (HBITMAP)SelectObject(hMemDC, logo);
+
+    StretchBlt(hdc, x, y, drawW, drawH, hMemDC, 0, 0, imgW, imgH, SRCCOPY);
+
+    SelectObject(hMemDC, hOld);
+    DeleteDC(hMemDC);
+}
+
 static void redrawMenu(HWND hwnd) {
     InvalidateRect(hwnd, nullptr, TRUE);
     
@@ -67,6 +96,7 @@ static void redrawMenu(HWND hwnd) {
 
     SetBkMode(hdc, TRANSPARENT);
     FillRect(hdc, &rect, backgroundBrush);
+    drawLogo(hwnd, hdc, menuLogo);
 
     SelectObject(hdc, titleFont);
     SetTextColor(hdc, color_title);
