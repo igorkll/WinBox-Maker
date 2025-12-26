@@ -1811,14 +1811,14 @@ powercfg -s {powerScheme}";
                 if (File.Exists(winREpath) && needMountRecovery()) {
                     await mountDism(winREpath, recoveryMountPath);
 
-                    if (winBoxConfig.recoveryMountedEarly_breakbefore == true) breakpointStop("recovery-mounted-early", false);
+                    if (winBoxConfig.recoveryMountedEarly_breakbefore == true) breakpointStop("recovery-mounted", false);
                     if (winBoxConfig.recoveryMountedEarlyEnabled == true)
                     {
                         processValue(63);
-                        processName("Executing a recovery-mounted-early event");
+                        processName("Executing a recovery-mounted event");
                         await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.recoveryMountedEarlyEvent);
                     }
-                    if (winBoxConfig.recoveryMountedEarly_breakafter == true) breakpointStop("recovery-mounted-early", true);
+                    if (winBoxConfig.recoveryMountedEarly_breakafter == true) breakpointStop("recovery-mounted", true);
 
                     await patchRecoveryPartition(recoveryMountPath, newWindowsDescription);
                     await winBoxConfig.recovery_winPE_mod.modMountedWim(recoveryMountPath);
@@ -3211,7 +3211,7 @@ if errorlevel 1 (
             return 1;
         }
 
-        async Task modUnpackedIso(string unpackIsoPath, WindowsDescription newWindowsDescription)
+        async Task modUnpackedIso(Action<string> processName, Action<int> processValue, string unpackIsoPath, WindowsDescription newWindowsDescription)
         {
             bool modAllow = winBoxConfig.manual_setup != true || winBoxConfig.installermod_manual_allow == true;
 
@@ -3225,6 +3225,15 @@ if errorlevel 1 (
             if (mountBootWim) {
                 int wimSetupSlot = await getWindowsSetupWimSlot(bootWimPath);
                 await mountDism(bootWimPath, wimWinPeMountPath, wimSetupSlot);
+
+                if (winBoxConfig.installerMountedEarly_breakbefore == true) breakpointStop("installer-mounted", false);
+                if (winBoxConfig.installerMountedEarlyEnabled == true)
+                {
+                    processValue(83);
+                    processName("Executing a installer-mounted event");
+                    await Program.executeBuildEvent(baseDirectoryPath, winBoxConfig.installerMountedEarlyEvent);
+                }
+                if (winBoxConfig.installerMountedEarly_breakafter == true) breakpointStop("installer-mounted", true);
             }
 
             if (mountBootWim)
@@ -3367,7 +3376,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
                 }
             }
 
-            await modUnpackedIso(unpackIsoPath, newWindowsDescription);
+            await modUnpackedIso(processName, processValue, unpackIsoPath, newWindowsDescription);
 
             if (manual)
             {
