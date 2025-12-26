@@ -1534,7 +1534,7 @@ powercfg -s {powerScheme}";
         async Task<string[]> getAnyFromDism(string args, string prefix)
         {
             string result = await Program.ExecuteAsync("dism.exe", args, null, debugFolder);
-            string[] resultLines = result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            string[] resultLines = result.Split(new[] { "\r\n", "\n\r", "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
 
             var outputLines = new List<string>();
 
@@ -1553,7 +1553,7 @@ powercfg -s {powerScheme}";
         async Task<string[]> getFromDismWithOffset(string args, string lineStartsWith, string prefix, int offset)
         {
             string result = await Program.ExecuteAsync("dism.exe", args, null, debugFolder);
-            string[] resultLines = result.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            string[] resultLines = result.Split(new[] { "\r\n", "\n\r", "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
 
             var outputLines = new List<string>();
 
@@ -3202,6 +3202,11 @@ if errorlevel 1 (
                 "Index",
                 -1
             );
+
+            if (outputLines.Length > 0 && int.TryParse(outputLines[0], out int value))
+            {
+                return value;
+            }
 
             return 1;
         }
