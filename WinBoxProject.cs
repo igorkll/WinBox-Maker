@@ -3378,6 +3378,9 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
 
             await modUnpackedIso(processName, processValue, unpackIsoPath, newWindowsDescription);
 
+            processName("ISO modification");
+            processValue(83);
+
             if (manual)
             {
                 if (winBoxConfig.manual_setup_autounattend != null)

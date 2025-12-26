@@ -45,7 +45,7 @@ namespace WinBox_Maker
                 {
                     regBcdChange("advancedoptions false");
                     regBcdChange("optionsedit false");
-                    regBcdChange("recoveryenabled no"); //запрет автоматического входа в recovery
+                    regBcdChange($"recoveryenabled {(Program.winBoxConfig.AllowStartRecoveryFromBootloader == true ? "yes" : "no")}"); //запрет автоматического входа в recovery
 
                     regBcdChange("displaybootmenu no"); // нечего не показываем
                     regBcdChange("timeout 0");

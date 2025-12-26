@@ -205,6 +205,7 @@ namespace WinBox_Maker
         public bool? installermod_manual_allow { get; set; }
         public RecoveryMenuAction? recoveryMenuAction { get; set; }
         public string? ReplaceRecovery { get; set; }
+        public bool? AllowStartRecoveryFromBootloader { get; set; }
         public bool? bsod_autoreboot { get; set; }
         public bool? bsod_disabledisplay { get; set; }
         public bool? ChangeTimezone { get; set; }
@@ -404,6 +405,7 @@ namespace WinBox_Maker
             if (installermod_manual_allow == null) installermod_manual_allow = false;
             if (recoveryMenuAction == null) recoveryMenuAction = RecoveryMenuAction.Delete;
             if (ReplaceRecovery == null) ReplaceRecovery = "";
+            if (AllowStartRecoveryFromBootloader == null) AllowStartRecoveryFromBootloader = false;
 
             for (int i = 0; i < renameTweaks_from.Length; i++)
             {

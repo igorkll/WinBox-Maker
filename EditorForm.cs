@@ -666,6 +666,7 @@ namespace WinBox_Maker
             installer_winPE_mod.Enabled = winBoxProject.winBoxConfig.installer_winPE_mod.enabled == true;
 
             install_bypass.Checked = winBoxProject.winBoxConfig.install_bypass == true;
+            checkBox1.Checked = winBoxProject.winBoxConfig.AllowStartRecoveryFromBootloader == true;
 
             tab_app.Enabled = !manual;
             tab_settings.Enabled = !manual;
@@ -2961,6 +2962,15 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.install_bypass = install_bypass.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.AllowStartRecoveryFromBootloader = checkBox1.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }

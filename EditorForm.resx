@@ -3503,6 +3503,10 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="richTextBox19.Text" xml:space="preserve">
+    <value>here you can change the behavior of the system recovery menu.
+DO NOT ENABLE recovery in production if you have not replaced its application with your own through "WinPE patches", and it is better to remove it from the project altogether if you are not going to use it!</value>
+  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
@@ -3575,10 +3579,6 @@ start the name with * if you don't know the exact name, and winbox maker will de
   <data name="richTextBox16.Text" xml:space="preserve">
     <value>deletes packages using dism using Remove-ProvisionedAppxPackage
 start the name with * if you don't know the exact name, and winbox maker will delete all packages where there are name matches. this can be used if you do not know the exact version of the package that is installed in the selected image.</value>
-  </data>
-  <data name="richTextBox19.Text" xml:space="preserve">
-    <value>here you can change the behavior of the system recovery menu.
-DO NOT ENABLE recovery in production if you have not replaced its application with your own through "WinPE patches", and it is better to remove it from the project altogether if you are not going to use it!</value>
   </data>
   <data name="richTextBox2.Text" xml:space="preserve">
     <value>the command is launched from the source code folder
