@@ -3173,6 +3173,12 @@ if errorlevel 1 (
 
         int getWindowsSetupWimSlot(string wimPath)
         {
+            /*
+            await getAnyFromDism(
+                $"/English /Get-WimInfo /WimFile:\"{wimPath}\"",
+                provisioned ? @"PackageName" : @"Package Identity"
+            );
+            */
 
             return 1;
         }
