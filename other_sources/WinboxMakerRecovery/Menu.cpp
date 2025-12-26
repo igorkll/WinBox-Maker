@@ -29,8 +29,7 @@ static void loadConsts() {
         json j;
         inFile >> j;
 
-        std::string name = j["title"];
-        int age = j["age"];
+        if (j.contains("title")) title_text = j["title"];
     }
 
     lineHeight = screenHeight / 8;
