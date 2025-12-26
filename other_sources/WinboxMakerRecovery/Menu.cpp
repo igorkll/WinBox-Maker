@@ -156,11 +156,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 void Menu_start(HINSTANCE hInstance) {
     const wchar_t* className = L"WindowClass";
 
+    ShowCursor(FALSE);
+
     WNDCLASS wc = {};
     wc.lpfnWndProc = WndProc;
     wc.hInstance = hInstance;
     wc.lpszClassName = className;
-    wc.hCursor = LoadCursor(nullptr, IDC_NO);
+    wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
     RegisterClass(&wc);
 
     screenWidth = GetSystemMetrics(SM_CXSCREEN);
