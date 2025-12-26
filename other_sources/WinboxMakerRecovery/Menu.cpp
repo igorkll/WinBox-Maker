@@ -9,6 +9,16 @@ static std::vector<std::string> menuItems = {
 };
 static int selectedItem = 0;
 
+static HBRUSH backgroundBrush;
+static HFONT font;
+
+static void initStaticObjects() {
+    backgroundBrush = CreateSolidBrush(RGB(0, 0, 50));
+    font = CreateFont(48, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+        DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+        DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Arial");
+}
+
 static void redrawMenu(HWND hwnd) {
     InvalidateRect(hwnd, nullptr, TRUE);
     
@@ -17,14 +27,8 @@ static void redrawMenu(HWND hwnd) {
     RECT rect;
     GetClientRect(hwnd, &rect);
 
-    HBRUSH bg = CreateSolidBrush(RGB(0, 0, 50));
-    FillRect(hdc, &rect, bg);
-    DeleteObject(bg);
-
-    HFONT hFont = CreateFont(48, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
-        DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-        DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Arial");
-    SelectObject(hdc, hFont);
+    SelectObject(hdc, font);
+    FillRect(hdc, &rect, backgroundBrush);
 
     int y = 100;
     for (size_t i = 0; i < menuItems.size(); i++) {
@@ -34,7 +38,6 @@ static void redrawMenu(HWND hwnd) {
         y += 80;
     }
 
-    DeleteObject(hFont);
     EndPaint(hwnd, &ps);
 }
 
@@ -99,6 +102,8 @@ void Menu_start(HINSTANCE hInstance) {
         hInstance,
         nullptr
     );
+
+    initStaticObjects();
 
     ShowWindow(hwnd, SW_SHOW);
     UpdateWindow(hwnd);
