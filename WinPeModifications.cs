@@ -99,6 +99,9 @@ namespace WinBox_Maker
             if (needMountReg) await RegChanger.umountReg("SYSTEM", "WINPE");
             */
 
+            string path_winpeshl_ini = Path.Combine(mountedPath, "Windows\\System32\\winpeshl.ini");
+            string path_winpeshl_exe = Path.Combine(mountedPath, "Windows\\System32\\winpeshl.exe");
+
             if (app_override == true)
             {
                 string cmdline = "";
@@ -114,15 +117,18 @@ namespace WinBox_Maker
                         break;
                 }
 
-                string path = Path.Combine(mountedPath, "Windows\\System32\\winpeshl.ini");
-
-                await Program.WriteFileAsync(path, @$"[LaunchApps]
+                await Program.WriteFileAsync(path_winpeshl_ini, @$"[LaunchApps]
 %SYSTEMDRIVE%{Program.ReplaceAndPrependBackslash(cmdline)}");
             }
 
             if (remove_cmd_exe == true)
             {
                 File.Delete(Path.Combine(mountedPath, "Windows\\System32\\cmd.exe"));
+            }
+
+            if (app_lowlevel == true)
+            {
+
             }
         }
     }
