@@ -43,9 +43,11 @@ namespace WinBox_Maker
                 // base system bcd modifications
                 if (Program.winBoxConfig.manual_setup != true)
                 {
+                    bool AllowStartRecoveryFromBootloader = Program.winBoxConfig.AllowStartRecoveryFromBootloader == true && (Program.winBoxConfig.manual_setup != true || Program.winBoxConfig.recoverymod_manual_allow == true);
+
                     regBcdChange("advancedoptions false");
                     regBcdChange("optionsedit false");
-                    regBcdChange($"recoveryenabled {(Program.winBoxConfig.AllowStartRecoveryFromBootloader == true ? "yes" : "no")}"); //запрет автоматического входа в recovery
+                    regBcdChange($"recoveryenabled {(AllowStartRecoveryFromBootloader == true ? "yes" : "no")}"); //запрет автоматического входа в recovery
 
                     regBcdChange("displaybootmenu no"); // нечего не показываем
                     regBcdChange("timeout 0");
