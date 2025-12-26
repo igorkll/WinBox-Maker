@@ -38,6 +38,21 @@
             label2 = new Label();
             app_tab = new TabControl();
             tabPage4 = new TabPage();
+            recovery_allowFactoryReset = new CheckBox();
+            recovery_allowFlashWithFactoryReset = new CheckBox();
+            recovery_allowFlashWithoutFactoryReset = new CheckBox();
+            label4 = new Label();
+            recovery_textOnInfoPage_en = new CheckBox();
+            recovery_textOnInfoPage = new RichTextBox();
+            recovery_ffuName = new TextBox();
+            recovery_imgName = new TextBox();
+            recovery_wimName = new TextBox();
+            recovery_allowFlashFfu = new CheckBox();
+            recovery_allowFlashImg = new CheckBox();
+            recovery_allowFlashWim = new CheckBox();
+            label3 = new Label();
+            recovery_title = new TextBox();
+            recovery_dataPaths = new RichTextBox();
             richTextBox2 = new RichTextBox();
             tabPage5 = new TabPage();
             label1 = new Label();
@@ -46,21 +61,15 @@
             app_override = new CheckBox();
             tabPage2 = new TabPage();
             applyBaseSystemBCD = new CheckBox();
-            recovery_dataPaths = new RichTextBox();
-            recovery_title = new TextBox();
-            label3 = new Label();
-            recovery_allowFlashWim = new CheckBox();
-            recovery_allowFlashImg = new CheckBox();
-            recovery_allowFlashFfu = new CheckBox();
-            recovery_wimName = new TextBox();
-            recovery_imgName = new TextBox();
-            recovery_ffuName = new TextBox();
-            recovery_textOnInfoPage = new RichTextBox();
-            recovery_textOnInfoPage_en = new CheckBox();
-            label4 = new Label();
-            recovery_allowFlashWithoutFactoryReset = new CheckBox();
-            recovery_allowFlashWithFactoryReset = new CheckBox();
-            recovery_allowFactoryReset = new CheckBox();
+            tabControl2 = new TabControl();
+            tabPage6 = new TabPage();
+            tabPage7 = new TabPage();
+            tabPage8 = new TabPage();
+            winboxRecoveryLogoType = new ComboBox();
+            label5 = new Label();
+            customRecoveryLogoPath = new TextBox();
+            customRecoveryLogoPath_sel = new Button();
+            customRecoveryLogoPath_clr = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage3.SuspendLayout();
@@ -68,6 +77,10 @@
             tabPage4.SuspendLayout();
             tabPage5.SuspendLayout();
             tabPage2.SuspendLayout();
+            tabControl2.SuspendLayout();
+            tabPage6.SuspendLayout();
+            tabPage7.SuspendLayout();
+            tabPage8.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -161,21 +174,7 @@
             // 
             // tabPage4
             // 
-            tabPage4.Controls.Add(recovery_allowFactoryReset);
-            tabPage4.Controls.Add(recovery_allowFlashWithFactoryReset);
-            tabPage4.Controls.Add(recovery_allowFlashWithoutFactoryReset);
-            tabPage4.Controls.Add(label4);
-            tabPage4.Controls.Add(recovery_textOnInfoPage_en);
-            tabPage4.Controls.Add(recovery_textOnInfoPage);
-            tabPage4.Controls.Add(recovery_ffuName);
-            tabPage4.Controls.Add(recovery_imgName);
-            tabPage4.Controls.Add(recovery_wimName);
-            tabPage4.Controls.Add(recovery_allowFlashFfu);
-            tabPage4.Controls.Add(recovery_allowFlashImg);
-            tabPage4.Controls.Add(recovery_allowFlashWim);
-            tabPage4.Controls.Add(label3);
-            tabPage4.Controls.Add(recovery_title);
-            tabPage4.Controls.Add(recovery_dataPaths);
+            tabPage4.Controls.Add(tabControl2);
             tabPage4.Controls.Add(richTextBox2);
             tabPage4.Location = new Point(4, 34);
             tabPage4.Name = "tabPage4";
@@ -185,13 +184,145 @@
             tabPage4.Text = "winbox maker recovery";
             tabPage4.UseVisualStyleBackColor = true;
             // 
+            // recovery_allowFactoryReset
+            // 
+            recovery_allowFactoryReset.AutoSize = true;
+            recovery_allowFactoryReset.Location = new Point(3, 3);
+            recovery_allowFactoryReset.Name = "recovery_allowFactoryReset";
+            recovery_allowFactoryReset.Size = new Size(182, 29);
+            recovery_allowFactoryReset.TabIndex = 18;
+            recovery_allowFactoryReset.Text = "allow factory reset";
+            recovery_allowFactoryReset.UseVisualStyleBackColor = true;
+            // 
+            // recovery_allowFlashWithFactoryReset
+            // 
+            recovery_allowFlashWithFactoryReset.AutoSize = true;
+            recovery_allowFlashWithFactoryReset.Location = new Point(6, 152);
+            recovery_allowFlashWithFactoryReset.Name = "recovery_allowFlashWithFactoryReset";
+            recovery_allowFlashWithFactoryReset.Size = new Size(262, 29);
+            recovery_allowFlashWithFactoryReset.TabIndex = 17;
+            recovery_allowFlashWithFactoryReset.Text = "allow flash with factory reset";
+            recovery_allowFlashWithFactoryReset.UseVisualStyleBackColor = true;
+            // 
+            // recovery_allowFlashWithoutFactoryReset
+            // 
+            recovery_allowFlashWithoutFactoryReset.AutoSize = true;
+            recovery_allowFlashWithoutFactoryReset.Location = new Point(6, 117);
+            recovery_allowFlashWithoutFactoryReset.Name = "recovery_allowFlashWithoutFactoryReset";
+            recovery_allowFlashWithoutFactoryReset.Size = new Size(289, 29);
+            recovery_allowFlashWithoutFactoryReset.TabIndex = 16;
+            recovery_allowFlashWithoutFactoryReset.Text = "allow flash without factory reset";
+            recovery_allowFlashWithoutFactoryReset.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(3, 58);
+            label4.Name = "label4";
+            label4.Size = new Size(220, 25);
+            label4.TabIndex = 15;
+            label4.Text = "use application data paths";
+            // 
+            // recovery_textOnInfoPage_en
+            // 
+            recovery_textOnInfoPage_en.AutoSize = true;
+            recovery_textOnInfoPage_en.Location = new Point(6, 186);
+            recovery_textOnInfoPage_en.Name = "recovery_textOnInfoPage_en";
+            recovery_textOnInfoPage_en.Size = new Size(180, 29);
+            recovery_textOnInfoPage_en.TabIndex = 14;
+            recovery_textOnInfoPage_en.Text = "use info page text";
+            recovery_textOnInfoPage_en.UseVisualStyleBackColor = true;
+            // 
+            // recovery_textOnInfoPage
+            // 
+            recovery_textOnInfoPage.Location = new Point(6, 221);
+            recovery_textOnInfoPage.Name = "recovery_textOnInfoPage";
+            recovery_textOnInfoPage.Size = new Size(576, 151);
+            recovery_textOnInfoPage.TabIndex = 12;
+            recovery_textOnInfoPage.Text = "";
+            // 
+            // recovery_ffuName
+            // 
+            recovery_ffuName.Location = new Point(183, 80);
+            recovery_ffuName.Name = "recovery_ffuName";
+            recovery_ffuName.Size = new Size(328, 31);
+            recovery_ffuName.TabIndex = 11;
+            // 
+            // recovery_imgName
+            // 
+            recovery_imgName.Location = new Point(183, 43);
+            recovery_imgName.Name = "recovery_imgName";
+            recovery_imgName.Size = new Size(328, 31);
+            recovery_imgName.TabIndex = 10;
+            // 
+            // recovery_wimName
+            // 
+            recovery_wimName.Location = new Point(183, 6);
+            recovery_wimName.Name = "recovery_wimName";
+            recovery_wimName.Size = new Size(328, 31);
+            recovery_wimName.TabIndex = 9;
+            // 
+            // recovery_allowFlashFfu
+            // 
+            recovery_allowFlashFfu.AutoSize = true;
+            recovery_allowFlashFfu.Location = new Point(6, 76);
+            recovery_allowFlashFfu.Name = "recovery_allowFlashFfu";
+            recovery_allowFlashFfu.Size = new Size(160, 29);
+            recovery_allowFlashFfu.TabIndex = 8;
+            recovery_allowFlashFfu.Text = "allow flash *.ffu";
+            recovery_allowFlashFfu.UseVisualStyleBackColor = true;
+            // 
+            // recovery_allowFlashImg
+            // 
+            recovery_allowFlashImg.AutoSize = true;
+            recovery_allowFlashImg.Location = new Point(6, 41);
+            recovery_allowFlashImg.Name = "recovery_allowFlashImg";
+            recovery_allowFlashImg.Size = new Size(169, 29);
+            recovery_allowFlashImg.TabIndex = 7;
+            recovery_allowFlashImg.Text = "allow flash *.img";
+            recovery_allowFlashImg.UseVisualStyleBackColor = true;
+            // 
+            // recovery_allowFlashWim
+            // 
+            recovery_allowFlashWim.AutoSize = true;
+            recovery_allowFlashWim.Location = new Point(6, 6);
+            recovery_allowFlashWim.Name = "recovery_allowFlashWim";
+            recovery_allowFlashWim.Size = new Size(171, 29);
+            recovery_allowFlashWim.TabIndex = 6;
+            recovery_allowFlashWim.Text = "allow flash *.wim";
+            recovery_allowFlashWim.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(469, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(113, 25);
+            label3.TabIndex = 5;
+            label3.Text = "recovery title";
+            // 
+            // recovery_title
+            // 
+            recovery_title.Location = new Point(6, 6);
+            recovery_title.Name = "recovery_title";
+            recovery_title.Size = new Size(457, 31);
+            recovery_title.TabIndex = 4;
+            // 
+            // recovery_dataPaths
+            // 
+            recovery_dataPaths.Location = new Point(3, 86);
+            recovery_dataPaths.Name = "recovery_dataPaths";
+            recovery_dataPaths.Size = new Size(587, 289);
+            recovery_dataPaths.TabIndex = 3;
+            recovery_dataPaths.Text = "";
+            // 
             // richTextBox2
             // 
             richTextBox2.BackColor = SystemColors.Info;
-            richTextBox2.Location = new Point(598, 6);
+            richTextBox2.Location = new Point(613, 6);
             richTextBox2.Name = "richTextBox2";
             richTextBox2.ReadOnly = true;
-            richTextBox2.Size = new Size(528, 416);
+            richTextBox2.Size = new Size(513, 416);
             richTextBox2.TabIndex = 2;
             richTextBox2.Text = resources.GetString("richTextBox2.Text");
             // 
@@ -268,137 +399,107 @@
             applyBaseSystemBCD.UseVisualStyleBackColor = true;
             applyBaseSystemBCD.CheckedChanged += applyBaseSystemBCD_CheckedChanged;
             // 
-            // recovery_dataPaths
+            // tabControl2
             // 
-            recovery_dataPaths.Location = new Point(6, 271);
-            recovery_dataPaths.Name = "recovery_dataPaths";
-            recovery_dataPaths.Size = new Size(285, 151);
-            recovery_dataPaths.TabIndex = 3;
-            recovery_dataPaths.Text = "";
+            tabControl2.Controls.Add(tabPage6);
+            tabControl2.Controls.Add(tabPage8);
+            tabControl2.Controls.Add(tabPage7);
+            tabControl2.Location = new Point(6, 6);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new Size(601, 416);
+            tabControl2.TabIndex = 19;
             // 
-            // recovery_title
+            // tabPage6
             // 
-            recovery_title.Location = new Point(6, 6);
-            recovery_title.Name = "recovery_title";
-            recovery_title.Size = new Size(457, 31);
-            recovery_title.TabIndex = 4;
+            tabPage6.Controls.Add(customRecoveryLogoPath_clr);
+            tabPage6.Controls.Add(customRecoveryLogoPath_sel);
+            tabPage6.Controls.Add(customRecoveryLogoPath);
+            tabPage6.Controls.Add(label5);
+            tabPage6.Controls.Add(winboxRecoveryLogoType);
+            tabPage6.Controls.Add(recovery_title);
+            tabPage6.Controls.Add(recovery_textOnInfoPage_en);
+            tabPage6.Controls.Add(recovery_textOnInfoPage);
+            tabPage6.Controls.Add(label3);
+            tabPage6.Location = new Point(4, 34);
+            tabPage6.Name = "tabPage6";
+            tabPage6.Padding = new Padding(3);
+            tabPage6.Size = new Size(593, 378);
+            tabPage6.TabIndex = 0;
+            tabPage6.Text = "look";
+            tabPage6.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // tabPage7
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(469, 9);
-            label3.Name = "label3";
-            label3.Size = new Size(113, 25);
-            label3.TabIndex = 5;
-            label3.Text = "recovery title";
+            tabPage7.Controls.Add(recovery_allowFlashWim);
+            tabPage7.Controls.Add(recovery_imgName);
+            tabPage7.Controls.Add(recovery_wimName);
+            tabPage7.Controls.Add(recovery_ffuName);
+            tabPage7.Controls.Add(recovery_allowFlashWithFactoryReset);
+            tabPage7.Controls.Add(recovery_allowFlashWithoutFactoryReset);
+            tabPage7.Controls.Add(recovery_allowFlashFfu);
+            tabPage7.Controls.Add(recovery_allowFlashImg);
+            tabPage7.Location = new Point(4, 34);
+            tabPage7.Name = "tabPage7";
+            tabPage7.Padding = new Padding(3);
+            tabPage7.Size = new Size(593, 378);
+            tabPage7.TabIndex = 1;
+            tabPage7.Text = "flash";
+            tabPage7.UseVisualStyleBackColor = true;
             // 
-            // recovery_allowFlashWim
+            // tabPage8
             // 
-            recovery_allowFlashWim.AutoSize = true;
-            recovery_allowFlashWim.Location = new Point(6, 43);
-            recovery_allowFlashWim.Name = "recovery_allowFlashWim";
-            recovery_allowFlashWim.Size = new Size(171, 29);
-            recovery_allowFlashWim.TabIndex = 6;
-            recovery_allowFlashWim.Text = "allow flash *.wim";
-            recovery_allowFlashWim.UseVisualStyleBackColor = true;
+            tabPage8.Controls.Add(label4);
+            tabPage8.Controls.Add(recovery_allowFactoryReset);
+            tabPage8.Controls.Add(recovery_dataPaths);
+            tabPage8.Location = new Point(4, 34);
+            tabPage8.Name = "tabPage8";
+            tabPage8.Size = new Size(593, 378);
+            tabPage8.TabIndex = 2;
+            tabPage8.Text = "factory reset";
+            tabPage8.UseVisualStyleBackColor = true;
             // 
-            // recovery_allowFlashImg
+            // winboxRecoveryLogoType
             // 
-            recovery_allowFlashImg.AutoSize = true;
-            recovery_allowFlashImg.Location = new Point(6, 78);
-            recovery_allowFlashImg.Name = "recovery_allowFlashImg";
-            recovery_allowFlashImg.Size = new Size(169, 29);
-            recovery_allowFlashImg.TabIndex = 7;
-            recovery_allowFlashImg.Text = "allow flash *.img";
-            recovery_allowFlashImg.UseVisualStyleBackColor = true;
+            winboxRecoveryLogoType.FormattingEnabled = true;
+            winboxRecoveryLogoType.Location = new Point(6, 43);
+            winboxRecoveryLogoType.Name = "winboxRecoveryLogoType";
+            winboxRecoveryLogoType.Size = new Size(457, 33);
+            winboxRecoveryLogoType.TabIndex = 15;
             // 
-            // recovery_allowFlashFfu
+            // label5
             // 
-            recovery_allowFlashFfu.AutoSize = true;
-            recovery_allowFlashFfu.Location = new Point(6, 113);
-            recovery_allowFlashFfu.Name = "recovery_allowFlashFfu";
-            recovery_allowFlashFfu.Size = new Size(160, 29);
-            recovery_allowFlashFfu.TabIndex = 8;
-            recovery_allowFlashFfu.Text = "allow flash *.ffu";
-            recovery_allowFlashFfu.UseVisualStyleBackColor = true;
+            label5.AutoSize = true;
+            label5.Location = new Point(469, 51);
+            label5.Name = "label5";
+            label5.Size = new Size(49, 25);
+            label5.TabIndex = 16;
+            label5.Text = "logo";
             // 
-            // recovery_wimName
+            // customRecoveryLogoPath
             // 
-            recovery_wimName.Location = new Point(183, 43);
-            recovery_wimName.Name = "recovery_wimName";
-            recovery_wimName.Size = new Size(328, 31);
-            recovery_wimName.TabIndex = 9;
+            customRecoveryLogoPath.Location = new Point(6, 82);
+            customRecoveryLogoPath.Name = "customRecoveryLogoPath";
+            customRecoveryLogoPath.Size = new Size(332, 31);
+            customRecoveryLogoPath.TabIndex = 17;
             // 
-            // recovery_imgName
+            // customRecoveryLogoPath_sel
             // 
-            recovery_imgName.Location = new Point(183, 80);
-            recovery_imgName.Name = "recovery_imgName";
-            recovery_imgName.Size = new Size(328, 31);
-            recovery_imgName.TabIndex = 10;
+            customRecoveryLogoPath_sel.Location = new Point(351, 80);
+            customRecoveryLogoPath_sel.Name = "customRecoveryLogoPath_sel";
+            customRecoveryLogoPath_sel.Size = new Size(112, 34);
+            customRecoveryLogoPath_sel.TabIndex = 18;
+            customRecoveryLogoPath_sel.Text = "select";
+            customRecoveryLogoPath_sel.UseVisualStyleBackColor = true;
             // 
-            // recovery_ffuName
+            // customRecoveryLogoPath_clr
             // 
-            recovery_ffuName.Location = new Point(183, 117);
-            recovery_ffuName.Name = "recovery_ffuName";
-            recovery_ffuName.Size = new Size(328, 31);
-            recovery_ffuName.TabIndex = 11;
-            // 
-            // recovery_textOnInfoPage
-            // 
-            recovery_textOnInfoPage.Location = new Point(297, 271);
-            recovery_textOnInfoPage.Name = "recovery_textOnInfoPage";
-            recovery_textOnInfoPage.Size = new Size(295, 151);
-            recovery_textOnInfoPage.TabIndex = 12;
-            recovery_textOnInfoPage.Text = "";
-            // 
-            // recovery_textOnInfoPage_en
-            // 
-            recovery_textOnInfoPage_en.AutoSize = true;
-            recovery_textOnInfoPage_en.Location = new Point(297, 236);
-            recovery_textOnInfoPage_en.Name = "recovery_textOnInfoPage_en";
-            recovery_textOnInfoPage_en.Size = new Size(180, 29);
-            recovery_textOnInfoPage_en.TabIndex = 14;
-            recovery_textOnInfoPage_en.Text = "use info page text";
-            recovery_textOnInfoPage_en.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(6, 236);
-            label4.Name = "label4";
-            label4.Size = new Size(220, 25);
-            label4.TabIndex = 15;
-            label4.Text = "use application data paths";
-            // 
-            // recovery_allowFlashWithoutFactoryReset
-            // 
-            recovery_allowFlashWithoutFactoryReset.AutoSize = true;
-            recovery_allowFlashWithoutFactoryReset.Location = new Point(6, 154);
-            recovery_allowFlashWithoutFactoryReset.Name = "recovery_allowFlashWithoutFactoryReset";
-            recovery_allowFlashWithoutFactoryReset.Size = new Size(289, 29);
-            recovery_allowFlashWithoutFactoryReset.TabIndex = 16;
-            recovery_allowFlashWithoutFactoryReset.Text = "allow flash without factory reset";
-            recovery_allowFlashWithoutFactoryReset.UseVisualStyleBackColor = true;
-            // 
-            // recovery_allowFlashWithFactoryReset
-            // 
-            recovery_allowFlashWithFactoryReset.AutoSize = true;
-            recovery_allowFlashWithFactoryReset.Location = new Point(301, 154);
-            recovery_allowFlashWithFactoryReset.Name = "recovery_allowFlashWithFactoryReset";
-            recovery_allowFlashWithFactoryReset.Size = new Size(262, 29);
-            recovery_allowFlashWithFactoryReset.TabIndex = 17;
-            recovery_allowFlashWithFactoryReset.Text = "allow flash with factory reset";
-            recovery_allowFlashWithFactoryReset.UseVisualStyleBackColor = true;
-            // 
-            // recovery_allowFactoryReset
-            // 
-            recovery_allowFactoryReset.AutoSize = true;
-            recovery_allowFactoryReset.Location = new Point(6, 189);
-            recovery_allowFactoryReset.Name = "recovery_allowFactoryReset";
-            recovery_allowFactoryReset.Size = new Size(182, 29);
-            recovery_allowFactoryReset.TabIndex = 18;
-            recovery_allowFactoryReset.Text = "allow factory reset";
-            recovery_allowFactoryReset.UseVisualStyleBackColor = true;
+            customRecoveryLogoPath_clr.Location = new Point(470, 82);
+            customRecoveryLogoPath_clr.Name = "customRecoveryLogoPath_clr";
+            customRecoveryLogoPath_clr.Size = new Size(112, 34);
+            customRecoveryLogoPath_clr.TabIndex = 19;
+            customRecoveryLogoPath_clr.Text = "clear";
+            customRecoveryLogoPath_clr.UseVisualStyleBackColor = true;
             // 
             // WinPeModificationsUI
             // 
@@ -415,11 +516,17 @@
             tabPage3.PerformLayout();
             app_tab.ResumeLayout(false);
             tabPage4.ResumeLayout(false);
-            tabPage4.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
+            tabControl2.ResumeLayout(false);
+            tabPage6.ResumeLayout(false);
+            tabPage6.PerformLayout();
+            tabPage7.ResumeLayout(false);
+            tabPage7.PerformLayout();
+            tabPage8.ResumeLayout(false);
+            tabPage8.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -457,5 +564,14 @@
         private CheckBox recovery_allowFlashWithFactoryReset;
         private CheckBox recovery_allowFlashWithoutFactoryReset;
         private CheckBox recovery_allowFactoryReset;
+        private TabControl tabControl2;
+        private TabPage tabPage6;
+        private TabPage tabPage7;
+        private TabPage tabPage8;
+        private ComboBox winboxRecoveryLogoType;
+        private Label label5;
+        private TextBox customRecoveryLogoPath;
+        private Button customRecoveryLogoPath_clr;
+        private Button customRecoveryLogoPath_sel;
     }
 }

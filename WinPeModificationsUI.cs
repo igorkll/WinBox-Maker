@@ -45,6 +45,7 @@ namespace WinBox_Maker
             recovery_allowFlashWithFactoryReset.Checked = winPeModifications.recovery_allowFactoryReset == true;
             recovery_allowFlashWithoutFactoryReset.Checked = winPeModifications.recovery_allowFlashWithoutFactoryReset == true;
             recovery_textOnInfoPage_en.Checked = winPeModifications.recovery_textOnInfoPage_en == true;
+            recovery_textOnInfoPage.Enabled = winPeModifications.recovery_textOnInfoPage_en == true;
             recovery_textOnInfoPage.Text = winPeModifications.recovery_textOnInfoPage ?? "";
             recovery_wimName.Text = winPeModifications.recovery_wimName ?? "";
             recovery_imgName.Text = winPeModifications.recovery_imgName ?? "";
