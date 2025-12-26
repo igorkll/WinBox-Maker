@@ -34,6 +34,17 @@ namespace WinBox_Maker
         public WinboxRecoveryLogoType? winboxRecoveryLogoType { get; set; }
         public string? customRecoveryLogoPath { get; set; }
 
+        public string? recovery_title { get; set; }
+        public bool? recovery_allowFactoryReset { get; set; }
+        public bool? recovery_allowFlashWim { get; set; }
+        public string? recovery_wimName { get; set; }
+        public bool? recovery_allowFlashImg { get; set; }
+        public string? recovery_imgName { get; set; }
+        public bool? recovery_allowFlashFfu { get; set; }
+        public string? recovery_ffuName { get; set; }
+        public bool? recovery_allowFlashWithoutFactoryReset { get; set; }
+        public bool? recovery_allowFlashWithFactoryReset { get; set; }
+
         // initFor
         // 0 - installer
         // 1 - recovery
@@ -49,6 +60,13 @@ namespace WinBox_Maker
             if (app_custom_cmdline == null) app_custom_cmdline = "my_app_example.exe --argument";
             if (winboxRecoveryLogoType == null) winboxRecoveryLogoType = WinboxRecoveryLogoType.DefaultLogo;
             if (customRecoveryLogoPath == null) customRecoveryLogoPath = "";
+
+            if (recovery_title == null) recovery_title = "Winbox maker recovery";
+            if (recovery_allowFactoryReset == null) recovery_allowFactoryReset = true;
+            if (recovery_allowFlashWim == null) recovery_allowFlashWim = true;
+            if (recovery_allowFlashImg == null) recovery_allowFlashImg = true;
+            if (recovery_allowFlashFfu == null) recovery_allowFlashFfu = true;
+
         }
 
         // ------------------------------

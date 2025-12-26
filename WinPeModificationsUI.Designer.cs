@@ -46,6 +46,9 @@
             app_override = new CheckBox();
             tabPage2 = new TabPage();
             applyBaseSystemBCD = new CheckBox();
+            richTextBox4 = new RichTextBox();
+            textBox1 = new TextBox();
+            label3 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage3.SuspendLayout();
@@ -146,6 +149,9 @@
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(label3);
+            tabPage4.Controls.Add(textBox1);
+            tabPage4.Controls.Add(richTextBox4);
             tabPage4.Controls.Add(richTextBox2);
             tabPage4.Location = new Point(4, 34);
             tabPage4.Name = "tabPage4";
@@ -238,6 +244,30 @@
             applyBaseSystemBCD.UseVisualStyleBackColor = true;
             applyBaseSystemBCD.CheckedChanged += applyBaseSystemBCD_CheckedChanged;
             // 
+            // richTextBox4
+            // 
+            richTextBox4.Location = new Point(6, 243);
+            richTextBox4.Name = "richTextBox4";
+            richTextBox4.Size = new Size(198, 179);
+            richTextBox4.TabIndex = 3;
+            richTextBox4.Text = "";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(6, 6);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(457, 31);
+            textBox1.TabIndex = 4;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(469, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(113, 25);
+            label3.TabIndex = 5;
+            label3.Text = "recovery title";
+            // 
             // WinPeModificationsUI
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -253,6 +283,7 @@
             tabPage3.PerformLayout();
             app_tab.ResumeLayout(false);
             tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             tabPage2.ResumeLayout(false);
@@ -279,5 +310,8 @@
         private CheckBox app_lowlevel;
         private CheckBox remove_cmd_exe;
         private RichTextBox richTextBox3;
+        private TextBox textBox1;
+        private RichTextBox richTextBox4;
+        private Label label3;
     }
 }
