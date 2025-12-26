@@ -29,7 +29,7 @@ static void loadConsts() {
         json j;
         inFile >> j;
 
-        std::string name = j["title"];
+        std::string name = j["name"];
         int age = j["age"];
     }
 

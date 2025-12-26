@@ -64,6 +64,7 @@ namespace WinBox_Maker
             Program.CreateDirectory(recoveryDirectory);
 
             await Program.CopyFileAsync(Program.getBlobPath(Program.winBoxConfig, recoveryFileName), Path.Combine(recoveryDirectory, recoveryFileName));
+            await Program.CopyFileAsync(Program.getBlobPath(Program.winBoxConfig, "WinboxMakerRecoveryLogo.bmp"), Path.Combine(recoveryDirectory, "logo.bmp"));
         }
 
         public async Task modMountedWim(string mountedPath)
