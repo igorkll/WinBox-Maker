@@ -6,7 +6,7 @@
 // ------------------------------------- consts
 
 COLORREF color_bg = RGB(0, 0, 0);
-COLORREF color_title = RGB(255, 255, 0);
+COLORREF color_title = RGB(255, 0, 0);
 COLORREF color_text = RGB(255, 255, 255);
 COLORREF color_selectedText = RGB(255, 255, 0);
 int lineHeight = 100;
@@ -24,10 +24,10 @@ static HFONT menuFont;
 
 static void initStaticObjects() {
     backgroundBrush = CreateSolidBrush(color_bg);
-    titleFont = CreateFont(60, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+    titleFont = CreateFont(lineHeight * 0.9, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
         DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
         DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Arial");
-    menuFont = CreateFont(48, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+    menuFont = CreateFont(lineHeight * 0.6, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
         DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
         DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Arial");
 }
@@ -35,9 +35,10 @@ static void initStaticObjects() {
 // ------------------------------------- vars
 
 static std::vector<std::string> menuItems = {
-    "Start Application",
-    "Settings",
-    "Exit"
+    "Factory reset",
+    "Flash .wim",
+    "Flash .img",
+    "Shutdown"
 };
 static int selectedItem = 0;
 
@@ -69,6 +70,7 @@ static void redrawMenu(HWND hwnd) {
     SetTextColor(hdc, color_title);
     drawCenterizedText(hdc, 0, title_text);
 
+    SelectObject(hdc, menuFont);
     int y = lineHeight;
     for (size_t i = 0; i < menuItems.size(); i++) {
         SetTextColor(hdc, i == selectedItem ? color_selectedText : color_text);
