@@ -519,6 +519,13 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            tabPage57 = new TabPage();
+            installerMountedEarly_breakafter = new CheckBox();
+            label93 = new Label();
+            installerMountedEarly_breakbefore = new CheckBox();
+            richTextBox29 = new RichTextBox();
+            installerMountedEarlyEnabled = new CheckBox();
+            installerMountedEarlyEvent = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -631,6 +638,7 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage57.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -3559,6 +3567,7 @@
             tabControl9.Controls.Add(tabPage43);
             tabControl9.Controls.Add(tabPage23);
             tabControl9.Controls.Add(tabPage50);
+            tabControl9.Controls.Add(tabPage57);
             tabControl9.Location = new Point(3, 6);
             tabControl9.Name = "tabControl9";
             tabControl9.SelectedIndex = 0;
@@ -3869,13 +3878,13 @@
             tabPage50.Name = "tabPage50";
             tabPage50.Size = new Size(990, 259);
             tabPage50.TabIndex = 4;
-            tabPage50.Text = "recovery-mounted-early";
+            tabPage50.Text = "recovery-mounted";
             tabPage50.UseVisualStyleBackColor = true;
             // 
             // recoveryMountedEarly_breakafter
             // 
             recoveryMountedEarly_breakafter.AutoSize = true;
-            recoveryMountedEarly_breakafter.Location = new Point(560, 14);
+            recoveryMountedEarly_breakafter.Location = new Point(507, 14);
             recoveryMountedEarly_breakafter.Name = "recoveryMountedEarly_breakafter";
             recoveryMountedEarly_breakafter.Size = new Size(218, 29);
             recoveryMountedEarly_breakafter.TabIndex = 20;
@@ -3889,14 +3898,14 @@
             label92.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label92.Location = new Point(6, 13);
             label92.Name = "label92";
-            label92.Size = new Size(311, 30);
+            label92.Size = new Size(255, 30);
             label92.TabIndex = 15;
-            label92.Text = "recovery-mounted-early event";
+            label92.Text = "recovery-mounted event";
             // 
             // recoveryMountedEarly_breakbefore
             // 
             recoveryMountedEarly_breakbefore.AutoSize = true;
-            recoveryMountedEarly_breakbefore.Location = new Point(320, 13);
+            recoveryMountedEarly_breakbefore.Location = new Point(267, 13);
             recoveryMountedEarly_breakbefore.Name = "recoveryMountedEarly_breakbefore";
             recoveryMountedEarly_breakbefore.Size = new Size(234, 29);
             recoveryMountedEarly_breakbefore.TabIndex = 19;
@@ -5810,6 +5819,85 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // tabPage57
+            // 
+            tabPage57.Controls.Add(installerMountedEarly_breakafter);
+            tabPage57.Controls.Add(label93);
+            tabPage57.Controls.Add(installerMountedEarlyEvent);
+            tabPage57.Controls.Add(installerMountedEarly_breakbefore);
+            tabPage57.Controls.Add(installerMountedEarlyEnabled);
+            tabPage57.Controls.Add(richTextBox29);
+            tabPage57.Location = new Point(4, 34);
+            tabPage57.Name = "tabPage57";
+            tabPage57.Size = new Size(990, 259);
+            tabPage57.TabIndex = 5;
+            tabPage57.Text = "installer-mounted";
+            tabPage57.UseVisualStyleBackColor = true;
+            tabPage57.Click += tabPage57_Click;
+            // 
+            // installerMountedEarly_breakafter
+            // 
+            installerMountedEarly_breakafter.AutoSize = true;
+            installerMountedEarly_breakafter.Location = new Point(496, 14);
+            installerMountedEarly_breakafter.Name = "installerMountedEarly_breakafter";
+            installerMountedEarly_breakafter.Size = new Size(218, 29);
+            installerMountedEarly_breakafter.TabIndex = 26;
+            installerMountedEarly_breakafter.Text = "break point after event";
+            installerMountedEarly_breakafter.UseVisualStyleBackColor = true;
+            installerMountedEarly_breakafter.CheckedChanged += installerMountedEarly_breakafter_CheckedChanged;
+            // 
+            // label93
+            // 
+            label93.AutoSize = true;
+            label93.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label93.Location = new Point(6, 13);
+            label93.Name = "label93";
+            label93.Size = new Size(244, 30);
+            label93.TabIndex = 21;
+            label93.Text = "installer-mounted event";
+            // 
+            // installerMountedEarly_breakbefore
+            // 
+            installerMountedEarly_breakbefore.AutoSize = true;
+            installerMountedEarly_breakbefore.Location = new Point(256, 13);
+            installerMountedEarly_breakbefore.Name = "installerMountedEarly_breakbefore";
+            installerMountedEarly_breakbefore.Size = new Size(234, 29);
+            installerMountedEarly_breakbefore.TabIndex = 25;
+            installerMountedEarly_breakbefore.Text = "break point before event";
+            installerMountedEarly_breakbefore.UseVisualStyleBackColor = true;
+            installerMountedEarly_breakbefore.CheckedChanged += installerMountedEarly_breakbefore_CheckedChanged;
+            // 
+            // richTextBox29
+            // 
+            richTextBox29.BackColor = SystemColors.Info;
+            richTextBox29.Location = new Point(622, 48);
+            richTextBox29.Name = "richTextBox29";
+            richTextBox29.ReadOnly = true;
+            richTextBox29.Size = new Size(362, 208);
+            richTextBox29.TabIndex = 24;
+            richTextBox29.Text = "installer relative mount path: winbox_temp/wim_boot_mount\nfiles replace folder: winbox_resources/boot_files\n";
+            // 
+            // installerMountedEarlyEnabled
+            // 
+            installerMountedEarlyEnabled.AutoSize = true;
+            installerMountedEarlyEnabled.CheckAlign = ContentAlignment.MiddleRight;
+            installerMountedEarlyEnabled.Location = new Point(793, 15);
+            installerMountedEarlyEnabled.Name = "installerMountedEarlyEnabled";
+            installerMountedEarlyEnabled.Size = new Size(191, 29);
+            installerMountedEarlyEnabled.TabIndex = 23;
+            installerMountedEarlyEnabled.Text = "execute commands";
+            installerMountedEarlyEnabled.UseVisualStyleBackColor = true;
+            installerMountedEarlyEnabled.CheckedChanged += installerMountedEarlyEnabled_CheckedChanged;
+            // 
+            // installerMountedEarlyEvent
+            // 
+            installerMountedEarlyEvent.Location = new Point(6, 48);
+            installerMountedEarlyEvent.Name = "installerMountedEarlyEvent";
+            installerMountedEarlyEvent.Size = new Size(610, 208);
+            installerMountedEarlyEvent.TabIndex = 22;
+            installerMountedEarlyEvent.Text = "";
+            installerMountedEarlyEvent.TextChanged += installerMountedEarlyEvent_TextChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -6018,6 +6106,8 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage57.ResumeLayout(false);
+            tabPage57.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -6516,5 +6606,12 @@
         private Button installer_winPE_mod;
         private CheckBox installer_winPE_mod_en;
         private CheckBox install_bypass;
+        private TabPage tabPage57;
+        private CheckBox installerMountedEarly_breakafter;
+        private Label label93;
+        private RichTextBox installerMountedEarlyEvent;
+        private CheckBox installerMountedEarly_breakbefore;
+        private CheckBox installerMountedEarlyEnabled;
+        private RichTextBox richTextBox29;
     }
 }

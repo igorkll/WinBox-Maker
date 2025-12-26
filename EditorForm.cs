@@ -2859,6 +2859,43 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
         }
 
+        private void installerMountedEarlyEvent_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.installerMountedEarlyEvent = installerMountedEarlyEvent.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void installerMountedEarlyEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.installerMountedEarlyEnabled = installerMountedEarlyEnabled.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void installerMountedEarly_breakbefore_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.installerMountedEarly_breakbefore = installerMountedEarly_breakbefore.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void tabPage57_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void installerMountedEarly_breakafter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.installerMountedEarly_breakafter = installerMountedEarly_breakafter.Checked;
+            winBoxProject.SaveConfig();
+        }
+
         private void schtasks_stopOrDeleteOnlyFromList_CheckedChanged(object sender, EventArgs e)
         {
             if (guiEventsLock) return;

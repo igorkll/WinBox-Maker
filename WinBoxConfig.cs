@@ -237,6 +237,11 @@ namespace WinBox_Maker
         public bool? recoveryMountedEarly_breakbefore { get; set; }
         public bool? recoveryMountedEarly_breakafter { get; set; }
 
+        public bool? installerMountedEarlyEnabled { get; set; }
+        public string? installerMountedEarlyEvent { get; set; }
+        public bool? installerMountedEarly_breakbefore { get; set; }
+        public bool? installerMountedEarly_breakafter { get; set; }
+
 
         public string? schtasks_stopOrDelete { get; set; }
         public string? schtasks_stopOrDelete_deleteFromList { get; set; }
@@ -434,6 +439,11 @@ namespace WinBox_Maker
             if (recoveryMountedEarlyEvent == null) recoveryMountedEarlyEvent = "";
             if (recoveryMountedEarly_breakbefore == null) recoveryMountedEarly_breakbefore = false;
             if (recoveryMountedEarly_breakafter == null) recoveryMountedEarly_breakafter = false;
+
+            if (installerMountedEarlyEnabled == null) installerMountedEarlyEnabled = false;
+            if (installerMountedEarlyEvent == null) installerMountedEarlyEvent = "";
+            if (installerMountedEarly_breakbefore == null) installerMountedEarly_breakbefore = false;
+            if (installerMountedEarly_breakafter == null) installerMountedEarly_breakafter = false;
 
             if (schtasks_stopOrDelete == null) schtasks_stopOrDelete = "";
             if (schtasks_stopOrDelete_deleteFromList == null) schtasks_stopOrDelete_deleteFromList = "";
