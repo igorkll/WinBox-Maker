@@ -1,6 +1,7 @@
 #include "Menu.hpp"
 #include "json.hpp"
 #include <windows.h>
+#include <windowsx.h>
 #include <string>
 #include <vector>
 #include <fstream>
@@ -141,6 +142,12 @@ static void pointerMove(HWND hwnd, bool up) {
     redrawMenu(hwnd);
 }
 
+static void pointerAccept(HWND hwnd) {
+    if (selectedItem == (int)menuItems.size() - 1)
+        PostQuitMessage(0);
+    redrawMenu(hwnd);
+}
+
 static void handleKeyboard(HWND hwnd, WPARAM key) {
     switch (key) {
     case VK_UP:
@@ -152,8 +159,7 @@ static void handleKeyboard(HWND hwnd, WPARAM key) {
         pointerMove(hwnd, false);
         break;
     case VK_RETURN:
-        if (selectedItem == (int)menuItems.size() - 1)
-            PostQuitMessage(0);
+        pointerAccept(hwnd);
         break;
     case VK_ESCAPE:
         PostQuitMessage(0);
@@ -172,6 +178,20 @@ static void handleAppCommand(HWND hwnd, WPARAM lParam) {
     }
 }
 
+static void mouseHandle(HWND hwnd, WPARAM lParam) {
+    int x = GET_X_LPARAM(lParam);
+    int y = GET_Y_LPARAM(lParam);
+    int lineIndex = (y / lineHeight) - 1;
+    if (lineIndex == selectedItem) {
+        pointerAccept(hwnd);
+    }
+    else if (lineIndex >= 0 && lineIndex < menuItems.size())
+    {
+        selectedItem = lineIndex;
+        redrawMenu(hwnd);
+    }
+}
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
     case WM_KEYDOWN:
@@ -185,6 +205,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         return 0;
     case WM_DESTROY:
         PostQuitMessage(0);
+        return 0;
+    case WM_LBUTTONDOWN:
+        mouseHandle(hwnd, lParam);
         return 0;
     case WM_SYSCOMMAND:
         if ((wParam & 0xFFF0) == SC_CLOSE) { //disable alt+f4. use esc
