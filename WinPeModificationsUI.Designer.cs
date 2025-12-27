@@ -54,6 +54,9 @@
             recovery_allowFactoryReset = new CheckBox();
             recovery_dataPaths = new RichTextBox();
             tabPage7 = new TabPage();
+            checkBox3 = new CheckBox();
+            checkBox2 = new CheckBox();
+            checkBox1 = new CheckBox();
             recovery_allowFlashWim = new CheckBox();
             recovery_imgName = new TextBox();
             recovery_wimName = new TextBox();
@@ -70,9 +73,6 @@
             app_override = new CheckBox();
             tabPage2 = new TabPage();
             applyBaseSystemBCD = new CheckBox();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
-            checkBox3 = new CheckBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage3.SuspendLayout();
@@ -212,7 +212,7 @@
             tabPage6.Location = new Point(4, 34);
             tabPage6.Name = "tabPage6";
             tabPage6.Padding = new Padding(3);
-            tabPage6.Size = new Size(593, 378);
+            tabPage6.Size = new Size(623, 378);
             tabPage6.TabIndex = 0;
             tabPage6.Text = "look";
             tabPage6.UseVisualStyleBackColor = true;
@@ -308,7 +308,7 @@
             tabPage8.Controls.Add(recovery_dataPaths);
             tabPage8.Location = new Point(4, 34);
             tabPage8.Name = "tabPage8";
-            tabPage8.Size = new Size(593, 378);
+            tabPage8.Size = new Size(623, 378);
             tabPage8.TabIndex = 2;
             tabPage8.Text = "factory reset";
             tabPage8.UseVisualStyleBackColor = true;
@@ -362,6 +362,36 @@
             tabPage7.TabIndex = 1;
             tabPage7.Text = "flash";
             tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.Location = new Point(6, 257);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(464, 29);
+            checkBox3.TabIndex = 20;
+            checkBox3.Text = "allow manual flash from recovery (from external drive)";
+            checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(6, 222);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(163, 29);
+            checkBox2.TabIndex = 19;
+            checkBox2.Text = "auto-flash quiet";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(6, 187);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(325, 29);
+            checkBox1.TabIndex = 18;
+            checkBox1.Text = "allow auto-flash (from internal drive)";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // recovery_allowFlashWim
             // 
@@ -524,36 +554,6 @@
             applyBaseSystemBCD.Text = "apply BCD changes from the base system";
             applyBaseSystemBCD.UseVisualStyleBackColor = true;
             applyBaseSystemBCD.CheckedChanged += applyBaseSystemBCD_CheckedChanged;
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(6, 187);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(589, 29);
-            checkBox1.TabIndex = 18;
-            checkBox1.Text = "allow auto-flash without factory reset from image on system partition";
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(6, 222);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(163, 29);
-            checkBox2.TabIndex = 19;
-            checkBox2.Text = "auto-flash quiet";
-            checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            checkBox3.AutoSize = true;
-            checkBox3.Location = new Point(6, 257);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(300, 29);
-            checkBox3.TabIndex = 20;
-            checkBox3.Text = "allow manual flash from recovery";
-            checkBox3.UseVisualStyleBackColor = true;
             // 
             // WinPeModificationsUI
             // 

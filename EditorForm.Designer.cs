@@ -253,6 +253,9 @@
             keyboard_layouts_available = new ComboBox();
             keyboard_layouts = new CheckedListBox();
             keyboard_filter_tab = new TabPage();
+            keyboard_filter_panel = new TabControl();
+            tabPage56 = new TabPage();
+            tabPage58 = new TabPage();
             tabPage13 = new TabPage();
             richTextBox4 = new RichTextBox();
             tabPage17 = new TabPage();
@@ -527,9 +530,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            keyboard_filter_panel = new TabControl();
-            tabPage56 = new TabPage();
-            tabPage58 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -579,6 +579,7 @@
             tabPage55.SuspendLayout();
             keyboard_layouts_setupPanel.SuspendLayout();
             keyboard_filter_tab.SuspendLayout();
+            keyboard_filter_panel.SuspendLayout();
             tabPage13.SuspendLayout();
             tabPage17.SuspendLayout();
             panel8.SuspendLayout();
@@ -644,7 +645,6 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            keyboard_filter_panel.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -3022,6 +3022,36 @@
             keyboard_filter_tab.TabIndex = 1;
             keyboard_filter_tab.Text = "filter";
             keyboard_filter_tab.UseVisualStyleBackColor = true;
+            // 
+            // keyboard_filter_panel
+            // 
+            keyboard_filter_panel.Controls.Add(tabPage56);
+            keyboard_filter_panel.Controls.Add(tabPage58);
+            keyboard_filter_panel.Location = new Point(6, 6);
+            keyboard_filter_panel.Name = "keyboard_filter_panel";
+            keyboard_filter_panel.SelectedIndex = 0;
+            keyboard_filter_panel.Size = new Size(972, 241);
+            keyboard_filter_panel.TabIndex = 0;
+            // 
+            // tabPage56
+            // 
+            tabPage56.Location = new Point(4, 34);
+            tabPage56.Name = "tabPage56";
+            tabPage56.Padding = new Padding(3);
+            tabPage56.Size = new Size(964, 203);
+            tabPage56.TabIndex = 0;
+            tabPage56.Text = "tabPage56";
+            tabPage56.UseVisualStyleBackColor = true;
+            // 
+            // tabPage58
+            // 
+            tabPage58.Location = new Point(4, 34);
+            tabPage58.Name = "tabPage58";
+            tabPage58.Padding = new Padding(3);
+            tabPage58.Size = new Size(964, 203);
+            tabPage58.TabIndex = 1;
+            tabPage58.Text = "tabPage58";
+            tabPage58.UseVisualStyleBackColor = true;
             // 
             // tabPage13
             // 
@@ -5917,36 +5947,6 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // keyboard_filter_panel
-            // 
-            keyboard_filter_panel.Controls.Add(tabPage56);
-            keyboard_filter_panel.Controls.Add(tabPage58);
-            keyboard_filter_panel.Location = new Point(6, 6);
-            keyboard_filter_panel.Name = "keyboard_filter_panel";
-            keyboard_filter_panel.SelectedIndex = 0;
-            keyboard_filter_panel.Size = new Size(972, 241);
-            keyboard_filter_panel.TabIndex = 0;
-            // 
-            // tabPage56
-            // 
-            tabPage56.Location = new Point(4, 34);
-            tabPage56.Name = "tabPage56";
-            tabPage56.Padding = new Padding(3);
-            tabPage56.Size = new Size(964, 203);
-            tabPage56.TabIndex = 0;
-            tabPage56.Text = "tabPage56";
-            tabPage56.UseVisualStyleBackColor = true;
-            // 
-            // tabPage58
-            // 
-            tabPage58.Location = new Point(4, 34);
-            tabPage58.Name = "tabPage58";
-            tabPage58.Padding = new Padding(3);
-            tabPage58.Size = new Size(292, 112);
-            tabPage58.TabIndex = 1;
-            tabPage58.Text = "tabPage58";
-            tabPage58.UseVisualStyleBackColor = true;
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -6054,6 +6054,7 @@
             keyboard_layouts_setupPanel.ResumeLayout(false);
             keyboard_layouts_setupPanel.PerformLayout();
             keyboard_filter_tab.ResumeLayout(false);
+            keyboard_filter_panel.ResumeLayout(false);
             tabPage13.ResumeLayout(false);
             tabPage17.ResumeLayout(false);
             panel8.ResumeLayout(false);
@@ -6158,7 +6159,6 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            keyboard_filter_panel.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
