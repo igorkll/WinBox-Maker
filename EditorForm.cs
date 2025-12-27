@@ -438,6 +438,8 @@ namespace WinBox_Maker
         {
             guiEventsLock = true;
 
+            keyboard_filter_panel.Enabled = !Program.isTweakEnabled(winBoxProject.winBoxConfig, "Do not disable hotkeys by keyboard filter");
+
             TimeZoneKeyName.Text = winBoxProject.winBoxConfig.TimeZoneKeyName ?? "";
 
             pythonVersion.Text = winBoxProject.winBoxConfig.pythonVersion ?? "none";
@@ -1205,6 +1207,7 @@ namespace WinBox_Maker
             Program.setTweakEnabled(winBoxProject.winBoxConfig, title, state);
             winBoxProject.SaveConfig();
             UpdateGuiCurrentServices();
+            UpdateGui();
         }
 
         private async void CustomBootLogo_select_Click(object sender, EventArgs e)

@@ -252,7 +252,7 @@
             keyboard_layouts_add = new Button();
             keyboard_layouts_available = new ComboBox();
             keyboard_layouts = new CheckedListBox();
-            tabPage56 = new TabPage();
+            keyboard_filter_tab = new TabPage();
             tabPage13 = new TabPage();
             richTextBox4 = new RichTextBox();
             tabPage17 = new TabPage();
@@ -382,6 +382,7 @@
             delete_dism_remove_appx_package = new RichTextBox();
             tabPage8 = new TabPage();
             recoverypanel = new Panel();
+            checkBox1 = new CheckBox();
             recovery_winPE_mod = new Button();
             recovery_winPE_mod_en = new CheckBox();
             EnableRecovery = new CheckBox();
@@ -526,7 +527,9 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            checkBox1 = new CheckBox();
+            keyboard_filter_panel = new TabControl();
+            tabPage56 = new TabPage();
+            tabPage58 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -575,6 +578,7 @@
             tabControl12.SuspendLayout();
             tabPage55.SuspendLayout();
             keyboard_layouts_setupPanel.SuspendLayout();
+            keyboard_filter_tab.SuspendLayout();
             tabPage13.SuspendLayout();
             tabPage17.SuspendLayout();
             panel8.SuspendLayout();
@@ -640,6 +644,7 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            keyboard_filter_panel.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -2907,7 +2912,7 @@
             // tabControl12
             // 
             tabControl12.Controls.Add(tabPage55);
-            tabControl12.Controls.Add(tabPage56);
+            tabControl12.Controls.Add(keyboard_filter_tab);
             tabControl12.Location = new Point(3, 3);
             tabControl12.Name = "tabControl12";
             tabControl12.SelectedIndex = 0;
@@ -3007,15 +3012,16 @@
             keyboard_layouts.ItemCheck += keyboard_layouts_ItemCheck;
             keyboard_layouts.SelectedIndexChanged += keyboard_layouts_SelectedIndexChanged;
             // 
-            // tabPage56
+            // keyboard_filter_tab
             // 
-            tabPage56.Location = new Point(4, 34);
-            tabPage56.Name = "tabPage56";
-            tabPage56.Padding = new Padding(3);
-            tabPage56.Size = new Size(984, 253);
-            tabPage56.TabIndex = 1;
-            tabPage56.Text = "filter";
-            tabPage56.UseVisualStyleBackColor = true;
+            keyboard_filter_tab.Controls.Add(keyboard_filter_panel);
+            keyboard_filter_tab.Location = new Point(4, 34);
+            keyboard_filter_tab.Name = "keyboard_filter_tab";
+            keyboard_filter_tab.Padding = new Padding(3);
+            keyboard_filter_tab.Size = new Size(984, 253);
+            keyboard_filter_tab.TabIndex = 1;
+            keyboard_filter_tab.Text = "filter";
+            keyboard_filter_tab.UseVisualStyleBackColor = true;
             // 
             // tabPage13
             // 
@@ -4418,6 +4424,17 @@
             recoverypanel.Name = "recoverypanel";
             recoverypanel.Size = new Size(505, 259);
             recoverypanel.TabIndex = 47;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(3, 114);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(315, 29);
+            checkBox1.TabIndex = 49;
+            checkBox1.Text = "Allow start recovery via bootloader";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged_1;
             // 
             // recovery_winPE_mod
             // 
@@ -5900,16 +5917,35 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // checkBox1
+            // keyboard_filter_panel
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(3, 114);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(315, 29);
-            checkBox1.TabIndex = 49;
-            checkBox1.Text = "Allow start recovery via bootloader";
-            checkBox1.UseVisualStyleBackColor = true;
-            checkBox1.CheckedChanged += checkBox1_CheckedChanged_1;
+            keyboard_filter_panel.Controls.Add(tabPage56);
+            keyboard_filter_panel.Controls.Add(tabPage58);
+            keyboard_filter_panel.Location = new Point(6, 6);
+            keyboard_filter_panel.Name = "keyboard_filter_panel";
+            keyboard_filter_panel.SelectedIndex = 0;
+            keyboard_filter_panel.Size = new Size(972, 241);
+            keyboard_filter_panel.TabIndex = 0;
+            // 
+            // tabPage56
+            // 
+            tabPage56.Location = new Point(4, 34);
+            tabPage56.Name = "tabPage56";
+            tabPage56.Padding = new Padding(3);
+            tabPage56.Size = new Size(964, 203);
+            tabPage56.TabIndex = 0;
+            tabPage56.Text = "tabPage56";
+            tabPage56.UseVisualStyleBackColor = true;
+            // 
+            // tabPage58
+            // 
+            tabPage58.Location = new Point(4, 34);
+            tabPage58.Name = "tabPage58";
+            tabPage58.Padding = new Padding(3);
+            tabPage58.Size = new Size(292, 112);
+            tabPage58.TabIndex = 1;
+            tabPage58.Text = "tabPage58";
+            tabPage58.UseVisualStyleBackColor = true;
             // 
             // EditorForm
             // 
@@ -6017,6 +6053,7 @@
             tabPage55.ResumeLayout(false);
             keyboard_layouts_setupPanel.ResumeLayout(false);
             keyboard_layouts_setupPanel.PerformLayout();
+            keyboard_filter_tab.ResumeLayout(false);
             tabPage13.ResumeLayout(false);
             tabPage17.ResumeLayout(false);
             panel8.ResumeLayout(false);
@@ -6121,6 +6158,7 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            keyboard_filter_panel.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -6604,7 +6642,7 @@
         private TabPage tabPage54;
         private TabControl tabControl12;
         private TabPage tabPage55;
-        private TabPage tabPage56;
+        private TabPage keyboard_filter_tab;
         private CheckedListBox keyboard_layouts;
         private Button keyboard_layouts_add;
         private ComboBox keyboard_layouts_available;
@@ -6627,5 +6665,8 @@
         private CheckBox installerMountedEarlyEnabled;
         private RichTextBox richTextBox29;
         private CheckBox checkBox1;
+        private TabControl keyboard_filter_panel;
+        private TabPage tabPage56;
+        private TabPage tabPage58;
     }
 }
