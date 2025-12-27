@@ -1231,7 +1231,7 @@ powercfg -s {powerScheme}";
 
             if (winBoxConfig.services_stopOnlyList != true)
             {
-                if (!winBoxConfig.isValidOemKey())
+                if (Program.isTweakEnabled(winBoxConfig, "make a quiet SPP"))
                 {
                     stopServices.Add("sppsvc");
                 }
@@ -1239,11 +1239,6 @@ powercfg -s {powerScheme}";
                 if (winBoxConfig.DisableNtp == true)
                 {
                     stopServices.Add("w32time");
-                }
-
-                if (winBoxConfig.LaunchMode != ProgramLaunchModeEnum.afterDesktop)
-                {
-                    //stopServices.Add("WpnUserService"); //какие нах пуши без экспорера?
                 }
 
                 stopServices.AddRange(stopServicesList);
