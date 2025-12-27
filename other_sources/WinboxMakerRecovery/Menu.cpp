@@ -130,15 +130,26 @@ static void redrawMenu(HWND hwnd) {
     EndPaint(hwnd, &ps);
 }
 
+static void pointerMove(HWND hwnd, bool up) {
+    if (up) {
+        selectedItem = (selectedItem - 1 + menuItems.size()) % menuItems.size();
+    }
+    else
+    {
+        selectedItem = (selectedItem + 1) % menuItems.size();
+    }
+    redrawMenu(hwnd);
+}
+
 static void handleKeyboard(HWND hwnd, WPARAM key) {
     switch (key) {
     case VK_UP:
-        selectedItem = (selectedItem - 1 + menuItems.size()) % menuItems.size();
-        redrawMenu(hwnd);
+    case VK_VOLUME_UP:
+        pointerMove(hwnd, true);
         break;
     case VK_DOWN:
-        selectedItem = (selectedItem + 1) % menuItems.size();
-        redrawMenu(hwnd);
+    case VK_VOLUME_DOWN:
+        pointerMove(hwnd, false);
         break;
     case VK_RETURN:
         if (selectedItem == (int)menuItems.size() - 1)
@@ -150,6 +161,17 @@ static void handleKeyboard(HWND hwnd, WPARAM key) {
     }
 }
 
+static void handleAppCommand(HWND hwnd, WPARAM lParam) {
+    switch (GET_APPCOMMAND_LPARAM(lParam)) {
+    case APPCOMMAND_VOLUME_UP:
+        pointerMove(hwnd, true);
+        break;
+    case APPCOMMAND_VOLUME_DOWN:
+        pointerMove(hwnd, false);
+        break;
+    }
+}
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
     case WM_KEYDOWN:
@@ -157,6 +179,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         return 0;
     case WM_PAINT:
         redrawMenu(hwnd);
+        return 0;
+    case WM_APPCOMMAND:
+        handleAppCommand(hwnd, wParam);
         return 0;
     case WM_DESTROY:
         PostQuitMessage(0);
