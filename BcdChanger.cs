@@ -53,13 +53,17 @@ namespace WinBox_Maker
                     regBcdChange("timeout 0");
                     regBcdChange("bootstatuspolicy ignoreallfailures");
 
-                    regBcdChange("hypervisorlaunchtype off"); // для embedded это мусор
-                    regBcdChange("vsmlaunchtype off");
-                    regBcdChange("disableelamdrivers yes");
+                    if (Program.isTweakEnabled(Program.winBoxConfig, "Disable HyperV / VSM / ELAM")) {
+                        regBcdChange("hypervisorlaunchtype off"); // для embedded это мусор
+                        regBcdChange("vsmlaunchtype off");
+                        regBcdChange("disableelamdrivers yes");
+                    }
 
-                    regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS"); //chatGPT сказал что это даже на embedded п@здец полный
-                    regBcdChange("NOINTEGRITYCHECKS ON");
-                    regBcdChange("TESTSIGNING ON");
+                    if (Program.isTweakEnabled(Program.winBoxConfig, "Disable system integrity checks")) {
+                        regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS"); //chatGPT сказал что это даже на embedded п@здец полный
+                        regBcdChange("NOINTEGRITYCHECKS ON");
+                        regBcdChange("TESTSIGNING ON");
+                    }
 
                     if (Program.isTweakEnabled(Program.winBoxConfig, "Disable boot circle"))
                     {

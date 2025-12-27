@@ -114,6 +114,7 @@ namespace WinBox_Maker
         public ProgramTypeEnum? ProgramType { get; set; }
         public ProgramLaunchModeEnum? LaunchMode { get; set; }
         public List<string>? TweakList { get; set; }
+        public int? TweakListLevel { get; set; }
         public string? CustomBootLogo { get; set; }
         public bool? AddVirtualDisplay { get; set; }
         public int? VirtualDisplayWidth { get; set; }
@@ -270,11 +271,21 @@ namespace WinBox_Maker
             InitDefaults();
         }
 
+        static int actualTweakListLevel = 1;
+
         void InitDefaults()
         {
             //if (Resources == null) Resources = new List<string>();
             if (winboxMakerVersion == null) winboxMakerVersion = Program.version_num;
             if (winboxMakerVersionStr == null) winboxMakerVersionStr = Program.version_str;
+
+            if (TweakList == null) TweakList = ["Integrate vc redist", "Disable all boot UI", "Hide bootmgr errors", "Disable boot circle", "Disable boot messages"];
+            if (TweakListLevel == null) TweakListLevel = 0;
+            if (TweakListLevel < 1)
+            {
+                TweakList.Add("Disable system integrity checks");
+                TweakList.Add("Disable HyperV / VSM / ELAM");
+            }
 
             if (WinboxName == null) WinboxName = "Winbox Name";
             if (WinboxDescription == null) WinboxDescription = "Winbox Description";
@@ -295,7 +306,6 @@ namespace WinBox_Maker
             if (DiskTimeout_dc == null) DiskTimeout_dc = 0;
 
             if (Architecture == null) Architecture = "x64";
-            if (TweakList == null) TweakList = ["Integrate vc redist", "Disable all boot UI", "Hide bootmgr errors", "Disable boot circle", "Disable boot messages"];
             if (ProgramType == null) ProgramType = ProgramTypeEnum.ExecutableFile;
             if (LaunchMode == null) LaunchMode = ProgramLaunchModeEnum.insteadDesktop;
             if (AddVirtualDisplay == null) AddVirtualDisplay = false;
@@ -486,6 +496,7 @@ namespace WinBox_Maker
                 string json = File.ReadAllText(wnbFilePath);
                 WinBoxConfig? winBoxConfig = JsonSerializer.Deserialize<WinBoxConfig>(json);
                 winBoxConfig?.InitDefaults();
+                if (actualTweakListLevel > winBoxConfig.TweakListLevel) winBoxConfig.TweakListLevel = actualTweakListLevel;
                 return winBoxConfig;
             } catch (Exception ex) {}
             return null;

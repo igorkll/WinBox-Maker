@@ -87,6 +87,8 @@ namespace WinBox_Maker
             AddTweakToList("remove windows defender files");
             AddTweakToList("remove OneDrive");
             AddTweakToList("Allow check-disk");
+            AddTweakToList("Disable system integrity checks");
+            AddTweakToList("Disable HyperV / VSM / ELAM");
             softwareCheck = false;
 
             UnlockForm();
