@@ -89,6 +89,7 @@ namespace WinBox_Maker
             AddTweakToList("Allow check-disk");
             AddTweakToList("Disable system integrity checks");
             AddTweakToList("Disable HyperV / VSM / ELAM");
+            AddTweakToList("make a quiet SPP");
             softwareCheck = false;
 
             UnlockForm();

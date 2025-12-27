@@ -1918,6 +1918,10 @@ powercfg -s {powerScheme}";
             if (!manual)
             {
                 await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"", null, debugFolder);
+                if (Program.isTweakEnabled(winBoxConfig, "make a quiet SPP"))
+                {
+                    await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "quiet_spp.reg"))}\"", null, debugFolder);
+                }
                 if (!Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by keyboard filter"))
                 {
                     await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "disable_hotkeys.reg"))}\"", null, debugFolder);

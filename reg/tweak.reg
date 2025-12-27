@@ -455,13 +455,6 @@ Windows Registry Editor Version 5.00
 "ConsentPromptBehaviorUser"=dword:00000000
 "PromptOnSecureDesktop"=dword:00000000
 
-; ----------------
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\Activation]
-"ActivationInterval"=dword:000dbba0
-"Manual"=dword:00000001
-"NotificationDisabled"=dword:00000001
-"DownlevelActivation"=dword:00000002
-
 ; ---------------- disable onedrive
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\OneDrive]
 "DisableFileSyncNGSC"=dword:00000001
