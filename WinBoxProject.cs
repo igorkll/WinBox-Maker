@@ -1993,7 +1993,6 @@ powershell -Command ""Set-MpPreference -DisableEnhancedNotifications $true""
                 //bcd changes may otherwise remain unchanged if done in setup complete,
                 //which will create a vulnerability so that the system restore window can open.
                 //This is one of those cases where it is better to solve a problem in several ways at once.
-
                 int hiberboot = (winBoxConfig.enable_hibernation == true && winBoxConfig.enable_hiberboot == true) ? 1 : 0;
                 int disabledisplay = (winBoxConfig.bsod_disabledisplay == true) ? 1 : 0;
                 string baseSetup = $@"echo SetupComplete - start >> C:\WinboxResources\setup.log
@@ -2036,6 +2035,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Para
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power"" /v HiberbootEnabled /t REG_DWORD /d {hiberboot} /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance"" /v fAllowFullControl /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance"" /v fAllowToGetHelp /t REG_DWORD /d 0 /f
+{(Program.isTweakEnabled(winBoxConfig, "Hide system errors") ? @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Windows"" /v ErrorMode /t REG_DWORD /d 2 /f" : "")}
 
 echo SetupComplete - setup Memory Management >> C:\WinboxResources\setup.log
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control"" /v ProcessTerminationOnMemoryExhaustion /t REG_DWORD /d 0 /f

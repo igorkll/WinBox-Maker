@@ -90,6 +90,7 @@ namespace WinBox_Maker
             AddTweakToList("Disable system integrity checks");
             AddTweakToList("Disable HyperV / VSM / ELAM");
             AddTweakToList("make a quiet SPP");
+            AddTweakToList("Hide system errors");
             softwareCheck = false;
 
             UnlockForm();
