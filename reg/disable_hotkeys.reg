@@ -1,9 +1,5 @@
 Windows Registry Editor Version 5.00
 
-; ---------------- disable winkeys
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
-"NoWinKeys"=dword:00000001
-
 ; ---------------- disable hotkeys
 [HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter]
 "EnableKeyboardFilter"=dword:00000001
@@ -38,12 +34,3 @@ Windows Registry Editor Version 5.00
 "Shift+Ctrl+Esc"="Blocked"
 "Shift+Win"="Blocked"
 "Windows"="Blocked"
-
-; ---------------- disable hotkeys
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\Lockdown]
-"AltTab"="1"
-"CtrlAltDel"="1"
-
-; ---------------- disable hotkeys
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
-"DisableTaskMgr"=dword:00000001
