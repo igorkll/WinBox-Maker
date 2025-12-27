@@ -438,7 +438,9 @@ namespace WinBox_Maker
         {
             guiEventsLock = true;
 
-            keyboard_filter_panel.Enabled = !Program.isTweakEnabled(winBoxProject.winBoxConfig, "Do not disable hotkeys by keyboard filter");
+            keyboard_filter_enabled.Enabled = !Program.isTweakEnabled(winBoxProject.winBoxConfig, "Do not disable hotkeys by keyboard filter");
+            keyboard_filter_enabled.Checked = winBoxProject.winBoxConfig.keyboard_filter_enabled == true;
+            keyboard_filter_panel.Enabled = keyboard_filter_enabled.Enabled && keyboard_filter_enabled.Checked;
 
             TimeZoneKeyName.Text = winBoxProject.winBoxConfig.TimeZoneKeyName ?? "";
 
@@ -2978,6 +2980,15 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.AllowStartRecoveryFromBootloader = checkBox1.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void keyboard_filter_enabled_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.keyboard_filter_enabled = keyboard_filter_enabled.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }

@@ -253,6 +253,7 @@
             keyboard_layouts_available = new ComboBox();
             keyboard_layouts = new CheckedListBox();
             keyboard_filter_tab = new TabPage();
+            keyboard_filter_enabled = new CheckBox();
             keyboard_filter_panel = new TabControl();
             tabPage56 = new TabPage();
             tabPage58 = new TabPage();
@@ -3014,6 +3015,7 @@
             // 
             // keyboard_filter_tab
             // 
+            keyboard_filter_tab.Controls.Add(keyboard_filter_enabled);
             keyboard_filter_tab.Controls.Add(keyboard_filter_panel);
             keyboard_filter_tab.Location = new Point(4, 34);
             keyboard_filter_tab.Name = "keyboard_filter_tab";
@@ -3023,6 +3025,17 @@
             keyboard_filter_tab.Text = "filter";
             keyboard_filter_tab.UseVisualStyleBackColor = true;
             // 
+            // keyboard_filter_enabled
+            // 
+            keyboard_filter_enabled.AutoSize = true;
+            keyboard_filter_enabled.Location = new Point(606, 214);
+            keyboard_filter_enabled.Name = "keyboard_filter_enabled";
+            keyboard_filter_enabled.Size = new Size(221, 29);
+            keyboard_filter_enabled.TabIndex = 1;
+            keyboard_filter_enabled.Text = "keyboard filter enabled";
+            keyboard_filter_enabled.UseVisualStyleBackColor = true;
+            keyboard_filter_enabled.CheckedChanged += keyboard_filter_enabled_CheckedChanged;
+            // 
             // keyboard_filter_panel
             // 
             keyboard_filter_panel.Controls.Add(tabPage56);
@@ -3030,7 +3043,7 @@
             keyboard_filter_panel.Location = new Point(6, 6);
             keyboard_filter_panel.Name = "keyboard_filter_panel";
             keyboard_filter_panel.SelectedIndex = 0;
-            keyboard_filter_panel.Size = new Size(972, 241);
+            keyboard_filter_panel.Size = new Size(594, 241);
             keyboard_filter_panel.TabIndex = 0;
             // 
             // tabPage56
@@ -3038,7 +3051,7 @@
             tabPage56.Location = new Point(4, 34);
             tabPage56.Name = "tabPage56";
             tabPage56.Padding = new Padding(3);
-            tabPage56.Size = new Size(964, 203);
+            tabPage56.Size = new Size(586, 203);
             tabPage56.TabIndex = 0;
             tabPage56.Text = "tabPage56";
             tabPage56.UseVisualStyleBackColor = true;
@@ -3048,7 +3061,7 @@
             tabPage58.Location = new Point(4, 34);
             tabPage58.Name = "tabPage58";
             tabPage58.Padding = new Padding(3);
-            tabPage58.Size = new Size(964, 203);
+            tabPage58.Size = new Size(586, 203);
             tabPage58.TabIndex = 1;
             tabPage58.Text = "tabPage58";
             tabPage58.UseVisualStyleBackColor = true;
@@ -6054,6 +6067,7 @@
             keyboard_layouts_setupPanel.ResumeLayout(false);
             keyboard_layouts_setupPanel.PerformLayout();
             keyboard_filter_tab.ResumeLayout(false);
+            keyboard_filter_tab.PerformLayout();
             keyboard_filter_panel.ResumeLayout(false);
             tabPage13.ResumeLayout(false);
             tabPage17.ResumeLayout(false);
@@ -6668,5 +6682,6 @@
         private TabControl keyboard_filter_panel;
         private TabPage tabPage56;
         private TabPage tabPage58;
+        private CheckBox keyboard_filter_enabled;
     }
 }

@@ -253,6 +253,7 @@ namespace WinBox_Maker
         public WinPeModifications? installer_winPE_mod { get; set; }
 
         public bool? install_bypass { get; set; }
+        public bool? keyboard_filter_enabled { get; set; }
 
 
 
@@ -477,6 +478,7 @@ namespace WinBox_Maker
             }
 
             if (install_bypass == null) install_bypass = true;
+            if (keyboard_filter_enabled == null) keyboard_filter_enabled = true;
         }
 
         public void Save(string wnbFilePath)

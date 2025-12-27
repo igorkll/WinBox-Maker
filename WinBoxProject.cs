@@ -1303,7 +1303,7 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
         bool needEnableKeyboardFilter()
         {
-            return !Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by keyboard filter");
+            return !Program.isTweakEnabled(winBoxConfig, "Do not disable hotkeys by keyboard filter") && winBoxConfig.keyboard_filter_enabled == true;
         }
 
         public string[] getStartServicesList()

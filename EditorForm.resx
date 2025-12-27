@@ -3503,12 +3503,6 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="richTextBox19.Text" xml:space="preserve">
-    <value>here you can change the behavior of the system recovery menu.
-DO NOT ENABLE recovery in production if you have not replaced its application with your own through "WinPE Modifications", and it is better to remove it from the project altogether if you are not going to use it!
-I recommend replacing the recovery environment application with the one provided by winbox maker: "Winbox maker recovery" on the "WinPE Modifications" tab. you can partially customize it for yourself. it can: flash wim, ffu, wim images from the OS file system (if you have allowed this, it will happen automatically when you reboot into recovery, which will allow you to update the firmware from your shell by running the reboot_to_recovery file.bat) reset settings using the paths you specified when configuring recovery, as well as save settings when flashing using the same paths (winbox maker recovery temporarily saves them to RAM)
-it can also flash win, img, and ffu images from a flash drive using the file names you specified if you allowed the firmware from another medium. however, winbox maker recovery does not validate the firmware, so if you want safe updates, only allow the firmware from the OS file system (disk C). Download the file to the root of disk C from your shell and reboot the device into recovery. recovery (if the corresponding function is enabled in its settings) will automatically perform a data-saving firmware and reboot into the OS if the firmware is on disk C. you can also make the firmware quiet and it will happen on a black screen (the user will not see anything)</value>
-  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
@@ -3581,6 +3575,12 @@ start the name with * if you don't know the exact name, and winbox maker will de
   <data name="richTextBox16.Text" xml:space="preserve">
     <value>deletes packages using dism using Remove-ProvisionedAppxPackage
 start the name with * if you don't know the exact name, and winbox maker will delete all packages where there are name matches. this can be used if you do not know the exact version of the package that is installed in the selected image.</value>
+  </data>
+  <data name="richTextBox19.Text" xml:space="preserve">
+    <value>here you can change the behavior of the system recovery menu.
+DO NOT ENABLE recovery in production if you have not replaced its application with your own through "WinPE Modifications", and it is better to remove it from the project altogether if you are not going to use it!
+I recommend replacing the recovery environment application with the one provided by winbox maker: "Winbox maker recovery" on the "WinPE Modifications" tab. you can partially customize it for yourself. it can: flash wim, ffu, wim images from the OS file system (if you have allowed this, it will happen automatically when you reboot into recovery, which will allow you to update the firmware from your shell by running the reboot_to_recovery file.bat) reset settings using the paths you specified when configuring recovery, as well as save settings when flashing using the same paths (winbox maker recovery temporarily saves them to RAM)
+it can also flash win, img, and ffu images from a flash drive using the file names you specified if you allowed the firmware from another medium. however, winbox maker recovery does not validate the firmware, so if you want safe updates, only allow the firmware from the OS file system (disk C). Download the file to the root of disk C from your shell and reboot the device into recovery. recovery (if the corresponding function is enabled in its settings) will automatically perform a data-saving firmware and reboot into the OS if the firmware is on disk C. you can also make the firmware quiet and it will happen on a black screen (the user will not see anything)</value>
   </data>
   <data name="richTextBox2.Text" xml:space="preserve">
     <value>the command is launched from the source code folder
