@@ -60,7 +60,7 @@ namespace WinBox_Maker
                     }
 
                     if (Program.isTweakEnabled(Program.winBoxConfig, "Disable system integrity checks")) {
-                        regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS"); //chatGPT сказал что это даже на embedded п@здец полный
+                        regBcdChange("loadoptions DISABLE_INTEGRITY_CHECKS");
                         regBcdChange("NOINTEGRITYCHECKS ON");
                         regBcdChange("TESTSIGNING ON");
                     }
