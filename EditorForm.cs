@@ -480,6 +480,10 @@ namespace WinBox_Maker
             HibernateTimeout_dc.Text = winBoxProject.winBoxConfig.HibernateTimeout_dc.ToString();
             DiskTimeout_dc.Text = winBoxProject.winBoxConfig.DiskTimeout_dc.ToString();
 
+            keyboard_filter_ForceOffAccessibility.Checked = winBoxProject.winBoxConfig.keyboard_filter_ForceOffAccessibility == true;
+            keyboard_filter_DisableKeyboardFilterForAdministrators.Checked = winBoxProject.winBoxConfig.keyboard_filter_DisableKeyboardFilterForAdministrators == true;
+            keyboard_filter_BreakoutKeyScanCode.Text = winBoxProject.winBoxConfig.keyboard_filter_BreakoutKeyScanCode.ToString();
+
             cds_width.Text = winBoxProject.winBoxConfig.cds_width.ToString();
             cds_height.Text = winBoxProject.winBoxConfig.cds_height.ToString();
             cds_bitDepth.Text = winBoxProject.winBoxConfig.cds_bitDepth.ToString();
@@ -2991,6 +2995,34 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.keyboard_filter_enabled = keyboard_filter_enabled.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void keyboard_filter_DisableKeyboardFilterForAdministrators_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.keyboard_filter_DisableKeyboardFilterForAdministrators = keyboard_filter_DisableKeyboardFilterForAdministrators.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void keyboard_filter_ForceOffAccessibility_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.keyboard_filter_ForceOffAccessibility = keyboard_filter_ForceOffAccessibility.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void keyboard_filter_BreakoutKeyScanCode_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.keyboard_filter_BreakoutKeyScanCode = checkPowercfgTimeoutNumber(winBoxProject.winBoxConfig.keyboard_filter_BreakoutKeyScanCode ?? 0, keyboard_filter_BreakoutKeyScanCode.Text);
+            if (winBoxProject.winBoxConfig.keyboard_filter_BreakoutKeyScanCode.ToString() != keyboard_filter_BreakoutKeyScanCode.Text)
+                keyboard_filter_BreakoutKeyScanCode.Text = winBoxProject.winBoxConfig.keyboard_filter_BreakoutKeyScanCode.ToString();
+            winBoxProject.SaveConfig();
         }
 
         // -------------------------------------------- item lists

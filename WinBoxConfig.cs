@@ -254,6 +254,10 @@ namespace WinBox_Maker
 
         public bool? install_bypass { get; set; }
         public bool? keyboard_filter_enabled { get; set; }
+        public List<string>? keyboard_filter_blockList { get; set; }
+        public int? keyboard_filter_BreakoutKeyScanCode { get; set; }
+        public bool? keyboard_filter_DisableKeyboardFilterForAdministrators { get; set; }
+        public bool? keyboard_filter_ForceOffAccessibility { get; set; }
 
 
 
@@ -277,6 +281,7 @@ namespace WinBox_Maker
         void InitDefaults()
         {
             //if (Resources == null) Resources = new List<string>();
+
             if (winboxMakerVersion == null) winboxMakerVersion = Program.version_num;
             if (winboxMakerVersionStr == null) winboxMakerVersionStr = Program.version_str;
 
@@ -291,6 +296,43 @@ namespace WinBox_Maker
             {
                 TweakList.Add("make a quiet SPP");
             }
+
+            if (keyboard_filter_blockList == null)
+            {
+                keyboard_filter_blockList = [
+                    "Alt+F4",
+                    "Alt+Space",
+                    "Alt+Tab",
+                    "Alt+Win",
+                    "Application",
+                    "BrowserBack",
+                    "BrowserFavorites",
+                    "BrowserForward",
+                    "BrowserHome",
+                    "BrowserRefresh",
+                    "BrowserSearch",
+                    "BrowserStop",
+                    "Ctrl+Alt+Del",
+                    "Ctrl+Esc",
+                    "Ctrl+F4",
+                    "Ctrl+Tab",
+                    "Ctrl+Win",
+                    "Ctrl+Win+F",
+                    "F21",
+                    "LaunchApp1",
+                    "LaunchApp2",
+                    "LaunchMail",
+                    "LaunchMediaSelect",
+                    "LShift+LAlt+NumLock",
+                    "LShift+LAlt+PrintScrn",
+                    "Shift+Ctrl+Esc",
+                    "Shift+Win",
+                    "Windows"
+                ];
+            }
+            if (keyboard_filter_BreakoutKeyScanCode == null) keyboard_filter_BreakoutKeyScanCode = 0;
+            if (keyboard_filter_DisableKeyboardFilterForAdministrators == null) keyboard_filter_DisableKeyboardFilterForAdministrators = false;
+            if (keyboard_filter_ForceOffAccessibility == null) keyboard_filter_ForceOffAccessibility = true;
 
             if (WinboxName == null) WinboxName = "Winbox Name";
             if (WinboxDescription == null) WinboxDescription = "Winbox Description";

@@ -531,6 +531,10 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            keyboard_filter_BreakoutKeyScanCode = new TextBox();
+            keyboard_filter_DisableKeyboardFilterForAdministrators = new CheckBox();
+            keyboard_filter_ForceOffAccessibility = new CheckBox();
+            label96 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -581,6 +585,7 @@
             keyboard_layouts_setupPanel.SuspendLayout();
             keyboard_filter_tab.SuspendLayout();
             keyboard_filter_panel.SuspendLayout();
+            tabPage56.SuspendLayout();
             tabPage13.SuspendLayout();
             tabPage17.SuspendLayout();
             panel8.SuspendLayout();
@@ -3048,12 +3053,16 @@
             // 
             // tabPage56
             // 
+            tabPage56.Controls.Add(label96);
+            tabPage56.Controls.Add(keyboard_filter_ForceOffAccessibility);
+            tabPage56.Controls.Add(keyboard_filter_DisableKeyboardFilterForAdministrators);
+            tabPage56.Controls.Add(keyboard_filter_BreakoutKeyScanCode);
             tabPage56.Location = new Point(4, 34);
             tabPage56.Name = "tabPage56";
             tabPage56.Padding = new Padding(3);
             tabPage56.Size = new Size(586, 203);
             tabPage56.TabIndex = 0;
-            tabPage56.Text = "tabPage56";
+            tabPage56.Text = "main";
             tabPage56.UseVisualStyleBackColor = true;
             // 
             // tabPage58
@@ -3063,7 +3072,7 @@
             tabPage58.Padding = new Padding(3);
             tabPage58.Size = new Size(586, 203);
             tabPage58.TabIndex = 1;
-            tabPage58.Text = "tabPage58";
+            tabPage58.Text = "blocked";
             tabPage58.UseVisualStyleBackColor = true;
             // 
             // tabPage13
@@ -5960,6 +5969,45 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // keyboard_filter_BreakoutKeyScanCode
+            // 
+            keyboard_filter_BreakoutKeyScanCode.Location = new Point(6, 75);
+            keyboard_filter_BreakoutKeyScanCode.Name = "keyboard_filter_BreakoutKeyScanCode";
+            keyboard_filter_BreakoutKeyScanCode.Size = new Size(150, 31);
+            keyboard_filter_BreakoutKeyScanCode.TabIndex = 0;
+            keyboard_filter_BreakoutKeyScanCode.TextChanged += keyboard_filter_BreakoutKeyScanCode_TextChanged;
+            // 
+            // keyboard_filter_DisableKeyboardFilterForAdministrators
+            // 
+            keyboard_filter_DisableKeyboardFilterForAdministrators.AutoSize = true;
+            keyboard_filter_DisableKeyboardFilterForAdministrators.Location = new Point(6, 5);
+            keyboard_filter_DisableKeyboardFilterForAdministrators.Name = "keyboard_filter_DisableKeyboardFilterForAdministrators";
+            keyboard_filter_DisableKeyboardFilterForAdministrators.Size = new Size(363, 29);
+            keyboard_filter_DisableKeyboardFilterForAdministrators.TabIndex = 1;
+            keyboard_filter_DisableKeyboardFilterForAdministrators.Text = "Disable keyboard filter for administrators";
+            keyboard_filter_DisableKeyboardFilterForAdministrators.UseVisualStyleBackColor = true;
+            keyboard_filter_DisableKeyboardFilterForAdministrators.CheckedChanged += keyboard_filter_DisableKeyboardFilterForAdministrators_CheckedChanged;
+            // 
+            // keyboard_filter_ForceOffAccessibility
+            // 
+            keyboard_filter_ForceOffAccessibility.AutoSize = true;
+            keyboard_filter_ForceOffAccessibility.Location = new Point(6, 40);
+            keyboard_filter_ForceOffAccessibility.Name = "keyboard_filter_ForceOffAccessibility";
+            keyboard_filter_ForceOffAccessibility.Size = new Size(206, 29);
+            keyboard_filter_ForceOffAccessibility.TabIndex = 2;
+            keyboard_filter_ForceOffAccessibility.Text = "Force off accessibility";
+            keyboard_filter_ForceOffAccessibility.UseVisualStyleBackColor = true;
+            keyboard_filter_ForceOffAccessibility.CheckedChanged += keyboard_filter_ForceOffAccessibility_CheckedChanged;
+            // 
+            // label96
+            // 
+            label96.AutoSize = true;
+            label96.Location = new Point(162, 78);
+            label96.Name = "label96";
+            label96.Size = new Size(198, 25);
+            label96.TabIndex = 3;
+            label96.Text = "Breakout key scan code";
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -6069,6 +6117,8 @@
             keyboard_filter_tab.ResumeLayout(false);
             keyboard_filter_tab.PerformLayout();
             keyboard_filter_panel.ResumeLayout(false);
+            tabPage56.ResumeLayout(false);
+            tabPage56.PerformLayout();
             tabPage13.ResumeLayout(false);
             tabPage17.ResumeLayout(false);
             panel8.ResumeLayout(false);
@@ -6683,5 +6733,9 @@
         private TabPage tabPage56;
         private TabPage tabPage58;
         private CheckBox keyboard_filter_enabled;
+        private TextBox keyboard_filter_BreakoutKeyScanCode;
+        private CheckBox keyboard_filter_ForceOffAccessibility;
+        private CheckBox keyboard_filter_DisableKeyboardFilterForAdministrators;
+        private Label label96;
     }
 }

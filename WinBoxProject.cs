@@ -1131,43 +1131,20 @@ powercfg -s {powerScheme}";
             if (needEnableKeyboardFilter())
             {
                 keyboardFilterSetup = $@"reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v EnableKeyboardFilter /t REG_DWORD /d 1 /f
-reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v ForceOffAccessibility /t REG_DWORD /d 1 /f
-reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v DisableKeyboardFilterForAdministrators /t REG_DWORD /d 0 /f
-reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutKeyScanCode /t REG_DWORD /d 0 /f" + "\r\n";
+reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v ForceOffAccessibility /t REG_DWORD /d {(winBoxConfig.keyboard_filter_ForceOffAccessibility == true ? 1 : 0)} /f
+reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v DisableKeyboardFilterForAdministrators /t REG_DWORD /d {(winBoxConfig.keyboard_filter_DisableKeyboardFilterForAdministrators == true ? 1 : 0)} /f
+reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutKeyScanCode /t REG_DWORD /d {winBoxConfig.keyboard_filter_BreakoutKeyScanCode} /f" + "\r\n";
 
-                void blockKey(string key)
+                void blockKey(string key, bool blocked=true)
                 {
-                    keyboardFilterSetup += "\r\n" + $@"reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v ""{key}"" /t REG_SZ /d ""Blocked"" /f";
+                    keyboardFilterSetup += "\r\n" + $@"reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v ""{key}"" /t REG_SZ /d ""{(blocked ? "Blocked" : "Allowed")}"" /f";
                 }
 
-                blockKey("Alt+F4");
-                blockKey("Alt+Space");
-                blockKey("Alt+Tab");
-                blockKey("Alt+Win");
-                blockKey("Application");
-                blockKey("BrowserBack");
-                blockKey("BrowserFavorites");
-                blockKey("BrowserForward");
-                blockKey("BrowserHome");
-                blockKey("BrowserRefresh");
-                blockKey("BrowserSearch");
-                blockKey("BrowserStop");
-                blockKey("Ctrl+Alt+Del");
-                blockKey("Ctrl+Esc");
-                blockKey("Ctrl+F4");
-                blockKey("Ctrl+Tab");
-                blockKey("Ctrl+Win");
-                blockKey("Ctrl+Win+F");
-                blockKey("F21");
-                blockKey("LaunchApp1");
-                blockKey("LaunchApp2");
-                blockKey("LaunchMail");
-                blockKey("LaunchMediaSelect");
-                blockKey("LShift+LAlt+NumLock");
-                blockKey("LShift+LAlt+PrintScrn");
-                blockKey("Shift+Ctrl+Esc");
-                blockKey("Shift+Win");
-                blockKey("Windows");
+                foreach (string key in winBoxConfig.keyboard_filter_blockList)
+                {
+                    blockKey(key);
+                }
+                
             }
 
             return keyboardFilterSetup;
