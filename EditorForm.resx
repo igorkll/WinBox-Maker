@@ -3503,9 +3503,6 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="richTextBox31.Text" xml:space="preserve">
-    <value>These options allow you to configure how winbox maker will install on QEMU. the installation on QEMU is needed to export *.img and export pre-initialized *.wim (the pre-initialized *.wim is needed so that the initial setup and the SetupComplete.cmd script have already been completed inside the wim file and the first load was fast)</value>
-  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
@@ -3528,6 +3525,10 @@ please note that in fact this picture will always be located under your applicat
     <value>please note that if you make a mistake with any one parameter here (for example, specify an unsupported color depth) then all other parameters will also not be applied!
 if you change the orientation of the screen to portrait, then you need to specify the same portrait resolution (that is, swap width and height). if you do not do this or simply do not specify width and height, then the settings probably will not be applied.
 also, the settings may not be applied at the first boot. for this reason, you can use the "first boot action" function on the "boot" tab</value>
+  </data>
+  <data name="richTextBox30.Text" xml:space="preserve">
+    <value>Please note that this setting will only work in windows versions that support keyboard filter (windows enteprise / iot enterprise).
+also note that on the "blocked" tab, you check the boxes specifically for blocked hotkeys (not allowed ones).</value>
   </data>
   <data name="richTextBox4.Text" xml:space="preserve">
     <value>if you are doing a debugging build and have not yet started mass production of devices, then you do not need to enter the product key at the moment.
@@ -3595,6 +3596,9 @@ the third argument is architecture (x64, x86, arm64)</value>
     <value>the title only affects the display in the list.
 the path is specified relative to the project folder.
 it is better to download files to the "winbox_temp/files" directory, refer to the documentation to understand which "winbox_resources" directories are duplicated in "winbox_temp", if you still decide to use "winbox_resources" do not forget to add download paths to ".gitignore".</value>
+  </data>
+  <data name="richTextBox31.Text" xml:space="preserve">
+    <value>These options allow you to configure how winbox maker will install on QEMU. the installation on QEMU is needed to export *.img and export pre-initialized *.wim (the pre-initialized *.wim is needed so that the initial setup and the SetupComplete.cmd script have already been completed inside the wim file and the first load was fast)</value>
   </data>
   <data name="richTextBox13.Text" xml:space="preserve">
     <value>manual configuration can be used if you want to use winbox maker in alternative tasks, for example, not for kiosk mode.
