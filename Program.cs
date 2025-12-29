@@ -62,6 +62,38 @@ namespace WinBox_Maker
             "a1841308-3541-4fab-bc81-f71556f20b4a" // Power saver
         };
 
+        public static string[] default_keyboard_filter_blockList = new string[]
+        {
+            "Alt+F4",
+            "Alt+Space",
+            "Alt+Tab",
+            "Alt+Win",
+            "Application",
+            "BrowserBack",
+            "BrowserFavorites",
+            "BrowserForward",
+            "BrowserHome",
+            "BrowserRefresh",
+            "BrowserSearch",
+            "BrowserStop",
+            "Ctrl+Alt+Del",
+            "Ctrl+Esc",
+            "Ctrl+F4",
+            "Ctrl+Tab",
+            "Ctrl+Win",
+            "Ctrl+Win+F",
+            "F21",
+            "LaunchApp1",
+            "LaunchApp2",
+            "LaunchMail",
+            "LaunchMediaSelect",
+            "LShift+LAlt+NumLock",
+            "LShift+LAlt+PrintScrn",
+            "Shift+Ctrl+Esc",
+            "Shift+Win",
+            "Windows"
+        };
+
 
         static string getAppdataSubdirectory(string subdirectory)
         {

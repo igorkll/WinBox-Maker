@@ -299,36 +299,7 @@ namespace WinBox_Maker
 
             if (keyboard_filter_blockList == null)
             {
-                keyboard_filter_blockList = [
-                    "Alt+F4",
-                    "Alt+Space",
-                    "Alt+Tab",
-                    "Alt+Win",
-                    "Application",
-                    "BrowserBack",
-                    "BrowserFavorites",
-                    "BrowserForward",
-                    "BrowserHome",
-                    "BrowserRefresh",
-                    "BrowserSearch",
-                    "BrowserStop",
-                    "Ctrl+Alt+Del",
-                    "Ctrl+Esc",
-                    "Ctrl+F4",
-                    "Ctrl+Tab",
-                    "Ctrl+Win",
-                    "Ctrl+Win+F",
-                    "F21",
-                    "LaunchApp1",
-                    "LaunchApp2",
-                    "LaunchMail",
-                    "LaunchMediaSelect",
-                    "LShift+LAlt+NumLock",
-                    "LShift+LAlt+PrintScrn",
-                    "Shift+Ctrl+Esc",
-                    "Shift+Win",
-                    "Windows"
-                ];
+                keyboard_filter_blockList = Program.default_keyboard_filter_blockList.ToList();
             }
             if (keyboard_filter_BreakoutKeyScanCode == null) keyboard_filter_BreakoutKeyScanCode = 0;
             if (keyboard_filter_DisableKeyboardFilterForAdministrators == null) keyboard_filter_DisableKeyboardFilterForAdministrators = false;
