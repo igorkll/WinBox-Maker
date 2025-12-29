@@ -1335,7 +1335,7 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                     service = _service.Substring(1);
                 }
 
-                servicesSetup += $"echo stop service{(delete ? " (delete)" : "")}: {service} >> C:\\WinboxResources\\setup.log\r\n";
+                servicesSetup += $"echo {(delete ? "delete" : "stop")} service: {service} >> C:\\WinboxResources\\setup.log\r\n";
                 servicesSetup += $"echo only reg stop: {onlyRegStop} >> C:\\WinboxResources\\setup.log\r\n";
                 if (!onlyRegStop)
                 {
