@@ -91,6 +91,89 @@ namespace WinBox_Maker
             AddTweakToList("Disable HyperV / VSM / ELAM");
             AddTweakToList("make a quiet SPP");
             AddTweakToList("Hide system errors");
+
+            keyboard_filter_blockList.Items.Clear();
+            AddBlockedHotkeyToList("Alt");
+            AddBlockedHotkeyToList("Alt+F4");
+            AddBlockedHotkeyToList("Alt+Space");
+            AddBlockedHotkeyToList("Alt+Tab");
+            AddBlockedHotkeyToList("Alt+Win");
+            AddBlockedHotkeyToList("Application");
+            AddBlockedHotkeyToList("BrowserBack");
+            AddBlockedHotkeyToList("BrowserFavorites");
+            AddBlockedHotkeyToList("BrowserForward");
+            AddBlockedHotkeyToList("BrowserHome");
+            AddBlockedHotkeyToList("BrowserRefresh");
+            AddBlockedHotkeyToList("BrowserSearch");
+            AddBlockedHotkeyToList("BrowserStop");
+            AddBlockedHotkeyToList("Ctrl");
+            AddBlockedHotkeyToList("Ctrl+Alt+Del");
+            AddBlockedHotkeyToList("Ctrl+Esc");
+            AddBlockedHotkeyToList("Ctrl+F4");
+            AddBlockedHotkeyToList("Ctrl+Tab");
+            AddBlockedHotkeyToList("Ctrl+Win");
+            AddBlockedHotkeyToList("Ctrl+Win+F");
+            AddBlockedHotkeyToList("Escape");
+            AddBlockedHotkeyToList("F21");
+            AddBlockedHotkeyToList("LaunchApp1");
+            AddBlockedHotkeyToList("LaunchApp2");
+            AddBlockedHotkeyToList("LaunchMail");
+            AddBlockedHotkeyToList("LaunchMediaSelect");
+            AddBlockedHotkeyToList("LShift+LAlt+NumLock");
+            AddBlockedHotkeyToList("LShift+LAlt+PrintScrn");
+            AddBlockedHotkeyToList("MediaNext");
+            AddBlockedHotkeyToList("MediaPlayPause");
+            AddBlockedHotkeyToList("MediaPrev");
+            AddBlockedHotkeyToList("MediaStop");
+            AddBlockedHotkeyToList("Shift");
+            AddBlockedHotkeyToList("Shift+Ctrl+Esc");
+            AddBlockedHotkeyToList("Shift+Win");
+            AddBlockedHotkeyToList("VolumeDown");
+            AddBlockedHotkeyToList("VolumeMute");
+            AddBlockedHotkeyToList("VolumeUp");
+            AddBlockedHotkeyToList("Win++");
+            AddBlockedHotkeyToList("Win+,");
+            AddBlockedHotkeyToList("Win+-");
+            AddBlockedHotkeyToList("Win+.");
+            AddBlockedHotkeyToList("Win+/");
+            AddBlockedHotkeyToList("Win+B");
+            AddBlockedHotkeyToList("Win+Break");
+            AddBlockedHotkeyToList("Win+C");
+            AddBlockedHotkeyToList("Win+D");
+            AddBlockedHotkeyToList("Win+Down");
+            AddBlockedHotkeyToList("Win+E");
+            AddBlockedHotkeyToList("Win+Enter");
+            AddBlockedHotkeyToList("Win+Esc");
+            AddBlockedHotkeyToList("Win+F");
+            AddBlockedHotkeyToList("Win+F1");
+            AddBlockedHotkeyToList("Win+H");
+            AddBlockedHotkeyToList("Win+Home");
+            AddBlockedHotkeyToList("Win+I");
+            AddBlockedHotkeyToList("Win+J");
+            AddBlockedHotkeyToList("Win+K");
+            AddBlockedHotkeyToList("Win+L");
+            AddBlockedHotkeyToList("Win+Left");
+            AddBlockedHotkeyToList("Win+M");
+            AddBlockedHotkeyToList("Win+O");
+            AddBlockedHotkeyToList("Win+P");
+            AddBlockedHotkeyToList("Win+PageDown");
+            AddBlockedHotkeyToList("Win+PageUp");
+            AddBlockedHotkeyToList("Win+Q");
+            AddBlockedHotkeyToList("Win+R");
+            AddBlockedHotkeyToList("Win+Right");
+            AddBlockedHotkeyToList("Win+Shift+Down");
+            AddBlockedHotkeyToList("Win+Shift+Left");
+            AddBlockedHotkeyToList("Win+Shift+Right");
+            AddBlockedHotkeyToList("Win+Shift+Up");
+            AddBlockedHotkeyToList("Win+Space");
+            AddBlockedHotkeyToList("Win+T");
+            AddBlockedHotkeyToList("Win+Tab");
+            AddBlockedHotkeyToList("Win+U");
+            AddBlockedHotkeyToList("Win+Up");
+            AddBlockedHotkeyToList("Win+V");
+            AddBlockedHotkeyToList("Win+W");
+            AddBlockedHotkeyToList("Win+Z");
+            AddBlockedHotkeyToList("Windows");
             softwareCheck = false;
 
             UnlockForm();
@@ -123,6 +206,11 @@ namespace WinBox_Maker
         void AddTweakToList(String tweak)
         {
             TweakList.Items.Add(tweak, Program.isTweakEnabled(winBoxProject.winBoxConfig, tweak));
+        }
+
+        void AddBlockedHotkeyToList(String tweak)
+        {
+            keyboard_filter_blockList.Items.Add(tweak, Program.isCheckEnabled(winBoxProject.winBoxConfig.keyboard_filter_blockList, tweak));
         }
 
         void UnlockFormRecursion(Control parent)
@@ -1214,6 +1302,23 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
             UpdateGuiCurrentServices();
             UpdateGui();
+        }
+
+        private void keyboard_filter_blockList_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (softwareCheck) return;
+
+            int index = e.Index;
+            string title = keyboard_filter_blockList.Items[index].ToString();
+            bool state = e.NewValue == CheckState.Checked;
+            Program.setCheckEnabled(winBoxProject.winBoxConfig.keyboard_filter_blockList, title, state);
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void keyboard_filter_blockList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         private async void CustomBootLogo_select_Click(object sender, EventArgs e)

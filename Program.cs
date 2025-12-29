@@ -751,6 +751,36 @@ namespace WinBox_Maker
             }
         }
 
+        public static bool isCheckEnabled(List<string>? checkList, string checkCheck)
+        {
+            if (checkList == null)
+                return false;
+
+            foreach (var check in checkList)
+            {
+                if (check == checkCheck)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public static void setCheckEnabled(List<string>? checkList, string setCheck, bool state)
+        {
+            if (checkList == null)
+                return;
+
+            if (state)
+            {
+                if (!checkList.Contains(setCheck))
+                    checkList.Add(setCheck);
+            }
+            else
+            {
+                checkList.RemoveAll(s => s == setCheck);
+            }
+        }
+
         public static string? getBlobPath(WinBoxConfig winBoxConfig, string blobname)
         {
             string blobPath = ResourcePath(Path.Combine("blobs", winBoxConfig.Architecture, blobname));
