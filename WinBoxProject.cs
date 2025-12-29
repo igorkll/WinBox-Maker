@@ -1325,15 +1325,25 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
             string[] startServices = getStartServicesList();
 
             string servicesSetup = "";
-            foreach (string service in stopServices)
+            foreach (string _service in stopServices)
             {
-                servicesSetup += $"echo stop service: {service} >> C:\\WinboxResources\\setup.log\r\n";
+                bool delete = true;
+                string service = _service;
+                if (_service.StartsWith("!"))
+                {
+                    delete = false;
+                    service = _service.Substring(1);
+                }
+
+                servicesSetup += $"echo stop service{(delete ? " (delete)" : "")}: {service} >> C:\\WinboxResources\\setup.log\r\n";
                 servicesSetup += $"echo only reg stop: {onlyRegStop} >> C:\\WinboxResources\\setup.log\r\n";
                 if (!onlyRegStop)
                 {
                     servicesSetup += $"sc stop {service}\r\n";
                     servicesSetup += $"sc config {service} start= disabled\r\n";
                     servicesSetup += $"net stop {service}\r\n";
+                    if (delete)
+                        servicesSetup += $"sc delete {service}\r\n";
                 }
                 servicesSetup += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\{service}"" /v Start /t REG_DWORD /d 4 /f" + "\r\n";
                 servicesSetup += $"echo service {service} stoped >> C:\\WinboxResources\\setup.log\r\n";

@@ -3434,9 +3434,9 @@
             label78.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label78.Location = new Point(6, 4);
             label78.Name = "label78";
-            label78.Size = new Size(60, 32);
+            label78.Size = new Size(136, 32);
             label78.TabIndex = 40;
-            label78.Text = "stop";
+            label78.Text = "delete/stop";
             // 
             // services_start_view
             // 
