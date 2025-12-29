@@ -262,6 +262,7 @@
             keyboard_filter_DisableKeyboardFilterForAdministrators = new CheckBox();
             keyboard_filter_BreakoutKeyScanCode = new TextBox();
             tabPage58 = new TabPage();
+            keyboard_filter_blockList_reset = new Button();
             label98 = new Label();
             keyboard_filter_blockList = new CheckedListBox();
             tabPage13 = new TabPage();
@@ -500,8 +501,6 @@
             addDownload = new Button();
             DownloadItems = new CheckedListBox();
             tabPage16 = new TabPage();
-            label57 = new Label();
-            panel16 = new Panel();
             img_generalizeAfterInstall = new CheckBox();
             label58 = new Label();
             img_install_cpu = new TextBox();
@@ -538,6 +537,13 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            tabPage59 = new TabPage();
+            tabControl13 = new TabControl();
+            tabPage60 = new TabPage();
+            tabPage61 = new TabPage();
+            richTextBox31 = new RichTextBox();
+            tabPage62 = new TabPage();
+            tabPage63 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -650,11 +656,12 @@
             tabPage11.SuspendLayout();
             dl_panel.SuspendLayout();
             tabPage16.SuspendLayout();
-            panel16.SuspendLayout();
             tabPage26.SuspendLayout();
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabControl13.SuspendLayout();
+            tabPage60.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1967,6 +1974,7 @@
             tabControl2.Controls.Add(tabPage17);
             tabControl2.Controls.Add(tabPage3);
             tabControl2.Controls.Add(tabPage4);
+            tabControl2.Controls.Add(tabPage59);
             tabControl2.Location = new Point(6, 6);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
@@ -3121,6 +3129,7 @@
             // 
             // tabPage58
             // 
+            tabPage58.Controls.Add(keyboard_filter_blockList_reset);
             tabPage58.Controls.Add(label98);
             tabPage58.Controls.Add(keyboard_filter_blockList);
             tabPage58.Location = new Point(4, 34);
@@ -3130,6 +3139,16 @@
             tabPage58.TabIndex = 1;
             tabPage58.Text = "blocked";
             tabPage58.UseVisualStyleBackColor = true;
+            // 
+            // keyboard_filter_blockList_reset
+            // 
+            keyboard_filter_blockList_reset.Location = new Point(468, 163);
+            keyboard_filter_blockList_reset.Name = "keyboard_filter_blockList_reset";
+            keyboard_filter_blockList_reset.Size = new Size(112, 34);
+            keyboard_filter_blockList_reset.TabIndex = 2;
+            keyboard_filter_blockList_reset.Text = "reset";
+            keyboard_filter_blockList_reset.UseVisualStyleBackColor = true;
+            keyboard_filter_blockList_reset.Click += keyboard_filter_blockList_reset_Click;
             // 
             // label98
             // 
@@ -3147,8 +3166,8 @@
             keyboard_filter_blockList.Name = "keyboard_filter_blockList";
             keyboard_filter_blockList.Size = new Size(574, 144);
             keyboard_filter_blockList.TabIndex = 0;
-            keyboard_filter_blockList.SelectedIndexChanged += keyboard_filter_blockList_SelectedIndexChanged;
             keyboard_filter_blockList.ItemCheck += keyboard_filter_blockList_ItemCheck;
+            keyboard_filter_blockList.SelectedIndexChanged += keyboard_filter_blockList_SelectedIndexChanged;
             // 
             // tabPage13
             // 
@@ -5644,8 +5663,7 @@
             // 
             // tabPage16
             // 
-            tabPage16.Controls.Add(label57);
-            tabPage16.Controls.Add(panel16);
+            tabPage16.Controls.Add(tabControl13);
             tabPage16.Location = new Point(4, 34);
             tabPage16.Name = "tabPage16";
             tabPage16.Size = new Size(1018, 347);
@@ -5653,37 +5671,10 @@
             tabPage16.Text = "export";
             tabPage16.UseVisualStyleBackColor = true;
             // 
-            // label57
-            // 
-            label57.AutoSize = true;
-            label57.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label57.Location = new Point(3, 11);
-            label57.Name = "label57";
-            label57.Size = new Size(374, 38);
-            label57.TabIndex = 7;
-            label57.Text = "installation settings on qemu";
-            // 
-            // panel16
-            // 
-            panel16.BorderStyle = BorderStyle.Fixed3D;
-            panel16.Controls.Add(img_generalizeAfterInstall);
-            panel16.Controls.Add(label58);
-            panel16.Controls.Add(img_install_cpu);
-            panel16.Controls.Add(img_size);
-            panel16.Controls.Add(img_runningPostinstallOnFirstRealStartup);
-            panel16.Controls.Add(img_install_ram);
-            panel16.Controls.Add(img_shutdownAfterInstall);
-            panel16.Controls.Add(label55);
-            panel16.Controls.Add(label56);
-            panel16.Location = new Point(3, 52);
-            panel16.Name = "panel16";
-            panel16.Size = new Size(631, 223);
-            panel16.TabIndex = 6;
-            // 
             // img_generalizeAfterInstall
             // 
             img_generalizeAfterInstall.AutoSize = true;
-            img_generalizeAfterInstall.Location = new Point(3, 184);
+            img_generalizeAfterInstall.Location = new Point(6, 187);
             img_generalizeAfterInstall.Name = "img_generalizeAfterInstall";
             img_generalizeAfterInstall.Size = new Size(285, 29);
             img_generalizeAfterInstall.TabIndex = 10;
@@ -5694,7 +5685,7 @@
             // label58
             // 
             label58.AutoSize = true;
-            label58.Location = new Point(159, 80);
+            label58.Location = new Point(162, 83);
             label58.Name = "label58";
             label58.Size = new Size(373, 25);
             label58.TabIndex = 9;
@@ -5702,7 +5693,7 @@
             // 
             // img_install_cpu
             // 
-            img_install_cpu.Location = new Point(3, 77);
+            img_install_cpu.Location = new Point(6, 80);
             img_install_cpu.Name = "img_install_cpu";
             img_install_cpu.Size = new Size(150, 31);
             img_install_cpu.TabIndex = 8;
@@ -5710,7 +5701,7 @@
             // 
             // img_size
             // 
-            img_size.Location = new Point(3, 3);
+            img_size.Location = new Point(6, 6);
             img_size.Name = "img_size";
             img_size.Size = new Size(150, 31);
             img_size.TabIndex = 0;
@@ -5719,7 +5710,7 @@
             // img_runningPostinstallOnFirstRealStartup
             // 
             img_runningPostinstallOnFirstRealStartup.AutoSize = true;
-            img_runningPostinstallOnFirstRealStartup.Location = new Point(3, 149);
+            img_runningPostinstallOnFirstRealStartup.Location = new Point(6, 152);
             img_runningPostinstallOnFirstRealStartup.Name = "img_runningPostinstallOnFirstRealStartup";
             img_runningPostinstallOnFirstRealStartup.Size = new Size(501, 29);
             img_runningPostinstallOnFirstRealStartup.TabIndex = 5;
@@ -5729,7 +5720,7 @@
             // 
             // img_install_ram
             // 
-            img_install_ram.Location = new Point(3, 40);
+            img_install_ram.Location = new Point(6, 43);
             img_install_ram.Name = "img_install_ram";
             img_install_ram.Size = new Size(150, 31);
             img_install_ram.TabIndex = 1;
@@ -5738,7 +5729,7 @@
             // img_shutdownAfterInstall
             // 
             img_shutdownAfterInstall.AutoSize = true;
-            img_shutdownAfterInstall.Location = new Point(3, 114);
+            img_shutdownAfterInstall.Location = new Point(6, 117);
             img_shutdownAfterInstall.Name = "img_shutdownAfterInstall";
             img_shutdownAfterInstall.Size = new Size(291, 29);
             img_shutdownAfterInstall.TabIndex = 4;
@@ -5749,7 +5740,7 @@
             // label55
             // 
             label55.AutoSize = true;
-            label55.Location = new Point(159, 6);
+            label55.Location = new Point(162, 9);
             label55.Name = "label55";
             label55.Size = new Size(199, 25);
             label55.TabIndex = 2;
@@ -5758,7 +5749,7 @@
             // label56
             // 
             label56.AutoSize = true;
-            label56.Location = new Point(159, 43);
+            label56.Location = new Point(162, 46);
             label56.Name = "label56";
             label56.Size = new Size(439, 25);
             label56.TabIndex = 3;
@@ -6044,6 +6035,85 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // tabPage59
+            // 
+            tabPage59.Location = new Point(4, 34);
+            tabPage59.Name = "tabPage59";
+            tabPage59.Size = new Size(998, 297);
+            tabPage59.TabIndex = 10;
+            tabPage59.Text = "bloadware";
+            tabPage59.UseVisualStyleBackColor = true;
+            // 
+            // tabControl13
+            // 
+            tabControl13.Controls.Add(tabPage60);
+            tabControl13.Controls.Add(tabPage61);
+            tabControl13.Controls.Add(tabPage62);
+            tabControl13.Controls.Add(tabPage63);
+            tabControl13.Location = new Point(3, 3);
+            tabControl13.Name = "tabControl13";
+            tabControl13.SelectedIndex = 0;
+            tabControl13.Size = new Size(1012, 341);
+            tabControl13.TabIndex = 8;
+            // 
+            // tabPage60
+            // 
+            tabPage60.Controls.Add(richTextBox31);
+            tabPage60.Controls.Add(img_generalizeAfterInstall);
+            tabPage60.Controls.Add(img_size);
+            tabPage60.Controls.Add(label58);
+            tabPage60.Controls.Add(label56);
+            tabPage60.Controls.Add(img_install_cpu);
+            tabPage60.Controls.Add(label55);
+            tabPage60.Controls.Add(img_shutdownAfterInstall);
+            tabPage60.Controls.Add(img_runningPostinstallOnFirstRealStartup);
+            tabPage60.Controls.Add(img_install_ram);
+            tabPage60.Location = new Point(4, 34);
+            tabPage60.Name = "tabPage60";
+            tabPage60.Padding = new Padding(3);
+            tabPage60.Size = new Size(1004, 303);
+            tabPage60.TabIndex = 0;
+            tabPage60.Text = "install on qemu setup";
+            tabPage60.UseVisualStyleBackColor = true;
+            // 
+            // tabPage61
+            // 
+            tabPage61.Location = new Point(4, 34);
+            tabPage61.Name = "tabPage61";
+            tabPage61.Padding = new Padding(3);
+            tabPage61.Size = new Size(1004, 303);
+            tabPage61.TabIndex = 1;
+            tabPage61.Text = "export *.wim setup";
+            tabPage61.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox31
+            // 
+            richTextBox31.BackColor = SystemColors.Info;
+            richTextBox31.Location = new Point(662, 6);
+            richTextBox31.Name = "richTextBox31";
+            richTextBox31.ReadOnly = true;
+            richTextBox31.Size = new Size(336, 281);
+            richTextBox31.TabIndex = 11;
+            richTextBox31.Text = resources.GetString("richTextBox31.Text");
+            // 
+            // tabPage62
+            // 
+            tabPage62.Location = new Point(4, 34);
+            tabPage62.Name = "tabPage62";
+            tabPage62.Size = new Size(1004, 303);
+            tabPage62.TabIndex = 2;
+            tabPage62.Text = "export *.img setup";
+            tabPage62.UseVisualStyleBackColor = true;
+            // 
+            // tabPage63
+            // 
+            tabPage63.Location = new Point(4, 34);
+            tabPage63.Name = "tabPage63";
+            tabPage63.Size = new Size(1004, 303);
+            tabPage63.TabIndex = 3;
+            tabPage63.Text = "export *.ffu setup";
+            tabPage63.UseVisualStyleBackColor = true;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -6252,15 +6322,15 @@
             dl_panel.ResumeLayout(false);
             dl_panel.PerformLayout();
             tabPage16.ResumeLayout(false);
-            tabPage16.PerformLayout();
-            panel16.ResumeLayout(false);
-            panel16.PerformLayout();
             tabPage26.ResumeLayout(false);
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabControl13.ResumeLayout(false);
+            tabPage60.ResumeLayout(false);
+            tabPage60.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -6501,9 +6571,7 @@
         private TextBox img_install_ram;
         private TextBox img_size;
         private CheckBox img_shutdownAfterInstall;
-        private Panel panel16;
         private CheckBox img_runningPostinstallOnFirstRealStartup;
-        private Label label57;
         private TextBox img_install_cpu;
         private Label label58;
         private RichTextBox richTextBox7;
@@ -6778,5 +6846,13 @@
         private RichTextBox richTextBox30;
         private CheckedListBox keyboard_filter_blockList;
         private Label label98;
+        private Button keyboard_filter_blockList_reset;
+        private TabPage tabPage59;
+        private TabControl tabControl13;
+        private TabPage tabPage60;
+        private TabPage tabPage61;
+        private RichTextBox richTextBox31;
+        private TabPage tabPage62;
+        private TabPage tabPage63;
     }
 }

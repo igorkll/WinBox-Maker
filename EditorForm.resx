@@ -3503,6 +3503,9 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="richTextBox31.Text" xml:space="preserve">
+    <value>These options allow you to configure how winbox maker will install on QEMU. the installation on QEMU is needed to export *.img and export pre-initialized *.wim (the pre-initialized *.wim is needed so that the initial setup and the SetupComplete.cmd script have already been completed inside the wim file and the first load was fast)</value>
+  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.

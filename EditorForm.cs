@@ -91,7 +91,28 @@ namespace WinBox_Maker
             AddTweakToList("Disable HyperV / VSM / ELAM");
             AddTweakToList("make a quiet SPP");
             AddTweakToList("Hide system errors");
+            softwareCheck = false;
 
+            resetKeyboardFilterBlockList();
+
+            UnlockForm();
+            if (winBoxProject.NeedLoadWindows())
+            {
+                UpdateGui();
+                LoadWindowsTask();
+            }
+            else
+            {
+                UpdateWindowsVersionsList();
+                UpdateGuiAfterWindowsLoaded();
+            }
+
+            eventWarningDelay();
+        }
+
+        void resetKeyboardFilterBlockList()
+        {
+            softwareCheck = true;
             keyboard_filter_blockList.Items.Clear();
             AddBlockedHotkeyToList("Alt");
             AddBlockedHotkeyToList("Alt+F4");
@@ -175,20 +196,6 @@ namespace WinBox_Maker
             AddBlockedHotkeyToList("Win+Z");
             AddBlockedHotkeyToList("Windows");
             softwareCheck = false;
-
-            UnlockForm();
-            if (winBoxProject.NeedLoadWindows())
-            {
-                UpdateGui();
-                LoadWindowsTask();
-            }
-            else
-            {
-                UpdateWindowsVersionsList();
-                UpdateGuiAfterWindowsLoaded();
-            }
-
-            eventWarningDelay();
         }
 
         void eventWarningDelay()
@@ -3091,6 +3098,12 @@ namespace WinBox_Maker
             winBoxProject.winBoxConfig.AllowStartRecoveryFromBootloader = checkBox1.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void keyboard_filter_blockList_reset_Click(object sender, EventArgs e)
+        {
+            winBoxProject.winBoxConfig.keyboard_filter_blockList = Program.default_keyboard_filter_blockList.ToList();
+            resetKeyboardFilterBlockList();
         }
 
         private void keyboard_filter_enabled_CheckedChanged(object sender, EventArgs e)
