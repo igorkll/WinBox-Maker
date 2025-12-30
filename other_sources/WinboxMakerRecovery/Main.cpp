@@ -20,7 +20,7 @@ static void loadConsts() {
         json j;
         inFile >> j;
 
-        if (j.contains("title")) title_text = j["title"];
+        
     }
 }
 
