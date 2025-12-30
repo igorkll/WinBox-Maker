@@ -2069,7 +2069,6 @@ schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\Up
 
 echo SetupComplete - setup registry >> C:\WinboxResources\setup.log
 {await RegPatcher.regToCommands(regTweakData, ["HKEY_LOCAL_MACHINE\\SYSTEM"])}
-
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d {((winBoxConfig.bsod_autoreboot == true) ? 1 : 0)} /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayError /t REG_DWORD /d {(1 - disabledisplay)} /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayDisabled /t REG_DWORD /d {disabledisplay} /f
