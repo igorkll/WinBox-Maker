@@ -15,20 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="reg\disable_autoupdate.reg" />
-    <None Remove="reg\disable_bootmanager.reg" />
-    <None Remove="reg\disable_checkdisk.reg" />
-    <None Remove="reg\disable_defender.reg" />
-    <None Remove="reg\disable_lockscreen.reg" />
-    <None Remove="reg\disable_notifications.reg" />
-    <None Remove="reg\disable_powerdown_checks.reg" />
-    <None Remove="reg\disable_systemcheck.reg" />
-    <None Remove="reg\disable_taskmgr.reg" />
-    <None Remove="reg\disable_telemetry.reg" />
-    <None Remove="reg\disable_UAC.reg" />
-    <None Remove="reg\disable_winkeys.reg" />
-    <None Remove="reg\fake_activation.reg" />
-    <None Remove="reg\skip_oobe.reg" />
     <None Remove="tweak.reg" />
   </ItemGroup>
 
@@ -287,10 +273,7 @@
     <None Update="README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="reg\disable_hotkeys.reg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="reg\tweak.reg">
+    <None Update="resources\tweak.reg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="resources\ChangeResolution.ps1">

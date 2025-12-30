@@ -1,25 +1,25 @@
 Windows Registry Editor Version 5.00
 
 ; ---------------- disable telemetry
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\DataCollection]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection]
 "AllowTelemetry"=dword:00000000
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\Windows Error Reporting]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting]
 "Disable"=dword:00000001
 "Disabled"=dword:00000001
 "DontShowUI"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps]
 "DumpType"=dword:00000000
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\ScriptedDiagnosticsProvider\Policy]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\ScriptedDiagnosticsProvider\Policy]
 ;Не обращаться к средствам устранения неполадок через интернет
 "EnableQueryRemoteServer"=dword:00000000
 
 ; ---------------- disable windows defender
 ; БЛЯТЬ, ебанавинда не дает писать в эти разделы ДАЖЕ В СМОНТИРОВАНОМ БЛЯТЬ РЕЕСТРЕ! microsoft, BRUHHHHHHHHHHHHH
 ; нада будет походу свою либу писать чтобы файлы реестера патчить
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
 "DisableRealtimeMonitoring"=dword:00000001
@@ -46,7 +46,7 @@ Windows Registry Editor Version 5.00
 "LocalSettingOverrideSpynetReporting"=dword:00000000
 "SubmitSamplesConsent"=dword:00000002
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
 "DisableRealtimeMonitoring"=dword:00000001
@@ -73,7 +73,7 @@ Windows Registry Editor Version 5.00
 "LocalSettingOverrideSpynetReporting"=dword:00000000
 "SubmitSamplesConsent"=dword:00000002
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
 "DisableRealtimeMonitoring"=dword:00000001
@@ -100,7 +100,7 @@ Windows Registry Editor Version 5.00
 "LocalSettingOverrideSpynetReporting"=dword:00000000
 "SubmitSamplesConsent"=dword:00000002
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\Real-Time Protection]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
 "DisableRealtimeMonitoring"=dword:00000001
@@ -127,7 +127,7 @@ Windows Registry Editor Version 5.00
 "LocalSettingOverrideSpynetReporting"=dword:00000000
 "SubmitSamplesConsent"=dword:00000002
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
 "DisableRealtimeMonitoring"=dword:00000001
@@ -154,7 +154,7 @@ Windows Registry Editor Version 5.00
 "LocalSettingOverrideSpynetReporting"=dword:00000000
 "SubmitSamplesConsent"=dword:00000002
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\Policy Manager]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Policy Manager]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
 "DisableRealtimeMonitoring"=dword:00000001
@@ -181,7 +181,7 @@ Windows Registry Editor Version 5.00
 "LocalSettingOverrideSpynetReporting"=dword:00000000
 "SubmitSamplesConsent"=dword:00000002
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
 "DisableRealtimeMonitoring"=dword:00000001
@@ -208,7 +208,7 @@ Windows Registry Editor Version 5.00
 "LocalSettingOverrideSpynetReporting"=dword:00000000
 "SubmitSamplesConsent"=dword:00000002
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\SpyNet]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\SpyNet]
 "DisableAntiSpyware"=dword:00000001
 "DisableAntiVirus"=dword:00000001
 "DisableRealtimeMonitoring"=dword:00000001
@@ -235,7 +235,7 @@ Windows Registry Editor Version 5.00
 "LocalSettingOverrideSpynetReporting"=dword:00000000
 "SubmitSamplesConsent"=dword:00000002
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths]
 "A:\\"=""
 "B:\\"=""
 "C:\\"=""
@@ -407,21 +407,21 @@ Windows Registry Editor Version 5.00
 "84"="*:\\ "
 "85"="*:\\*"
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender\UX Configuration]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\UX Configuration]
 "Notification_Suppress"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\UX Configuration]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\UX Configuration]
 "Notification_Suppress"=dword:00000001
 
 ; ---------------- disable TamperProtection
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender\Features]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Features]
 "TamperProtection"=dword:00000004
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender]
 "TPSetting"=dword:00000000
 
 ; ---------------- disable updates
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]
 "DisableWindowsUpdateAccess"=dword:00000001
 "DoNotConnectToWindowsUpdateInternetLocations"=dword:00000001
 "SetDisableUXWUAccess"=dword:00000001
@@ -430,7 +430,7 @@ Windows Registry Editor Version 5.00
 "NoAutoUpdate"=dword:00000001
 "NoAutoRebootWithLoggedOnUsers"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU]
 "DisableWindowsUpdateAccess"=dword:00000001
 "DoNotConnectToWindowsUpdateInternetLocations"=dword:00000001
 "SetDisableUXWUAccess"=dword:00000001
@@ -439,7 +439,7 @@ Windows Registry Editor Version 5.00
 "NoAutoUpdate"=dword:00000001
 "NoAutoRebootWithLoggedOnUsers"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update]
 "DisableWindowsUpdateAccess"=dword:00000001
 "DoNotConnectToWindowsUpdateInternetLocations"=dword:00000001
 "SetDisableUXWUAccess"=dword:00000001
@@ -449,46 +449,46 @@ Windows Registry Editor Version 5.00
 "NoAutoRebootWithLoggedOnUsers"=dword:00000001
 
 ; ---------------- disable UAC
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "EnableLUA"=dword:00000000
 "ConsentPromptBehaviorAdmin"=dword:00000000
 "ConsentPromptBehaviorUser"=dword:00000000
 "PromptOnSecureDesktop"=dword:00000000
 
 ; ---------------- disable onedrive
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\OneDrive]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\OneDrive]
 "DisableFileSyncNGSC"=dword:00000001
 
 ; ---------------- disable screenshot
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableSnippingTool"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\Explorer]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer]
 "DisableSnippingTool"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\TabletPC]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\TabletPC]
 "DisableSnippingTool"=dword:00000001
 
 ; ---------------- disable lockscreen
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData]
 "AnimationDisabled"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData]
 "AllowLockScreen"=dword:00000000
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\ClearAutologon]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\ClearAutologon]
 "Enabled"=dword:00000000
 
-[HLEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\Personalization]
+[HLEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization]
 "NoLockScreen"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
 "DisableLockWorkstation"=dword:00000001
 "DisableCad"=dword:00000001
 "EnableFirstLogonAnimation"=dword:00000000
 "DisableBackButton"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "EnableFirstLogonAnimation"=dword:00000000
 "HideFastUserSwitching"=dword:00000001
 "DisableLockWorkstation"=dword:00000001
@@ -498,12 +498,12 @@ Windows Registry Editor Version 5.00
 "undockwithoutlogon"=dword:00000000
 "DisableCAD"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\System]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System]
 "DisableLockScreen"=dword:00000001
 "DisableLogonBackgroundImage"=dword:00000001
 "DontDisplayNetworkSelectionUI"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon]
 "HideAutoLogonUI"=dword:00000001
 "HideFirstLogonAnimation"=dword:00000001
 "BrandingNeutral"=dword:00000001
@@ -512,11 +512,11 @@ Windows Registry Editor Version 5.00
 "UIVerbosityLevel"=dword:00000001
 
 ; ---------------- disable sounds
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation]
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation]
 "DisableStartupSound"=dword:00000001
 
 ; ---------------- setup winlogon
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon] 
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon] 
 "AutoAdminLogon"="1"
 "ForceAutoLogon"="1"
 "UIVerbosityLevel"=dword:00000001
@@ -524,60 +524,60 @@ Windows Registry Editor Version 5.00
 "DefaultPassword"=""
 
 ; ---------------- setup oobe
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE]
 "SkipMachineOOBE"=dword:00000001
 "SkipUserOOBE"=dword:00000001
 "BypassNRO"=dword:00000001
 
 ; ---------------- disable ctrl+alt+del functionality
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableLogoff"=dword:00000001
 "DisableChangePassword"=dword:00000001
 "DontDisplayNetworkSelectionUI"=dword:00000001
 
 ; ---------------- disable sfc
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableSFC"=dword:00000001
 "SFCDisable"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
 "DisableSFC"=dword:00000001
 "SFCDisable"=dword:00000001
 
 ; ---------------- disabling the verification of the signature of exe files
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "VerifySignatures"=dword:00000000
 
 ; ---------------- disable animations
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "TaskbarAnimations"=dword:0
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects]
 "VisualFXSetting"=dword:3
 
 ; ---------------- disable edge hotkeys
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge]
 "ConfigureKeyboardShortcuts"="{\"disabled\": [\"new_tab\", \"fullscreen\", \"close_tab\", \"zoom_reset\", \"zoom_out\", \"zoom_in\", \"web_select\", \"web_capture\", \"view_source\", \"vertical_tabs_toggle\", \"task_manager\", \"system_print\", \"sidebar_search_selected_text\", \"show_favorites_bar_toggle\", \"settings_and_more_menu\", \"send_feedback\", \"select_previous_tab\", \"select_next_tab\", \"select_last_tab\", \"save_page\", \"reopen_tab\", \"refresh_bypassing_cache\", \"refresh\", \"read_aloud_toggle\", \"profile\", \"print\", \"paste_and_go\", \"open_file\", \"new_window\", \"new_tab\", \"new_inprivate_window\", \"new_application_guard_window\", \"mute_tab_toggle\", \"immersive_reader_toggle\", \"home\", \"history\", \"help_page\", \"forward\", \"focus_web_pane\", \"focus_settings_and_more\", \"focus_search\", \"focus_reading_bar\", \"focus_previous_pane\", \"focus_next_pane\", \"focus_inactive_notification\", \"focus_favorites\", \"focus_app_toolbar\", \"focus_address_bar\", \"find_previous\", \"find_next\", \"find\", \"favorites\", \"favorite_this_tab\", \"favorite_all_tabs\", \"duplicate_tab\", \"downloads\", \"dev_tools_toggle\", \"dev_tools_elements\", \"dev_tools_console\", \"dev_tools\", \"collections\", \"close_window\", \"close_find_or_stop\", \"clear_browsing_data\", \"caret_browsing_toggle\", \"back\"]}"
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\EdgeUI]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EdgeUI]
 "AllowEdgeSwipe"=dword:00000000
 
 ; ---------------- disable edge updates
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge]
 "ComponentUpdatesEnabled"=dword:0
 "Update"=dword:0
 "AutoUpdate"=dword:0
 "UpdateDefault"=dword:0
 "DoNotUpdateToEdgeWithChromium"=dword:1
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\EdgeUpdate]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\EdgeUpdate]
 "ComponentUpdatesEnabled"=dword:0
 "Update"=dword:0
 "AutoUpdate"=dword:0
 "UpdateDefault"=dword:0
 "DoNotUpdateToEdgeWithChromium"=dword:1
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\EdgeUpdate]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\EdgeUpdate]
 "ComponentUpdatesEnabled"=dword:0
 "Update"=dword:0
 "AutoUpdate"=dword:0
@@ -585,44 +585,44 @@ Windows Registry Editor Version 5.00
 "DoNotUpdateToEdgeWithChromium"=dword:1
 
 ; ---------------- disable edge translate
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge]
 "TranslateEnabled"=dword:0
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge\Recommended]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge\Recommended]
 "TranslateEnabled"=dword:0
 
 ; ---------------- disable edge sync
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge]
 "SyncDisabled"=dword:1
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Edge\Recommended]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge\Recommended]
 "SyncDisabled"=dword:1
 
 ; ---------------- disable smart screen
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer]
 "SmartScreenEnabled"="Off"
 
 ; ---------------- disable auto task kill
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\RADAR\HeapLeakDetection]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\RADAR\HeapLeakDetection]
 "DisableHLT"=dword:00000001
 
 ; ---------------- disabling the damn safety notifications (when working with the enabled explorer.exe)
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
 "NoSecuritySettingsCheck"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows Defender Security Center\Notifications]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender Security Center\Notifications]
 "DisableNotifications"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications]
 "DisableNotifications"=dword:00000001
 
 ; ---------------- a fix for UWP apps
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "FilterAdministratorToken"=dword:00000001
 
 ; ---------------- disabling automatic creation of recovery points
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Policies\Microsoft\Windows\SystemRestore]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\SystemRestore]
 "DisableSR"=dword:00000001
 
-[HKEY_LOCAL_MACHINE\WINBOX_SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore]
 "RPSessionInterval"=dword:00000000

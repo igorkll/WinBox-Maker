@@ -314,6 +314,16 @@
             label97 = new Label();
             schtasks_stopOrDeleteOnlyFromList = new CheckBox();
             schtasks_stopOrDelete = new RichTextBox();
+            tabPage64 = new TabPage();
+            tabControl14 = new TabControl();
+            tabPage65 = new TabPage();
+            richTextBox33 = new RichTextBox();
+            tabPage66 = new TabPage();
+            regtweak_default = new RichTextBox();
+            tabPage67 = new TabPage();
+            regtweak_overwrite_reset = new Button();
+            regtweak_overwrite_en = new CheckBox();
+            regtweak_overwrite = new RichTextBox();
             tabPage59 = new TabPage();
             tabPage38 = new TabPage();
             tabControl8 = new TabControl();
@@ -611,6 +621,11 @@
             tabControl11.SuspendLayout();
             tabPage52.SuspendLayout();
             tabPage53.SuspendLayout();
+            tabPage64.SuspendLayout();
+            tabControl14.SuspendLayout();
+            tabPage65.SuspendLayout();
+            tabPage66.SuspendLayout();
+            tabPage67.SuspendLayout();
             tabPage38.SuspendLayout();
             tabControl8.SuspendLayout();
             tabPage33.SuspendLayout();
@@ -3377,6 +3392,7 @@
             // 
             tabControl1.Controls.Add(tabPage32);
             tabControl1.Controls.Add(tabPage51);
+            tabControl1.Controls.Add(tabPage64);
             tabControl1.Location = new Point(3, 4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -3689,6 +3705,110 @@
             schtasks_stopOrDelete.TabIndex = 42;
             schtasks_stopOrDelete.Text = "";
             schtasks_stopOrDelete.TextChanged += schtasks_stopOrDelete_TextChanged;
+            // 
+            // tabPage64
+            // 
+            tabPage64.Controls.Add(tabControl14);
+            tabPage64.Location = new Point(4, 34);
+            tabPage64.Name = "tabPage64";
+            tabPage64.Size = new Size(984, 252);
+            tabPage64.TabIndex = 2;
+            tabPage64.Text = "registry";
+            tabPage64.UseVisualStyleBackColor = true;
+            // 
+            // tabControl14
+            // 
+            tabControl14.Controls.Add(tabPage65);
+            tabControl14.Controls.Add(tabPage66);
+            tabControl14.Controls.Add(tabPage67);
+            tabControl14.Location = new Point(3, 3);
+            tabControl14.Name = "tabControl14";
+            tabControl14.SelectedIndex = 0;
+            tabControl14.Size = new Size(978, 246);
+            tabControl14.TabIndex = 0;
+            // 
+            // tabPage65
+            // 
+            tabPage65.Controls.Add(richTextBox33);
+            tabPage65.Location = new Point(4, 34);
+            tabPage65.Name = "tabPage65";
+            tabPage65.Padding = new Padding(3);
+            tabPage65.Size = new Size(970, 208);
+            tabPage65.TabIndex = 0;
+            tabPage65.Text = "description";
+            tabPage65.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox33
+            // 
+            richTextBox33.BackColor = SystemColors.Info;
+            richTextBox33.Location = new Point(6, 7);
+            richTextBox33.Name = "richTextBox33";
+            richTextBox33.ReadOnly = true;
+            richTextBox33.Size = new Size(958, 195);
+            richTextBox33.TabIndex = 0;
+            richTextBox33.Text = resources.GetString("richTextBox33.Text");
+            // 
+            // tabPage66
+            // 
+            tabPage66.Controls.Add(regtweak_default);
+            tabPage66.Location = new Point(4, 34);
+            tabPage66.Name = "tabPage66";
+            tabPage66.Padding = new Padding(3);
+            tabPage66.Size = new Size(970, 208);
+            tabPage66.TabIndex = 1;
+            tabPage66.Text = "default";
+            tabPage66.UseVisualStyleBackColor = true;
+            // 
+            // regtweak_default
+            // 
+            regtweak_default.Location = new Point(6, 7);
+            regtweak_default.Name = "regtweak_default";
+            regtweak_default.ReadOnly = true;
+            regtweak_default.Size = new Size(958, 195);
+            regtweak_default.TabIndex = 0;
+            regtweak_default.Text = "";
+            // 
+            // tabPage67
+            // 
+            tabPage67.Controls.Add(regtweak_overwrite_reset);
+            tabPage67.Controls.Add(regtweak_overwrite_en);
+            tabPage67.Controls.Add(regtweak_overwrite);
+            tabPage67.Location = new Point(4, 34);
+            tabPage67.Name = "tabPage67";
+            tabPage67.Size = new Size(970, 208);
+            tabPage67.TabIndex = 2;
+            tabPage67.Text = "overwrite";
+            tabPage67.UseVisualStyleBackColor = true;
+            // 
+            // regtweak_overwrite_reset
+            // 
+            regtweak_overwrite_reset.Location = new Point(728, 44);
+            regtweak_overwrite_reset.Name = "regtweak_overwrite_reset";
+            regtweak_overwrite_reset.Size = new Size(112, 34);
+            regtweak_overwrite_reset.TabIndex = 2;
+            regtweak_overwrite_reset.Text = "reset";
+            regtweak_overwrite_reset.UseVisualStyleBackColor = true;
+            regtweak_overwrite_reset.Click += regtweak_overwrite_reset_Click;
+            // 
+            // regtweak_overwrite_en
+            // 
+            regtweak_overwrite_en.AutoSize = true;
+            regtweak_overwrite_en.Location = new Point(728, 9);
+            regtweak_overwrite_en.Name = "regtweak_overwrite_en";
+            regtweak_overwrite_en.Size = new Size(193, 29);
+            regtweak_overwrite_en.TabIndex = 1;
+            regtweak_overwrite_en.Text = "reg tweak overwrite";
+            regtweak_overwrite_en.UseVisualStyleBackColor = true;
+            regtweak_overwrite_en.CheckedChanged += regtweak_overwrite_en_CheckedChanged;
+            // 
+            // regtweak_overwrite
+            // 
+            regtweak_overwrite.Location = new Point(3, 7);
+            regtweak_overwrite.Name = "regtweak_overwrite";
+            regtweak_overwrite.Size = new Size(715, 193);
+            regtweak_overwrite.TabIndex = 0;
+            regtweak_overwrite.Text = "";
+            regtweak_overwrite.TextChanged += regtweak_overwrite_TextChanged;
             // 
             // tabPage59
             // 
@@ -6247,6 +6367,12 @@
             tabPage52.PerformLayout();
             tabPage53.ResumeLayout(false);
             tabPage53.PerformLayout();
+            tabPage64.ResumeLayout(false);
+            tabControl14.ResumeLayout(false);
+            tabPage65.ResumeLayout(false);
+            tabPage66.ResumeLayout(false);
+            tabPage67.ResumeLayout(false);
+            tabPage67.PerformLayout();
             tabPage38.ResumeLayout(false);
             tabControl8.ResumeLayout(false);
             tabPage33.ResumeLayout(false);
@@ -6851,5 +6977,15 @@
         private TabPage tabPage62;
         private TabPage tabPage63;
         private RichTextBox richTextBox32;
+        private TabPage tabPage64;
+        private TabControl tabControl14;
+        private TabPage tabPage65;
+        private TabPage tabPage66;
+        private RichTextBox richTextBox33;
+        private TabPage tabPage67;
+        private RichTextBox regtweak_default;
+        private RichTextBox regtweak_overwrite;
+        private Button regtweak_overwrite_reset;
+        private CheckBox regtweak_overwrite_en;
     }
 }

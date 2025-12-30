@@ -578,6 +578,10 @@ namespace WinBox_Maker
             keyboard_filter_DisableKeyboardFilterForAdministrators.Checked = winBoxProject.winBoxConfig.keyboard_filter_DisableKeyboardFilterForAdministrators == true;
             keyboard_filter_BreakoutKeyScanCode.Text = winBoxProject.winBoxConfig.keyboard_filter_BreakoutKeyScanCode.ToString();
 
+            regtweak_overwrite_en.Checked = winBoxProject.winBoxConfig.regtweak_overwrite_en == true;
+            regtweak_overwrite.Text = winBoxProject.winBoxConfig.regtweak_overwrite ?? "";
+            regtweak_overwrite.Enabled = winBoxProject.winBoxConfig.regtweak_overwrite_en == true;
+
             cds_width.Text = winBoxProject.winBoxConfig.cds_width.ToString();
             cds_height.Text = winBoxProject.winBoxConfig.cds_height.ToString();
             cds_bitDepth.Text = winBoxProject.winBoxConfig.cds_bitDepth.ToString();
@@ -3116,6 +3120,42 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.keyboard_filter_ForceOffAccessibility = keyboard_filter_ForceOffAccessibility.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        void resetRegTweakOverwrite()
+        {
+            winBoxProject.winBoxConfig.regtweak_overwrite = System.IO.File.ReadAllText("resources/tweak.reg");
+        }
+
+        private void regtweak_overwrite_en_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            if (regtweak_overwrite_en.Checked && winBoxProject.winBoxConfig.regtweak_overwrite == null)
+            {
+                resetRegTweakOverwrite();
+            }
+
+            winBoxProject.winBoxConfig.regtweak_overwrite_en = regtweak_overwrite_en.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void regtweak_overwrite_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.regtweak_overwrite = regtweak_overwrite.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void regtweak_overwrite_reset_Click(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            resetRegTweakOverwrite();
             winBoxProject.SaveConfig();
             UpdateGui();
         }

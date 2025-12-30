@@ -257,6 +257,8 @@ namespace WinBox_Maker
         public int? keyboard_filter_BreakoutKeyScanCode { get; set; }
         public bool? keyboard_filter_DisableKeyboardFilterForAdministrators { get; set; }
         public bool? keyboard_filter_ForceOffAccessibility { get; set; }
+        public bool? regtweak_overwrite_en { get; set; }
+        public string? regtweak_overwrite { get; set; }
 
 
 
@@ -487,6 +489,8 @@ namespace WinBox_Maker
 
             if (install_bypass == null) install_bypass = true;
             if (keyboard_filter_enabled == null) keyboard_filter_enabled = true;
+
+            if (regtweak_overwrite_en == null) regtweak_overwrite_en = false;
         }
 
         public void Save(string wnbFilePath)
