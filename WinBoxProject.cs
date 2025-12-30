@@ -2936,7 +2936,7 @@ if errorlevel 1 (
             {
                 if (winBoxConfig.onbuild_reg != null)
                 {
-                    RegChanger.RegModFromFile(winBoxConfig.onbuild_reg);
+                    await RegChanger.RegModFromFile(winBoxConfig.onbuild_reg);
                 }
 
                 await RegChanger.umountReg();
