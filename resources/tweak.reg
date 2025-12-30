@@ -499,6 +499,8 @@ Windows Registry Editor Version 5.00
 "shutdownwithoutlogon"=dword:00000000
 "undockwithoutlogon"=dword:00000000
 "DisableCAD"=dword:00000001
+"DisableChangePassword"=dword:00000001
+"DisableLogoff"=dword:00000001
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System]
 "DisableLockScreen"=dword:00000001
