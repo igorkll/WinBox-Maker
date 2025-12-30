@@ -293,6 +293,7 @@
             services_start_view = new RichTextBox();
             services_stop_view = new RichTextBox();
             tabPage35 = new TabPage();
+            richTextBox32 = new RichTextBox();
             label83 = new Label();
             services_deleteFromList = new RichTextBox();
             label5 = new Label();
@@ -375,7 +376,6 @@
             label85 = new Label();
             richTextBox20 = new RichTextBox();
             customdism_commands = new RichTextBox();
-            customdism_enabled = new CheckBox();
             tabPage46 = new TabPage();
             tabControl6 = new TabControl();
             tabPage27 = new TabPage();
@@ -544,7 +544,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            richTextBox32 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -3476,6 +3475,16 @@
             tabPage35.Text = "customize";
             tabPage35.UseVisualStyleBackColor = true;
             // 
+            // richTextBox32
+            // 
+            richTextBox32.BackColor = SystemColors.Info;
+            richTextBox32.Location = new Point(721, 10);
+            richTextBox32.Name = "richTextBox32";
+            richTextBox32.ReadOnly = true;
+            richTextBox32.Size = new Size(237, 186);
+            richTextBox32.TabIndex = 50;
+            richTextBox32.Text = resources.GetString("richTextBox32.Text");
+            // 
             // label83
             // 
             label83.AutoSize = true;
@@ -4263,7 +4272,6 @@
             // tabPage40
             // 
             tabPage40.Controls.Add(customdism);
-            tabPage40.Controls.Add(customdism_enabled);
             tabPage40.Location = new Point(4, 34);
             tabPage40.Name = "tabPage40";
             tabPage40.Padding = new Padding(3);
@@ -4276,10 +4284,10 @@
             // 
             customdism.Controls.Add(tabPage44);
             customdism.Controls.Add(tabPage45);
-            customdism.Location = new Point(6, 41);
+            customdism.Location = new Point(6, 6);
             customdism.Name = "customdism";
             customdism.SelectedIndex = 0;
-            customdism.Size = new Size(992, 256);
+            customdism.Size = new Size(992, 291);
             customdism.TabIndex = 7;
             // 
             // tabPage44
@@ -4290,7 +4298,7 @@
             tabPage44.Location = new Point(4, 34);
             tabPage44.Name = "tabPage44";
             tabPage44.Padding = new Padding(3);
-            tabPage44.Size = new Size(984, 218);
+            tabPage44.Size = new Size(984, 253);
             tabPage44.TabIndex = 0;
             tabPage44.Text = "features";
             tabPage44.UseVisualStyleBackColor = true;
@@ -4311,7 +4319,7 @@
             richTextBox21.Location = new Point(491, 6);
             richTextBox21.Name = "richTextBox21";
             richTextBox21.ReadOnly = true;
-            richTextBox21.Size = new Size(487, 206);
+            richTextBox21.Size = new Size(487, 241);
             richTextBox21.TabIndex = 9;
             richTextBox21.Text = "this is used to enable the feature via DISM /image:X /Enable-Feature /all /FeatureName:X\nfunctions are enables along with all dependencies.\nseparate several functions by line breaks";
             // 
@@ -4319,7 +4327,7 @@
             // 
             customdism_features.Location = new Point(6, 45);
             customdism_features.Name = "customdism_features";
-            customdism_features.Size = new Size(479, 167);
+            customdism_features.Size = new Size(479, 202);
             customdism_features.TabIndex = 8;
             customdism_features.Text = "";
             customdism_features.TextChanged += customdism_features_TextChanged;
@@ -4332,7 +4340,7 @@
             tabPage45.Location = new Point(4, 34);
             tabPage45.Name = "tabPage45";
             tabPage45.Padding = new Padding(3);
-            tabPage45.Size = new Size(984, 218);
+            tabPage45.Size = new Size(984, 253);
             tabPage45.TabIndex = 1;
             tabPage45.Text = "custom";
             tabPage45.UseVisualStyleBackColor = true;
@@ -4353,7 +4361,7 @@
             richTextBox20.Location = new Point(491, 6);
             richTextBox20.Name = "richTextBox20";
             richTextBox20.ReadOnly = true;
-            richTextBox20.Size = new Size(487, 206);
+            richTextBox20.Size = new Size(487, 241);
             richTextBox20.TabIndex = 6;
             richTextBox20.Text = resources.GetString("richTextBox20.Text");
             // 
@@ -4361,22 +4369,10 @@
             // 
             customdism_commands.Location = new Point(6, 45);
             customdism_commands.Name = "customdism_commands";
-            customdism_commands.Size = new Size(479, 167);
+            customdism_commands.Size = new Size(479, 202);
             customdism_commands.TabIndex = 4;
             customdism_commands.Text = "";
             customdism_commands.TextChanged += customdism_commands_TextChanged;
-            // 
-            // customdism_enabled
-            // 
-            customdism_enabled.AutoSize = true;
-            customdism_enabled.CheckAlign = ContentAlignment.MiddleRight;
-            customdism_enabled.Location = new Point(6, 6);
-            customdism_enabled.Name = "customdism_enabled";
-            customdism_enabled.Size = new Size(101, 29);
-            customdism_enabled.TabIndex = 5;
-            customdism_enabled.Text = "enabled";
-            customdism_enabled.UseVisualStyleBackColor = true;
-            customdism_enabled.CheckedChanged += customdism_enabled_CheckedChanged;
             // 
             // tabPage46
             // 
@@ -6116,16 +6112,6 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // richTextBox32
-            // 
-            richTextBox32.BackColor = SystemColors.Info;
-            richTextBox32.Location = new Point(721, 10);
-            richTextBox32.Name = "richTextBox32";
-            richTextBox32.ReadOnly = true;
-            richTextBox32.Size = new Size(237, 186);
-            richTextBox32.TabIndex = 50;
-            richTextBox32.Text = resources.GetString("richTextBox32.Text");
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -6281,7 +6267,6 @@
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             tabPage40.ResumeLayout(false);
-            tabPage40.PerformLayout();
             customdism.ResumeLayout(false);
             tabPage44.ResumeLayout(false);
             tabPage44.PerformLayout();
@@ -6722,7 +6707,6 @@
         private CheckBox RealTimeIsUniversal;
         private ComboBox TimeZoneKeyName;
         private RichTextBox richTextBox18;
-        private CheckBox customdism_enabled;
         private Label label85;
         private RichTextBox customdism_commands;
         private RichTextBox richTextBox20;

@@ -3503,8 +3503,8 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="richTextBox32.Text" xml:space="preserve">
-    <value>control what is running in the windows services and what winbox maker itself disables/deletes. please note that when the name is specified here, then by default it is DELETION, if you need to disable it, then start the name with "!"</value>
+  <data name="richTextBox20.Text" xml:space="preserve">
+    <value>here you can define custom DISM commands that will be used when building the system. specify only the arguments, use line breaks to separate the commands. DISM /image:mountpath will be inserted in front of each of your commands automatically and you will not need to specify them.</value>
   </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
@@ -3541,6 +3541,9 @@ If you are using the "force make "IoT Enterprise" " function, then you must also
   <data name="richTextBox18.Text" xml:space="preserve">
     <value>if you have the "RealTimeIsUniversal" option turned off (it is turned off by default), then the choice of time zone will not affect anything. Since the BIOS interprets the time as local, it will be displayed unchanged regardless of the selected time zone. however, it is possible in this case that windows will change the time in the BIOS when executing SetupComplete.cmd to offset the selected time zone. for this reason, it's better not to touch the time zone settings at all, just change the BIOS time and do not touch the settings on this tab.</value>
   </data>
+  <data name="richTextBox32.Text" xml:space="preserve">
+    <value>control what is running in the windows services and what winbox maker itself disables/deletes. please note that when the name is specified here, then by default it is DELETION, if you need to disable it, then start the name with "!"</value>
+  </data>
   <data name="richTextBox27.Text" xml:space="preserve">
     <value>control what is running in the windows schtasks and what winbox maker itself disables/deletes. please note that when the path is specified here, then by default it is DELETION, if you need to disable it, then start the path with "!"</value>
   </data>
@@ -3556,9 +3559,6 @@ This event, unlike the usual "win-mounted" event, is performed immediately after
   </data>
   <data name="richTextBox17.Text" xml:space="preserve">
     <value>integrates the reg file even at the stage of image assembly, before the first system startup. this allows you to use it even in manual setup mode. However, only the HKLM\SOFTWARE registry hive is currently supported.</value>
-  </data>
-  <data name="richTextBox20.Text" xml:space="preserve">
-    <value>here you can define custom DISM commands that will be used when building the system. specify only the arguments, use line breaks to separate the commands. DISM /image:mountpath will be inserted in front of each of your commands automatically and you will not need to specify them.</value>
   </data>
   <data name="richTextBox11.Text" xml:space="preserve">
     <value>deletes files or directories by specified paths inside the mounted Windows.

@@ -1318,12 +1318,9 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                 enableFeatures.Add("Client-EmbeddedBootExp");
             }
 
-            if (winBoxConfig.customdism_enabled == true)
+            foreach (string feature in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.customdism_features ?? ""))
             {
-                foreach (string feature in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.customdism_features ?? ""))
-                {
-                    enableFeatures.Add(feature);
-                }
+                enableFeatures.Add(feature);
             }
 
             return enableFeatures.Distinct().ToArray();
@@ -2996,14 +2993,11 @@ if errorlevel 1 (
                 await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Set-Edition:IoTEnterprise /accepteula", null, debugFolder);
             }
 
-            if (winBoxConfig.customdism_enabled == true)
+            processName("Applying custom dism commands");
+            processValue(58);
+            foreach (string command in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.customdism_commands ?? ""))
             {
-                processName("Applying custom dism commands");
-                processValue(58);
-                foreach (string command in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.customdism_commands ?? ""))
-                {
-                    await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" {command}", baseDirectoryPath, debugFolder);
-                }
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" {command}", baseDirectoryPath, debugFolder);
             }
 
             processName("Enabling necessary windows components");

@@ -198,7 +198,6 @@ namespace WinBox_Maker
         public bool? services_stopOnlyList { get; set; }
         public bool? services_startOnlyList { get; set; }
         public string? TimeZoneKeyName { get; set; }
-        public bool? customdism_enabled { get; set; }
         public string? customdism_commands { get; set; }
         public string? customdism_features { get; set; }
         public PowerScheme? powerScheme { get; set; }
@@ -529,8 +528,7 @@ namespace WinBox_Maker
                 winmountedEarlyEnabled == true ||
                 recoveryMountedEarlyEnabled == true ||
                 downloadEnabled == true ||
-                buildEnabled == true ||
-                customdism_enabled == true;
+                buildEnabled == true;
         }
 
         public bool isValidOemKey()

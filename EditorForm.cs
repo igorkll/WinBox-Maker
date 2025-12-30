@@ -619,11 +619,8 @@ namespace WinBox_Maker
             schtasks_stopOrDelete_deleteFromList.Text = winBoxProject.winBoxConfig.schtasks_stopOrDelete_deleteFromList ?? "";
             schtasks_stopOrDeleteOnlyFromList.Checked = winBoxProject.winBoxConfig.schtasks_stopOrDeleteOnlyFromList == true;
 
-            customdism_enabled.Checked = winBoxProject.winBoxConfig.customdism_enabled == true;
             customdism_commands.Text = winBoxProject.winBoxConfig.customdism_commands ?? "";
             customdism_features.Text = winBoxProject.winBoxConfig.customdism_features ?? "";
-
-            customdism.Enabled = winBoxProject.winBoxConfig.customdism_enabled == true;
 
             buildEnabled.Checked = winBoxProject.winBoxConfig.buildEnabled == true;
             downloadEnabled.Checked = winBoxProject.winBoxConfig.downloadEnabled == true;
@@ -2661,15 +2658,6 @@ namespace WinBox_Maker
         private void TimeZoneKeyName_TextChanged(object sender, EventArgs e)
         {
             updateTimeZoneKeyInConfig();
-        }
-
-        private void customdism_enabled_CheckedChanged(object sender, EventArgs e)
-        {
-            if (guiEventsLock) return;
-
-            winBoxProject.winBoxConfig.customdism_enabled = customdism_enabled.Checked;
-            winBoxProject.SaveConfig();
-            UpdateGui();
         }
 
         private void customdism_commands_TextChanged(object sender, EventArgs e)
