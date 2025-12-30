@@ -38,5 +38,14 @@ namespace WinBox_Maker
             await Program.ExecuteAsync("reg.exe", $"import \"{tempRegPath}\"", null, Program.winBoxProject.debugFolder);
             File.Delete(tempRegPath);
         }
+
+        public static async Task RegModFromFile(string regPath)
+        {
+            string newRegPath = Path.Combine(Program.winBoxProject.tempDirectoryPath, "modified_reg.reg");
+            await RegPatcher.regPatcher(regPath, newRegPath);
+            Program.winBoxProject.copyToDebugFile($"modified_reg_{Program.CalculateMD5(regPath)}.txt", newRegPath);
+            await Program.ExecuteAsync("reg.exe", $"import \"{newRegPath}\"", null, Program.winBoxProject.debugFolder);
+            File.Delete(newRegPath);
+        }
     }
 }
