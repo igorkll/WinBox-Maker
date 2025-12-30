@@ -1995,7 +1995,7 @@ reagentc.exe {(winBoxConfig.EnableRecovery == true ? "/enable" : "/disable")}
 echo SetupComplete and FirstInit - setup BCD >> C:\WinboxResources\setup.log
 {bcdeditSetup}
 
-echo SetupComplete and FirstInit - disable firewall >> C:\WinboxResources\setup.log
+echo SetupComplete and FirstInit - setup firewall >> C:\WinboxResources\setup.log
 netsh advfirewall set allprofiles state off
 
 echo SetupComplete and FirstInit - setup dism >> C:\WinboxResources\setup.log
@@ -2045,6 +2045,9 @@ echo SetupComplete - call SetupComplete and FirstInit >> C:\WinboxResources\setu
 echo SetupComplete - setup services >> C:\WinboxResources\setup.log
 {getServicesSetup(true)}
 
+echo SetupComplete - setup schtasks >> C:\WinboxResources\setup.log
+{getSchtasksSetup()}
+
 echo SetupComplete - add executable to PATH >> C:\WinboxResources\setup.log
 setx PATH ""%PATH%;C:\WinboxResources\executable"" /M
 
@@ -2054,34 +2057,27 @@ call ""C:\WinboxResources\UpdateSystemSettings.bat""
 echo SetupComplete - add UpdateSystemSettings to schtasks >> C:\WinboxResources\setup.log
 schtasks /create /tn ""winbox_UpdateSystemSettings"" /tr ""C:\WinboxResources\UpdateSystemSettings.bat"" /sc onlogon /rl highest /ru ""SYSTEM""
 
-echo SetupComplete - setup schtasks >> C:\WinboxResources\setup.log
-{getSchtasksSetup()}
-
-echo SetupComplete - DisableTamperProtection >> C:\WinboxResources\setup.log
-powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
-
 echo SetupComplete - setup SYSTEM >> C:\WinboxResources\setup.log
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d {((winBoxConfig.bsod_autoreboot == true) ? 1 : 0)} /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control"" /v ProcessTerminationOnMemoryExhaustion /t REG_DWORD /d 0 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v DisableAutomaticTermination /t REG_DWORD /d 1 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v CrashDumpEnabled /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v LogEvent /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v Overwrite /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v EnableLogFile /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayError /t REG_DWORD /d {(1 - disabledisplay)} /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayDisabled /t REG_DWORD /d {disabledisplay} /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\HardwareEvents"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Application"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\System"" /v MaxSize /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile"" /v EnableFirewall /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power"" /v HiberbootEnabled /t REG_DWORD /d {hiberboot} /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance"" /v fAllowFullControl /t REG_DWORD /d 0 /f
 reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance"" /v fAllowToGetHelp /t REG_DWORD /d 0 /f
-{(Program.isTweakEnabled(winBoxConfig, "Hide system errors") ? @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Windows"" /v ErrorMode /t REG_DWORD /d 2 /f" : "")}
 
-echo SetupComplete - setup Memory Management >> C:\WinboxResources\setup.log
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control"" /v ProcessTerminationOnMemoryExhaustion /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"" /v DisableAutomaticTermination /t REG_DWORD /d 1 /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v AutoReboot /t REG_DWORD /d {((winBoxConfig.bsod_autoreboot == true) ? 1 : 0)} /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayError /t REG_DWORD /d {(1 - disabledisplay)} /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl"" /v DisplayDisabled /t REG_DWORD /d {disabledisplay} /f
+reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power"" /v HiberbootEnabled /t REG_DWORD /d {hiberboot} /f
+{(Program.isTweakEnabled(winBoxConfig, "Hide system errors") ? @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Windows"" /v ErrorMode /t REG_DWORD /d 2 /f" : "")}
 
 echo SetupComplete - setup EmbeddedLogon >> C:\WinboxResources\setup.log
 reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon"" /v HideAutoLogonUI /t REG_DWORD /d 1 /f
