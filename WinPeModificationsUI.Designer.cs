@@ -40,6 +40,7 @@
             tabPage4 = new TabPage();
             tabControl2 = new TabControl();
             tabPage6 = new TabPage();
+            recovery_allowMenu = new CheckBox();
             customRecoveryLogoPath_clr = new Button();
             customRecoveryLogoPath_sel = new Button();
             customRecoveryLogoPath = new TextBox();
@@ -54,15 +55,18 @@
             recovery_allowFactoryReset = new CheckBox();
             recovery_dataPaths = new RichTextBox();
             tabPage7 = new TabPage();
-            checkBox3 = new CheckBox();
-            checkBox2 = new CheckBox();
-            checkBox1 = new CheckBox();
+            panel2 = new Panel();
+            recovery_allowAutoFlash = new CheckBox();
+            recovery_autoFlashQuietMode = new ComboBox();
+            label6 = new Label();
+            panel1 = new Panel();
+            recovery_allowFlashWithoutFactoryReset = new CheckBox();
+            recovery_allowFlashWithFactoryReset = new CheckBox();
+            recovery_allowManualFlash = new CheckBox();
             recovery_allowFlashWim = new CheckBox();
             recovery_imgName = new TextBox();
             recovery_wimName = new TextBox();
             recovery_ffuName = new TextBox();
-            recovery_allowFlashWithFactoryReset = new CheckBox();
-            recovery_allowFlashWithoutFactoryReset = new CheckBox();
             recovery_allowFlashFfu = new CheckBox();
             recovery_allowFlashImg = new CheckBox();
             richTextBox2 = new RichTextBox();
@@ -82,6 +86,8 @@
             tabPage6.SuspendLayout();
             tabPage8.SuspendLayout();
             tabPage7.SuspendLayout();
+            panel2.SuspendLayout();
+            panel1.SuspendLayout();
             tabPage5.SuspendLayout();
             tabPage2.SuspendLayout();
             SuspendLayout();
@@ -200,6 +206,7 @@
             // 
             // tabPage6
             // 
+            tabPage6.Controls.Add(recovery_allowMenu);
             tabPage6.Controls.Add(customRecoveryLogoPath_clr);
             tabPage6.Controls.Add(customRecoveryLogoPath_sel);
             tabPage6.Controls.Add(customRecoveryLogoPath);
@@ -216,6 +223,17 @@
             tabPage6.TabIndex = 0;
             tabPage6.Text = "look";
             tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // recovery_allowMenu
+            // 
+            recovery_allowMenu.AutoSize = true;
+            recovery_allowMenu.Location = new Point(6, 119);
+            recovery_allowMenu.Name = "recovery_allowMenu";
+            recovery_allowMenu.Size = new Size(305, 29);
+            recovery_allowMenu.TabIndex = 20;
+            recovery_allowMenu.Text = "allowed to use the recovery menu";
+            recovery_allowMenu.UseVisualStyleBackColor = true;
+            recovery_allowMenu.CheckedChanged += recovery_allowMenu_CheckedChanged;
             // 
             // customRecoveryLogoPath_clr
             // 
@@ -344,15 +362,12 @@
             // 
             // tabPage7
             // 
-            tabPage7.Controls.Add(checkBox3);
-            tabPage7.Controls.Add(checkBox2);
-            tabPage7.Controls.Add(checkBox1);
+            tabPage7.Controls.Add(panel2);
+            tabPage7.Controls.Add(panel1);
             tabPage7.Controls.Add(recovery_allowFlashWim);
             tabPage7.Controls.Add(recovery_imgName);
             tabPage7.Controls.Add(recovery_wimName);
             tabPage7.Controls.Add(recovery_ffuName);
-            tabPage7.Controls.Add(recovery_allowFlashWithFactoryReset);
-            tabPage7.Controls.Add(recovery_allowFlashWithoutFactoryReset);
             tabPage7.Controls.Add(recovery_allowFlashFfu);
             tabPage7.Controls.Add(recovery_allowFlashImg);
             tabPage7.Location = new Point(4, 34);
@@ -363,35 +378,91 @@
             tabPage7.Text = "flash";
             tabPage7.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // panel2
             // 
-            checkBox3.AutoSize = true;
-            checkBox3.Location = new Point(6, 257);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(464, 29);
-            checkBox3.TabIndex = 20;
-            checkBox3.Text = "allow manual flash from recovery (from external drive)";
-            checkBox3.UseVisualStyleBackColor = true;
+            panel2.BorderStyle = BorderStyle.Fixed3D;
+            panel2.Controls.Add(recovery_allowAutoFlash);
+            panel2.Controls.Add(recovery_autoFlashQuietMode);
+            panel2.Controls.Add(label6);
+            panel2.Location = new Point(6, 249);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(611, 123);
+            panel2.TabIndex = 24;
             // 
-            // checkBox2
+            // recovery_allowAutoFlash
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(6, 222);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(163, 29);
-            checkBox2.TabIndex = 19;
-            checkBox2.Text = "auto-flash quiet";
-            checkBox2.UseVisualStyleBackColor = true;
+            recovery_allowAutoFlash.AutoSize = true;
+            recovery_allowAutoFlash.Location = new Point(3, 3);
+            recovery_allowAutoFlash.Name = "recovery_allowAutoFlash";
+            recovery_allowAutoFlash.Size = new Size(325, 29);
+            recovery_allowAutoFlash.TabIndex = 18;
+            recovery_allowAutoFlash.Text = "allow auto-flash (from internal drive)";
+            recovery_allowAutoFlash.UseVisualStyleBackColor = true;
+            recovery_allowAutoFlash.CheckedChanged += recovery_allowAutoFlash_CheckedChanged;
             // 
-            // checkBox1
+            // recovery_autoFlashQuietMode
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(6, 187);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(325, 29);
-            checkBox1.TabIndex = 18;
-            checkBox1.Text = "allow auto-flash (from internal drive)";
-            checkBox1.UseVisualStyleBackColor = true;
+            recovery_autoFlashQuietMode.DropDownStyle = ComboBoxStyle.DropDownList;
+            recovery_autoFlashQuietMode.FormattingEnabled = true;
+            recovery_autoFlashQuietMode.Items.AddRange(new object[] { "don't hide it", "only the logo", "black screen" });
+            recovery_autoFlashQuietMode.Location = new Point(3, 38);
+            recovery_autoFlashQuietMode.Name = "recovery_autoFlashQuietMode";
+            recovery_autoFlashQuietMode.Size = new Size(182, 33);
+            recovery_autoFlashQuietMode.TabIndex = 21;
+            recovery_autoFlashQuietMode.SelectedIndexChanged += recovery_autoFlashQuietMode_SelectedIndexChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(191, 41);
+            label6.Name = "label6";
+            label6.Size = new Size(187, 25);
+            label6.TabIndex = 22;
+            label6.Text = "auto flash quiet mode";
+            // 
+            // panel1
+            // 
+            panel1.BorderStyle = BorderStyle.Fixed3D;
+            panel1.Controls.Add(recovery_allowFlashWithoutFactoryReset);
+            panel1.Controls.Add(recovery_allowFlashWithFactoryReset);
+            panel1.Controls.Add(recovery_allowManualFlash);
+            panel1.Location = new Point(6, 124);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(611, 118);
+            panel1.TabIndex = 23;
+            // 
+            // recovery_allowFlashWithoutFactoryReset
+            // 
+            recovery_allowFlashWithoutFactoryReset.AutoSize = true;
+            recovery_allowFlashWithoutFactoryReset.Location = new Point(3, 38);
+            recovery_allowFlashWithoutFactoryReset.Name = "recovery_allowFlashWithoutFactoryReset";
+            recovery_allowFlashWithoutFactoryReset.Size = new Size(289, 29);
+            recovery_allowFlashWithoutFactoryReset.TabIndex = 16;
+            recovery_allowFlashWithoutFactoryReset.Text = "allow flash without factory reset";
+            recovery_allowFlashWithoutFactoryReset.UseVisualStyleBackColor = true;
+            recovery_allowFlashWithoutFactoryReset.CheckedChanged += recovery_allowFlashWithoutFactoryReset_CheckedChanged;
+            // 
+            // recovery_allowFlashWithFactoryReset
+            // 
+            recovery_allowFlashWithFactoryReset.AutoSize = true;
+            recovery_allowFlashWithFactoryReset.Location = new Point(3, 73);
+            recovery_allowFlashWithFactoryReset.Name = "recovery_allowFlashWithFactoryReset";
+            recovery_allowFlashWithFactoryReset.Size = new Size(262, 29);
+            recovery_allowFlashWithFactoryReset.TabIndex = 17;
+            recovery_allowFlashWithFactoryReset.Text = "allow flash with factory reset";
+            recovery_allowFlashWithFactoryReset.UseVisualStyleBackColor = true;
+            recovery_allowFlashWithFactoryReset.CheckedChanged += recovery_allowFlashWithFactoryReset_CheckedChanged;
+            // 
+            // recovery_allowManualFlash
+            // 
+            recovery_allowManualFlash.AutoSize = true;
+            recovery_allowManualFlash.Location = new Point(3, 3);
+            recovery_allowManualFlash.Name = "recovery_allowManualFlash";
+            recovery_allowManualFlash.Size = new Size(464, 29);
+            recovery_allowManualFlash.TabIndex = 20;
+            recovery_allowManualFlash.Text = "allow manual flash from recovery (from external drive)";
+            recovery_allowManualFlash.UseVisualStyleBackColor = true;
+            recovery_allowManualFlash.CheckedChanged += recovery_allowManualFlash_CheckedChanged;
             // 
             // recovery_allowFlashWim
             // 
@@ -427,28 +498,6 @@
             recovery_ffuName.Size = new Size(328, 31);
             recovery_ffuName.TabIndex = 11;
             recovery_ffuName.TextChanged += recovery_ffuName_TextChanged;
-            // 
-            // recovery_allowFlashWithFactoryReset
-            // 
-            recovery_allowFlashWithFactoryReset.AutoSize = true;
-            recovery_allowFlashWithFactoryReset.Location = new Point(6, 152);
-            recovery_allowFlashWithFactoryReset.Name = "recovery_allowFlashWithFactoryReset";
-            recovery_allowFlashWithFactoryReset.Size = new Size(262, 29);
-            recovery_allowFlashWithFactoryReset.TabIndex = 17;
-            recovery_allowFlashWithFactoryReset.Text = "allow flash with factory reset";
-            recovery_allowFlashWithFactoryReset.UseVisualStyleBackColor = true;
-            recovery_allowFlashWithFactoryReset.CheckedChanged += recovery_allowFlashWithFactoryReset_CheckedChanged;
-            // 
-            // recovery_allowFlashWithoutFactoryReset
-            // 
-            recovery_allowFlashWithoutFactoryReset.AutoSize = true;
-            recovery_allowFlashWithoutFactoryReset.Location = new Point(6, 117);
-            recovery_allowFlashWithoutFactoryReset.Name = "recovery_allowFlashWithoutFactoryReset";
-            recovery_allowFlashWithoutFactoryReset.Size = new Size(289, 29);
-            recovery_allowFlashWithoutFactoryReset.TabIndex = 16;
-            recovery_allowFlashWithoutFactoryReset.Text = "allow flash without factory reset";
-            recovery_allowFlashWithoutFactoryReset.UseVisualStyleBackColor = true;
-            recovery_allowFlashWithoutFactoryReset.CheckedChanged += recovery_allowFlashWithoutFactoryReset_CheckedChanged;
             // 
             // recovery_allowFlashFfu
             // 
@@ -577,6 +626,10 @@
             tabPage8.PerformLayout();
             tabPage7.ResumeLayout(false);
             tabPage7.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
             tabPage2.ResumeLayout(false);
@@ -627,8 +680,12 @@
         private TextBox customRecoveryLogoPath;
         private Button customRecoveryLogoPath_clr;
         private Button customRecoveryLogoPath_sel;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
-        private CheckBox checkBox3;
+        private CheckBox recovery_allowAutoFlash;
+        private CheckBox recovery_allowManualFlash;
+        private Label label6;
+        private ComboBox recovery_autoFlashQuietMode;
+        private Panel panel1;
+        private Panel panel2;
+        private CheckBox recovery_allowMenu;
     }
 }

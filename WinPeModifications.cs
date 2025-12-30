@@ -21,6 +21,13 @@ namespace WinBox_Maker
         NoLogo
     }
 
+    public enum AutoFlashQuietMode
+    {
+        DontHide,
+        OnlyLogo,
+        BlackScreen
+    }
+
     public class WinPeModifications
     {
         public bool? enabled { get; set; }
@@ -32,6 +39,7 @@ namespace WinBox_Maker
         public AppOverrideType? app_override_type { get; set; }
         public string? app_custom_cmdline { get; set; }
         public WinboxRecoveryLogoType? winboxRecoveryLogoType { get; set; }
+        public AutoFlashQuietMode? autoFlashQuietMode { get; set; }
         public string? customRecoveryLogoPath { get; set; }
 
         public string? recovery_title { get; set; }
@@ -47,6 +55,9 @@ namespace WinBox_Maker
         public bool? recovery_allowFlashWithFactoryReset { get; set; }
         public bool? recovery_textOnInfoPage_en { get; set; }
         public string? recovery_textOnInfoPage { get; set; }
+        public bool? recovery_allowMenu { get; set; }
+        public bool? recovery_allowManualFlash { get; set; }
+        public bool? recovery_allowAutoFlash { get; set; }
 
         // initFor
         // 0 - installer
@@ -62,10 +73,11 @@ namespace WinBox_Maker
             if (app_override_type == null) app_override_type = AppOverrideType.WinboxMakerRecovery;
             if (app_custom_cmdline == null) app_custom_cmdline = "my_app_example.exe --argument";
             if (winboxRecoveryLogoType == null) winboxRecoveryLogoType = WinboxRecoveryLogoType.DefaultLogo;
+            if (autoFlashQuietMode == null) autoFlashQuietMode = AutoFlashQuietMode.DontHide;
             if (customRecoveryLogoPath == null) customRecoveryLogoPath = "";
 
             if (recovery_title == null) recovery_title = "Winbox maker recovery";
-            if (recovery_dataPaths == null) recovery_dataPaths = "Users\\winbox\\AppData\\Roaming\\MY_APP_DATA_EXAMPLE\nOTHER_DATA_FOLDER_IN_C_DRIVE\nUsers\\winbox\\desktop\\FILE_ON_DESKTOP_EXAMPLE";
+            if (recovery_dataPaths == null) recovery_dataPaths = "Users\\winbox\\AppData\\Roaming\\MY_APP_DATA_EXAMPLE\nOTHER_DATA_FOLDER_IN_C_DRIVE\nUsers\\winbox\\desktop\\FILE_ON_DESKTOP_EXAMPLE\nhiberfil.sys\npagefile.sys";
             if (recovery_allowFactoryReset == null) recovery_allowFactoryReset = true;
             if (recovery_allowFlashWim == null) recovery_allowFlashWim = true;
             if (recovery_wimName == null) recovery_wimName = "firmware.wim";
@@ -77,6 +89,9 @@ namespace WinBox_Maker
             if (recovery_allowFlashWithFactoryReset == null) recovery_allowFlashWithFactoryReset = true;
             if (recovery_textOnInfoPage_en == null) recovery_textOnInfoPage_en = false;
             if (recovery_textOnInfoPage == null) recovery_textOnInfoPage = "you can download device firmware on\nhttps://example.com";
+            if (recovery_allowMenu == null) recovery_allowMenu = true;
+            if (recovery_allowManualFlash == null) recovery_allowManualFlash = true;
+            if (recovery_allowAutoFlash == null) recovery_allowAutoFlash = true;
         }
 
         // ------------------------------

@@ -62,8 +62,12 @@ namespace WinBox_Maker
             recovery_wimName.Enabled = winPeModifications.recovery_allowFlashWim == true;
             recovery_imgName.Enabled = winPeModifications.recovery_allowFlashImg == true;
             recovery_ffuName.Enabled = winPeModifications.recovery_allowFlashFfu == true;
+            recovery_allowMenu.Checked = winPeModifications.recovery_allowMenu == true;
+            recovery_allowManualFlash.Checked = winPeModifications.recovery_allowManualFlash == true;
+            recovery_allowAutoFlash.Checked = winPeModifications.recovery_allowAutoFlash == true;
 
             winboxRecoveryLogoType.SelectedIndex = (int)(winPeModifications.winboxRecoveryLogoType ?? 0);
+            recovery_autoFlashQuietMode.SelectedIndex = (int)(winPeModifications.autoFlashQuietMode ?? 0);
             customRecoveryLogoPath.Text = winPeModifications.customRecoveryLogoPath ?? "";
 
             bool customRecoveryLogo = winPeModifications.winboxRecoveryLogoType == WinboxRecoveryLogoType.CustomLogo;
@@ -128,7 +132,6 @@ namespace WinBox_Maker
         private void winboxRecoveryLogoType_SelectedIndexChanged(object sender, EventArgs e)
         {
             winPeModifications.winboxRecoveryLogoType = (WinboxRecoveryLogoType)winboxRecoveryLogoType.SelectedIndex;
-            winPeModifications.remove_cmd_exe = remove_cmd_exe.Checked;
             Program.winBoxProject.SaveConfig();
             UpdateGui();
         }
@@ -256,6 +259,30 @@ namespace WinBox_Maker
         private void recovery_wimName_TextChanged(object sender, EventArgs e)
         {
             winPeModifications.recovery_wimName = recovery_wimName.Text;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void recovery_allowMenu_CheckedChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_allowMenu = recovery_allowMenu.Checked;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void recovery_allowAutoFlash_CheckedChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_allowAutoFlash = recovery_allowAutoFlash.Checked;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void recovery_allowManualFlash_CheckedChanged(object sender, EventArgs e)
+        {
+            winPeModifications.recovery_allowManualFlash = recovery_allowManualFlash.Checked;
+            Program.winBoxProject.SaveConfig();
+        }
+
+        private void recovery_autoFlashQuietMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            winPeModifications.autoFlashQuietMode = (AutoFlashQuietMode)recovery_autoFlashQuietMode.SelectedIndex;
             Program.winBoxProject.SaveConfig();
         }
     }
