@@ -160,6 +160,10 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * f1 - f24 keys
 * web back, favorites, forward, home, refresh, search, stop keys
 
+### patch descriptions
+* Integrate nircmd - adds nircmd to the image and registers it in the PATH. This is necessary to control some windows functions from your kiosk application without calling winapi directly
+* Integrate PSTools - adds PsTools to the image and registers it in the PATH. this is necessary so that your kiosk application can run the exe on behalf of the system, for example, to circumvent some restrictions of WinRT (I used this to switch the bluetooth status without having a trusted digital signature)
+
 ### the following keys and combinations have been disabled at the system level
 * Alt+F4
 * Alt+Space
