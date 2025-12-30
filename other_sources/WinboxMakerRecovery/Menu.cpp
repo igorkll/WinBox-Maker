@@ -151,16 +151,19 @@ static void pointerAccept(HWND hwnd) {
 static void handleKeyboard(HWND hwnd, WPARAM key) {
     switch (key) {
     case VK_UP:
-    case VK_VOLUME_UP:
         pointerMove(hwnd, true);
         break;
+
     case VK_DOWN:
-    case VK_VOLUME_DOWN:
+    case VK_VOLUME_DOWN: //volume down - down
         pointerMove(hwnd, false);
         break;
+    
     case VK_RETURN:
+    case VK_VOLUME_UP: //volume up - accept
         pointerAccept(hwnd);
         break;
+    
     case VK_ESCAPE:
         PostQuitMessage(0);
         break;
@@ -169,10 +172,10 @@ static void handleKeyboard(HWND hwnd, WPARAM key) {
 
 static void handleAppCommand(HWND hwnd, WPARAM lParam) {
     switch (GET_APPCOMMAND_LPARAM(lParam)) {
-    case APPCOMMAND_VOLUME_UP:
-        pointerMove(hwnd, true);
+    case APPCOMMAND_VOLUME_UP: //volume up - accept
+        pointerAccept(hwnd);
         break;
-    case APPCOMMAND_VOLUME_DOWN:
+    case APPCOMMAND_VOLUME_DOWN: //volume down - down
         pointerMove(hwnd, false);
         break;
     }
