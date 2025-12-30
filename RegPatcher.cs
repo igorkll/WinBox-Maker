@@ -79,6 +79,19 @@ namespace WinBox_Maker
             return result.ToArray();
         }
 
+        static string CleanRegLine(string line)
+        {
+            if (line.EndsWith("]"))
+                line = line[..^1];
+
+            if (line.StartsWith("[-"))
+                line = line[2..];
+            else if (line.StartsWith("["))
+                line = line[1..];
+
+            return line;
+        }
+
         static public async Task<string> regToCommands(string regData, string[] _allowedHives)
         {
             string commands = "";
@@ -86,8 +99,10 @@ namespace WinBox_Maker
 
             using (var reader = new StringReader(regData))
             {
-
                 bool allowed = false;
+                bool removeKey = false;
+                string? hive = null;
+
                 string? line;
                 while ((line = reader.ReadLine()) != null)
                 {
@@ -103,6 +118,7 @@ namespace WinBox_Maker
                             if (line.StartsWith(fromReplace, StringComparison.OrdinalIgnoreCase))
                             {
                                 allowed = true;
+                                removeKey = false;
                             }
                             else
                             {
@@ -111,15 +127,20 @@ namespace WinBox_Maker
                                 if (line.StartsWith(fromReplace, StringComparison.OrdinalIgnoreCase))
                                 {
                                     allowed = true;
+                                    removeKey = true;
                                 }
                             }
-                            if (allowed) break;
+                            if (allowed)
+                            {
+                                hive = CleanRegLine(line);
+                                break;
+                            }
                         }
                     }
 
                     if (allowed)
                     {
-                        if (line.Length > 0 && !line.StartsWith(";"))
+                        if (line.Length > 0 && line.StartsWith("\""))
                         {
 
                         }
