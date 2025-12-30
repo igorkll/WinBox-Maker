@@ -10,17 +10,27 @@ namespace WinBox_Maker
 {
     internal class RegChanger
     {
+        public static async Task mountRegRaw(string name, string path, string? windowsMountPath = null)
+        {
+            if (windowsMountPath == null) windowsMountPath = Program.winBoxProject.wimMountPath;
+            await Program.ExecuteAsync("reg.exe", $"load HKLM\\{name} \"{Path.Combine(windowsMountPath, path)}\"", null, Program.winBoxProject.debugFolder);
+        }
+
+        public static async Task umountRegRaw(string name)
+        {
+            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\{name}", null, Program.winBoxProject.debugFolder);
+        }
+
         public static async Task mountReg(string hive = "SOFTWARE", string tag = "", string? windowsMountPath=null)
         {
             if (tag.Length > 0) tag = "_" + tag;
-            if (windowsMountPath == null) windowsMountPath = Program.winBoxProject.wimMountPath;
-            await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX{tag}_{hive} \"{Path.Combine(windowsMountPath, $"Windows\\System32\\config\\{hive}")}\"", null, Program.winBoxProject.debugFolder);
+            await mountRegRaw($"WINBOX{tag}_{hive}", $"Windows\\System32\\config\\{hive}", windowsMountPath);
         }
 
         public static async Task umountReg(string hive = "SOFTWARE", string tag = "")
         {
             if (tag.Length > 0) tag = "_" + tag;
-            await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX{tag}_{hive}", null, Program.winBoxProject.debugFolder);
+            await umountRegRaw($"WINBOX{tag}_{hive}");
         }
 
         public static async Task RegMod(string baseTree, string path, string key, string value, string tag = "")

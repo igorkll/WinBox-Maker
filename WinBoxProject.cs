@@ -1878,6 +1878,7 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
             if (modSystemReg)
             {
                 await RegChanger.mountReg();
+                await RegChanger.mountRegRaw("WINBOX_DEFAULT_USER", "Users\\Default\\NTUSER.DAT");
                 //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
             }
 
@@ -2091,19 +2092,6 @@ reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Embedded\EmbeddedLogon""
 
 echo SetupComplete - load DEFAULT_USER >> C:\WinboxResources\setup.log
 reg load HKLM\DEFAULT_USER ""C:\Users\Default\NTUSER.DAT""
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Accessibility\StickyKeys"" /v Flags /t REG_DWORD /d 506 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v Beep /t REG_SZ /d no /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Sound"" /v ExtendedSounds /t REG_SZ /d no /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v AccentColor /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\SOFTWARE\Microsoft\Windows\DWM"" /v ColorizationColor /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v DontShowUI /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\Microsoft\Windows\Windows Error Reporting"" /v Disabled /t REG_DWORD /d 1 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v UserPreferencesMask /t REG_BINARY /d 9012038010000000 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop\WindowMetrics"" /v MinAnimate /t REG_SZ /d ""0"" /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVTweak"" /v OverlayHook /t REG_DWORD /d 0 /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v HungAppTimeout /t REG_SZ /d ""2147483647"" /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v WaitToKillAppTimeout /t REG_SZ /d ""5000"" /f
-reg add ""HKEY_LOCAL_MACHINE\DEFAULT_USER\Control Panel\Desktop"" /v AutoEndTasks /t REG_SZ /d ""1"" /f
 
 echo SetupComplete - setup keyboard layouts >> C:\WinboxResources\setup.log
 {getKeyboardLayoutsSetup()}";
@@ -2948,6 +2936,7 @@ if errorlevel 1 (
                 }
 
                 await RegChanger.umountReg();
+                await RegChanger.umountRegRaw("WINBOX_DEFAULT_USER");
                 //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
             }
 
