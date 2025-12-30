@@ -291,10 +291,6 @@ namespace WinBox_Maker
                 TweakList.Add("Disable system integrity checks");
                 TweakList.Add("Disable HyperV / VSM / ELAM");
             }
-            if (TweakListLevel < 2)
-            {
-                TweakList.Add("make a quiet SPP");
-            }
 
             if (keyboard_filter_blockList == null)
             {

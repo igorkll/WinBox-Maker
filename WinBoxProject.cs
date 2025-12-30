@@ -1259,11 +1259,6 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
             if (winBoxConfig.services_stopOnlyList != true)
             {
-                if (Program.isTweakEnabled(winBoxConfig, "make a quiet SPP"))
-                {
-                    stopServices.Add("sppsvc");
-                }
-
                 if (winBoxConfig.DisableNtp == true)
                 {
                     stopServices.Add("w32time");
@@ -1960,10 +1955,6 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
             if (!manual)
             {
                 await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"", null, debugFolder);
-                if (Program.isTweakEnabled(winBoxConfig, "make a quiet SPP"))
-                {
-                    await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "quiet_spp.reg"))}\"", null, debugFolder);
-                }
 
                 string executablePath = Path.Combine(WinboxResourcesPath, "executable");
                 Directory.CreateDirectory(executablePath);
