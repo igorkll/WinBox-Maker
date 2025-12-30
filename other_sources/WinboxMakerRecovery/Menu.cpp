@@ -112,7 +112,13 @@ static void redrawMenu(HWND hwnd) {
 
     SelectObject(hdc, titleFont);
     SetTextColor(hdc, color_title);
-    drawCenterizedText(hdc, 0, title_text);
+    if (menu->titleOverride.size() > 0) {
+        drawCenterizedText(hdc, 0, menu->titleOverride);
+    }
+    else
+    {
+        drawCenterizedText(hdc, 0, title_text);
+    }
 
     SelectObject(hdc, menuFont);
     int y = lineHeight;
