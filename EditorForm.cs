@@ -92,7 +92,7 @@ namespace WinBox_Maker
             AddTweakToList("Hide system errors");
             softwareCheck = false;
 
-            regtweak_default.Text = System.IO.File.ReadAllText("resources/tweak.reg");
+            regtweak_default.Text = System.IO.File.ReadAllText(Program.mainTweakPath);
 
             resetKeyboardFilterBlockList();
 
@@ -3128,7 +3128,7 @@ namespace WinBox_Maker
 
         void resetRegTweakOverwrite()
         {
-            winBoxProject.winBoxConfig.regtweak_overwrite = System.IO.File.ReadAllText("resources/tweak.reg");
+            winBoxProject.winBoxConfig.regtweak_overwrite = System.IO.File.ReadAllText(Program.mainTweakPath);
         }
 
         private void regtweak_overwrite_en_CheckedChanged(object sender, EventArgs e)

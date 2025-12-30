@@ -1954,7 +1954,15 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
             if (!manual)
             {
-                await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"", null, debugFolder);
+                //await Program.ExecuteAsync("reg.exe", $"import \"{Program.ResourcePath(Path.Combine("reg", "tweak.reg"))}\"", null, debugFolder);
+                if (winBoxConfig.regtweak_overwrite_en == true)
+                {
+                    await RegChanger.RegModFromRamFile(winBoxConfig.regtweak_overwrite);
+                }
+                else
+                {
+                    await RegChanger.RegModFromFile(Program.mainTweakPath);
+                }
 
                 string executablePath = Path.Combine(WinboxResourcesPath, "executable");
                 Directory.CreateDirectory(executablePath);
