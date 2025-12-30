@@ -324,7 +324,6 @@
             regtweak_overwrite_reset = new Button();
             regtweak_overwrite_en = new CheckBox();
             regtweak_overwrite = new RichTextBox();
-            tabPage59 = new TabPage();
             tabPage38 = new TabPage();
             tabControl8 = new TabControl();
             tabPage33 = new TabPage();
@@ -1989,7 +1988,6 @@
             tabControl2.Controls.Add(tabPage17);
             tabControl2.Controls.Add(tabPage3);
             tabControl2.Controls.Add(tabPage4);
-            tabControl2.Controls.Add(tabPage59);
             tabControl2.Location = new Point(6, 6);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
@@ -3809,15 +3807,6 @@
             regtweak_overwrite.TabIndex = 0;
             regtweak_overwrite.Text = "";
             regtweak_overwrite.TextChanged += regtweak_overwrite_TextChanged;
-            // 
-            // tabPage59
-            // 
-            tabPage59.Location = new Point(4, 34);
-            tabPage59.Name = "tabPage59";
-            tabPage59.Size = new Size(998, 297);
-            tabPage59.TabIndex = 10;
-            tabPage59.Text = "bloadware";
-            tabPage59.UseVisualStyleBackColor = true;
             // 
             // tabPage38
             // 
@@ -6969,7 +6958,6 @@
         private CheckedListBox keyboard_filter_blockList;
         private Label label98;
         private Button keyboard_filter_blockList_reset;
-        private TabPage tabPage59;
         private TabControl tabControl13;
         private TabPage tabPage60;
         private TabPage tabPage61;

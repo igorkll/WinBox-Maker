@@ -1,5 +1,7 @@
 Windows Registry Editor Version 5.00
 
+; ------------------------------------------------ software hive
+
 ; ---------------- disable telemetry
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection]
 "AllowTelemetry"=dword:00000000
@@ -529,12 +531,6 @@ Windows Registry Editor Version 5.00
 "SkipUserOOBE"=dword:00000001
 "BypassNRO"=dword:00000001
 
-; ---------------- disable ctrl+alt+del functionality
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
-"DisableLogoff"=dword:00000001
-"DisableChangePassword"=dword:00000001
-"DontDisplayNetworkSelectionUI"=dword:00000001
-
 ; ---------------- disable sfc
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "DisableSFC"=dword:00000001
@@ -627,7 +623,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore]
 "RPSessionInterval"=dword:00000000
 
-; ---------------- default user
+; ------------------------------------------------ default user
 
 [HKEY_USERS\DEFAULT_USER\Control Panel\Accessibility\StickyKeys]
 "Flags"=dword:000001fa
@@ -656,7 +652,7 @@ Windows Registry Editor Version 5.00
 [HKEY_USERS\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVTweak]
 "OverlayHook"=dword:00000000
 
-; ---------------- system
+; ------------------------------------------------ system
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control]
 "ProcessTerminationOnMemoryExhaustion"=dword:00000000
