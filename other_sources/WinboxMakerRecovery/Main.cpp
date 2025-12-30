@@ -24,8 +24,17 @@ static void loadConsts() {
     }
 }
 
+static void entry_reboot_to_system() {
+    PostQuitMessage(0);
+}
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
     loadConsts();
+
+    Menu_menu mainMenu;
+    mainMenu.addMenuEntry_callback("Reboot to the system now", entry_reboot_to_system);
+
+    Menu_select(&mainMenu);
     Menu_start(hInstance);
     return 0;
 }

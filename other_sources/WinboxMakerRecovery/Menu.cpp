@@ -56,13 +56,7 @@ static void initStaticObjects() {
 
 // ------------------------------------- vars
 
-static std::vector<std::string> menuItems = {
-    "Factory reset",
-    "Flash .wim",
-    "Flash .img",
-    "Shutdown"
-};
-static int selectedItem = 0;
+static Menu_menu* menu;
 
 // ------------------------------------- code
 
@@ -122,9 +116,9 @@ static void redrawMenu(HWND hwnd) {
 
     SelectObject(hdc, menuFont);
     int y = lineHeight;
-    for (size_t i = 0; i < menuItems.size(); i++) {
-        SetTextColor(hdc, i == selectedItem ? color_selectedText : color_text);
-        drawCenterizedText(hdc, y, menuItems[i]);
+    for (size_t i = 0; i < menu->menuEntriesNames.size(); i++) {
+        SetTextColor(hdc, i == menu->selected ? color_selectedText : color_text);
+        drawCenterizedText(hdc, y, menu->menuEntriesNames[i]);
         y += lineHeight;
     }
 
@@ -133,17 +127,17 @@ static void redrawMenu(HWND hwnd) {
 
 static void pointerMove(HWND hwnd, bool up) {
     if (up) {
-        selectedItem = (selectedItem - 1 + menuItems.size()) % menuItems.size();
+        menu->selected = (menu->selected - 1 + menu->menuEntriesNames.size()) % menu->menuEntriesNames.size();
     }
     else
     {
-        selectedItem = (selectedItem + 1) % menuItems.size();
+        menu->selected = (menu->selected + 1) % menu->menuEntriesNames.size();
     }
     redrawMenu(hwnd);
 }
 
 static void pointerAccept(HWND hwnd) {
-    if (selectedItem == (int)menuItems.size() - 1)
+    if (menu->selected == (int)menu->menuEntriesNames.size() - 1)
         PostQuitMessage(0);
     redrawMenu(hwnd);
 }
@@ -185,12 +179,12 @@ static void mouseHandle(HWND hwnd, WPARAM lParam) {
     int x = GET_X_LPARAM(lParam);
     int y = GET_Y_LPARAM(lParam);
     int lineIndex = (y / lineHeight) - 1;
-    if (lineIndex == selectedItem) {
+    if (lineIndex == menu->selected) {
         pointerAccept(hwnd);
     }
-    else if (lineIndex >= 0 && lineIndex < menuItems.size())
+    else if (lineIndex >= 0 && lineIndex < menu->menuEntriesNames.size())
     {
-        selectedItem = lineIndex;
+        menu->selected = lineIndex;
         redrawMenu(hwnd);
     }
 }
@@ -219,6 +213,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     }
 
     return DefWindowProc(hwnd, msg, wParam, lParam);
+}
+
+void Menu_select(Menu_menu* _menu) {
+    menu = menu;
 }
 
 void Menu_start(HINSTANCE hInstance) {
