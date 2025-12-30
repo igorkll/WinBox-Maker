@@ -553,6 +553,10 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            tabPage59 = new TabPage();
+            tabControl15 = new TabControl();
+            tabPage68 = new TabPage();
+            firewall_disable = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -676,6 +680,9 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage59.SuspendLayout();
+            tabControl15.SuspendLayout();
+            tabPage68.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -1988,6 +1995,7 @@
             tabControl2.Controls.Add(tabPage17);
             tabControl2.Controls.Add(tabPage3);
             tabControl2.Controls.Add(tabPage4);
+            tabControl2.Controls.Add(tabPage59);
             tabControl2.Location = new Point(6, 6);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
@@ -6221,6 +6229,47 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // tabPage59
+            // 
+            tabPage59.Controls.Add(tabControl15);
+            tabPage59.Location = new Point(4, 34);
+            tabPage59.Name = "tabPage59";
+            tabPage59.Size = new Size(998, 297);
+            tabPage59.TabIndex = 10;
+            tabPage59.Text = "bloatware";
+            tabPage59.UseVisualStyleBackColor = true;
+            // 
+            // tabControl15
+            // 
+            tabControl15.Controls.Add(tabPage68);
+            tabControl15.Location = new Point(3, 3);
+            tabControl15.Name = "tabControl15";
+            tabControl15.SelectedIndex = 0;
+            tabControl15.Size = new Size(995, 291);
+            tabControl15.TabIndex = 0;
+            // 
+            // tabPage68
+            // 
+            tabPage68.Controls.Add(firewall_disable);
+            tabPage68.Location = new Point(4, 34);
+            tabPage68.Name = "tabPage68";
+            tabPage68.Padding = new Padding(3);
+            tabPage68.Size = new Size(987, 253);
+            tabPage68.TabIndex = 0;
+            tabPage68.Text = "firewall";
+            tabPage68.UseVisualStyleBackColor = true;
+            // 
+            // firewall_disable
+            // 
+            firewall_disable.AutoSize = true;
+            firewall_disable.Location = new Point(6, 6);
+            firewall_disable.Name = "firewall_disable";
+            firewall_disable.Size = new Size(154, 29);
+            firewall_disable.TabIndex = 0;
+            firewall_disable.Text = "disable firewall";
+            firewall_disable.UseVisualStyleBackColor = true;
+            firewall_disable.CheckedChanged += firewall_disable_CheckedChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -6443,6 +6492,10 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage59.ResumeLayout(false);
+            tabControl15.ResumeLayout(false);
+            tabPage68.ResumeLayout(false);
+            tabPage68.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -6975,5 +7028,9 @@
         private RichTextBox regtweak_overwrite;
         private Button regtweak_overwrite_reset;
         private CheckBox regtweak_overwrite_en;
+        private TabPage tabPage59;
+        private TabControl tabControl15;
+        private TabPage tabPage68;
+        private CheckBox firewall_disable;
     }
 }

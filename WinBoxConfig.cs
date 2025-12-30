@@ -259,6 +259,7 @@ namespace WinBox_Maker
         public bool? keyboard_filter_ForceOffAccessibility { get; set; }
         public bool? regtweak_overwrite_en { get; set; }
         public string? regtweak_overwrite { get; set; }
+        public bool? firewall_disable { get; set; }
 
 
 
@@ -491,6 +492,7 @@ namespace WinBox_Maker
             if (keyboard_filter_enabled == null) keyboard_filter_enabled = true;
 
             if (regtweak_overwrite_en == null) regtweak_overwrite_en = false;
+            if (firewall_disable == null) firewall_disable = true;
         }
 
         public void Save(string wnbFilePath)

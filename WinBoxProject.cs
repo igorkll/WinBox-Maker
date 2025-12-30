@@ -1151,6 +1151,21 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
             return keyboardFilterSetup;
         }
 
+        string getFirewallSetup()
+        {
+            string firewallSetup = "";
+
+            if (winBoxConfig.firewall_disable == true)
+            {
+                firewallSetup += "netsh advfirewall set allprofiles state off\r\n";
+                firewallSetup += @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"" /v ""EnableFirewall"" /t REG_DWORD /d 0 /f" + "\r\n";
+                firewallSetup += @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile"" /v ""EnableFirewall"" /t REG_DWORD /d 0 /f" + "\r\n";
+                firewallSetup += @"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PrivateProfile"" /v ""EnableFirewall"" /t REG_DWORD /d 0 /f" + "\r\n";
+            }
+
+            return firewallSetup;
+        }
+
         string[] getCustomStopList()
         {
             return splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.services_stop ?? "");
@@ -1224,7 +1239,6 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                 "TapiSrv",
                 "SDRSVC",
                 "WbioSrvc",
-                "mpssvc",
                 "Wecsvc",
                 "ClipSVC",
                 "WpnService",
@@ -1262,6 +1276,11 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                 if (winBoxConfig.DisableNtp == true)
                 {
                     stopServices.Add("w32time");
+                }
+
+                if (winBoxConfig.firewall_disable == true)
+                {
+                    stopServices.Add("MpsSvc");
                 }
 
                 stopServices.AddRange(stopServicesList);
@@ -2006,7 +2025,7 @@ echo SetupComplete and FirstInit - setup BCD >> C:\WinboxResources\setup.log
 {bcdeditSetup}
 
 echo SetupComplete and FirstInit - setup firewall >> C:\WinboxResources\setup.log
-netsh advfirewall set allprofiles state off
+{getFirewallSetup()}
 
 echo SetupComplete and FirstInit - setup dism >> C:\WinboxResources\setup.log
 {enableDismOnlineCommands}

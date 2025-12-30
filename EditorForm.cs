@@ -534,6 +534,8 @@ namespace WinBox_Maker
         {
             guiEventsLock = true;
 
+            firewall_disable.Checked = winBoxProject.winBoxConfig.firewall_disable == true;
+
             keyboard_filter_enabled.Enabled = !Program.isTweakEnabled(winBoxProject.winBoxConfig, "Do not disable hotkeys by keyboard filter");
             keyboard_filter_enabled.Checked = winBoxProject.winBoxConfig.keyboard_filter_enabled == true;
             keyboard_filter_panel.Enabled = keyboard_filter_enabled.Enabled && keyboard_filter_enabled.Checked;
@@ -3160,6 +3162,14 @@ namespace WinBox_Maker
             resetRegTweakOverwrite();
             winBoxProject.SaveConfig();
             UpdateGui();
+        }
+
+        private void firewall_disable_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.firewall_disable = firewall_disable.Checked;
+            winBoxProject.SaveConfig();
         }
 
         private void keyboard_filter_BreakoutKeyScanCode_TextChanged(object sender, EventArgs e)
