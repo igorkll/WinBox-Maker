@@ -66,6 +66,10 @@ namespace WinBox_Maker
             recovery_allowManualFlash.Checked = winPeModifications.recovery_allowManualFlash == true;
             recovery_allowAutoFlash.Checked = winPeModifications.recovery_allowAutoFlash == true;
 
+            recovery_autoFlashQuietMode.Enabled = winPeModifications.recovery_allowAutoFlash == true;
+            recovery_allowFlashWithFactoryReset.Enabled = winPeModifications.recovery_allowManualFlash == true;
+            recovery_allowFlashWithoutFactoryReset.Enabled = winPeModifications.recovery_allowManualFlash == true;
+
             winboxRecoveryLogoType.SelectedIndex = (int)(winPeModifications.winboxRecoveryLogoType ?? 0);
             recovery_autoFlashQuietMode.SelectedIndex = (int)(winPeModifications.autoFlashQuietMode ?? 0);
             customRecoveryLogoPath.Text = winPeModifications.customRecoveryLogoPath ?? "";
@@ -272,12 +276,14 @@ namespace WinBox_Maker
         {
             winPeModifications.recovery_allowAutoFlash = recovery_allowAutoFlash.Checked;
             Program.winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void recovery_allowManualFlash_CheckedChanged(object sender, EventArgs e)
         {
             winPeModifications.recovery_allowManualFlash = recovery_allowManualFlash.Checked;
             Program.winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void recovery_autoFlashQuietMode_SelectedIndexChanged(object sender, EventArgs e)
