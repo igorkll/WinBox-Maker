@@ -165,7 +165,7 @@ namespace WinBox_Maker
 
             string jsonPath = Path.Combine(recoveryDirectory, "settings.json");
             string jsonString = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText("data.json", jsonString);
+            File.WriteAllText(jsonPath, jsonString);
         }
 
         public async Task modMountedWim(string mountedPath)
