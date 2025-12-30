@@ -67,5 +67,67 @@ namespace WinBox_Maker
                 }
             }
         }
+
+        static string[] ExpandHives(string[] allowedHives)
+        {
+            var result = new List<string>();
+            foreach (var hive in allowedHives)
+            {
+                result.Add(hive + "\\");
+                result.Add(hive + "]");
+            }
+            return result.ToArray();
+        }
+
+        static public async Task<string> regToCommands(string regData, string[] _allowedHives)
+        {
+            string commands = "";
+            string[] allowedHives = ExpandHives(_allowedHives);
+
+            using (var reader = new StringReader(regData))
+            {
+
+                bool allowed = false;
+                string? line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    line = line.Trim();
+
+                    if (line.StartsWith("[", StringComparison.OrdinalIgnoreCase))
+                    {
+                        allowed = false;
+                        foreach (string allowedHive in allowedHives)
+                        {
+                            string startPrefix = "[";
+                            string fromReplace = $"{startPrefix}{allowedHive}";
+                            if (line.StartsWith(fromReplace, StringComparison.OrdinalIgnoreCase))
+                            {
+                                allowed = true;
+                            }
+                            else
+                            {
+                                startPrefix = "[-";
+                                fromReplace = $"{startPrefix}{allowedHive}";
+                                if (line.StartsWith(fromReplace, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    allowed = true;
+                                }
+                            }
+                            if (allowed) break;
+                        }
+                    }
+
+                    if (allowed)
+                    {
+                        if (line.Length > 0 && !line.StartsWith(";"))
+                        {
+
+                        }
+                    }
+                }
+            }
+
+            return commands;
+        }
     }
 }
