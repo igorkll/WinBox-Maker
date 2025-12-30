@@ -137,8 +137,8 @@ static void pointerMove(HWND hwnd, bool up) {
 }
 
 static void pointerAccept(HWND hwnd) {
-    if (menu->selected == (int)menu->menuEntriesNames.size() - 1)
-        PostQuitMessage(0);
+    Menu_callback callback = menu->menuEntriesCallbacks[menu->selected];
+    callback(menu->menuEntriesArgs[menu->selected]);
     redrawMenu(hwnd);
 }
 
@@ -216,7 +216,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 }
 
 void Menu_select(Menu_menu* _menu) {
-    menu = menu;
+    menu = _menu;
 }
 
 void Menu_start(HINSTANCE hInstance) {

@@ -9,6 +9,7 @@
 using json = nlohmann::json;
 
 static std::string sysDrive;
+static json inputData;
 
 static void loadConsts() {
     char sysDriveCStr[MAX_PATH];
@@ -17,19 +18,18 @@ static void loadConsts() {
 
     std::ifstream inFile(sysDrive + "\\WinboxMakerRecovery\\settings.json");
     if (inFile) {
-        json j;
-        inFile >> j;
-
-        
+        inFile >> inputData;
     }
 }
 
-static void entry_reboot_to_system() {
+static void entry_reboot_to_system(void* _) {
     PostQuitMessage(0);
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
     loadConsts();
+
+    if (!inputData.contains("allowMenu")) return 0;
 
     Menu_menu mainMenu;
     mainMenu.addMenuEntry_callback("Reboot to the system now", entry_reboot_to_system);
