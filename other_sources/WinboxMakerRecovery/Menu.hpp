@@ -5,12 +5,11 @@
 #include <vector>
 #include <fstream>
 
-typedef void (*Menu_callback)(void* arg);
+class Menu_menu;
+void Menu_select(Menu_menu* menu);
+static void entry_change_menu(void* _menu);
 
-static void entry_change_menu(void* _menu) {
-    Menu_menu* menu = (Menu_menu*)_menu;
-    Menu_select(menu);
-}
+typedef void (*Menu_callback)(void* arg);
 
 class Menu_menu
 {
@@ -31,5 +30,11 @@ public:
     }
 };
 
+static void entry_change_menu(void* _menu) {
+    Menu_menu* menu = (Menu_menu*)_menu;
+    Menu_select(menu);
+}
+
+class Menu_menu;
 void Menu_select(Menu_menu* menu);
 void Menu_start(HINSTANCE hInstance);

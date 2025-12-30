@@ -22,6 +22,10 @@ static void loadConsts() {
     }
 }
 
+static void entry_factory_reset(void* _) {
+
+}
+
 static void entry_reboot_to_system(void* _) {
     PostQuitMessage(0);
 }
@@ -29,9 +33,14 @@ static void entry_reboot_to_system(void* _) {
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
     loadConsts();
 
-    if (!inputData.contains("allowMenu")) return 0;
+    // if (!inputData.contains("allowMenu")) return 0;
 
     Menu_menu mainMenu;
+
+    if (inputData.contains("allowFactoryReset")) {
+        mainMenu.addMenuEntry_callback("Factory reset", entry_factory_reset);
+    }
+
     mainMenu.addMenuEntry_callback("Reboot to the system now", entry_reboot_to_system);
 
     Menu_select(&mainMenu);
