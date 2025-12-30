@@ -3558,7 +3558,11 @@ files replace folder: winbox_resources/files
 This event, unlike the usual "win-mounted" event, is performed immediately after Windows is mounted and not after all winbox maker patches.</value>
   </data>
   <data name="richTextBox17.Text" xml:space="preserve">
-    <value>integrates the reg file even at the stage of image assembly, before the first system startup. this allows you to use it even in manual setup mode. However, only the HKLM\SOFTWARE registry hive is currently supported.</value>
+    <value>integrates the reg file even at the stage of image assembly, before the first system startup. This allows you to use it even in manual configuration mode.
+currently, only these registry branches are supported:
+HKEY_LOCAL_MACHINE\SOFTWARE - Windows\System32\config\SOFTWARE
+HKEY_USERS\.DEFAULT - Windows\System32\config\DEFAULT
+HKEY_USERS\DEFAULT_USER - Users\Default\NTUSER.DAT (a template for all creating users)</value>
   </data>
   <data name="richTextBox20.Text" xml:space="preserve">
     <value>here you can define custom DISM commands that will be used when building the system. specify only the arguments, use line breaks to separate the commands. DISM /image:mountpath will be inserted in front of each of your commands automatically and you will not need to specify them.</value>
