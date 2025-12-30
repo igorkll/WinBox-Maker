@@ -92,6 +92,45 @@ namespace WinBox_Maker
             return line;
         }
 
+        public static (string Name, string Type, string Value)? ParseRegLine(string line)
+        {
+            line = line.Trim();
+
+            if (string.IsNullOrWhiteSpace(line) || line.StartsWith(";"))
+                return null;
+
+            string pattern = "^(@|\"([^\"]+)\")=(.*)$";
+            var match = Regex.Match(line, pattern);
+
+            if (!match.Success)
+                return null;
+
+            string name = match.Groups[1].Value == "@" ? "(Default)" : match.Groups[2].Value;
+            string rawValue = match.Groups[3].Value.Trim();
+            string type;
+            string value;
+
+            if (rawValue.StartsWith("dword:", StringComparison.OrdinalIgnoreCase))
+            {
+                type = "REG_DWORD";
+                value = rawValue.Substring(6);
+            }
+            else if (rawValue.StartsWith("hex", StringComparison.OrdinalIgnoreCase))
+            {
+                type = "REG_BINARY_OR_OTHER";
+                value = rawValue;
+            }
+            else
+            {
+                type = "REG_SZ";
+                if (rawValue.StartsWith("\"") && rawValue.EndsWith("\""))
+                    rawValue = rawValue[1..^1];
+                value = rawValue;
+            }
+
+            return (name, type, value);
+        }
+
         static public async Task<string> regToCommands(string regData, string[] _allowedHives)
         {
             string commands = "";
@@ -140,9 +179,30 @@ namespace WinBox_Maker
 
                     if (allowed)
                     {
-                        if (line.Length > 0 && line.StartsWith("\""))
+                        var parsed = ParseRegLine(line);
+                        if (parsed != null)
                         {
+                            string name = parsed.Value.Name;
+                            string type = parsed.Value.Type;
+                            string value = parsed.Value.Value;
 
+                            string cmd;
+                            if (removeKey)
+                            {
+                                if (name == "(Default)")
+                                    cmd = $"reg delete \"{hive}\" /ve /f";
+                                else
+                                    cmd = $"reg delete \"{hive}\" /v \"{name}\" /f";
+                            }
+                            else
+                            {
+                                if (name == "(Default)")
+                                    cmd = $"reg add \"{hive}\" /ve /t {type} /d \"{value}\" /f";
+                                else
+                                    cmd = $"reg add \"{hive}\" /v \"{name}\" /t {type} /d \"{value}\" /f";
+                            }
+
+                            commands += cmd + "\n";
                         }
                     }
                 }
