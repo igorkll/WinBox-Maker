@@ -12,7 +12,8 @@ namespace WinBox_Maker
     {
         static string[][] replaceHives = [
             ["HKEY_LOCAL_MACHINE\\SOFTWARE\\", "HKEY_LOCAL_MACHINE\\WINBOX_SOFTWARE\\"],
-            ["HKEY_USERS\\.DEFAULT\\", "HKEY_LOCAL_MACHINE\\WINBOX_DEFAULT_USER\\"]
+            ["HKEY_USERS\\DEFAULT_USER\\", "HKEY_LOCAL_MACHINE\\WINBOX_DEFAULT_USER_TEMPLATE\\"]
+            ["HKEY_USERS\\.DEFAULT\\", "HKEY_LOCAL_MACHINE\\WINBOX_DOT_DEFAULT_USER\\"]
         ];
 
         static public async Task regPatcher(string regPath, string newRegPath)

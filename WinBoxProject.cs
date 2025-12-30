@@ -1878,7 +1878,8 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
             if (modSystemReg)
             {
                 await RegChanger.mountReg();
-                await RegChanger.mountRegRaw("WINBOX_DEFAULT_USER", "Users\\Default\\NTUSER.DAT");
+                await RegChanger.mountRegRaw("WINBOX_DEFAULT_USER_TEMPLATE", "Users\\Default\\NTUSER.DAT");
+                await RegChanger.mountRegRaw("WINBOX_DOT_DEFAULT_USER", Path.Combine(wimMountPath, "Windows\\System32\\config\\DEFAULT"));
                 //await Program.ExecuteAsync("reg.exe", $"load HKLM\\WINBOX_SYSTEM \"{Path.Combine(wimMountPath, "Windows\\System32\\config\\SYSTEM")}\"");
             }
 
@@ -2936,7 +2937,8 @@ if errorlevel 1 (
                 }
 
                 await RegChanger.umountReg();
-                await RegChanger.umountRegRaw("WINBOX_DEFAULT_USER");
+                await RegChanger.umountRegRaw("WINBOX_DEFAULT_USER_TEMPLATE");
+                await RegChanger.umountRegRaw("WINBOX_DOT_DEFAULT_USER");
                 //await Program.ExecuteAsync("reg.exe", $"unload HKLM\\WINBOX_SYSTEM");
             }
 
