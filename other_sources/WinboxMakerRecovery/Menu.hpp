@@ -20,23 +20,24 @@ public:
     int selected = 0;
     std::string titleOverride;
 
-    void addMenuEntry_noNoNoYesNo_callback(std::string name, Menu_callback callback, void* arg = nullptr, int _recurtionCounter = 3, Menu_menu* backTo = nullptr) {
+    void addMenuEntry_noNoNoYesNo_callback(std::string name, Menu_callback callback, void* arg = nullptr, int _recurtionCounter = 2, Menu_menu* backTo = nullptr, std::string title = "") {
         if (backTo == nullptr) backTo = this;
+        if (title.size() == 0) title = name;
 
-        Menu_menu menu;
-        menu.titleOverride = name + " (" + std::to_string(3 - _recurtionCounter) + "/3)";
+        Menu_menu* menu = new Menu_menu();
+        menu->titleOverride = title + " (" + std::to_string(3 - _recurtionCounter) + "/3)";
 
-        for (int i = 0; i < 4; i++) menu.addMenuEntry_submenu("No", backTo);
+        for (int i = 0; i < 4; i++) menu->addMenuEntry_submenu("No", backTo);
         if (_recurtionCounter <= 0) {
-            menu.addMenuEntry_callback("Yes", callback, arg);
+            menu->addMenuEntry_callback("Yes", callback, arg);
         }
         else
         {
-            menu.addMenuEntry_noNoNoYesNo_callback(_recurtionCounter == 3 ? name : "Yes", callback, arg, _recurtionCounter - 1, backTo);
+            menu->addMenuEntry_noNoNoYesNo_callback("Yes", callback, arg, _recurtionCounter - 1, backTo, title);
         }
-        for (int i = 0; i < 2; i++) menu.addMenuEntry_submenu("No", backTo);
+        for (int i = 0; i < 2; i++) menu->addMenuEntry_submenu("No", backTo);
 
-        addMenuEntry_submenu(name, &menu);
+        addMenuEntry_submenu(name, menu);
     }
 
     void addMenuEntry_submenu(std::string name, Menu_menu* menu) {
