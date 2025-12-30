@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -39,7 +40,6 @@ namespace WinBox_Maker
         public AppOverrideType? app_override_type { get; set; }
         public string? app_custom_cmdline { get; set; }
         public WinboxRecoveryLogoType? winboxRecoveryLogoType { get; set; }
-        public AutoFlashQuietMode? autoFlashQuietMode { get; set; }
         public string? customRecoveryLogoPath { get; set; }
 
         public string? recovery_title { get; set; }
@@ -58,6 +58,7 @@ namespace WinBox_Maker
         public bool? recovery_allowMenu { get; set; }
         public bool? recovery_allowManualFlash { get; set; }
         public bool? recovery_allowAutoFlash { get; set; }
+        public AutoFlashQuietMode? recovery_autoFlashQuietMode { get; set; }
 
         // initFor
         // 0 - installer
@@ -73,7 +74,6 @@ namespace WinBox_Maker
             if (app_override_type == null) app_override_type = AppOverrideType.WinboxMakerRecovery;
             if (app_custom_cmdline == null) app_custom_cmdline = "my_app_example.exe --argument";
             if (winboxRecoveryLogoType == null) winboxRecoveryLogoType = WinboxRecoveryLogoType.DefaultLogo;
-            if (autoFlashQuietMode == null) autoFlashQuietMode = AutoFlashQuietMode.DontHide;
             if (customRecoveryLogoPath == null) customRecoveryLogoPath = "";
 
             if (recovery_title == null) recovery_title = "Winbox maker recovery";
@@ -92,6 +92,7 @@ namespace WinBox_Maker
             if (recovery_allowMenu == null) recovery_allowMenu = true;
             if (recovery_allowManualFlash == null) recovery_allowManualFlash = true;
             if (recovery_allowAutoFlash == null) recovery_allowAutoFlash = true;
+            if (recovery_autoFlashQuietMode == null) recovery_autoFlashQuietMode = AutoFlashQuietMode.DontHide;
         }
 
         // ------------------------------
@@ -137,7 +138,34 @@ namespace WinBox_Maker
                 ImageConverter.ConvertToBmp_54_24(logoPath, Path.Combine(recoveryDirectory, "logo.bmp"));
 
             // write recovery settings json
+            var data = new Dictionary<string, object?>
+            {
+                { "title", recovery_title },
+                { "allowMenu", recovery_allowMenu },
+                { "allowFactoryReset", recovery_allowFactoryReset },
+                { "dataPaths", recovery_dataPaths },
 
+                { "textOnInfoPage_en", recovery_textOnInfoPage_en },
+                { "textOnInfoPage", recovery_textOnInfoPage_en == true ? recovery_textOnInfoPage : "" },
+
+                { "allowFlashWim", recovery_allowFlashWim },
+                { "allowFlashImg", recovery_allowFlashImg },
+                { "allowFlashFfu", recovery_allowFlashFfu },
+                { "wimName", recovery_wimName },
+                { "imgName", recovery_imgName },
+                { "ffuName", recovery_ffuName },
+
+                { "allowManualFlash", recovery_allowManualFlash },
+                { "allowFlashWithoutFactoryReset", recovery_allowFlashWithoutFactoryReset },
+                { "allowFlashWithFactoryReset", recovery_allowFlashWithFactoryReset },
+
+                { "allowAutoFlash", recovery_allowAutoFlash },
+                { "autoFlashQuietMode", recovery_autoFlashQuietMode },
+            };
+
+            string jsonPath = Path.Combine(recoveryDirectory, "settings.json");
+            string jsonString = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText("data.json", jsonString);
         }
 
         public async Task modMountedWim(string mountedPath)
