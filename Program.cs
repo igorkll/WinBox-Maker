@@ -183,6 +183,28 @@ namespace WinBox_Maker
             Application.Run(openProjectForm);
         }
 
+        public static string[] FormatExclamationMark(string[] input, bool enable)
+        {
+            string[] result = new string[input.Length];
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                string s = input[i];
+
+                if (enable)
+                {
+                    result[i] = s.StartsWith("!") ? s : "!" + s;
+                }
+                else
+                {
+                    result[i] = s.StartsWith("!") ? s.Substring(1) : s;
+                }
+            }
+
+            return result;
+        }
+
+
         public static bool hasDirectoryNotEmpty(string path)
         {
             if (!Directory.Exists(path))

@@ -26,6 +26,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using System.Xml.Linq;
 using WinBox_Maker.Properties;
@@ -1273,8 +1274,12 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
             stopServices.AddRange(getCustomStopList());
 
-            Program.DelRange(stopServices, getStartServicesList());
-            Program.DelRange(stopServices, getCustomDeleteList());
+            string[] startServicesList = getStartServicesList();
+            string[] customDeleteList = getCustomDeleteList();
+            Program.DelRange(stopServices, Program.FormatExclamationMark(startServicesList, false));
+            Program.DelRange(stopServices, Program.FormatExclamationMark(customDeleteList, false));
+            Program.DelRange(stopServices, Program.FormatExclamationMark(startServicesList, true));
+            Program.DelRange(stopServices, Program.FormatExclamationMark(customDeleteList, true));
             return stopServices.Distinct().ToArray();
         }
 
@@ -1291,9 +1296,14 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                 if (needEnableKeyboardFilter()) startServices.Add("MsKeyboardFilter");
             }
 
-            Program.DelRange(startServices, getCustomStopList());
+            string[] customStopList = getCustomStopList();
+            string[] customDeleteList = getCustomDeleteList();
+            Program.DelRange(startServices, Program.FormatExclamationMark(customStopList, false));
+            Program.DelRange(startServices, Program.FormatExclamationMark(customStopList, true));
             startServices.AddRange(getCustomStartList());
-            Program.DelRange(startServices, getCustomDeleteList());
+            Program.DelRange(startServices, Program.FormatExclamationMark(customDeleteList, false));
+            Program.DelRange(startServices, Program.FormatExclamationMark(customDeleteList, true));
+
             return startServices.Distinct().ToArray();
         }
 
@@ -1420,7 +1430,10 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                 }
             }
 
-            Program.DelRange(stopOrDeleteSchtasks, splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.schtasks_stopOrDelete_deleteFromList ?? ""));
+            string[] deleteFromList = splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.schtasks_stopOrDelete_deleteFromList ?? "");
+            Program.DelRange(stopOrDeleteSchtasks, Program.FormatExclamationMark(deleteFromList, false));
+            Program.DelRange(stopOrDeleteSchtasks, Program.FormatExclamationMark(deleteFromList, true));
+
             return stopOrDeleteSchtasks.Distinct().ToArray();
         }
 
