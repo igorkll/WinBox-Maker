@@ -623,6 +623,15 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore]
 "RPSessionInterval"=dword:00000000
 
+; ---------------- disable nvidia overlay
+[HKEY_LOCAL_MACHINE\SOFTWARE\NVIDIA Corporation\Global\NVTweak]
+"OverlayHook"=dword:00000000
+"EnableInGameOverlay"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\NVIDIA Corporation\Global\NvTelemetry]
+"OverlayHook"=dword:00000000
+"EnableInGameOverlay"=dword:00000000
+
 ; ------------------------------------------------ default user
 
 [HKEY_USERS\DEFAULT_USER\Control Panel\Accessibility\StickyKeys]
@@ -640,17 +649,27 @@ Windows Registry Editor Version 5.00
 "DontShowUI"=dword:00000001
 "Disabled"=dword:00000001
 
+; ---------------- disable freeze window
 [HKEY_USERS\DEFAULT_USER\Control Panel\Desktop]
-"UserPreferencesMask"=hex:90,12,03,80,10,00,00,00
 "HungAppTimeout"="2147483647"
 "WaitToKillAppTimeout"="5000"
 "AutoEndTasks"="1"
 
+; ---------------- disable animations
 [HKEY_USERS\DEFAULT_USER\Control Panel\Desktop\WindowMetrics]
 "MinAnimate"="0"
 
+[HKEY_USERS\DEFAULT_USER\Control Panel\Desktop]
+"UserPreferencesMask"=hex:90,12,03,80,10,00,00,00
+
+; ---------------- disable nvidia overlay
 [HKEY_USERS\DEFAULT_USER\Software\NVIDIA Corporation\Global\NVTweak]
 "OverlayHook"=dword:00000000
+"EnableInGameOverlay"=dword:00000000
+
+[HKEY_USERS\DEFAULT_USER\Software\NVIDIA Corporation\Global\NvTelemetry]
+"OverlayHook"=dword:00000000
+"EnableInGameOverlay"=dword:00000000
 
 ; ------------------------------------------------ system
 
