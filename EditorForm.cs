@@ -92,6 +92,8 @@ namespace WinBox_Maker
             AddTweakToList("Hide system errors");
             softwareCheck = false;
 
+            regtweak_default.Text = System.IO.File.ReadAllText("resources/tweak.reg");
+
             resetKeyboardFilterBlockList();
 
             UnlockForm();
