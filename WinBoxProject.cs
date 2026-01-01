@@ -124,8 +124,10 @@ namespace WinBox_Maker
             Program.Execute("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             Program.Execute("reg.exe", $"unload HKLM\\WINBOX_WINPE_SOFTWARE");
             Program.Execute("reg.exe", $"unload HKLM\\WINBOX_WINPE_SYSTEM");
+            Program.Execute("reg.exe", $"unload HKLM\\WINBOX_DEFAULT_USER_TEMPLATE");
+            Program.Execute("reg.exe", $"unload HKLM\\WINBOX_DOT_DEFAULT_USER");
 
-            bool umount(string path)
+            bool umount(string path, bool allowCrash)
             {
                 for (int i = 0; i < 2; i++)
                 {
@@ -156,7 +158,7 @@ namespace WinBox_Maker
                     }
                 }
 
-                if (Directory.Exists(path))
+                if (allowCrash && Directory.Exists(path))
                 {
                     err = "the old Windows image could not be completely unmounted. restart your computer and try again. if this does not help, then delete the winbox_temp directory from the project";
                     return true;
@@ -165,9 +167,13 @@ namespace WinBox_Maker
                 return false;
             }
 
-            if (umount(recoveryMountPath)) return;
-            if (umount(wimMountPath)) return;
-            if (umount(wimWinPeMountPath)) return;
+            for (int i = 0; i < 3; i++)
+            {
+                bool allowCrash = i == 2;
+                if (umount(recoveryMountPath, allowCrash)) return;
+                if (umount(wimMountPath, allowCrash)) return;
+                if (umount(wimWinPeMountPath, allowCrash)) return;
+            }
 
             if (Directory.Exists(unpackIsoPath))
             {
