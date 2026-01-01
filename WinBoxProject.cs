@@ -3515,8 +3515,11 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
 
         async Task CaptureFfu(string imgPath, string ffuOutput)
         {
-            string args = @$"/Capture-Ffu /CaptureDrive:""{imgPath}"" /ImageFile:""{ffuOutput}"" /Name:""{winBoxConfig.WinboxName}"" /Description:""{winBoxConfig.WinboxDescription}""";
-            await Program.ExecuteAsync("dism.exe", args, null, debugFolder);
+            //string args = @$"/Capture-Ffu /CaptureDrive:""{imgPath}"" /ImageFile:""{ffuOutput}"" /Name:""{winBoxConfig.WinboxName}"" /Description:""{winBoxConfig.WinboxDescription}""";
+            //await Program.ExecuteAsync("dism.exe", args, null, debugFolder);
+            await Task.Run(() => {
+                FfuBuilder.ConvertImgToFfu(imgPath, ffuOutput);
+            });
         }
 
         public async Task BuildFfuAsync(Action<string> processName, Action<int> processValue, string exportPath, WindowsDescription newWindowsDescription, bool useUefi = false)
@@ -3526,7 +3529,7 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
             bool showComplete = false;
             if (await BuildImgAsync(processName, processValue, tempImgPath, newWindowsDescription, useUefi, false))
             {
-                processName("Launching a virtual machine");
+                processName("Convertation to FFU");
                 processValue(95);
                 await CaptureFfu(tempImgPath, exportPath);
             }
