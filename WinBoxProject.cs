@@ -2395,7 +2395,8 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
                 {
                     await CopyBlob("MicrosoftEdge.msi");
                     baseSetupLog($"install Microsoft edge");
-                    baseSetup += $"\r\nstart /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart";
+                    //baseSetup += $"\r\nstart /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart";
+                    regAppScriptFirstInitCmd("firstInit_InstallIE", "start /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart");
                 }
 
                 if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
