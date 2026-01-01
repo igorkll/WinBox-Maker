@@ -2822,7 +2822,7 @@ start "" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kiosk-
                         await CopyResource("show_image.ps1");
                         string filename = "before_app" + Path.GetExtension(winBoxConfig.logoBeforeApp);
                         string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, filename);
-                        File.Copy(winBoxConfig.logoBeforeApp, beforeAppLogoPath, true);
+                        File.Copy(Path.Combine(resourcesDirectoryPath, winBoxConfig.logoBeforeApp), beforeAppLogoPath, true);
                         await copyToDebugFile(filename, beforeAppLogoPath);
                         before_app_logo = baseCmd + $@"-path ""C:\WinboxResources\{filename}"" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
                     }
