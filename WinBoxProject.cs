@@ -2394,7 +2394,7 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
                 if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
                 {
                     await CopyBlob("MicrosoftEdge.msi");
-                    baseSetupLog($"install Microsoft edge");
+                    //baseSetupLog($"install Microsoft edge");
                     //baseSetup += $"\r\nstart /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart";
                     regAppScriptFirstInitCmd("firstInit_InstallIE", "start /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart");
                 }
