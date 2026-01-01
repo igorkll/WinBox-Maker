@@ -27,7 +27,7 @@ namespace WinBox_Maker
 
         public const int version_major = 1;
         public const int version_minor = 8;
-        public const int version_patch = 0;
+        public const int version_patch = 1;
         public static string version_str = $"{version_major}.{version_minor}.{version_patch}";
         public static int version_num = (version_major * 10000) + (version_minor * 100) + version_patch;
 
