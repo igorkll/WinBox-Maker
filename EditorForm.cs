@@ -580,6 +580,7 @@ namespace WinBox_Maker
             HibernateTimeout_dc.Text = winBoxProject.winBoxConfig.HibernateTimeout_dc.ToString();
             DiskTimeout_dc.Text = winBoxProject.winBoxConfig.DiskTimeout_dc.ToString();
 
+            app_runAsSystem.Checked = winBoxProject.winBoxConfig.app_runAsSystem == true;
             keyboard_filter_ForceOffAccessibility.Checked = winBoxProject.winBoxConfig.keyboard_filter_ForceOffAccessibility == true;
             keyboard_filter_DisableKeyboardFilterForAdministrators.Checked = winBoxProject.winBoxConfig.keyboard_filter_DisableKeyboardFilterForAdministrators == true;
             keyboard_filter_BreakoutKeyScanCode.Text = winBoxProject.winBoxConfig.keyboard_filter_BreakoutKeyScanCode.ToString();
@@ -3126,6 +3127,15 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.keyboard_filter_ForceOffAccessibility = keyboard_filter_ForceOffAccessibility.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void app_runAsSystem_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.app_runAsSystem = app_runAsSystem.Checked;
             winBoxProject.SaveConfig();
             UpdateGui();
         }

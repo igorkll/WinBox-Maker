@@ -2467,7 +2467,7 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
                     }
                 }
 
-                if (Program.isTweakEnabled(winBoxConfig, "Integrate PSTools"))
+                if (winBoxConfig.app_runAsSystem == true || Program.isTweakEnabled(winBoxConfig, "Integrate PSTools"))
                 {
                     await UnpackBlob("PSTools.zip", "executable");
                 }
@@ -2721,29 +2721,56 @@ net localgroup Administrators winbox /add";
                             applicationScript += "\r\ncd C:\\WinboxProgram";
                             string execFilePath = @$"C:\WinboxProgram\{winBoxConfig.ProgramName}";
                             string extension = Path.GetExtension(winBoxConfig.ProgramName);
+
+                            string fullCommand = $"\"{execFilePath}\"";
+                            if (!string.IsNullOrWhiteSpace(winBoxConfig.ProgramArgs))
+                            {
+                                fullCommand += " " + winBoxConfig.ProgramArgs;
+                            }
+
                             if (extension != null && (extension.Equals(".bat", StringComparison.OrdinalIgnoreCase) ||
                                 extension.Equals(".cmd", StringComparison.OrdinalIgnoreCase)))
                             {
                                 //await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), execFilePath, winBoxConfig.ProgramArgs);
                                 //command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
-                                command = "call \"" + execFilePath + "\"";
+                                if (winBoxConfig.app_runAsSystem == true)
+                                {
+                                    command = $"psexec -s cmd.exe /c \"{execFilePath}\"";
+                                } else {
+                                    command = $"call {fullCommand}";
+                                }
                             }
                             else
                             {
-                                command = "start \"\" /wait \"" + execFilePath + "\"";
-                            }
-
-                            if (winBoxConfig.ProgramArgs != null && winBoxConfig.ProgramArgs.Length > 0)
-                            {
-                                command += " " + winBoxConfig.ProgramArgs;
+                                if (winBoxConfig.app_runAsSystem == true)
+                                {
+                                    command = $"psexec -s -i \"{execFilePath}\"";
+                                }
+                                else
+                                {
+                                    command = $"start \"\" /wait {fullCommand}";
+                                }
                             }
                         }
                         break;
 
                     case ProgramTypeEnum.RawCommand:
                         if (winBoxConfig.RawCommand != null) {
-                            applicationScript += "\r\ncd C:\\WinboxProgram";
-                            command = winBoxConfig.RawCommand;
+                            if (winBoxConfig.app_runAsSystem == true)
+                            {
+                                var batContent =
+$@"cd /d C:\WinboxProgram
+{winBoxConfig.RawCommand}
+";
+
+                                await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "user_cmd.bat"), batContent);
+                                command = $"psexec -s cmd.exe /c C:\\WinboxResources\\user_cmd.bat";
+                            }
+                            else
+                            {
+                                applicationScript += "\r\ncd C:\\WinboxProgram";
+                                command = winBoxConfig.RawCommand;
+                            }
                         }
                         break;
 

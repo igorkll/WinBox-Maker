@@ -260,6 +260,7 @@ namespace WinBox_Maker
         public bool? regtweak_overwrite_en { get; set; }
         public string? regtweak_overwrite { get; set; }
         public bool? firewall_disable { get; set; }
+        public bool? app_runAsSystem { get; set; }
 
 
 
@@ -493,6 +494,8 @@ namespace WinBox_Maker
 
             if (regtweak_overwrite_en == null) regtweak_overwrite_en = false;
             if (firewall_disable == null) firewall_disable = true;
+
+            if (app_runAsSystem == null) app_runAsSystem = false;
         }
 
         public void Save(string wnbFilePath)
