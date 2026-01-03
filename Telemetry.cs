@@ -33,24 +33,36 @@ namespace WinBox_Maker
             TelemetryPolicy telemetryPolicy = Program.winboxSettings.telemetry_policy ?? TelemetryPolicy.doNotSend;
             if (telemetryPolicy == TelemetryPolicy.doNotSend) return;
 
-            object eventParams = collectProjectTelemetry(telemetryPackageType, projectFolder);
+            object collectedData = collectProjectTelemetry(telemetryPolicy, telemetryPackageType, projectFolder);
             writeTelemetrySendLog(projectFolder, $"send: {telemetryPackageType} | {projectFolder}");
-            writeTelemetrySendLog(projectFolder, $"result: {await internalSendTelemetry(telemetryPackageType, eventParams)}");
+            writeTelemetrySendLog(projectFolder, $"collected data: {collectedData}");
+            writeTelemetrySendLog(projectFolder, $"result: {await internalSendTelemetry(telemetryPackageType, collectedData)}");
         }
 
-        private static object collectProjectTelemetry(TelemetryPackageType telemetryPackageType, string projectFolder)
+        private static object collectProjectTelemetry(TelemetryPolicy telemetryPolicy, TelemetryPackageType telemetryPackageType, string projectFolder)
         {
             var projectTelemetry = new
             {
                 timestamp = Program.getTimestamp(),
-                project_name = "MyProject",
-                status = "success",
-                build_time = 42,
-                is_debug = true,
-                debug_mode = true
+                eventname = getTelemetryPackageEventName(telemetryPackageType),
+                projectinfo = telemetryPolicy == TelemetryPolicy.buildTimeAndStateWithDescriptionAndLogs ? rawCollectProjectTelemetry(projectFolder) : null
             };
 
             return projectTelemetry;
+        }
+
+        private static object? rawCollectProjectTelemetry(string projectFolder)
+        {
+            WinBoxConfig? winBoxConfig = WinBoxConfig.Load(Path.Combine(projectFolder, "winbox.wnb"));
+            if (winBoxConfig == null) return null;
+
+            var projectInfo = new
+            {
+                name = winBoxConfig.WinboxName,
+                description = winBoxConfig.WinboxDescription
+            };
+
+            return projectInfo;
         }
 
         private static void writeTelemetrySendLog(string projectFolder, string log)
