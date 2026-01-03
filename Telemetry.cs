@@ -35,7 +35,7 @@ namespace WinBox_Maker
 
             object collectedData = collectProjectTelemetry(telemetryPolicy, telemetryPackageType, projectFolder);
             writeTelemetrySendLog(projectFolder, $"send: {telemetryPackageType} | {projectFolder}");
-            writeTelemetrySendLog(projectFolder, $"collected data: {collectedData}");
+            writeTelemetrySendLog(projectFolder, $"collected data: {Program.objectToHumanReadable(collectedData)}");
             writeTelemetrySendLog(projectFolder, $"result: {await internalSendTelemetry(telemetryPackageType, collectedData)}");
         }
 

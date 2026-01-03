@@ -9,6 +9,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace WinBox_Maker
@@ -976,6 +977,16 @@ namespace WinBox_Maker
         {
             Program.CreateDirectory(Path.GetDirectoryName(filePath)!);
             File.AppendAllText(filePath, $"[{getTimestamp()}] {textToAppend}\r\n");
+        }
+
+        static public string objectToHumanReadable(object obj)
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            return JsonSerializer.Serialize(obj, options);
         }
     }
 }
