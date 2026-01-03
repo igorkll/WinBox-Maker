@@ -26,10 +26,17 @@ namespace WinBox_Maker
         public string? path_cargo { get; set; }
         public string? path_qemu_folder { get; set; }
         public TelemetryPolicy? telemetry_policy { get; set; }
+        public string? telemetry_client_id { get; set; }
 
         public void initDefault()
         {
             if (telemetry_policy == null) telemetry_policy = TelemetryPolicy.buildTimeAndStateWithDescriptionAndLogs;
+
+            if (telemetry_client_id == null)
+            {
+                telemetry_client_id = Guid.NewGuid().ToString();
+                Save();
+            }
         }
 
         string? FindProgram(string name)

@@ -9,24 +9,31 @@ using System.Threading.Tasks;
 
 namespace WinBox_Maker
 {
+    public enum TelemetryPackageType
+    {
+
+    };
+
     internal class Telemetry
     {
+        private static readonly HttpClient client = new HttpClient();
+
         private static string MeasurementId = "G-16YG4VZ93N";
         private static string ApiSecret = "mXgrqkLMSdeCXqTiw3ENqA";
 
-        public static async Task sendTelemetry()
+        public static async Task sendTelemetry(TelemetryPackageType telemetryPackageType, string projectFolder)
         {
             TelemetryPolicy telemetryPolicy = Program.winboxSettings.telemetry_policy ?? TelemetryPolicy.doNotSend;
             if (telemetryPolicy == TelemetryPolicy.doNotSend) return;
 
-
+            rawSendTelemetry();
         }
 
-        private static async Task rawSendTelemetry(string clientId, string eventName, object eventParams = null)
+        private static async Task rawSendTelemetry(string eventName, object eventParams = null)
         {
             var payload = new
             {
-                client_id = clientId,
+                client_id = Program.winboxSettings.telemetry_client_id ?? "00000000-0000-0000-0000-000000000000",
                 events = new[]
                 {
                 new
