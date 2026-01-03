@@ -2736,7 +2736,7 @@ net localgroup Administrators winbox /add";
                                 //command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
                                 if (runAsSystem)
                                 {
-                                    command = $"psexec -s cmd.exe /c \"{fullCommand}\"";
+                                    command = $"psexec -s -w C:\\WinboxProgram cmd.exe /c \"{fullCommand}\"";
                                 }
                                 else
                                 {
@@ -2747,7 +2747,7 @@ net localgroup Administrators winbox /add";
                             {
                                 if (runAsSystem)
                                 {
-                                    command = $"psexec -s -i {fullCommand}"; //теперь везде ок?
+                                    command = $"psexec -s -i -w C:\\WinboxProgram {fullCommand}";
                                 }
                                 else
                                 {
