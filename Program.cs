@@ -967,10 +967,15 @@ namespace WinBox_Maker
             return Path.Combine(Path.GetDirectoryName(path), Path.GetFileName(path) + ".downloaded");
         }
 
+        static public string getTimestamp()
+        {
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
         static public void appendLog(string filePath, string textToAppend)
         {
             Program.CreateDirectory(Path.GetDirectoryName(filePath)!);
-            File.AppendAllText(filePath, textToAppend);
+            File.AppendAllText(filePath, $"[{getTimestamp()}] {textToAppend}\r\n");
         }
     }
 }

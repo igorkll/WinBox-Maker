@@ -41,6 +41,7 @@ namespace WinBox_Maker
         {
             var projectTelemetry = new
             {
+                timestamp = Program.getTimestamp(),
                 project_name = "MyProject",
                 status = "success",
                 build_time = 42,
