@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -25,13 +26,20 @@ namespace WinBox_Maker
 
         private static string MeasurementId = "G-16YG4VZ93N";
         private static string ApiSecret = "mXgrqkLMSdeCXqTiw3ENqA";
+        private static string logPath = "winbox_temp/debug/telemetry.log";
 
         public static async Task sendTelemetry(TelemetryPackageType telemetryPackageType, string projectFolder)
         {
             TelemetryPolicy telemetryPolicy = Program.winboxSettings.telemetry_policy ?? TelemetryPolicy.doNotSend;
             if (telemetryPolicy == TelemetryPolicy.doNotSend) return;
 
-            var eventParams = new
+            object eventParams = collectProjectTelemetry(telemetryPackageType, projectFolder);
+            writeTelemetrySendLog(projectFolder, await internalSendTelemetry(telemetryPackageType, eventParams));
+        }
+
+        private static object collectProjectTelemetry(TelemetryPackageType telemetryPackageType, string projectFolder)
+        {
+            var projectTelemetry = new
             {
                 project_name = "MyProject",
                 status = "success",
@@ -40,9 +48,12 @@ namespace WinBox_Maker
                 debug_mode = true
             };
 
-            string sendTelemetryResult = await internalSendTelemetry(telemetryPackageType, eventParams);
+            return projectTelemetry;
+        }
 
-
+        private static void writeTelemetrySendLog(string projectFolder, string log)
+        {
+            Program.appendLog(Path.Combine(projectFolder, logPath), log);
         }
 
         private static string getTelemetryClientId()

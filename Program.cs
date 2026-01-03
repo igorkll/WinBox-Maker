@@ -966,5 +966,11 @@ namespace WinBox_Maker
         {
             return Path.Combine(Path.GetDirectoryName(path), Path.GetFileName(path) + ".downloaded");
         }
+
+        static public void appendLog(string filePath, string textToAppend)
+        {
+            Program.CreateDirectory(Path.GetDirectoryName(filePath)!);
+            File.AppendAllText(filePath, textToAppend);
+        }
     }
 }
