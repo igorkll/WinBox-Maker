@@ -11,6 +11,13 @@ using System.Xml.Linq;
 
 namespace WinBox_Maker
 {
+    public enum TelemetryPolicy
+    {
+        doNotSend,
+        buildTimeAndState,
+        buildTimeAndStateWithDescriptionAndLogs
+    }
+
     public class WinboxMakerConfig
     {
         public string? path_msbuild { get; set; }
@@ -18,6 +25,12 @@ namespace WinBox_Maker
         public string? path_pip { get; set; }
         public string? path_cargo { get; set; }
         public string? path_qemu_folder { get; set; }
+        public TelemetryPolicy? telemetry_policy { get; set; }
+
+        public void initDefault()
+        {
+            if (telemetry_policy == null) telemetry_policy = TelemetryPolicy.buildTimeAndStateWithDescriptionAndLogs;
+        }
 
         string? FindProgram(string name)
         {

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             msbuildPath = new TextBox();
-            panel1 = new Panel();
             selectQemu = new Button();
             selectCargo = new Button();
             qemuPath = new TextBox();
@@ -40,46 +39,30 @@
             cmakePath = new TextBox();
             selectMsbuild = new Button();
             AutoDetect = new Button();
-            label1 = new Label();
             openProgramData = new Button();
-            panel1.SuspendLayout();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
+            label1 = new Label();
+            telemetry_policy = new ComboBox();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // msbuildPath
             // 
             msbuildPath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            msbuildPath.Location = new Point(3, 6);
+            msbuildPath.Location = new Point(6, 6);
             msbuildPath.Name = "msbuildPath";
-            msbuildPath.Size = new Size(748, 31);
+            msbuildPath.Size = new Size(722, 31);
             msbuildPath.TabIndex = 1;
             msbuildPath.TextChanged += msbuildPath_TextChanged;
-            // 
-            // panel1
-            // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            panel1.BackColor = Color.White;
-            panel1.BorderStyle = BorderStyle.Fixed3D;
-            panel1.Controls.Add(selectQemu);
-            panel1.Controls.Add(selectCargo);
-            panel1.Controls.Add(qemuPath);
-            panel1.Controls.Add(cargoPath);
-            panel1.Controls.Add(selectPip);
-            panel1.Controls.Add(selectCmake);
-            panel1.Controls.Add(pipPath);
-            panel1.Controls.Add(cmakePath);
-            panel1.Controls.Add(selectMsbuild);
-            panel1.Controls.Add(AutoDetect);
-            panel1.Controls.Add(msbuildPath);
-            panel1.Location = new Point(12, 50);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(959, 258);
-            panel1.TabIndex = 3;
             // 
             // selectQemu
             // 
             selectQemu.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            selectQemu.Location = new Point(757, 154);
+            selectQemu.Location = new Point(734, 158);
             selectQemu.Name = "selectQemu";
             selectQemu.Size = new Size(195, 31);
             selectQemu.TabIndex = 13;
@@ -90,7 +73,7 @@
             // selectCargo
             // 
             selectCargo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            selectCargo.Location = new Point(757, 117);
+            selectCargo.Location = new Point(734, 121);
             selectCargo.Name = "selectCargo";
             selectCargo.Size = new Size(195, 31);
             selectCargo.TabIndex = 12;
@@ -101,25 +84,25 @@
             // qemuPath
             // 
             qemuPath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            qemuPath.Location = new Point(3, 154);
+            qemuPath.Location = new Point(6, 158);
             qemuPath.Name = "qemuPath";
-            qemuPath.Size = new Size(748, 31);
+            qemuPath.Size = new Size(722, 31);
             qemuPath.TabIndex = 11;
             qemuPath.TextChanged += qemuPath_TextChanged;
             // 
             // cargoPath
             // 
             cargoPath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            cargoPath.Location = new Point(3, 117);
+            cargoPath.Location = new Point(6, 121);
             cargoPath.Name = "cargoPath";
-            cargoPath.Size = new Size(748, 31);
+            cargoPath.Size = new Size(722, 31);
             cargoPath.TabIndex = 10;
             cargoPath.TextChanged += cargoPath_TextChanged;
             // 
             // selectPip
             // 
             selectPip.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            selectPip.Location = new Point(757, 80);
+            selectPip.Location = new Point(734, 80);
             selectPip.Name = "selectPip";
             selectPip.Size = new Size(195, 31);
             selectPip.TabIndex = 9;
@@ -130,7 +113,7 @@
             // selectCmake
             // 
             selectCmake.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            selectCmake.Location = new Point(757, 43);
+            selectCmake.Location = new Point(734, 43);
             selectCmake.Name = "selectCmake";
             selectCmake.Size = new Size(195, 31);
             selectCmake.TabIndex = 8;
@@ -141,25 +124,25 @@
             // pipPath
             // 
             pipPath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            pipPath.Location = new Point(3, 80);
+            pipPath.Location = new Point(6, 80);
             pipPath.Name = "pipPath";
-            pipPath.Size = new Size(748, 31);
+            pipPath.Size = new Size(722, 31);
             pipPath.TabIndex = 7;
             pipPath.TextChanged += pipPath_TextChanged;
             // 
             // cmakePath
             // 
             cmakePath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            cmakePath.Location = new Point(3, 43);
+            cmakePath.Location = new Point(6, 43);
             cmakePath.Name = "cmakePath";
-            cmakePath.Size = new Size(748, 31);
+            cmakePath.Size = new Size(722, 31);
             cmakePath.TabIndex = 6;
             cmakePath.TextChanged += cmakePath_TextChanged;
             // 
             // selectMsbuild
             // 
             selectMsbuild.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            selectMsbuild.Location = new Point(757, 6);
+            selectMsbuild.Location = new Point(734, 6);
             selectMsbuild.Name = "selectMsbuild";
             selectMsbuild.Size = new Size(195, 31);
             selectMsbuild.TabIndex = 5;
@@ -170,23 +153,13 @@
             // AutoDetect
             // 
             AutoDetect.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            AutoDetect.Location = new Point(757, 217);
+            AutoDetect.Location = new Point(745, 372);
             AutoDetect.Name = "AutoDetect";
             AutoDetect.Size = new Size(195, 34);
             AutoDetect.TabIndex = 4;
             AutoDetect.Text = "Auto search";
             AutoDetect.UseVisualStyleBackColor = true;
             AutoDetect.Click += AutoDetect_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(12, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(83, 38);
-            label1.TabIndex = 2;
-            label1.Text = "Paths";
             // 
             // openProgramData
             // 
@@ -199,29 +172,95 @@
             openProgramData.UseVisualStyleBackColor = true;
             openProgramData.Click += openProgramData_Click;
             // 
+            // tabControl1
+            // 
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Location = new Point(12, 12);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(954, 450);
+            tabControl1.TabIndex = 5;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(AutoDetect);
+            tabPage1.Controls.Add(selectQemu);
+            tabPage1.Controls.Add(msbuildPath);
+            tabPage1.Controls.Add(selectCargo);
+            tabPage1.Controls.Add(selectMsbuild);
+            tabPage1.Controls.Add(qemuPath);
+            tabPage1.Controls.Add(cargoPath);
+            tabPage1.Controls.Add(cmakePath);
+            tabPage1.Controls.Add(selectPip);
+            tabPage1.Controls.Add(pipPath);
+            tabPage1.Controls.Add(selectCmake);
+            tabPage1.Location = new Point(4, 34);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(946, 412);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "paths";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(label1);
+            tabPage2.Controls.Add(telemetry_policy);
+            tabPage2.Location = new Point(4, 34);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(946, 412);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "telemetry";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Location = new Point(783, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(138, 25);
+            label1.TabIndex = 1;
+            label1.Text = "telemetry policy";
+            // 
+            // telemetry_policy
+            // 
+            telemetry_policy.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            telemetry_policy.DropDownStyle = ComboBoxStyle.DropDownList;
+            telemetry_policy.FormattingEnabled = true;
+            telemetry_policy.Items.AddRange(new object[] { "do not send telemetry", "send only the build time (and whether it was successful)", "send the build time and project description with build logs" });
+            telemetry_policy.Location = new Point(6, 6);
+            telemetry_policy.Name = "telemetry_policy";
+            telemetry_policy.Size = new Size(771, 33);
+            telemetry_policy.TabIndex = 0;
+            telemetry_policy.SelectedIndexChanged += telemetry_policy_SelectedIndexChanged;
+            // 
             // ProgramSettings
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = SystemColors.Control;
             ClientSize = new Size(978, 544);
+            Controls.Add(tabControl1);
             Controls.Add(openProgramData);
-            Controls.Add(panel1);
-            Controls.Add(label1);
             MinimumSize = new Size(700, 500);
             Name = "ProgramSettings";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Winbox-Maker Settings";
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            Load += ProgramSettings_Load;
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
         private TextBox msbuildPath;
-        private Panel panel1;
-        private Label label1;
         private Button AutoDetect;
         private Button selectMsbuild;
         private TextBox pipPath;
@@ -233,5 +272,10 @@
         private TextBox cargoPath;
         private Button selectQemu;
         private Button selectCargo;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private Label label1;
+        private ComboBox telemetry_policy;
     }
 }

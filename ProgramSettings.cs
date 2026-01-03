@@ -34,6 +34,7 @@ namespace WinBox_Maker
             pipPath.Text = Program.winboxSettings.path_pip;
             cargoPath.Text = Program.winboxSettings.path_cargo;
             qemuPath.Text = Program.winboxSettings.path_qemu_folder;
+            telemetry_policy.SelectedIndex = (int)(Program.winboxSettings.telemetry_policy ?? 0);
             guiUpdate = false;
         }
 
@@ -229,6 +230,17 @@ namespace WinBox_Maker
                 Program.winboxSettings.Save();
             }
             UnlockForm();
+        }
+
+        private void ProgramSettings_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void telemetry_policy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Program.winboxSettings.telemetry_policy = (TelemetryPolicy)telemetry_policy.SelectedIndex;
+            Program.winboxSettings.Save();
         }
     }
 }

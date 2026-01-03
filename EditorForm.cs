@@ -1672,7 +1672,7 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
         }
 
-        private void bl_folderInProject_SelectedIndexChanged(object sender, EventArgs e)
+        private void bl_folderInProject_SelectedIndexChangedOrTextChanged(object sender, EventArgs e)
         {
             if (guiEventsLock) return;
 

@@ -41,7 +41,7 @@ namespace WinBox_Maker
         public static string? mainTweakPath;
         public static OpenProjectForm openProjectForm;
         static bool isClosingProgrammatically = false;
-        public static WinboxMakerConfig winboxSettings;
+        public static WinboxMakerConfig? winboxSettings;
         public static WinBoxConfig? winBoxConfig;
         public static WinBoxProject? winBoxProject;
         static bool consoleExporter = false;
@@ -122,6 +122,7 @@ namespace WinBox_Maker
             downloadImagesPath = getAppdataSubdirectory("DownloadImages");
 
             winboxSettings = WinboxMakerConfig.Load();
+            if (winboxSettings != null) winboxSettings.initDefault();
 
             if (args.Length > 0)
             {

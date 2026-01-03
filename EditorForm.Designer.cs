@@ -5257,7 +5257,8 @@
             bl_folderInProject.Name = "bl_folderInProject";
             bl_folderInProject.Size = new Size(667, 33);
             bl_folderInProject.TabIndex = 45;
-            bl_folderInProject.SelectedIndexChanged += bl_folderInProject_SelectedIndexChanged;
+            bl_folderInProject.SelectedIndexChanged += bl_folderInProject_SelectedIndexChangedOrTextChanged;
+            bl_folderInProject.TextChanged += bl_folderInProject_SelectedIndexChangedOrTextChanged;
             // 
             // bl_folder_enable
             // 
