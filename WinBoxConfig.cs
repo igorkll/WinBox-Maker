@@ -14,7 +14,8 @@ namespace WinBox_Maker
         ExecutableFile,
         RawCommand,
         WebSite,
-        None
+        None,
+        UWPApplication
     }
 
     public enum ProgramLaunchModeEnum
@@ -261,6 +262,7 @@ namespace WinBox_Maker
         public string? regtweak_overwrite { get; set; }
         public bool? firewall_disable { get; set; }
         public bool? app_runAsSystem { get; set; }
+        public string? app_uwp { get; set; }
 
 
 
@@ -496,6 +498,7 @@ namespace WinBox_Maker
             if (firewall_disable == null) firewall_disable = true;
 
             if (app_runAsSystem == null) app_runAsSystem = false;
+            if (app_uwp == null) app_uwp = "windows.immersivecontrolpanel_cw5n1h2txyewy!App";
         }
 
         public void Save(string wnbFilePath)

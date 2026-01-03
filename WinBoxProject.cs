@@ -2828,6 +2828,19 @@ start """" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kios
 
                     case ProgramTypeEnum.None:
                         break;
+
+                    case ProgramTypeEnum.UWPApplication:
+                        {
+                            string setupKiosk = $@"$User = ""winbox""
+$Aumid = ""{winBoxConfig.app_uwp}""
+
+Set-AssignedAccess -UserName $User -AppUserModelId $Aumid";
+
+
+                            command = @"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\setup_kiosk.ps1""
+logoff";
+                        }
+                        break;
                 }
 
                 {
