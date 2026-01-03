@@ -14,7 +14,8 @@ namespace WinBox_Maker
         StartBuild,
         SuccessfulBuild,
         BuildFailed,
-        NewProject
+        NewProject,
+        LoadProject
     };
 
     internal class Telemetry
@@ -29,7 +30,15 @@ namespace WinBox_Maker
             TelemetryPolicy telemetryPolicy = Program.winboxSettings.telemetry_policy ?? TelemetryPolicy.doNotSend;
             if (telemetryPolicy == TelemetryPolicy.doNotSend) return;
 
-            await rawSendTelemetry(getTelemetryClientId(), getTelemetryPackageEventName(telemetryPackageType), );
+            var eventParams = new
+            {
+                project_name = "MyProject",
+                status = "success",
+                build_time = 42,
+                is_debug = true
+            };
+
+            await rawSendTelemetry(getTelemetryClientId(), getTelemetryPackageEventName(telemetryPackageType), eventParams);
         }
 
         private static string getTelemetryClientId()

@@ -37,7 +37,7 @@ namespace WinBox_Maker
             Program.SwitchForm(this, editorForm);
         }
 
-        private void OpenProject_Click(object sender, EventArgs e)
+        private async void OpenProject_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -48,11 +48,12 @@ namespace WinBox_Maker
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     LoadProject(openFileDialog.FileName);
+                    await Telemetry.sendTelemetry(TelemetryPackageType.LoadProject, Path.GetDirectoryName(openFileDialog.FileName));
                 }
             }
         }
 
-        private void NewProject_Click(object sender, EventArgs e)
+        private async void NewProject_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
             {
@@ -66,6 +67,7 @@ namespace WinBox_Maker
                     if (Program.IsDirectoryEmpty(selectedPath))
                     {
                         LoadProject(Path.Combine(selectedPath, "winbox.wnb"));
+                        await Telemetry.sendTelemetry(TelemetryPackageType.NewProject, selectedPath);
                     }
                     else
                     {

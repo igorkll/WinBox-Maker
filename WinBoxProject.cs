@@ -1667,6 +1667,8 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
         public async Task<bool> MakeModWim(Action<string> processName, Action<int> processValue, WindowsDescription newWindowsDescription, string newWimPath, string? imgExportPath, bool initViaVmMode = false)
         {
+            await Telemetry.sendTelemetry(TelemetryPackageType.StartBuild, baseDirectoryPath);
+
             string RemovePaths_log = "";
 
             async Task removeSystemObject(string path, string? systemRoot=null)
@@ -3298,6 +3300,8 @@ if errorlevel 1 (
 
             processValue(99);
             await RemoveTemp(processName);
+
+            await Telemetry.sendTelemetry(TelemetryPackageType.SuccessfulBuild, baseDirectoryPath);
 
             processName("Completed!");
             processValue(100);
