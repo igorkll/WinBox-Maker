@@ -34,7 +34,8 @@ namespace WinBox_Maker
             if (telemetryPolicy == TelemetryPolicy.doNotSend) return;
 
             object eventParams = collectProjectTelemetry(telemetryPackageType, projectFolder);
-            writeTelemetrySendLog(projectFolder, await internalSendTelemetry(telemetryPackageType, eventParams));
+            writeTelemetrySendLog(projectFolder, $"send: {telemetryPackageType} | {projectFolder}");
+            writeTelemetrySendLog(projectFolder, $"result: {await internalSendTelemetry(telemetryPackageType, eventParams)}");
         }
 
         private static object collectProjectTelemetry(TelemetryPackageType telemetryPackageType, string projectFolder)
