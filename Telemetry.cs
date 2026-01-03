@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.XPath;
 
 namespace WinBox_Maker
 {
@@ -35,10 +36,13 @@ namespace WinBox_Maker
                 project_name = "MyProject",
                 status = "success",
                 build_time = 42,
-                is_debug = true
+                is_debug = true,
+                debug_mode = true
             };
 
-            await rawSendTelemetry(getTelemetryClientId(), getTelemetryPackageEventName(telemetryPackageType), eventParams);
+            string sendTelemetryResult = await internalSendTelemetry(telemetryPackageType, eventParams);
+
+
         }
 
         private static string getTelemetryClientId()
@@ -48,22 +52,32 @@ namespace WinBox_Maker
 
         private static string getTelemetryPackageEventName(TelemetryPackageType telemetryPackageType)
         {
-            switch (telemetryPackageType)
+            return telemetryPackageType switch
             {
-                case TelemetryPackageType.StartBuild:
-                    return "Start build";
-                case TelemetryPackageType.SuccessfulBuild:
-                    return "Successful build";
-                case TelemetryPackageType.BuildFailed:
-                    return "Build failed";
-                case TelemetryPackageType.NewProject:
-                    return "New project";
-            }
-
-            return "unknown";
+                TelemetryPackageType.StartBuild => "start_build",
+                TelemetryPackageType.SuccessfulBuild => "successful_build",
+                TelemetryPackageType.BuildFailed => "build_failed",
+                TelemetryPackageType.NewProject => "new_project",
+                TelemetryPackageType.LoadProject => "load_project",
+                _ => "unknown"
+            };
         }
 
-        private static async Task rawSendTelemetry(string clientId, string eventName, object eventParams = null)
+        private static async Task<string> internalSendTelemetry(TelemetryPackageType telemetryPackageType, object eventParams = null)
+        {
+            string sendTelemetryResult = "unknown";
+            try
+            {
+                sendTelemetryResult = await rawSendTelemetry(getTelemetryClientId(), getTelemetryPackageEventName(telemetryPackageType), eventParams);
+            }
+            catch (Exception e)
+            {
+                sendTelemetryResult = e.ToString();
+            }
+            return sendTelemetryResult;
+        }
+
+        private static async Task<string> rawSendTelemetry(string clientId, string eventName, object eventParams = null)
         {
             var payload = new
             {
@@ -84,6 +98,8 @@ namespace WinBox_Maker
             var url = $"https://www.google-analytics.com/mp/collect?measurement_id={MeasurementId}&api_secret={ApiSecret}";
             var response = await client.PostAsync(url, content);
             response.EnsureSuccessStatusCode();
+
+            return response.ToString();
         }
     }
 }
