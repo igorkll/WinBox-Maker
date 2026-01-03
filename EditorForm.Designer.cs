@@ -558,6 +558,8 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            tabPage69 = new TabPage();
+            dism_cleanup = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -684,6 +686,7 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage69.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -4453,6 +4456,7 @@
             // 
             // customdism
             // 
+            customdism.Controls.Add(tabPage69);
             customdism.Controls.Add(tabPage44);
             customdism.Controls.Add(tabPage45);
             customdism.Location = new Point(6, 6);
@@ -6283,6 +6287,27 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // tabPage69
+            // 
+            tabPage69.Controls.Add(dism_cleanup);
+            tabPage69.Location = new Point(4, 34);
+            tabPage69.Name = "tabPage69";
+            tabPage69.Size = new Size(984, 253);
+            tabPage69.TabIndex = 2;
+            tabPage69.Text = "build";
+            tabPage69.UseVisualStyleBackColor = true;
+            // 
+            // dism_cleanup
+            // 
+            dism_cleanup.AutoSize = true;
+            dism_cleanup.Location = new Point(3, 3);
+            dism_cleanup.Name = "dism_cleanup";
+            dism_cleanup.Size = new Size(669, 29);
+            dism_cleanup.TabIndex = 0;
+            dism_cleanup.Text = "dism cleanup after build (/Cleanup-Image /StartComponentCleanup /ResetBase)";
+            dism_cleanup.UseVisualStyleBackColor = true;
+            dism_cleanup.CheckedChanged += dism_cleanup_CheckedChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -6509,6 +6534,8 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage69.ResumeLayout(false);
+            tabPage69.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -7046,5 +7073,7 @@
         private TabPage tabPage68;
         private CheckBox firewall_disable;
         private CheckBox app_runAsSystem;
+        private TabPage tabPage69;
+        private CheckBox dism_cleanup;
     }
 }

@@ -725,6 +725,8 @@ namespace WinBox_Maker
             aaf_info_boot.Checked = winBoxProject.winBoxConfig.aaf_info_boot == true;
             aaf_info_recovery.Checked = winBoxProject.winBoxConfig.aaf_info_recovery == true;
 
+            dism_cleanup.Checked = winBoxProject.winBoxConfig.dism_cleanup == true;
+
             oemkey_installer.Checked = winBoxProject.winBoxConfig.oemkey_installer == true;
             oemkey_dism.Checked = winBoxProject.winBoxConfig.oemkey_dism == true;
             oemkey_slmgr.Checked = winBoxProject.winBoxConfig.oemkey_slmgr == true;
@@ -2705,6 +2707,14 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.aaf_readme_recovery = aaf_readme_recovery.Checked;
+            winBoxProject.SaveConfig();
+        }
+
+        private void dism_cleanup_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.dism_cleanup = dism_cleanup.Checked;
             winBoxProject.SaveConfig();
         }
 

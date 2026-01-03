@@ -3241,6 +3241,10 @@ if errorlevel 1 (
 
             // ------------------------------------ save & export
 
+            if (winBoxConfig.dism_cleanup == true) {
+                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /Cleanup-Image /StartComponentCleanup /ResetBase", null, debugFolder);
+            }
+
             if (winBoxConfig.winmounted_breakbefore == true) breakpointStop("win-mounted", false);
             if (winBoxConfig.winmountedEnabled == true)
             {

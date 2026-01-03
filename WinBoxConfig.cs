@@ -263,6 +263,7 @@ namespace WinBox_Maker
         public bool? firewall_disable { get; set; }
         public bool? app_runAsSystem { get; set; }
         public string? app_uwp { get; set; }
+        public bool? dism_cleanup { get; set; }
 
 
 
@@ -499,6 +500,8 @@ namespace WinBox_Maker
 
             if (app_runAsSystem == null) app_runAsSystem = false;
             if (app_uwp == null) app_uwp = "windows.immersivecontrolpanel_cw5n1h2txyewy!App";
+
+            if (dism_cleanup == null) dism_cleanup = true;
         }
 
         public void Save(string wnbFilePath)
