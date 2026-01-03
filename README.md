@@ -71,7 +71,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * please note that the shutdown during installation on qemu is triggered BEFORE the event when the system is first turned on, which is set in winbox maker > settings > boot. that is, if you set the flag yourself that you need to turn off the computer when you first start the system, then the first time it turns off on qemu and the second time it turns off when you first start the system on a real machine. since these two events are completely independent
 * shutdown during .img export is triggered BEFORE the first boot action. The first boot action will be triggered the first time it is turned on on the target machine
 * if you use the "Disable all boot UI" option instead of separate "Disable boot logos", etc, then the boot circle and status will not be displayed at any time, but the boot logo will be displayed only if the BGRT table transmitted from UEFI or modified by the custom logo function is available. if the "Hide boot logo" is used, the boot logo will be hidden even if the BGRT table with a custom logo is available
-* if the system image you created refuses to load and freezes, and after a forced reboot it appears on the "Other user" login screen, then most likely the problem is that your windows image cannot disable any service that winbox maker is trying to disable by default. boot into WinPE and look at the DISK:\WinboxResources\setup.log file and see which service cannot be disabled, then remove it from the disabled list on the settings>advanced>services>customize tab
+* if the system image you created refuses to load and freezes, and after a forced reboot it appears on the "Other user" login screen, then most likely the problem is that your windows image cannot disable any service that winbox maker is trying to disable by default. boot into WinPE and look at the DISK:\WinboxResources\setup.log file and see which service cannot be disabled, then remove it from the disabled list on the "settings>advanced>services>customize" tab
 
 ## menu description
 * base - select the base Windows image that will be used to create a custom Windows image
@@ -144,27 +144,11 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * WdNisSvc
 * wscsvc
 
-### these keys were disabled by changing the keyboard layout
-* calculator key
-* mail key
-* media select key
-* messager key
-* my computer key
-* logitech itouch key
-* logitech shopping key
-* logitech webcam key
-* left/right alt keys
-* left/right windows keys
-* power/sleep/wake key
-* printscreen key
-* f1 - f24 keys
-* web back, favorites, forward, home, refresh, search, stop keys
-
 ### patch descriptions
 * Integrate nircmd - adds nircmd to the image and registers it in the PATH. This is necessary to control some windows functions from your kiosk application without calling winapi directly
 * Integrate PSTools - adds PsTools to the image and registers it in the PATH. this is necessary so that your kiosk application can run the exe on behalf of the system, for example, to circumvent some restrictions of WinRT (I used this to switch the bluetooth status without having a trusted digital signature)
 
-### the following keys and combinations have been disabled at the system level
+### the following keys and combinations have been disabled via keyboard filter (can be disabled and customized)
 * Alt+F4
 * Alt+Space
 * Alt+Tab
@@ -194,7 +178,23 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * Shift+Win
 * Windows
 
-## changes in the edge browser
+### these keys were disabled by changing the keyboard layout (it can be disabled and customized in the future (I'm going to embed sharpkeys directly into the utility))
+* calculator key
+* mail key
+* media select key
+* messager key
+* my computer key
+* logitech itouch key
+* logitech shopping key
+* logitech webcam key
+* left/right alt keys
+* left/right windows keys
+* power/sleep/wake key
+* printscreen key
+* f1 - f24 keys
+* web back, favorites, forward, home, refresh, search, stop keys
+
+## changes in the edge browser (for web kiosks)
 * disabled all hotkeys
 * disabled updates
 * page translation is disabled
@@ -213,7 +213,8 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * you can still replace and add files in the system and iso using the winbox_resources/files or winbox_resources/iso_files directories.
 * it is possible to build a user application from sources in manual configuration mode, but it will end up in the winbox_temp/program directory and will not be added to the automation system image, although you can copy it via build event - win mounted
 * in manual configuration mode, you cannot integrate the cursor through the winbox_resources/cursor directory, and you also cannot integrate vc redist, net framework, and app runtime through their corresponding directories. to do this, save your installers to files and use the setup completed script.
-* in the "manual setup" mode, you can use the integration of the reg file into the image at the build stage (before the first boot of the system), the option is located on the post-install tab
+* in the "manual setup" mode, you can use the integration of the reg file into the image at the build stage (before the first boot of the system), the option is located on the "build settings>registry" tab
+* the "build settings" tab still works in manual setup mode, but some functions are disabled in manual setup mode, but can be enabled by a special check mark "allow in manual setup mode".
 
 ## which directories work in manual setup mode
 * files - working
@@ -282,7 +283,7 @@ this can be used to control some aspects of the system from your user applicatio
 * C:\WinboxApi\reboot_to_recovery.bat - reboots in recovery (if it is in the system (Winbox maker deletes it by default) and it is enabled (Winbox maker turns it off by default)) I recommend using custom recovery or modifying stock recovery using winbox maker tools so that the solution is safe and you get what you want.
 * C:\WinboxApi\reboot_to_advanced_options.bat - opens advanced options from where you can already access recovery. this menu looks almost the same as the standard windows recovery menu, but it opens without restarting. I DO NOT RECOMMEND using this in production, if you have made your recovery for your own purposes and want to reboot there, use reboot_to_recovery.bat
 
-## custom cursor files (winbox_resources/cursor)
+## custom cursor files (winbox_resources/cursor) (in future updates, I'm going to make it possible to decide for myself which file will be cur and which ani.)
 * AppStarting.ani
 * Arrow.cur
 * Crosshair.cur
