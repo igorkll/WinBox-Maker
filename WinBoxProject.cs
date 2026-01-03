@@ -258,16 +258,34 @@ namespace WinBox_Maker
             return Path.Combine(debugFolder, name + ".txt");
         }
 
-        public async Task writeDebugFile(string name, string content, bool addTxt=true)
+        public async Task writeDebugFile(string name, string content, bool addTxt=true, bool logsFolder = false)
         {
             Program.CreateDirectory(debugFolder);
-            await File.WriteAllTextAsync(Path.Combine(debugFolder, name + (addTxt ? ".txt" : "")), content);
+            string path;
+            if (logsFolder)
+            {
+                path = Path.Combine(debugFolder, "logs", name + (addTxt ? ".txt" : ""));
+            }
+            else
+            {
+                path = Path.Combine(debugFolder, name + (addTxt ? ".txt" : ""));
+            }
+            await File.WriteAllTextAsync(path, content);
         }
 
-        public async Task copyToDebugFile(string name, string sourcePath)
+        public async Task copyToDebugFile(string name, string sourcePath, bool logsFolder = false)
         {
             Program.CreateDirectory(debugFolder);
-            await Program.CopyFileAsync(sourcePath, Path.Combine(debugFolder, name));
+            string path;
+            if (logsFolder)
+            {
+                path = Path.Combine(debugFolder, "logs", name);
+            }
+            else
+            {
+                path = Path.Combine(debugFolder, name);
+            }
+            await Program.CopyFileAsync(sourcePath, path);
         }
 
         public string? GetName()

@@ -102,7 +102,7 @@ namespace WinBox_Maker
             string bcdeditCommand = getBcdeditSetup(bcdPath, winPeModifications);
 
             await File.WriteAllTextAsync(bcdscriptPath, bcdeditCommand);
-            await Program.winBoxProject.writeDebugFile(bcdscriptName, bcdeditCommand);
+            await Program.winBoxProject.writeDebugFile(bcdscriptName, bcdeditCommand, true, true);
             await Program.ExecuteAsync("cmd.exe", $"/c \"{bcdscriptPath}\"", null, Program.winBoxProject.getDebugFilePath($"{bcdscriptName}_output"));
             File.Delete(bcdscriptPath);
         }
