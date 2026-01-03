@@ -11,7 +11,10 @@ namespace WinBox_Maker
 {
     public enum TelemetryPackageType
     {
-
+        StartBuild,
+        SuccessfulBuild,
+        BuildFailed,
+        NewProject
     };
 
     internal class Telemetry
@@ -26,14 +29,36 @@ namespace WinBox_Maker
             TelemetryPolicy telemetryPolicy = Program.winboxSettings.telemetry_policy ?? TelemetryPolicy.doNotSend;
             if (telemetryPolicy == TelemetryPolicy.doNotSend) return;
 
-            rawSendTelemetry();
+            await rawSendTelemetry(getTelemetryClientId(), getTelemetryPackageEventName(telemetryPackageType), );
         }
 
-        private static async Task rawSendTelemetry(string eventName, object eventParams = null)
+        private static string getTelemetryClientId()
+        {
+            return Program.winboxSettings.telemetry_client_id ?? "00000000-0000-0000-0000-000000000000";
+        }
+
+        private static string getTelemetryPackageEventName(TelemetryPackageType telemetryPackageType)
+        {
+            switch (telemetryPackageType)
+            {
+                case TelemetryPackageType.StartBuild:
+                    return "Start build";
+                case TelemetryPackageType.SuccessfulBuild:
+                    return "Successful build";
+                case TelemetryPackageType.BuildFailed:
+                    return "Build failed";
+                case TelemetryPackageType.NewProject:
+                    return "New project";
+            }
+
+            return "unknown";
+        }
+
+        private static async Task rawSendTelemetry(string clientId, string eventName, object eventParams = null)
         {
             var payload = new
             {
-                client_id = Program.winboxSettings.telemetry_client_id ?? "00000000-0000-0000-0000-000000000000",
+                client_id = clientId,
                 events = new[]
                 {
                 new
