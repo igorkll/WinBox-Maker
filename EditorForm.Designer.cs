@@ -145,6 +145,7 @@
             appdelay_time = new CheckBox();
             label60 = new Label();
             tabPage18 = new TabPage();
+            app_runAsSystem = new CheckBox();
             richTextBox10 = new RichTextBox();
             label27 = new Label();
             panel12 = new Panel();
@@ -557,7 +558,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            app_runAsSystem = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -1920,6 +1920,17 @@
             tabPage18.TabIndex = 0;
             tabPage18.Text = "launch";
             tabPage18.UseVisualStyleBackColor = true;
+            // 
+            // app_runAsSystem
+            // 
+            app_runAsSystem.AutoSize = true;
+            app_runAsSystem.Location = new Point(6, 132);
+            app_runAsSystem.Name = "app_runAsSystem";
+            app_runAsSystem.Size = new Size(257, 29);
+            app_runAsSystem.TabIndex = 32;
+            app_runAsSystem.Text = "run on behalf of the system";
+            app_runAsSystem.UseVisualStyleBackColor = true;
+            app_runAsSystem.CheckedChanged += app_runAsSystem_CheckedChanged;
             // 
             // richTextBox10
             // 
@@ -6271,17 +6282,6 @@
             ExportInstallEsd.Text = "export install.esd";
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
-            // 
-            // app_runAsSystem
-            // 
-            app_runAsSystem.AutoSize = true;
-            app_runAsSystem.Location = new Point(6, 132);
-            app_runAsSystem.Name = "app_runAsSystem";
-            app_runAsSystem.Size = new Size(257, 29);
-            app_runAsSystem.TabIndex = 32;
-            app_runAsSystem.Text = "run on behalf of the system";
-            app_runAsSystem.UseVisualStyleBackColor = true;
-            app_runAsSystem.CheckedChanged += app_runAsSystem_CheckedChanged;
             // 
             // EditorForm
             // 

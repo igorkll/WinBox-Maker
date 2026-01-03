@@ -2736,7 +2736,7 @@ net localgroup Administrators winbox /add";
                                 //command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
                                 if (runAsSystem)
                                 {
-                                    command = $"psexec -s -w C:\\WinboxProgram cmd.exe /c \"{fullCommand}\"";
+                                    command = $"psexec -accepteula -s -w C:\\WinboxProgram cmd.exe /c \"{fullCommand}\"";
                                 }
                                 else
                                 {
@@ -2747,7 +2747,7 @@ net localgroup Administrators winbox /add";
                             {
                                 if (runAsSystem)
                                 {
-                                    command = $"psexec -s -i -w C:\\WinboxProgram {fullCommand}";
+                                    command = $"psexec -accepteula -s -i -w C:\\WinboxProgram {fullCommand}";
                                 }
                                 else
                                 {
@@ -2767,7 +2767,7 @@ $@"cd /d C:\WinboxProgram
 ";
 
                                 await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "user_cmd.bat"), batContent);
-                                command = $"psexec -s cmd.exe /c C:\\WinboxResources\\user_cmd.bat";
+                                command = $"psexec -accepteula -s cmd.exe /c C:\\WinboxResources\\user_cmd.bat";
                             }
                             else
                             {
