@@ -581,6 +581,7 @@ namespace WinBox_Maker
             DiskTimeout_dc.Text = winBoxProject.winBoxConfig.DiskTimeout_dc.ToString();
 
             app_runAsSystem.Checked = winBoxProject.winBoxConfig.app_runAsSystem == true;
+            app_runAsSystem.Enabled = winBoxProject.winBoxConfig.ProgramType == ProgramTypeEnum.ExecutableFile || winBoxProject.winBoxConfig.ProgramType == ProgramTypeEnum.RawCommand;
             keyboard_filter_ForceOffAccessibility.Checked = winBoxProject.winBoxConfig.keyboard_filter_ForceOffAccessibility == true;
             keyboard_filter_DisableKeyboardFilterForAdministrators.Checked = winBoxProject.winBoxConfig.keyboard_filter_DisableKeyboardFilterForAdministrators == true;
             keyboard_filter_BreakoutKeyScanCode.Text = winBoxProject.winBoxConfig.keyboard_filter_BreakoutKeyScanCode.ToString();

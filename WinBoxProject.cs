@@ -2000,6 +2000,7 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
             string applicationScript = $@"@echo off" + "\r\n";
             string reboot_to_desktop_cmd = "reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell /t REG_SZ /d \"explorer.exe\" /f\r\nshutdown /r /t 0\r\npause";
+            bool runAsSystem = winBoxConfig.app_runAsSystem == true && (winBoxConfig.ProgramType == ProgramTypeEnum.ExecutableFile || winBoxConfig.ProgramType == ProgramTypeEnum.RawCommand);
 
             if (!manual)
             {
@@ -2467,7 +2468,7 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
                     }
                 }
 
-                if (winBoxConfig.app_runAsSystem == true || Program.isTweakEnabled(winBoxConfig, "Integrate PSTools"))
+                if (runAsSystem || Program.isTweakEnabled(winBoxConfig, "Integrate PSTools"))
                 {
                     await UnpackBlob("PSTools.zip", "executable");
                 }
@@ -2733,18 +2734,20 @@ net localgroup Administrators winbox /add";
                             {
                                 //await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_user_script_hidden.vbs"), execFilePath, winBoxConfig.ProgramArgs);
                                 //command = "wscript \"C:\\WinboxResources\\run_user_script_hidden.vbs\"";
-                                if (winBoxConfig.app_runAsSystem == true)
+                                if (runAsSystem)
                                 {
-                                    command = $"psexec -s cmd.exe /c \"{execFilePath}\"";
-                                } else {
+                                    command = $"psexec -s cmd.exe /c \"{fullCommand}\"";
+                                }
+                                else
+                                {
                                     command = $"call {fullCommand}";
                                 }
                             }
                             else
                             {
-                                if (winBoxConfig.app_runAsSystem == true)
+                                if (runAsSystem)
                                 {
-                                    command = $"psexec -s -i \"{execFilePath}\"";
+                                    command = $"psexec -s -i {fullCommand}"; //теперь везде ок?
                                 }
                                 else
                                 {
@@ -2756,7 +2759,7 @@ net localgroup Administrators winbox /add";
 
                     case ProgramTypeEnum.RawCommand:
                         if (winBoxConfig.RawCommand != null) {
-                            if (winBoxConfig.app_runAsSystem == true)
+                            if (runAsSystem)
                             {
                                 var batContent =
 $@"cd /d C:\WinboxProgram
