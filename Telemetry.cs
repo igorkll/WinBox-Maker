@@ -97,12 +97,12 @@ namespace WinBox_Maker
                 client_id = clientId,
                 events = new[]
                 {
-                new
-                {
-                    name = eventName,
-                    @params = eventParams
+                    new
+                    {
+                        name = eventName,
+                        @params = eventParams
+                    }
                 }
-            }
             };
 
             var json = JsonSerializer.Serialize(payload);

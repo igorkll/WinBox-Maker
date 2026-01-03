@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgramSettings));
             msbuildPath = new TextBox();
             selectQemu = new Button();
             selectCargo = new Button();
@@ -43,6 +44,7 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             tabPage2 = new TabPage();
+            richTextBox1 = new RichTextBox();
             label1 = new Label();
             telemetry_policy = new ComboBox();
             tabControl1.SuspendLayout();
@@ -206,6 +208,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(richTextBox1);
             tabPage2.Controls.Add(label1);
             tabPage2.Controls.Add(telemetry_policy);
             tabPage2.Location = new Point(4, 34);
@@ -216,9 +219,20 @@
             tabPage2.Text = "telemetry";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // richTextBox1
+            // 
+            richTextBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            richTextBox1.BackColor = SystemColors.Info;
+            richTextBox1.Location = new Point(6, 213);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.ReadOnly = true;
+            richTextBox1.Size = new Size(934, 193);
+            richTextBox1.TabIndex = 2;
+            richTextBox1.Text = resources.GetString("richTextBox1.Text");
+            // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Right;
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Location = new Point(783, 9);
             label1.Name = "label1";
@@ -228,7 +242,7 @@
             // 
             // telemetry_policy
             // 
-            telemetry_policy.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            telemetry_policy.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             telemetry_policy.DropDownStyle = ComboBoxStyle.DropDownList;
             telemetry_policy.FormattingEnabled = true;
             telemetry_policy.Items.AddRange(new object[] { "do not send telemetry", "send only the build time (and whether it was successful)", "send the build time and project description with build logs" });
@@ -277,5 +291,6 @@
         private TabPage tabPage2;
         private Label label1;
         private ComboBox telemetry_policy;
+        private RichTextBox richTextBox1;
     }
 }

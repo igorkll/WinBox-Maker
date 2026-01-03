@@ -117,4 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>I'm collecting the telemetry out of pure curiosity. I'm literally just wondering if anyone else uses my program besides me. my program is completely free and open source. I'm not doing anything with this telemetry, I'm just curious. I'm not going to sell data or anything like that. You can adjust the level of telemetry or turn it off altogether.</value>
+  </data>
 </root>
