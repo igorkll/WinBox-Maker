@@ -29,6 +29,8 @@ public class Win32 {
     public const int WS_EX_NOACTIVATE = 0x08000000;
     public const int WS_EX_TRANSPARENT = 0x00000020;
     public static readonly IntPtr HWND_BOTTOM = (IntPtr)1;
+    public static readonly IntPtr HWND_TOPMOST = (IntPtr)(-1);
+    public static readonly IntPtr HWND_NOTOPMOST = (IntPtr)(-2);
     public const UInt32 SWP_NOMOVE = 0x0001;
     public const UInt32 SWP_NOSIZE = 0x0002;
     public const UInt32 SWP_NOACTIVATE = 0x0010;
@@ -79,9 +81,21 @@ $exStyle = [Win32]::GetWindowLong($hwnd, [Win32]::GWL_EXSTYLE)
 $exStyle = $exStyle -bor [Win32]::WS_EX_NOACTIVATE -bor [Win32]::WS_EX_TOOLWINDOW -bor [Win32]::WS_EX_TRANSPARENT
 [Win32]::SetWindowLong($hwnd, [Win32]::GWL_EXSTYLE, $exStyle)
 
-# Ставим окно в самый низ
-[Win32]::SetWindowPos($hwnd, [Win32]::HWND_BOTTOM, 0,0,0,0,
-    [Win32]::SWP_NOMOVE -bor [Win32]::SWP_NOSIZE -bor [Win32]::SWP_NOACTIVATE)
+# Ставим окно в самый низ/верх
+$insertAfter = if ($topmost) {
+    [Win32]::HWND_TOPMOST
+} else {
+    [Win32]::HWND_BOTTOM
+}
+
+[Win32]::SetWindowPos(
+    $hwnd,
+    $insertAfter,
+    0, 0, 0, 0,
+    [Win32]::SWP_NOMOVE -bor
+    [Win32]::SWP_NOSIZE -bor
+    [Win32]::SWP_NOACTIVATE
+)
 
 # Удерживаем окно открытым
 [System.Windows.Threading.Dispatcher]::Run()
