@@ -2667,7 +2667,15 @@ net localgroup Administrators winbox /add";
 
                 if (hideGettingReadyScreenWithOverlay)
                 {
-                    baseSetup = "echo SetupComplete - show black overlay to hide Getting ready >> C:\\WinboxResources\\setup.log\r\n" + showImageBaseCmd + $@"-path ""C:\WinboxResources\empty.png"" -stretch None -topmost 1" + "\r\n\r\n" + baseSetup;
+                    string first_setup_logo = showImageBaseCmd + $@"-path ""C:\WinboxResources\empty.png"" -stretch None -topmost 1";
+
+                    await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "first_setup_logo.bat"), first_setup_logo);
+                    await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_first_setup_logo_hidden.vbs"), @"C:\WinboxResources\first_setup_logo.bat", null);
+
+                    baseSetup = "echo SetupComplete - show black overlay to hide Getting ready >> C:\\WinboxResources\\setup.log\r\n" +
+                        "wscript \"C:\\WinboxResources\\run_first_setup_logo_hidden.vbs\"" +
+                        "\r\n\r\n" +
+                        baseSetup;
                 }
 
                 await writeDebugFile("UpdateSystemSettings", updateSystemSettings);
