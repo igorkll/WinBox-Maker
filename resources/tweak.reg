@@ -532,6 +532,10 @@ Windows Registry Editor Version 5.00
 "SkipMachineOOBE"=dword:00000001
 "SkipUserOOBE"=dword:00000001
 "BypassNRO"=dword:00000001
+"DisablePrivacyExperience"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\OOBE]
+"DisablePrivacyExperience"=dword:00000001
 
 ; ---------------- disable sfc
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]

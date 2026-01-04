@@ -2018,6 +2018,9 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
             // ------------------------------------ system init
 
+            bool hideGettingReadyScreenWithOverlay = true;
+            string showImageBaseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
+
             string applicationScript = $@"@echo off" + "\r\n";
             string reboot_to_desktop_cmd = "reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell /t REG_SZ /d \"explorer.exe\" /f\r\nshutdown /r /t 0\r\npause";
             bool runAsSystem = winBoxConfig.app_runAsSystem == true && (winBoxConfig.ProgramType == ProgramTypeEnum.ExecutableFile || winBoxConfig.ProgramType == ProgramTypeEnum.RawCommand);
@@ -2662,6 +2665,11 @@ net localgroup Administrators winbox /add";
 
                 baseSetupLog($"end");
 
+                if (hideGettingReadyScreenWithOverlay)
+                {
+                    baseSetup = showImageBaseCmd + $@"-path ""C:\WinboxResources\empty.png"" -stretch None -topmost 1" + "\r\n\r\n" + baseSetup;
+                }
+
                 await writeDebugFile("UpdateSystemSettings", updateSystemSettings);
                 await writeDebugFile("SetupComplete", baseSetup);
 
@@ -2864,8 +2872,9 @@ logoff";
                 }
 
                 {
+                    bool copyShowImageScript = hideGettingReadyScreenWithOverlay;
+
                     string? before_app_logo = null;
-                    string baseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
                     if (winBoxConfig.CustomBootLogo_UseLogoBeforeApp == true)
                     {
                         if (winBoxConfig.CustomBootLogo != null)
@@ -2873,22 +2882,32 @@ logoff";
                             string logoPath = Path.Combine(resourcesDirectoryPath, winBoxConfig.CustomBootLogo);
                             if (File.Exists(logoPath))
                             {
-                                await CopyResource("show_image.ps1");
+                                copyShowImageScript = true;
                                 string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, "before_app.bmp");
                                 ImageConverter.ConvertToBmp_54_24(logoPath, beforeAppLogoPath);
                                 await copyToDebugFile("before_app.bmp", beforeAppLogoPath);
                             }
-                            before_app_logo = baseCmd + $@"-path ""C:\WinboxResources\before_app.bmp"" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
+                            before_app_logo = showImageBaseCmd + $@"-path ""C:\WinboxResources\before_app.bmp"" -stretch None -offsetX 0 -offsetY {(winBoxConfig.CustomBootLogo_centering == true ? "0" : "-200")}";
                         }
                     }
                     else if (winBoxConfig.logoBeforeApp != null)
                     {
-                        await CopyResource("show_image.ps1");
+                        copyShowImageScript = true;
                         string filename = "before_app" + Path.GetExtension(winBoxConfig.logoBeforeApp);
                         string beforeAppLogoPath = Path.Combine(WinboxResourcesPath, filename);
                         File.Copy(Path.Combine(resourcesDirectoryPath, winBoxConfig.logoBeforeApp), beforeAppLogoPath, true);
                         await copyToDebugFile(filename, beforeAppLogoPath);
-                        before_app_logo = baseCmd + $@"-path ""C:\WinboxResources\{filename}"" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
+                        before_app_logo = showImageBaseCmd + $@"-path ""C:\WinboxResources\{filename}"" -stretch {winBoxConfig.logoBeforeApp_stretch.ToString()}";
+                    }
+
+                    if (copyShowImageScript)
+                    {
+                        await CopyResource("show_image.ps1");
+                    }
+
+                    if (hideGettingReadyScreenWithOverlay)
+                    {
+                        await CopyResource("empty.png");
                     }
 
                     if (before_app_logo != null)

@@ -2,7 +2,8 @@ param(
     [string]$path,
     [string]$stretch,
     [int]$offsetX = 0,
-    [int]$offsetY = 0
+    [int]$offsetY = 0,
+    [bool]$topmost = $false
 )
 
 Add-Type -AssemblyName PresentationFramework
@@ -43,7 +44,7 @@ $w.add_ContentRendered({
 $w.WindowStyle = 'None'
 $w.ResizeMode = 'NoResize'
 $w.WindowState = 'Maximized'
-$w.Topmost = $false
+$w.Topmost = $topmost
 $w.ShowInTaskbar = $false
 $w.SizeToContent = 'Manual'
 $w.Background = [System.Windows.Media.Brushes]::Black
