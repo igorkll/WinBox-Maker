@@ -2667,7 +2667,7 @@ net localgroup Administrators winbox /add";
 
                 if (hideGettingReadyScreenWithOverlay)
                 {
-                    baseSetup = showImageBaseCmd + $@"-path ""C:\WinboxResources\empty.png"" -stretch None -topmost 1" + "\r\n\r\n" + baseSetup;
+                    baseSetup = "echo SetupComplete - show black overlay to hide Getting ready >> C:\\WinboxResources\\setup.log\r\n" + showImageBaseCmd + $@"-path ""C:\WinboxResources\empty.png"" -stretch None -topmost 1" + "\r\n\r\n" + baseSetup;
                 }
 
                 await writeDebugFile("UpdateSystemSettings", updateSystemSettings);

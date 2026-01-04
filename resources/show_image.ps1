@@ -3,7 +3,7 @@ param(
     [string]$stretch,
     [int]$offsetX = 0,
     [int]$offsetY = 0,
-    [bool]$topmost = $false
+    [int]$topmost = 0
 )
 
 Add-Type -AssemblyName PresentationFramework
@@ -46,7 +46,7 @@ $w.add_ContentRendered({
 $w.WindowStyle = 'None'
 $w.ResizeMode = 'NoResize'
 $w.WindowState = 'Maximized'
-$w.Topmost = $topmost
+$w.Topmost = [bool]$topmost
 $w.ShowInTaskbar = $false
 $w.SizeToContent = 'Manual'
 $w.Background = [System.Windows.Media.Brushes]::Black
@@ -82,7 +82,7 @@ $exStyle = $exStyle -bor [Win32]::WS_EX_NOACTIVATE -bor [Win32]::WS_EX_TOOLWINDO
 [Win32]::SetWindowLong($hwnd, [Win32]::GWL_EXSTYLE, $exStyle)
 
 # Ставим окно в самый низ/верх
-$insertAfter = if ($topmost) {
+$insertAfter = if ([bool]$topmost) {
     [Win32]::HWND_TOPMOST
 } else {
     [Win32]::HWND_BOTTOM
