@@ -118,6 +118,26 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * logon animation (it only works normally in the enterprise version)
 
 ## services that have been disabled (can be customized)
+* w32time
+* MpsSvc
+* SecurityHealthService
+* Sense
+* WdBoot
+* WdFilter
+* WdNisDrv
+* WdNisSvc
+* Superfetch
+* OneSyncSvc
+* OfficeClickToRun
+* OneDrive
+* Cortana
+* SyncHost
+* CompatTelRunner
+* UsoSvc
+* wlidsvcNetwork
+* WpnUserService
+* ClickToRunSvc
+* VSS
 * edgeupdate
 * edgeupdatem
 * wbengine
@@ -129,7 +149,6 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * shellhwdetection
 * SSDPSRV
 * TermService
-* lanmanserver
 * napagent
 * WinDefend
 * wlidsvc
@@ -141,8 +160,110 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * XblGameSave
 * XboxNetApiSvc
 * WaaSMedicSvc
-* WdNisSvc
 * wscsvc
+* wisvc
+* PhoneSvc
+* SessionEnv
+* UmRdpService
+* svsvc
+* TapiSrv
+* SDRSVC
+* WbioSrvc
+* Wecsvc
+* ClipSVC
+* WpnService
+* PushToInstall
+* WinRM
+* workfolderssvc
+* WwanSvc
+* AarSvc
+* cbdhsvc
+* CloudBackupRestoreSvc
+* CDPUserSvc
+* ConsentUxUserSvc
+* PimIndexMaintenanceSvc
+* UnistoreSvc
+* wercplsupport
+* PcaSvc
+* RasMan
+* DevicePickerUserSvc
+* DevicesFlowUserSvc
+* BcastDVRUserService
+* MessagingService
+* UdkUserSvc
+* UserDataSvc
+* AppXSvc
+* CscService
+* CSC
+
+###
+* \Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser
+* \Microsoft\Windows\Application Experience\ProgramDataUpdater
+* \Microsoft\Windows\Autochk\Proxy
+* \Microsoft\Windows\Customer Experience Improvement Program\Consolidator
+* \Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask
+* \Microsoft\Windows\Customer Experience Improvement Program\UsbCeip
+* \Microsoft\Windows\AppID\SmartScreenSpecific
+* \Microsoft\Windows\Application Experience\AitAgent
+* \Microsoft\Windows\Application Experience\StartupAppTask
+* \Microsoft\Windows\ApplicationData\appuriverifierdaily
+* \Microsoft\Windows\ApplicationData\appuriverifierinstall
+* \Microsoft\Windows\Device Information\Device
+* \Microsoft\Windows\Diagnosis\Scheduled
+* \Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector
+* \Microsoft\Windows\LanguageComponentsInstaller\Installation
+* \Microsoft\Windows\LanguageComponentsInstaller\Uninstallation
+* \Microsoft\Windows\Maintenance\WinSAT
+* \Microsoft\Windows\Maps\MapsToastTask
+* \Microsoft\Windows\Maps\MapsUpdateTask
+* \Microsoft\Windows\Mobile Broadband Accounts\MNO Metadata Parser
+* \Microsoft\Windows\MobilePC\HotStart
+* \Microsoft\Windows\MUI\LPRemove
+* \Microsoft\Windows\NetTrace\GatherNetworkInfo
+* \Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem
+* \Microsoft\Windows\RAC\RacTask
+* \Microsoft\Windows\RemoteAssistance\RemoteAssistanceTask
+* \Microsoft\Windows\RetailDemo\CleanupOfflineContent
+* \Microsoft\Windows\SettingSync\BackgroundUploadTask
+* \Microsoft\Windows\SettingSync\BackupTask
+* \Microsoft\Windows\SettingSync\NetworkStateChangeTask
+* \Microsoft\Windows\Setup\EOSNotify
+* \Microsoft\Windows\Setup\EOSNotify2
+* \Microsoft\Windows\Setup\SetupCleanupTask
+* \Microsoft\Windows\Speech\SpeechModelDownloadTask
+* \Microsoft\Windows\SystemRestore\SR
+* \Microsoft\Windows\Time Synchronization\SynchronizeTime
+* \Microsoft\Windows\Windows Error Reporting\QueueReporting
+* \Microsoft\Windows\WindowsBackup\ConfigNotification
+* \Microsoft\Windows\WS\License Validation
+* \Microsoft\Windows\WS\WSRefreshBannedAppsListTask
+* \Microsoft\XblGameSave\XblGameSaveTask
+* \Microsoft\XblGameSave\XblGameSaveTaskLogon
+* Microsoft\Windows\Settings
+* Microsoft\Windows\Shell
+* Microsoft\Windows\Explorer
+* \Microsoft\Windows\Media Center\ActivateWindowsSearch
+* \Microsoft\Windows\Media Center\ConfigureInternetTimeService
+* \Microsoft\Windows\Media Center\DispatchRecoveryTasks
+* \Microsoft\Windows\Media Center\ehDRMInit
+* \Microsoft\Windows\Media Center\InstallPlayReady
+* \Microsoft\Windows\Media Center\mcupdate
+* \Microsoft\Windows\Media Center\MediaCenterRecoveryTask
+* \Microsoft\Windows\Media Center\ObjectStoreRecoveryTask
+* \Microsoft\Windows\Media Center\OCURActivate
+* \Microsoft\Windows\Media Center\OCURDiscovery
+* \Microsoft\Windows\Media Center\PBDADiscovery
+* \Microsoft\Windows\Media Center\PBDADiscoveryW1
+* \Microsoft\Windows\Media Center\PBDADiscoveryW2
+* \Microsoft\Windows\Media Center\PvrRecoveryTask
+* \Microsoft\Windows\Media Center\PvrScheduleTask
+* \Microsoft\Windows\Media Center\RegisterSearch
+* \Microsoft\Windows\Media Center\ReindexSearchRoot
+* \Microsoft\Windows\Media Center\SqlLiteRecoveryTask
+* \Microsoft\Windows\Media Center\UpdateRecordPath
+* \Microsoft\Windows\UpdateOrchestrator\Schedule Scan
+* \Microsoft\Windows\UpdateOrchestrator\USO_UxBroker
+* \Microsoft\Windows\DiskCleanup\SilentCleanup
 
 ### patch descriptions
 * Integrate nircmd - adds nircmd to the image and registers it in the PATH. This is necessary to control some windows functions from your kiosk application without calling winapi directly

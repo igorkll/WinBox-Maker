@@ -1464,6 +1464,41 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                 stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\WS\WSRefreshBannedAppsListTask");
                 stopOrDeleteSchtasks.Add(@"\Microsoft\XblGameSave\XblGameSaveTask");
                 stopOrDeleteSchtasks.Add(@"\Microsoft\XblGameSave\XblGameSaveTaskLogon");
+
+                stopOrDeleteSchtasks.Add(@"Microsoft\Windows\Settings");
+                stopOrDeleteSchtasks.Add(@"Microsoft\Windows\Shell");
+                stopOrDeleteSchtasks.Add(@"Microsoft\Windows\Explorer");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Application Experience\ProgramDataUpdater");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Autochk\Proxy");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Customer Experience Improvement Program\Consolidator");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Application Experience\AitAgent");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Maintenance\WinSAT");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\ActivateWindowsSearch");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\ConfigureInternetTimeService");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\DispatchRecoveryTasks");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\ehDRMInit");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\InstallPlayReady");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\mcupdate");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\MediaCenterRecoveryTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\ObjectStoreRecoveryTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\OCURActivate");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\OCURDiscovery");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\PBDADiscovery");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\PBDADiscoveryW1");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\PBDADiscoveryW2");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\PvrRecoveryTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\PvrScheduleTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\RegisterSearch");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\ReindexSearchRoot");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\SqlLiteRecoveryTask");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Media Center\UpdateRecordPath");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\UpdateOrchestrator\Schedule Scan");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker");
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\DiskCleanup\SilentCleanup");
             }
 
             foreach (string _schtask in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.schtasks_stopOrDelete ?? ""))
@@ -2059,6 +2094,7 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
             // ------------------------------------ system init
 
+            string binaryKeyboardHook = "000000000000000030000000000021e000006ce000006de0000011e000006be000003b0000004400000057000000580000006400000065000000660000006700000068000000690000006a0000003c0000006b0000006c0000006d0000006e0000006f0000003d0000003e0000003f0000004000000041000000420000004300000013e0000014e0000012e00000380000005be000005ee0000037e0000038e000005ce000005fe0000063e000006ae0000066e0000069e0000032e0000067e0000065e0000068e000000000";
             bool hideGettingReadyScreenWithOverlay = false; //ОНО БЛЯТЬ НЕ ЗАКРЫВАЕТСЯ САМО!
             string showImageBaseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
 
@@ -2291,7 +2327,7 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
                 {
                     baseSetupLog("Disable hotkey by change keyboard layout");
                     baseSetup += "\r\n";
-                    baseSetup += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout"" /v ""Scancode Map"" /t REG_BINARY /d 000000000000000030000000000021e000006ce000006de0000011e000006be000003b0000004400000057000000580000006400000065000000660000006700000068000000690000006a0000003c0000006b0000006c0000006d0000006e0000006f0000003d0000003e0000003f0000004000000041000000420000004300000013e0000014e0000012e00000380000005be000005ee0000037e0000038e000005ce000005fe0000063e000006ae0000066e0000069e0000032e0000067e0000065e0000068e000000000 /f";
+                    baseSetup += $@"reg add ""HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout"" /v ""Scancode Map"" /t REG_BINARY /d {binaryKeyboardHook} /f";
                 }
 
                 if (winBoxConfig.oemkey_slmgr == true && winBoxConfig.isValidOemKey())
