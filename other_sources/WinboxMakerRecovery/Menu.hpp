@@ -11,6 +11,8 @@ static void _entry_change_menu(void* _menu);
 
 typedef void (*Menu_callback)(void* arg);
 
+static int _yesPositions[] = { 1, 4, 3 };
+
 class Menu_menu
 {
 public:
@@ -25,12 +27,14 @@ public:
         if (backTo == nullptr) backTo = this;
         if (title.size() == 0) title = name;
 
+        int recursionIndex = 2 - _recurtionCounter;
+
         Menu_menu* menu = new Menu_menu();
-        menu->titleOverride = title + " (" + std::to_string(3 - _recurtionCounter) + "/3)";
+        menu->titleOverride = title + " (" + std::to_string(recursionIndex + 1) + "/3)";
         menu->alwaysResetSelect = true;
 
-        int yesPosition = 4;
-        int pointsCount = 5;
+        int yesPosition = _yesPositions[recursionIndex];
+        int pointsCount = 6;
 
         for (int i = 0; i < yesPosition; i++) menu->addMenuEntry_submenu("No", backTo);
         if (_recurtionCounter <= 0) {

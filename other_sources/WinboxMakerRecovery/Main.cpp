@@ -22,8 +22,12 @@ static void loadConsts() {
     }
 }
 
-static void entry_factory_reset(void* _) {
+// ---------------------------------------------------------
 
+static Menu_menu mainMenu;
+
+static void entry_factory_reset(void* _) {
+    Menu_select(&mainMenu);
 }
 
 static void entry_reboot_to_system(void* _) {
@@ -34,8 +38,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
     loadConsts();
 
     if (!inputData.contains("allowMenu")) return 0;
-
-    Menu_menu mainMenu;
 
     if (inputData.contains("allowFactoryReset")) {
         mainMenu.addMenuEntry_noNoNoYesNo_callback("Factory reset", entry_factory_reset);
