@@ -69,7 +69,11 @@ namespace WinBox_Maker
             "*Microsoft.ScreenSketch",
             "*Microsoft.YourPhone",
             "*Microsoft.MiracastView",
-            "*Microsoft.549981C3F5F10"
+            "*Microsoft.549981C3F5F10",
+            "*Microsoft.MixedReality.Portal",
+            "*Microsoft.Microsoft3DViewer",
+            "*Microsoft.Wallet",
+            "*Microsoft.MSPaint"
         };
     }
 }

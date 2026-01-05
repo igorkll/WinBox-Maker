@@ -1499,6 +1499,8 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                 stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\UpdateOrchestrator\Schedule Scan");
                 stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker");
                 stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\DiskCleanup\SilentCleanup");
+
+                stopOrDeleteSchtasks.Add(@"\Microsoft\Windows\Backup\ScheduledBackup");
             }
 
             foreach (string _schtask in splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.schtasks_stopOrDelete ?? ""))
