@@ -851,24 +851,24 @@ namespace WinBox_Maker
             }
 
             string debloatware_view_str = "";
-            debloatware_view_str += "delete:\n";
+            debloatware_view_str += "--------------------- delete:\n";
             debloatware_view_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Paths));
-            debloatware_view_str += "disable features:\n";
+            debloatware_view_str += "\n\n--------------------- disable features:\n";
             debloatware_view_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Features));
-            debloatware_view_str += "packages:\n";
+            debloatware_view_str += "\n\n--------------------- packages:\n";
             debloatware_view_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Packages));
-            debloatware_view_str += "provisioned package:\n";
+            debloatware_view_str += "\n\n--------------------- provisioned package:\n";
             debloatware_view_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.ProvisionedPackage));
             debloatware_view.Text = debloatware_view_str;
 
             string debloatware_defaultView_str = "";
-            debloatware_defaultView_str += "delete:\n";
+            debloatware_defaultView_str += "--------------------- delete:\n";
             debloatware_defaultView_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Paths, true));
-            debloatware_defaultView_str += "disable features:\n";
+            debloatware_defaultView_str += "\n\n--------------------- disable features:\n";
             debloatware_defaultView_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Features, true));
-            debloatware_defaultView_str += "packages:\n";
+            debloatware_defaultView_str += "\n\n--------------------- packages:\n";
             debloatware_defaultView_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Packages, true));
-            debloatware_defaultView_str += "provisioned package:\n";
+            debloatware_defaultView_str += "\n\n--------------------- provisioned package:\n";
             debloatware_defaultView_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.ProvisionedPackage, true));
             debloatware_defaultView.Text = debloatware_defaultView_str;
 

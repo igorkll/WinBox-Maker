@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
+using System.DirectoryServices;
 using System.IO;
 using System.IO.Compression;
 using System.IO.Packaging;
@@ -28,6 +29,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Xml.Linq;
 using WinBox_Maker.Properties;
 using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties;
@@ -1539,16 +1541,27 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
         public string[] getDefaultDelete(DefaultDeleteTypes defaultDeleteTypes, bool getDefault = false)
         {
-            if (winBoxConfig.debloatware_exludeAll == true && !getDefault)
+            if (winBoxConfig.debloatware_excludeAll == true && !getDefault)
             {
                 return [];
             }
 
             List<string> defaultDelete = new List<string>();
 
+            switch (defaultDeleteTypes)
+            {
+                case DefaultDeleteTypes.Packages:
+                    defaultDelete.AddRange(Consts.defaultDeletePackages);
+                    break;
+
+                case DefaultDeleteTypes.ProvisionedPackage:
+                    defaultDelete.AddRange(Consts.defaultDeleteProvisionedPackages);
+                    break;
+            }
+
             if (!getDefault)
             {
-                string[] deleteFromList = splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.debloatware_exlude ?? "");
+                string[] deleteFromList = splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.debloatware_exclude ?? "");
                 Program.DelRange(defaultDelete, Program.FormatCharMark(deleteFromList, '!', false));
                 Program.DelRange(defaultDelete, Program.FormatCharMark(deleteFromList, '!', true));
                 Program.DelRange(defaultDelete, Program.FormatCharMark(deleteFromList, '*', false));

@@ -337,7 +337,7 @@
             debloatware_defaultView = new RichTextBox();
             tabPage73 = new TabPage();
             debloatware_excludeAll = new CheckBox();
-            debloatware_exlude = new RichTextBox();
+            debloatware_exclude = new RichTextBox();
             tabPage59 = new TabPage();
             tabControl15 = new TabControl();
             tabPage68 = new TabPage();
@@ -3912,9 +3912,9 @@
             label57.AutoSize = true;
             label57.Location = new Point(6, 175);
             label57.Name = "label57";
-            label57.Size = new Size(632, 25);
+            label57.Size = new Size(618, 25);
             label57.TabIndex = 1;
-            label57.Text = "These packages will be removed by winbox maker from the system by default.";
+            label57.Text = "These packages will be removed by winbox maker from the system on build.";
             // 
             // debloatware_view
             // 
@@ -3941,9 +3941,9 @@
             label99.AutoSize = true;
             label99.Location = new Point(6, 175);
             label99.Name = "label99";
-            label99.Size = new Size(632, 25);
+            label99.Size = new Size(843, 25);
             label99.TabIndex = 3;
-            label99.Text = "These packages will be removed by winbox maker from the system by default.";
+            label99.Text = "These packages will be removed by winbox maker from the system by default. (does not display exclude)";
             // 
             // debloatware_defaultView
             // 
@@ -3957,7 +3957,7 @@
             // tabPage73
             // 
             tabPage73.Controls.Add(debloatware_excludeAll);
-            tabPage73.Controls.Add(debloatware_exlude);
+            tabPage73.Controls.Add(debloatware_exclude);
             tabPage73.Location = new Point(4, 34);
             tabPage73.Name = "tabPage73";
             tabPage73.Size = new Size(970, 208);
@@ -3976,14 +3976,14 @@
             debloatware_excludeAll.UseVisualStyleBackColor = true;
             debloatware_excludeAll.CheckedChanged += debloatware_excludeAll_CheckedChanged;
             // 
-            // debloatware_exlude
+            // debloatware_exclude
             // 
-            debloatware_exlude.Location = new Point(6, 7);
-            debloatware_exlude.Name = "debloatware_exlude";
-            debloatware_exlude.Size = new Size(958, 163);
-            debloatware_exlude.TabIndex = 0;
-            debloatware_exlude.Text = "";
-            debloatware_exlude.TextChanged += debloatware_exclude_TextChanged;
+            debloatware_exclude.Location = new Point(6, 7);
+            debloatware_exclude.Name = "debloatware_exclude";
+            debloatware_exclude.Size = new Size(958, 163);
+            debloatware_exclude.TabIndex = 0;
+            debloatware_exclude.Text = "";
+            debloatware_exclude.TextChanged += debloatware_exclude_TextChanged;
             // 
             // tabPage59
             // 
@@ -7245,7 +7245,7 @@
         private TabPage tabPage73;
         private RichTextBox richTextBox34;
         private RichTextBox debloatware_view;
-        private RichTextBox debloatware_exlude;
+        private RichTextBox debloatware_exclude;
         private CheckBox debloatware_excludeAll;
         private Label label57;
         private TabPage tabPage74;
