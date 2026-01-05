@@ -18,6 +18,7 @@ public:
     std::vector<Menu_callback> menuEntriesCallbacks;
     std::vector<void*> menuEntriesArgs;
     int selected = 0;
+    bool alwaysResetSelect = false;
     std::string titleOverride;
 
     void addMenuEntry_noNoNoYesNo_callback(std::string name, Menu_callback callback, void* arg = nullptr, int _recurtionCounter = 2, Menu_menu* backTo = nullptr, std::string title = "") {
@@ -26,8 +27,12 @@ public:
 
         Menu_menu* menu = new Menu_menu();
         menu->titleOverride = title + " (" + std::to_string(3 - _recurtionCounter) + "/3)";
+        menu->alwaysResetSelect = true;
 
-        for (int i = 0; i < 4; i++) menu->addMenuEntry_submenu("No", backTo);
+        int yesPosition = 4;
+        int pointsCount = 5;
+
+        for (int i = 0; i < yesPosition; i++) menu->addMenuEntry_submenu("No", backTo);
         if (_recurtionCounter <= 0) {
             menu->addMenuEntry_callback("Yes", callback, arg);
         }
@@ -35,7 +40,7 @@ public:
         {
             menu->addMenuEntry_noNoNoYesNo_callback("Yes", callback, arg, _recurtionCounter - 1, backTo, title);
         }
-        for (int i = 0; i < 2; i++) menu->addMenuEntry_submenu("No", backTo);
+        for (int i = 0; i < (pointsCount - 1 - yesPosition); i++) menu->addMenuEntry_submenu("No", backTo);
 
         addMenuEntry_submenu(name, menu);
     }
@@ -53,6 +58,7 @@ public:
 
 static void _entry_change_menu(void* _menu) {
     Menu_menu* menu = (Menu_menu*)_menu;
+    if (menu->alwaysResetSelect) menu->selected = 0;
     Menu_select(menu);
 }
 
