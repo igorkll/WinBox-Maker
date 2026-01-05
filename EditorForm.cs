@@ -626,6 +626,12 @@ namespace WinBox_Maker
             recoveryMountedEarly_breakbefore.Checked = winBoxProject.winBoxConfig.recoveryMountedEarly_breakbefore == true;
             recoveryMountedEarly_breakafter.Checked = winBoxProject.winBoxConfig.recoveryMountedEarly_breakafter == true;
 
+            installerMountedEarlyEnabled.Checked = winBoxProject.winBoxConfig.installerMountedEarlyEnabled == true;
+            installerMountedEarlyEvent.Text = winBoxProject.winBoxConfig.installerMountedEarlyEvent ?? "";
+            installerMountedEarlyEvent.Enabled = winBoxProject.winBoxConfig.installerMountedEarlyEnabled == true;
+            installerMountedEarly_breakbefore.Checked = winBoxProject.winBoxConfig.installerMountedEarly_breakbefore == true;
+            installerMountedEarly_breakafter.Checked = winBoxProject.winBoxConfig.installerMountedEarly_breakafter == true;
+
             schtasks_stopOrDelete.Text = winBoxProject.winBoxConfig.schtasks_stopOrDelete ?? "";
             schtasks_stopOrDelete_deleteFromList.Text = winBoxProject.winBoxConfig.schtasks_stopOrDelete_deleteFromList ?? "";
             schtasks_stopOrDeleteOnlyFromList.Checked = winBoxProject.winBoxConfig.schtasks_stopOrDeleteOnlyFromList == true;
