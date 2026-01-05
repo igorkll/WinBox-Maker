@@ -86,6 +86,7 @@ namespace WinBox_Maker
         public string? BaseWindowsVersion { get; set; }
         public string? WinboxName { get; set; }
         public string? WinboxDescription { get; set; }
+        public string? createdFromTemplate { get; set; }
         public string? OemKey { get; set; }
         public string? ProgramName { get; set; }
         public string? ProgramArgs { get; set; }
