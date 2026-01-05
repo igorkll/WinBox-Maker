@@ -1537,21 +1537,23 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
             return stopOrDeleteSchtasks.Distinct().ToArray();
         }
 
-        public string[] getDefaultDelete(DefaultDeleteTypes defaultDeleteTypes)
+        public string[] getDefaultDelete(DefaultDeleteTypes defaultDeleteTypes, bool getDefault = false)
         {
-            if (winBoxConfig.debloatware_exludeAll == true)
+            if (winBoxConfig.debloatware_exludeAll == true && !getDefault)
             {
                 return [];
             }
 
             List<string> defaultDelete = new List<string>();
 
-
-            string[] deleteFromList = splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.debloatware_exlude ?? "");
-            Program.DelRange(defaultDelete, Program.FormatCharMark(deleteFromList, '!', false));
-            Program.DelRange(defaultDelete, Program.FormatCharMark(deleteFromList, '!', true));
-            Program.DelRange(defaultDelete, Program.FormatCharMark(deleteFromList, '*', false));
-            Program.DelRange(defaultDelete, Program.FormatCharMark(deleteFromList, '*', true));
+            if (!getDefault)
+            {
+                string[] deleteFromList = splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.debloatware_exlude ?? "");
+                Program.DelRange(defaultDelete, Program.FormatCharMark(deleteFromList, '!', false));
+                Program.DelRange(defaultDelete, Program.FormatCharMark(deleteFromList, '!', true));
+                Program.DelRange(defaultDelete, Program.FormatCharMark(deleteFromList, '*', false));
+                Program.DelRange(defaultDelete, Program.FormatCharMark(deleteFromList, '*', true));
+            }
             return defaultDelete.ToArray();
         }
 

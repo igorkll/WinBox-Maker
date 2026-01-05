@@ -861,6 +861,17 @@ namespace WinBox_Maker
             debloatware_view_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.ProvisionedPackage));
             debloatware_view.Text = debloatware_view_str;
 
+            string debloatware_defaultView_str = "";
+            debloatware_defaultView_str += "delete:\n";
+            debloatware_defaultView_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Paths, true));
+            debloatware_defaultView_str += "disable features:\n";
+            debloatware_defaultView_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Features, true));
+            debloatware_defaultView_str += "packages:\n";
+            debloatware_defaultView_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Packages, true));
+            debloatware_defaultView_str += "provisioned package:\n";
+            debloatware_defaultView_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.ProvisionedPackage, true));
+            debloatware_defaultView.Text = debloatware_defaultView_str;
+
             guiEventsLock = false;
 
             UpdateGuiWithoutWindowsVersion();
@@ -3194,6 +3205,24 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             resetRegTweakOverwrite();
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void debloatware_excludeAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.debloatware_excludeAll = debloatware_excludeAll.Checked;
+            winBoxProject.SaveConfig();
+            UpdateGui();
+        }
+
+        private void debloatware_exclude_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.debloatware_exclude = debloatware_exclude.Text;
             winBoxProject.SaveConfig();
             UpdateGui();
         }

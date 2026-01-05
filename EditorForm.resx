@@ -3548,6 +3548,12 @@ If you are using the "force make "IoT Enterprise" " function, then you must also
   <data name="richTextBox33.Text" xml:space="preserve">
     <value>here you can see the main registry tweak that winbox maker applies regardless of the project settings. you can also redefine it here. also note that if you redefine this registry tweak, then if you download a new version of winbox maker, you will not automatically receive changes to this registry tweak and will have to transfer what you need from the "default" tab to "overwrite" yourself</value>
   </data>
+  <data name="richTextBox34.Text" xml:space="preserve">
+    <value>On this tab, you can see which packages winbox maker itself removes by default, as well as exclude anything you need from this list.
+Also, on the exlude tab, you can check the box "exclude all" and winbox maker will stop deleting packages by itself.
+these packages are deleted using the same functionality that the "build settings&gt;delete" tab uses
+</value>
+  </data>
   <data name="richTextBox25.Text" xml:space="preserve">
     <value>windows relative mount path: winbox_temp/wim_mount
 files replace folder: winbox_resources/files
@@ -3704,12 +3710,6 @@ in manual configuration mode, you cannot integrate the cursor through the winbox
         b5vGQE8iy5cPNOmaToNgy/DPmZmGKlAA/NPOIOtEBMvpMsN96HqEDeWhAPgFoekxigWtG82Z42/XUNsF
         sFcZFAT6bh30GMWC1o2CTv/vWPENVaEg0KPjp65z5rGEei9ipmAGBlxz6SFrGBAF4goXkny4yoptqBoF
         g4GFvNjfil2JWW21/wOsMlr/Whm3FwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="richTextBox34.Text" xml:space="preserve">
-    <value>On this tab, you can see which packages winbox maker itself removes by default, as well as exclude anything you need from this list.
-Also, on the exlude tab, you can check the box "exclude all" and winbox maker will stop deleting packages by itself.
-these packages are deleted using the same functionality that the "build settings&gt;delete" tab uses
 </value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
