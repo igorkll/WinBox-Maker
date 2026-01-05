@@ -1529,6 +1529,30 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
             return stopOrDeleteSchtasks.Distinct().ToArray();
         }
 
+        enum DefaultDeleteTypes
+        {
+            Paths,
+            Features,
+            Packages,
+            ProvisionedPackage
+        };
+
+        string[] getDefaultDelete(DefaultDeleteTypes defaultDeleteTypes)
+        {
+            if (winBoxConfig.debloatware_exludeAll == true)
+            {
+                return [];
+            }
+
+            List<string> defaultDelete = new List<string>();
+
+
+            string[] deleteFromList = splitRickTextboxLinesWithoutEmptyLines(winBoxConfig.debloatware_exlude ?? "");
+            Program.DelRange(defaultDelete, Program.FormatExclamationMark(deleteFromList, false));
+            Program.DelRange(defaultDelete, Program.FormatExclamationMark(deleteFromList, true));
+            return defaultDelete.ToArray();
+        }
+
         async Task addAdFiles(string path, WindowsDescription newWindowsDescription, bool? advertising = true, bool? info = true)
         {
             if (advertising == true) await File.WriteAllTextAsync(Path.Combine(path, "README.txt"), $"this image was created by the {Program.version} free software\r\nhttps://github.com/igorkll/WinBox-Maker");

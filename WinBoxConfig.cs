@@ -264,6 +264,8 @@ namespace WinBox_Maker
         public bool? app_runAsSystem { get; set; }
         public string? app_uwp { get; set; }
         public bool? dism_cleanup { get; set; }
+        public bool? debloatware_exludeAll { get; set; }
+        public string? debloatware_exlude { get; set; }
 
 
 
@@ -502,6 +504,8 @@ namespace WinBox_Maker
             if (app_uwp == null) app_uwp = "windows.immersivecontrolpanel_cw5n1h2txyewy!App";
 
             if (dism_cleanup == null) dism_cleanup = true;
+            if (debloatware_exludeAll == null) debloatware_exludeAll = false;
+            if (debloatware_exlude == null) debloatware_exlude = "";
         }
 
         public void Save(string wnbFilePath)

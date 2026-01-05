@@ -382,6 +382,8 @@
             onbuild_reg_sel = new Button();
             tabPage40 = new TabPage();
             customdism = new TabControl();
+            tabPage69 = new TabPage();
+            dism_cleanup = new CheckBox();
             tabPage44 = new TabPage();
             label87 = new Label();
             richTextBox21 = new RichTextBox();
@@ -558,8 +560,16 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            tabPage69 = new TabPage();
-            dism_cleanup = new CheckBox();
+            tabPage70 = new TabPage();
+            tabControl16 = new TabControl();
+            tabPage71 = new TabPage();
+            tabPage72 = new TabPage();
+            tabPage73 = new TabPage();
+            richTextBox34 = new RichTextBox();
+            debloatware_view = new RichTextBox();
+            debloatware_exlude = new RichTextBox();
+            debloatware_excludeAll = new CheckBox();
+            label57 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -649,6 +659,7 @@
             panel5.SuspendLayout();
             tabPage40.SuspendLayout();
             customdism.SuspendLayout();
+            tabPage69.SuspendLayout();
             tabPage44.SuspendLayout();
             tabPage45.SuspendLayout();
             tabPage46.SuspendLayout();
@@ -686,7 +697,11 @@
             panel13.SuspendLayout();
             manual_setup_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage69.SuspendLayout();
+            tabPage70.SuspendLayout();
+            tabControl16.SuspendLayout();
+            tabPage71.SuspendLayout();
+            tabPage72.SuspendLayout();
+            tabPage73.SuspendLayout();
             SuspendLayout();
             // 
             // WindowsSelect
@@ -3415,6 +3430,7 @@
             tabControl1.Controls.Add(tabPage32);
             tabControl1.Controls.Add(tabPage51);
             tabControl1.Controls.Add(tabPage64);
+            tabControl1.Controls.Add(tabPage70);
             tabControl1.Location = new Point(3, 4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -4464,6 +4480,27 @@
             customdism.SelectedIndex = 0;
             customdism.Size = new Size(992, 291);
             customdism.TabIndex = 7;
+            // 
+            // tabPage69
+            // 
+            tabPage69.Controls.Add(dism_cleanup);
+            tabPage69.Location = new Point(4, 34);
+            tabPage69.Name = "tabPage69";
+            tabPage69.Size = new Size(984, 253);
+            tabPage69.TabIndex = 2;
+            tabPage69.Text = "build";
+            tabPage69.UseVisualStyleBackColor = true;
+            // 
+            // dism_cleanup
+            // 
+            dism_cleanup.AutoSize = true;
+            dism_cleanup.Location = new Point(3, 3);
+            dism_cleanup.Name = "dism_cleanup";
+            dism_cleanup.Size = new Size(669, 29);
+            dism_cleanup.TabIndex = 0;
+            dism_cleanup.Text = "dism cleanup after build (/Cleanup-Image /StartComponentCleanup /ResetBase)";
+            dism_cleanup.UseVisualStyleBackColor = true;
+            dism_cleanup.CheckedChanged += dism_cleanup_CheckedChanged;
             // 
             // tabPage44
             // 
@@ -6288,26 +6325,106 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // tabPage69
+            // tabPage70
             // 
-            tabPage69.Controls.Add(dism_cleanup);
-            tabPage69.Location = new Point(4, 34);
-            tabPage69.Name = "tabPage69";
-            tabPage69.Size = new Size(984, 253);
-            tabPage69.TabIndex = 2;
-            tabPage69.Text = "build";
-            tabPage69.UseVisualStyleBackColor = true;
+            tabPage70.Controls.Add(tabControl16);
+            tabPage70.Location = new Point(4, 34);
+            tabPage70.Name = "tabPage70";
+            tabPage70.Size = new Size(984, 252);
+            tabPage70.TabIndex = 3;
+            tabPage70.Text = "debloatware";
+            tabPage70.UseVisualStyleBackColor = true;
             // 
-            // dism_cleanup
+            // tabControl16
             // 
-            dism_cleanup.AutoSize = true;
-            dism_cleanup.Location = new Point(3, 3);
-            dism_cleanup.Name = "dism_cleanup";
-            dism_cleanup.Size = new Size(669, 29);
-            dism_cleanup.TabIndex = 0;
-            dism_cleanup.Text = "dism cleanup after build (/Cleanup-Image /StartComponentCleanup /ResetBase)";
-            dism_cleanup.UseVisualStyleBackColor = true;
-            dism_cleanup.CheckedChanged += dism_cleanup_CheckedChanged;
+            tabControl16.Controls.Add(tabPage71);
+            tabControl16.Controls.Add(tabPage72);
+            tabControl16.Controls.Add(tabPage73);
+            tabControl16.Location = new Point(3, 3);
+            tabControl16.Name = "tabControl16";
+            tabControl16.SelectedIndex = 0;
+            tabControl16.Size = new Size(978, 246);
+            tabControl16.TabIndex = 0;
+            // 
+            // tabPage71
+            // 
+            tabPage71.Controls.Add(richTextBox34);
+            tabPage71.Location = new Point(4, 34);
+            tabPage71.Name = "tabPage71";
+            tabPage71.Padding = new Padding(3);
+            tabPage71.Size = new Size(970, 208);
+            tabPage71.TabIndex = 0;
+            tabPage71.Text = "description";
+            tabPage71.UseVisualStyleBackColor = true;
+            // 
+            // tabPage72
+            // 
+            tabPage72.Controls.Add(label57);
+            tabPage72.Controls.Add(debloatware_view);
+            tabPage72.Location = new Point(4, 34);
+            tabPage72.Name = "tabPage72";
+            tabPage72.Padding = new Padding(3);
+            tabPage72.Size = new Size(970, 208);
+            tabPage72.TabIndex = 1;
+            tabPage72.Text = "view";
+            tabPage72.UseVisualStyleBackColor = true;
+            // 
+            // tabPage73
+            // 
+            tabPage73.Controls.Add(debloatware_excludeAll);
+            tabPage73.Controls.Add(debloatware_exlude);
+            tabPage73.Location = new Point(4, 34);
+            tabPage73.Name = "tabPage73";
+            tabPage73.Size = new Size(970, 208);
+            tabPage73.TabIndex = 2;
+            tabPage73.Text = "exclude";
+            tabPage73.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox34
+            // 
+            richTextBox34.BackColor = SystemColors.Info;
+            richTextBox34.Location = new Point(6, 7);
+            richTextBox34.Name = "richTextBox34";
+            richTextBox34.ReadOnly = true;
+            richTextBox34.Size = new Size(958, 195);
+            richTextBox34.TabIndex = 0;
+            richTextBox34.Text = resources.GetString("richTextBox34.Text");
+            // 
+            // debloatware_view
+            // 
+            debloatware_view.Location = new Point(6, 7);
+            debloatware_view.Name = "debloatware_view";
+            debloatware_view.ReadOnly = true;
+            debloatware_view.Size = new Size(958, 165);
+            debloatware_view.TabIndex = 0;
+            debloatware_view.Text = "";
+            // 
+            // debloatware_exlude
+            // 
+            debloatware_exlude.Location = new Point(6, 7);
+            debloatware_exlude.Name = "debloatware_exlude";
+            debloatware_exlude.Size = new Size(958, 163);
+            debloatware_exlude.TabIndex = 0;
+            debloatware_exlude.Text = "";
+            // 
+            // debloatware_excludeAll
+            // 
+            debloatware_excludeAll.AutoSize = true;
+            debloatware_excludeAll.Location = new Point(6, 176);
+            debloatware_excludeAll.Name = "debloatware_excludeAll";
+            debloatware_excludeAll.Size = new Size(336, 29);
+            debloatware_excludeAll.TabIndex = 1;
+            debloatware_excludeAll.Text = "exclude all / disable auto debloatware";
+            debloatware_excludeAll.UseVisualStyleBackColor = true;
+            // 
+            // label57
+            // 
+            label57.AutoSize = true;
+            label57.Location = new Point(6, 175);
+            label57.Name = "label57";
+            label57.Size = new Size(632, 25);
+            label57.TabIndex = 1;
+            label57.Text = "These packages will be removed by winbox maker from the system by default.";
             // 
             // EditorForm
             // 
@@ -6475,6 +6592,8 @@
             panel5.PerformLayout();
             tabPage40.ResumeLayout(false);
             customdism.ResumeLayout(false);
+            tabPage69.ResumeLayout(false);
+            tabPage69.PerformLayout();
             tabPage44.ResumeLayout(false);
             tabPage44.PerformLayout();
             tabPage45.ResumeLayout(false);
@@ -6535,8 +6654,13 @@
             manual_setup_panel.ResumeLayout(false);
             manual_setup_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage69.ResumeLayout(false);
-            tabPage69.PerformLayout();
+            tabPage70.ResumeLayout(false);
+            tabControl16.ResumeLayout(false);
+            tabPage71.ResumeLayout(false);
+            tabPage72.ResumeLayout(false);
+            tabPage72.PerformLayout();
+            tabPage73.ResumeLayout(false);
+            tabPage73.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -7076,5 +7200,15 @@
         private CheckBox app_runAsSystem;
         private TabPage tabPage69;
         private CheckBox dism_cleanup;
+        private TabPage tabPage70;
+        private TabControl tabControl16;
+        private TabPage tabPage71;
+        private TabPage tabPage72;
+        private TabPage tabPage73;
+        private RichTextBox richTextBox34;
+        private RichTextBox debloatware_view;
+        private RichTextBox debloatware_exlude;
+        private CheckBox debloatware_excludeAll;
+        private Label label57;
     }
 }
