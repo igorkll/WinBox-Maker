@@ -279,7 +279,7 @@ namespace WinBox_Maker
             LockFormRecursion(this);
         }
 
-        async void LoadWindowsTask()
+        async void LoadWindowsTask(bool firstLoaded = false)
         {
             if (loadingWindowsTask) return;
 
@@ -288,7 +288,8 @@ namespace WinBox_Maker
             await winBoxProject.LoadWindowsImageAsync(UpdateProcessName, UpdateProcessValue);
             UnlockForm();
             UpdateWindowsVersionsList();
-            OnWindowsLoadedFirst();
+            UpdateKeyboardLayoutsList();
+            if (firstLoaded) OnWindowsLoadedFirst();
             UpdateGuiAfterWindowsLoaded();
             loadingWindowsTask = false;
 
@@ -382,7 +383,7 @@ namespace WinBox_Maker
                 winBoxProject.winBoxConfig.BaseWindowsImage = name;
                 winBoxProject.SaveConfig();
                 UpdateGui();
-                LoadWindowsTask();
+                LoadWindowsTask(true);
             }
         }
 
@@ -405,7 +406,7 @@ namespace WinBox_Maker
 
             if (windowsImagePathChanged)
             {
-                LoadWindowsTask();
+                LoadWindowsTask(true);
                 windowsImagePathChanged = false;
             }
         }
@@ -461,7 +462,6 @@ namespace WinBox_Maker
 
         private void WindowsVersionUpdate_Click(object sender, EventArgs e)
         {
-            UpdateWindowsVersionsList();
             UpdateGuiAfterWindowsLoaded();
         }
 
@@ -510,9 +510,7 @@ namespace WinBox_Maker
         {
             winBoxProject.winBoxConfig.forceIot = false;
             if (winBoxProject.winBoxConfig.BaseWindowsVersion != null)
-                winBoxProject.winBoxConfig.forceIot = winBoxProject.winBoxConfig.BaseWindowsVersion.Contains("enterprise", StringComparison.OrdinalIgnoreCase);
-
-            UpdateKeyboardLayoutsList();
+                winBoxProject.winBoxConfig.forceIot = !winBoxProject.winBoxConfig.BaseWindowsVersion.Contains("enterprise", StringComparison.OrdinalIgnoreCase);
         }
 
         void UpdateGuiAfterWindowsLoaded()
@@ -896,6 +894,7 @@ namespace WinBox_Maker
             {
                 windowsDescriptions = winBoxProject.GetWindowsDescriptions();
                 WindowsVersionSelect.Items.Clear();
+
                 bool exists = false;
                 foreach (WindowsDescription item in windowsDescriptions)
                 {
@@ -3593,11 +3592,21 @@ namespace WinBox_Maker
         private void keyboard_layouts_add_Click(object sender, EventArgs e)
         {
             TwoStrings[] all_keyboard_layouts = winBoxProject.GetWindowsKeyboardLayouts();
-            TwoStrings twoStrings = all_keyboard_layouts[keyboard_layouts_available.SelectedIndex];
+            if (all_keyboard_layouts.Length == 0)
+            {
+                firstLoadWindowsError();
+                return;
+            }
 
+            TwoStrings twoStrings = all_keyboard_layouts[keyboard_layouts_available.SelectedIndex];
             winBoxProject.winBoxConfig.keyboard_layouts.Add(twoStrings);
             winBoxProject.SaveConfig();
             UpdateKeyboardLayoutsList();
+        }
+
+        void firstLoadWindowsError()
+        {
+            MessageBox.Show("first load the Windows image", null, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         // ------------- control
