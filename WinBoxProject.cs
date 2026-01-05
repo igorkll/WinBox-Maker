@@ -39,6 +39,14 @@ using WshShell = IWshRuntimeLibrary.WshShell;
 
 namespace WinBox_Maker
 {
+    public enum DefaultDeleteTypes
+    {
+        Paths,
+        Features,
+        Packages,
+        ProvisionedPackage
+    };
+
     public class WinBoxProject
     {
         const string resourcesDirectoryName = "winbox_resources";
@@ -1529,15 +1537,7 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
             return stopOrDeleteSchtasks.Distinct().ToArray();
         }
 
-        enum DefaultDeleteTypes
-        {
-            Paths,
-            Features,
-            Packages,
-            ProvisionedPackage
-        };
-
-        string[] getDefaultDelete(DefaultDeleteTypes defaultDeleteTypes)
+        public string[] getDefaultDelete(DefaultDeleteTypes defaultDeleteTypes)
         {
             if (winBoxConfig.debloatware_exludeAll == true)
             {

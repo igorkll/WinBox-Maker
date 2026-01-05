@@ -850,6 +850,17 @@ namespace WinBox_Maker
 
             }
 
+            string debloatware_view_str = "";
+            debloatware_view_str += "delete:\n";
+            debloatware_view_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Paths));
+            debloatware_view_str += "disable features:\n";
+            debloatware_view_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Features));
+            debloatware_view_str += "packages:\n";
+            debloatware_view_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.Packages));
+            debloatware_view_str += "provisioned package:\n";
+            debloatware_view_str += string.Join("\n", winBoxProject.getDefaultDelete(DefaultDeleteTypes.ProvisionedPackage));
+            debloatware_view.Text = debloatware_view_str;
+
             guiEventsLock = false;
 
             UpdateGuiWithoutWindowsVersion();
