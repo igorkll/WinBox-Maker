@@ -188,7 +188,7 @@ namespace WinBox_Maker
             Application.Run(openProjectForm);
         }
 
-        public static string[] FormatExclamationMark(string[] input, bool enable)
+        public static string[] FormatCharMark(string[] input, char chr, bool enable)
         {
             string[] result = new string[input.Length];
 
@@ -198,11 +198,11 @@ namespace WinBox_Maker
 
                 if (enable)
                 {
-                    result[i] = s.StartsWith("!") ? s : "!" + s;
+                    result[i] = s.StartsWith(chr) ? s : chr + s;
                 }
                 else
                 {
-                    result[i] = s.StartsWith("!") ? s.Substring(1) : s;
+                    result[i] = s.StartsWith(chr) ? s.Substring(1) : s;
                 }
             }
 
