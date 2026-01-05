@@ -573,6 +573,7 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            tabPage75 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -3435,6 +3436,7 @@
             tabControl1.Controls.Add(tabPage51);
             tabControl1.Controls.Add(tabPage64);
             tabControl1.Controls.Add(tabPage70);
+            tabControl1.Controls.Add(tabPage75);
             tabControl1.Location = new Point(3, 4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -6462,6 +6464,15 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // tabPage75
+            // 
+            tabPage75.Location = new Point(4, 34);
+            tabPage75.Name = "tabPage75";
+            tabPage75.Size = new Size(984, 252);
+            tabPage75.TabIndex = 4;
+            tabPage75.Text = "script generation";
+            tabPage75.UseVisualStyleBackColor = true;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -7251,5 +7262,6 @@
         private TabPage tabPage74;
         private Label label99;
         private RichTextBox debloatware_defaultView;
+        private TabPage tabPage75;
     }
 }
