@@ -46,7 +46,7 @@ static void loadRecoveryMenu(HINSTANCE hInstance) {
     }
 
     if (inputData.value("textOnInfoPage_en", false)) {
-        mainMenu.addMenuEntry_noNoNoYesNo_callback("System info", entry_system_info);
+        mainMenu.addMenuEntry_callback("System info", entry_system_info);
     }
 
     mainMenu.addMenuEntry_callback("Reboot to the system now", entry_reboot_to_system);
