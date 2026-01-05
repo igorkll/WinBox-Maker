@@ -3274,6 +3274,29 @@ if errorlevel 1 (
 
             if (!manual)
             {
+                foreach (string path in getDefaultDelete(DefaultDeleteTypes.Paths))
+                {
+                    await removeSystemObject(path);
+                }
+
+                foreach (string name in getDefaultDelete(DefaultDeleteTypes.Features))
+                {
+                    RemoveDism_log += $"disable-feature request (from default list): {name}\r\n";
+                    await execDismCmd(name, 0);
+                }
+
+                foreach (string name in getDefaultDelete(DefaultDeleteTypes.Packages))
+                {
+                    RemoveDism_log += $"Remove-Package request (from default list): {name}\r\n";
+                    await executeDismPackageDelete(name, false);
+                }
+
+                foreach (string name in getDefaultDelete(DefaultDeleteTypes.ProvisionedPackage))
+                {
+                    RemoveDism_log += $"Remove-ProvisionedAppxPackage request (from default list): {name}\r\n";
+                    await executeDismPackageDelete(name, true);
+                }
+
                 if (Program.isTweakEnabled(winBoxConfig, "completely remove explorer.exe"))
                 {
                     await removeSystemObject("Windows\\explorer.exe");
