@@ -87,6 +87,10 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * delete - allows you to delete files and windows components
 * manual setup - it allows you to use winbox maker in manual configuration mode, in which case the settings from winbox maker will be unavailable and you will set the system configuration yourself
 
+### patch descriptions
+* Integrate nircmd - adds nircmd to the image and registers it in the PATH. This is necessary to control some windows functions from your kiosk application without calling winapi directly
+* Integrate PSTools - adds PsTools to the image and registers it in the PATH. this is necessary so that your kiosk application can run the exe on behalf of the system, for example, to circumvent some restrictions of WinRT (I used this to switch the bluetooth status without having a trusted digital signature)
+
 ## what was disabled (can be customized)
 * explorer.exe (the desktop is completely inaccessible)
 * BSOD display (if the device goes into a BSOD, it will just reboot without displaying a BSOD)
@@ -196,7 +200,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * CscService
 * CSC
 
-###
+### scheduler tasks that have been disabled (can be customized)
 * \Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser
 * \Microsoft\Windows\Application Experience\ProgramDataUpdater
 * \Microsoft\Windows\Autochk\Proxy
@@ -239,9 +243,9 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * \Microsoft\Windows\WS\WSRefreshBannedAppsListTask
 * \Microsoft\XblGameSave\XblGameSaveTask
 * \Microsoft\XblGameSave\XblGameSaveTaskLogon
-* Microsoft\Windows\Settings
-* Microsoft\Windows\Shell
-* Microsoft\Windows\Explorer
+* \Microsoft\Windows\Settings
+* \Microsoft\Windows\Shell
+* \Microsoft\Windows\Explorer
 * \Microsoft\Windows\Media Center\ActivateWindowsSearch
 * \Microsoft\Windows\Media Center\ConfigureInternetTimeService
 * \Microsoft\Windows\Media Center\DispatchRecoveryTasks
@@ -264,10 +268,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * \Microsoft\Windows\UpdateOrchestrator\Schedule Scan
 * \Microsoft\Windows\UpdateOrchestrator\USO_UxBroker
 * \Microsoft\Windows\DiskCleanup\SilentCleanup
-
-### patch descriptions
-* Integrate nircmd - adds nircmd to the image and registers it in the PATH. This is necessary to control some windows functions from your kiosk application without calling winapi directly
-* Integrate PSTools - adds PsTools to the image and registers it in the PATH. this is necessary so that your kiosk application can run the exe on behalf of the system, for example, to circumvent some restrictions of WinRT (I used this to switch the bluetooth status without having a trusted digital signature)
+* \Microsoft\Windows\Backup\ScheduledBackup
 
 ### the following keys and combinations have been disabled via keyboard filter (can be disabled and customized)
 * Alt+F4
