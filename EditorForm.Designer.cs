@@ -342,6 +342,7 @@
             debloatware_excludeAll = new CheckBox();
             debloatware_exclude = new RichTextBox();
             tabPage75 = new TabPage();
+            scriptgeneration_applyBCD = new CheckBox();
             tabPage59 = new TabPage();
             tabControl15 = new TabControl();
             tabPage68 = new TabPage();
@@ -577,7 +578,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            scriptgeneration_applyBCD = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -895,6 +895,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel1.BackColor = SystemColors.Window;
             panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1.Controls.Add(oemkey_slmgr);
@@ -959,6 +960,7 @@
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel2.AutoScroll = true;
             panel2.AutoScrollMargin = new Size(0, 7);
             panel2.BackColor = SystemColors.Window;
@@ -1362,6 +1364,7 @@
             // 
             // TweakList
             // 
+            TweakList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             TweakList.BackColor = SystemColors.Control;
             TweakList.FormattingEnabled = true;
             TweakList.Location = new Point(3, 3);
@@ -1391,6 +1394,7 @@
             // 
             // mainTabControl
             // 
+            mainTabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             mainTabControl.Controls.Add(tabPage1);
             mainTabControl.Controls.Add(tabPage2);
             mainTabControl.Controls.Add(tab_app);
@@ -1674,6 +1678,7 @@
             // 
             // tabControl3
             // 
+            tabControl3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl3.Controls.Add(tabPage19);
             tabControl3.Controls.Add(tabPage20);
             tabControl3.Controls.Add(tabPage18);
@@ -1699,6 +1704,7 @@
             // 
             // panel9
             // 
+            panel9.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel9.BorderStyle = BorderStyle.Fixed3D;
             panel9.Controls.Add(label84);
             panel9.Controls.Add(appcrash_time_value);
@@ -1758,6 +1764,7 @@
             // 
             // panel18
             // 
+            panel18.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel18.BorderStyle = BorderStyle.Fixed3D;
             panel18.Controls.Add(actionAtEndOfApplication_command);
             panel18.Controls.Add(ActionAtEndOfApplication_execute_command);
@@ -1853,6 +1860,7 @@
             // 
             // wait_before_app_logo
             // 
+            wait_before_app_logo.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             wait_before_app_logo.AutoSize = true;
             wait_before_app_logo.Location = new Point(6, 254);
             wait_before_app_logo.Name = "wait_before_app_logo";
@@ -1864,6 +1872,7 @@
             // 
             // panel20
             // 
+            panel20.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel20.BorderStyle = BorderStyle.Fixed3D;
             panel20.Controls.Add(label64);
             panel20.Controls.Add(label62);
@@ -1922,6 +1931,7 @@
             // 
             // panel19
             // 
+            panel19.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel19.BorderStyle = BorderStyle.Fixed3D;
             panel19.Controls.Add(label61);
             panel19.Controls.Add(appdelay_time_value);
@@ -1996,6 +2006,7 @@
             // 
             // richTextBox10
             // 
+            richTextBox10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox10.BackColor = SystemColors.Info;
             richTextBox10.Location = new Point(6, 167);
             richTextBox10.Name = "richTextBox10";
@@ -2015,6 +2026,7 @@
             // 
             // panel12
             // 
+            panel12.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel12.BorderStyle = BorderStyle.Fixed3D;
             panel12.Controls.Add(afterDesktop);
             panel12.Controls.Add(insteadDesktop);
@@ -2060,6 +2072,7 @@
             // 
             // tabControl2
             // 
+            tabControl2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl2.Controls.Add(tabPage36);
             tabControl2.Controls.Add(tabPage14);
             tabControl2.Controls.Add(tabPage12);
@@ -2099,6 +2112,7 @@
             // 
             // tabControl4
             // 
+            tabControl4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl4.Controls.Add(tabPage21);
             tabControl4.Controls.Add(tabPage22);
             tabControl4.Location = new Point(3, 4);
@@ -2120,6 +2134,7 @@
             // 
             // tabControl10
             // 
+            tabControl10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl10.Controls.Add(tabPage47);
             tabControl10.Controls.Add(tabPage48);
             tabControl10.Controls.Add(tabPage49);
@@ -2143,6 +2158,7 @@
             // 
             // richTextBox24
             // 
+            richTextBox24.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox24.BackColor = SystemColors.Info;
             richTextBox24.Location = new Point(532, 6);
             richTextBox24.Name = "richTextBox24";
@@ -2153,6 +2169,7 @@
             // 
             // panel15
             // 
+            panel15.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel15.BorderStyle = BorderStyle.Fixed3D;
             panel15.Controls.Add(CustomBootLogo_UseOnBootres);
             panel15.Controls.Add(CustomBootLogo_UseLogoBeforeApp);
@@ -2202,6 +2219,7 @@
             // 
             // richTextBox23
             // 
+            richTextBox23.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox23.BackColor = SystemColors.Info;
             richTextBox23.Location = new Point(485, 6);
             richTextBox23.Name = "richTextBox23";
@@ -2212,6 +2230,7 @@
             // 
             // bootresRepacking_panel
             // 
+            bootresRepacking_panel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             bootresRepacking_panel.BorderStyle = BorderStyle.Fixed3D;
             bootresRepacking_panel.Controls.Add(label90);
             bootresRepacking_panel.Controls.Add(bootresRepacking_logoPath_clr);
@@ -2273,6 +2292,7 @@
             // 
             // logoBeforeApp_panel
             // 
+            logoBeforeApp_panel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             logoBeforeApp_panel.BorderStyle = BorderStyle.Fixed3D;
             logoBeforeApp_panel.Controls.Add(logoBeforeApp_stretch);
             logoBeforeApp_panel.Controls.Add(label63);
@@ -2335,6 +2355,7 @@
             // 
             // richTextBox9
             // 
+            richTextBox9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox9.BackColor = SystemColors.Info;
             richTextBox9.Location = new Point(485, 6);
             richTextBox9.Name = "richTextBox9";
@@ -2397,6 +2418,7 @@
             // 
             // tabControl5
             // 
+            tabControl5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl5.Controls.Add(tabPage37);
             tabControl5.Controls.Add(tabPage24);
             tabControl5.Controls.Add(dc_panel);
@@ -2783,6 +2805,7 @@
             // 
             // richTextBox5
             // 
+            richTextBox5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox5.BackColor = SystemColors.Info;
             richTextBox5.Location = new Point(502, 3);
             richTextBox5.Name = "richTextBox5";
@@ -2793,6 +2816,7 @@
             // 
             // CustomDisplaySettings_panel
             // 
+            CustomDisplaySettings_panel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             CustomDisplaySettings_panel.BorderStyle = BorderStyle.Fixed3D;
             CustomDisplaySettings_panel.Controls.Add(cds_refreshRate_use);
             CustomDisplaySettings_panel.Controls.Add(cds_bitDepth_use);
@@ -2967,6 +2991,7 @@
             // 
             // richTextBox6
             // 
+            richTextBox6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox6.BackColor = SystemColors.Info;
             richTextBox6.Location = new Point(502, 3);
             richTextBox6.Name = "richTextBox6";
@@ -2977,6 +3002,7 @@
             // 
             // UseCustomDisplaySettings_scale_panel
             // 
+            UseCustomDisplaySettings_scale_panel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             UseCustomDisplaySettings_scale_panel.BorderStyle = BorderStyle.Fixed3D;
             UseCustomDisplaySettings_scale_panel.Controls.Add(label50);
             UseCustomDisplaySettings_scale_panel.Controls.Add(cds_scaling);
@@ -3025,6 +3051,7 @@
             // 
             // tabControl12
             // 
+            tabControl12.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl12.Controls.Add(tabPage55);
             tabControl12.Controls.Add(keyboard_filter_tab);
             tabControl12.Location = new Point(3, 3);
@@ -3118,6 +3145,7 @@
             // 
             // keyboard_layouts
             // 
+            keyboard_layouts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             keyboard_layouts.FormattingEnabled = true;
             keyboard_layouts.Location = new Point(6, 6);
             keyboard_layouts.Name = "keyboard_layouts";
@@ -3141,6 +3169,7 @@
             // 
             // richTextBox30
             // 
+            richTextBox30.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox30.BackColor = SystemColors.Info;
             richTextBox30.Location = new Point(602, 6);
             richTextBox30.Name = "richTextBox30";
@@ -3151,6 +3180,7 @@
             // 
             // keyboard_filter_enabled
             // 
+            keyboard_filter_enabled.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             keyboard_filter_enabled.AutoSize = true;
             keyboard_filter_enabled.Location = new Point(606, 214);
             keyboard_filter_enabled.Name = "keyboard_filter_enabled";
@@ -3162,6 +3192,7 @@
             // 
             // keyboard_filter_panel
             // 
+            keyboard_filter_panel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             keyboard_filter_panel.Controls.Add(tabPage56);
             keyboard_filter_panel.Controls.Add(tabPage58);
             keyboard_filter_panel.Location = new Point(6, 6);
@@ -3238,6 +3269,7 @@
             // 
             // keyboard_filter_blockList_reset
             // 
+            keyboard_filter_blockList_reset.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             keyboard_filter_blockList_reset.Location = new Point(468, 163);
             keyboard_filter_blockList_reset.Name = "keyboard_filter_blockList_reset";
             keyboard_filter_blockList_reset.Size = new Size(112, 34);
@@ -3248,6 +3280,7 @@
             // 
             // label98
             // 
+            label98.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label98.AutoSize = true;
             label98.Location = new Point(6, 174);
             label98.Name = "label98";
@@ -3257,6 +3290,7 @@
             // 
             // keyboard_filter_blockList
             // 
+            keyboard_filter_blockList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             keyboard_filter_blockList.FormattingEnabled = true;
             keyboard_filter_blockList.Location = new Point(6, 6);
             keyboard_filter_blockList.Name = "keyboard_filter_blockList";
@@ -3279,6 +3313,7 @@
             // 
             // richTextBox4
             // 
+            richTextBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox4.BackColor = SystemColors.Info;
             richTextBox4.Location = new Point(499, 5);
             richTextBox4.Name = "richTextBox4";
@@ -3408,6 +3443,7 @@
             // 
             // richTextBox18
             // 
+            richTextBox18.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox18.BackColor = SystemColors.Info;
             richTextBox18.Location = new Point(503, 4);
             richTextBox18.Name = "richTextBox18";
@@ -3471,6 +3507,7 @@
             // 
             // tabControl1
             // 
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPage32);
             tabControl1.Controls.Add(tabPage51);
             tabControl1.Controls.Add(tabPage64);
@@ -3495,6 +3532,7 @@
             // 
             // tabControl7
             // 
+            tabControl7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl7.Controls.Add(tabPage34);
             tabControl7.Controls.Add(tabPage35);
             tabControl7.Location = new Point(6, 6);
@@ -3519,6 +3557,7 @@
             // 
             // label80
             // 
+            label80.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label80.AutoSize = true;
             label80.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label80.Location = new Point(498, 4);
@@ -3539,6 +3578,7 @@
             // 
             // services_start_view
             // 
+            services_start_view.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             services_start_view.Location = new Point(498, 39);
             services_start_view.Name = "services_start_view";
             services_start_view.ReadOnly = true;
@@ -3548,6 +3588,7 @@
             // 
             // services_stop_view
             // 
+            services_stop_view.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             services_stop_view.Location = new Point(6, 39);
             services_stop_view.Name = "services_stop_view";
             services_stop_view.ReadOnly = true;
@@ -3576,6 +3617,7 @@
             // 
             // richTextBox32
             // 
+            richTextBox32.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox32.BackColor = SystemColors.Info;
             richTextBox32.Location = new Point(721, 10);
             richTextBox32.Name = "richTextBox32";
@@ -3596,6 +3638,7 @@
             // 
             // services_deleteFromList
             // 
+            services_deleteFromList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             services_deleteFromList.Location = new Point(531, 38);
             services_deleteFromList.Name = "services_deleteFromList";
             services_deleteFromList.Size = new Size(184, 157);
@@ -3647,6 +3690,7 @@
             // 
             // services_stop
             // 
+            services_stop.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             services_stop.Location = new Point(6, 39);
             services_stop.Name = "services_stop";
             services_stop.Size = new Size(294, 157);
@@ -3656,6 +3700,7 @@
             // 
             // services_start
             // 
+            services_start.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             services_start.Location = new Point(306, 39);
             services_start.Name = "services_start";
             services_start.Size = new Size(219, 157);
@@ -3676,6 +3721,7 @@
             // 
             // richTextBox27
             // 
+            richTextBox27.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox27.BackColor = SystemColors.Info;
             richTextBox27.Location = new Point(660, 6);
             richTextBox27.Name = "richTextBox27";
@@ -3686,6 +3732,7 @@
             // 
             // tabControl11
             // 
+            tabControl11.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             tabControl11.Controls.Add(tabPage52);
             tabControl11.Controls.Add(tabPage53);
             tabControl11.Location = new Point(6, 6);
@@ -3801,6 +3848,7 @@
             // 
             // tabControl14
             // 
+            tabControl14.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl14.Controls.Add(tabPage65);
             tabControl14.Controls.Add(tabPage66);
             tabControl14.Controls.Add(tabPage67);
@@ -3823,6 +3871,7 @@
             // 
             // richTextBox33
             // 
+            richTextBox33.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox33.BackColor = SystemColors.Info;
             richTextBox33.Location = new Point(6, 7);
             richTextBox33.Name = "richTextBox33";
@@ -3844,6 +3893,7 @@
             // 
             // regtweak_default
             // 
+            regtweak_default.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             regtweak_default.Location = new Point(6, 7);
             regtweak_default.Name = "regtweak_default";
             regtweak_default.ReadOnly = true;
@@ -3865,6 +3915,7 @@
             // 
             // regtweak_overwrite_reset
             // 
+            regtweak_overwrite_reset.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             regtweak_overwrite_reset.Location = new Point(728, 44);
             regtweak_overwrite_reset.Name = "regtweak_overwrite_reset";
             regtweak_overwrite_reset.Size = new Size(112, 34);
@@ -3875,6 +3926,7 @@
             // 
             // regtweak_overwrite_en
             // 
+            regtweak_overwrite_en.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             regtweak_overwrite_en.AutoSize = true;
             regtweak_overwrite_en.Location = new Point(728, 9);
             regtweak_overwrite_en.Name = "regtweak_overwrite_en";
@@ -3886,6 +3938,7 @@
             // 
             // regtweak_overwrite
             // 
+            regtweak_overwrite.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             regtweak_overwrite.Location = new Point(3, 7);
             regtweak_overwrite.Name = "regtweak_overwrite";
             regtweak_overwrite.Size = new Size(715, 193);
@@ -3905,6 +3958,7 @@
             // 
             // tabControl16
             // 
+            tabControl16.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl16.Controls.Add(tabPage71);
             tabControl16.Controls.Add(tabPage72);
             tabControl16.Controls.Add(tabPage74);
@@ -3928,6 +3982,7 @@
             // 
             // richTextBox34
             // 
+            richTextBox34.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox34.BackColor = SystemColors.Info;
             richTextBox34.Location = new Point(6, 7);
             richTextBox34.Name = "richTextBox34";
@@ -3945,11 +4000,12 @@
             tabPage72.Padding = new Padding(3);
             tabPage72.Size = new Size(970, 208);
             tabPage72.TabIndex = 1;
-            tabPage72.Text = "view";
+            tabPage72.Text = "current";
             tabPage72.UseVisualStyleBackColor = true;
             // 
             // label57
             // 
+            label57.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label57.AutoSize = true;
             label57.Location = new Point(6, 175);
             label57.Name = "label57";
@@ -3959,6 +4015,7 @@
             // 
             // debloatware_view
             // 
+            debloatware_view.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             debloatware_view.Location = new Point(6, 7);
             debloatware_view.Name = "debloatware_view";
             debloatware_view.ReadOnly = true;
@@ -3979,6 +4036,7 @@
             // 
             // label99
             // 
+            label99.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label99.AutoSize = true;
             label99.Location = new Point(6, 175);
             label99.Name = "label99";
@@ -3988,6 +4046,7 @@
             // 
             // debloatware_defaultView
             // 
+            debloatware_defaultView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             debloatware_defaultView.Location = new Point(6, 7);
             debloatware_defaultView.Name = "debloatware_defaultView";
             debloatware_defaultView.ReadOnly = true;
@@ -4008,6 +4067,7 @@
             // 
             // debloatware_excludeAll
             // 
+            debloatware_excludeAll.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             debloatware_excludeAll.AutoSize = true;
             debloatware_excludeAll.Location = new Point(6, 176);
             debloatware_excludeAll.Name = "debloatware_excludeAll";
@@ -4019,6 +4079,7 @@
             // 
             // debloatware_exclude
             // 
+            debloatware_exclude.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             debloatware_exclude.Location = new Point(6, 7);
             debloatware_exclude.Name = "debloatware_exclude";
             debloatware_exclude.Size = new Size(958, 163);
@@ -4036,6 +4097,17 @@
             tabPage75.Text = "script generation";
             tabPage75.UseVisualStyleBackColor = true;
             // 
+            // scriptgeneration_applyBCD
+            // 
+            scriptgeneration_applyBCD.AutoSize = true;
+            scriptgeneration_applyBCD.Location = new Point(3, 9);
+            scriptgeneration_applyBCD.Name = "scriptgeneration_applyBCD";
+            scriptgeneration_applyBCD.Size = new Size(395, 29);
+            scriptgeneration_applyBCD.TabIndex = 0;
+            scriptgeneration_applyBCD.Text = "apply BCD settings when booting the system";
+            scriptgeneration_applyBCD.UseVisualStyleBackColor = true;
+            scriptgeneration_applyBCD.CheckedChanged += scriptgeneration_applyBCD_CheckedChanged;
+            // 
             // tabPage59
             // 
             tabPage59.Controls.Add(tabControl15);
@@ -4048,6 +4120,7 @@
             // 
             // tabControl15
             // 
+            tabControl15.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl15.Controls.Add(tabPage68);
             tabControl15.Location = new Point(3, 3);
             tabControl15.Name = "tabControl15";
@@ -4089,6 +4162,7 @@
             // 
             // tabControl8
             // 
+            tabControl8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl8.Controls.Add(tabPage33);
             tabControl8.Controls.Add(tabPage39);
             tabControl8.Controls.Add(tabPage40);
@@ -4113,6 +4187,7 @@
             // 
             // tabControl9
             // 
+            tabControl9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl9.Controls.Add(tabPage41);
             tabControl9.Controls.Add(tabPage42);
             tabControl9.Controls.Add(tabPage43);
@@ -4176,6 +4251,7 @@
             // 
             // prebuildEvent
             // 
+            prebuildEvent.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             prebuildEvent.Location = new Point(6, 48);
             prebuildEvent.Name = "prebuildEvent";
             prebuildEvent.Size = new Size(978, 205);
@@ -4254,6 +4330,7 @@
             // 
             // postbuildEvent
             // 
+            postbuildEvent.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             postbuildEvent.Location = new Point(6, 48);
             postbuildEvent.Name = "postbuildEvent";
             postbuildEvent.Size = new Size(978, 205);
@@ -4289,6 +4366,7 @@
             // 
             // richTextBox25
             // 
+            richTextBox25.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             richTextBox25.BackColor = SystemColors.Info;
             richTextBox25.Location = new Point(622, 48);
             richTextBox25.Name = "richTextBox25";
@@ -4332,6 +4410,7 @@
             // 
             // winmountedEvent
             // 
+            winmountedEvent.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             winmountedEvent.Location = new Point(6, 48);
             winmountedEvent.Name = "winmountedEvent";
             winmountedEvent.Size = new Size(610, 208);
@@ -4377,6 +4456,7 @@
             // 
             // richTextBox26
             // 
+            richTextBox26.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             richTextBox26.BackColor = SystemColors.Info;
             richTextBox26.Location = new Point(622, 48);
             richTextBox26.Name = "richTextBox26";
@@ -4387,6 +4467,7 @@
             // 
             // winmountedEarlyEvent
             // 
+            winmountedEarlyEvent.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             winmountedEarlyEvent.Location = new Point(6, 48);
             winmountedEarlyEvent.Name = "winmountedEarlyEvent";
             winmountedEarlyEvent.Size = new Size(610, 208);
@@ -4466,6 +4547,7 @@
             // 
             // richTextBox28
             // 
+            richTextBox28.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             richTextBox28.BackColor = SystemColors.Info;
             richTextBox28.Location = new Point(622, 48);
             richTextBox28.Name = "richTextBox28";
@@ -4488,6 +4570,7 @@
             // 
             // recoveryMountedEarlyEvent
             // 
+            recoveryMountedEarlyEvent.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             recoveryMountedEarlyEvent.Location = new Point(6, 48);
             recoveryMountedEarlyEvent.Name = "recoveryMountedEarlyEvent";
             recoveryMountedEarlyEvent.Size = new Size(610, 208);
@@ -4534,6 +4617,7 @@
             // 
             // installerMountedEarlyEvent
             // 
+            installerMountedEarlyEvent.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             installerMountedEarlyEvent.Location = new Point(6, 48);
             installerMountedEarlyEvent.Name = "installerMountedEarlyEvent";
             installerMountedEarlyEvent.Size = new Size(610, 208);
@@ -4566,6 +4650,7 @@
             // 
             // richTextBox29
             // 
+            richTextBox29.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             richTextBox29.BackColor = SystemColors.Info;
             richTextBox29.Location = new Point(622, 48);
             richTextBox29.Name = "richTextBox29";
@@ -4588,6 +4673,7 @@
             // 
             // richTextBox17
             // 
+            richTextBox17.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox17.BackColor = SystemColors.Info;
             richTextBox17.Location = new Point(491, 6);
             richTextBox17.Name = "richTextBox17";
@@ -4660,6 +4746,7 @@
             // 
             // customdism
             // 
+            customdism.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             customdism.Controls.Add(tabPage69);
             customdism.Controls.Add(tabPage44);
             customdism.Controls.Add(tabPage45);
@@ -4715,6 +4802,7 @@
             // 
             // richTextBox21
             // 
+            richTextBox21.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             richTextBox21.BackColor = SystemColors.Info;
             richTextBox21.Location = new Point(491, 6);
             richTextBox21.Name = "richTextBox21";
@@ -4725,6 +4813,7 @@
             // 
             // customdism_features
             // 
+            customdism_features.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             customdism_features.Location = new Point(6, 45);
             customdism_features.Name = "customdism_features";
             customdism_features.Size = new Size(479, 202);
@@ -4757,6 +4846,7 @@
             // 
             // richTextBox20
             // 
+            richTextBox20.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             richTextBox20.BackColor = SystemColors.Info;
             richTextBox20.Location = new Point(491, 6);
             richTextBox20.Name = "richTextBox20";
@@ -4767,6 +4857,7 @@
             // 
             // customdism_commands
             // 
+            customdism_commands.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             customdism_commands.Location = new Point(6, 45);
             customdism_commands.Name = "customdism_commands";
             customdism_commands.Size = new Size(479, 202);
@@ -4786,6 +4877,7 @@
             // 
             // tabControl6
             // 
+            tabControl6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl6.Controls.Add(tabPage27);
             tabControl6.Controls.Add(tabPage31);
             tabControl6.Controls.Add(tabPage28);
@@ -4811,6 +4903,7 @@
             // 
             // richTextBox11
             // 
+            richTextBox11.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             richTextBox11.BackColor = SystemColors.Info;
             richTextBox11.Location = new Point(641, 6);
             richTextBox11.Name = "richTextBox11";
@@ -4821,6 +4914,7 @@
             // 
             // delete_paths
             // 
+            delete_paths.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             delete_paths.Location = new Point(6, 6);
             delete_paths.Name = "delete_paths";
             delete_paths.Size = new Size(629, 247);
@@ -4841,6 +4935,7 @@
             // 
             // richTextBox14
             // 
+            richTextBox14.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             richTextBox14.BackColor = SystemColors.Info;
             richTextBox14.Location = new Point(641, 6);
             richTextBox14.Name = "richTextBox14";
@@ -4851,6 +4946,7 @@
             // 
             // delete_dism_universal
             // 
+            delete_dism_universal.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             delete_dism_universal.Location = new Point(6, 6);
             delete_dism_universal.Name = "delete_dism_universal";
             delete_dism_universal.Size = new Size(629, 250);
@@ -6512,17 +6608,6 @@
             ExportInstallEsd.Text = "export install.esd";
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
-            // 
-            // scriptgeneration_applyBCD
-            // 
-            scriptgeneration_applyBCD.AutoSize = true;
-            scriptgeneration_applyBCD.Location = new Point(3, 9);
-            scriptgeneration_applyBCD.Name = "scriptgeneration_applyBCD";
-            scriptgeneration_applyBCD.Size = new Size(395, 29);
-            scriptgeneration_applyBCD.TabIndex = 0;
-            scriptgeneration_applyBCD.Text = "apply BCD settings when booting the system";
-            scriptgeneration_applyBCD.UseVisualStyleBackColor = true;
-            scriptgeneration_applyBCD.CheckedChanged += scriptgeneration_applyBCD_CheckedChanged;
             // 
             // EditorForm
             // 
