@@ -4257,6 +4257,7 @@
             // 
             // prebuildEnabled
             // 
+            prebuildEnabled.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             prebuildEnabled.AutoSize = true;
             prebuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
             prebuildEnabled.Location = new Point(793, 15);
@@ -4315,6 +4316,7 @@
             // 
             // postbuildEnabled
             // 
+            postbuildEnabled.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             postbuildEnabled.AutoSize = true;
             postbuildEnabled.CheckAlign = ContentAlignment.MiddleRight;
             postbuildEnabled.Location = new Point(793, 15);
@@ -4406,6 +4408,7 @@
             // 
             // winmountedEnabled
             // 
+            winmountedEnabled.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             winmountedEnabled.AutoSize = true;
             winmountedEnabled.CheckAlign = ContentAlignment.MiddleRight;
             winmountedEnabled.Location = new Point(793, 15);
@@ -4495,6 +4498,7 @@
             // 
             // winmountedEarlyEnabled
             // 
+            winmountedEarlyEnabled.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             winmountedEarlyEnabled.AutoSize = true;
             winmountedEarlyEnabled.CheckAlign = ContentAlignment.MiddleRight;
             winmountedEarlyEnabled.Location = new Point(793, 15);
@@ -4576,6 +4580,7 @@
             // 
             // recoveryMountedEarlyEnabled
             // 
+            recoveryMountedEarlyEnabled.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             recoveryMountedEarlyEnabled.AutoSize = true;
             recoveryMountedEarlyEnabled.CheckAlign = ContentAlignment.MiddleRight;
             recoveryMountedEarlyEnabled.Location = new Point(793, 15);
@@ -4656,6 +4661,7 @@
             // 
             // installerMountedEarlyEnabled
             // 
+            installerMountedEarlyEnabled.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             installerMountedEarlyEnabled.AutoSize = true;
             installerMountedEarlyEnabled.CheckAlign = ContentAlignment.MiddleRight;
             installerMountedEarlyEnabled.Location = new Point(793, 15);
@@ -5029,7 +5035,7 @@
             // 
             // delete_dism_remove_package
             // 
-            delete_dism_remove_package.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            delete_dism_remove_package.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             delete_dism_remove_package.Location = new Point(6, 6);
             delete_dism_remove_package.Name = "delete_dism_remove_package";
             delete_dism_remove_package.Size = new Size(629, 250);
@@ -5050,7 +5056,7 @@
             // 
             // richTextBox16
             // 
-            richTextBox16.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            richTextBox16.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             richTextBox16.BackColor = SystemColors.Info;
             richTextBox16.Location = new Point(641, 6);
             richTextBox16.Name = "richTextBox16";
