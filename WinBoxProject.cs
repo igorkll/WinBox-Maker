@@ -1431,6 +1431,10 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                 case DefaultDeleteTypes.ProvisionedPackage:
                     defaultDelete.AddRange(Consts.defaultDeleteProvisionedPackages);
                     break;
+
+                case DefaultDeleteTypes.Paths:
+                    defaultDelete.AddRange(Consts.defaultDeletePaths);
+                    break;
             }
 
             if (!getDefault)

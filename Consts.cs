@@ -156,6 +156,10 @@ namespace WinBox_Maker
             @"\Microsoft\Windows\Backup\ScheduledBackup"
         };
 
+        static public string[] defaultDeletePaths = {
+            "C:\\Windows\\System32\\rgnupdt.exe"
+        };
+
         static public string[] defaultStopServicesList = {
             "SecurityHealthService",
             "Sense",
