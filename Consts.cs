@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiscUtils.Streams;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,12 @@ namespace WinBox_Maker
             "*Microsoft-Windows-Wallpaper-Content-Extended",
             "*Microsoft-Windows-ContactSupport",
             "*Microsoft-Windows-QuickAssist"
+        };
+
+        static public string[] defaultDisableFeatures =
+        {
+            "Windows-Defender", //it will probably only work for Windows server
+            "Windows-Defender-GUI"
         };
 
         static public string[] defaultDeleteProvisionedPackages =

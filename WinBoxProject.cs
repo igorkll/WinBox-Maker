@@ -1446,6 +1446,12 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                     }
                     break;
 
+                case DefaultDeleteTypes.Features:
+                    {
+                        defaultDelete.AddRange(Consts.defaultDisableFeatures);
+                    }
+                    break;
+
                 case DefaultDeleteTypes.Paths:
                     {
                         defaultDelete.AddRange(Consts.defaultDeletePaths);
@@ -3053,11 +3059,6 @@ if errorlevel 1 (
 
             if (!manual)
             {
-                processName("disabling unnecessary Windows components");
-                processValue(60);
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender", null, debugFolder); //it will probably only work for Windows server
-                await Program.ExecuteAsync("dism.exe", $"/image:\"{wimMountPath}\" /disable-feature /remove /featurename:Windows-Defender-GUI", null, debugFolder);
-
                 processName("OEM key applying");
                 processValue(61);
                 if (winBoxConfig.oemkey_dism == true && winBoxConfig.isValidOemKey())
