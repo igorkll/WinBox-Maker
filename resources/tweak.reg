@@ -732,6 +732,9 @@ Windows Registry Editor Version 5.00
 [HKEY_USERS\DEFAULT_USER\Software\Policies\Microsoft\Windows\CloudContent]
 "DisableWindowsConsumerFeatures"=dword:1
 
+[HKEY_USERS\DEFAULT_USER\Software\Microsoft\Windows\CurrentVersion\Feeds]
+"ShellFeedsTaskbarViewMode"=dword:00000002
+
 ; ------------------------------------------------ system
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control]

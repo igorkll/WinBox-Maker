@@ -731,6 +731,11 @@ WshShell.Run ""powershell -Command """"Start-Process '{batPath}' {argsStr} -Verb
             }
         }
 
+        public bool needIntegrateEdge()
+        {
+            return Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite;
+        }
+
         public async Task CopyBlobFromArchWithRename(string name, string newName, string arch)
         {
             string? path = Program.getBlobPathFromArch(winBoxConfig, name, arch);
@@ -1425,15 +1430,32 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
             switch (defaultDeleteTypes)
             {
                 case DefaultDeleteTypes.Packages:
-                    defaultDelete.AddRange(Consts.defaultDeletePackages);
+                    {
+                        defaultDelete.AddRange(Consts.defaultDeletePackages);
+                    }
                     break;
 
                 case DefaultDeleteTypes.ProvisionedPackage:
-                    defaultDelete.AddRange(Consts.defaultDeleteProvisionedPackages);
+                    {
+                        defaultDelete.AddRange(Consts.defaultDeleteProvisionedPackages);
+                        if (!needIntegrateEdge())
+                        {
+                            defaultDelete.Add("*Microsoft.MicrosoftEdge");
+                            defaultDelete.Add("*Microsoft.MicrosoftEdgeDevToolsClient");
+                        }
+                    }
                     break;
 
                 case DefaultDeleteTypes.Paths:
-                    defaultDelete.AddRange(Consts.defaultDeletePaths);
+                    {
+                        defaultDelete.AddRange(Consts.defaultDeletePaths);
+                        if (!needIntegrateEdge())
+                        {
+                            defaultDelete.Add("Program Files (x86)\\Microsoft\\Edge");
+                            defaultDelete.Add("Program Files (x86)\\Microsoft\\EdgeUpdate");
+                            defaultDelete.Add("Windows\\SystemApps\\Microsoft.MicrosoftEdge_8wekyb3d8bbwe");
+                        }
+                    }
                     break;
             }
 
@@ -2341,7 +2363,7 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
                 await addCustomInstallers(resourcesDirectoryPath);
                 await addCustomInstallers(tempDirectoryPath);
 
-                if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
+                if (needIntegrateEdge())
                 {
                     await CopyBlob("MicrosoftEdge.msi");
 
@@ -3205,21 +3227,6 @@ if errorlevel 1 (
                 {
                     await removeSystemObject("Windows\\SystemApps");
                     await removeSystemObject("Program Files\\WindowsApps");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "remove windows defender files"))
-                {
-                    await removeSystemObject("Program Files (x86)\\Windows Defender");
-                    await removeSystemObject("Program Files (x86)\\Windows Defender Advanced Threat Protection");
-                    await removeSystemObject("Program Files\\Windows Defender");
-                    await removeSystemObject("Program Files\\Windows Defender Advanced Threat Protection");
-                    await removeSystemObject("ProgramData\\Microsoft\\Windows Defender");
-                }
-
-                if (Program.isTweakEnabled(winBoxConfig, "remove OneDrive")) {
-                    await removeSystemObject("Windows\\System32\\Tasks\\Microsoft\\OneDrive");
-                    await removeSystemObject("Windows\\System32\\OneDriveSetup.exe");
-                    await removeSystemObject("Windows\\SysWOW64\\OneDriveSetup.exe");
                 }
             }
 

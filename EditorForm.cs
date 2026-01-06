@@ -84,8 +84,6 @@ namespace WinBox_Maker
             AddTweakToList("completely remove system audio/images");
             AddTweakToList("removing Windows/System apps (breaks the default shell)");
             AddTweakToList("removal of the subsystem SysWOW64");
-            AddTweakToList("remove windows defender files");
-            AddTweakToList("remove OneDrive");
             AddTweakToList("Allow check-disk");
             AddTweakToList("Disable system integrity checks");
             AddTweakToList("Disable HyperV / VSM / ELAM");

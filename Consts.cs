@@ -157,7 +157,15 @@ namespace WinBox_Maker
         };
 
         static public string[] defaultDeletePaths = {
-            "C:\\Windows\\System32\\rgnupdt.exe"
+            "Windows\\System32\\rgnupdt.exe",
+            "Windows\\System32\\Tasks\\Microsoft\\OneDrive",
+            "Windows\\System32\\OneDriveSetup.exe",
+            "Windows\\SysWOW64\\OneDriveSetup.exe",
+            "Program Files (x86)\\Windows Defender",
+            "Program Files (x86)\\Windows Defender Advanced Threat Protection",
+            "Program Files\\Windows Defender",
+            "Program Files\\Windows Defender Advanced Threat Protection",
+            "ProgramData\\Microsoft\\Windows Defender"
         };
 
         static public string[] defaultStopServicesList = {

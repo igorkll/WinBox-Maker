@@ -301,11 +301,6 @@ namespace WinBox_Maker
                 TweakList.Add("Disable system integrity checks");
                 TweakList.Add("Disable HyperV / VSM / ELAM");
             }
-            if (TweakListLevel < 3)
-            {
-                TweakList.Add("remove windows defender files");
-                TweakList.Add("remove OneDrive");
-            }
 
             if (keyboard_filter_blockList == null)
             {
