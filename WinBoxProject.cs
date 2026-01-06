@@ -1981,7 +1981,7 @@ echo SetupComplete and FirstInit - setup keyboard filter >> C:\WinboxResources\s
 
 echo SetupComplete and FirstInit - end >> C:\WinboxResources\setup.log";
 
-                string updateSystemSettingsAndFirstInit = $@"powershell -Command ""Set-MpPreference -DisableBlockAtFirstSeen $true""
+                string tryDisableDefender = $@"powershell -Command ""Set-MpPreference -DisableBlockAtFirstSeen $true""
 powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
 powershell -Command ""Set-MpPreference -DisableRealtimeMonitoring $true""
 powershell -Command ""Set-MpPreference -DisableIOAVProtection $true""
@@ -1989,17 +1989,12 @@ powershell -Command ""Set-MpPreference -DisableBehaviorMonitoring $true""
 powershell -Command ""Set-MpPreference -DisableScriptScanning $true""
 powershell -Command ""Set-MpPreference -SubmitSamplesConsent 2""
 powershell -Command ""Set-MpPreference -MAPSReporting 0""
-powershell -Command ""Set-MpPreference -DisableEnhancedNotifications $true
+powershell -Command ""Set-MpPreference -DisableEnhancedNotifications $true";
 
-powershell -Command ""Set-MpPreference -DisableBlockAtFirstSeen $true""
-powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
-powershell -Command ""Set-MpPreference -DisableRealtimeMonitoring $true""
-powershell -Command ""Set-MpPreference -DisableIOAVProtection $true""
-powershell -Command ""Set-MpPreference -DisableBehaviorMonitoring $true""
-powershell -Command ""Set-MpPreference -DisableScriptScanning $true""
-powershell -Command ""Set-MpPreference -SubmitSamplesConsent 2""
-powershell -Command ""Set-MpPreference -MAPSReporting 0""
-powershell -Command ""Set-MpPreference -DisableEnhancedNotifications $true""
+                //я предпологаю что один маразм (защита) может цеплятся за другую, по этому вырубаю 3 раза
+                string updateSystemSettingsAndFirstInit = $@"{tryDisableDefender}
+{tryDisableDefender}
+{tryDisableDefender}
 
 {bcdeditSetup}";
                 //why do I change the bcd every time I start?
