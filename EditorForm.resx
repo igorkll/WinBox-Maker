@@ -3503,10 +3503,6 @@
         XvfJZUNKXHSXrGRS///AaT+O+3+vcRf+eRypwAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="richTextBox10.Text" xml:space="preserve">
-    <value>I can't imagine a situation at all where using the "after the desktop" mode would be justified. since system dialog boxes and system sounds may appear in this mode and it may be necessary to suppress them, and the desktop may be visible for a short time before launching the application, however, the tasks are different, so there is also such a mode.
-running on behalf of the system allows you to bypass some of the restrictions of WinRT without having a trusted digital signature.</value>
-  </data>
   <data name="richTextBox7.Text" xml:space="preserve">
     <value>the name affects the default name of the output files.
 the name and description are also included in the file INFO.txt in the iso image and the mounted system.
@@ -3514,6 +3510,10 @@ the same name and description will become the new name and description of the wi
 the same name and description will be used when exporting FFU.
 
 </value>
+  </data>
+  <data name="richTextBox10.Text" xml:space="preserve">
+    <value>I can't imagine a situation at all where using the "after the desktop" mode would be justified. since system dialog boxes and system sounds may appear in this mode and it may be necessary to suppress them, and the desktop may be visible for a short time before launching the application, however, the tasks are different, so there is also such a mode.
+running on behalf of the system allows you to bypass some of the restrictions of WinRT without having a trusted digital signature.</value>
   </data>
   <data name="richTextBox24.Text" xml:space="preserve">
     <value>it is recommended to use it in conjunction with the "Disable all boot UI" option to completely prohibit showing the entire windows boot UI (including the windows logo in cases running on the BIOS platform) but allow showing the UEFI logo (including the one replaced via hackBGRT)</value>
