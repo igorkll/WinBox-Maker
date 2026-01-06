@@ -2026,8 +2026,13 @@ powershell -Command ""Set-MpPreference -DisableEnhancedNotifications $true";
                 string updateSystemSettingsAndFirstInit = $@"{tryDisableDefender}
 {tryDisableDefender}
 {tryDisableDefender}
+";
 
-{bcdeditSetup}";
+                if (winBoxConfig.scriptgeneration_applyBCD == true)
+                {
+                    updateSystemSettingsAndFirstInit += "\r\n" + bcdeditSetup;
+                }
+
                 //why do I change the bcd every time I start?
                 //because in some versions of windows (old enterprise),
                 //bcd changes may otherwise remain unchanged if done in setup complete,

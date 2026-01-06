@@ -577,6 +577,7 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
+            scriptgeneration_applyBCD = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -655,6 +656,7 @@
             tabPage72.SuspendLayout();
             tabPage74.SuspendLayout();
             tabPage73.SuspendLayout();
+            tabPage75.SuspendLayout();
             tabPage59.SuspendLayout();
             tabControl15.SuspendLayout();
             tabPage68.SuspendLayout();
@@ -4026,6 +4028,7 @@
             // 
             // tabPage75
             // 
+            tabPage75.Controls.Add(scriptgeneration_applyBCD);
             tabPage75.Location = new Point(4, 34);
             tabPage75.Name = "tabPage75";
             tabPage75.Size = new Size(984, 252);
@@ -6510,6 +6513,17 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
+            // scriptgeneration_applyBCD
+            // 
+            scriptgeneration_applyBCD.AutoSize = true;
+            scriptgeneration_applyBCD.Location = new Point(3, 9);
+            scriptgeneration_applyBCD.Name = "scriptgeneration_applyBCD";
+            scriptgeneration_applyBCD.Size = new Size(395, 29);
+            scriptgeneration_applyBCD.TabIndex = 0;
+            scriptgeneration_applyBCD.Text = "apply BCD settings when booting the system";
+            scriptgeneration_applyBCD.UseVisualStyleBackColor = true;
+            scriptgeneration_applyBCD.CheckedChanged += scriptgeneration_applyBCD_CheckedChanged;
+            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -6660,6 +6674,8 @@
             tabPage74.PerformLayout();
             tabPage73.ResumeLayout(false);
             tabPage73.PerformLayout();
+            tabPage75.ResumeLayout(false);
+            tabPage75.PerformLayout();
             tabPage59.ResumeLayout(false);
             tabControl15.ResumeLayout(false);
             tabPage68.ResumeLayout(false);
@@ -7303,5 +7319,6 @@
         private RadioButton ProgramType_UWPApplication;
         private Label label100;
         private TextBox app_uwp;
+        private CheckBox scriptgeneration_applyBCD;
     }
 }
