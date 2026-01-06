@@ -3350,6 +3350,7 @@
             // 
             // panel8
             // 
+            panel8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel8.BorderStyle = BorderStyle.Fixed3D;
             panel8.Controls.Add(bsod_disabledisplay);
             panel8.Controls.Add(label88);
@@ -5318,6 +5319,7 @@
             // 
             // postinstall_panel_user
             // 
+            postinstall_panel_user.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             postinstall_panel_user.BorderStyle = BorderStyle.Fixed3D;
             postinstall_panel_user.Controls.Add(postinstall_user_reg);
             postinstall_panel_user.Controls.Add(label21);
@@ -5410,6 +5412,7 @@
             // 
             // label17
             // 
+            label17.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label17.AutoSize = true;
             label17.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label17.Location = new Point(840, 3);
