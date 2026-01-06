@@ -2028,16 +2028,16 @@ powershell -Command ""Set-MpPreference -DisableEnhancedNotifications $true";
 {tryDisableDefender}
 ";
 
-                if (winBoxConfig.scriptgeneration_applyBCD == true)
-                {
-                    updateSystemSettingsAndFirstInit += "\r\n" + bcdeditSetup;
-                }
-
                 //why do I change the bcd every time I start?
                 //because in some versions of windows (old enterprise),
                 //bcd changes may otherwise remain unchanged if done in setup complete,
                 //which will create a vulnerability so that the system restore window can open.
                 //This is one of those cases where it is better to solve a problem in several ways at once.
+                if (winBoxConfig.scriptgeneration_applyBCD == true)
+                {
+                    updateSystemSettingsAndFirstInit += "\r\n" + bcdeditSetup;
+                }
+
                 int hiberboot = (winBoxConfig.enable_hibernation == true && winBoxConfig.enable_hiberboot == true) ? 1 : 0;
                 int disabledisplay = (winBoxConfig.bsod_disabledisplay == true) ? 1 : 0;
                 string baseSetup = $@"echo SetupComplete - start >> C:\WinboxResources\setup.log
