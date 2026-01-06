@@ -1993,6 +1993,13 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                     enableDismOnlineCommands += $"dism /online /enable-feature /all /featurename:\"{feature}\"\r\n";
                 }
 
+                //а шо так адово скрипты сделаны?
+                //потому что ЕБАНАРАЯ ПОЛОВИНА НАСТРОЕК в винде то не работает из SetupComplete.cmd то работает через жопу или не работает на определенных версиях
+                //из за этого требуется большая избыточность и бегать за виндой с кувалдой чтобы сделать ее ХОТЬ КАК ТО пригодной к использованию на embedded устройстве
+                //обезпечить реплицируемую сборку, монолитные обновления (через winbox maker recovery заливая сразу образ, и наглушняк прибитый windows update)
+                //и контроль версий проекта через git
+
+                //вызывается из SetupComplete.cmd и при первой загрузке из app script
                 string setupCompleteAndFirstInit = $@"echo SetupComplete and FirstInit - start >> C:\WinboxResources\setup.log
 
 echo SetupComplete and FirstInit - setup recovery >> C:\WinboxResources\setup.log
@@ -2012,6 +2019,7 @@ echo SetupComplete and FirstInit - setup keyboard filter >> C:\WinboxResources\s
 
 echo SetupComplete and FirstInit - end >> C:\WinboxResources\setup.log";
 
+                //я предпологаю что один маразм (защита) может цеплятся за другую, по этому вырубаю 3 раза
                 string tryDisableDefender = $@"powershell -Command ""Set-MpPreference -DisableBlockAtFirstSeen $true""
 powershell -Command ""Set-MpPreference -DisableTamperProtection $true""
 powershell -Command ""Set-MpPreference -DisableRealtimeMonitoring $true""
@@ -2022,7 +2030,7 @@ powershell -Command ""Set-MpPreference -SubmitSamplesConsent 2""
 powershell -Command ""Set-MpPreference -MAPSReporting 0""
 powershell -Command ""Set-MpPreference -DisableEnhancedNotifications $true";
 
-                //я предпологаю что один маразм (защита) может цеплятся за другую, по этому вырубаю 3 раза
+                //вызывается при каждой загрузке системы через шедулер и при первой загрузке из app script
                 string updateSystemSettingsAndFirstInit = $@"{tryDisableDefender}
 {tryDisableDefender}
 {tryDisableDefender}
@@ -2040,6 +2048,8 @@ powershell -Command ""Set-MpPreference -DisableEnhancedNotifications $true";
 
                 int hiberboot = (winBoxConfig.enable_hibernation == true && winBoxConfig.enable_hiberboot == true) ? 1 : 0;
                 int disabledisplay = (winBoxConfig.bsod_disabledisplay == true) ? 1 : 0;
+
+                // записывается в SetupComplete.cmd
                 string baseSetup = $@"echo SetupComplete - start >> C:\WinboxResources\setup.log
 
 echo SetupComplete - call SetupComplete and FirstInit >> C:\WinboxResources\setup.log
@@ -2082,10 +2092,12 @@ reg load HKLM\DEFAULT_USER ""C:\Users\Default\NTUSER.DAT""
 echo SetupComplete - setup keyboard layouts >> C:\WinboxResources\setup.log
 {getKeyboardLayoutsSetup()}";
 
+                // вызывается при каждой загрузке через шедулер и из SetupComplete.cmd напрямую
                 string updateSystemSettings = $@"reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData"" /v AllowLockScreen /t REG_DWORD /d 0 /f
 
 {updateSystemSettingsAndFirstInit}";
 
+                // вызывается в app script при первой загрузке
                 string firstInit = $@"echo FirstInit - start >> C:\WinboxResources\setup.log";
 
                 if (hideGettingReadyScreenWithOverlay)
