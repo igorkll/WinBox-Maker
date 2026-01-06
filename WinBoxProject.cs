@@ -1967,9 +1967,6 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 echo SetupComplete and FirstInit - setup recovery >> C:\WinboxResources\setup.log
 reagentc.exe {(winBoxConfig.EnableRecovery == true ? "/enable" : "/disable")}
 
-echo SetupComplete and FirstInit - setup BCD >> C:\WinboxResources\setup.log
-{bcdeditSetup}
-
 echo SetupComplete and FirstInit - setup firewall >> C:\WinboxResources\setup.log
 {getFirewallSetup()}
 
@@ -2079,7 +2076,7 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
                     applicationScript += $"\r\n{cmd}";
                     if (!writeFirst) applicationScript += writeFileCmd;
                     appScriptLog(realLog + " end");
-                    applicationScript += $"\r\n)\r\n";
+                    applicationScript += $")\r\n";
                 }
 
                 void baseSetupLog(string log)
