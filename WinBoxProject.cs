@@ -2618,7 +2618,18 @@ echo SetupComplete - PasswordExpires=False >> C:\WinboxResources\setup.log
 wmic useraccount where ""Name='winbox'"" set PasswordExpires=False
 
 echo SetupComplete - making the user an administrator >> C:\WinboxResources\setup.log
-net localgroup Administrators winbox /add";
+net localgroup Administrators winbox /add
+
+echo SetupComplete - making other users >> C:\WinboxResources\setup.log
+";
+
+                if (winBoxConfig.ProgramType == ProgramTypeEnum.UWPApplication) {
+                    baseSetup += $"\r\n";
+                    baseSetup += @$"
+net user winbox_kiosk /add
+wmic useraccount where ""Name='winbox_kiosk'"" set PasswordExpires=False
+";
+                }
 
                 baseSetupLog($"end");
 
@@ -2824,13 +2835,41 @@ start """" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kios
 
                     case ProgramTypeEnum.UWPApplication:
                         {
-                            string setupKiosk = $@"$User = ""winbox""
+                            string setupKioskXml = $@"<?xml version=""1.0"" encoding=""utf-8""?>
+<AssignedAccessConfiguration
+  xmlns=""http://schemas.microsoft.com/AssignedAccess/2017/config"">
+
+  <Profiles>
+    <Profile Id=""{{11111111-1111-1111-1111-111111111111}}"">
+      <AllAppsList>
+        <AllowedApps>
+          <App AppUserModelId=""{winBoxConfig.app_uwp}""/>
+        </AllowedApps>
+      </AllAppsList>
+    </Profile>
+  </Profiles>
+
+  <Configs>
+    <Config>
+      <Account>winbox_kiosk</Account>
+      <DefaultProfile Id=""{{11111111-1111-1111-1111-111111111111}}""/>
+    </Config>
+  </Configs>
+
+</AssignedAccessConfiguration>";
+
+                            string setupKiosk = $@"$User = ""winbox_kiosk""
 $Aumid = ""{winBoxConfig.app_uwp}""
+$xml = Get-Content ""C:\WinboxResources\setup_kiosk.xml"" -Raw
 
-Set-AssignedAccess -UserName $User -AppUserModelId $Aumid";
+Set-AssignedAccess -UserName $User -AppUserModelId $Aumid
+Set-AssignedAccess -Configuration $xml";
 
+                            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "setup_kiosk.xml"), setupKioskXml);
+                            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "setup_kiosk.ps1"), setupKiosk);
 
                             command = @"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\setup_kiosk.ps1""
+reg add ""HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"" /v DefaultUserName /t REG_SZ /d ""winbox_kiosk"" /f
 logoff";
                         }
                         break;
