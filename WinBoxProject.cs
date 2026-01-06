@@ -2082,8 +2082,15 @@ echo SetupComplete - setup keyboard layouts >> C:\WinboxResources\setup.log
 
 {updateSystemSettingsAndFirstInit}";
 
-                string firstInit = $@"echo FirstInit - start >> C:\WinboxResources\setup.log
+                string firstInit = $@"echo FirstInit - start >> C:\WinboxResources\setup.log";
 
+                if (hideGettingReadyScreenWithOverlay)
+                {
+                    firstInit += "\r\n" + $@"echo FirstInit - kill getting ready hide overlay >> C:\WinboxResources\setup.log
+taskkill /IM wscript.exe /F";
+                }
+
+                firstInit += "\r\n" + $@"echo FirstInit - setup services >> C:\WinboxResources\setup.log
 {getServicesSetup()}
 
 echo FirstInit - end >> C:\WinboxResources\setup.log";
