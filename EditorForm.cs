@@ -554,6 +554,8 @@ namespace WinBox_Maker
             WebSite.Text = winBoxProject.winBoxConfig.WebSite ?? "";
             WebSessionTimeout.Text = winBoxProject.winBoxConfig.WebSessionTimeout.ToString();
 
+            app_uwp.Text = winBoxProject.winBoxConfig.app_uwp ?? "";
+
             onbuild_reg.Text = winBoxProject.winBoxConfig.onbuild_reg ?? "not selected";
             postinstall_bat.Text = winBoxProject.winBoxConfig.PostInstall_bat ?? "not selected";
             postinstall_reg.Text = winBoxProject.winBoxConfig.PostInstall_reg ?? "not selected";
@@ -814,6 +816,10 @@ namespace WinBox_Maker
 
                 case ProgramTypeEnum.None:
                     ProgramType_None.Checked = true;
+                    break;
+
+                case ProgramTypeEnum.UWPApplication:
+                    ProgramType_UWPApplication.Checked = true;
                     break;
             }
 
@@ -1104,6 +1110,19 @@ namespace WinBox_Maker
             if (ProgramType_None.Checked)
             {
                 winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.None;
+                winBoxProject.updateActionAtEndOfApplication();
+                winBoxProject.SaveConfig();
+                UpdateGui();
+            }
+        }
+
+        private void ProgramType_UWPApplication_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            if (ProgramType_UWPApplication.Checked)
+            {
+                winBoxProject.winBoxConfig.ProgramType = ProgramTypeEnum.UWPApplication;
                 winBoxProject.updateActionAtEndOfApplication();
                 winBoxProject.SaveConfig();
                 UpdateGui();
@@ -3000,6 +3019,14 @@ namespace WinBox_Maker
             if (guiEventsLock) return;
 
             winBoxProject.winBoxConfig.recoveryMountedEarlyEvent = recoveryMountedEarlyEvent.Text;
+            winBoxProject.SaveConfig();
+        }
+
+        private void app_uwp_TextChanged(object sender, EventArgs e)
+        {
+            if (guiEventsLock) return;
+
+            winBoxProject.winBoxConfig.app_uwp = app_uwp.Text;
             winBoxProject.SaveConfig();
         }
 

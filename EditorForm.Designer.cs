@@ -54,6 +54,9 @@
             label7 = new Label();
             OemKey = new TextBox();
             panel2 = new Panel();
+            label100 = new Label();
+            app_uwp = new TextBox();
+            ProgramType_UWPApplication = new RadioButton();
             ProgramType_None = new RadioButton();
             ProgramName = new TextBox();
             OpenLocalHtml = new Button();
@@ -338,6 +341,7 @@
             tabPage73 = new TabPage();
             debloatware_excludeAll = new CheckBox();
             debloatware_exclude = new RichTextBox();
+            tabPage75 = new TabPage();
             tabPage59 = new TabPage();
             tabControl15 = new TabControl();
             tabPage68 = new TabPage();
@@ -573,7 +577,6 @@
             openProgramData = new Button();
             ExportImgUefi = new Button();
             ExportInstallEsd = new Button();
-            tabPage75 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
@@ -954,8 +957,13 @@
             // 
             // panel2
             // 
+            panel2.AutoScroll = true;
+            panel2.AutoScrollMargin = new Size(0, 7);
             panel2.BackColor = SystemColors.Window;
             panel2.BorderStyle = BorderStyle.Fixed3D;
+            panel2.Controls.Add(label100);
+            panel2.Controls.Add(app_uwp);
+            panel2.Controls.Add(ProgramType_UWPApplication);
             panel2.Controls.Add(ProgramType_None);
             panel2.Controls.Add(ProgramName);
             panel2.Controls.Add(OpenLocalHtml);
@@ -974,8 +982,37 @@
             panel2.Controls.Add(AppSelect);
             panel2.Location = new Point(6, 44);
             panel2.Name = "panel2";
-            panel2.Size = new Size(439, 297);
+            panel2.Size = new Size(464, 297);
             panel2.TabIndex = 27;
+            // 
+            // label100
+            // 
+            label100.AutoSize = true;
+            label100.Location = new Point(366, 330);
+            label100.Name = "label100";
+            label100.Size = new Size(65, 25);
+            label100.TabIndex = 19;
+            label100.Text = "Aumid";
+            // 
+            // app_uwp
+            // 
+            app_uwp.Location = new Point(3, 327);
+            app_uwp.Name = "app_uwp";
+            app_uwp.Size = new Size(357, 31);
+            app_uwp.TabIndex = 18;
+            app_uwp.TextChanged += app_uwp_TextChanged;
+            // 
+            // ProgramType_UWPApplication
+            // 
+            ProgramType_UWPApplication.AutoSize = true;
+            ProgramType_UWPApplication.Location = new Point(5, 292);
+            ProgramType_UWPApplication.Name = "ProgramType_UWPApplication";
+            ProgramType_UWPApplication.Size = new Size(171, 29);
+            ProgramType_UWPApplication.TabIndex = 17;
+            ProgramType_UWPApplication.TabStop = true;
+            ProgramType_UWPApplication.Text = "UWP Application";
+            ProgramType_UWPApplication.UseVisualStyleBackColor = true;
+            ProgramType_UWPApplication.CheckedChanged += ProgramType_UWPApplication_CheckedChanged;
             // 
             // ProgramType_None
             // 
@@ -1638,10 +1675,10 @@
             tabControl3.Controls.Add(tabPage19);
             tabControl3.Controls.Add(tabPage20);
             tabControl3.Controls.Add(tabPage18);
-            tabControl3.Location = new Point(451, 6);
+            tabControl3.Location = new Point(476, 6);
             tabControl3.Name = "tabControl3";
             tabControl3.SelectedIndex = 0;
-            tabControl3.Size = new Size(561, 335);
+            tabControl3.Size = new Size(536, 335);
             tabControl3.TabIndex = 33;
             // 
             // tabPage19
@@ -1653,7 +1690,7 @@
             tabPage19.Location = new Point(4, 34);
             tabPage19.Name = "tabPage19";
             tabPage19.Padding = new Padding(3);
-            tabPage19.Size = new Size(553, 297);
+            tabPage19.Size = new Size(528, 297);
             tabPage19.TabIndex = 1;
             tabPage19.Text = "on crash";
             tabPage19.UseVisualStyleBackColor = true;
@@ -1666,7 +1703,7 @@
             panel9.Controls.Add(appcrash_time);
             panel9.Location = new Point(6, 204);
             panel9.Name = "panel9";
-            panel9.Size = new Size(385, 75);
+            panel9.Size = new Size(516, 75);
             panel9.TabIndex = 50;
             // 
             // label84
@@ -1728,14 +1765,14 @@
             panel18.Controls.Add(ActionAtEndOfApplication_none);
             panel18.Location = new Point(6, 49);
             panel18.Name = "panel18";
-            panel18.Size = new Size(541, 111);
+            panel18.Size = new Size(516, 111);
             panel18.TabIndex = 31;
             // 
             // actionAtEndOfApplication_command
             // 
             actionAtEndOfApplication_command.Location = new Point(196, 73);
             actionAtEndOfApplication_command.Name = "actionAtEndOfApplication_command";
-            actionAtEndOfApplication_command.Size = new Size(338, 31);
+            actionAtEndOfApplication_command.Size = new Size(313, 31);
             actionAtEndOfApplication_command.TabIndex = 5;
             actionAtEndOfApplication_command.TextChanged += actionAtEndOfApplication_command_TextChanged;
             // 
@@ -1807,7 +1844,7 @@
             tabPage20.Controls.Add(label60);
             tabPage20.Location = new Point(4, 34);
             tabPage20.Name = "tabPage20";
-            tabPage20.Size = new Size(553, 297);
+            tabPage20.Size = new Size(528, 297);
             tabPage20.TabIndex = 2;
             tabPage20.Text = "delay";
             tabPage20.UseVisualStyleBackColor = true;
@@ -1833,7 +1870,7 @@
             panel20.Controls.Add(appdelay_internet);
             panel20.Location = new Point(6, 132);
             panel20.Name = "panel20";
-            panel20.Size = new Size(385, 116);
+            panel20.Size = new Size(516, 116);
             panel20.TabIndex = 47;
             // 
             // label64
@@ -1889,7 +1926,7 @@
             panel19.Controls.Add(appdelay_time);
             panel19.Location = new Point(6, 51);
             panel19.Name = "panel19";
-            panel19.Size = new Size(385, 75);
+            panel19.Size = new Size(516, 75);
             panel19.TabIndex = 46;
             // 
             // label61
@@ -1939,7 +1976,7 @@
             tabPage18.Location = new Point(4, 34);
             tabPage18.Name = "tabPage18";
             tabPage18.Padding = new Padding(3);
-            tabPage18.Size = new Size(553, 297);
+            tabPage18.Size = new Size(528, 297);
             tabPage18.TabIndex = 0;
             tabPage18.Text = "launch";
             tabPage18.UseVisualStyleBackColor = true;
@@ -1960,7 +1997,7 @@
             richTextBox10.BackColor = SystemColors.Info;
             richTextBox10.Location = new Point(6, 167);
             richTextBox10.Name = "richTextBox10";
-            richTextBox10.Size = new Size(541, 124);
+            richTextBox10.Size = new Size(516, 124);
             richTextBox10.TabIndex = 31;
             richTextBox10.Text = resources.GetString("richTextBox10.Text");
             // 
@@ -1981,7 +2018,7 @@
             panel12.Controls.Add(insteadDesktop);
             panel12.Location = new Point(6, 49);
             panel12.Name = "panel12";
-            panel12.Size = new Size(541, 77);
+            panel12.Size = new Size(516, 77);
             panel12.TabIndex = 29;
             // 
             // afterDesktop
@@ -3986,6 +4023,15 @@
             debloatware_exclude.TabIndex = 0;
             debloatware_exclude.Text = "";
             debloatware_exclude.TextChanged += debloatware_exclude_TextChanged;
+            // 
+            // tabPage75
+            // 
+            tabPage75.Location = new Point(4, 34);
+            tabPage75.Name = "tabPage75";
+            tabPage75.Size = new Size(984, 252);
+            tabPage75.TabIndex = 4;
+            tabPage75.Text = "script generation";
+            tabPage75.UseVisualStyleBackColor = true;
             // 
             // tabPage59
             // 
@@ -6464,15 +6510,6 @@
             ExportInstallEsd.UseVisualStyleBackColor = true;
             ExportInstallEsd.Click += ExportInstallEsd_Click;
             // 
-            // tabPage75
-            // 
-            tabPage75.Location = new Point(4, 34);
-            tabPage75.Name = "tabPage75";
-            tabPage75.Size = new Size(984, 252);
-            tabPage75.TabIndex = 4;
-            tabPage75.Text = "script generation";
-            tabPage75.UseVisualStyleBackColor = true;
-            // 
             // EditorForm
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
@@ -7263,5 +7300,8 @@
         private Label label99;
         private RichTextBox debloatware_defaultView;
         private TabPage tabPage75;
+        private RadioButton ProgramType_UWPApplication;
+        private Label label100;
+        private TextBox app_uwp;
     }
 }
