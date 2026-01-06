@@ -2064,13 +2064,21 @@ echo SetupComplete - setup keyboard layouts >> C:\WinboxResources\setup.log
 
 echo FirstInit - end >> C:\WinboxResources\setup.log";
 
-                void regAppScriptFirstInitCmd(string name, string cmd, bool writeFirst = false)
+                void appScriptLog(string log)
                 {
+                    applicationScript += "\r\n" + $@"echo AppScript first init - {log} >> C:\WinboxResources\setup.log" + "\r\n";
+                }
+
+                void regAppScriptFirstInitCmd(string name, string cmd, bool writeFirst = false, string? log = null)
+                {
+                    string realLog = log ?? $"action {name}";
                     string writeFileCmd = $"\r\necho. > \"C:\\WinboxResources\\{name}.installed\"";
                     applicationScript += $"\r\nIF NOT EXIST \"C:\\WinboxResources\\{name}.installed\" (";
+                    appScriptLog(realLog + " start");
                     if (writeFirst) applicationScript += writeFileCmd;
                     applicationScript += $"\r\n{cmd}";
                     if (!writeFirst) applicationScript += writeFileCmd;
+                    appScriptLog(realLog + " end");
                     applicationScript += $"\r\n)\r\n";
                 }
 
@@ -2226,8 +2234,20 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
 
                 void regNetFramework(string name)
                 {
-                    baseSetupLog($"install net framework {name}");
-                    baseSetup += $"\r\nstart /wait C:\\WinboxResources\\{name} /q";
+                    string log = $"install net framework {name}";
+                    string cmd = $"start /wait C:\\WinboxResources\\{name} /q";
+                    //baseSetupLog(log);
+                    //baseSetup += "\r\n" + cmd;
+                    regAppScriptFirstInitCmd(name, cmd, false, log);
+                }
+
+                void regNet(string name)
+                {
+                    string log = $"install net {name}";
+                    string cmd = $"start /wait C:\\WinboxResources\\{name} /quiet /norestart";
+                    //baseSetupLog(log);
+                    //baseSetup += "\r\n" + cmd;
+                    regAppScriptFirstInitCmd(name, cmd, false, log);
                 }
 
                 if (Program.isTweakEnabled(winBoxConfig, "Integrate net 4.8.1"))
@@ -2240,12 +2260,6 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
                 {
                     await CopyBlob("net472.exe");
                     regNetFramework("net472.exe");
-                }
-
-                void regNet(string name)
-                {
-                    baseSetupLog($"install net {name}");
-                    baseSetup += $"\r\nstart /wait C:\\WinboxResources\\{name} /quiet /norestart";
                 }
 
                 if (Program.isTweakEnabled(winBoxConfig, "Integrate net 8.0.17") || useWinboxService)
@@ -2334,9 +2348,12 @@ echo FirstInit - end >> C:\WinboxResources\setup.log";
                 if (Program.isTweakEnabled(winBoxConfig, "Integrate microsoft edge") || winBoxConfig.ProgramType == ProgramTypeEnum.WebSite)
                 {
                     await CopyBlob("MicrosoftEdge.msi");
-                    //baseSetupLog($"install Microsoft edge");
-                    //baseSetup += $"\r\nstart /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart";
-                    regAppScriptFirstInitCmd("firstInit_InstallIE", "start /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart");
+
+                    string log = $"install Microsoft edge";
+                    string cmd = "start /wait msiexec /i C:\\WinboxResources\\MicrosoftEdge.msi /quiet /norestart";
+                    //baseSetupLog(log);
+                    //baseSetup += "\r\n" + cmd;
+                    regAppScriptFirstInitCmd("firstInit_InstallIE", cmd, false, log);
                 }
 
                 if (Program.isTweakEnabled(winBoxConfig, "Hide Cursor"))
