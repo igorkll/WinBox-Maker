@@ -506,7 +506,7 @@ namespace WinBox_Maker
             if (firewall_disable == null) firewall_disable = true;
 
             if (app_runAsSystem == null) app_runAsSystem = false;
-            if (app_uwp == null) app_uwp = "Microsoft.WindowsCalculator";
+            if (app_uwp == null) app_uwp = "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App";
 
             if (dism_cleanup == null) dism_cleanup = true;
             if (debloatware_excludeAll == null) debloatware_excludeAll = false;

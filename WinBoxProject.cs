@@ -2867,7 +2867,7 @@ start """" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kios
                             string setupKiosk = $@"$User = ""winbox_kiosk""
 $Aumid = ""{winBoxConfig.app_uwp}""
 
-Set-AssignedAccess -UserName $User -AppName $Aumid";
+Set-AssignedAccess -UserName $User -AppUserModelId $Aumid";
 
                             await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "setup_kiosk.ps1"), setupKiosk);
 
