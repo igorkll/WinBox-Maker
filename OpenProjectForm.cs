@@ -135,5 +135,10 @@ namespace WinBox_Maker
             Form form = new ProgramSettings(UnlockForm);
             form.Show();
         }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

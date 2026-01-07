@@ -30,48 +30,76 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OpenProjectForm));
             tableLayoutPanel1 = new TableLayoutPanel();
+            EasyEmbedded = new Button();
+            pictureBox6 = new PictureBox();
             OpenProject = new Button();
             NewProject = new Button();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
-            panel1 = new Panel();
+            panel3 = new Panel();
+            pictureBox4 = new PictureBox();
+            pictureBox5 = new PictureBox();
+            pictureBox3 = new PictureBox();
+            panel4 = new Panel();
             LICENSE = new Button();
             README = new Button();
-            panel2 = new Panel();
-            pictureBox5 = new PictureBox();
-            pictureBox4 = new PictureBox();
-            pictureBox3 = new PictureBox();
             tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.9999924F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0000038F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutPanel1.Controls.Add(EasyEmbedded, 2, 1);
+            tableLayoutPanel1.Controls.Add(pictureBox6, 2, 0);
             tableLayoutPanel1.Controls.Add(OpenProject, 0, 1);
             tableLayoutPanel1.Controls.Add(NewProject, 1, 1);
             tableLayoutPanel1.Controls.Add(pictureBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(pictureBox2, 1, 0);
-            tableLayoutPanel1.Controls.Add(panel1, 2, 1);
-            tableLayoutPanel1.Controls.Add(panel2, 2, 0);
+            tableLayoutPanel1.Controls.Add(panel3, 3, 0);
+            tableLayoutPanel1.Controls.Add(panel4, 3, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 150F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new Size(800, 450);
             tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
+            // 
+            // EasyEmbedded
+            // 
+            EasyEmbedded.Dock = DockStyle.Fill;
+            EasyEmbedded.Location = new Point(462, 330);
+            EasyEmbedded.Margin = new Padding(30);
+            EasyEmbedded.Name = "EasyEmbedded";
+            EasyEmbedded.Size = new Size(156, 90);
+            EasyEmbedded.TabIndex = 10;
+            EasyEmbedded.Text = "Easy Embedded (simplified mode)";
+            EasyEmbedded.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(435, 3);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(210, 294);
+            pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox6.TabIndex = 9;
+            pictureBox6.TabStop = false;
             // 
             // OpenProject
             // 
@@ -79,7 +107,7 @@
             OpenProject.Location = new Point(30, 330);
             OpenProject.Margin = new Padding(30);
             OpenProject.Name = "OpenProject";
-            OpenProject.Size = new Size(265, 90);
+            OpenProject.Size = new Size(156, 90);
             OpenProject.TabIndex = 0;
             OpenProject.Text = "Open Project";
             OpenProject.UseVisualStyleBackColor = true;
@@ -88,10 +116,10 @@
             // NewProject
             // 
             NewProject.Dock = DockStyle.Fill;
-            NewProject.Location = new Point(355, 330);
+            NewProject.Location = new Point(246, 330);
             NewProject.Margin = new Padding(30);
             NewProject.Name = "NewProject";
-            NewProject.Size = new Size(265, 90);
+            NewProject.Size = new Size(156, 90);
             NewProject.TabIndex = 1;
             NewProject.Text = "New Project";
             NewProject.UseVisualStyleBackColor = true;
@@ -103,7 +131,7 @@
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(319, 294);
+            pictureBox1.Size = new Size(210, 294);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
@@ -112,29 +140,77 @@
             // 
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(328, 3);
+            pictureBox2.Location = new Point(219, 3);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(319, 294);
+            pictureBox2.Size = new Size(210, 294);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 4;
             pictureBox2.TabStop = false;
             // 
-            // panel1
+            // panel3
             // 
-            panel1.Controls.Add(LICENSE);
-            panel1.Controls.Add(README);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(653, 303);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(144, 144);
-            panel1.TabIndex = 5;
+            panel3.Controls.Add(pictureBox4);
+            panel3.Controls.Add(pictureBox5);
+            panel3.Controls.Add(pictureBox3);
+            panel3.Location = new Point(651, 3);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(146, 294);
+            panel3.TabIndex = 7;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox4.Cursor = Cursors.Hand;
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(57, 181);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(80, 80);
+            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox4.TabIndex = 1;
+            pictureBox4.TabStop = false;
+            pictureBox4.Click += pictureBox4_Click;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox5.Cursor = Cursors.Hand;
+            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
+            pictureBox5.Location = new Point(57, 9);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(80, 80);
+            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox5.TabIndex = 2;
+            pictureBox5.TabStop = false;
+            pictureBox5.Click += pictureBox5_Click;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox3.Cursor = Cursors.Hand;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(57, 95);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(80, 80);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 0;
+            pictureBox3.TabStop = false;
+            pictureBox3.Click += pictureBox3_Click;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(LICENSE);
+            panel4.Controls.Add(README);
+            panel4.Location = new Point(651, 303);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(146, 144);
+            panel4.TabIndex = 8;
             // 
             // LICENSE
             // 
             LICENSE.Anchor = AnchorStyles.Bottom;
             LICENSE.Location = new Point(14, 83);
             LICENSE.Name = "LICENSE";
-            LICENSE.Size = new Size(112, 34);
+            LICENSE.Size = new Size(123, 34);
             LICENSE.TabIndex = 1;
             LICENSE.Text = "LICENSE";
             LICENSE.UseVisualStyleBackColor = true;
@@ -145,61 +221,11 @@
             README.Anchor = AnchorStyles.Top;
             README.Location = new Point(14, 27);
             README.Name = "README";
-            README.Size = new Size(112, 34);
+            README.Size = new Size(123, 34);
             README.TabIndex = 0;
             README.Text = "README";
             README.UseVisualStyleBackColor = true;
             README.Click += README_Click;
-            // 
-            // panel2
-            // 
-            panel2.Controls.Add(pictureBox5);
-            panel2.Controls.Add(pictureBox4);
-            panel2.Controls.Add(pictureBox3);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(653, 3);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(144, 294);
-            panel2.TabIndex = 6;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBox5.Cursor = Cursors.Hand;
-            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(55, 9);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(80, 80);
-            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox5.TabIndex = 2;
-            pictureBox5.TabStop = false;
-            pictureBox5.Click += pictureBox5_Click;
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBox4.Cursor = Cursors.Hand;
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(55, 181);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(80, 80);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 1;
-            pictureBox4.TabStop = false;
-            pictureBox4.Click += pictureBox4_Click;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBox3.Cursor = Cursors.Hand;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(55, 95);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(80, 80);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 0;
-            pictureBox3.TabStop = false;
-            pictureBox3.Click += pictureBox3_Click;
             // 
             // OpenProjectForm
             // 
@@ -213,13 +239,14 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "OpenProject";
             tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            panel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            panel4.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -230,12 +257,14 @@
         private Button NewProject;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
-        private Panel panel1;
-        private Button LICENSE;
-        private Button README;
-        private Panel panel2;
         private PictureBox pictureBox3;
         private PictureBox pictureBox4;
         private PictureBox pictureBox5;
+        private PictureBox pictureBox6;
+        private Button LICENSE;
+        private Button README;
+        private Panel panel3;
+        private Panel panel4;
+        private Button EasyEmbedded;
     }
 }
