@@ -511,10 +511,13 @@ namespace WinBox_Maker
 
             bool canExport = winBoxProject.canExport();
             ExportIsoInstaller.Enabled = canExport;
-            ExportInstallWim.Enabled = canExport;
-            ExportImg.Enabled = canExport;
-            ExportImgUefi.Enabled = canExport;
-            ExportInstallEsd.Enabled = canExport;
+            if (!this.easyEmbedded)
+            {
+                ExportInstallWim.Enabled = canExport;
+                ExportImg.Enabled = canExport;
+                ExportImgUefi.Enabled = canExport;
+                ExportInstallEsd.Enabled = canExport;
+            }
             guiEventsLock = false;
         }
 
@@ -545,6 +548,7 @@ namespace WinBox_Maker
 
         void UpdateGuiAfterWindowsLoaded()
         {
+            if (this.easyEmbedded) return;
             guiEventsLock = true;
 
             TimeZoneKeyName.Items.Clear();
@@ -564,9 +568,8 @@ namespace WinBox_Maker
         {
             guiEventsLock = true;
 
-
-
-
+            CustomBootLogo.Text = winBoxProject.winBoxConfig.CustomBootLogo ?? "not selected";
+            ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
 
             if (this.easyEmbedded)
             {
@@ -587,7 +590,6 @@ namespace WinBox_Maker
             pythonVersion.Text = winBoxProject.winBoxConfig.pythonVersion ?? "none";
 
             WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
-            ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
 
             OemKey.Text = winBoxProject.winBoxConfig.OemKey ?? "";
 
@@ -605,7 +607,6 @@ namespace WinBox_Maker
             postinstall_reg.Text = winBoxProject.winBoxConfig.PostInstall_reg ?? "not selected";
             postinstall_user_bat.Text = winBoxProject.winBoxConfig.PostInstall_user_bat ?? "not selected";
             postinstall_user_reg.Text = winBoxProject.winBoxConfig.PostInstall_user_reg ?? "not selected";
-            CustomBootLogo.Text = winBoxProject.winBoxConfig.CustomBootLogo ?? "not selected";
 
             AddVirtualDisplay.Checked = winBoxProject.winBoxConfig.AddVirtualDisplay == true;
             UseEmbeddedDisplay.Checked = winBoxProject.winBoxConfig.UseEmbeddedDisplay == true;
