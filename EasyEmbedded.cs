@@ -12,7 +12,7 @@ namespace WinBox_Maker
 {
     public partial class EasyEmbedded : EditorForm
     {
-        public EasyEmbedded(WinBoxProject winBoxProject) : base(winBoxProject)
+        public EasyEmbedded(WinBoxProject winBoxProject) : base(winBoxProject, false)
         {
             InitializeComponent();
 
