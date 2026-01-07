@@ -808,6 +808,7 @@ namespace WinBox_Maker
             AppClear.Enabled = false;
             RawCommand.Enabled = false;
             WebSite.Enabled = false;
+            WebSessionTimeout.Enabled = false;
             app_uwp.Enabled = false;
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
@@ -827,6 +828,7 @@ namespace WinBox_Maker
                 case ProgramTypeEnum.WebSite:
                     ProgramType_WebSite.Checked = true;
                     WebSite.Enabled = true;
+                    WebSessionTimeout.Enabled = true;
                     break;
 
                 case ProgramTypeEnum.None:
