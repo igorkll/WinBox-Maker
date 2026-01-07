@@ -313,11 +313,11 @@ namespace WinBox_Maker
             winBoxConfig.Save(wnbFilePath);
         }
 
-        public async Task<string?> SelectResourceAsync(Action<string> processName, Action<int> processValue, string filter, string defaultDirectory, bool onlyDefaultDirectory)
+        public async Task<string?> SelectResourceAsync(Action<string> processName, Action<int> processValue, string filter, string? defaultDirectory = null, bool onlyDefaultDirectory = false)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = defaultDirectory;
+                if (defaultDirectory != null) openFileDialog.InitialDirectory = defaultDirectory;
                 openFileDialog.Filter = filter;
                 openFileDialog.Title = "Select Resource";
 
@@ -325,6 +325,11 @@ namespace WinBox_Maker
                 {
                     string filePath = openFileDialog.FileName;
                     string fileName = Path.GetFileName(filePath);
+
+                    if (defaultDirectory == null)
+                    {
+                        return filePath;
+                    }
 
                     DialogResult result;
                     if (onlyDefaultDirectory)

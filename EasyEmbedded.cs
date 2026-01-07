@@ -155,7 +155,7 @@ namespace WinBox_Maker
         private async void CustomBootLogo_select_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.imageFilter, winBoxProject.resourcesDirectoryPath, true);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.imageFilter);
             if (name != null)
             {
                 winBoxProject.winBoxConfig.CustomBootLogo = name;
@@ -217,7 +217,7 @@ namespace WinBox_Maker
         private async void WindowsSelect_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Windows image (*.iso)|*.iso", winBoxProject.imagesDirectoryPath, false);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Windows image (*.iso)|*.iso");
             UnlockForm();
 
             if (name != null)
@@ -261,7 +261,7 @@ namespace WinBox_Maker
         private async void ee_file_select_Click(object sender, EventArgs e)
         {
             LockForm();
-            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.executableFilter, Path.Combine(winBoxProject.resourcesDirectoryPath, "program"), false);
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.executableFilter);
             if (name != null)
             {
                 selectedExeFile = name;
