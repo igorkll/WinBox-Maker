@@ -2863,7 +2863,6 @@ start """" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kios
 
                     case ProgramTypeEnum.UWPApplication:
                         {
-                            //WTFFFFFF
                             string setupKiosk = $@"$User = ""winbox_kiosk""
 $Aumid = ""{winBoxConfig.app_uwp}""
 
