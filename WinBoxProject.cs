@@ -3683,6 +3683,13 @@ reg add ""HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup"" /v AllowUpgradesWithUnsuppor
 
                     case ProgramTypeEnum.None:
                         break;
+
+                    case ProgramTypeEnum.UWPApplication:
+                        if (winBoxConfig.app_uwp == null || winBoxConfig.app_uwp.Length == 0)
+                        {
+                            canExport = false;
+                        }
+                        break;
                 }
             }
 
