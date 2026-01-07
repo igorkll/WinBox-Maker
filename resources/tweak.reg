@@ -642,6 +642,10 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\AMD\CN]
 "InGameOverlayEnable"=dword:00000000
 
+; ---------------- making all new networks public by default
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkConnections]
+"NC_UnknownNetworksPolicy"=dword:00000002
+
 ; ------------------------------------------------ default user
 
 [HKEY_USERS\DEFAULT_USER\Control Panel\Accessibility\StickyKeys]
