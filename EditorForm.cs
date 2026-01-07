@@ -25,7 +25,6 @@ namespace WinBox_Maker
         bool guiEventsLock = false;
         bool loadingWindowsTask = false;
         bool windowsImagePathChanged = false;
-        bool easyEmbedded = false;
 
         int currentBuildItemIndex = -1;
         BuildItem? currentBuildItem;
@@ -35,15 +34,9 @@ namespace WinBox_Maker
 
         TwoStrings? current_keyboard_layout;
 
-        //я НЕНАВИЖУ ебаную ООП модель
-        //я пойду на пролом и НЕ СОБИРАЮСЬ РАЗБИРАТСЯ В ЭТОМ ДЕРЬМЕ!
-        //я сейчас в режиме "злого embedded разраба"
-        //пержу как старый дед
-        public void realInit(WinBoxProject winBoxProject, bool easyEmbedded = false)
+        public EditorForm(WinBoxProject winBoxProject)
         {
-            this.easyEmbedded = easyEmbedded;
-
-            if (!easyEmbedded) InitializeComponent();
+            InitializeComponent();
 
             this.Text = $"{WinBox_Maker.Program.version} - {this.Text} ({winBoxProject.GetName()})";
             this.winBoxProject = winBoxProject;
@@ -57,54 +50,48 @@ namespace WinBox_Maker
 
             ClearPythonList();
 
-            if (!this.easyEmbedded)
-            {
-                OpenEmbeddedFolder.Visible = false;
-                mainTabControl.TabPages.Remove(tabPage7);
-                mainTabControl.TabPages.Remove(tabPage9);
-            }
+            OpenEmbeddedFolder.Visible = false;
+            mainTabControl.TabPages.Remove(tabPage7);
+            mainTabControl.TabPages.Remove(tabPage9);
 
             UpdateDownloadItemsList();
             UpdateBuildItemsList();
             UpdateKeyboardLayoutsList();
 
-            if (!this.easyEmbedded)
-            {
-                softwareCheck = true;
-                TweakList.Items.Clear();
-                AddTweakToList("Integrate microsoft edge");
-                AddTweakToList("Integrate vc redist");
-                AddTweakToList("Integrate vc redist (compatible architectures)");
-                AddTweakToList("Integrate nircmd");
-                AddTweakToList("Integrate PSTools");
-                AddTweakToList("Integrate net 9.0.6");
-                AddTweakToList("Integrate net 8.0.17");
-                AddTweakToList("Integrate net 4.8.1");
-                AddTweakToList("Integrate net 4.7.2");
-                AddTweakToList("Integrate app runtime 1.7.3");
-                AddTweakToList("Hide Cursor");
-                AddTweakToList("Hide Touchscreen Visualization");
-                AddTweakToList("Disable boot circle");
-                AddTweakToList("Disable boot logo");
-                AddTweakToList("Disable boot messages");
-                AddTweakToList("Disable all boot UI");
-                AddTweakToList("Disable security mitigations (performance boost)");
-                AddTweakToList("Hide bootmgr errors");
-                AddTweakToList("Enable CrashOnCtrlScroll (BSOD)");
-                AddTweakToList("Do not disable hotkeys by changing the layout");
-                AddTweakToList("Do not disable hotkeys by keyboard filter");
-                AddTweakToList("completely remove explorer.exe");
-                AddTweakToList("completely remove system audio/images");
-                AddTweakToList("removing Windows/System apps (breaks the default shell)");
-                AddTweakToList("removal of the subsystem SysWOW64");
-                AddTweakToList("Allow check-disk");
-                AddTweakToList("Disable system integrity checks");
-                AddTweakToList("Disable HyperV / VSM / ELAM");
-                AddTweakToList("Hide system errors");
-                softwareCheck = false;
+            softwareCheck = true;
+            TweakList.Items.Clear();
+            AddTweakToList("Integrate microsoft edge");
+            AddTweakToList("Integrate vc redist");
+            AddTweakToList("Integrate vc redist (compatible architectures)");
+            AddTweakToList("Integrate nircmd");
+            AddTweakToList("Integrate PSTools");
+            AddTweakToList("Integrate net 9.0.6");
+            AddTweakToList("Integrate net 8.0.17");
+            AddTweakToList("Integrate net 4.8.1");
+            AddTweakToList("Integrate net 4.7.2");
+            AddTweakToList("Integrate app runtime 1.7.3");
+            AddTweakToList("Hide Cursor");
+            AddTweakToList("Hide Touchscreen Visualization");
+            AddTweakToList("Disable boot circle");
+            AddTweakToList("Disable boot logo");
+            AddTweakToList("Disable boot messages");
+            AddTweakToList("Disable all boot UI");
+            AddTweakToList("Disable security mitigations (performance boost)");
+            AddTweakToList("Hide bootmgr errors");
+            AddTweakToList("Enable CrashOnCtrlScroll (BSOD)");
+            AddTweakToList("Do not disable hotkeys by changing the layout");
+            AddTweakToList("Do not disable hotkeys by keyboard filter");
+            AddTweakToList("completely remove explorer.exe");
+            AddTweakToList("completely remove system audio/images");
+            AddTweakToList("removing Windows/System apps (breaks the default shell)");
+            AddTweakToList("removal of the subsystem SysWOW64");
+            AddTweakToList("Allow check-disk");
+            AddTweakToList("Disable system integrity checks");
+            AddTweakToList("Disable HyperV / VSM / ELAM");
+            AddTweakToList("Hide system errors");
+            softwareCheck = false;
 
-                regtweak_default.Text = System.IO.File.ReadAllText(Program.mainTweakPath);
-            }
+            regtweak_default.Text = System.IO.File.ReadAllText(Program.mainTweakPath);
 
             resetKeyboardFilterBlockList();
 
@@ -123,15 +110,8 @@ namespace WinBox_Maker
             eventWarningDelay();
         }
 
-        public EditorForm(WinBoxProject winBoxProject, bool easyEmbedded = false)
-        {
-            if (easyEmbedded) return;
-            realInit(winBoxProject);
-        }
-
         void resetKeyboardFilterBlockList()
         {
-            if (this.easyEmbedded) return;
             softwareCheck = true;
             keyboard_filter_blockList.Items.Clear();
             AddBlockedHotkeyToList("Alt");
@@ -226,7 +206,6 @@ namespace WinBox_Maker
 
         void ClearPythonList()
         {
-            if (this.easyEmbedded) return;
             pythonVersion.Items.Clear();
             pythonVersion.Items.Add("none");
         }
@@ -490,34 +469,28 @@ namespace WinBox_Maker
             guiEventsLock = true;
             WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "";
 
-            if (!this.easyEmbedded)
-            {
-                WinboxName.Text = winBoxProject.winBoxConfig.WinboxName;
-                WinboxDescription.Text = winBoxProject.winBoxConfig.WinboxDescription;
+            WinboxName.Text = winBoxProject.winBoxConfig.WinboxName;
+            WinboxDescription.Text = winBoxProject.winBoxConfig.WinboxDescription;
 
-                WindowsDescription.Text = "";
-                if (windowsDescriptions != null && winBoxProject.winBoxConfig.BaseWindowsVersion != null)
+            WindowsDescription.Text = "";
+            if (windowsDescriptions != null && winBoxProject.winBoxConfig.BaseWindowsVersion != null)
+            {
+                foreach (WindowsDescription windowsDescription in windowsDescriptions)
                 {
-                    foreach (WindowsDescription windowsDescription in windowsDescriptions)
+                    if (windowsDescription.name == winBoxProject.winBoxConfig.BaseWindowsVersion)
                     {
-                        if (windowsDescription.name == winBoxProject.winBoxConfig.BaseWindowsVersion)
-                        {
-                            WindowsDescription.Text = windowsDescription.description;
-                            break;
-                        }
+                        WindowsDescription.Text = windowsDescription.description;
+                        break;
                     }
                 }
             }
 
             bool canExport = winBoxProject.canExport();
             ExportIsoInstaller.Enabled = canExport;
-            if (!this.easyEmbedded)
-            {
-                ExportInstallWim.Enabled = canExport;
-                ExportImg.Enabled = canExport;
-                ExportImgUefi.Enabled = canExport;
-                ExportInstallEsd.Enabled = canExport;
-            }
+            ExportInstallWim.Enabled = canExport;
+            ExportImg.Enabled = canExport;
+            ExportImgUefi.Enabled = canExport;
+            ExportInstallEsd.Enabled = canExport;
             guiEventsLock = false;
         }
 
@@ -548,7 +521,6 @@ namespace WinBox_Maker
 
         void UpdateGuiAfterWindowsLoaded()
         {
-            if (this.easyEmbedded) return;
             guiEventsLock = true;
 
             TimeZoneKeyName.Items.Clear();
@@ -570,13 +542,6 @@ namespace WinBox_Maker
 
             CustomBootLogo.Text = winBoxProject.winBoxConfig.CustomBootLogo ?? "not selected";
             ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
-
-            if (this.easyEmbedded)
-            {
-                guiEventsLock = false;
-                UpdateGuiWithoutWindowsVersion();
-                return;
-            }
 
             firewall_disable.Checked = winBoxProject.winBoxConfig.firewall_disable == true;
             scriptgeneration_applyBCD.Checked = winBoxProject.winBoxConfig.scriptgeneration_applyBCD == true;
@@ -3360,7 +3325,6 @@ namespace WinBox_Maker
             string nameFieldName)
             where T : class
         {
-            if (this.easyEmbedded) return;
             softwareCheck = true;
 
             T? lastItem = null;

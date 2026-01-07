@@ -282,6 +282,16 @@
 
         #endregion
 
+        private Button ExportIsoInstaller;
+        private Label ProcessName;
+        private ProgressBar ProcessValue;
+        private TextBox WindowsName;
+        private ComboBox ArchitectureSelect;
+        private Button WindowsSelect;
+        private ComboBox WindowsVersionSelect;
+        private Button CustomBootLogo_clear;
+        private Button CustomBootLogo_select;
+        private Label CustomBootLogo;
         private Label label15;
         private Panel panel1;
         private Label label1;
