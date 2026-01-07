@@ -14,6 +14,8 @@ namespace WinBox_Maker
 {
     public partial class EasyEmbedded : EditorForm
     {
+        bool loadingWindowsTask = false;
+
         public EasyEmbedded(WinBoxProject winBoxProject) : base(winBoxProject, true)
         {
             InitializeComponent();
@@ -36,11 +38,30 @@ namespace WinBox_Maker
             }
             else
             {
-                //UpdateWindowsVersionsList();
-                //UpdateGuiAfterWindowsLoaded();
+                UpdateWindowsVersionsList();
+                UpdateGui();
             }
 
             eventWarningDelay();
+        }
+
+        async void LoadWindowsTask(bool firstLoaded = false)
+        {
+            if (loadingWindowsTask) return;
+
+            loadingWindowsTask = true;
+            LockForm();
+            await winBoxProject.LoadWindowsImageAsync(UpdateProcessName, UpdateProcessValue);
+            UnlockForm();
+            UpdateWindowsVersionsList();
+            UpdateGui();
+            loadingWindowsTask = false;
+
+            winBoxProject.SaveConfig();
+        }
+
+        void UpdateGui()
+        {
         }
 
         void UnlockFormRecursion(Control parent)
@@ -80,6 +101,18 @@ namespace WinBox_Maker
         void LockForm()
         {
             LockFormRecursion(this);
+        }
+
+        private void UpdateProcessName(string text)
+        {
+            ProcessName.Text = text;
+        }
+
+        private void UpdateProcessValue(int Value)
+        {
+            ProcessValue.Value = Value;
+            taskbarManager.SetProgressState(Value == 0 ? TaskbarProgressBarState.NoProgress : TaskbarProgressBarState.Normal, this.Handle);
+            taskbarManager.SetProgressValue(Value, 100, this.Handle);
         }
 
         private void CustomBootLogo_select_Click(object sender, EventArgs e)

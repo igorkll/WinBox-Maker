@@ -17,7 +17,7 @@ namespace WinBox_Maker
 {
     public partial class EditorForm : Form
     {
-        const protected string defaultProcessName = "not busy";
+        protected string defaultProcessName = "not busy";
         public WinBoxProject winBoxProject;
         WindowsDescription[]? windowsDescriptions;
         bool softwareCheck = true;
@@ -916,7 +916,7 @@ namespace WinBox_Maker
             UpdateGuiWithoutWindowsVersion();
         }
 
-        void UpdateWindowsVersionsList()
+        protected void UpdateWindowsVersionsList()
         {
             if (winBoxProject.winBoxConfig.BaseWindowsImage == null)
             {
