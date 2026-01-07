@@ -14,7 +14,9 @@ namespace WinBox_Maker
 {
     public partial class EasyEmbedded : EditorForm
     {
+        bool guiEventsLock = false;
         bool loadingWindowsTask = false;
+        bool windowsImagePathChanged = false;
 
         public EasyEmbedded(WinBoxProject winBoxProject) : base(winBoxProject, true)
         {
@@ -62,6 +64,21 @@ namespace WinBox_Maker
 
         void UpdateGui()
         {
+            guiEventsLock = true;
+
+            guiEventsLock = false;
+            UpdateGuiWithoutWindowsVersion();
+        }
+
+        void UpdateGuiWithoutWindowsVersion()
+        {
+            guiEventsLock = true;
+            WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "";
+
+            bool canExport = winBoxProject.canExport();
+            ExportIsoInstaller.Enabled = canExport;
+
+            guiEventsLock = false;
         }
 
         void UnlockFormRecursion(Control parent)
@@ -115,19 +132,49 @@ namespace WinBox_Maker
             taskbarManager.SetProgressValue(Value, 100, this.Handle);
         }
 
-        private void CustomBootLogo_select_Click(object sender, EventArgs e)
+        private async void CustomBootLogo_select_Click(object sender, EventArgs e)
         {
-
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.imageFilter, winBoxProject.resourcesDirectoryPath, true);
+            if (name != null)
+            {
+                winBoxProject.winBoxConfig.CustomBootLogo = name;
+                //ImageConverter.ConvertToBmp_54_24(Path.Combine(winBoxProject.resourcesDirectoryPath, winBoxProject.winBoxConfig.CustomBootLogo), Path.Combine(winBoxProject.baseDirectoryPath, "winbox_temp", "debug.bmp"));
+                winBoxProject.SaveConfig();
+            }
+            UnlockForm();
         }
 
         private void CustomBootLogo_clear_Click(object sender, EventArgs e)
         {
-
+            winBoxProject.winBoxConfig.CustomBootLogo = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
-        private void ExportIsoInstaller_Click(object sender, EventArgs e)
+        private async void ExportIsoInstaller_Click(object sender, EventArgs e)
         {
+            LockForm();
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.InitialDirectory = winBoxProject.buildDirectoryPath;
+                saveFileDialog.Filter = "WinBox installer (*.iso)|*.iso";
+                saveFileDialog.Title = $"Save you WinBox installer ({winBoxProject.winBoxConfig.WinboxName})";
+                saveFileDialog.DefaultExt = "iso";
+                saveFileDialog.FileName = winBoxProject.winBoxConfig.WinboxName;
+                saveFileDialog.AddExtension = true;
 
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    WindowsDescription windowsDescription = new WindowsDescription
+                    {
+                        name = winBoxProject.winBoxConfig.WinboxName,
+                        description = winBoxProject.winBoxConfig.WinboxDescription
+                    };
+                    await winBoxProject.BuildIsoAsync(UpdateProcessName, UpdateProcessValue, saveFileDialog.FileName, windowsDescription);
+                }
+            }
+            UnlockForm();
         }
 
         private void WindowsVersionSelect_SelectedIndexChanged(object sender, EventArgs e)
@@ -141,20 +188,54 @@ namespace WinBox_Maker
 
         private void ArchitectureSelect_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
 
+            winBoxProject.winBoxConfig.Architecture = ArchitectureSelect.Text;
+            winBoxProject.SaveConfig();
         }
 
-        private void WindowsSelect_Click(object sender, EventArgs e)
+        private async void WindowsSelect_Click(object sender, EventArgs e)
         {
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Windows image (*.iso)|*.iso", winBoxProject.imagesDirectoryPath, false);
+            UnlockForm();
 
+            if (name != null)
+            {
+                winBoxProject.UnloadWindowsImage();
+                winBoxProject.winBoxConfig.BaseWindowsImage = name;
+                winBoxProject.SaveConfig();
+                UpdateGui();
+                LoadWindowsTask(true);
+            }
         }
 
         private void WindowsName_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
+            windowsImagePathChanged = true;
+            winBoxProject.UnloadWindowsImage();
+            WindowsVersionSelect.Items.Clear();
+            winBoxProject.winBoxConfig.BaseWindowsImage = WindowsName.Text;
+            winBoxProject.winBoxConfig.BaseWindowsVersion = null;
+            winBoxProject.SaveConfig();
+            UpdateGui();
         }
 
         private void WindowsVersionSelect_TextChanged(object sender, EventArgs e)
         {
+            if (guiEventsLock) return;
+
+            if (winBoxProject.winBoxConfig.BaseWindowsImage == null)
+            {
+                WindowsVersionSelect.Text = null;
+                return;
+            }
+
+            winBoxProject.winBoxConfig.BaseWindowsVersion = WindowsVersionSelect.Text;
+            winBoxProject.SaveConfig();
+            UpdateGuiWithoutWindowsVersion();
         }
 
         private void ee_file_select_Click(object sender, EventArgs e)
