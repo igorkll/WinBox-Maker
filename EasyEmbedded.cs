@@ -55,7 +55,7 @@ namespace WinBox_Maker
             LockForm();
             await winBoxProject.LoadWindowsImageAsync(UpdateProcessName, UpdateProcessValue);
             UnlockForm();
-            UpdateWindowsVersionsList();
+            UpdateWindowsVersionsList(WindowsVersionSelect);
             UpdateGui();
             loadingWindowsTask = false;
 
@@ -99,7 +99,16 @@ namespace WinBox_Maker
         {
             foreach (Control control in parent.Controls)
             {
-                control.Enabled = false;
+                if (
+                    !(control is ProgressBar) &&
+                    !(control is Label) &&
+                    !(control is PictureBox) &&
+                    !(control is TabControl) &&
+                    !(control is Panel) &&
+                    !(control is TabPage))
+                {
+                    control.Enabled = false;
+                }
 
                 if (control.HasChildren)
                 {

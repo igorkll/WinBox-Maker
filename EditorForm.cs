@@ -916,8 +916,9 @@ namespace WinBox_Maker
             UpdateGuiWithoutWindowsVersion();
         }
 
-        protected void UpdateWindowsVersionsList()
+        protected void UpdateWindowsVersionsList(ComboBox? _WindowsVersionSelect = null)
         {
+            if (_WindowsVersionSelect == null) _WindowsVersionSelect = WindowsVersionSelect;
             if (winBoxProject.winBoxConfig.BaseWindowsImage == null)
             {
                 winBoxProject.winBoxConfig.BaseWindowsVersion = null;
@@ -928,12 +929,12 @@ namespace WinBox_Maker
             try
             {
                 windowsDescriptions = winBoxProject.GetWindowsDescriptions();
-                WindowsVersionSelect.Items.Clear();
+                _WindowsVersionSelect.Items.Clear();
 
                 bool exists = false;
                 foreach (WindowsDescription item in windowsDescriptions)
                 {
-                    WindowsVersionSelect.Items.Add(item.name);
+                    _WindowsVersionSelect.Items.Add(item.name);
                     if (item.name == winBoxProject.winBoxConfig.BaseWindowsVersion)
                     {
                         exists = true;
@@ -942,7 +943,7 @@ namespace WinBox_Maker
 
                 if (!exists)
                 {
-                    if (WindowsVersionSelect.Items.Count > 0)
+                    if (_WindowsVersionSelect.Items.Count > 0)
                     {
                         bool findedTarget = false;
 
