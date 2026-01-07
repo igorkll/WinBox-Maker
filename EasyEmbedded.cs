@@ -22,7 +22,7 @@ namespace WinBox_Maker
         {
             InitializeComponent();
 
-            this.Text = $"{WinBox_Maker.Program.version} - {this.Text} (EaseEmbedded)";
+            this.Text = $"{WinBox_Maker.Program.version} - {this.Text}";
             this.winBoxProject = winBoxProject;
             Program.winBoxProject = winBoxProject;
             this.taskbarManager = TaskbarManager.Instance;
