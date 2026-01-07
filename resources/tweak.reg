@@ -431,6 +431,11 @@ Windows Registry Editor Version 5.00
 "AUOptions"=dword:00000002
 "NoAutoUpdate"=dword:00000001
 "NoAutoRebootWithLoggedOnUsers"=dword:00000001
+"DeferFeatureUpdates"=dword:00000001
+"DeferQualityUpdates"=dword:00000001
+"DeferFeatureUpdatesPeriodInDays"=dword:00000165
+"DeferQualityUpdatesPeriodInDays"=dword:0000001e
+"BranchReadinessLevel"=dword:00000014
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU]
 "DisableWindowsUpdateAccess"=dword:00000001
@@ -440,6 +445,11 @@ Windows Registry Editor Version 5.00
 "AUOptions"=dword:00000002
 "NoAutoUpdate"=dword:00000001
 "NoAutoRebootWithLoggedOnUsers"=dword:00000001
+"DeferFeatureUpdates"=dword:00000001
+"DeferQualityUpdates"=dword:00000001
+"DeferFeatureUpdatesPeriodInDays"=dword:00000165
+"DeferQualityUpdatesPeriodInDays"=dword:0000001e
+"BranchReadinessLevel"=dword:00000014
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update]
 "DisableWindowsUpdateAccess"=dword:00000001
@@ -449,6 +459,11 @@ Windows Registry Editor Version 5.00
 "AUOptions"=dword:00000002
 "NoAutoUpdate"=dword:00000001
 "NoAutoRebootWithLoggedOnUsers"=dword:00000001
+"DeferFeatureUpdates"=dword:00000001
+"DeferQualityUpdates"=dword:00000001
+"DeferFeatureUpdatesPeriodInDays"=dword:00000165
+"DeferQualityUpdatesPeriodInDays"=dword:0000001e
+"BranchReadinessLevel"=dword:00000014
 
 ; ---------------- disable UAC
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
