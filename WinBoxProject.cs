@@ -2999,7 +2999,7 @@ if errorlevel 1 (
                 await writeDebugFile("AppScript", applicationScript);
                 await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "app_script.bat"), applicationScript);
 
-                if (winBoxConfig.LaunchMode == ProgramLaunchModeEnum.afterDesktop)
+                if (winBoxConfig.LaunchMode == ProgramLaunchModeEnum.afterDesktop && winBoxConfig.ProgramType != ProgramTypeEnum.UWPApplication)
                 {
                     await WriteHiddenBatExecuter(
                         Path.Combine(
