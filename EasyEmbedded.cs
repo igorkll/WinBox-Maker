@@ -175,6 +175,11 @@ namespace WinBox_Maker
             UpdateGui();
         }
 
+        void prebuild()
+        {
+            winBoxProject.winBoxConfig.ProgramName = Path.GetFileName(selectedExeFile);
+        }
+
         private async void ExportIsoInstaller_Click(object sender, EventArgs e)
         {
             LockForm();
@@ -189,6 +194,8 @@ namespace WinBox_Maker
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    prebuild();
+
                     WindowsDescription windowsDescription = new WindowsDescription
                     {
                         name = winBoxProject.winBoxConfig.WinboxName,
