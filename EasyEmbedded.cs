@@ -70,12 +70,15 @@ namespace WinBox_Maker
         {
             guiEventsLock = true;
 
-            CustomBootLogo.Text = winBoxProject.winBoxConfig.CustomBootLogo ?? "not selected";
             ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
-
             ee_allfiles.Checked = allfiles;
             ee_onefile.Checked = !allfiles;
-            ee_file.Text = selectedExeFile ?? "not selected";
+
+            ee_file.Text = "not selected";
+            if (selectedExeFile != null) ee_file.Text = Path.GetFileName(selectedExeFile);
+
+            CustomBootLogo.Text = "not selected";
+            if (winBoxProject.winBoxConfig.CustomBootLogo != null) CustomBootLogo.Text = Path.GetFileName(winBoxProject.winBoxConfig.CustomBootLogo);
 
             guiEventsLock = false;
             UpdateGuiWithoutWindowsVersion();
@@ -86,7 +89,7 @@ namespace WinBox_Maker
             guiEventsLock = true;
             WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "";
 
-            bool canExport = selectedExeFile != null;
+            bool canExport = selectedExeFile != null && winBoxProject.winBoxConfig.BaseWindowsImage != null;
             ExportIsoInstaller.Enabled = canExport;
 
             guiEventsLock = false;
