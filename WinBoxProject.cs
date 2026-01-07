@@ -404,7 +404,7 @@ namespace WinBox_Maker
             }
         }
 
-        async Task<string?> getWindowsImagePath(Action<string>? processName = null, Action<int>? processValue=null)
+        public async Task<string?> getWindowsImagePath(Action<string>? processName = null, Action<int>? processValue=null)
         {
             if (winBoxConfig.BaseWindowsImage == null) return null;
 

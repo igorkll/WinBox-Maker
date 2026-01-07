@@ -988,5 +988,12 @@ namespace WinBox_Maker
 
             return JsonSerializer.Serialize(obj, options);
         }
+
+        static public string assumeArchitecture(string path) {
+            string fileName = Path.GetFileNameWithoutExtension(path).ToLower();
+            if (fileName.Contains("86") && !fileName.Contains("64")) return "x86";
+            if (fileName.Contains("arm")) return "arm64";
+            return "x64";
+        }
     }
 }

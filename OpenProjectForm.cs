@@ -140,5 +140,10 @@ namespace WinBox_Maker
         {
 
         }
+
+        private void EasyEmbedded_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

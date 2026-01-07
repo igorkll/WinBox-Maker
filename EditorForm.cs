@@ -504,11 +504,18 @@ namespace WinBox_Maker
             schtasks_stopOrDelete_view.Text = string.Join("\n", winBoxProject.getStopOrDeleteSchtasksList());
         }
 
-        void OnWindowsLoadedFirst()
+        async Task OnWindowsLoadedFirst()
         {
+            string? imagePath = await winBoxProject.getWindowsImagePath(UpdateProcessName, UpdateProcessValue);
+
             winBoxProject.winBoxConfig.forceIot = false;
             if (winBoxProject.winBoxConfig.BaseWindowsVersion != null)
                 winBoxProject.winBoxConfig.forceIot = !winBoxProject.winBoxConfig.BaseWindowsVersion.Contains("enterprise", StringComparison.OrdinalIgnoreCase);
+
+            if (imagePath != null)
+            {
+                winBoxProject.winBoxConfig.Architecture = Program.assumeArchitecture(imagePath);
+            }
         }
 
         void UpdateGuiAfterWindowsLoaded()

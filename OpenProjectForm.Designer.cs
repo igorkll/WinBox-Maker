@@ -89,6 +89,7 @@
             EasyEmbedded.TabIndex = 10;
             EasyEmbedded.Text = "Easy Embedded (simplified mode)";
             EasyEmbedded.UseVisualStyleBackColor = true;
+            EasyEmbedded.Click += EasyEmbedded_Click;
             // 
             // pictureBox6
             // 
