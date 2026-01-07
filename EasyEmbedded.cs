@@ -10,9 +10,11 @@ using System.Windows.Forms;
 
 namespace WinBox_Maker
 {
-    public partial class EasyEmbedded : EditorForm
+    //public partial class EasyEmbedded : EditorForm
+    public partial class EasyEmbedded : Form
     {
-        public EasyEmbedded(WinBoxProject winBoxProject) : base(winBoxProject, false)
+        //public EasyEmbedded(WinBoxProject winBoxProject) : base(winBoxProject, false)
+        public EasyEmbedded()
         {
             InitializeComponent();
 
