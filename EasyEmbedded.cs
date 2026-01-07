@@ -175,9 +175,26 @@ namespace WinBox_Maker
             UpdateGui();
         }
 
-        void prebuild()
+        async Task prebuild()
         {
-            winBoxProject.winBoxConfig.ProgramName = Path.GetFileName(selectedExeFile);
+            string programName = Path.GetFileName(selectedExeFile);
+            winBoxProject.winBoxConfig.ProgramName = programName;
+
+            string programNewPath = Path.Combine(winBoxProject.resourcesDirectoryPath, "program");
+
+            if (Directory.Exists(programNewPath))
+            {
+                Directory.Delete(programNewPath, true);
+            }
+
+            if (allfiles)
+            {
+                await Program.CopyFilesRecursivelyAsync(Path.GetDirectoryName(selectedExeFile), programNewPath);
+            }
+            else
+            {
+                File.Copy(selectedExeFile, Path.Combine(programNewPath, programName));
+            }
         }
 
         private async void ExportIsoInstaller_Click(object sender, EventArgs e)
@@ -194,7 +211,7 @@ namespace WinBox_Maker
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    prebuild();
+                    await prebuild();
 
                     WindowsDescription windowsDescription = new WindowsDescription
                     {
