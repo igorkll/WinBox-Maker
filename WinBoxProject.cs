@@ -1965,7 +1965,7 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
             // ------------------------------------ system init
 
-            bool hideGettingReadyScreenWithOverlay = true;
+            bool hideGettingReadyScreenWithOverlay = false;
             string showImageBaseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
 
             string applicationScript = $@"@echo off" + "\r\n";
