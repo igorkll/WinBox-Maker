@@ -46,6 +46,7 @@ namespace WinBox_Maker
         public static WinBoxConfig? winBoxConfig;
         public static WinBoxProject? winBoxProject;
         static bool consoleExporter = false;
+        static int minNeedSpace = 30;
 
         public static string? appdataPath;
         public static string? downloadCachePath;
@@ -110,6 +111,7 @@ namespace WinBox_Maker
         static void Main(string[] args)
         {
             ApplicationConfiguration.Initialize();
+            CheckFreeSpace();
             InitLibwim();
             InitOscdimg();
 
@@ -188,6 +190,27 @@ namespace WinBox_Maker
             ShowWindow(consoleWindow, SW_HIDE);
             openProjectForm = new OpenProjectForm();
             Application.Run(openProjectForm);
+        }
+
+        static void CheckFreeSpace()
+        {
+            var drive = new DriveInfo("C");
+
+            if (!drive.IsReady)
+                return;
+
+            long freeGb = drive.AvailableFreeSpace / (1024L * 1024 * 1024);
+
+            if (freeGb < minNeedSpace)
+            {
+                MessageBox.Show(
+                    $"Drive C: has only {freeGb} GB of free space left.\n" +
+                    "At least 30 GB is recommended for proper operation.",
+                    "Low disk space",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
         }
 
         public static string[] FormatCharMark(string[] input, char chr, bool enable)
