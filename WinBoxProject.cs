@@ -2858,37 +2858,11 @@ start """" /wait ""%msedgePath%"" --kiosk ""{winBoxConfig.WebSite}"" --edge-kios
 
                     case ProgramTypeEnum.UWPApplication:
                         {
-                            string setupKioskXml = $@"<?xml version=""1.0"" encoding=""utf-8""?>
-<AssignedAccessConfiguration
-  xmlns=""http://schemas.microsoft.com/AssignedAccess/2017/config"">
-
-  <Profiles>
-    <Profile Id=""{{11111111-1111-1111-1111-111111111111}}"">
-      <AllAppsList>
-        <AllowedApps>
-          <App AppUserModelId=""{winBoxConfig.app_uwp}""/>
-        </AllowedApps>
-      </AllAppsList>
-    </Profile>
-  </Profiles>
-
-  <Configs>
-    <Config>
-      <Account>winbox_kiosk</Account>
-      <DefaultProfile Id=""{{11111111-1111-1111-1111-111111111111}}""/>
-    </Config>
-  </Configs>
-
-</AssignedAccessConfiguration>";
-
                             string setupKiosk = $@"$User = ""winbox_kiosk""
 $Aumid = ""{winBoxConfig.app_uwp}""
-$xml = Get-Content ""C:\WinboxResources\setup_kiosk.xml"" -Raw
 
-Set-AssignedAccess -UserName $User -AppUserModelId $Aumid
-Set-AssignedAccess -Configuration $xml";
+Set-AssignedAccess -UserName $User -AppName $Aumid";
 
-                            await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "setup_kiosk.xml"), setupKioskXml);
                             await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "setup_kiosk.ps1"), setupKiosk);
 
                             command = @"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\setup_kiosk.ps1""
