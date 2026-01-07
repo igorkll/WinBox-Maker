@@ -801,18 +801,32 @@ namespace WinBox_Maker
                 img_generalizeAfterInstall.Enabled = false;
             }
 
+            // program type selected
+            ProgramName.Enabled = false;
+            ProgramArgs.Enabled = false;
+            AppSelect.Enabled = false;
+            AppClear.Enabled = false;
+            RawCommand.Enabled = false;
+            WebSite.Enabled = false;
+            app_uwp.Enabled = false;
             switch (winBoxProject.winBoxConfig.ProgramType)
             {
                 case ProgramTypeEnum.ExecutableFile:
                     ProgramType_ExecutableFile.Checked = true;
+                    ProgramName.Enabled = true;
+                    ProgramArgs.Enabled = true;
+                    AppSelect.Enabled = true;
+                    AppClear.Enabled = true;
                     break;
 
                 case ProgramTypeEnum.RawCommand:
                     ProgramType_RawCommand.Checked = true;
+                    RawCommand.Enabled = true;
                     break;
 
                 case ProgramTypeEnum.WebSite:
                     ProgramType_WebSite.Checked = true;
+                    WebSite.Enabled = true;
                     break;
 
                 case ProgramTypeEnum.None:
@@ -821,6 +835,7 @@ namespace WinBox_Maker
 
                 case ProgramTypeEnum.UWPApplication:
                     ProgramType_UWPApplication.Checked = true;
+                    app_uwp.Enabled = true;
                     break;
             }
 
