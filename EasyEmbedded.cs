@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -257,13 +258,20 @@ namespace WinBox_Maker
             UpdateGuiWithoutWindowsVersion();
         }
 
-        private void ee_file_select_Click(object sender, EventArgs e)
+        private async void ee_file_select_Click(object sender, EventArgs e)
         {
-            UpdateGui();
+            LockForm();
+            string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.executableFilter, Path.Combine(winBoxProject.resourcesDirectoryPath, "program"), false);
+            if (name != null)
+            {
+                selectedExeFile = name;
+            }
+            UnlockForm();
         }
 
         private void ee_file_clear_Click(object sender, EventArgs e)
         {
+            selectedExeFile = null;
             UpdateGui();
         }
 

@@ -54,6 +54,7 @@ namespace WinBox_Maker
         public static string? programTempPath;
         public static string? appconfigPath;
 
+        public static string executableFilter = "Executable files (*.exe;*.bat;*.cmd)|*.exe;*.bat;*.cmd|All files (*.*)|*.*";
         public static string imageFilter = "Image Files (*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff)|*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff";
         public static string batFilter = "Bat scripts (*.bat;*.cmd)|*.bat;*.cmd|All files (*.*)|*.*";
         public static string xmlFilter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*";
