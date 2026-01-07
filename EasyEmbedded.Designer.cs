@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EasyEmbedded));
             ExportIsoInstaller = new Button();
             ProcessName = new Label();
             ProcessValue = new ProgressBar();
@@ -40,12 +41,12 @@
             CustomBootLogo_select = new Button();
             CustomBootLogo = new Label();
             panel1 = new Panel();
+            ee_onefile = new RadioButton();
+            ee_allfiles = new RadioButton();
             label1 = new Label();
             ee_file_clear = new Button();
             ee_file_select = new Button();
             ee_file = new Label();
-            ee_allfiles = new RadioButton();
-            ee_onefile = new RadioButton();
             richTextBox1 = new RichTextBox();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -60,6 +61,7 @@
             ExportIsoInstaller.TabIndex = 21;
             ExportIsoInstaller.Text = "export .iso installer";
             ExportIsoInstaller.UseVisualStyleBackColor = true;
+            ExportIsoInstaller.Click += ExportIsoInstaller_Click;
             // 
             // ProcessName
             // 
@@ -88,6 +90,7 @@
             WindowsName.Name = "WindowsName";
             WindowsName.Size = new Size(318, 31);
             WindowsName.TabIndex = 45;
+            WindowsName.TextChanged += WindowsName_TextChanged;
             // 
             // ArchitectureSelect
             // 
@@ -98,6 +101,8 @@
             ArchitectureSelect.Name = "ArchitectureSelect";
             ArchitectureSelect.Size = new Size(438, 33);
             ArchitectureSelect.TabIndex = 44;
+            ArchitectureSelect.SelectedIndexChanged += ArchitectureSelect_SelectedIndexChanged;
+            ArchitectureSelect.TextChanged += ArchitectureSelect_TextChanged;
             // 
             // WindowsSelect
             // 
@@ -108,6 +113,7 @@
             WindowsSelect.TabIndex = 42;
             WindowsSelect.Text = "Select";
             WindowsSelect.UseVisualStyleBackColor = true;
+            WindowsSelect.Click += WindowsSelect_Click;
             // 
             // WindowsVersionSelect
             // 
@@ -118,6 +124,8 @@
             WindowsVersionSelect.Name = "WindowsVersionSelect";
             WindowsVersionSelect.Size = new Size(438, 33);
             WindowsVersionSelect.TabIndex = 43;
+            WindowsVersionSelect.SelectedIndexChanged += WindowsVersionSelect_SelectedIndexChanged;
+            WindowsVersionSelect.TextChanged += WindowsVersionSelect_TextChanged;
             // 
             // label15
             // 
@@ -136,6 +144,7 @@
             CustomBootLogo_clear.TabIndex = 48;
             CustomBootLogo_clear.Text = "clear";
             CustomBootLogo_clear.UseVisualStyleBackColor = true;
+            CustomBootLogo_clear.Click += CustomBootLogo_clear_Click;
             // 
             // CustomBootLogo_select
             // 
@@ -145,6 +154,7 @@
             CustomBootLogo_select.TabIndex = 47;
             CustomBootLogo_select.Text = "select";
             CustomBootLogo_select.UseVisualStyleBackColor = true;
+            CustomBootLogo_select.Click += CustomBootLogo_select_Click;
             // 
             // CustomBootLogo
             // 
@@ -174,6 +184,28 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(438, 129);
             panel1.TabIndex = 50;
+            // 
+            // ee_onefile
+            // 
+            ee_onefile.AutoSize = true;
+            ee_onefile.Location = new Point(101, 83);
+            ee_onefile.Name = "ee_onefile";
+            ee_onefile.Size = new Size(183, 29);
+            ee_onefile.TabIndex = 55;
+            ee_onefile.TabStop = true;
+            ee_onefile.Text = "one executable file";
+            ee_onefile.UseVisualStyleBackColor = true;
+            // 
+            // ee_allfiles
+            // 
+            ee_allfiles.AutoSize = true;
+            ee_allfiles.Location = new Point(3, 83);
+            ee_allfiles.Name = "ee_allfiles";
+            ee_allfiles.Size = new Size(90, 29);
+            ee_allfiles.TabIndex = 54;
+            ee_allfiles.TabStop = true;
+            ee_allfiles.Text = "all files";
+            ee_allfiles.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -211,28 +243,6 @@
             ee_file.TabIndex = 53;
             ee_file.Text = "exe file";
             // 
-            // ee_allfiles
-            // 
-            ee_allfiles.AutoSize = true;
-            ee_allfiles.Location = new Point(3, 83);
-            ee_allfiles.Name = "ee_allfiles";
-            ee_allfiles.Size = new Size(90, 29);
-            ee_allfiles.TabIndex = 54;
-            ee_allfiles.TabStop = true;
-            ee_allfiles.Text = "all files";
-            ee_allfiles.UseVisualStyleBackColor = true;
-            // 
-            // ee_onefile
-            // 
-            ee_onefile.AutoSize = true;
-            ee_onefile.Location = new Point(101, 83);
-            ee_onefile.Name = "ee_onefile";
-            ee_onefile.Size = new Size(183, 29);
-            ee_onefile.TabIndex = 55;
-            ee_onefile.TabStop = true;
-            ee_onefile.Text = "one executable file";
-            ee_onefile.UseVisualStyleBackColor = true;
-            // 
             // richTextBox1
             // 
             richTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -242,7 +252,7 @@
             richTextBox1.ReadOnly = true;
             richTextBox1.Size = new Size(438, 283);
             richTextBox1.TabIndex = 51;
-            richTextBox1.Text = "";
+            richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
             // EasyEmbedded
             // 

@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>this configurator creates a windows image that is blocked for one application.
+without hotkeys and any way out of it.
+please note that if your executable file is bat/cmd, it will be executed in hidden mode without a console window.
+use the "all files" option if you want all the files next to your exe to be included in the image, or the "one file" option if one exe file is enough.</value>
+  </data>
 </root>
