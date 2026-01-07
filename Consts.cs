@@ -252,7 +252,6 @@ namespace WinBox_Maker
             "MessagingService",
             "UdkUserSvc",
             "UserDataSvc",
-            "AppXSvc",
             "CscService",
             "CSC"
         };

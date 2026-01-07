@@ -1238,6 +1238,11 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
                     stopServices.Add("MpsSvc");
                 }
 
+                if (winBoxConfig.ProgramType != ProgramTypeEnum.UWPApplication)
+                {
+                    stopServices.Add("AppXSvc");
+                }
+
                 stopServices.AddRange(stopServicesList);
             }
 
@@ -1965,7 +1970,7 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
             // ------------------------------------ system init
 
-            bool hideGettingReadyScreenWithOverlay = false;
+            bool hideGettingReadyScreenWithOverlay = true;
             string showImageBaseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
 
             string applicationScript = $@"@echo off" + "\r\n";
