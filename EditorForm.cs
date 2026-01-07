@@ -34,8 +34,9 @@ namespace WinBox_Maker
 
         TwoStrings? current_keyboard_layout;
 
-        public EditorForm(WinBoxProject winBoxProject)
+        public EditorForm(WinBoxProject winBoxProject, bool skipConstructor = false)
         {
+            if (skipConstructor) return;
             InitializeComponent();
 
             this.Text = $"{WinBox_Maker.Program.version} - {this.Text} ({winBoxProject.GetName()})";

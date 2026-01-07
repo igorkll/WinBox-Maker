@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Taskbar;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,11 +11,13 @@ using System.Windows.Forms;
 
 namespace WinBox_Maker
 {
-    public partial class EasyEmbedded : Form
+    public partial class EasyEmbedded : EditorForm
     {
-        public EasyEmbedded(WinBoxProject winBoxProject)
+        public EasyEmbedded(WinBoxProject winBoxProject) : base(winBoxProject, true)
         {
             InitializeComponent();
+
+            this.taskbarManager = TaskbarManager.Instance;
         }
 
         private void CustomBootLogo_select_Click(object sender, EventArgs e)
