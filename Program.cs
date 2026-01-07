@@ -102,14 +102,7 @@ namespace WinBox_Maker
 
         static string getAppdataSubdirectory(string subdirectory)
         {
-            string dataPath = appdataPath;
-            string moveDataFilePath = Path.Combine(appdataPath, ".moveProgramData");
-            if (File.Exists(moveDataFilePath))
-            {
-                dataPath = File.ReadAllText(moveDataFilePath);
-            }
-
-            string path = Path.Combine(dataPath, subdirectory);
+            string path = Path.Combine(appdataPath, subdirectory);
             CreateDirectory(path);
             return path;
         }
@@ -128,6 +121,14 @@ namespace WinBox_Maker
             string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             appdataPath = Path.Combine(localAppDataPath, "Winbox-Maker");
             CreateDirectory(appdataPath);
+
+            string moveDataFilePath = Path.Combine(appdataPath, ".moveProgramData");
+            if (File.Exists(moveDataFilePath))
+            {
+                appdataPath = File.ReadAllText(moveDataFilePath);
+                CreateDirectory(appdataPath);
+            }
+
             appconfigPath = Path.Combine(appdataPath, "config.json");
             downloadCachePath = getAppdataSubdirectory("DownloadCache");
             downloadImagesPath = getAppdataSubdirectory("DownloadImages");
