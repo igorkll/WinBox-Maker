@@ -145,27 +145,27 @@ namespace WinBox_Maker
         private void EasyEmbedded_Click(object sender, EventArgs e)
         {
             string tempProjectDirectory = Path.Combine(Program.programTempPath, "EasyEmbeddedProject");
-            if (Directory.Exists(tempProjectDirectory))
+            string tempProjectJsonPath = Path.Combine(tempProjectDirectory, "winbox.wnb");
+            if (Directory.Exists(tempProjectJsonPath))
             {
-                new WinBoxProject(tempProjectDirectory);
+                new WinBoxProject(tempProjectJsonPath);
                 try
                 {
                     Directory.Delete(tempProjectDirectory, true);
                 }
                 catch (Exception ex) { }
-                Program.CreateDirectory(tempProjectDirectory);
             }
+            Program.CreateDirectory(tempProjectDirectory);
 
             var data = new Dictionary<string, object?>
             {
                 { "forceIot", true },
             };
-
-            string jsonPath = Path.Combine(tempProjectDirectory, "winbox.wnb");
+            
             string jsonString = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(jsonPath, jsonString);
+            File.WriteAllText(tempProjectJsonPath, jsonString);
 
-            WinBoxProject winBoxProject = new WinBoxProject(tempProjectDirectory);
+            WinBoxProject winBoxProject = new WinBoxProject(tempProjectJsonPath);
             string? err = winBoxProject.GetError();
             if (err != null)
             {
