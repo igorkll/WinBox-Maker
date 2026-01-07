@@ -188,6 +188,7 @@ namespace WinBox_Maker
                 Directory.Delete(programNewPath, true);
             }
 
+            Program.CreateDirectory(programNewPath);
             if (allfiles)
             {
                 await Program.CopyFilesRecursivelyAsync(Path.GetDirectoryName(selectedExeFile), programNewPath);
