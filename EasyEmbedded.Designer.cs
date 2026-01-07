@@ -186,7 +186,7 @@
             // ee_onefile
             // 
             ee_onefile.AutoSize = true;
-            ee_onefile.Location = new Point(101, 83);
+            ee_onefile.Location = new Point(105, 83);
             ee_onefile.Name = "ee_onefile";
             ee_onefile.Size = new Size(183, 29);
             ee_onefile.TabIndex = 55;
@@ -198,7 +198,7 @@
             // ee_allfiles
             // 
             ee_allfiles.AutoSize = true;
-            ee_allfiles.Location = new Point(3, 83);
+            ee_allfiles.Location = new Point(7, 83);
             ee_allfiles.Name = "ee_allfiles";
             ee_allfiles.Size = new Size(90, 29);
             ee_allfiles.TabIndex = 54;

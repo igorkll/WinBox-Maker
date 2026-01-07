@@ -17,8 +17,8 @@ namespace WinBox_Maker
 {
     public partial class EditorForm : Form
     {
-        const string defaultProcessName = "not busy";
-        WinBoxProject winBoxProject;
+        const protected string defaultProcessName = "not busy";
+        public WinBoxProject winBoxProject;
         WindowsDescription[]? windowsDescriptions;
         bool softwareCheck = true;
         public TaskbarManager taskbarManager;
@@ -199,7 +199,7 @@ namespace WinBox_Maker
             softwareCheck = false;
         }
 
-        void eventWarningDelay()
+        protected void eventWarningDelay()
         {
             if (!winBoxProject.winBoxConfig.isBuildEventsUsed()) return;
             MessageBox.Show(Program.buildEventsWarning, null, MessageBoxButtons.OK, MessageBoxIcon.Warning);
