@@ -506,7 +506,7 @@ namespace WinBox_Maker
             if (firewall_disable == null) firewall_disable = true;
 
             if (app_runAsSystem == null) app_runAsSystem = false;
-            if (app_uwp == null) app_uwp = "windows.immersivecontrolpanel_cw5n1h2txyewy!App";
+            if (app_uwp == null) app_uwp = "Microsoft.WindowsCalculator";
 
             if (dism_cleanup == null) dism_cleanup = true;
             if (debloatware_excludeAll == null) debloatware_excludeAll = false;
