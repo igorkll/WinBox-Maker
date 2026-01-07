@@ -597,6 +597,9 @@ namespace WinBox_Maker
             regtweak_overwrite.Text = winBoxProject.winBoxConfig.regtweak_overwrite ?? "";
             regtweak_overwrite.Enabled = winBoxProject.winBoxConfig.regtweak_overwrite_en == true;
 
+            debloatware_exclude.Text = winBoxProject.winBoxConfig.debloatware_exclude ?? "";
+            debloatware_excludeAll.Checked = winBoxProject.winBoxConfig.debloatware_excludeAll == true;
+
             cds_width.Text = winBoxProject.winBoxConfig.cds_width.ToString();
             cds_height.Text = winBoxProject.winBoxConfig.cds_height.ToString();
             cds_bitDepth.Text = winBoxProject.winBoxConfig.cds_bitDepth.ToString();
