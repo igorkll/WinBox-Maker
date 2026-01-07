@@ -428,7 +428,7 @@ Windows Registry Editor Version 5.00
 "DoNotConnectToWindowsUpdateInternetLocations"=dword:00000001
 "SetDisableUXWUAccess"=dword:00000001
 "AUState"=dword:00000000
-"AUOptions"=dword:00000001
+"AUOptions"=dword:00000002
 "NoAutoUpdate"=dword:00000001
 "NoAutoRebootWithLoggedOnUsers"=dword:00000001
 
@@ -437,7 +437,7 @@ Windows Registry Editor Version 5.00
 "DoNotConnectToWindowsUpdateInternetLocations"=dword:00000001
 "SetDisableUXWUAccess"=dword:00000001
 "AUState"=dword:00000000
-"AUOptions"=dword:00000001
+"AUOptions"=dword:00000002
 "NoAutoUpdate"=dword:00000001
 "NoAutoRebootWithLoggedOnUsers"=dword:00000001
 
@@ -446,7 +446,7 @@ Windows Registry Editor Version 5.00
 "DoNotConnectToWindowsUpdateInternetLocations"=dword:00000001
 "SetDisableUXWUAccess"=dword:00000001
 "AUState"=dword:00000000
-"AUOptions"=dword:00000001
+"AUOptions"=dword:00000002
 "NoAutoUpdate"=dword:00000001
 "NoAutoRebootWithLoggedOnUsers"=dword:00000001
 
