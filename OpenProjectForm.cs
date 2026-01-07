@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -143,7 +144,37 @@ namespace WinBox_Maker
 
         private void EasyEmbedded_Click(object sender, EventArgs e)
         {
+            string tempProjectDirectory = Path.Combine(Program.programTempPath, "EasyEmbeddedProject");
+            if (Directory.Exists(tempProjectDirectory))
+            {
+                new WinBoxProject(tempProjectDirectory);
+                try
+                {
+                    Directory.Delete(tempProjectDirectory, true);
+                }
+                catch (Exception ex) { }
+                Program.CreateDirectory(tempProjectDirectory);
+            }
 
+            var data = new Dictionary<string, object?>
+            {
+                { "forceIot", true },
+            };
+
+            string jsonPath = Path.Combine(tempProjectDirectory, "winbox.wnb");
+            string jsonString = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(jsonPath, jsonString);
+
+            WinBoxProject winBoxProject = new WinBoxProject(tempProjectDirectory);
+            string? err = winBoxProject.GetError();
+            if (err != null)
+            {
+                MessageBox.Show(err, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            editorForm = new EasyEmbedded(winBoxProject);
+            Program.SwitchForm(this, editorForm);
         }
     }
 }

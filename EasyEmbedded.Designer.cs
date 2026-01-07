@@ -28,10 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "EasyEmbedded";
+            SuspendLayout();
+            // 
+            // EasyEmbedded
+            // 
+            AutoScaleDimensions = new SizeF(144F, 144F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            ClientSize = new Size(460, 677);
+            Name = "EasyEmbedded";
+            Text = "EasyEmbedded";
+            ResumeLayout(false);
         }
 
         #endregion

@@ -50,6 +50,7 @@ namespace WinBox_Maker
         public static string? appdataPath;
         public static string? downloadCachePath;
         public static string? downloadImagesPath;
+        public static string? programTempPath;
         public static string? appconfigPath;
 
         public static string imageFilter = "Image Files (*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff)|*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff";
@@ -121,6 +122,7 @@ namespace WinBox_Maker
             appconfigPath = Path.Combine(appdataPath, "config.json");
             downloadCachePath = getAppdataSubdirectory("DownloadCache");
             downloadImagesPath = getAppdataSubdirectory("DownloadImages");
+            programTempPath = getAppdataSubdirectory("ProgramTemp");
 
             winboxSettings = WinboxMakerConfig.Load();
             if (winboxSettings != null) winboxSettings.initDefault();
