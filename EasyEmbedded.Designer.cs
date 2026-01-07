@@ -273,6 +273,7 @@
             Controls.Add(ExportIsoInstaller);
             MinimumSize = new Size(482, 733);
             Name = "EasyEmbedded";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "EasyEmbedded";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
