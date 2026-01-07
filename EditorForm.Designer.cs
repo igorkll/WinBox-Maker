@@ -1544,6 +1544,7 @@
             // panel3
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            panel3.AutoScroll = true;
             panel3.BorderStyle = BorderStyle.Fixed3D;
             panel3.Controls.Add(aaf_readme_recovery);
             panel3.Controls.Add(aaf_info_recovery);
