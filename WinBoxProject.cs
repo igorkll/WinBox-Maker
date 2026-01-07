@@ -2872,6 +2872,7 @@ Set-AssignedAccess -UserName $User -AppUserModelId $Aumid";
 
                             command = @"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\setup_kiosk.ps1""
 reg add ""HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"" /v DefaultUserName /t REG_SZ /d ""winbox_kiosk"" /f
+reg add ""HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"" /v AutoAdminLogon /t REG_SZ /d 1 /f
 logoff";
                         }
                         break;
