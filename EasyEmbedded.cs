@@ -70,6 +70,7 @@ namespace WinBox_Maker
         {
             guiEventsLock = true;
 
+            WindowsVersionSelect.Text = winBoxProject.winBoxConfig.BaseWindowsVersion ?? "";
             ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
             ee_allfiles.Checked = allfiles;
             ee_onefile.Checked = !allfiles;
