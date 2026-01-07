@@ -160,6 +160,8 @@ namespace WinBox_Maker
             var data = new Dictionary<string, object?>
             {
                 { "forceIot", true },
+                { "CustomBootLogo_UseOnBootres", true },
+                { "CustomBootLogo_UseLogoBeforeApp", true }
             };
             
             string jsonString = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
