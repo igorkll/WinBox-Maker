@@ -34,7 +34,11 @@ namespace WinBox_Maker
 
         TwoStrings? current_keyboard_layout;
 
-        public EditorForm(WinBoxProject winBoxProject, bool easyEmbedded = false)
+        //я НЕНАВИЖУ ебаную ООП модель
+        //я пойду на пролом и НЕ СОБИРАЮСЬ РАЗБИРАТСЯ В ЭТОМ ДЕРЬМЕ!
+        //я сейчас в режиме "злого embedded разраба"
+        //пержу как старый дед
+        public void realInit(WinBoxProject winBoxProject, bool easyEmbedded = false)
         {
             if (!easyEmbedded) InitializeComponent();
 
@@ -108,6 +112,12 @@ namespace WinBox_Maker
             }
 
             eventWarningDelay();
+        }
+
+        public EditorForm(WinBoxProject winBoxProject, bool easyEmbedded = false)
+        {
+            if (easyEmbedded) return;
+            realInit(winBoxProject);
         }
 
         void resetKeyboardFilterBlockList()
@@ -295,7 +305,7 @@ namespace WinBox_Maker
             winBoxProject.SaveConfig();
         }
 
-        private async void ExportIsoInstaller_Click(object sender, EventArgs e)
+        protected async void ExportIsoInstaller_Click(object sender, EventArgs e)
         {
             LockForm();
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
@@ -370,7 +380,7 @@ namespace WinBox_Maker
             UnlockForm();
         }
 
-        private async void WindowsSelect_Click(object sender, EventArgs e)
+        protected async void WindowsSelect_Click(object sender, EventArgs e)
         {
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, "Windows image (*.iso)|*.iso", winBoxProject.imagesDirectoryPath, false);
@@ -386,7 +396,7 @@ namespace WinBox_Maker
             }
         }
 
-        private void WindowsName_TextChanged(object sender, EventArgs e)
+        protected void WindowsName_TextChanged(object sender, EventArgs e)
         {
             if (guiEventsLock) return;
 
@@ -436,7 +446,7 @@ namespace WinBox_Maker
         }
         */
 
-        private void WindowsVersionSelect_TextChanged(object sender, EventArgs e)
+        protected void WindowsVersionSelect_TextChanged(object sender, EventArgs e)
         {
             if (guiEventsLock) return;
 
@@ -451,7 +461,7 @@ namespace WinBox_Maker
             UpdateGuiWithoutWindowsVersion();
         }
 
-        private void ArchitectureSelect_TextChanged(object sender, EventArgs e)
+        protected void ArchitectureSelect_TextChanged(object sender, EventArgs e)
         {
             if (guiEventsLock) return;
 
@@ -1411,7 +1421,7 @@ namespace WinBox_Maker
 
         }
 
-        private async void CustomBootLogo_select_Click(object sender, EventArgs e)
+        protected async void CustomBootLogo_select_Click(object sender, EventArgs e)
         {
             LockForm();
             string? name = await winBoxProject.SelectResourceAsync(UpdateProcessName, UpdateProcessValue, Program.imageFilter, winBoxProject.resourcesDirectoryPath, true);
@@ -1424,7 +1434,7 @@ namespace WinBox_Maker
             UnlockForm();
         }
 
-        private void CustomBootLogo_clear_Click(object sender, EventArgs e)
+        protected void CustomBootLogo_clear_Click(object sender, EventArgs e)
         {
             winBoxProject.winBoxConfig.CustomBootLogo = null;
             winBoxProject.SaveConfig();

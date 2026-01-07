@@ -173,10 +173,10 @@ namespace WinBox_Maker
                 return;
             }
 
-            new EasyEmbedded().Show();
+            //new EasyEmbedded().Show();
 
-            //editorForm = new EasyEmbedded(winBoxProject);
-            //Program.SwitchForm(this, editorForm);
+            editorForm = new EasyEmbedded(winBoxProject);
+            Program.SwitchForm(this, editorForm);
         }
     }
 }

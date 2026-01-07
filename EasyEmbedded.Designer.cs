@@ -101,7 +101,6 @@
             ArchitectureSelect.Name = "ArchitectureSelect";
             ArchitectureSelect.Size = new Size(438, 33);
             ArchitectureSelect.TabIndex = 44;
-            ArchitectureSelect.SelectedIndexChanged += ArchitectureSelect_SelectedIndexChanged;
             ArchitectureSelect.TextChanged += ArchitectureSelect_TextChanged;
             // 
             // WindowsSelect
@@ -124,7 +123,6 @@
             WindowsVersionSelect.Name = "WindowsVersionSelect";
             WindowsVersionSelect.Size = new Size(438, 33);
             WindowsVersionSelect.TabIndex = 43;
-            WindowsVersionSelect.SelectedIndexChanged += WindowsVersionSelect_SelectedIndexChanged;
             WindowsVersionSelect.TextChanged += WindowsVersionSelect_TextChanged;
             // 
             // label15
@@ -195,6 +193,7 @@
             ee_onefile.TabStop = true;
             ee_onefile.Text = "one executable file";
             ee_onefile.UseVisualStyleBackColor = true;
+            ee_onefile.CheckedChanged += ee_onefile_CheckedChanged;
             // 
             // ee_allfiles
             // 
@@ -206,6 +205,7 @@
             ee_allfiles.TabStop = true;
             ee_allfiles.Text = "all files";
             ee_allfiles.UseVisualStyleBackColor = true;
+            ee_allfiles.CheckedChanged += ee_allfiles_CheckedChanged;
             // 
             // label1
             // 
@@ -224,6 +224,7 @@
             ee_file_clear.TabIndex = 52;
             ee_file_clear.Text = "clear";
             ee_file_clear.UseVisualStyleBackColor = true;
+            ee_file_clear.Click += ee_file_clear_Click;
             // 
             // ee_file_select
             // 
@@ -233,6 +234,7 @@
             ee_file_select.TabIndex = 51;
             ee_file_select.Text = "select";
             ee_file_select.UseVisualStyleBackColor = true;
+            ee_file_select.Click += ee_file_select_Click;
             // 
             // ee_file
             // 
@@ -280,17 +282,7 @@
 
         #endregion
 
-        private Button ExportIsoInstaller;
-        private Label ProcessName;
-        private ProgressBar ProcessValue;
-        private TextBox WindowsName;
-        private ComboBox ArchitectureSelect;
-        private Button WindowsSelect;
-        private ComboBox WindowsVersionSelect;
         private Label label15;
-        private Button CustomBootLogo_clear;
-        private Button CustomBootLogo_select;
-        private Label CustomBootLogo;
         private Panel panel1;
         private Label label1;
         private Button ee_file_clear;

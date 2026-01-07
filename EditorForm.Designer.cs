@@ -6923,9 +6923,6 @@
         }
 
         #endregion
-        private Button WindowsSelect;
-        private ComboBox WindowsVersionSelect;
-        private Label ProcessName;
         private RichTextBox WinboxDescription;
         private Label label1;
         private Label label2;
@@ -6934,8 +6931,6 @@
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private Button ExportInstallWim;
-        private Button ExportIsoInstaller;
-        private ProgressBar ProcessValue;
         private Button back;
         private Button README;
         private Button LICENSE;
@@ -6971,13 +6966,9 @@
         private Label postinstall_bat;
         private Label label13;
         private TextBox ScreenTimeout;
-        private ComboBox ArchitectureSelect;
         private Label label14;
         private CheckedListBox TweakList;
         private Label label15;
-        private Button CustomBootLogo_select;
-        private Button CustomBootLogo_clear;
-        private Label CustomBootLogo;
         private TabControl mainTabControl;
         private TabPage tabPage1;
         private TabPage tabPage2;
@@ -7074,7 +7065,6 @@
         private Label label35;
         private TabPage bl_cargo;
         private TabPage bl_custom;
-        private TextBox WindowsName;
         private Label label36;
         private TabControl tabControl2;
         private TabPage tabPage12;
@@ -7475,5 +7465,15 @@
         private Label label100;
         private TextBox app_uwp;
         private CheckBox scriptgeneration_applyBCD;
+        protected Button WindowsSelect;
+        protected ComboBox WindowsVersionSelect;
+        protected Button ExportIsoInstaller;
+        protected ComboBox ArchitectureSelect;
+        protected TextBox WindowsName;
+        protected Button CustomBootLogo_select;
+        protected Button CustomBootLogo_clear;
+        protected Label CustomBootLogo;
+        protected Label ProcessName;
+        protected ProgressBar ProcessValue;
     }
 }
