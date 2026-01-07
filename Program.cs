@@ -46,7 +46,7 @@ namespace WinBox_Maker
         public static WinBoxConfig? winBoxConfig;
         public static WinBoxProject? winBoxProject;
         static bool consoleExporter = false;
-        static int minNeedSpace = 30;
+        static int minNeedSpace = 60;
 
         public static string? appdataPath;
         public static string? downloadCachePath;
@@ -104,6 +104,14 @@ namespace WinBox_Maker
         {
             string path = Path.Combine(appdataPath, subdirectory);
             CreateDirectory(path);
+
+            string moveDataFilePath = Path.Combine(path, ".moveProgramData");
+            if (File.Exists(moveDataFilePath))
+            {
+                path = File.ReadAllText(moveDataFilePath);
+                CreateDirectory(path);
+            }
+
             return path;
         }
 
@@ -205,7 +213,7 @@ namespace WinBox_Maker
             {
                 MessageBox.Show(
                     $"Drive C: has only {freeGb} GB of free space left.\n" +
-                    "At least 30 GB is recommended for proper operation.",
+                    $"At least {minNeedSpace} GB is recommended for proper operation.",
                     "Low disk space",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
