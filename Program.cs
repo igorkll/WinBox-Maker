@@ -102,16 +102,15 @@ namespace WinBox_Maker
 
         static string getAppdataSubdirectory(string subdirectory)
         {
-            string path = Path.Combine(appdataPath, subdirectory);
-            CreateDirectory(path);
-
-            string moveDataFilePath = Path.Combine(path, ".moveProgramData");
+            string dataPath = appdataPath;
+            string moveDataFilePath = Path.Combine(appdataPath, ".moveProgramData");
             if (File.Exists(moveDataFilePath))
             {
-                path = File.ReadAllText(moveDataFilePath);
-                CreateDirectory(path);
+                dataPath = File.ReadAllText(moveDataFilePath);
             }
 
+            string path = Path.Combine(dataPath, subdirectory);
+            CreateDirectory(path);
             return path;
         }
 
