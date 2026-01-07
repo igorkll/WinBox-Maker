@@ -18,6 +18,9 @@ namespace WinBox_Maker
         bool loadingWindowsTask = false;
         bool windowsImagePathChanged = false;
 
+        string? selectedExeFile = null;
+        bool allfiles = true;
+
         public EasyEmbedded(WinBoxProject winBoxProject) : base(winBoxProject, true)
         {
             InitializeComponent();
@@ -66,6 +69,13 @@ namespace WinBox_Maker
         {
             guiEventsLock = true;
 
+            CustomBootLogo.Text = winBoxProject.winBoxConfig.CustomBootLogo ?? "not selected";
+            ArchitectureSelect.Text = winBoxProject.winBoxConfig.Architecture ?? "";
+
+            ee_allfiles.Checked = allfiles;
+            ee_onefile.Checked = !allfiles;
+            ee_file.Text = selectedExeFile ?? "not selected";
+
             guiEventsLock = false;
             UpdateGuiWithoutWindowsVersion();
         }
@@ -75,7 +85,7 @@ namespace WinBox_Maker
             guiEventsLock = true;
             WindowsName.Text = winBoxProject.winBoxConfig.BaseWindowsImage ?? "";
 
-            bool canExport = winBoxProject.canExport();
+            bool canExport = selectedExeFile != null;
             ExportIsoInstaller.Enabled = canExport;
 
             guiEventsLock = false;
@@ -249,22 +259,22 @@ namespace WinBox_Maker
 
         private void ee_file_select_Click(object sender, EventArgs e)
         {
-
+            UpdateGui();
         }
 
         private void ee_file_clear_Click(object sender, EventArgs e)
         {
-
+            UpdateGui();
         }
 
         private void ee_allfiles_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (ee_allfiles.Checked) allfiles = true;
         }
 
         private void ee_onefile_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (ee_onefile.Checked) allfiles = false;
         }
     }
 }
