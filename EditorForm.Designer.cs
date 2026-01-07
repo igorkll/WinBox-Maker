@@ -2201,6 +2201,7 @@
             // 
             // CustomBootLogo_UseOnBootres
             // 
+            CustomBootLogo_UseOnBootres.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             CustomBootLogo_UseOnBootres.AutoSize = true;
             CustomBootLogo_UseOnBootres.Location = new Point(157, 110);
             CustomBootLogo_UseOnBootres.Name = "CustomBootLogo_UseOnBootres";
@@ -2212,6 +2213,7 @@
             // 
             // CustomBootLogo_UseLogoBeforeApp
             // 
+            CustomBootLogo_UseLogoBeforeApp.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             CustomBootLogo_UseLogoBeforeApp.AutoSize = true;
             CustomBootLogo_UseLogoBeforeApp.Location = new Point(172, 145);
             CustomBootLogo_UseLogoBeforeApp.Name = "CustomBootLogo_UseLogoBeforeApp";
@@ -3196,7 +3198,7 @@
             // 
             // keyboard_filter_enabled
             // 
-            keyboard_filter_enabled.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            keyboard_filter_enabled.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             keyboard_filter_enabled.AutoSize = true;
             keyboard_filter_enabled.Location = new Point(606, 214);
             keyboard_filter_enabled.Name = "keyboard_filter_enabled";
