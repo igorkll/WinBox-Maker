@@ -271,6 +271,7 @@
             Controls.Add(ProcessName);
             Controls.Add(ProcessValue);
             Controls.Add(ExportIsoInstaller);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(482, 733);
             Name = "EasyEmbedded";
             StartPosition = FormStartPosition.CenterScreen;
