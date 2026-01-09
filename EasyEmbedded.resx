@@ -121,7 +121,9 @@
     <value>this configurator creates a windows image that is blocked for one application.
 without hotkeys and any way out of it.
 please note that if your executable file is bat/cmd, it will be executed in hidden mode without a console window.
-use the "all files" option if you want all the files next to your exe to be included in the image, or the "one file" option if one exe file is enough. please note that the generated image is always an iot enterprise, regardless of the version of the original image, this must be taken into account when entering the product key.</value>
+use the "all files" option if you want all the files next to your exe to be included in the image, or the "one file" option if one exe file is enough.
+please note that the generated image is always an iot enterprise, regardless of the version of the original image, this must be taken into account when entering the product key.
+If you want to update the firmware in real time, your application should download firmware.wim/firmware.img/firmware.ffu to the root of the C drive and then execute the script "C:\WinboxResources\reboot_to_recovery .bat" and the system will update automatically. if you want to give the user the opportunity to upgrade from a USB flash drive, then simply execute this file without downloading the firmware file to disk.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
