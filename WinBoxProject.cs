@@ -3283,12 +3283,12 @@ if errorlevel 1 (
                 await removeSystemObject(path);
             }
 
-            /*
+            // TEST TEST
             foreach (string path in getSchtasksDeletePaths())
             {
                 await removeSystemObject("!" + path, "Windows\\System32\\Tasks");
             }
-            */
+            // TEST TEST
 
             await writeDebugFile("RemovePaths", RemovePaths_log);
             await writeDebugFile("RemoveDism", RemoveDism_log);
