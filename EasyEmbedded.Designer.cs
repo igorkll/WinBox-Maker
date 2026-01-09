@@ -91,6 +91,8 @@
             WindowsName.Size = new Size(318, 31);
             WindowsName.TabIndex = 45;
             WindowsName.TextChanged += WindowsName_TextChanged;
+            WindowsName.KeyDown += WindowsName_KeyDown;
+            WindowsName.Leave += WindowsName_Leave;
             // 
             // ArchitectureSelect
             // 

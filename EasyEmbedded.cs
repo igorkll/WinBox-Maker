@@ -272,6 +272,31 @@ namespace WinBox_Maker
             UpdateGui();
         }
 
+        void windowsReload()
+        {
+            if (guiEventsLock || loadingWindowsTask) return;
+
+            if (windowsImagePathChanged)
+            {
+                LoadWindowsTask(true);
+                windowsImagePathChanged = false;
+            }
+        }
+
+        private void WindowsName_Leave(object sender, EventArgs e)
+        {
+            windowsReload();
+        }
+
+        private void WindowsName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                windowsReload();
+                e.SuppressKeyPress = true; // предотвращает звуковой сигнал при нажатии Enter
+            }
+        }
+
         private void WindowsVersionSelect_TextChanged(object sender, EventArgs e)
         {
             if (guiEventsLock) return;
