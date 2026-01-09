@@ -146,26 +146,18 @@ namespace WinBox_Maker
         {
             string tempProjectDirectory = Path.Combine(Program.programTempPath, "EasyEmbeddedProject");
             string tempProjectJsonPath = Path.Combine(tempProjectDirectory, "winbox.wnb");
-            if (Directory.Exists(tempProjectJsonPath))
+            if (Directory.Exists(tempProjectDirectory))
             {
                 new WinBoxProject(tempProjectJsonPath);
                 try
                 {
                     Directory.Delete(tempProjectDirectory, true);
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) {}
             }
             Program.CreateDirectory(tempProjectDirectory);
 
-            var data = new Dictionary<string, object?>
-            {
-                { "forceIot", true },
-                { "CustomBootLogo_UseOnBootres", true },
-                { "CustomBootLogo_UseLogoBeforeApp", true }
-            };
-            
-            string jsonString = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(tempProjectJsonPath, jsonString);
+            File.Copy(Program.ResourcePath("resources\\EasyEmbedded\\winbox.wnb"), tempProjectJsonPath);
 
             WinBoxProject winBoxProject = new WinBoxProject(tempProjectJsonPath);
             string? err = winBoxProject.GetError();
