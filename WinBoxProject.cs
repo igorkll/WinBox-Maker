@@ -81,7 +81,6 @@ namespace WinBox_Maker
         public WinBoxProject(string wnbFilePath)
         {
             winBoxConfig = new WinBoxConfig();
-            Program.winBoxConfig = winBoxConfig;
             
             this.wnbFilePath = wnbFilePath;
             baseDirectoryPath = Path.GetDirectoryName(wnbFilePath) ?? "";
@@ -130,6 +129,8 @@ namespace WinBox_Maker
                 err = $"this project was saved in winbox maker {winBoxConfig.winboxMakerVersionStr} and you have {Program.version_str} installed. update winbox maker to open this project";
                 return;
             }
+
+            Program.winBoxConfig = winBoxConfig;
 
             Program.Execute("reg.exe", $"unload HKLM\\WINBOX_SOFTWARE");
             Program.Execute("reg.exe", $"unload HKLM\\WINBOX_WINPE_SOFTWARE");

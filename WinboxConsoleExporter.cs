@@ -19,6 +19,7 @@ namespace WinBox_Maker
         public WinboxConsoleExporter(WinBoxProject winBoxProject)
         {
             this.winBoxProject = winBoxProject;
+            Program.winBoxProject = winBoxProject;
             if (winBoxProject.NeedLoadWindows())
             {
                 winBoxProject.LoadWindowsImageAsync(UpdateProcessName, UpdateProcessValue).Wait();
