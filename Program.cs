@@ -197,10 +197,11 @@ namespace WinBox_Maker
                 return;
             }
 
-            CheckFreeSpace();
-
             IntPtr consoleWindow = GetConsoleWindow();
             ShowWindow(consoleWindow, SW_HIDE);
+
+            CheckFreeSpace();
+
             openProjectForm = new OpenProjectForm();
             Application.Run(openProjectForm);
         }
