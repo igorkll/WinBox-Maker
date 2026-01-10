@@ -1,4 +1,4 @@
-# WinBox-Maker 1.8.1
+# WinBox-Maker 1.8.2
 a tool for creating minimal embed versions of windows (this is usually Windows with access to only one application without the ability to open any system menu or shell, but this is not the only scenario)  
 the easiest way to create a kiosk on Windows or use Windows on embedded device (single app mode)  
 program examples: https://github.com/igorkll/WinBox-Maker-programs  

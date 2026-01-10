@@ -28,7 +28,7 @@ namespace WinBox_Maker
 
         public const int version_major = 1;
         public const int version_minor = 8;
-        public const int version_patch = 1;
+        public const int version_patch = 2;
         public static string version_str = $"{version_major}.{version_minor}.{version_patch}";
         public static int version_num = (version_major * 10000) + (version_minor * 100) + version_patch;
 
@@ -113,7 +113,6 @@ namespace WinBox_Maker
         static void Main(string[] args)
         {
             ApplicationConfiguration.Initialize();
-            CheckFreeSpace();
             InitLibwim();
             InitOscdimg();
 
@@ -143,6 +142,7 @@ namespace WinBox_Maker
             if (args.Length > 0)
             {
                 consoleExporter = true;
+                CheckFreeSpace(true);
 
                 List<string> flags = new List<string>();
                 List<string> arguments = new List<string>();
@@ -197,13 +197,15 @@ namespace WinBox_Maker
                 return;
             }
 
+            CheckFreeSpace();
+
             IntPtr consoleWindow = GetConsoleWindow();
             ShowWindow(consoleWindow, SW_HIDE);
             openProjectForm = new OpenProjectForm();
             Application.Run(openProjectForm);
         }
 
-        static void CheckFreeSpace()
+        static void CheckFreeSpace(bool consoleMode = false)
         {
             var drive = new DriveInfo("C");
 
@@ -214,13 +216,23 @@ namespace WinBox_Maker
 
             if (freeGb < minNeedSpace)
             {
-                MessageBox.Show(
+                string messsageText =
                     $"Drive C: has only {freeGb} GB of free space left.\n" +
-                    $"At least {minNeedSpace} GB is recommended for proper operation.",
-                    "Low disk space",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    $"At least {minNeedSpace} GB is recommended for proper operation.";
+                
+                if (consoleMode)
+                {
+                    Console.Error.WriteLine(messsageText);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        messsageText,
+                        "Low disk space",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                }
             }
         }
 
