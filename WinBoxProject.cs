@@ -2109,17 +2109,13 @@ echo SetupComplete - setup keyboard layouts >> C:\WinboxResources\setup.log
 {updateSystemSettingsAndFirstInit}";
 
                 // вызывается в app script при первой загрузке
-                string firstInit = $@"echo FirstInit - start >> C:\WinboxResources\setup.log" + "\r\n";
-
-                firstInit += "\r\n" + $@"echo FirstInit - setup services >> C:\WinboxResources\setup.log
-{getServicesSetup()}
-
-echo FirstInit - end >> C:\WinboxResources\setup.log" + "\r\n";
+                string firstInit = $@"echo FirstInit - setup services >> C:\WinboxResources\setup.log
+{getServicesSetup()}" + "\r\n";
 
                 if (hideGettingReadyScreenWithOverlay)
                 {
                     firstInit += "\r\n" + $@"echo FirstInit - kill getting ready hide overlay >> C:\WinboxResources\setup.log
-taskkill /IM wscript.exe /F" + "\r\n";
+taskkill /IM wscript.exe /F";
                 }
 
                 void appScriptLog(string log)
