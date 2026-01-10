@@ -2115,7 +2115,7 @@ echo SetupComplete - setup keyboard layouts >> C:\WinboxResources\setup.log
                 if (hideGettingReadyScreenWithOverlay)
                 {
                     firstInit += "\r\n" + $@"echo FirstInit - kill getting ready hide overlay >> C:\WinboxResources\setup.log
-taskkill /IM wscript.exe /F";
+taskkill /F /FI ""COMMANDLINE like *run_first_setup_logo_hidden.vbs*""";
                 }
 
                 void appScriptLog(string log)
