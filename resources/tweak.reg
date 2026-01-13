@@ -798,7 +798,3 @@ Windows Registry Editor Version 5.00
 ; ---------------- disabling Internet check from windows
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet]
 "EnableActiveProbing"=dword:00000000
-
-; ---------------- QuietBoot
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\BootControl]
-"QuietBoot"=dword:00000001
