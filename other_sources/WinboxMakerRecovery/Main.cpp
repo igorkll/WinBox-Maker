@@ -13,7 +13,12 @@ using json = nlohmann::json;
 
 static Menu_menu mainMenu;
 
+static void entry_flash_firmware(void* _) {
+    Menu_select(&mainMenu);
+}
+
 static void entry_factory_reset(void* _) {
+    Menu_message("Device settings have been reset");
     Menu_select(&mainMenu);
 }
 
@@ -35,7 +40,7 @@ static void loadRecoveryMenu(HINSTANCE hInstance) {
     if (Brain_inputData.value("allowManualFlash", false) &&
         (Brain_inputData.value("allowFlashWithoutFactoryReset", false) ||
         Brain_inputData.value("allowFlashWithFactoryReset", false))) {
-        mainMenu.addMenuEntry_noNoNoYesNo_callback("Flash firmware from external drive", entry_factory_reset);
+        mainMenu.addMenuEntry_callback("Flash firmware from external drive", entry_flash_firmware);
     }
 
     if (Brain_inputData.value("textOnInfoPage_en", false)) {

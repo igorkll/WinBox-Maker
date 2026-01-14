@@ -128,21 +128,27 @@ static void redrawMenu() {
     RECT rect;
     GetClientRect(hwnd, &rect);
 
+    bool isMessage = messagetext.size() > 0;
+    bool isMenu = !isMenuDisabled();
+
     SetBkMode(hdc, TRANSPARENT);
     FillRect(hdc, &rect, backgroundBrush);
-    drawLogo(hdc, menuLogo);
 
-    SelectObject(hdc, titleFont);
-    SetTextColor(hdc, color_title);
-    if (!isMenuDisabled() && menu->titleOverride.size() > 0) {
-        drawCenterizedText(hdc, 0, menu->titleOverride);
-    }
-    else
-    {
-        drawCenterizedText(hdc, 0, Brain_inputData.value("title", "Winbox maker recovery"));
+    if (isMessage || isMenu) {
+        drawLogo(hdc, menuLogo);
+
+        SelectObject(hdc, titleFont);
+        SetTextColor(hdc, color_title);
+        if (isMenu && menu->titleOverride.size() > 0) {
+            drawCenterizedText(hdc, 0, menu->titleOverride);
+        }
+        else
+        {
+            drawCenterizedText(hdc, 0, Brain_inputData.value("title", "Winbox maker recovery"));
+        }
     }
 
-    if (messagetext.size() > 0) {
+    if (isMessage) {
         SelectObject(hdc, menuFont);
         int y = lineHeight;
         auto lines = split_lines(messagetext);
@@ -150,7 +156,7 @@ static void redrawMenu() {
             drawCenterizedTextWithShadow(hdc, y, line, color_text);
             y += lineHeight;
         }
-    } else if (!isMenuDisabled()) {
+    } else if (isMenu) {
         SelectObject(hdc, menuFont);
         int y = lineHeight;
         for (size_t i = 0; i < menu->menuEntriesNames.size(); i++) {
