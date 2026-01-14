@@ -23,14 +23,28 @@ static const int flashWithFactoryReset = 1;
 static Menu_menu mainMenu;
 
 static void entry_flash_firmware(void* flashMode) {
+    Firmware* firmware = Brain_getManualFlashFirmware();
+    if (!firmware) {
+        Menu_message(std::string("Couldn't find the firmware on the external drive\n") + "");
+        Menu_select(&mainMenu);
+        return;
+    }
+
     int trySaveData = *((int*)flashMode) == flashWithoutFactoryReset;
 
-    if (trySaveData) {
-        Menu_message("The device's firmware has been updated\nThe data has been saved");
-    } else {
-        Menu_message("The device's firmware has been updated\nDevice settings have been reset");
+    Menu_menu* menu = new Menu_menu();
+    menu->addMenuEntry_noNoNoYesNo_callback("Yes", 0);
+    menu->addMenuEntry_callback("Cancel flashing", 1);
+    if (Menu_lock() == 1) {
+        if (trySaveData) {
+            Menu_message("The device's firmware has been updated\nThe data has been saved");
+        }
+        else {
+            Menu_message("The device's firmware has been updated\nDevice settings have been reset");
+        }
     }
     Menu_select(&mainMenu);
+    delete firmware;
 }
 
 static void entry_factory_reset(void* _) {

@@ -81,3 +81,5 @@ void Menu_status(std::string text = "", float progress = -1, MenuMessageQuietMod
 void Menu_hideStatus();
 void Menu_message(std::string text = "", float progress = -1, MenuMessageQuietMode menuMessageQuietMode = MenuMessageQuietMode_DontHide);
 void Menu_process();
+int Menu_lock();
+

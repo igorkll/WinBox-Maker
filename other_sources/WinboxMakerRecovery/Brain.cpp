@@ -82,8 +82,8 @@ Firmware* Brain_getManualFlashFirmware() {
     DWORD len = GetLogicalDriveStringsA(sizeof(drives), drives);
 
     for (size_t i = 0; i < len; i += strlen(&drives[i]) + 1) {
-        drives[strlen(&drives[i]) - 1] = '\0';
         std::string drive = &drives[i];
+        if (!drive.empty()) drive.pop_back();
         if (drive != Brain_windowsDrive && drive != Brain_sysDrive) {
             Firmware* firmware = getFirmwareAtDrive(drive);
             if (firmware) return firmware;

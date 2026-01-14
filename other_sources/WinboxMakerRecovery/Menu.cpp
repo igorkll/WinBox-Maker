@@ -76,6 +76,8 @@ static std::string messageText = "";
 static float messageProgress = -1;
 static MenuMessageQuietMode messageMenuMessageQuietMode = MenuMessageQuietMode_BlackScreen;
 
+static int menuLockReturn = -9999;
+
 // ------------------------------------- code
 
 static void drawCenterizedText(HDC hdc, int y, const std::string& text, int xOffset = 0) {
@@ -443,4 +445,17 @@ void Menu_process() {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
+}
+
+int Menu_lock() {
+    menuLockReturn = -9999;
+
+    MSG msg = {};
+    while (GetMessage(&msg, nullptr, 0, 0)) {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+        if (menuLockReturn != -9999) return menuLockReturn;
+    }
+
+    return -9999;
 }
