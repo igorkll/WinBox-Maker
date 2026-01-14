@@ -47,6 +47,7 @@ static void initStaticObjects() {
 static Menu_menu* menu;
 static bool exitLock = false;
 static bool menuInited = false;
+static std::string messagetext = "";
 
 // ------------------------------------- code
 
@@ -100,36 +101,40 @@ static void drawLogo(HWND hwnd, HDC hdc, HBITMAP logo) {
     DeleteDC(hMemDC);
 }
 
-static void redrawMenu(HWND hwnd) {
-    if (!menu) return;
+static bool isMenuDisabled() {
+    return !menu || messagetext.size() > 0;
+}
 
+static void redrawMenu(HWND hwnd) {
     InvalidateRect(hwnd, nullptr, TRUE);
-    
+
     PAINTSTRUCT ps;
     HDC hdc = BeginPaint(hwnd, &ps);
     RECT rect;
     GetClientRect(hwnd, &rect);
 
-    SetBkMode(hdc, TRANSPARENT);
-    FillRect(hdc, &rect, backgroundBrush);
-    drawLogo(hwnd, hdc, menuLogo);
+    if (!isMenuDisabled()) {
+        SetBkMode(hdc, TRANSPARENT);
+        FillRect(hdc, &rect, backgroundBrush);
+        drawLogo(hwnd, hdc, menuLogo);
 
-    SelectObject(hdc, titleFont);
-    SetTextColor(hdc, color_title);
-    if (menu->titleOverride.size() > 0) {
-        drawCenterizedText(hdc, 0, menu->titleOverride);
-    }
-    else
-    {
-        drawCenterizedText(hdc, 0, title_text);
-    }
+        SelectObject(hdc, titleFont);
+        SetTextColor(hdc, color_title);
+        if (menu->titleOverride.size() > 0) {
+            drawCenterizedText(hdc, 0, menu->titleOverride);
+        }
+        else
+        {
+            drawCenterizedText(hdc, 0, title_text);
+        }
 
-    SelectObject(hdc, menuFont);
-    int y = lineHeight;
-    for (size_t i = 0; i < menu->menuEntriesNames.size(); i++) {
-        drawCenterizedTextWithShadow(hdc, y, menu->menuEntriesNames[i], i == menu->selected ? color_selectedText : color_text);
+        SelectObject(hdc, menuFont);
+        int y = lineHeight;
+        for (size_t i = 0; i < menu->menuEntriesNames.size(); i++) {
+            drawCenterizedTextWithShadow(hdc, y, menu->menuEntriesNames[i], i == menu->selected ? color_selectedText : color_text);
 
-        y += lineHeight;
+            y += lineHeight;
+        }
     }
 
     EndPaint(hwnd, &ps);
@@ -153,7 +158,7 @@ static void pointerAccept(HWND hwnd) {
 }
 
 static void handleKeyboard(HWND hwnd, WPARAM key) {
-    if (!menu) return;
+    if (isMenuDisabled()) return;
 
     switch (key) {
     case VK_UP:
@@ -177,7 +182,7 @@ static void handleKeyboard(HWND hwnd, WPARAM key) {
 }
 
 static void handleAppCommand(HWND hwnd, WPARAM lParam) {
-    if (!menu) return;
+    if (isMenuDisabled()) return;
 
     switch (GET_APPCOMMAND_LPARAM(lParam)) {
     case APPCOMMAND_VOLUME_UP: //volume up - accept
@@ -190,7 +195,7 @@ static void handleAppCommand(HWND hwnd, WPARAM lParam) {
 }
 
 static void mouseHandle(HWND hwnd, WPARAM lParam) {
-    if (!menu) return;
+    if (isMenuDisabled()) return;
 
     int x = GET_X_LPARAM(lParam);
     int y = GET_Y_LPARAM(lParam);
@@ -282,6 +287,10 @@ void Menu_start(HINSTANCE hInstance) {
 
 void Menu_enableExitLock(bool _exitLock) {
     exitLock = _exitLock;
+}
+
+void Menu_message(std::string text) {
+    messagetext = text;
 }
 
 void Menu_process() {

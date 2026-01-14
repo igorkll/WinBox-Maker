@@ -18,6 +18,7 @@ static void entry_factory_reset(void* _) {
 }
 
 static void entry_system_info(void* _) {
+    Menu_message(Brain_inputData.value("textOnInfoPage", ""));
     Menu_select(&mainMenu);
 }
 
@@ -53,7 +54,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
             FlashQuietMode flashQuietMode = (FlashQuietMode)Brain_inputData.value("autoFlashQuietMode", FlashQuietMode_BlackScreen);
             if (Brain_flashFirmware(autoFlashFirmware, flashQuietMode, true)) return 0;
             if (flashQuietMode != FlashQuietMode_DontHide) return 0;
+
+            std::string err = Brain_getFlashError();
+            if (err.size() > 0) Menu_message(err);
         }
+        delete autoFlashFirmware;
     }
 
     loadRecoveryMenu(hInstance);

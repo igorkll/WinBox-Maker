@@ -5,6 +5,8 @@ std::string Brain_sysDrive;
 std::string Brain_windowsDrive;
 json Brain_inputData;
 
+static std::string firmwareFlashError = "";
+
 static std::string GetWinPeDrive() {
     char driveCStr[MAX_PATH];
     GetEnvironmentVariableA("SystemDrive", driveCStr, MAX_PATH);
@@ -87,8 +89,16 @@ Firmware* Brain_getManualFlashFirmware() {
             if (firmware) return firmware;
         }
     }
+
+    return nullptr;
 }
 
 bool Brain_flashFirmware(Firmware* firmware, FlashQuietMode flashQuietMode, bool trySaveData) {
-    
+    firmwareFlashError = "ASD";
+
+    return false;
+}
+
+std::string Brain_getFlashError() {
+    return firmwareFlashError;
 }

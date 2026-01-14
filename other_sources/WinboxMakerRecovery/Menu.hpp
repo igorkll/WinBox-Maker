@@ -71,4 +71,5 @@ void Menu_select(Menu_menu* menu);
 void Menu_init(HINSTANCE hInstance);
 void Menu_start(HINSTANCE hInstance);
 void Menu_enableExitLock(bool exitLock);
+void Menu_message(std::string text);
 void Menu_process();
