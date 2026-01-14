@@ -50,7 +50,11 @@ static HWND hwnd;
 static Menu_menu* menu;
 static bool exitLock = false;
 static bool menuInited = false;
-static std::string messagetext = "";
+
+static bool messageEnabled = false;
+static std::string messageText = "";
+static float messageProgress = -1;
+static MenuMessageQuietMode messageMenuMessageQuietMode = MenuMessageQuietMode_BlackScreen;
 
 // ------------------------------------- code
 
@@ -105,7 +109,7 @@ static void drawLogo(HDC hdc, HBITMAP logo) {
 }
 
 static bool isMenuDisabled() {
-    return !menu || messagetext.size() > 0;
+    return !menu || messageEnabled;
 }
 
 static std::vector<std::string> split_lines(const std::string& s) {
@@ -131,7 +135,7 @@ static void redrawMenu() {
     RECT rect;
     GetClientRect(hwnd, &rect);
 
-    bool isMessage = messagetext.size() > 0;
+    bool isMessage = messageEnabled;
     bool isMenu = !isMenuDisabled();
 
     SetBkMode(hdc, TRANSPARENT);
@@ -156,7 +160,7 @@ static void redrawMenu() {
     if (isMessage) {
         SelectObject(hdc, menuFont);
         int y = lineHeight;
-        auto lines = split_lines(messagetext);
+        auto lines = split_lines(messageText);
         for (const auto& line : lines) {
             drawCenterizedTextWithShadow(hdc, y, line, color_text);
             y += lineHeight;
@@ -186,8 +190,8 @@ static void pointerMove(bool up) {
 }
 
 static void pointerAccept() {
-    if (messagetext.size() > 0) {
-        messagetext = "";
+    if (messageEnabled) {
+        messageEnabled = false;
         redrawMenu();
     } else if (!isMenuDisabled()) {
         Menu_callback callback = menu->menuEntriesCallbacks[menu->selected];
@@ -325,10 +329,14 @@ void Menu_enableExitLock(bool _exitLock) {
     exitLock = _exitLock;
 }
 
-void Menu_message(std::string text) {
-    messagetext = text;
+void Menu_message(std::string text = "", float progress = -1, MenuMessageQuietMode menuMessageQuietMode = MenuMessageQuietMode_DontHide) {
+    messageEnabled = true;
+    messageText = text;
+    messageProgress = progress;
+    messageMenuMessageQuietMode = menuMessageQuietMode;
+    
     redrawMenu();
-    while (messagetext.size() > 0)
+    while (messageEnabled)
         Menu_process();
 }
 

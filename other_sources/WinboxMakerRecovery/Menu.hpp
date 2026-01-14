@@ -13,6 +13,12 @@ typedef void (*Menu_callback)(void* arg);
 
 static int _yesPositions[] = { 1, 4, 3 };
 
+typedef enum {
+    MenuMessageQuietMode_DontHide,
+    MenuMessageQuietMode_OnlyLogo,
+    MenuMessageQuietMode_BlackScreen
+} MenuMessageQuietMode;
+
 class Menu_menu
 {
 public:
