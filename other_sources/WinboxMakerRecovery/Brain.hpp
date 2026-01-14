@@ -13,7 +13,6 @@ extern std::string Brain_windowsDrive;
 extern json Brain_inputData;
 
 typedef enum {
-	FirmwareType_invalid,
 	FirmwareType_wim,
 	FirmwareType_img,
 	FirmwareType_ffu
