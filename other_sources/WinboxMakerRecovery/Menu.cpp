@@ -16,7 +16,6 @@ static COLORREF color_title = RGB(255, 0, 0);
 static COLORREF color_text = RGB(255, 255, 255);
 static COLORREF color_textShadow = RGB(64, 64, 64);
 static COLORREF color_selectedText = RGB(255, 255, 0);
-static std::string title_text = "Winbox maker recovery";
 static int lineHeight = 100;
 static int textShadowWidth = 3;
 static int screenWidth;
@@ -113,21 +112,21 @@ static void redrawMenu(HWND hwnd) {
     RECT rect;
     GetClientRect(hwnd, &rect);
 
+    SetBkMode(hdc, TRANSPARENT);
+    FillRect(hdc, &rect, backgroundBrush);
+    drawLogo(hwnd, hdc, menuLogo);
+
+    SelectObject(hdc, titleFont);
+    SetTextColor(hdc, color_title);
+    if (!isMenuDisabled() && menu->titleOverride.size() > 0) {
+        drawCenterizedText(hdc, 0, menu->titleOverride);
+    }
+    else
+    {
+        drawCenterizedText(hdc, 0, Brain_inputData.value("title", "Winbox maker recovery"));
+    }
+
     if (!isMenuDisabled()) {
-        SetBkMode(hdc, TRANSPARENT);
-        FillRect(hdc, &rect, backgroundBrush);
-        drawLogo(hwnd, hdc, menuLogo);
-
-        SelectObject(hdc, titleFont);
-        SetTextColor(hdc, color_title);
-        if (menu->titleOverride.size() > 0) {
-            drawCenterizedText(hdc, 0, menu->titleOverride);
-        }
-        else
-        {
-            drawCenterizedText(hdc, 0, title_text);
-        }
-
         SelectObject(hdc, menuFont);
         int y = lineHeight;
         for (size_t i = 0; i < menu->menuEntriesNames.size(); i++) {
@@ -141,6 +140,7 @@ static void redrawMenu(HWND hwnd) {
 }
 
 static void pointerMove(HWND hwnd, bool up) {
+    if (isMenuDisabled()) return;
     if (up) {
         menu->selected = (menu->selected - 1 + menu->menuEntriesNames.size()) % menu->menuEntriesNames.size();
     }
@@ -152,27 +152,30 @@ static void pointerMove(HWND hwnd, bool up) {
 }
 
 static void pointerAccept(HWND hwnd) {
-    Menu_callback callback = menu->menuEntriesCallbacks[menu->selected];
-    callback(menu->menuEntriesArgs[menu->selected]);
-    redrawMenu(hwnd);
+    if (messagetext.size() > 0) {
+        messagetext = "";
+        redrawMenu(hwnd);
+    } else if (!isMenuDisabled()) {
+        Menu_callback callback = menu->menuEntriesCallbacks[menu->selected];
+        callback(menu->menuEntriesArgs[menu->selected]);
+        redrawMenu(hwnd);
+    }
 }
 
 static void handleKeyboard(HWND hwnd, WPARAM key) {
-    if (isMenuDisabled()) return;
-
     switch (key) {
     case VK_UP:
         pointerMove(hwnd, true);
-        break;
-
-    case VK_DOWN:
-    case VK_VOLUME_DOWN: //volume down - down
-        pointerMove(hwnd, false);
         break;
     
     case VK_RETURN:
     case VK_VOLUME_UP: //volume up - accept
         pointerAccept(hwnd);
+        break;
+
+    case VK_DOWN:
+    case VK_VOLUME_DOWN: //volume down - down
+        pointerMove(hwnd, false);
         break;
     
     case VK_ESCAPE:
@@ -182,8 +185,6 @@ static void handleKeyboard(HWND hwnd, WPARAM key) {
 }
 
 static void handleAppCommand(HWND hwnd, WPARAM lParam) {
-    if (isMenuDisabled()) return;
-
     switch (GET_APPCOMMAND_LPARAM(lParam)) {
     case APPCOMMAND_VOLUME_UP: //volume up - accept
         pointerAccept(hwnd);
@@ -291,6 +292,8 @@ void Menu_enableExitLock(bool _exitLock) {
 
 void Menu_message(std::string text) {
     messagetext = text;
+    while (messagetext.size() > 0)
+        Menu_process();
 }
 
 void Menu_process() {
