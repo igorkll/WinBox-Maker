@@ -32,6 +32,12 @@ static void loadRecoveryMenu(HINSTANCE hInstance) {
         mainMenu.addMenuEntry_noNoNoYesNo_callback("Factory reset", entry_factory_reset);
     }
 
+    if (Brain_inputData.value("allowManualFlash", false) &&
+        (Brain_inputData.value("allowFlashWithoutFactoryReset", false) ||
+        Brain_inputData.value("allowFlashWithFactoryReset", false))) {
+        mainMenu.addMenuEntry_noNoNoYesNo_callback("Flash firmware from external drive", entry_factory_reset);
+    }
+
     if (Brain_inputData.value("textOnInfoPage_en", false)) {
         mainMenu.addMenuEntry_callback("System info", entry_system_info);
     }
