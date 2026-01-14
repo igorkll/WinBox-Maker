@@ -12,12 +12,13 @@ static std::string GetWinPeDrive() {
 
 static std::string FindWindowsDrive() {
     char drives[512];
-    GetLogicalDriveStringsA(sizeof(drives), drives);
+    DWORD len = GetLogicalDriveStringsA(sizeof(drives), drives);
 
-    for (char* d = drives; *d; d += strlen(d) + 1) {
-        std::string path = std::string(d) + "Windows\\System32\\config\\SYSTEM";
+    for (size_t i = 0; i < len; i += strlen(&drives[i]) + 1) {
+        std::string path = std::string(&drives[i]) + "Windows\\System32\\config\\SYSTEM";
         if (GetFileAttributesA(path.c_str()) != INVALID_FILE_ATTRIBUTES) {
-            return std::string(d);
+            drives[strlen(&drives[i]) - 1] = '\0';
+            return std::string(&drives[i]);
         }
     }
     return "";
@@ -31,4 +32,17 @@ void Brain_load() {
     if (inFile) {
         Brain_inputData = json::parse(inFile);
     }
+}
+
+static Firmware* getFirmwareAtDrive(std::string drive) {
+    Firmware* firmware = new Firmware;
+    return firmware;
+}
+
+Firmware* Brain_getAutoFlashFirmware() {
+    return getFirmwareAtDrive(Brain_windowsDrive);
+}
+
+Firmware* Brain_getManualFlashFirmware() {
+    return nullptr;
 }
