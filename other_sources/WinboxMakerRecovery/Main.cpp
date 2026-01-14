@@ -17,12 +17,12 @@ static void entry_factory_reset(void* _) {
     Menu_select(&mainMenu);
 }
 
-static void entry_reboot_to_system(void* _) {
-    PostQuitMessage(0);
-}
-
 static void entry_system_info(void* _) {
     Menu_select(&mainMenu);
+}
+
+static void entry_reboot_to_system(void* _) {
+    PostQuitMessage(0);
 }
 
 static void loadRecoveryMenu(HINSTANCE hInstance) {
