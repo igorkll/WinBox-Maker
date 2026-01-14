@@ -49,11 +49,11 @@ static void entry_flash_firmware(void* _factoryResetMode) {
         factoryResetSelectMenu->addMenuEntry_callback("Cancel", entry_menu_unlock, (void*)&flashFactoryResetQuestion);
         Menu_select(factoryResetSelectMenu);
 
-        int factoryResetMode = Menu_lock();
-        trySaveData = factoryResetMode == flashWithoutFactoryReset;
+        int factoryResetMode2 = Menu_lock();
+        trySaveData = factoryResetMode2 == flashWithoutFactoryReset;
         delete factoryResetSelectMenu;
 
-        if (factoryResetMode == flashFactoryResetQuestion) {
+        if (factoryResetMode2 == flashFactoryResetQuestion) {
             Menu_select(&mainMenu);
             delete firmware;
             return;
@@ -63,16 +63,21 @@ static void entry_flash_firmware(void* _factoryResetMode) {
     Menu_menu* acceptMenu = new Menu_menu();
     std::string flashAcceptStr = std::string("Flash ") + firmware->path + (trySaveData ? " with save data" : " with factory reset");
     acceptMenu->addMenuEntry_noNoNoYesNo_callback(flashAcceptStr, entry_menu_unlock, (void*)&flashAcceptUnlockCode);
-    acceptMenu->addMenuEntry_callback("Cancel flashing", entry_menu_unlock, (void*)&flashCancelUnlockCode);
+    acceptMenu->addMenuEntry_callback("Cancel", entry_menu_unlock, (void*)&flashCancelUnlockCode);
     Menu_select(acceptMenu);
 
     if (Menu_lock() == 1) {
         delete acceptMenu;
-        if (trySaveData) {
-            Menu_message("The device's firmware has been updated\nThe data has been saved");
-        }
-        else {
-            Menu_message("The device's firmware has been updated\nDevice settings have been reset");
+
+        if (!Brain_flashFirmware(firmware, FlashQuietMode_DontHide, trySaveData)) {
+            std::string err = Brain_getFlashError();
+            if (err.size() > 0) Menu_message(err);
+        } else {
+            if (trySaveData) {
+                Menu_message("The device's firmware has been updated\nThe data has been saved");
+            } else {
+                Menu_message("The device's firmware has been updated\nDevice settings have been reset");
+            }
         }
     } else {
         delete acceptMenu;
