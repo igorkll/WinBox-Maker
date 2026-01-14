@@ -39,7 +39,7 @@ static void entry_flash_firmware(void* _factoryResetMode) {
         return;
     }
 
-    bool factoryResetMode = *((int*)_factoryResetMode);
+    int factoryResetMode = *((int*)_factoryResetMode);
     bool trySaveData = factoryResetMode == flashWithoutFactoryReset;
 
     if (factoryResetMode == flashFactoryResetQuestion) {
@@ -54,6 +54,7 @@ static void entry_flash_firmware(void* _factoryResetMode) {
         delete factoryResetSelectMenu;
 
         if (factoryResetMode == flashFactoryResetQuestion) {
+            Menu_select(&mainMenu);
             delete firmware;
             return;
         }
@@ -76,8 +77,8 @@ static void entry_flash_firmware(void* _factoryResetMode) {
     } else {
         delete acceptMenu;
     }
-    Menu_select(&mainMenu);
 
+    Menu_select(&mainMenu);
     delete firmware;
 }
 

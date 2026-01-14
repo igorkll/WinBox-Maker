@@ -32,7 +32,7 @@ static COLORREF progressbar_bgColor = RGB(40, 40, 40);
 static COLORREF progressbar_fillColor = RGB(0, 120, 215);
 
 static void calculateConsts() {
-    lineHeight = screenHeight / 8;
+    lineHeight = screenHeight / 12;
     textShadowWidth = screenHeight / 400;
 
     progressbar_barHeight = screenHeight / 6;
