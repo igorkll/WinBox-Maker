@@ -20,7 +20,15 @@ using json = nlohmann::json;
 static const int flashWithoutFactoryReset = 0;
 static const int flashWithFactoryReset = 1;
 
+static const int flashCancelUnlockCode = 0;
+static const int flashAcceptUnlockCode = 1;
+
 static Menu_menu mainMenu;
+
+static void entry_menu_unlock(void* _unlockCode) {
+    int unlockCode = *((int*)_unlockCode);
+    Menu_unlock(unlockCode);
+}
 
 static void entry_flash_firmware(void* flashMode) {
     Firmware* firmware = Brain_getManualFlashFirmware();
@@ -30,11 +38,12 @@ static void entry_flash_firmware(void* flashMode) {
         return;
     }
 
-    int trySaveData = *((int*)flashMode) == flashWithoutFactoryReset;
+    bool trySaveData = *((int*)flashMode) == flashWithoutFactoryReset;
 
     Menu_menu* menu = new Menu_menu();
-    menu->addMenuEntry_noNoNoYesNo_callback("Yes", 0);
-    menu->addMenuEntry_callback("Cancel flashing", 1);
+    std::string flashAcceptStr = std::string("Flash ") + firmware->path + (trySaveData ? " with save data" : " with factory reset");
+    menu->addMenuEntry_noNoNoYesNo_callback(flashAcceptStr, entry_menu_unlock, (void*)&flashAcceptUnlockCode);
+    menu->addMenuEntry_callback("Cancel flashing", entry_menu_unlock, (void*)&flashCancelUnlockCode);
     if (Menu_lock() == 1) {
         if (trySaveData) {
             Menu_message("The device's firmware has been updated\nThe data has been saved");

@@ -459,3 +459,7 @@ int Menu_lock() {
 
     return -9999;
 }
+
+void Menu_unlock(int unlockCode) {
+    menuLockReturn = unlockCode;
+}
