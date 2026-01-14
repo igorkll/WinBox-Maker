@@ -48,7 +48,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
     if (Brain_inputData.value("allowAutoFlash", false)) {
         Firmware* autoFlashFirmware = Brain_getAutoFlashFirmware();
         if (autoFlashFirmware) {
-            Brain_flashFirmware(autoFlashFirmware);
+            Menu_init(hInstance);
+
+            FlashQuietMode flashQuietMode = (FlashQuietMode)Brain_inputData.value("autoFlashQuietMode", FlashQuietMode_BlackScreen);
+            if (Brain_flashFirmware(autoFlashFirmware, flashQuietMode, true)) return 0;
+            if (flashQuietMode != FlashQuietMode_DontHide) return 0;
         }
     }
 

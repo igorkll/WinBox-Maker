@@ -32,4 +32,4 @@ typedef struct {
 void Brain_load();
 Firmware* Brain_getAutoFlashFirmware();
 Firmware* Brain_getManualFlashFirmware();
-void Brain_flashFirmware(Firmware* firmware);
+bool Brain_flashFirmware(Firmware* firmware, FlashQuietMode flashQuietMode, bool trySaveData);

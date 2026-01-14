@@ -1,4 +1,5 @@
 #include "Brain.hpp"
+#include "Menu.hpp"
 
 std::string Brain_sysDrive;
 std::string Brain_windowsDrive;
@@ -86,4 +87,8 @@ Firmware* Brain_getManualFlashFirmware() {
             if (firmware) return firmware;
         }
     }
+}
+
+bool Brain_flashFirmware(Firmware* firmware, FlashQuietMode flashQuietMode, bool trySaveData) {
+    
 }
