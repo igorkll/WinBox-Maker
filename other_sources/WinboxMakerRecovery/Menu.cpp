@@ -17,6 +17,7 @@ static COLORREF color_title = RGB(255, 0, 0);
 static COLORREF color_text = RGB(255, 255, 255);
 static COLORREF color_textShadow = RGB(64, 64, 64);
 static COLORREF color_selectedText = RGB(255, 255, 0);
+static COLORREF color_selectedTextShadow = RGB(255, 64, 0);
 static int lineHeight;
 static int textShadowWidth;
 static int screenWidth;
@@ -91,8 +92,8 @@ static void drawCenterizedText(HDC hdc, int y, const std::string& text, int xOff
     DrawTextA(hdc, text.c_str(), -1, &rect, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
 }
 
-static void drawCenterizedTextWithShadow(HDC hdc, int y, const std::string& text, COLORREF color) {
-    SetTextColor(hdc, color_textShadow);
+static void drawCenterizedTextWithShadow(HDC hdc, int y, const std::string& text, COLORREF color, COLORREF shadowColor) {
+    SetTextColor(hdc, shadowColor);
     for (int ix = -textShadowWidth; ix <= textShadowWidth; ix += textShadowWidth) {
         for (int iy = -textShadowWidth; iy <= textShadowWidth; iy += textShadowWidth) {
             drawCenterizedText(hdc, y + iy, text, ix);
@@ -243,7 +244,7 @@ static void redrawMenu() {
             int y = lineHeight;
             auto lines = split_lines(messageText);
             for (const auto& line : lines) {
-                drawCenterizedTextWithShadow(hdc, y, line, color_text);
+                drawCenterizedTextWithShadow(hdc, y, line, color_text, color_textShadow);
                 y += lineHeight;
             }
 
@@ -255,7 +256,9 @@ static void redrawMenu() {
         SelectObject(hdc, menuFont);
         int y = lineHeight;
         for (size_t i = 0; i < menu->menuEntriesNames.size(); i++) {
-            drawCenterizedTextWithShadow(hdc, y, menu->menuEntriesNames[i], i == menu->selected ? color_selectedText : color_text);
+            drawCenterizedTextWithShadow(hdc, y, menu->menuEntriesNames[i],
+                i == menu->selected ? color_selectedText : color_text,
+                i == menu->selected ? color_selectedTextShadow : color_textShadow);
             y += lineHeight;
         }
     }
