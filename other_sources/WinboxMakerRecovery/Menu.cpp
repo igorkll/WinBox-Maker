@@ -179,7 +179,7 @@ static void handleKeyboard(HWND hwnd, WPARAM key) {
         break;
     
     case VK_ESCAPE:
-        if (!exitLock) PostQuitMessage(0);
+        if (!exitLock) ExitProcess(0);
         break;
     }
 }
@@ -223,7 +223,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         handleAppCommand(hwnd, wParam);
         return 0;
     case WM_DESTROY:
-        PostQuitMessage(0);
+        ExitProcess(0);
         return 0;
     case WM_LBUTTONDOWN:
         mouseHandle(hwnd, lParam);

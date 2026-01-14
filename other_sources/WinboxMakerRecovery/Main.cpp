@@ -19,11 +19,10 @@ static void entry_factory_reset(void* _) {
 
 static void entry_system_info(void* _) {
     Menu_message(Brain_inputData.value("textOnInfoPage", ""));
-    Menu_select(&mainMenu);
 }
 
 static void entry_reboot_to_system(void* _) {
-    PostQuitMessage(0);
+    ExitProcess(0);
 }
 
 static void loadRecoveryMenu(HINSTANCE hInstance) {
