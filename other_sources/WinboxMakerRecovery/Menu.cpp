@@ -74,7 +74,7 @@ static void drawCenterizedTextWithShadow(HDC hdc, int y, const std::string& text
     drawCenterizedText(hdc, y, text);
 }
 
-static void drawLogo(HWND hwnd, HDC hdc, HBITMAP logo) {
+static void drawLogo(HDC hdc, HBITMAP logo) {
     RECT rc;
     GetClientRect(hwnd, &rc);
     int winW = rc.right - rc.left;
@@ -105,7 +105,7 @@ static bool isMenuDisabled() {
     return !menu || messagetext.size() > 0;
 }
 
-static void redrawMenu(HWND hwnd) {
+static void redrawMenu() {
     InvalidateRect(hwnd, nullptr, TRUE);
 
     PAINTSTRUCT ps;
@@ -115,7 +115,7 @@ static void redrawMenu(HWND hwnd) {
 
     SetBkMode(hdc, TRANSPARENT);
     FillRect(hdc, &rect, backgroundBrush);
-    drawLogo(hwnd, hdc, menuLogo);
+    drawLogo(hdc, menuLogo);
 
     SelectObject(hdc, titleFont);
     SetTextColor(hdc, color_title);
@@ -140,7 +140,7 @@ static void redrawMenu(HWND hwnd) {
     EndPaint(hwnd, &ps);
 }
 
-static void pointerMove(HWND hwnd, bool up) {
+static void pointerMove(bool up) {
     if (isMenuDisabled()) return;
     if (up) {
         menu->selected = (menu->selected - 1 + menu->menuEntriesNames.size()) % menu->menuEntriesNames.size();
@@ -149,34 +149,34 @@ static void pointerMove(HWND hwnd, bool up) {
     {
         menu->selected = (menu->selected + 1) % menu->menuEntriesNames.size();
     }
-    redrawMenu(hwnd);
+    redrawMenu();
 }
 
-static void pointerAccept(HWND hwnd) {
+static void pointerAccept() {
     if (messagetext.size() > 0) {
         messagetext = "";
-        redrawMenu(hwnd);
+        redrawMenu();
     } else if (!isMenuDisabled()) {
         Menu_callback callback = menu->menuEntriesCallbacks[menu->selected];
         callback(menu->menuEntriesArgs[menu->selected]);
-        redrawMenu(hwnd);
+        redrawMenu();
     }
 }
 
-static void handleKeyboard(HWND hwnd, WPARAM key) {
+static void handleKeyboard(WPARAM key) {
     switch (key) {
     case VK_UP:
-        pointerMove(hwnd, true);
+        pointerMove(true);
         break;
     
     case VK_RETURN:
     case VK_VOLUME_UP: //volume up - accept
-        pointerAccept(hwnd);
+        pointerAccept();
         break;
 
     case VK_DOWN:
     case VK_VOLUME_DOWN: //volume down - down
-        pointerMove(hwnd, false);
+        pointerMove(false);
         break;
     
     case VK_ESCAPE:
@@ -185,49 +185,49 @@ static void handleKeyboard(HWND hwnd, WPARAM key) {
     }
 }
 
-static void handleAppCommand(HWND hwnd, WPARAM lParam) {
+static void handleAppCommand(WPARAM lParam) {
     switch (GET_APPCOMMAND_LPARAM(lParam)) {
     case APPCOMMAND_VOLUME_UP: //volume up - accept
-        pointerAccept(hwnd);
+        pointerAccept();
         break;
     case APPCOMMAND_VOLUME_DOWN: //volume down - down
-        pointerMove(hwnd, false);
+        pointerMove(false);
         break;
     }
 }
 
-static void mouseHandle(HWND hwnd, WPARAM lParam) {
+static void mouseHandle(WPARAM lParam) {
     if (isMenuDisabled()) return;
 
     int x = GET_X_LPARAM(lParam);
     int y = GET_Y_LPARAM(lParam);
     int lineIndex = (y / lineHeight) - 1;
     if (lineIndex == menu->selected) {
-        pointerAccept(hwnd);
+        pointerAccept();
     }
     else if (lineIndex >= 0 && lineIndex < menu->menuEntriesNames.size())
     {
         menu->selected = lineIndex;
-        redrawMenu(hwnd);
+        redrawMenu();
     }
 }
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
     case WM_KEYDOWN:
-        handleKeyboard(hwnd, wParam);
+        handleKeyboard(wParam);
         return 0;
     case WM_PAINT:
-        redrawMenu(hwnd);
+        redrawMenu();
         return 0;
     case WM_APPCOMMAND:
-        handleAppCommand(hwnd, wParam);
+        handleAppCommand(wParam);
         return 0;
     case WM_DESTROY:
         ExitProcess(0);
         return 0;
     case WM_LBUTTONDOWN:
-        mouseHandle(hwnd, lParam);
+        mouseHandle(lParam);
         return 0;
     case WM_SYSCOMMAND:
         if ((wParam & 0xFFF0) == SC_CLOSE) { //disable alt+f4. use esc
@@ -240,7 +240,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 void Menu_select(Menu_menu* _menu) {
     menu = _menu;
-    redrawMenu(hwnd);
+    redrawMenu();
 }
 
 void Menu_init(HINSTANCE hInstance) {
@@ -294,7 +294,7 @@ void Menu_enableExitLock(bool _exitLock) {
 
 void Menu_message(std::string text) {
     messagetext = text;
-    redrawMenu(hwnd);
+    redrawMenu();
     while (messagetext.size() > 0)
         Menu_process();
 }
