@@ -48,7 +48,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
     if (Brain_inputData.value("allowAutoFlash", false)) {
         Firmware* autoFlashFirmware = Brain_getAutoFlashFirmware();
         if (autoFlashFirmware) {
-
+            Brain_flashFirmware(autoFlashFirmware);
         }
     }
 

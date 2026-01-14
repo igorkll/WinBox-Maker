@@ -18,6 +18,12 @@ typedef enum {
 	FirmwareType_ffu
 } FirmwareType;
 
+typedef enum {
+	FlashQuietMode_DontHide,
+	FlashQuietMode_OnlyLogo,
+	FlashQuietMode_BlackScreen
+} FlashQuietMode;
+
 typedef struct {
 	std::string path;
 	FirmwareType firmwareType;
@@ -26,3 +32,4 @@ typedef struct {
 void Brain_load();
 Firmware* Brain_getAutoFlashFirmware();
 Firmware* Brain_getManualFlashFirmware();
+void Brain_flashFirmware(Firmware* firmware);

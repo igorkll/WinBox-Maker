@@ -46,6 +46,7 @@ static void initStaticObjects() {
 
 static Menu_menu* menu;
 static bool exitLock = false;
+static bool menuInited = false;
 
 // ------------------------------------- code
 
@@ -100,6 +101,8 @@ static void drawLogo(HWND hwnd, HDC hdc, HBITMAP logo) {
 }
 
 static void redrawMenu(HWND hwnd) {
+    if (!menu) return;
+
     InvalidateRect(hwnd, nullptr, TRUE);
     
     PAINTSTRUCT ps;
@@ -150,6 +153,8 @@ static void pointerAccept(HWND hwnd) {
 }
 
 static void handleKeyboard(HWND hwnd, WPARAM key) {
+    if (!menu) return;
+
     switch (key) {
     case VK_UP:
         pointerMove(hwnd, true);
@@ -172,6 +177,8 @@ static void handleKeyboard(HWND hwnd, WPARAM key) {
 }
 
 static void handleAppCommand(HWND hwnd, WPARAM lParam) {
+    if (!menu) return;
+
     switch (GET_APPCOMMAND_LPARAM(lParam)) {
     case APPCOMMAND_VOLUME_UP: //volume up - accept
         pointerAccept(hwnd);
@@ -183,6 +190,8 @@ static void handleAppCommand(HWND hwnd, WPARAM lParam) {
 }
 
 static void mouseHandle(HWND hwnd, WPARAM lParam) {
+    if (!menu) return;
+
     int x = GET_X_LPARAM(lParam);
     int y = GET_Y_LPARAM(lParam);
     int lineIndex = (y / lineHeight) - 1;
@@ -226,7 +235,10 @@ void Menu_select(Menu_menu* _menu) {
     menu = _menu;
 }
 
-void Menu_start(HINSTANCE hInstance) {
+void Menu_init(HINSTANCE hInstance) {
+    if (menuInited) return;
+    menuInited = true;
+
     const wchar_t* className = L"WindowClass";
 
     ShowCursor(FALSE);
@@ -256,6 +268,10 @@ void Menu_start(HINSTANCE hInstance) {
     initStaticObjects();
     ShowWindow(hwnd, SW_SHOW);
     UpdateWindow(hwnd);
+}
+
+void Menu_start(HINSTANCE hInstance) {
+    Menu_init(hInstance);
 
     MSG msg = {};
     while (GetMessage(&msg, nullptr, 0, 0)) {
@@ -266,4 +282,12 @@ void Menu_start(HINSTANCE hInstance) {
 
 void Menu_enableExitLock(bool _exitLock) {
     exitLock = _exitLock;
+}
+
+void Menu_process() {
+    MSG msg = {};
+    if (GetMessage(&msg, nullptr, 0, 0)) {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
 }
