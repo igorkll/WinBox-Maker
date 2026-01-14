@@ -43,6 +43,7 @@ static void initStaticObjects() {
 
 // ------------------------------------- vars
 
+static HWND hwnd;
 static Menu_menu* menu;
 static bool exitLock = false;
 static bool menuInited = false;
@@ -239,6 +240,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 void Menu_select(Menu_menu* _menu) {
     menu = _menu;
+    redrawMenu(hwnd);
 }
 
 void Menu_init(HINSTANCE hInstance) {
@@ -259,7 +261,7 @@ void Menu_init(HINSTANCE hInstance) {
     screenWidth = GetSystemMetrics(SM_CXSCREEN);
     screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
-    HWND hwnd = CreateWindowEx(
+    hwnd = CreateWindowEx(
         0,
         className,
         L"Recovery",
@@ -292,6 +294,7 @@ void Menu_enableExitLock(bool _exitLock) {
 
 void Menu_message(std::string text) {
     messagetext = text;
+    redrawMenu(hwnd);
     while (messagetext.size() > 0)
         Menu_process();
 }
