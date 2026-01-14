@@ -93,8 +93,62 @@ Firmware* Brain_getManualFlashFirmware() {
     return nullptr;
 }
 
-void Brain_factoryReset() {
+static std::wstring NormalizePath(const std::wstring& raw) {
+    std::wstring p = raw;
 
+    std::replace(p.begin(), p.end(), L'/', L'\\');
+
+    while (!p.empty() && p[0] == L'\\')
+    p.erase(p.begin());
+
+    if (p.find(L"..") != std::wstring::npos)
+        return L"";
+
+    std::wstring windowsDrive(Brain_windowsDrive.begin(), Brain_windowsDrive.end());
+    return windowsDrive + L"\\" + p;
+}
+
+void Brain_deletePath(const std::wstring& path) {
+    DWORD attr = GetFileAttributesW(path.c_str());
+    if (attr == INVALID_FILE_ATTRIBUTES)
+        return;
+
+    if (attr & FILE_ATTRIBUTE_DIRECTORY) {
+        WIN32_FIND_DATAW fd;
+        std::wstring searchPath = path + L"\\*";
+        HANDLE hFind = FindFirstFileW(searchPath.c_str(), &fd);
+        if (hFind != INVALID_HANDLE_VALUE) {
+            do {
+                std::wstring name = fd.cFileName;
+                if (name != L"." && name != L"..") {
+                    Brain_deletePath(path + L"\\" + name);
+                }
+            } while (FindNextFileW(hFind, &fd));
+            FindClose(hFind);
+        }
+        RemoveDirectoryW(path.c_str());
+    }
+    else {
+        DeleteFileW(path.c_str());
+    }
+}
+
+void Brain_factoryReset() {
+    std::string dataPaths = Brain_inputData["dataPaths"];
+    std::wstring dataPathsW(dataPaths.begin(), dataPaths.end());
+    auto lines = Brain_splitLines(dataPathsW);
+
+    for (const auto& l : lines) {
+        std::wstring path = NormalizePath(l);
+
+        if (path.empty())
+            continue;
+
+        if (path.rfind(L"C:\\", 0) != 0)
+            continue;
+
+        Brain_deletePath(path);
+    }
 }
 
 bool Brain_flashFirmware(Firmware* firmware, FlashQuietMode flashQuietMode, bool trySaveData) {

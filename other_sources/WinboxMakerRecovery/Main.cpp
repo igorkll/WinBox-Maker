@@ -126,6 +126,7 @@ static void loadRecoveryMenu(HINSTANCE hInstance) {
 
     mainMenu.addMenuEntry_callback("Reboot to the system now", entry_reboot_to_system);
 
+    Menu_init(hInstance);
     Menu_select(&mainMenu);
     Menu_start(hInstance);
 }
@@ -142,6 +143,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
 
             //если автоматическая прошивка прошла успешно - перезагрузка в систему
             if (Brain_flashFirmware(autoFlashFirmware, flashQuietMode, true)) return 0;
+            delete autoFlashFirmware;
 
             //если автоматическая прошивка завершилась с ошибкой
             //но стоит режим автоматической прошивка как скрытый или только логотип, все равно перезагружаемся в систему
@@ -152,7 +154,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
             std::string err = Brain_getFlashError();
             if (err.size() > 0) Menu_message(err);
         }
-        delete autoFlashFirmware;
     }
 
     loadRecoveryMenu(hInstance);

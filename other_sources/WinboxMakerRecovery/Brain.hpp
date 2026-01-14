@@ -29,6 +29,24 @@ typedef struct {
 	FirmwareType firmwareType;
 } Firmware;
 
+template <typename StringType>
+std::vector<StringType> Brain_splitLines(const StringType& s) {
+    std::vector<StringType> lines;
+    size_t start = 0, end;
+
+    while ((end = s.find(typename StringType::value_type('\n'), start)) != StringType::npos) {
+        lines.push_back(s.substr(start, end - start));
+        start = end + 1;
+    }
+
+    if (start <= s.size())
+        lines.push_back(s.substr(start));
+
+    return lines;
+}
+
+void Brain_deletePath(const std::wstring& path);
+
 void Brain_load();
 Firmware* Brain_getAutoFlashFirmware();
 Firmware* Brain_getManualFlashFirmware();

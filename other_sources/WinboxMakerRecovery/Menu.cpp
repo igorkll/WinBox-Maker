@@ -135,21 +135,6 @@ static bool isMenuDisabled() {
     return !menu || messageEnabled;
 }
 
-static std::vector<std::string> split_lines(const std::string& s) {
-    std::vector<std::string> lines;
-    size_t start = 0, end;
-
-    while ((end = s.find('\n', start)) != std::string::npos) {
-        lines.push_back(s.substr(start, end - start));
-        start = end + 1;
-    }
-
-    if (start <= s.size())
-        lines.push_back(s.substr(start));
-
-    return lines;
-}
-
 static void drawProgress(HDC hdc, RECT clientRect, float progress)
 {
     // защита от мусора
@@ -242,7 +227,7 @@ static void redrawMenu() {
         if (messageMenuMessageQuietMode == MenuMessageQuietMode_DontHide) {
             SelectObject(hdc, menuFont);
             int y = lineHeight;
-            auto lines = split_lines(messageText);
+            auto lines = Brain_splitLines(messageText);
             for (const auto& line : lines) {
                 drawCenterizedTextWithShadow(hdc, y, line, color_text, color_textShadow);
                 y += lineHeight;
@@ -408,8 +393,6 @@ void Menu_init(HINSTANCE hInstance) {
 }
 
 void Menu_start(HINSTANCE hInstance) {
-    Menu_init(hInstance);
-
     MSG msg = {};
     while (GetMessage(&msg, nullptr, 0, 0)) {
         TranslateMessage(&msg);
