@@ -22,11 +22,19 @@ static const int flashWithFactoryReset = 1;
 
 static Menu_menu mainMenu;
 
-static void entry_flash_firmware(void* _) {
+static void entry_flash_firmware(void* flashMode) {
+    int trySaveData = *((int*)flashMode) == flashWithoutFactoryReset;
+
+    if (trySaveData) {
+        Menu_message("The device's firmware has been updated\nThe data has been saved");
+    } else {
+        Menu_message("The device's firmware has been updated\nDevice settings have been reset");
+    }
     Menu_select(&mainMenu);
 }
 
 static void entry_factory_reset(void* _) {
+    Brain_factoryReset();
     Menu_message("Device settings have been reset");
     Menu_select(&mainMenu);
 }

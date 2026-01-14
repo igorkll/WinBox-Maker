@@ -32,5 +32,7 @@ typedef struct {
 void Brain_load();
 Firmware* Brain_getAutoFlashFirmware();
 Firmware* Brain_getManualFlashFirmware();
+
+void Brain_factoryReset();
 bool Brain_flashFirmware(Firmware* firmware, FlashQuietMode flashQuietMode, bool trySaveData);
 std::string Brain_getFlashError();
