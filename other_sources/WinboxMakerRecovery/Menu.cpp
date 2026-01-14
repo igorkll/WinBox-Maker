@@ -329,7 +329,7 @@ void Menu_enableExitLock(bool _exitLock) {
     exitLock = _exitLock;
 }
 
-void Menu_message(std::string text = "", float progress = -1, MenuMessageQuietMode menuMessageQuietMode = MenuMessageQuietMode_DontHide) {
+void Menu_message(std::string text, float progress, MenuMessageQuietMode menuMessageQuietMode) {
     messageEnabled = true;
     messageText = text;
     messageProgress = progress;
