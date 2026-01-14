@@ -94,7 +94,7 @@ Firmware* Brain_getManualFlashFirmware() {
 }
 
 bool Brain_flashFirmware(Firmware* firmware, FlashQuietMode flashQuietMode, bool trySaveData) {
-    firmwareFlashError = "ASD";
+    firmwareFlashError = "ASD\nqwe";
 
     return false;
 }

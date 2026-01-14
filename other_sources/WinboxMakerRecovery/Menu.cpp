@@ -105,6 +105,21 @@ static bool isMenuDisabled() {
     return !menu || messagetext.size() > 0;
 }
 
+static std::vector<std::string> split_lines(const std::string& s) {
+    std::vector<std::string> lines;
+    size_t start = 0, end;
+
+    while ((end = s.find('\n', start)) != std::string::npos) {
+        lines.push_back(s.substr(start, end - start));
+        start = end + 1;
+    }
+
+    if (start <= s.size())
+        lines.push_back(s.substr(start));
+
+    return lines;
+}
+
 static void redrawMenu() {
     InvalidateRect(hwnd, nullptr, TRUE);
 
@@ -127,12 +142,19 @@ static void redrawMenu() {
         drawCenterizedText(hdc, 0, Brain_inputData.value("title", "Winbox maker recovery"));
     }
 
-    if (!isMenuDisabled()) {
+    if (messagetext.size() > 0) {
+        SelectObject(hdc, menuFont);
+        int y = lineHeight;
+        auto lines = split_lines(messagetext);
+        for (const auto& line : lines) {
+            drawCenterizedTextWithShadow(hdc, y, line, color_text);
+            y += lineHeight;
+        }
+    } else if (!isMenuDisabled()) {
         SelectObject(hdc, menuFont);
         int y = lineHeight;
         for (size_t i = 0; i < menu->menuEntriesNames.size(); i++) {
             drawCenterizedTextWithShadow(hdc, y, menu->menuEntriesNames[i], i == menu->selected ? color_selectedText : color_text);
-
             y += lineHeight;
         }
     }
