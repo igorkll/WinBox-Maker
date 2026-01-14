@@ -19,6 +19,7 @@ using json = nlohmann::json;
 
 static const int flashWithoutFactoryReset = 0;
 static const int flashWithFactoryReset = 1;
+static const int flashFactoryResetQuestion = 2;
 
 static const int flashCancelUnlockCode = 0;
 static const int flashAcceptUnlockCode = 1;
@@ -30,7 +31,7 @@ static void entry_menu_unlock(void* _unlockCode) {
     Menu_unlock(unlockCode);
 }
 
-static void entry_flash_firmware(void* flashMode) {
+static void entry_flash_firmware(void* _factoryResetMode) {
     Firmware* firmware = Brain_getManualFlashFirmware();
     if (!firmware) {
         Menu_message(std::string("Couldn't find the firmware on the external drive\n") + "");
@@ -38,21 +39,45 @@ static void entry_flash_firmware(void* flashMode) {
         return;
     }
 
-    bool trySaveData = *((int*)flashMode) == flashWithoutFactoryReset;
+    bool factoryResetMode = *((int*)_factoryResetMode);
+    bool trySaveData = factoryResetMode == flashWithoutFactoryReset;
 
-    Menu_menu* menu = new Menu_menu();
+    if (factoryResetMode == flashFactoryResetQuestion) {
+        Menu_menu* factoryResetSelectMenu = new Menu_menu();
+        factoryResetSelectMenu->addMenuEntry_callback("Flash without factory reset", entry_menu_unlock, (void*)&flashWithoutFactoryReset);
+        factoryResetSelectMenu->addMenuEntry_callback("Flash with factory reset", entry_menu_unlock, (void*)&flashWithFactoryReset);
+        factoryResetSelectMenu->addMenuEntry_callback("Cancel", entry_menu_unlock, (void*)&flashFactoryResetQuestion);
+        Menu_select(factoryResetSelectMenu);
+
+        int factoryResetMode = Menu_lock();
+        trySaveData = factoryResetMode == flashWithoutFactoryReset;
+        delete factoryResetSelectMenu;
+
+        if (factoryResetMode == flashFactoryResetQuestion) {
+            delete firmware;
+            return;
+        }
+    }
+
+    Menu_menu* acceptMenu = new Menu_menu();
     std::string flashAcceptStr = std::string("Flash ") + firmware->path + (trySaveData ? " with save data" : " with factory reset");
-    menu->addMenuEntry_noNoNoYesNo_callback(flashAcceptStr, entry_menu_unlock, (void*)&flashAcceptUnlockCode);
-    menu->addMenuEntry_callback("Cancel flashing", entry_menu_unlock, (void*)&flashCancelUnlockCode);
+    acceptMenu->addMenuEntry_noNoNoYesNo_callback(flashAcceptStr, entry_menu_unlock, (void*)&flashAcceptUnlockCode);
+    acceptMenu->addMenuEntry_callback("Cancel flashing", entry_menu_unlock, (void*)&flashCancelUnlockCode);
+    Menu_select(acceptMenu);
+
     if (Menu_lock() == 1) {
+        delete acceptMenu;
         if (trySaveData) {
             Menu_message("The device's firmware has been updated\nThe data has been saved");
         }
         else {
             Menu_message("The device's firmware has been updated\nDevice settings have been reset");
         }
+    } else {
+        delete acceptMenu;
     }
     Menu_select(&mainMenu);
+
     delete firmware;
 }
 
@@ -81,14 +106,7 @@ static void loadRecoveryMenu(HINSTANCE hInstance) {
     bool allowFlashWithFactoryReset = Brain_inputData.value("allowFlashWithFactoryReset", false);
     if (Brain_inputData.value("allowManualFlash", false) && (allowFlashWithoutFactoryReset || allowFlashWithFactoryReset)) {
         if (allowFlashWithoutFactoryReset && allowFlashWithFactoryReset) {
-            Menu_menu* menu = new Menu_menu();
-            menu->alwaysResetSelect = true;
-
-            menu->addMenuEntry_callback("Flash without factory reset", entry_flash_firmware, (void*)&flashWithoutFactoryReset);
-            menu->addMenuEntry_callback("Flash with factory reset", entry_flash_firmware, (void*)&flashWithFactoryReset);
-            menu->addMenuEntry_submenu("Cancel", &mainMenu);
-
-            mainMenu.addMenuEntry_submenu("Flash firmware from external drive", menu);
+            mainMenu.addMenuEntry_callback("Flash firmware from external drive", entry_flash_firmware, (void*)&flashFactoryResetQuestion);
         } else if (allowFlashWithoutFactoryReset) {
             mainMenu.addMenuEntry_callback("Flash firmware from external drive", entry_flash_firmware, (void*)&flashWithoutFactoryReset);
         } else if (allowFlashWithFactoryReset) {
