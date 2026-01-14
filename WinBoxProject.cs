@@ -1554,7 +1554,7 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
             string batname = scriptname + ".bat";
             string vbsname = scriptname + ".vbs";
             await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, batname), script);
-            await WriteHiddenBatExecuter(Path.Combine(WinboxApiPath, vbsname), @$"C:\WinboxResources\{batname}", null);
+            await WriteHiddenBatExecuter(Path.Combine(WinboxApiPath, vbsname), @$"C:\WinboxApi\{batname}", null);
         }
 
         string? ExtractAnyFromDismResult(string dismLine, string prefix)
