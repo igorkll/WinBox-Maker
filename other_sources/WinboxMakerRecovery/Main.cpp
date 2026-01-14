@@ -45,9 +45,11 @@ static void loadRecoveryMenu(HINSTANCE hInstance) {
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
     Brain_load();
 
-    Firmware* autoFlashFirmware = Brain_getAutoFlashFirmware();
-    if (autoFlashFirmware) {
+    if (Brain_inputData.value("allowAutoFlash", false)) {
+        Firmware* autoFlashFirmware = Brain_getAutoFlashFirmware();
+        if (autoFlashFirmware) {
 
+        }
     }
 
     loadRecoveryMenu(hInstance);

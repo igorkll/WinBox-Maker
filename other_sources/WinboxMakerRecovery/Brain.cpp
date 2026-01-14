@@ -39,24 +39,35 @@ static std::string getFirmwarePathAtDrive(std::string drive, std::string firmwar
     if (GetFileAttributesA(path.c_str()) != INVALID_FILE_ATTRIBUTES) {
         return path;
     }
+    return "";
 }
 
 static Firmware* getFirmwareAtDrive(std::string drive) {
-    Firmware* firmware = nullptr;
+    FirmwareType firmwareType;
+    std::string path = "";
+
     if (Brain_inputData.value("allowFlashWim", false)) {
-        firmware = new Firmware;
-        firmware->firmwareType = FirmwareType_wim;
-        firmware->path = getFirmwarePathAtDrive(drive, Brain_inputData.value("wimName", "firmware.wim"));
-    } else if (Brain_inputData.value("allowFlashImg", false)) {
-        firmware = new Firmware;
-        firmware->firmwareType = FirmwareType_img;
-        firmware->path = getFirmwarePathAtDrive(drive, Brain_inputData.value("wimName", "firmware.img"));
-    } else if (Brain_inputData.value("allowFlashFfu", false)) {
-        firmware = new Firmware;
-        firmware->firmwareType = FirmwareType_ffu;
-        firmware->path = getFirmwarePathAtDrive(drive, Brain_inputData.value("wimName", "firmware.ffu"));
+        firmwareType = FirmwareType_wim;
+        path = getFirmwarePathAtDrive(drive, Brain_inputData.value("wimName", "firmware.wim"));
     }
-    return firmware;
+
+    if (path.size() == 0 && Brain_inputData.value("allowFlashImg", false)) {
+        firmwareType = FirmwareType_img;
+        path = getFirmwarePathAtDrive(drive, Brain_inputData.value("imgName", "firmware.img"));
+    }
+
+    if (path.size() == 0 && Brain_inputData.value("allowFlashFfu", false)) {
+        firmwareType = FirmwareType_ffu;
+        path = getFirmwarePathAtDrive(drive, Brain_inputData.value("ffuName", "firmware.ffu"));
+    }
+
+    if (path.size() != 0) {
+        Firmware* firmware = new Firmware;
+        firmware->firmwareType = firmwareType;
+        firmware->path = path;
+        return firmware;
+    }
+    return nullptr;
 }
 
 Firmware* Brain_getAutoFlashFirmware() {
