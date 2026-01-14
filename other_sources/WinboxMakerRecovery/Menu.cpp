@@ -11,6 +11,7 @@ using json = nlohmann::json;
 
 // ------------------------------------- consts
 
+static COLORREF color_black = RGB(0, 0, 0);
 static COLORREF color_bg = RGB(0, 0, 0);
 static COLORREF color_title = RGB(255, 0, 0);
 static COLORREF color_text = RGB(255, 255, 255);
@@ -24,6 +25,7 @@ static int screenHeight;
 // ------------------------------------- static
 
 static HBRUSH backgroundBrush;
+static HBRUSH blackBrush;
 static HFONT titleFont;
 static HFONT menuFont;
 static HBITMAP menuLogo;
@@ -36,6 +38,7 @@ static HFONT createMenuFont(int cHeight) {
 
 static void initStaticObjects() {
     backgroundBrush = CreateSolidBrush(color_bg);
+    blackBrush = CreateSolidBrush(color_black);
     titleFont = createMenuFont(lineHeight * 0.9);
     menuFont = createMenuFont(lineHeight * 0.6);
     menuLogo = (HBITMAP)LoadImageA(nullptr, (Brain_sysDrive + "\\WinboxMakerRecovery\\logo.bmp").c_str(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -132,9 +135,9 @@ static void redrawMenu() {
     bool isMenu = !isMenuDisabled();
 
     SetBkMode(hdc, TRANSPARENT);
-    FillRect(hdc, &rect, backgroundBrush);
 
     if (isMessage || isMenu) {
+        FillRect(hdc, &rect, backgroundBrush);
         drawLogo(hdc, menuLogo);
 
         SelectObject(hdc, titleFont);
@@ -146,6 +149,8 @@ static void redrawMenu() {
         {
             drawCenterizedText(hdc, 0, Brain_inputData.value("title", "Winbox maker recovery"));
         }
+    } else {
+        FillRect(hdc, &rect, blackBrush);
     }
 
     if (isMessage) {
