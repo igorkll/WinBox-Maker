@@ -7,9 +7,18 @@
 #include <vector>
 #include <fstream>
 
+//сорян ребят, один из первых опытов в C++
+//тут особо не чистил память ибо мне пока сложно работать с new и я не совсем понимаю местные правила работы с памятью
+//с "C" знаком через embedded разработку под esp32, но в плюсах все как то странно
+//однако выделяется тут настолько мало что плевать
+//но утечки тут в коде есть, хоть ли вообще не критически для проги, все пашет
+
 using json = nlohmann::json;
 
 // ---------------------------------------------------------
+
+static const int flashWithoutFactoryReset = 0;
+static const int flashWithFactoryReset = 1;
 
 static Menu_menu mainMenu;
 
@@ -37,10 +46,23 @@ static void loadRecoveryMenu(HINSTANCE hInstance) {
         mainMenu.addMenuEntry_noNoNoYesNo_callback("Factory reset", entry_factory_reset);
     }
 
-    if (Brain_inputData.value("allowManualFlash", false) &&
-        (Brain_inputData.value("allowFlashWithoutFactoryReset", false) ||
-        Brain_inputData.value("allowFlashWithFactoryReset", false))) {
-        mainMenu.addMenuEntry_callback("Flash firmware from external drive", entry_flash_firmware);
+    bool allowFlashWithoutFactoryReset = Brain_inputData.value("allowFlashWithoutFactoryReset", false);
+    bool allowFlashWithFactoryReset = Brain_inputData.value("allowFlashWithFactoryReset", false);
+    if (Brain_inputData.value("allowManualFlash", false) && (allowFlashWithoutFactoryReset || allowFlashWithFactoryReset)) {
+        if (allowFlashWithoutFactoryReset && allowFlashWithFactoryReset) {
+            Menu_menu* menu = new Menu_menu();
+            menu->alwaysResetSelect = true;
+
+            menu->addMenuEntry_callback("Flash without factory reset", entry_flash_firmware, (void*)&flashWithoutFactoryReset);
+            menu->addMenuEntry_callback("Flash with factory reset", entry_flash_firmware, (void*)&flashWithFactoryReset);
+            menu->addMenuEntry_submenu("Cancel", &mainMenu);
+
+            mainMenu.addMenuEntry_submenu("Flash firmware from external drive", menu);
+        } else if (allowFlashWithoutFactoryReset) {
+            mainMenu.addMenuEntry_callback("Flash firmware from external drive", entry_flash_firmware, (void*)&flashWithoutFactoryReset);
+        } else if (allowFlashWithFactoryReset) {
+            mainMenu.addMenuEntry_callback("Flash firmware from external drive", entry_flash_firmware, (void*)&flashWithFactoryReset);
+        }
     }
 
     if (Brain_inputData.value("textOnInfoPage_en", false)) {
@@ -62,9 +84,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
             Menu_init(hInstance);
 
             FlashQuietMode flashQuietMode = (FlashQuietMode)Brain_inputData.value("autoFlashQuietMode", FlashQuietMode_BlackScreen);
+
+            //если автоматическая прошивка прошла успешно - перезагрузка в систему
             if (Brain_flashFirmware(autoFlashFirmware, flashQuietMode, true)) return 0;
+
+            //если автоматическая прошивка завершилась с ошибкой
+            //но стоит режим автоматической прошивка как скрытый или только логотип, все равно перезагружаемся в систему
             if (flashQuietMode != FlashQuietMode_DontHide) return 0;
 
+            //если автоматическая прошивка проходит не в скрытом режиме, показываем ошибку и после нажатия enter пускаем в recovery
+            //но если recovery меню отключено полностью то все равно произойдет перезагрузка
             std::string err = Brain_getFlashError();
             if (err.size() > 0) Menu_message(err);
         }
