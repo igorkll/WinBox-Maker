@@ -17,10 +17,29 @@ static COLORREF color_title = RGB(255, 0, 0);
 static COLORREF color_text = RGB(255, 255, 255);
 static COLORREF color_textShadow = RGB(64, 64, 64);
 static COLORREF color_selectedText = RGB(255, 255, 0);
-static int lineHeight = 100;
-static int textShadowWidth = 3;
+static int lineHeight;
+static int textShadowWidth;
 static int screenWidth;
 static int screenHeight;
+
+static int progressbar_barHeight;
+static int progressbar_offset;
+static int progressbar_frameThickness;
+static int progressbar_innerPadding;
+
+static COLORREF progressbar_frameColor = RGB(200, 200, 200);
+static COLORREF progressbar_bgColor = RGB(40, 40, 40);
+static COLORREF progressbar_fillColor = RGB(0, 120, 215);
+
+static void calculateConsts() {
+    lineHeight = screenHeight / 8;
+    textShadowWidth = screenHeight / 400;
+
+    progressbar_barHeight = screenHeight / 6;
+    progressbar_offset = screenHeight / 24;
+    progressbar_frameThickness = screenHeight / 600;
+    progressbar_innerPadding = screenHeight / 100;
+}
 
 // ------------------------------------- static
 
@@ -52,6 +71,7 @@ static bool exitLock = false;
 static bool menuInited = false;
 
 static bool messageEnabled = false;
+static bool messageAllowManualClose = false;
 static std::string messageText = "";
 static float messageProgress = -1;
 static MenuMessageQuietMode messageMenuMessageQuietMode = MenuMessageQuietMode_BlackScreen;
@@ -127,6 +147,58 @@ static std::vector<std::string> split_lines(const std::string& s) {
     return lines;
 }
 
+static void drawProgress(HDC hdc, RECT clientRect, float progress)
+{
+    // защита от мусора
+    if (progress < 0.0f) progress = 0.0f;
+    if (progress > 1) progress = 1.0f;
+
+    // ===== РАМКА ПРОГРЕССБАРА =====
+    RECT frameRect;
+    frameRect.left = progressbar_offset;
+    frameRect.right = clientRect.right - progressbar_offset;
+    frameRect.bottom = clientRect.bottom - progressbar_offset;
+    frameRect.top = frameRect.bottom - progressbar_barHeight;
+
+    // фон рамки
+    HBRUSH bgBrush = CreateSolidBrush(progressbar_bgColor);
+    FillRect(hdc, &frameRect, bgBrush);
+    DeleteObject(bgBrush);
+
+    // рамка
+    HPEN framePen = CreatePen(PS_SOLID, progressbar_frameThickness, progressbar_frameColor);
+    HPEN oldPen = (HPEN)SelectObject(hdc, framePen);
+    HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, GetStockObject(NULL_BRUSH));
+
+    Rectangle(
+        hdc,
+        frameRect.left,
+        frameRect.top,
+        frameRect.right,
+        frameRect.bottom
+    );
+
+    SelectObject(hdc, oldBrush);
+    SelectObject(hdc, oldPen);
+    DeleteObject(framePen);
+
+    // ===== ВНУТРЕННИЙ ПРОГРЕСС =====
+    RECT fillRect;
+    fillRect.left = frameRect.left + progressbar_innerPadding;
+    fillRect.top = frameRect.top + progressbar_innerPadding;
+    fillRect.bottom = frameRect.bottom - progressbar_innerPadding;
+
+    int maxWidth = (frameRect.right - frameRect.left) - progressbar_innerPadding * 2;
+    fillRect.right = fillRect.left + (int)(maxWidth * progress);
+
+    if (fillRect.right > fillRect.left)
+    {
+        HBRUSH fillBrush = CreateSolidBrush(progressbar_fillColor);
+        FillRect(hdc, &fillRect, fillBrush);
+        DeleteObject(fillBrush);
+    }
+}
+
 static void redrawMenu() {
     InvalidateRect(hwnd, nullptr, TRUE);
 
@@ -141,29 +213,41 @@ static void redrawMenu() {
     SetBkMode(hdc, TRANSPARENT);
 
     if (isMessage || isMenu) {
-        FillRect(hdc, &rect, backgroundBrush);
-        drawLogo(hdc, menuLogo);
+        if (isMessage && messageMenuMessageQuietMode == MenuMessageQuietMode_BlackScreen) {
+            FillRect(hdc, &rect, blackBrush);
+        } else {
+            FillRect(hdc, &rect, backgroundBrush);
+            drawLogo(hdc, menuLogo);
 
-        SelectObject(hdc, titleFont);
-        SetTextColor(hdc, color_title);
-        if (isMenu && menu->titleOverride.size() > 0) {
-            drawCenterizedText(hdc, 0, menu->titleOverride);
-        }
-        else
-        {
-            drawCenterizedText(hdc, 0, Brain_inputData.value("title", "Winbox maker recovery"));
+            if (!isMessage || messageMenuMessageQuietMode == MenuMessageQuietMode_DontHide) {
+                SelectObject(hdc, titleFont);
+                SetTextColor(hdc, color_title);
+                if (isMenu && menu->titleOverride.size() > 0) {
+                    drawCenterizedText(hdc, 0, menu->titleOverride);
+                }
+                else
+                {
+                    drawCenterizedText(hdc, 0, Brain_inputData.value("title", "Winbox maker recovery"));
+                }
+            }
         }
     } else {
         FillRect(hdc, &rect, blackBrush);
     }
 
     if (isMessage) {
-        SelectObject(hdc, menuFont);
-        int y = lineHeight;
-        auto lines = split_lines(messageText);
-        for (const auto& line : lines) {
-            drawCenterizedTextWithShadow(hdc, y, line, color_text);
-            y += lineHeight;
+        if (messageMenuMessageQuietMode == MenuMessageQuietMode_DontHide) {
+            SelectObject(hdc, menuFont);
+            int y = lineHeight;
+            auto lines = split_lines(messageText);
+            for (const auto& line : lines) {
+                drawCenterizedTextWithShadow(hdc, y, line, color_text);
+                y += lineHeight;
+            }
+
+            if (messageProgress >= 0) {
+                drawProgress(hdc, rect, messageProgress);
+            }
         }
     } else if (isMenu) {
         SelectObject(hdc, menuFont);
@@ -191,8 +275,10 @@ static void pointerMove(bool up) {
 
 static void pointerAccept() {
     if (messageEnabled) {
-        messageEnabled = false;
-        redrawMenu();
+        if (messageAllowManualClose) {
+            messageEnabled = false;
+            redrawMenu();
+        }
     } else if (!isMenuDisabled()) {
         Menu_callback callback = menu->menuEntriesCallbacks[menu->selected];
         callback(menu->menuEntriesArgs[menu->selected]);
@@ -310,6 +396,7 @@ void Menu_init(HINSTANCE hInstance) {
         nullptr
     );
 
+    calculateConsts();
     initStaticObjects();
     ShowWindow(hwnd, SW_SHOW);
     UpdateWindow(hwnd);
@@ -329,13 +416,23 @@ void Menu_enableExitLock(bool _exitLock) {
     exitLock = _exitLock;
 }
 
-void Menu_message(std::string text, float progress, MenuMessageQuietMode menuMessageQuietMode) {
+void Menu_status(std::string text, float progress, MenuMessageQuietMode menuMessageQuietMode) {
     messageEnabled = true;
+    messageAllowManualClose = false;
     messageText = text;
     messageProgress = progress;
     messageMenuMessageQuietMode = menuMessageQuietMode;
-    
     redrawMenu();
+}
+
+void Menu_hideStatus() {
+    messageEnabled = false;
+}
+
+void Menu_message(std::string text, float progress, MenuMessageQuietMode menuMessageQuietMode) {
+    Menu_status(text, progress, menuMessageQuietMode);
+    messageAllowManualClose = true;
+    
     while (messageEnabled)
         Menu_process();
 }
