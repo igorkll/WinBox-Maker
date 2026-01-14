@@ -241,10 +241,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Brain.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Brain.hpp" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Menu.hpp" />
   </ItemGroup>

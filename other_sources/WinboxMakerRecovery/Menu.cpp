@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include "Brain.hpp"
 
 using json = nlohmann::json;
 
@@ -20,23 +21,6 @@ static int lineHeight = 100;
 static int textShadowWidth = 3;
 static int screenWidth;
 static int screenHeight;
-static std::string sysDrive;
-
-static void loadConsts() {
-    char sysDriveCStr[MAX_PATH];
-    GetEnvironmentVariableA("SystemDrive", sysDriveCStr, MAX_PATH);
-    sysDrive = std::string(sysDriveCStr);
-
-    std::ifstream inFile(sysDrive + "\\WinboxMakerRecovery\\settings.json");
-    if (inFile) {
-        json j;
-        inFile >> j;
-
-        if (j.contains("title")) title_text = j["title"];
-    }
-
-    lineHeight = screenHeight / 8;
-}
 
 // ------------------------------------- static
 
@@ -55,7 +39,7 @@ static void initStaticObjects() {
     backgroundBrush = CreateSolidBrush(color_bg);
     titleFont = createMenuFont(lineHeight * 0.9);
     menuFont = createMenuFont(lineHeight * 0.6);
-    menuLogo = (HBITMAP)LoadImageA(nullptr, (sysDrive + "\\WinboxMakerRecovery\\logo.bmp").c_str(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    menuLogo = (HBITMAP)LoadImageA(nullptr, (Brain_sysDrive + "\\WinboxMakerRecovery\\logo.bmp").c_str(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
 // ------------------------------------- vars
@@ -268,9 +252,7 @@ void Menu_start(HINSTANCE hInstance) {
         nullptr
     );
 
-    loadConsts();
     initStaticObjects();
-
     ShowWindow(hwnd, SW_SHOW);
     UpdateWindow(hwnd);
 

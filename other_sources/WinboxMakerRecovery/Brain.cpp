@@ -1,7 +1,5 @@
 #include "Brain.hpp"
 
-using json = nlohmann::json;
-
 std::string Brain_sysDrive;
 std::string Brain_windowsDrive;
 json Brain_inputData;
