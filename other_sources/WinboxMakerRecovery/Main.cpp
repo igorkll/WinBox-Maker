@@ -61,7 +61,7 @@ static void entry_flash_firmware(void* _factoryResetMode) {
     }
 
     Menu_menu* acceptMenu = new Menu_menu();
-    std::string flashAcceptStr = std::string("Flash ") + firmware->path + (trySaveData ? " with save data" : " with factory reset");
+    std::string flashAcceptStr = std::string("Flash ") + firmware->path;
     acceptMenu->addMenuEntry_noNoNoYesNo_callback(flashAcceptStr, entry_menu_unlock, (void*)&flashAcceptUnlockCode);
     acceptMenu->addMenuEntry_callback("Cancel", entry_menu_unlock, (void*)&flashCancelUnlockCode);
     Menu_select(acceptMenu);
