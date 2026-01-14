@@ -69,3 +69,4 @@ static void _entry_change_menu(void* _menu) {
 class Menu_menu;
 void Menu_select(Menu_menu* menu);
 void Menu_start(HINSTANCE hInstance);
+void Menu_enableExitLock(bool exitLock);

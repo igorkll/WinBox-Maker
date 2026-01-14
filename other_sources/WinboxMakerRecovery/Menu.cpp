@@ -45,6 +45,7 @@ static void initStaticObjects() {
 // ------------------------------------- vars
 
 static Menu_menu* menu;
+static bool exitLock = false;
 
 // ------------------------------------- code
 
@@ -165,7 +166,7 @@ static void handleKeyboard(HWND hwnd, WPARAM key) {
         break;
     
     case VK_ESCAPE:
-        PostQuitMessage(0);
+        if (!exitLock) PostQuitMessage(0);
         break;
     }
 }
@@ -261,4 +262,8 @@ void Menu_start(HINSTANCE hInstance) {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
+}
+
+void Menu_enableExitLock(bool _exitLock) {
+    exitLock = _exitLock;
 }
