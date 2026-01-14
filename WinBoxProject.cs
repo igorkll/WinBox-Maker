@@ -1551,7 +1551,10 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
         async Task WriteApiScript(string scriptname, string script)
         {
-            await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, scriptname), script);
+            string batname = scriptname + ".bat";
+            string vbsname = scriptname + ".vbs";
+            await File.WriteAllTextAsync(Path.Combine(WinboxApiPath, batname), script);
+            await WriteHiddenBatExecuter(Path.Combine(WinboxApiPath, vbsname), @$"C:\WinboxResources\{batname}", null);
         }
 
         string? ExtractAnyFromDismResult(string dismLine, string prefix)
@@ -3014,7 +3017,7 @@ if errorlevel 1 (
                 }
                 else
                 {
-                    await WriteApiScript("reboot_to_desktop.bat", reboot_to_desktop_cmd);
+                    await WriteApiScript("reboot_to_desktop", reboot_to_desktop_cmd);
 
                     string customShell = "wscript \"C:\\WinboxResources\\run_app_script_hidden.vbs\"";
 
@@ -3033,8 +3036,8 @@ if errorlevel 1 (
                     await RegChanger.RegMod("SOFTWARE", "Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "Shell", Program.EscapeForRegFile(customShell));
                 }
 
-                await WriteApiScript("reboot_to_recovery.bat", "reagentc /boottore\r\nshutdown /r /t 0");
-                await WriteApiScript("reboot_to_advanced_options.bat", "shutdown /r /o /f /t 0");
+                await WriteApiScript("reboot_to_recovery", "reagentc /boottore\r\nshutdown /r /t 0");
+                await WriteApiScript("reboot_to_advanced_options", "shutdown /r /o /f /t 0");
             }
 
             // ------------------------------------ apple reg
