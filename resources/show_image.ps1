@@ -3,7 +3,8 @@ param(
     [string]$stretch,
     [int]$offsetX = 0,
     [int]$offsetY = 0,
-    [int]$topmost = 0
+    [int]$topmost = 0,
+    [string]$stopFileFlag = $null
 )
 
 Add-Type -AssemblyName PresentationFramework
@@ -96,6 +97,42 @@ $insertAfter = if ([bool]$topmost) {
     [Win32]::SWP_NOSIZE -bor
     [Win32]::SWP_NOACTIVATE
 )
+
+# таймер чтобы зафиксировать слой окна
+$timer = New-Object System.Windows.Threading.DispatcherTimer
+$timer.Interval = [TimeSpan]::FromMilliseconds(200)
+$timer.Add_Tick({
+    [Win32]::SetWindowPos(
+        $hwnd,
+        [Win32]::HWND_BOTTOM,
+        0, 0, 0, 0,
+        [Win32]::SWP_NOMOVE -bor
+        [Win32]::SWP_NOSIZE -bor
+        [Win32]::SWP_NOACTIVATE
+    )
+})
+$timer.Start()
+
+# если stopFileFlag появится - закрываем
+if ($null -ne $stopFileFlag) {
+
+    $fullPath = [System.IO.Path]::GetFullPath($stopFileFlag)
+    $dir  = [System.IO.Path]::GetDirectoryName($fullPath)
+    $file = [System.IO.Path]::GetFileName($fullPath)
+
+    $fsw = New-Object System.IO.FileSystemWatcher
+    $fsw.Path = $dir
+    $fsw.Filter = $file
+    $fsw.EnableRaisingEvents = $true
+
+    Register-ObjectEvent $fsw Created -Action {
+        # ВАЖНО: всё, что трогает WPF — через Dispatcher
+        $w.Dispatcher.Invoke({
+            $w.Close()
+            [System.Windows.Threading.Dispatcher]::CurrentDispatcher.InvokeShutdown()
+        })
+    }
+}
 
 # Удерживаем окно открытым
 [System.Windows.Threading.Dispatcher]::Run()

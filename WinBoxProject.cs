@@ -1979,7 +1979,7 @@ reg add ""HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter"" /v BreakoutK
 
             // ------------------------------------ system init
 
-            bool hideGettingReadyScreenWithOverlay = false;
+            bool hideGettingReadyScreenWithOverlay = true;
             string showImageBaseCmd = $@"powershell -ExecutionPolicy Bypass -File ""C:\WinboxResources\show_image.ps1"" ";
 
             string applicationScript = $@"@echo off" + "\r\n";
@@ -2118,7 +2118,7 @@ echo SetupComplete - setup keyboard layouts >> C:\WinboxResources\setup.log
                 if (hideGettingReadyScreenWithOverlay)
                 {
                     firstInit += "\r\n" + $@"echo FirstInit - kill getting ready hide overlay >> C:\WinboxResources\setup.log
-taskkill /F /FI ""COMMANDLINE like *run_first_setup_logo_hidden.vbs*""";
+echo. > C:\WinboxResources\close_hide_getting_ready_overlay.flag";
                 }
 
                 void appScriptLog(string log)
@@ -2668,7 +2668,7 @@ wmic useraccount where ""Name='winbox_kiosk'"" set PasswordExpires=False
 
                 if (hideGettingReadyScreenWithOverlay)
                 {
-                    string first_setup_logo = showImageBaseCmd + $@"-path ""C:\WinboxResources\empty.png"" -stretch None -topmost 1";
+                    string first_setup_logo = showImageBaseCmd + $@"-path ""C:\WinboxResources\empty.png"" -stretch None -topmost 1 -stopFileFlag ""C:\WinboxResources\close_hide_getting_ready_overlay.flag""";
 
                     await File.WriteAllTextAsync(Path.Combine(WinboxResourcesPath, "first_setup_logo.bat"), first_setup_logo);
                     await WriteHiddenBatExecuter(Path.Combine(WinboxResourcesPath, "run_first_setup_logo_hidden.vbs"), @"C:\WinboxResources\first_setup_logo.bat", null);
