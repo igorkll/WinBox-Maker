@@ -60,7 +60,7 @@ static void initStaticObjects() {
     backgroundBrush = CreateSolidBrush(color_bg);
     blackBrush = CreateSolidBrush(color_black);
     titleFont = createMenuFont(lineHeight * 0.9);
-    menuFont = createMenuFont(lineHeight * 0.6);
+    menuFont = createMenuFont(lineHeight * 0.7);
     menuLogo = (HBITMAP)LoadImageA(nullptr, (Brain_sysDrive + "\\WinboxMakerRecovery\\logo.bmp").c_str(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
@@ -260,19 +260,19 @@ static void pointerMove(bool up) {
     {
         menu->selected = (menu->selected + 1) % menu->menuEntriesNames.size();
     }
-    redrawMenu();
+    InvalidateRect(hwnd, nullptr, TRUE);
 }
 
 static void pointerAccept() {
     if (messageEnabled) {
         if (messageAllowManualClose) {
             messageEnabled = false;
-            redrawMenu();
+            InvalidateRect(hwnd, nullptr, TRUE);
         }
     } else if (!isMenuDisabled()) {
         Menu_callback callback = menu->menuEntriesCallbacks[menu->selected];
         callback(menu->menuEntriesArgs[menu->selected]);
-        redrawMenu();
+        InvalidateRect(hwnd, nullptr, TRUE);
     }
 }
 
@@ -321,7 +321,7 @@ static void mouseHandle(WPARAM lParam) {
     else if (lineIndex >= 0 && lineIndex < menu->menuEntriesNames.size())
     {
         menu->selected = lineIndex;
-        redrawMenu();
+        InvalidateRect(hwnd, nullptr, TRUE);
     }
 }
 
@@ -353,7 +353,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 void Menu_select(Menu_menu* _menu) {
     menu = _menu;
-    redrawMenu();
+    InvalidateRect(hwnd, nullptr, TRUE);
 }
 
 void Menu_init(HINSTANCE hInstance) {
@@ -410,7 +410,7 @@ void Menu_status(std::string text, float progress, MenuMessageQuietMode menuMess
     messageText = text;
     messageProgress = progress;
     messageMenuMessageQuietMode = menuMessageQuietMode;
-    redrawMenu();
+    InvalidateRect(hwnd, nullptr, TRUE);
 }
 
 void Menu_hideStatus() {
