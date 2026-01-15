@@ -18,8 +18,9 @@ static std::string FindWindowsDrive() {
     DWORD len = GetLogicalDriveStringsA(sizeof(drives), drives);
 
     for (size_t i = 0; i < len; i += strlen(&drives[i]) + 1) {
-        std::string path = std::string(&drives[i]) + "Windows\\System32\\config\\SYSTEM";
-        if (GetFileAttributesA(path.c_str()) != INVALID_FILE_ATTRIBUTES) {
+        std::string driveLettere = std::string(&drives[i]);
+        std::string path = driveLettere + "Windows\\System32\\config\\SYSTEM";
+        if (GetFileAttributesA(path.c_str()) != INVALID_FILE_ATTRIBUTES && Brain_sysDrive + "\\" != driveLettere) {
             drives[strlen(&drives[i]) - 1] = '\0';
             return std::string(&drives[i]);
         }
