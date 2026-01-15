@@ -104,7 +104,7 @@ $timer.Interval = [TimeSpan]::FromMilliseconds(200)
 $timer.Add_Tick({
     [Win32]::SetWindowPos(
         $hwnd,
-        [Win32]::HWND_BOTTOM,
+        $insertAfter,
         0, 0, 0, 0,
         [Win32]::SWP_NOMOVE -bor
         [Win32]::SWP_NOSIZE -bor
