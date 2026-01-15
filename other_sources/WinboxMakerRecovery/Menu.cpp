@@ -310,6 +310,11 @@ static void handleAppCommand(WPARAM lParam) {
 }
 
 static void mouseHandle(WPARAM lParam) {
+    if (messageEnabled) {
+        pointerAccept();
+        return;
+    }
+
     if (isMenuDisabled()) return;
 
     int x = GET_X_LPARAM(lParam);
