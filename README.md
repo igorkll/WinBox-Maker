@@ -33,6 +33,10 @@ in this program, many settings/tweaks are actually made several times in differe
 please note that if you use the windows component removal functions (for example, you delete SysWOW64), then you may have problems with things like the net framework and other windows features. it is better not to delete anything, but simply block access to unused functions if your device does not have serious restrictions on the amount of memory  
 the program is an alternative: Edge Device Image Builder / Windows Configuration Designer  
 
+## bugs
+* The built-in recovery menu of winbox maker itself has not been completed. However, you can already replace the recovery menu with your exe file and it will work completely. (by default, the recovery menu is disabled altogether and is deleted from the image)
+* The "UWP Application" application mode is not working as intended yet.
+
 ## warnings
 * please note that immediately after installation, the system may be in an "uninitialized" state (while the SetupComplete.cmd script has not yet been executed and the user has not been created) and the device with the system in this state should NEVER fall into the hands of the user before the first power-on. since the device can be prepared for the first time when it is turned on and the user can see the windows logo. if the device is turned off during the execution of SetupComplete.cmd, this may damage it and require reinstalling. Also, if the recovery menu was turned off but not deleted from the system, it may still be available before executing SetupComplete.cmd for this reason, the device MUST be turned on at least once before being transferred to the user if you are installing the system via an iso installer or deploying install.wim via dism. if you exported *.img with an already installed system (via the built-in winbox maker function that installs the system on qemu), then this is not so important because SetupComplete.cmd has already been executed after installation on qemu
 * if you use the "Evaluation" version of windows as the basis, then the system, being inactive, will shut down every hour
