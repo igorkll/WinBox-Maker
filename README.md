@@ -3,7 +3,8 @@ a tool for creating minimal embed versions of windows (this is usually Windows w
 the easiest way to create a kiosk on Windows or use Windows on embedded device (single app mode)  
 
 ## requirements
-* dotnet: https://aka.ms/dotnet-core-applaunch?missing_runtime=true&arch=x64&rid=win-x64&os=win10&apphost_version=8.0.16
+* https://aka.ms/dotnet-core-applaunch?missing_runtime=true&arch=x64&rid=win-x64&os=win10&apphost_version=8.0.16
+* https://aka.ms/dotnet-core-applaunch?framework=Microsoft.WindowsDesktop.App&framework_version=8.0.0&arch=x64&rid=win-x64&os=win10
 
 program examples: https://github.com/igorkll/WinBox-Maker-programs  
 WARNING!!! if you read this text from GITHUB page please, download a release and read description there. on github this text is DEV winbox maker version (not released yet)
