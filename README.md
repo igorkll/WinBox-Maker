@@ -38,7 +38,7 @@ in this program, many settings/tweaks are actually made several times in differe
 please note that if you use the windows component removal functions (for example, you delete SysWOW64), then you may have problems with things like the net framework and other windows features. it is better not to delete anything, but simply block access to unused functions if your device does not have serious restrictions on the amount of memory  
 the program is an alternative: Edge Device Image Builder / Windows Configuration Designer  
 
-## bugs
+## bugs / unfinished
 * The built-in recovery menu of winbox maker itself has not been completed. However, you can already replace the recovery menu with your exe file and it will work completely. (by default, the recovery menu is disabled altogether and is deleted from the image)
 * The "UWP Application" application mode is not working as intended yet.
 * so far, bypassing the restrictions on installing windows 11 on unsupported hardware is not working or is not fully working.
