@@ -44,6 +44,14 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * so far, bypassing the restrictions on installing windows 11 on unsupported hardware is not working or is not fully working.
 * exporting ffu
 
+## you may also be interested in
+* https://github.com/igorkll/windows-embedded-setup-scripts - setup scripts for windows for configuring kiosks and other embedded systems
+* https://github.com/igorkll/linux-embedded-setup-scripts - scripts for configuring embedded linux from a running system can be executed from a target device or by automated build systems from a chroot/vm
+* https://github.com/igorkll/linux-embedded-patchs - a set of patches for using the linux kernel on embedded locked-down devices
+* https://github.com/igorkll/custom-debian-initramfs-init - custom /init script for debian initramfs
+* https://github.com/igorkll/embedded-plymouth - plymouth with a patch to disable ESC key processing (so that the console cannot be displayed during boot)
+* https://github.com/igorkll/syslbuild - an build system for creating Linux distributions. it is focused on embedded distributions
+
 ## warnings
 * please note that immediately after installation, the system may be in an "uninitialized" state (while the SetupComplete.cmd script has not yet been executed and the user has not been created) and the device with the system in this state should NEVER fall into the hands of the user before the first power-on. since the device can be prepared for the first time when it is turned on and the user can see the windows logo. if the device is turned off during the execution of SetupComplete.cmd, this may damage it and require reinstalling. Also, if the recovery menu was turned off but not deleted from the system, it may still be available before executing SetupComplete.cmd for this reason, the device MUST be turned on at least once before being transferred to the user if you are installing the system via an iso installer or deploying install.wim via dism. if you exported *.img with an already installed system (via the built-in winbox maker function that installs the system on qemu), then this is not so important because SetupComplete.cmd has already been executed after installation on qemu
 * if you use the "Evaluation" version of windows as the basis, then the system, being inactive, will shut down every hour
