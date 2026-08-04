@@ -465,6 +465,9 @@ Windows Registry Editor Version 5.00
 "DeferQualityUpdatesPeriodInDays"=dword:0000001e
 "BranchReadinessLevel"=dword:00000014
 
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings]
+"FlightSettingsMaxPauseDays"=dword:00000e42
+
 ; ---------------- disable UAC
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "EnableLUA"=dword:00000000

@@ -163,12 +163,15 @@ namespace WinBox_Maker
             @"\Microsoft\Windows\UpdateOrchestrator\Schedule Scan",
             @"\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker",
             @"\Microsoft\Windows\DiskCleanup\SilentCleanup",
-            @"\Microsoft\Windows\Backup\ScheduledBackup"
+            @"\Microsoft\Windows\Backup\ScheduledBackup",
+            @"\Microsoft\Windows\WindowsUpdate\"
         };
 
         static public string[] defaultDeletePaths = {
             "Windows\\System32\\rgnupdt.exe",
             "Windows\\System32\\wuaueng.dll",
+            "Windows\\System32\\usosvc.dll",
+            "Windows\\System32\\qmgr.dll",
             "Windows\\System32\\Tasks\\Microsoft\\OneDrive",
             "Windows\\System32\\OneDriveSetup.exe",
             "Windows\\SysWOW64\\OneDriveSetup.exe",
@@ -179,7 +182,7 @@ namespace WinBox_Maker
             "ProgramData\\Microsoft\\Windows Defender",
             "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Windows Defender.lnk",
             "Windows\\SystemApps\\Microsoft.PPIProjection_cw5n1h2txyewy",
-            "Windows\\SystemApps\\ContactSupport_cw5n1h2txyewy"//,
+            //"Windows\\SystemApps\\ContactSupport_cw5n1h2txyewy",
             //"Windows\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy"
         };
 
