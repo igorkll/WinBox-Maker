@@ -32,7 +32,7 @@ namespace WinBox_Maker
         public static string version_str = $"{version_major}.{version_minor}.{version_patch}";
         public static int version_num = (version_major * 10000) + (version_minor * 100) + version_patch;
 
-        static bool is_beta_version = true;
+        static bool is_beta_version = false;
         public static string version = $"WinBox-Maker {version_str}" + (is_beta_version ? " BETA" : "");
         public const string buildEventsWarning = "WARNING!!! THIS PROJECT USES BUILD EVENTS, WHICH MEANS THAT COMMANDS FROM THE EVENTS TAB WILL BE EXECUTED DURING THE BUILD PROCESS!!!";
         public static string isoError = "failed to load the iso file, make sure the path is correct";
