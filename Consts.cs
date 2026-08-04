@@ -169,9 +169,9 @@ namespace WinBox_Maker
 
         static public string[] defaultDeletePaths = {
             "Windows\\System32\\rgnupdt.exe",
-            "Windows\\System32\\wuaueng.dll",
-            "Windows\\System32\\usosvc.dll",
-            "Windows\\System32\\qmgr.dll",
+            //"Windows\\System32\\wuaueng.dll",
+            //"Windows\\System32\\usosvc.dll",
+            //"Windows\\System32\\qmgr.dll",
             "Windows\\System32\\Tasks\\Microsoft\\OneDrive",
             "Windows\\System32\\OneDriveSetup.exe",
             "Windows\\SysWOW64\\OneDriveSetup.exe",
