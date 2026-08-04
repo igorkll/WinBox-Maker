@@ -793,3 +793,12 @@ Windows Registry Editor Version 5.00
 ; ---------------- disabling Internet check from windows
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet]
 "EnableActiveProbing"=dword:00000000
+
+; ------------------------------------------------ change search settings
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search]
+"ConnectedSearchUseWeb"=dword:00000000
+"DisableWebSearch"=dword:00000001
+"EnableDynamicContentInWSB"=dword:00000000
+"AllowSearchToUseLocation"=dword:00000000
+"AllowCortana"=dword:00000000
