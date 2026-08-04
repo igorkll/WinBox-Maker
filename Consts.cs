@@ -172,7 +172,8 @@ namespace WinBox_Maker
             "Program Files (x86)\\Windows Defender Advanced Threat Protection",
             "Program Files\\Windows Defender",
             "Program Files\\Windows Defender Advanced Threat Protection",
-            "ProgramData\\Microsoft\\Windows Defender"
+            "ProgramData\\Microsoft\\Windows Defender",
+            "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Windows Defender.lnk",
         };
 
         static public string[] defaultStopServicesList = {

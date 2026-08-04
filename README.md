@@ -43,6 +43,7 @@ the program is an alternative: Edge Device Image Builder / Windows Configuration
 * The "UWP Application" application mode is not working as intended yet.
 * so far, bypassing the restrictions on installing windows 11 on unsupported hardware is not working or is not fully working.
 * exporting ffu
+* replacing the logo in bootres.dll
 
 ## you may also be interested in
 * https://github.com/igorkll/windows-embedded-setup-scripts - setup scripts for windows for configuring kiosks and other embedded systems
