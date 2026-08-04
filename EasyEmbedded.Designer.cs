@@ -48,16 +48,17 @@
             ee_file_select = new Button();
             ee_file = new Label();
             richTextBox1 = new RichTextBox();
+            back = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // ExportIsoInstaller
             // 
             ExportIsoInstaller.Dock = DockStyle.Bottom;
-            ExportIsoInstaller.Location = new Point(0, 628);
-            ExportIsoInstaller.Margin = new Padding(3, 3, 3, 40);
+            ExportIsoInstaller.Location = new Point(0, 733);
+            ExportIsoInstaller.Margin = new Padding(4, 4, 4, 47);
             ExportIsoInstaller.Name = "ExportIsoInstaller";
-            ExportIsoInstaller.Size = new Size(460, 49);
+            ExportIsoInstaller.Size = new Size(537, 57);
             ExportIsoInstaller.TabIndex = 21;
             ExportIsoInstaller.Text = "export .iso installer";
             ExportIsoInstaller.UseVisualStyleBackColor = true;
@@ -68,27 +69,29 @@
             ProcessName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ProcessName.AutoSize = true;
             ProcessName.ForeColor = SystemColors.Window;
-            ProcessName.Location = new Point(0, 560);
-            ProcessName.Margin = new Padding(3, 0, 3, 40);
+            ProcessName.Location = new Point(0, 653);
+            ProcessName.Margin = new Padding(4, 0, 4, 47);
             ProcessName.Name = "ProcessName";
-            ProcessName.Size = new Size(122, 25);
+            ProcessName.Size = new Size(141, 30);
             ProcessName.TabIndex = 22;
             ProcessName.Text = "process name";
             // 
             // ProcessValue
             // 
             ProcessValue.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ProcessValue.Location = new Point(0, 589);
+            ProcessValue.Location = new Point(0, 687);
+            ProcessValue.Margin = new Padding(4, 4, 4, 4);
             ProcessValue.Name = "ProcessValue";
-            ProcessValue.Size = new Size(460, 33);
+            ProcessValue.Size = new Size(537, 38);
             ProcessValue.TabIndex = 23;
             // 
             // WindowsName
             // 
             WindowsName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            WindowsName.Location = new Point(12, 12);
+            WindowsName.Location = new Point(125, 14);
+            WindowsName.Margin = new Padding(4, 4, 4, 4);
             WindowsName.Name = "WindowsName";
-            WindowsName.Size = new Size(318, 31);
+            WindowsName.Size = new Size(259, 35);
             WindowsName.TabIndex = 45;
             WindowsName.TextChanged += WindowsName_TextChanged;
             WindowsName.KeyDown += WindowsName_KeyDown;
@@ -99,18 +102,20 @@
             ArchitectureSelect.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             ArchitectureSelect.DropDownStyle = ComboBoxStyle.DropDownList;
             ArchitectureSelect.FormattingEnabled = true;
-            ArchitectureSelect.Location = new Point(12, 88);
+            ArchitectureSelect.Location = new Point(14, 103);
+            ArchitectureSelect.Margin = new Padding(4, 4, 4, 4);
             ArchitectureSelect.Name = "ArchitectureSelect";
-            ArchitectureSelect.Size = new Size(438, 33);
+            ArchitectureSelect.Size = new Size(510, 38);
             ArchitectureSelect.TabIndex = 44;
             ArchitectureSelect.TextChanged += ArchitectureSelect_TextChanged;
             // 
             // WindowsSelect
             // 
             WindowsSelect.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            WindowsSelect.Location = new Point(336, 12);
+            WindowsSelect.Location = new Point(392, 14);
+            WindowsSelect.Margin = new Padding(4, 4, 4, 4);
             WindowsSelect.Name = "WindowsSelect";
-            WindowsSelect.Size = new Size(114, 31);
+            WindowsSelect.Size = new Size(133, 36);
             WindowsSelect.TabIndex = 42;
             WindowsSelect.Text = "Select";
             WindowsSelect.UseVisualStyleBackColor = true;
@@ -121,26 +126,29 @@
             WindowsVersionSelect.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             WindowsVersionSelect.DropDownStyle = ComboBoxStyle.DropDownList;
             WindowsVersionSelect.FormattingEnabled = true;
-            WindowsVersionSelect.Location = new Point(12, 49);
+            WindowsVersionSelect.Location = new Point(14, 57);
+            WindowsVersionSelect.Margin = new Padding(4, 4, 4, 4);
             WindowsVersionSelect.Name = "WindowsVersionSelect";
-            WindowsVersionSelect.Size = new Size(438, 33);
+            WindowsVersionSelect.Size = new Size(510, 38);
             WindowsVersionSelect.TabIndex = 43;
             WindowsVersionSelect.TextChanged += WindowsVersionSelect_TextChanged;
             // 
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(3, 8);
+            label15.Location = new Point(4, 9);
+            label15.Margin = new Padding(4, 0, 4, 0);
             label15.Name = "label15";
-            label15.Size = new Size(92, 25);
+            label15.Size = new Size(103, 30);
             label15.TabIndex = 46;
             label15.Text = "Boot logo";
             // 
             // CustomBootLogo_clear
             // 
-            CustomBootLogo_clear.Location = new Point(189, 3);
+            CustomBootLogo_clear.Location = new Point(220, 4);
+            CustomBootLogo_clear.Margin = new Padding(4, 4, 4, 4);
             CustomBootLogo_clear.Name = "CustomBootLogo_clear";
-            CustomBootLogo_clear.Size = new Size(82, 34);
+            CustomBootLogo_clear.Size = new Size(96, 40);
             CustomBootLogo_clear.TabIndex = 48;
             CustomBootLogo_clear.Text = "clear";
             CustomBootLogo_clear.UseVisualStyleBackColor = true;
@@ -148,9 +156,10 @@
             // 
             // CustomBootLogo_select
             // 
-            CustomBootLogo_select.Location = new Point(101, 3);
+            CustomBootLogo_select.Location = new Point(118, 4);
+            CustomBootLogo_select.Margin = new Padding(4, 4, 4, 4);
             CustomBootLogo_select.Name = "CustomBootLogo_select";
-            CustomBootLogo_select.Size = new Size(82, 34);
+            CustomBootLogo_select.Size = new Size(96, 40);
             CustomBootLogo_select.TabIndex = 47;
             CustomBootLogo_select.Text = "select";
             CustomBootLogo_select.UseVisualStyleBackColor = true;
@@ -159,9 +168,10 @@
             // CustomBootLogo
             // 
             CustomBootLogo.AutoSize = true;
-            CustomBootLogo.Location = new Point(277, 8);
+            CustomBootLogo.Location = new Point(323, 9);
+            CustomBootLogo.Margin = new Padding(4, 0, 4, 0);
             CustomBootLogo.Name = "CustomBootLogo";
-            CustomBootLogo.Size = new Size(78, 25);
+            CustomBootLogo.Size = new Size(89, 30);
             CustomBootLogo.TabIndex = 49;
             CustomBootLogo.Text = "bmp file";
             // 
@@ -180,17 +190,19 @@
             panel1.Controls.Add(CustomBootLogo_clear);
             panel1.Controls.Add(CustomBootLogo_select);
             panel1.Controls.Add(CustomBootLogo);
-            panel1.Location = new Point(12, 127);
+            panel1.Location = new Point(14, 148);
+            panel1.Margin = new Padding(4, 4, 4, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(438, 129);
+            panel1.Size = new Size(510, 150);
             panel1.TabIndex = 50;
             // 
             // ee_onefile
             // 
             ee_onefile.AutoSize = true;
-            ee_onefile.Location = new Point(105, 83);
+            ee_onefile.Location = new Point(122, 97);
+            ee_onefile.Margin = new Padding(4, 4, 4, 4);
             ee_onefile.Name = "ee_onefile";
-            ee_onefile.Size = new Size(183, 29);
+            ee_onefile.Size = new Size(213, 34);
             ee_onefile.TabIndex = 55;
             ee_onefile.TabStop = true;
             ee_onefile.Text = "one executable file";
@@ -200,9 +212,10 @@
             // ee_allfiles
             // 
             ee_allfiles.AutoSize = true;
-            ee_allfiles.Location = new Point(7, 83);
+            ee_allfiles.Location = new Point(8, 97);
+            ee_allfiles.Margin = new Padding(4, 4, 4, 4);
             ee_allfiles.Name = "ee_allfiles";
-            ee_allfiles.Size = new Size(90, 29);
+            ee_allfiles.Size = new Size(102, 34);
             ee_allfiles.TabIndex = 54;
             ee_allfiles.TabStop = true;
             ee_allfiles.Text = "all files";
@@ -212,17 +225,19 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(3, 48);
+            label1.Location = new Point(4, 56);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(95, 25);
+            label1.Size = new Size(113, 30);
             label1.TabIndex = 50;
             label1.Text = "Executable";
             // 
             // ee_file_clear
             // 
-            ee_file_clear.Location = new Point(189, 43);
+            ee_file_clear.Location = new Point(220, 50);
+            ee_file_clear.Margin = new Padding(4, 4, 4, 4);
             ee_file_clear.Name = "ee_file_clear";
-            ee_file_clear.Size = new Size(82, 34);
+            ee_file_clear.Size = new Size(96, 40);
             ee_file_clear.TabIndex = 52;
             ee_file_clear.Text = "clear";
             ee_file_clear.UseVisualStyleBackColor = true;
@@ -230,9 +245,10 @@
             // 
             // ee_file_select
             // 
-            ee_file_select.Location = new Point(101, 43);
+            ee_file_select.Location = new Point(118, 50);
+            ee_file_select.Margin = new Padding(4, 4, 4, 4);
             ee_file_select.Name = "ee_file_select";
-            ee_file_select.Size = new Size(82, 34);
+            ee_file_select.Size = new Size(96, 40);
             ee_file_select.TabIndex = 51;
             ee_file_select.Text = "select";
             ee_file_select.UseVisualStyleBackColor = true;
@@ -241,9 +257,10 @@
             // ee_file
             // 
             ee_file.AutoSize = true;
-            ee_file.Location = new Point(277, 48);
+            ee_file.Location = new Point(323, 56);
+            ee_file.Margin = new Padding(4, 0, 4, 0);
             ee_file.Name = "ee_file";
-            ee_file.Size = new Size(66, 25);
+            ee_file.Size = new Size(79, 30);
             ee_file.TabIndex = 53;
             ee_file.Text = "exe file";
             // 
@@ -251,19 +268,31 @@
             // 
             richTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox1.BackColor = SystemColors.Info;
-            richTextBox1.Location = new Point(12, 262);
+            richTextBox1.Location = new Point(14, 306);
+            richTextBox1.Margin = new Padding(4, 4, 4, 4);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(438, 283);
+            richTextBox1.Size = new Size(510, 330);
             richTextBox1.TabIndex = 51;
             richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
+            // back
+            // 
+            back.Location = new Point(14, 14);
+            back.Name = "back";
+            back.Size = new Size(104, 35);
+            back.TabIndex = 52;
+            back.Text = "< back";
+            back.UseVisualStyleBackColor = true;
+            back.Click += back_Click;
+            // 
             // EasyEmbedded
             // 
-            AutoScaleDimensions = new SizeF(144F, 144F);
+            AutoScaleDimensions = new SizeF(168F, 168F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.DimGray;
-            ClientSize = new Size(460, 677);
+            ClientSize = new Size(537, 790);
+            Controls.Add(back);
             Controls.Add(richTextBox1);
             Controls.Add(panel1);
             Controls.Add(WindowsName);
@@ -274,7 +303,8 @@
             Controls.Add(ProcessValue);
             Controls.Add(ExportIsoInstaller);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MinimumSize = new Size(482, 733);
+            Margin = new Padding(4, 4, 4, 4);
+            MinimumSize = new Size(558, 844);
             Name = "EasyEmbedded";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "EasyEmbedded";
@@ -305,5 +335,6 @@
         private RadioButton ee_onefile;
         private RadioButton ee_allfiles;
         private RichTextBox richTextBox1;
+        private Button back;
     }
 }
