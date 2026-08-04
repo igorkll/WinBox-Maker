@@ -22,7 +22,8 @@ namespace WinBox_Maker
             "*Microsoft-Windows-TabletPCMath",
             "*Microsoft-Windows-Wallpaper-Content-Extended",
             "*Microsoft-Windows-ContactSupport",
-            "*Microsoft-Windows-QuickAssist"
+            "*Microsoft-Windows-QuickAssist",
+            "*Microsoft-Windows-ContactSupport"
         };
 
         static public string[] defaultDisableFeatures =
