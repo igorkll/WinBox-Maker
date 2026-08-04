@@ -22,8 +22,7 @@ namespace WinBox_Maker
             "*Microsoft-Windows-TabletPCMath",
             "*Microsoft-Windows-Wallpaper-Content-Extended",
             "*Microsoft-Windows-ContactSupport",
-            "*Microsoft-Windows-QuickAssist",
-            "*Microsoft-Windows-ContactSupport"
+            "*Microsoft-Windows-QuickAssist"
         };
 
         static public string[] defaultDisableFeatures =
@@ -178,6 +177,8 @@ namespace WinBox_Maker
             "Program Files\\Windows Defender Advanced Threat Protection",
             "ProgramData\\Microsoft\\Windows Defender",
             "ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Windows Defender.lnk",
+            "Windows\\SystemApps\\ContactSupport_cw5n1h2txyewy",
+            "Windows\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy"
         };
 
         static public string[] defaultStopServicesList = {
