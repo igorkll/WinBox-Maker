@@ -338,5 +338,10 @@ namespace WinBox_Maker
         {
             if (ee_onefile.Checked) allfiles = false;
         }
+
+        private void back_Click(object sender, EventArgs e)
+        {
+            WinBox_Maker.Program.SwitchForm(this, WinBox_Maker.Program.openProjectForm);
+        }
     }
 }
