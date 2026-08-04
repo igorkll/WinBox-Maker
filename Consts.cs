@@ -80,7 +80,10 @@ namespace WinBox_Maker
             "*Microsoft.MixedReality.Portal",
             "*Microsoft.Microsoft3DViewer",
             "*Microsoft.Wallet",
-            "*Microsoft.MSPaint"
+            "*Microsoft.MSPaint",
+            "*Microsoft.Windows.Cortana",
+            "*Microsoft.XboxGame",
+            "*CortanaSupport"
         };
 
         static public string[] defaultStopOrDeleteSchtasks = {
