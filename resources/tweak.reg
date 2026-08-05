@@ -468,6 +468,27 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings]
 "FlightSettingsMaxPauseDays"=dword:00000e42
 
+; ---------------- disable auto wake-up
+
+; 1. Полное отключение таймеров пробуждения в плане питания
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\238C9FA8-0AAD-41ED-83F4-97BE242C8F20\BD3B718A-0680-4D9D-8AB2-E1D2B4AC806D]
+"Attributes"=dword:00000002
+
+; 2. Запрет пробуждения для автоматического обслуживания
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Task Scheduler\Maintenance]
+"WakeUp"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance]
+"WakeUp"=dword:00000000
+
+; 3. Запрет пробуждения для Центра обновления Windows
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU]
+"AUPowerManagement"=dword:00000000
+"NoAutoRebootWithLoggedOnUsers"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update]
+"AUPowerManagement"=dword:00000000
+
 ; ---------------- disable UAC
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "EnableLUA"=dword:00000000
