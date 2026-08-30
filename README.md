@@ -1,6 +1,7 @@
 # WinBox-Maker 1.8.3
 a tool for creating minimal embed versions of windows (this is usually Windows with access to only one application without the ability to open any system menu or shell, but this is not the only scenario)  
 the easiest way to create a kiosk on Windows or use Windows on embedded device (single app mode)  
+an analog for linux: https://github.com/igorkll/Gnubox-Maker (creating linux with a single application)  
 
 ## requirements
 * https://aka.ms/dotnet-core-applaunch?missing_runtime=true&arch=x64&rid=win-x64&os=win10&apphost_version=8.0.16
